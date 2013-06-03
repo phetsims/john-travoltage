@@ -7,6 +7,7 @@
 define( function( require ) {
   'use strict';
   var Fort = require( 'FORT/Fort' );
+  var ArmModel = require( 'model/ArmModel' );
 
   var JohnTravoltage = Fort.Model.extend(
       {
@@ -14,7 +15,9 @@ define( function( require ) {
         defaults: {},
 
         //Main constructor
-        init: function( width, height ) {},
+        init: function() {
+          this.arm = new ArmModel( 420, 185 );
+        },
 
         // Called by the animation loop
         step: function() {
