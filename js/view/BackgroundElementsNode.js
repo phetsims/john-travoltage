@@ -64,7 +64,7 @@ define( function( require ) {
 
   }
 
-  inherit( BackgroundElementsNode, Node ); // prototype chaining
+  inherit( Node, BackgroundElementsNode ); // prototype chaining
 
   return BackgroundElementsNode;
 } );

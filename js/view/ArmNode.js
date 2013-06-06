@@ -56,7 +56,7 @@ define( function( require ) {
 
   }
 
-  inherit( ArmNode, Node ); // prototype chaining
+  inherit( Node, ArmNode ); // prototype chaining
 
   return ArmNode;
 } );

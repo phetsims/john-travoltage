@@ -13,6 +13,6 @@ define( function( require ) {
 
   }
 
-  inherit( JohnTravoltagePlayArea, TabView );
+  inherit( TabView, JohnTravoltagePlayArea );
   return JohnTravoltagePlayArea;
 } );
