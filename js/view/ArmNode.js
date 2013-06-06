@@ -23,25 +23,25 @@ define( function( require ) {
     this.y = model.location.y;
 
     var armDragHandler = new SimpleDragHandler( {
-                                                  //When dragging across it in a mobile device, pick it up
-                                                  allowTouchSnag: true,
-                                                  start: function( args, args1 ) {
-                                                  },
-                                                  end: function() {
-                                                  },
-                                                  //Translate on drag events
-                                                  translate: function( args ) {
-                                                    //TODO not working!
-                                                    //When dragging, calculate angle
-                                                    // cos(a) = AB * AC / (|AB| * |AC|)
-                                                    var vector = new Vector2( args.position.x - args.oldPosition.x, args.position.y - args.oldPosition.y );
+      //When dragging across it in a mobile device, pick it up
+      allowTouchSnag: true,
+      start: function( args, args1 ) {
+      },
+      end: function() {
+      },
+      //Translate on drag events
+      translate: function( args ) {
+        //TODO not working!
+        //When dragging, calculate angle
+        // cos(a) = AB * AC / (|AB| * |AC|)
+        var vector = new Vector2( args.position.x - args.oldPosition.x, args.position.y - args.oldPosition.y );
 
-                                                    var deltaAngle = vector.angle();
-                                                    model.rotationAngle += deltaAngle;
-                                                    self.rotateAround( model.rotationCenter, deltaAngle );
-                                                    //args.position
-                                                  }
-                                                } );
+        var deltaAngle = vector.angle();
+        model.rotationAngle += deltaAngle;
+        self.rotateAround( model.rotationCenter, deltaAngle );
+        //args.position
+      }
+    } );
 
     this.addInputListener( armDragHandler );
 
