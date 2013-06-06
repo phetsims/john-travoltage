@@ -24,6 +24,7 @@ require.config( {
                     PHET_CORE: '../../scenery/common/phet-core/js',
                     DOT: '../../scenery/common/dot/js',
                     ASSERT: '../../scenery/common/assert/js',
+                    AXON: '../../axon/js',
                     FORT: '../../fort/js',
                     SUN: '../../sun/js',
                     JOIST: '../../joist/js',
