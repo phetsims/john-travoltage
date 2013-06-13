@@ -1,0 +1,13 @@
+{
+  "name": "john-travoltage",
+  "version": "0.0.0-1",
+  "resourceDirs": "images audio",
+  "include": "../phetcommon/css/phetcommon.css ../phetcommon/js/util/check-assertions.js ../phetcommon/js/util/check-accessibility.js ../phetcommon/js/util/query-parameters.js ../phetcommon/js/util/update-locale.js ../tween.js/src/Tween.js",
+  "phetLibs": "assert dot joist kite phet-core phetcommon scenery scenery-phet sun axon",
+  "license": "GPL",
+  "devDependencies": {
+    "grunt": "~0.4.1",
+    "grunt-requirejs": "~0.3.2",
+    "grunt-contrib-jshint": "~0.5.4"
+  }
+}
