@@ -8,6 +8,7 @@ define( function( require ) {
   'use strict';
   var Fort = require( 'FORT/Fort' );
   var ArmModel = require( 'model/ArmModel' );
+  var LegModel = require( 'model/LegModel' );
 
   var JohnTravoltage = Fort.Model.extend(
     {
@@ -18,7 +19,8 @@ define( function( require ) {
 
       //Main constructor
       init: function() {
-        this.arm = new ArmModel( 410, 185 );
+        this.arm = new ArmModel( 418, 186 );
+        this.leg = new LegModel( 385, 312 );
       },
 
       // Called by the animation loop

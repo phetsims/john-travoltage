@@ -10,20 +10,16 @@ define( function( require ) {
   var Fort = require( 'FORT/Fort' );
   var Vector2 = require( 'DOT/Vector2' );
 
-  var PointChargeModel = Fort.Model.extend(
+  var LegModel = Fort.Model.extend(
     {
-      defaults: {},
+      defaults: {
+        rotationAngle: 0
+      },
       init: function( x, y ) {
         this.location = new Vector2( x, y );
-      },
-      getCenter: function() {
-        return new Vector2( this.location.x + this.radius, this.location.y + this.radius );
+        this.rotationCenter = new Vector2( x + 20, y + 40 );
       }
-
-    }, {
-      radius: 8,
-      charge: -1
     } );
 
-  return PointChargeModel;
+  return LegModel;
 } );

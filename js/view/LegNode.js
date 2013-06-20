@@ -1,7 +1,7 @@
 // Copyright 2002-2013, University of Colorado
 
 /**
- * Scenery display object (scene graph node) for the arm of the model.
+ * Scenery display object (scene graph node) for the leg of the model.
  @author Vasily Shakhov (Mlearner)
  */
 
@@ -13,7 +13,7 @@ define( function( require ) {
   var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
   var Vector2 = require( 'DOT/Vector2' );
 
-  function ArmNode( model ) {
+  function LegNode( model ) {
     var self = this;
 
     // super constructor
@@ -33,12 +33,12 @@ define( function( require ) {
 
       // mousemove (fired AFTER enter/exit events if applicable)
       move: function( event ) {
-        console.log(event.pointer)
+
       }
     } );
 
     // add the Balloon image
-    this.addChild( new Image( 'images/arm.png' ) );
+    this.addChild( new Image( 'images/leg.png' ) );
 
     //changes visual position
     model.link( 'rotationAngle', function updateLocation( angle ) {
@@ -48,7 +48,7 @@ define( function( require ) {
 
   }
 
-  inherit( Node, ArmNode ); // prototype chaining
+  inherit( Node, LegNode ); // prototype chaining
 
-  return ArmNode;
+  return LegNode;
 } );
