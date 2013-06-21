@@ -5,7 +5,6 @@
 define( function( require ) {
   'use strict';
   var Fort = require( 'FORT/Fort' );
-  //var box2D =   require('../../lib/Box2dWeb-2.1.a.3.min');
 
   var Box2DModel = Fort.Model.extend(
     {
