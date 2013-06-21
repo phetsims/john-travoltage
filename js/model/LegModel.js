@@ -17,7 +17,7 @@ define( function( require ) {
       },
       init: function( x, y ) {
         this.location = new Vector2( x, y );
-        this.rotationCenter = new Vector2( x + 20, y + 40 );
+        this.rotationCenter = new Vector2( x + 20, y + 10 );
       }
     } );
 

@@ -13,7 +13,7 @@ define( function( require ) {
   var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
   var Vector2 = require( 'DOT/Vector2' );
 
-  function LegNode( model ) {
+  function LegNode( model, scene ) {
     var self = this;
 
     // super constructor
@@ -22,18 +22,11 @@ define( function( require ) {
     this.x = model.location.x;
     this.y = model.location.y;
 
+    this.model = model;
 
     this.addInputListener( {
       down: function( event ) {
-      },
-
-      // mouseup or touchend (pointer lifted from over the node)
-      up: function( event ) {
-      },
-
-      // mousemove (fired AFTER enter/exit events if applicable)
-      move: function( event ) {
-
+        scene.rotationObject = self;
       }
     } );
 
@@ -42,8 +35,7 @@ define( function( require ) {
 
     //changes visual position
     model.link( 'rotationAngle', function updateLocation( angle ) {
-
-
+      self.rotation = angle;
     } );
 
   }
