@@ -23,8 +23,8 @@ define( function( require ) {
 
         //create body border
         bodyDef.type = b2Body.b2_staticBody;
-        bodyDef.position.x = 250;
-        bodyDef.position.y = 250;
+        bodyDef.position.x = 255;
+        bodyDef.position.y = -135;
         fixDef.shape = new b2PolygonShape();
         for ( var i = 0; i < verts.length - 1; i++ ) {
           //create ground

@@ -7,6 +7,9 @@ define( function( require ) {
   var LegNode = require( 'view/LegNode' );
   var SparkNode = require( 'view/SparkNode' );
   var MinusChargeNode = require( 'view/MinusChargeNode' );
+  var Shape = require( 'KITE/Shape' );
+  var Path = require( 'SCENERY/nodes/Path' );
+
 
   function JohnTravoltagePlayArea( model ) {
     var self = this;
@@ -63,6 +66,26 @@ define( function( require ) {
 
     } );
 
+    //TODO temp, remove this;
+    var verts = model.verts;
+    var customShape = new Shape();
+    customShape.moveTo( verts[0][0], verts[0][1] );
+
+    for ( var i = 1; i < verts.length; i++ ) {
+      customShape.lineTo( verts[i][0], verts[i][1] );
+      customShape.moveTo( verts[i][0], verts[i][1] );
+    }
+    var path = new Path( {
+      shape: customShape,
+      stroke: 'green',
+      lineWidth: 1,
+      pickable: false,
+      renderer: 'svg',
+      x:255,
+      y:-135
+    } );
+
+    this.addChild( path );
   }
 
   inherit( TabView, JohnTravoltagePlayArea );

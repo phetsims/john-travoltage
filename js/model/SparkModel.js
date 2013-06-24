@@ -50,7 +50,9 @@ define( function( require ) {
         var dTheta = (Math.random()-0.5) *2 * this.maxDTheta;
         var thetaNew = theta + dTheta;
         return new Vector2( prevPoint.x - this.segLength * Math.cos( thetaNew ), prevPoint.y - this.segLength * Math.sin( thetaNew ) );
-        //angle up or down.
+      },
+      step: function() {
+        //this.update();
       }
     } );
 
