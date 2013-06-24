@@ -9,7 +9,9 @@ define( function( require ) {
   var Fort = require( 'FORT/Fort' );
   var ArmModel = require( 'model/ArmModel' );
   var LegModel = require( 'model/LegModel' );
-  var Box2DModel = require('model/Box2DModel');
+  var Box2DModel = require( 'model/Box2DModel' );
+  var SparkModel = require( 'model/SparkModel' );
+  var PointChargeModel = require('model/PointChargeModel');
 
   var JohnTravoltage = Fort.Model.extend(
     {
@@ -17,77 +19,85 @@ define( function( require ) {
       defaults: {
         charge: 0,
         //verticles of path, border of body
-        verts: [ [
-          [163, 200],
-          [165, 224],
-          [186, 252],
-          [187, 269],
-          [208, 335],
-          [223, 351],
-          [242, 350],
-          [262, 338],
-          [276, 345],
-          [218, 402],
-          [192, 377],
-          [181, 371],
-          [147, 293],
-          [130, 270],
-          [85, 376],
-          [95, 391],
-          [113, 390],
-          [118, 401],
-          [91, 410],
-          [40, 402],
-          [49, 360],
-          [83, 280],
-          [46, 234],
-          [40, 218],
-          [40, 198],
-          [40, 140],
-          [77, 65],
-          [111, 48],
-          [133, 48],
-          [137, 40],
-          [145, 40],
-          [164, 10],
-          [186, 7],
-          [212, 19],
-          [211, 28],
-          [206, 32],
-          [200, 50],
-          [202, 61],
-          [191, 77],
-          [173, 74],
-          [167, 79],
-          [174, 94],
-          [181, 107],
-          [183, 123],
-          [190, 136],
-          [207, 145],
-          [286, 120],
-          [298, 135],
-          [296, 144],
-          [275, 150],
-          [270, 169],
-          [200, 183],
-          [172, 172],
-          [162, 200]
-        ]]
+        verts: [
+          [
+            [163, 200],
+            [165, 224],
+            [186, 252],
+            [187, 269],
+            [208, 335],
+            [223, 351],
+            [242, 350],
+            [262, 338],
+            [276, 345],
+            [218, 402],
+            [192, 377],
+            [181, 371],
+            [147, 293],
+            [130, 270],
+            [85, 376],
+            [95, 391],
+            [113, 390],
+            [118, 401],
+            [91, 410],
+            [40, 402],
+            [49, 360],
+            [83, 280],
+            [46, 234],
+            [40, 218],
+            [40, 198],
+            [40, 140],
+            [77, 65],
+            [111, 48],
+            [133, 48],
+            [137, 40],
+            [145, 40],
+            [164, 10],
+            [186, 7],
+            [212, 19],
+            [211, 28],
+            [206, 32],
+            [200, 50],
+            [202, 61],
+            [191, 77],
+            [173, 74],
+            [167, 79],
+            [174, 94],
+            [181, 107],
+            [183, 123],
+            [190, 136],
+            [207, 145],
+            [286, 120],
+            [298, 135],
+            [296, 144],
+            [275, 150],
+            [270, 169],
+            [200, 183],
+            [172, 172],
+            [162, 200]
+          ]
+        ],
+        particles: []
       },
 
       //Main constructor
       init: function() {
         this.arm = new ArmModel( 418, 186 );
         this.leg = new LegModel( 385, 312 );
-        //this.box2dModel = new Box2DModel(this.verts);
+        this.spark = new SparkModel();
+        this.box2dModel = new Box2DModel(this.verts);
+
+        this.particles.push(new PointChargeModel(300,300,this.box2dModel.world));
+        this.particles.push(new PointChargeModel(350,350,this.box2dModel.world));
       },
 
       // Called by the animation loop
       step: function() {
+        this.box2dModel.step(this.particles);
+        this.particles.forEach(function(entry){
+           entry.step();
+        });
       }
-
-      // Reset the entire model
-
     } );
 
   return JohnTravoltage;

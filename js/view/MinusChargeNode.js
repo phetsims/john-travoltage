@@ -16,14 +16,14 @@ define( function( require ) {
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var PointChargeModel = require( 'model/PointChargeModel' );
 
-  function MinusChargeNode( location ) {
-
+  function MinusChargeNode( model ) {
+    var self = this;
     // super constructor
     // Use svg for the shape and text
     Node.call( this, {renderer: 'svg'} );
 
     var radius = PointChargeModel.radius;
-    this.translate( location.x, location.y );
+    this.translate( model.location.x, model.location.y );
 
     // add the centered bar magnet image
 
@@ -40,6 +40,10 @@ define( function( require ) {
       centerX: 0,
       centerY: 0
     } ) );
+
+    model.link("location",function(entry){
+      self.setTranslation( entry.x, entry.y );
+    });
   }
 
   inherit( Node, MinusChargeNode ); // prototype chaining

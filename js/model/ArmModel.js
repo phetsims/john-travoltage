@@ -13,7 +13,8 @@ define( function( require ) {
   var ArmModel = Fort.Model.extend(
     {
       defaults: {
-        rotationAngle: 0
+        rotationAngle: 0,
+        location : new Vector2()
       },
       init: function( x, y ) {
         this.location = new Vector2( x, y );

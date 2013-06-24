@@ -5,6 +5,8 @@ define( function( require ) {
   var BackgroundElementsNode = require( "view/BackgroundElementsNode" );
   var ArmNode = require( 'view/ArmNode' );
   var LegNode = require( 'view/LegNode' );
+  var SparkNode = require( 'view/SparkNode' );
+  var MinusChargeNode = require( 'view/MinusChargeNode' );
 
   function JohnTravoltagePlayArea( model ) {
     var self = this;
@@ -18,6 +20,8 @@ define( function( require ) {
 
     this.leg = new LegNode( model.leg, self );
     this.addChild( this.leg );
+
+    this.addChild( new SparkNode(model.spark) );
 
     var startPoint, currentPoint;
     this.rotationObject = null;
@@ -43,8 +47,21 @@ define( function( require ) {
         }
       }
 
-    )
-    ;
+    );
+
+    var particlesNodes = [];
+    model.link( 'particles', function updateLocation( particles) {
+      particlesNodes.forEach(function detachOldParticle (entry){
+        entry.detach();
+      });
+
+      particles.forEach(function attachNewParticle (entry){
+        var newNode = new MinusChargeNode(entry);
+        self.addChild(newNode);
+        particlesNodes.push(newNode);
+      });
+
+    } );
 
   }
 
