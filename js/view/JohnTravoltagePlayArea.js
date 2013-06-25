@@ -24,7 +24,7 @@ define( function( require ) {
     this.leg = new LegNode( model.leg, self );
     this.addChild( this.leg );
 
-    this.addChild( new SparkNode(model.spark) );
+    this.addChild( new SparkNode( model.spark, model.arm, model.box2dModel ) );
 
     var startPoint, currentPoint;
     this.rotationObject = null;
@@ -52,19 +52,29 @@ define( function( require ) {
 
     );
 
-    var particlesNodes = [];
-    model.link( 'particles', function updateLocation( particles) {
-      particlesNodes.forEach(function detachOldParticle (entry){
-        entry.detach();
-      });
-
-      particles.forEach(function attachNewParticle (entry){
-        var newNode = new MinusChargeNode(entry);
-        self.addChild(newNode);
-        particlesNodes.push(newNode);
-      });
-
+    model.link( 'particlesLength', function updateLocation( length ) {
+      if ( model.particles.length ) {
+        var newElectron = new MinusChargeNode( model.particles[model.particles.length - 1] );
+        model.particles[model.particles.length - 1].viewNode = newElectron;
+        self.addChild( newElectron );
+      }
     } );
+
+
+    //if last 3 position of leg is correct, add Electron to body
+    model.leg.link( 'rotationAngle', function legRotated( angle ) {
+      var history = model.leg.angleHistory;
+      var mustAddElectron = true;
+      history.forEach( function( entry ) {
+        if ( entry < 0.1 || entry > 0.8 ) {
+          mustAddElectron = false;
+        }
+      } );
+      if ( mustAddElectron ) {
+        model.addElectron();
+      }
+    } );
+
 
     //TODO temp, remove this;
     var verts = model.verts;
@@ -81,11 +91,31 @@ define( function( require ) {
       lineWidth: 1,
       pickable: false,
       renderer: 'svg',
-      x:255,
-      y:-135
+      x: 255,
+      y: -135
     } );
-
     this.addChild( path );
+
+    var lines = model.forceLines;
+
+    for ( i = 0; i < lines.length; i++ ) {
+      customShape = new Shape();
+      customShape.moveTo( lines[i][0], lines[i][1] );
+      customShape.lineTo( lines[i][2], lines[i][3] );
+      path = new Path( {
+        shape: customShape,
+        stroke: 'red',
+        lineWidth: 1,
+        pickable: false,
+        renderer: 'svg',
+        x: 0,
+        y: 0
+      } );
+      this.addChild( path );
+    }
+
+
+    model.addElectron();
   }
 
   inherit( TabView, JohnTravoltagePlayArea );

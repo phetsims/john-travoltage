@@ -34,7 +34,7 @@ define( function( require ) {
     this.addChild( new Image( 'images/arm.png' ) );
 
     //changes visual position
-    model.link( 'rotationAngle', function updateLocation( angle, oldAngle ) {
+    model.link( 'rotationAngle', function updateLocation( angle ) {
       self.rotation = angle;
     } );
 

@@ -19,6 +19,9 @@ define( function( require ) {
       init: function( x, y ) {
         this.location = new Vector2( x, y );
         this.rotationCenter = new Vector2( x + 5, y + 40 );
+      },
+      getFingerLocation : function() {
+        return this.rotationCenter.plus(new Vector2(107,25).rotated( this.rotationAngle-0.5 ));
       }
     } );
 
