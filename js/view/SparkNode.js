@@ -59,7 +59,7 @@ define( function( require ) {
       backgroundPath.shape = customBackgroundShape;
     } );
 
-    armModel.link('rotationAngle',function checkAndUpdateSpark() {
+    armModel.rotationAngleProperty.link(function checkAndUpdateSpark() {
       model.checkAndUpdateSpark(armModel);
     });
 

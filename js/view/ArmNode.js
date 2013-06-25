@@ -46,7 +46,7 @@ define( function( require ) {
     this.addChild( this.border );
 
     //changes visual position
-    model.link( 'rotationAngle', function updateLocation( angle ) {
+    model.rotationAngleProperty.link( function updateLocation( angle ) {
       self.rotation = angle;
     } );
 
