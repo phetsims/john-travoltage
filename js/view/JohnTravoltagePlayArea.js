@@ -9,6 +9,7 @@ define( function( require ) {
   var MinusChargeNode = require( 'view/MinusChargeNode' );
   var Shape = require( 'KITE/Shape' );
   var Path = require( 'SCENERY/nodes/Path' );
+  var SoundToggleButton = require('SCENERYPHET/SoundToggleButton');
 
 
   function JohnTravoltagePlayArea( model ) {
@@ -25,6 +26,8 @@ define( function( require ) {
     this.addChild( this.leg );
 
     this.addChild( new SparkNode( model.spark, model.arm, model.box2dModel ) );
+
+    //this.addChild(new SoundToggleButton());
 
     var startPoint, currentPoint;
     this.rotationObject = null;
@@ -113,9 +116,6 @@ define( function( require ) {
       } );
       this.addChild( path );
     }
-
-
-    model.addElectron();
   }
 
   inherit( TabView, JohnTravoltagePlayArea );
