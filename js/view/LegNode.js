@@ -12,6 +12,9 @@ define( function( require ) {
   var Image = require( 'SCENERY/nodes/Image' );
   var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
   var Vector2 = require( 'DOT/Vector2' );
+  var Shape = require( 'KITE/Shape' );
+  var Path = require( 'SCENERY/nodes/Path' );
+
 
   function LegNode( model, scene ) {
     var self = this;
@@ -27,11 +30,23 @@ define( function( require ) {
     this.addInputListener( {
       down: function( event ) {
         scene.rotationObject = self;
+        self.border.visible = false;
       }
     } );
 
     // add the Balloon image
-    this.addChild( new Image( 'images/leg.png' ) );
+    this.addChild( new Image( 'images/leg.png', {
+    } ) );
+
+
+    this.border = new Path( {
+      shape: new Shape.rectangle( 0, 0, 140, 160 ),
+      x: 0, y: 0,
+      stroke: '#f58220',
+      lineWidth: 1,
+      lineDash: [ 10, 10 ]
+    } );
+    this.addChild( this.border );
 
     //changes visual position
     model.link( 'rotationAngle', function updateLocation( angle ) {
