@@ -43,7 +43,7 @@ define( function( require ) {
 
 
     //changes visual position
-    model.link( 'verticles', function updatePathOfSpark( verts ) {
+    model.verticlesProperty.link( function updatePathOfSpark( verts ) {
       customShape = new Shape();
       customBackgroundShape = new Shape();
       customShape.moveTo( verts[0].x, model.verticles[0].y );
