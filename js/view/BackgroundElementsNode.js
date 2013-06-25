@@ -35,9 +35,8 @@ define( function( require ) {
     } ) );
 
     // add the floor image
-    this.addChild( new Image( "images/floor.svg", {
-      x: -300,
-      y: 440
+    this.addChild( new Rectangle( -1000, 440, 3000, 1100, {
+      fill: new Pattern( $( '<img src="images/floor.png"/>' )[0] )
     } ) );
 
     // add the rug image
