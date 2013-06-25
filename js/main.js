@@ -23,7 +23,6 @@ require( [
     new Sim( Strings['johnTravoltage.name'], [
       {
         name: Strings['johnTravoltage.name'],
-        icon: new Rectangle( 0, 0, 50, 50, {} ),
         createModel: function() {return new JohnTravoltageModel( 834, 504 );},
         createView: function( model ) {return new JohnTravoltagePlayArea( model );},
         backgroundColor: "#9ddcf8"
