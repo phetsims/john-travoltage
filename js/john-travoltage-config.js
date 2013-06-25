@@ -26,7 +26,6 @@ require.config( {
     DOT: '../../dot/js',
     ASSERT: '../../assert/js',
     AXON: '../../axon/js',
-    FORT: '../../fort/js',
     SUN: '../../sun/js',
     JOIST: '../../joist/js',
 
