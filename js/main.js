@@ -7,20 +7,20 @@
  * @author Sam Reid (PhET Interactive Simulations)
  */
 require( [
-  'PHETCOMMON/util/ImagesLoader',
+  'JOIST/SimLauncher',
   'SCENERY/nodes/Text',
   'SCENERY/nodes/Rectangle',
   'Strings',
   'JOIST/Sim',
   'model/JohnTravoltageModel',
-  'view/JohnTravoltagePlayArea'
-], function( ImagesLoader, Text, Rectangle, Strings, Sim, JohnTravoltageModel, JohnTravoltagePlayArea ) {
+  'view/JohnTravoltagePlayArea',
+  'JohnTravoltageImages'
+], function( SimLauncher, Text, Rectangle, Strings, Sim, JohnTravoltageModel, JohnTravoltagePlayArea, JohnTravoltageImages ) {
   'use strict';
 
-  var ImagesLoaderInstance = new ImagesLoader( function( loader ) {
-
-    //Create and start the sim
-    var sim = new Sim( Strings['johnTravoltage.name'], [
+  //Create and start the sim
+  SimLauncher.launch( JohnTravoltageImages, function() {
+    new Sim( Strings['johnTravoltage.name'], [
       {
         name: Strings['johnTravoltage.name'],
         icon: new Rectangle( 0, 0, 50, 50, {} ),
@@ -29,6 +29,5 @@ require( [
         backgroundColor: "#9ddcf8"
       }
     ] ).start();
-
   } );
 } );

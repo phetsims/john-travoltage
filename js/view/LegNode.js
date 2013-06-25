@@ -14,7 +14,7 @@ define( function( require ) {
   var Vector2 = require( 'DOT/Vector2' );
   var Shape = require( 'KITE/Shape' );
   var Path = require( 'SCENERY/nodes/Path' );
-
+  var JohnTravoltageImages = require( 'JohnTravoltageImages' );
 
   function LegNode( model, scene ) {
     var self = this;
@@ -34,10 +34,8 @@ define( function( require ) {
       }
     } );
 
-    // add the Balloon image
-    this.addChild( new Image( 'images/leg.png', {
-    } ) );
-
+    // add the image
+    this.addChild( new Image( JohnTravoltageImages.getImage( 'leg.png' ) ) );
 
     this.border = new Path( {
       shape: new Shape.rectangle( 0, 0, 140, 160 ),
