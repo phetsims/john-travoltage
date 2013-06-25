@@ -41,9 +41,9 @@ define( function( require ) {
       centerY: 0
     } ) );
 
-    model.link("location",function(entry){
+    model.locationProperty.link( function( entry ) {
       self.setTranslation( entry.x, entry.y );
-    });
+    } );
   }
 
   inherit( Node, MinusChargeNode ); // prototype chaining
