@@ -15,7 +15,7 @@ define( function( require ) {
   var Shape = require( 'KITE/Shape' );
   var Path = require( 'SCENERY/nodes/Path' );
 
-  function SparkNode( model, armModel,box2dModel ) {
+  function SparkNode( model, armModel, box2dModel ) {
     var self = this;
 
     // super constructor
@@ -59,13 +59,13 @@ define( function( require ) {
       backgroundPath.shape = customBackgroundShape;
     } );
 
-    armModel.rotationAngleProperty.link(function checkAndUpdateSpark() {
-      model.checkAndUpdateSpark(armModel);
-    });
+    armModel.rotationAngleProperty.link( function checkAndUpdateSpark() {
+      model.checkAndUpdateSpark( armModel );
+    } );
 
-    box2dModel.isSparkProperty.link(function setSparkVisibility(isVisible){
-       self.visible = isVisible;
-    });
+    box2dModel.isSparkProperty.link( function setSparkVisibility( isVisible ) {
+      self.visible = isVisible;
+    } );
 
     model.viewNode = this;
   }
