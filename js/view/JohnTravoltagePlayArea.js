@@ -64,7 +64,7 @@ define( function( require ) {
 
 
     //if last 3 position of leg is correct, add Electron to body
-    model.leg.link( 'rotationAngle', function legRotated( angle ) {
+    model.leg.rotationAngleProperty.link( function legRotated( angle ) {
       var history = model.leg.angleHistory;
       var mustAddElectron = true;
       history.forEach( function( entry ) {
