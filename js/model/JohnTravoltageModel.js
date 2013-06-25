@@ -12,6 +12,7 @@ define( function( require ) {
   var Box2DModel = require( 'model/Box2DModel' );
   var SparkModel = require( 'model/SparkModel' );
   var PointChargeModel = require( 'model/PointChargeModel' );
+  var Property = require( 'AXON/Property' );
 
   var JohnTravoltage = Fort.Model.extend(
     {
@@ -126,6 +127,7 @@ define( function( require ) {
         this.leg = new LegModel( 385, 312 );
         this.spark = new SparkModel();
         this.box2dModel = new Box2DModel( this.verts, this.forceLines );
+        this.soundProperty = new Property( false );
       },
 
       // Called by the animation loop

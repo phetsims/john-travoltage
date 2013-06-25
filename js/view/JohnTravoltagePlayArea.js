@@ -9,8 +9,7 @@ define( function( require ) {
   var MinusChargeNode = require( 'view/MinusChargeNode' );
   var Shape = require( 'KITE/Shape' );
   var Path = require( 'SCENERY/nodes/Path' );
-  var SoundToggleButton = require('SCENERYPHET/SoundToggleButton');
-
+  var SoundToggleButton = require('SCENERY_PHET/SoundToggleButton');
 
   function JohnTravoltagePlayArea( model ) {
     var self = this;
@@ -27,7 +26,7 @@ define( function( require ) {
 
     this.addChild( new SparkNode( model.spark, model.arm, model.box2dModel ) );
 
-    //this.addChild(new SoundToggleButton());
+    this.addChild(new SoundToggleButton(model.soundProperty));
 
     var startPoint, currentPoint;
     this.rotationObject = null;
