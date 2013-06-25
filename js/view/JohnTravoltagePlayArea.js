@@ -78,7 +78,7 @@ define( function( require ) {
       }
     } );
 
-
+    /* debug lines, body and forceline
     //TODO temp, remove this;
     var verts = model.verts;
     var customShape = new Shape();
@@ -116,6 +116,7 @@ define( function( require ) {
       } );
       this.addChild( path );
     }
+     */
   }
 
   inherit( TabView, JohnTravoltagePlayArea );
