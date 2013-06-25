@@ -63,15 +63,11 @@ define( function( require ) {
       model.checkAndUpdateSpark(armModel);
     });
 
-    box2dModel.link('isSpark', function setSparkVisibility(isVisible){
+    box2dModel.isSparkProperty.link(function setSparkVisibility(isVisible){
        self.visible = isVisible;
     });
 
     model.viewNode = this;
-
-
-
-
   }
 
   inherit( Node, SparkNode ); // prototype chaining
