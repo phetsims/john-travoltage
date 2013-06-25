@@ -9,14 +9,13 @@
 require( [
   'fastclick',
   'PHETCOMMON/util/ImagesLoader',
-  'FORT/Fort',
   'SCENERY/nodes/Text',
   'SCENERY/nodes/Rectangle',
   'Strings',
   'JOIST/Sim',
   'model/JohnTravoltageModel',
   'view/JohnTravoltagePlayArea'
-], function( FastClick, ImagesLoader, Fort, Text, Rectangle, Strings, Sim, JohnTravoltageModel, JohnTravoltagePlayArea ) {
+], function( FastClick, ImagesLoader, Text, Rectangle, Strings, Sim, JohnTravoltageModel, JohnTravoltagePlayArea ) {
   'use strict';
 
   //On iPad, prevent buttons from flickering 300ms after press.  See https://github.com/twitter/bootstrap/issues/3772

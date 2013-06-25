@@ -9,7 +9,7 @@ define( function( require ) {
   var MinusChargeNode = require( 'view/MinusChargeNode' );
   var Shape = require( 'KITE/Shape' );
   var Path = require( 'SCENERY/nodes/Path' );
-  var SoundToggleButton = require('SCENERY_PHET/SoundToggleButton');
+  var SoundToggleButton = require( 'SCENERY_PHET/SoundToggleButton' );
 
   function JohnTravoltagePlayArea( model ) {
     var self = this;
@@ -26,7 +26,7 @@ define( function( require ) {
 
     this.addChild( new SparkNode( model.spark, model.arm, model.box2dModel ) );
 
-    this.addChild(new SoundToggleButton(model.soundProperty));
+    this.addChild( new SoundToggleButton( model.soundProperty ) );
 
     var startPoint, currentPoint;
     this.rotationObject = null;
@@ -54,7 +54,7 @@ define( function( require ) {
 
     );
 
-    model.link( 'particlesLength', function updateLocation( length ) {
+    model.particlesLengthProperty.link( function updateLocation( length ) {
       if ( model.particles.length ) {
         var newElectron = new MinusChargeNode( model.particles[model.particles.length - 1] );
         model.particles[model.particles.length - 1].viewNode = newElectron;
@@ -78,43 +78,43 @@ define( function( require ) {
     } );
 
     /* debug lines, body and forceline
-    //TODO temp, remove this;
-    var verts = model.verts;
-    var customShape = new Shape();
-    customShape.moveTo( verts[0][0], verts[0][1] );
+     //TODO temp, remove this;
+     var verts = model.verts;
+     var customShape = new Shape();
+     customShape.moveTo( verts[0][0], verts[0][1] );
 
-    for ( var i = 1; i < verts.length; i++ ) {
-      customShape.lineTo( verts[i][0], verts[i][1] );
-      customShape.moveTo( verts[i][0], verts[i][1] );
-    }
-    var path = new Path( {
-      shape: customShape,
-      stroke: 'green',
-      lineWidth: 1,
-      pickable: false,
-      renderer: 'svg',
-      x: 255,
-      y: -135
-    } );
-    this.addChild( path );
+     for ( var i = 1; i < verts.length; i++ ) {
+     customShape.lineTo( verts[i][0], verts[i][1] );
+     customShape.moveTo( verts[i][0], verts[i][1] );
+     }
+     var path = new Path( {
+     shape: customShape,
+     stroke: 'green',
+     lineWidth: 1,
+     pickable: false,
+     renderer: 'svg',
+     x: 255,
+     y: -135
+     } );
+     this.addChild( path );
 
-    var lines = model.forceLines;
+     var lines = model.forceLines;
 
-    for ( i = 0; i < lines.length; i++ ) {
-      customShape = new Shape();
-      customShape.moveTo( lines[i][0], lines[i][1] );
-      customShape.lineTo( lines[i][2], lines[i][3] );
-      path = new Path( {
-        shape: customShape,
-        stroke: 'red',
-        lineWidth: 1,
-        pickable: false,
-        renderer: 'svg',
-        x: 0,
-        y: 0
-      } );
-      this.addChild( path );
-    }
+     for ( i = 0; i < lines.length; i++ ) {
+     customShape = new Shape();
+     customShape.moveTo( lines[i][0], lines[i][1] );
+     customShape.lineTo( lines[i][2], lines[i][3] );
+     path = new Path( {
+     shape: customShape,
+     stroke: 'red',
+     lineWidth: 1,
+     pickable: false,
+     renderer: 'svg',
+     x: 0,
+     y: 0
+     } );
+     this.addChild( path );
+     }
      */
   }
 
