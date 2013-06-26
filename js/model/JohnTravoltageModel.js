@@ -125,7 +125,11 @@ define( function( require ) {
     this.leg = new LegModel( 385, 312 );
     this.spark = new SparkModel();
     this.box2dModel = new Box2DModel( this.verts, this.forceLines );
-    this.soundProperty = new Property( false );
+    this.soundProperty = new Property( true );
+    this.sounds = [
+      new Howl( {urls: ['audio/OuchSmallest.mp3', 'audio/OuchSmallest.ogg']} ),
+      new Howl( {urls: ['audio/OuchSmallest.mp3', 'audio/OuchSmallest.ogg']} )
+    ];
   }
 
   inherit( PropertySet, JohnTravoltage, {
@@ -155,9 +159,12 @@ define( function( require ) {
         var distToKnob = this.spark.sink.distance( this.arm.getFingerLocation() );
         var n = this.particles.length / 2;
 
-        //edu.colorado.phet.common.util.Debug.traceln("Distance to knob="+distToKnob+", edu.colorado.phet.common count="+n);
         for ( var i = 0; i < this.fireSparkConditions.length; i++ ) {
           if ( n > this.fireSparkConditions[i][0] && distToKnob < this.fireSparkConditions[i][1] ) {
+            //fire spark
+            if ( this.soundProperty ) {
+              this.sounds[Math.floor( Math.random() * 2 )].play();
+            }
             this.box2dModel.isSpark = true;
             break;
           }
@@ -174,9 +181,6 @@ define( function( require ) {
       this.particles.push( new PointChargeModel( 455, 455, this.box2dModel.world ) );
       this.particlesLength++;
       this.charge++;
-    },
-    removeElectron: function( electron ) {
-
     }
   } );
   return JohnTravoltage;

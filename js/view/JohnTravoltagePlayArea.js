@@ -26,7 +26,7 @@ define( function( require ) {
 
     this.addChild( new SparkNode( model.spark, model.arm, model.box2dModel ) );
 
-    this.addChild( new SoundToggleButton( model.soundProperty ) );
+    this.addChild( new SoundToggleButton( model.soundProperty, {x: 700, y: 450} ) );
 
     var startPoint, currentPoint;
     this.rotationObject = null;
