@@ -162,7 +162,7 @@ define( function( require ) {
         for ( var i = 0; i < this.fireSparkConditions.length; i++ ) {
           if ( n > this.fireSparkConditions[i][0] && distToKnob < this.fireSparkConditions[i][1] ) {
             //fire spark
-            if ( this.soundProperty ) {
+            if ( this.soundProperty.get() ) {
               this.sounds[Math.floor( Math.random() * 2 )].play();
             }
             this.box2dModel.isSpark = true;
