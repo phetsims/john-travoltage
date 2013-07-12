@@ -16,7 +16,7 @@ define( function( require ) {
       rotationAngle: 0
     } );
     this.location = new Vector2( x, y );
-    this.rotationCenter = new Vector2( x + 15, y + 10 );
+    this.rotationCenter = new Vector2( x + 10, y + 15 );
     //last 3 angles of leg, need to addElectrons
     this.angleHistory = new Array( 3 );
   }
