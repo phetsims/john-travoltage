@@ -80,46 +80,46 @@ define( function( require ) {
     } );
 
     /*
-    // debug lines, body and forceline, uncomment this to view physical bounds of body
-    borders are approximatly 8px = radius of particle from physical body, because physical raduis of electron = 1 in box2D
-    larger physical radius of electron causes many bugs and model become very slow
-    //verticles and body path
-    var verts = model.verts;
-    var customShape = new Shape();
-    customShape.moveTo( verts[0][0], verts[0][1] );
+     // debug lines, body and forceline, uncomment this to view physical bounds of body
+     borders are approximatly 8px = radius of particle from physical body, because physical raduis of electron = 1 in box2D
+     larger physical radius of electron causes many bugs and model become very slow
+     //verticles and body path
+     var verts = model.verts;
+     var customShape = new Shape();
+     customShape.moveTo( verts[0][0], verts[0][1] );
 
-    for ( var i = 1; i < verts.length; i++ ) {
-      customShape.lineTo( verts[i][0], verts[i][1] );
-      customShape.moveTo( verts[i][0], verts[i][1] );
-    }
-    var path = new Path( {
-      shape: customShape,
-      stroke: 'green',
-      lineWidth: 1,
-      pickable: false,
-      renderer: 'svg',
-      x: 255,
-      y: -135
-    } );
-    this.addChild( path );
+     for ( var i = 1; i < verts.length; i++ ) {
+     customShape.lineTo( verts[i][0], verts[i][1] );
+     customShape.moveTo( verts[i][0], verts[i][1] );
+     }
+     var path = new Path( {
+     shape: customShape,
+     stroke: 'green',
+     lineWidth: 1,
+     pickable: false,
+     renderer: 'svg',
+     x: 255,
+     y: -135
+     } );
+     this.addChild( path );
 
-    //forcelines, which attract particles
-    var lines = model.forceLines;
-    for ( i = 0; i < lines.length; i++ ) {
-      customShape = new Shape();
-      customShape.moveTo( lines[i][0], lines[i][1] );
-      customShape.lineTo( lines[i][2], lines[i][3] );
-      path = new Path( {
-        shape: customShape,
-        stroke: 'red',
-        lineWidth: 1,
-        pickable: false,
-        renderer: 'svg',
-        x: 0,
-        y: 0
-      } );
-      this.addChild( path );
-    }
+     //forcelines, which attract particles
+     var lines = model.forceLines;
+     for ( i = 0; i < lines.length; i++ ) {
+     customShape = new Shape();
+     customShape.moveTo( lines[i][0], lines[i][1] );
+     customShape.lineTo( lines[i][2], lines[i][3] );
+     path = new Path( {
+     shape: customShape,
+     stroke: 'red',
+     lineWidth: 1,
+     pickable: false,
+     renderer: 'svg',
+     x: 0,
+     y: 0
+     } );
+     this.addChild( path );
+     }
 
      */
   }
