@@ -20,7 +20,7 @@ define( function( require ) {
     var self = this;
     // super constructor
     // Use svg for the shape and text
-    Node.call( this, {renderer: 'svg'} );
+    Node.call( this, {renderer: 'svg', pickable: false } );
 
     var radius = PointChargeModel.radius;
     this.translate( model.location.x, model.location.y );
