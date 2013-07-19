@@ -13,7 +13,7 @@ define( function( require ) {
   var Path = require( 'SCENERY/nodes/Path' );
   var SoundToggleButton = require( 'SCENERY_PHET/SoundToggleButton' );
 
-  function JohnTravoltagePlayArea( model ) {
+  function JohnTravoltageTabView( model ) {
     var self = this;
 
     TabView.call( this );
@@ -124,7 +124,7 @@ define( function( require ) {
      */
   }
 
-  inherit( TabView, JohnTravoltagePlayArea );
-  return JohnTravoltagePlayArea;
+  inherit( TabView, JohnTravoltageTabView );
+  return JohnTravoltageTabView;
 } )
 ;
