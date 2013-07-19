@@ -11,6 +11,7 @@ define( function( require ) {
   var MinusChargeNode = require( 'view/MinusChargeNode' );
   var Shape = require( 'KITE/Shape' );
   var Path = require( 'SCENERY/nodes/Path' );
+  var Node = require( 'SCENERY/nodes/Node' );
   var SoundToggleButton = require( 'SCENERY_PHET/SoundToggleButton' );
 
   function JohnTravoltageTabView( model ) {
@@ -19,6 +20,9 @@ define( function( require ) {
     TabView.call( this );
 
     this.addChild( new BackgroundElementsNode() );
+
+    //Split layers after background for performance
+    this.addChild( new Node( {layerSplit: true} ) );
 
     this.arm = new ArmNode( model.arm, self );
     this.addChild( this.arm );
@@ -32,6 +36,9 @@ define( function( require ) {
 
     var startPoint, currentPoint;
     this.rotationObject = null;
+
+    //Split layers before particle layer for performance
+    this.addChild( new Node( {layerSplit: true} ) );
 
     this.addInputListener( {
         down: function( event ) {
