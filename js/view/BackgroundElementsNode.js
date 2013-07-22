@@ -3,9 +3,8 @@
 /**
  * Background static elements of model
  *
- @author Vasily Shakhov (Mlearner)
+ * @author Vasily Shakhov (Mlearner)
  */
-
 define( function( require ) {
   'use strict';
 
