@@ -2,6 +2,7 @@
 
 define( function( require ) {
   'use strict';
+
   var TabView = require( 'JOIST/TabView' );
   var inherit = require( 'PHET_CORE/inherit' );
   var BackgroundElementsNode = require( 'view/BackgroundElementsNode' );

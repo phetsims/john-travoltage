@@ -12,6 +12,7 @@
  */
 define( function() {
   'use strict';
+
   return {
     imageNames: ['wallpaper.png', 'arm.png', 'leg.png', 'window.svg', 'rug.svg', 'door.svg', 'body.png', 'floor.png']
   };

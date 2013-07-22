@@ -6,6 +6,7 @@
  */
 define( function( require ) {
   'use strict';
+
   var ArmModel = require( 'model/ArmModel' );
   var LegModel = require( 'model/LegModel' );
   var Box2DModel = require( 'model/Box2DModel' );
