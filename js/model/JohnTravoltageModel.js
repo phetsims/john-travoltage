@@ -21,7 +21,7 @@ define( function( require ) {
     //Properties of the model.  All user settings belong in the model, whether or not they are part of the physical model
     PropertySet.call( this, {
       charge: 0,
-      //verticles of path, border of body
+      //vertices of path, border of body
       verts: [
         [170, 207],
         [192, 220],

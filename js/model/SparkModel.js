@@ -7,7 +7,6 @@
  */
 define( function( require ) {
   'use strict';
-
   var PropertySet = require( 'AXON/PropertySet' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Vector2 = require( 'DOT/Vector2' );
@@ -15,7 +14,7 @@ define( function( require ) {
   function SparkModel( armModel ) {
     PropertySet.call( this, {
       //created path of spark
-      verticles: [],
+      vertices: [],
       //number of points in spark path
       maxPoints: 100,
       //two main point (finger and door)
@@ -36,15 +35,15 @@ define( function( require ) {
     //redraw path
     update: function() {
       var prevPoint = this.source;
-      var newVerticles = [];
-      newVerticles.push( prevPoint );
+      var newVertices = [];
+      newVertices.push( prevPoint );
       for ( var i = 0; i < this.maxPoints; i++ ) {
         var nextPoint = this.nextPoint( prevPoint );
-        newVerticles.push( nextPoint );
+        newVertices.push( nextPoint );
         prevPoint = nextPoint;
       }
 
-      this.verticles = newVerticles;
+      this.vertices = newVertices;
 
     },
     nextPoint: function( prevPoint ) {

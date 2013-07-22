@@ -91,7 +91,7 @@ define( function( require ) {
      // debug lines, body and forceline, uncomment this to view physical bounds of body
      borders are approximatly 8px = radius of particle from physical body, because physical raduis of electron = 1 in box2D
      larger physical radius of electron causes many bugs and model become very slow
-     //verticles and body path
+     //vertices and body path
      var verts = model.verts;
      var customShape = new Shape();
      customShape.moveTo( verts[0][0], verts[0][1] );
