@@ -43,7 +43,7 @@ define( function( require ) {
       stroke: '#f58220',
       lineWidth: 1,
       lineDash: [ 10, 10 ],
-      renderer: "svg"
+      renderer: 'svg'
     } );
     this.addChild( this.border );
 

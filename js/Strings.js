@@ -6,7 +6,7 @@
  * @author Sam Reid
  */
 define( function( require ) {
-  "use strict";
-  var Strings = require( "i18n!../nls/john-travoltage-strings" );
+  'use strict';
+  var Strings = require( 'i18n!../nls/john-travoltage-strings' );
   return Strings;
 } );

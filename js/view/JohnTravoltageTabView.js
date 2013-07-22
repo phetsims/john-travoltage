@@ -1,10 +1,10 @@
 // Copyright 2002-2013, University of Colorado Boulder
 
 define( function( require ) {
-  "use strict";
+  'use strict';
   var TabView = require( 'JOIST/TabView' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var BackgroundElementsNode = require( "view/BackgroundElementsNode" );
+  var BackgroundElementsNode = require( 'view/BackgroundElementsNode' );
   var ArmNode = require( 'view/ArmNode' );
   var LegNode = require( 'view/LegNode' );
   var SparkNode = require( 'view/SparkNode' );

@@ -25,7 +25,7 @@ require( [
         name: Strings['johnTravoltage.name'],
         createModel: function() {return new JohnTravoltageModel( 834, 504 );},
         createView: function( model ) {return new JohnTravoltageTabView( model );},
-        backgroundColor: "#9ddcf8"
+        backgroundColor: '#9ddcf8'
       }
     ] ).start();
   } );
