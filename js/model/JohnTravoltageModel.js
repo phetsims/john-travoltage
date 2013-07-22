@@ -136,7 +136,7 @@ define( function( require ) {
     ];
   }
 
-  inherit( PropertySet, JohnTravoltage, {
+  return inherit( PropertySet, JohnTravoltage, {
     // Called by the animation loop
     step: function() {
       var self = this;
@@ -187,5 +187,4 @@ define( function( require ) {
       this.charge++;
     }
   } );
-  return JohnTravoltage;
 } );

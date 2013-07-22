@@ -57,7 +57,5 @@ define( function( require ) {
     } );
   }
 
-  inherit( Node, LegNode ); // prototype chaining
-
-  return LegNode;
+  return inherit( Node, LegNode ); // prototype chaining
 } );

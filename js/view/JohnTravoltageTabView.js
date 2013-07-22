@@ -132,6 +132,5 @@ define( function( require ) {
      */
   }
 
-  inherit( TabView, JohnTravoltageTabView );
-  return JohnTravoltageTabView;
+  return inherit( TabView, JohnTravoltageTabView );
 } );

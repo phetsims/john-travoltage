@@ -70,7 +70,5 @@ define( function( require ) {
     model.viewNode = this;
   }
 
-  inherit( Node, SparkNode ); // prototype chaining
-
-  return SparkNode;
+  return inherit( Node, SparkNode ); // prototype chaining
 } );
