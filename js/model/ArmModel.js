@@ -15,9 +15,8 @@ define( function( require ) {
   function ArmModel( x, y ) {
     PropertySet.call( this, {
       rotationAngle: 0,
-      location: new Vector2()
+      location: new Vector2( x, y )
     } );
-    this.location = new Vector2( x, y );
     this.rotationCenter = new Vector2( x + 5, y + 40 );
   }
 

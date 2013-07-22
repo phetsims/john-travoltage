@@ -14,9 +14,8 @@ define( function( require ) {
 
   function PointChargeModel( x, y, world ) {
     PropertySet.call( this, {
-      location: null
+      location: new Vector2( x, y )
     } );
-    this.location = new Vector2( x, y );
 
     var bodyDef = new Box2D.Dynamics.b2BodyDef();
     var b2Body = Box2D.Dynamics.b2Body;
