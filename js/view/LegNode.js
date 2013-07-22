@@ -55,7 +55,6 @@ define( function( require ) {
       model.angleHistory[2] = model.angleHistory[2];
       model.angleHistory[2] = angle;
     } );
-
   }
 
   inherit( Node, LegNode ); // prototype chaining

@@ -59,8 +59,6 @@ define( function( require ) {
       y: 60,
       scale: 0.85
     } ) );
-
-
   }
 
   inherit( Node, BackgroundElementsNode ); // prototype chaining

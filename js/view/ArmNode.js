@@ -51,7 +51,6 @@ define( function( require ) {
     model.rotationAngleProperty.link( function updateLocation( angle ) {
       self.rotation = angle;
     } );
-
   }
 
   inherit( Node, ArmNode ); // prototype chaining

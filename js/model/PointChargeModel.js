@@ -62,5 +62,4 @@ define( function( require ) {
     }
 
   } );
-} )
-;
+} );
