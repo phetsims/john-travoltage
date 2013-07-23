@@ -2,12 +2,11 @@
 
 /**
  * Scenery display object (scene graph node) for minusCharge.
- *
- @author Vasily Shakhov (Mlearner)
+ * @author Vasily Shakhov (Mlearner)
  */
-
 define( function( require ) {
   'use strict';
+
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Text = require( 'SCENERY/nodes/Text' );
@@ -64,7 +63,5 @@ define( function( require ) {
     } );
   }
 
-  inherit( Node, MinusChargeNode ); // prototype chaining
-
-  return MinusChargeNode;
+  return inherit( Node, MinusChargeNode ); // prototype chaining
 } );

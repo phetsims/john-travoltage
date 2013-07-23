@@ -2,11 +2,11 @@
 
 /**
  * Scenery display object (scene graph node) for the spark of the model.
- @author Vasily Shakhov (Mlearner)
+ * @author Vasily Shakhov (Mlearner)
  */
-
 define( function( require ) {
   'use strict';
+
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Image = require( 'SCENERY/nodes/Image' );
@@ -43,16 +43,16 @@ define( function( require ) {
 
 
     //changes visual position
-    model.verticlesProperty.link( function updatePathOfSpark( verts ) {
+    model.verticesProperty.link( function updatePathOfSpark( verts ) {
       customShape = new Shape();
       customBackgroundShape = new Shape();
-      customShape.moveTo( verts[0].x, model.verticles[0].y );
-      customBackgroundShape.moveTo( verts[0].x, model.verticles[0].y );
-      for ( var i = 1; i < model.verticles.length; i++ ) {
-        customShape.lineTo( model.verticles[i].x, model.verticles[i].y );
-        customShape.moveTo( model.verticles[i].x, model.verticles[i].y );
-        customBackgroundShape.lineTo( model.verticles[i].x, model.verticles[i].y );
-        customBackgroundShape.moveTo( model.verticles[i].x, model.verticles[i].y );
+      customShape.moveTo( verts[0].x, model.vertices[0].y );
+      customBackgroundShape.moveTo( verts[0].x, model.vertices[0].y );
+      for ( var i = 1; i < model.vertices.length; i++ ) {
+        customShape.lineTo( model.vertices[i].x, model.vertices[i].y );
+        customShape.moveTo( model.vertices[i].x, model.vertices[i].y );
+        customBackgroundShape.lineTo( model.vertices[i].x, model.vertices[i].y );
+        customBackgroundShape.moveTo( model.vertices[i].x, model.vertices[i].y );
       }
 
       path.shape = customShape;
@@ -70,7 +70,5 @@ define( function( require ) {
     model.viewNode = this;
   }
 
-  inherit( Node, SparkNode ); // prototype chaining
-
-  return SparkNode;
+  return inherit( Node, SparkNode ); // prototype chaining
 } );

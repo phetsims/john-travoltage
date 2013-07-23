@@ -2,20 +2,20 @@
 
 /**
  * Model of a John-Travoltage.
- * Point charge model. Each charge have location and value.
+ * Point charge model. Each charge have location amd box2d instance
  * @author Vasily Shakhov (Mlearner)
  */
 define( function( require ) {
   'use strict';
+
   var PropertySet = require( 'AXON/PropertySet' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Vector2 = require( 'DOT/Vector2' );
 
   function PointChargeModel( x, y, world ) {
     PropertySet.call( this, {
-      location: null
+      location: new Vector2( x, y )
     } );
-    this.location = new Vector2( x, y );
 
     var bodyDef = new Box2D.Dynamics.b2BodyDef();
     var b2Body = Box2D.Dynamics.b2Body;
@@ -62,5 +62,4 @@ define( function( require ) {
     }
 
   } );
-} )
-;
+} );

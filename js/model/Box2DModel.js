@@ -1,11 +1,13 @@
 // Copyright 2002-2013, University of Colorado Boulder
 
 /**
- * Copyright 2002-2013, University of Colorado
+ * Box2D physical model. Calculates position of electrons within physical body.
+ * Calculates electical force and then motion along forcelines, when discharge happens
  * Author: Vasily Shakhov (Mlearner)
  */
 define( function( require ) {
   'use strict';
+
   var PropertySet = require( 'AXON/PropertySet' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Vector2 = require( 'DOT/Vector2' );

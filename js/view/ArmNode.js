@@ -2,11 +2,11 @@
 
 /**
  * Scenery display object (scene graph node) for the arm of the model.
- @author Vasily Shakhov (Mlearner)
+ * @author Vasily Shakhov (Mlearner)
  */
-
 define( function( require ) {
   'use strict';
+
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Image = require( 'SCENERY/nodes/Image' );
@@ -43,7 +43,7 @@ define( function( require ) {
       stroke: '#f58220',
       lineWidth: 1,
       lineDash: [ 10, 10 ],
-      renderer: "svg"
+      renderer: 'svg'
     } );
     this.addChild( this.border );
 
@@ -51,10 +51,7 @@ define( function( require ) {
     model.rotationAngleProperty.link( function updateLocation( angle ) {
       self.rotation = angle;
     } );
-
   }
 
-  inherit( Node, ArmNode ); // prototype chaining
-
-  return ArmNode;
+  return inherit( Node, ArmNode ); // prototype chaining
 } );

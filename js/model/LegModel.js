@@ -1,12 +1,13 @@
 // Copyright 2002-2013, University of Colorado Boulder
 
 /**
- * Model of a John-Travoltage.
- * Point charge model. Each charge have location and value.
+ * Leg model of a John-Travoltage.
+ * Can rotate around rotation center.
  * @author Vasily Shakhov (Mlearner)
  */
 define( function( require ) {
   'use strict';
+
   var PropertySet = require( 'AXON/PropertySet' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Vector2 = require( 'DOT/Vector2' );

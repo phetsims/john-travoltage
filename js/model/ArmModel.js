@@ -1,12 +1,13 @@
 // Copyright 2002-2013, University of Colorado Boulder
 
 /**
- * Model of a John-Travoltage.
- * Point charge model. Each charge have location and value.
+ * Arm model of a John-Travoltage.
+ * Can rotate around rotation center.
  * @author Vasily Shakhov (Mlearner)
  */
 define( function( require ) {
   'use strict';
+
   var Vector2 = require( 'DOT/Vector2' );
   var PropertySet = require( 'AXON/PropertySet' );
   var inherit = require( 'PHET_CORE/inherit' );
@@ -14,9 +15,8 @@ define( function( require ) {
   function ArmModel( x, y ) {
     PropertySet.call( this, {
       rotationAngle: 0,
-      location: new Vector2()
+      location: new Vector2( x, y )
     } );
-    this.location = new Vector2( x, y );
     this.rotationCenter = new Vector2( x + 5, y + 40 );
   }
 
