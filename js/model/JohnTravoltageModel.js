@@ -132,7 +132,7 @@ define( function( require ) {
     this.soundProperty = new Property( true );
     this.sounds = [
       new Howl( {urls: ['audio/OuchSmallest.mp3', 'audio/OuchSmallest.ogg']} ),
-      new Howl( {urls: ['audio/OuchSmallest.mp3', 'audio/OuchSmallest.ogg']} )
+      new Howl( {urls: ['audio/ShockSmallest.mp3', 'audio/ShockSmallest.ogg']} )
     ];
   }
 
