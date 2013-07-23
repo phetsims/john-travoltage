@@ -50,7 +50,7 @@ define( function( require ) {
   return inherit( PropertySet, Box2DModel, {
     step: function( globalModel ) {
       this.applyForces( globalModel );
-      this.world.Step( 1 / 2, 10, 10 ); //frame-rate, velocity iterations, position iterations
+      this.world.Step( 1 / 2, 8, 3 ); //frame-rate, velocity iterations, position iterations
       this.world.ClearForces();
     },
     applyForces: function( globalModel ) {
