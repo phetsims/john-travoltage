@@ -18,8 +18,11 @@ define( function( require ) {
     PropertySet.call( this, {
       isSpark: false
     } );
+
+    //creation of new world, full manual http://box2d.org/manual.pdf
     this.world = new b2World( new b2Vec2( 0, 0 ), true ); //gravity, allow sleep
 
+    //params of border of the body
     var fixDef = new b2FixtureDef();
     fixDef.density = 1.0;
     fixDef.friction = 100;
@@ -42,24 +45,30 @@ define( function( require ) {
       //fixDef.shape.SetAsBox(10, 0.5);
       var body = this.world.CreateBody( bodyDef );
       body.CreateFixture( fixDef );
-
-      this.forceLines = forceLines;
     }
+    //forcelines lines - when spark happens we use it to calculate motion of electrons
+    this.forceLines = forceLines;
   }
 
   return inherit( PropertySet, Box2DModel, {
     step: function( globalModel ) {
+      //calculate all forces on particles
       this.applyForces( globalModel );
       this.world.Step( 1 / 2, 8, 3 ); //frame-rate, velocity iterations, position iterations
       //more about this params and using http://box2d.org/manual.pdf paragraph 2.4
+      //clear forces
       this.world.ClearForces();
     },
+    //apply forces to each particle
     applyForces: function( globalModel ) {
       var self = this;
+      //if spark - we use forcelines, else electical field from other particles
       if ( this.isSpark ) {
         globalModel.particles.forEach( function( entry ) {
+          //find closest forceline and calculate force
           var force = self.getDischargeForce( entry.box2DInstance );
           entry.box2DInstance.ApplyForce( force, entry.box2DInstance.GetWorldCenter() );
+          //if near finger - remove particle
           if ( globalModel.arm.getFingerLocation().distance( entry.location ) < 30 ) {
             entry.removed = true;
           }
@@ -67,12 +76,14 @@ define( function( require ) {
       }
       else {
         globalModel.particles.forEach( function( entry ) {
+          //sum of forces from other particles
           var force = self.calculateSumOfForces( entry.box2DInstance, globalModel.particles );
           entry.box2DInstance.ApplyForce( force, entry.box2DInstance.GetWorldCenter() );
         } );
       }
 
     },
+    //get sum of electrical forces to body from other particles
     calculateSumOfForces: function( body, particles ) {
       var self = this;
       var sumVector = new b2Vec2();
@@ -83,6 +94,7 @@ define( function( require ) {
       } );
       return sumVector;
     },
+    //get single force between two particles
     getForce: function( body, entry ) {
       var k = 5;
       var force = new b2Vec2( 0, 0 );
@@ -101,8 +113,10 @@ define( function( require ) {
       return force;
     },
     //when we got spark, electrons moved to finger
+    //calculate force along forceline
     getDischargeForce: function( body ) {
       var bodyLocation = new Vector2( body.m_xf.position.x, body.m_xf.position.y );
+      //get closest forceline nad apply force to particle
       var closest = this.getClosestForceLine( bodyLocation );
       var vec = new Vector2( closest[2], closest[3] ).minus( bodyLocation );
       var k = 30;
@@ -114,6 +128,7 @@ define( function( require ) {
 
       return v.times( 1000 );
     },
+    //find closest forceline
     getClosestForceLine: function( location ) {
       var closest = null;
       var closestDist = Number.POSITIVE_INFINITY;

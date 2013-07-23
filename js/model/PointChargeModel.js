@@ -17,6 +17,8 @@ define( function( require ) {
       location: new Vector2( x, y )
     } );
 
+
+    //create physical model of pointcharge
     var bodyDef = new Box2D.Dynamics.b2BodyDef();
     var b2Body = Box2D.Dynamics.b2Body;
     var fixDef = new Box2D.Dynamics.b2FixtureDef();
@@ -50,7 +52,7 @@ define( function( require ) {
     step: function( globalModel ) {
       var self = this;
       var location = new Vector2( self.box2DInstance.m_xf.position.x, self.box2DInstance.m_xf.position.y );
-      //check if we in arm or leg, we must rotate this
+      //check if we in arm or leg, we must rotate this to keep charge inside arm/leg
       if ( location.x > globalModel.leg.location.x && location.y > globalModel.leg.location.y ) {
         location = globalModel.leg.rotationCenter.plus( location.minus( globalModel.leg.rotationCenter ).rotated( globalModel.leg.rotationAngle ) );
       }

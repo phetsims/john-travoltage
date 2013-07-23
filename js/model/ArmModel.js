@@ -21,6 +21,7 @@ define( function( require ) {
   }
 
   return inherit( PropertySet, ArmModel, {
+    //return Vector2, position of finger, where spark starts
     getFingerLocation: function() {
       return this.rotationCenter.plus( new Vector2( 107, 25 ).rotated( this.rotationAngle - 0.5 ) );
     }

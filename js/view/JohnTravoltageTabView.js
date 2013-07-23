@@ -25,19 +25,23 @@ define( function( require ) {
 
     TabView.call( this );
 
+    //add background elements
     this.addChild( new BackgroundElementsNode() );
 
     //Split layers after background for performance
     this.addChild( new Node( {layerSplit: true} ) );
 
+    //arm and leg - only interactive elements
     this.arm = new ArmNode( model.arm, self );
     this.addChild( this.arm );
 
     this.leg = new LegNode( model.leg, self );
     this.addChild( this.leg );
 
+    //spark
     this.addChild( new SparkNode( model.spark, model.arm, model.box2dModel ) );
 
+    //sound button
     this.addChild( new SoundToggleButton( model.soundProperty, {x: 700, y: 450} ) );
 
     var startPoint, currentPoint;
@@ -46,14 +50,18 @@ define( function( require ) {
     //Split layers before particle layer for performance
     this.addChild( new Node( {layerSplit: true} ) );
 
+
+    //listener to rotate arm or leg if needed
     this.addInputListener( {
         down: function( event ) {
           startPoint = self.globalToLocalPoint( event.pointer.point );
         },
         up: function( event ) {
+          //release object
           self.rotationObject = null;
         },
         move: function( event ) {
+          //if we click on arm or leg and move mouse - calculate rotation angle and set it
           if ( self.rotationObject ) {
             currentPoint = self.globalToLocalPoint( event.pointer.point );
             if ( currentPoint.x !== self.rotationObject.x && currentPoint.y !== self.rotationObject.y ) {
@@ -69,6 +77,7 @@ define( function( require ) {
 
     );
 
+    //if new electron added to model - create and add new node to leg
     model.particlesLengthProperty.link( function updateLocation( length ) {
       if ( model.particles.length ) {
         var newElectron = new MinusChargeNode( model.particles[model.particles.length - 1] );
@@ -101,6 +110,7 @@ define( function( require ) {
      var customShape = new Shape();
      customShape.moveTo( verts[0][0], verts[0][1] );
 
+    //model have array of points - verticles of polygon - border of body
      for ( var i = 1; i < verts.length; i++ ) {
      customShape.lineTo( verts[i][0], verts[i][1] );
      customShape.moveTo( verts[i][0], verts[i][1] );

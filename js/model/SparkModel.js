@@ -32,7 +32,7 @@ define( function( require ) {
   }
 
   return inherit( PropertySet, SparkModel, {
-    //redraw path
+    //redraw path, create new array of vertices
     update: function() {
       var prevPoint = this.source;
       var newVertices = [];
@@ -46,6 +46,7 @@ define( function( require ) {
       this.vertices = newVertices;
 
     },
+    //get nextPoint of sparks path
     nextPoint: function( prevPoint ) {
       var diff = prevPoint.minus( this.sink );
       var theta = diff.angle();
@@ -53,10 +54,12 @@ define( function( require ) {
       var thetaNew = theta + dTheta;
       return new Vector2( prevPoint.x - this.segLength * Math.cos( thetaNew ), prevPoint.y - this.segLength * Math.sin( thetaNew ) );
     },
+    //change and update spark when arm moved
     checkAndUpdateSpark: function( armModel ) {
       this.source = armModel.getFingerLocation();
       this.update();
     },
+    //if sparks visible, update view
     step: function() {
       if ( this.viewNode.visible ) {
         this.update();

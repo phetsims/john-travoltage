@@ -18,7 +18,7 @@ define( function( require ) {
     } );
     this.location = new Vector2( x, y );
     this.rotationCenter = new Vector2( x + 5, y + 10 );
-    //last 3 angles of leg, need to addElectrons
+    //last 3 angles of leg, need to addElectron function in JohnTravoltageModel
     this.angleHistory = new Array( 3 );
   }
 

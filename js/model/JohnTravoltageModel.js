@@ -163,19 +163,18 @@ define( function( require ) {
         //check if we must firespark
         var distToKnob = this.spark.sink.distance( this.arm.getFingerLocation() );
         var n = this.particles.length / 2;
-
         for ( var i = 0; i < this.fireSparkConditions.length; i++ ) {
           if ( n > this.fireSparkConditions[i][0] && distToKnob < this.fireSparkConditions[i][1] ) {
-            //fire spark
+            //if one of the conditions to fire spark correct - fire it
             if ( this.soundProperty.get() ) {
-              this.sounds[Math.floor( Math.random() * 2 )]/*.play();
- */           }
+              this.sounds[Math.floor( Math.random() * 2 )].play();
+            }
             this.box2dModel.isSpark = true;
             break;
           }
         }
       }
-
+      // recalculate model, spark, then particles positions
       this.box2dModel.step( this );
       this.spark.step();
       this.particles.forEach( function( entry ) {
