@@ -125,7 +125,7 @@ define( function( require ) {
         [60, 120],
         [70, 140]
       ],
-      soundProperty: true
+      sound: true
     } );
     this.arm = new ArmModel( 418, 186 );
     this.leg = new LegModel( 385, 312 );
@@ -168,8 +168,8 @@ define( function( require ) {
           if ( n > this.fireSparkConditions[i][0] && distToKnob < this.fireSparkConditions[i][1] ) {
             //fire spark
             if ( this.soundProperty.get() ) {
-              this.sounds[Math.floor( Math.random() * 2 )].play();
-            }
+              this.sounds[Math.floor( Math.random() * 2 )]/*.play();
+ */           }
             this.box2dModel.isSpark = true;
             break;
           }
