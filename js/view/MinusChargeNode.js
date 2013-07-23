@@ -2,7 +2,6 @@
 
 /**
  * Scenery display object (scene graph node) for minusCharge.
- *
  * @author Vasily Shakhov (Mlearner)
  */
 define( function( require ) {

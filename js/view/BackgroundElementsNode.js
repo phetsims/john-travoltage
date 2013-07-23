@@ -1,8 +1,7 @@
 // Copyright 2002-2013, University of Colorado Boulder
 
 /**
- * Background static elements of model
- *
+ * Background static elements of simulation
  * @author Vasily Shakhov (Mlearner)
  */
 define( function( require ) {

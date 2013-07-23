@@ -2,6 +2,7 @@
 
 /**
  * main Model container.
+ * creates box2d model, checks condition for spark
  * @author Vasily Shakhov (Mlearner.com)
  */
 define( function( require ) {

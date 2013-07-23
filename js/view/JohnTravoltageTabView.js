@@ -1,5 +1,10 @@
 // Copyright 2002-2013, University of Colorado Boulder
 
+
+/**
+ * Main tabview of simulation. Drawing starts here
+ * @author Vasily Shakhov (Mlearner)
+ */
 define( function( require ) {
   'use strict';
 
