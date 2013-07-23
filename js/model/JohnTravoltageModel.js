@@ -124,13 +124,13 @@ define( function( require ) {
         [50, 100],
         [60, 120],
         [70, 140]
-      ]
+      ],
+      soundProperty: true
     } );
     this.arm = new ArmModel( 418, 186 );
     this.leg = new LegModel( 385, 312 );
     this.spark = new SparkModel();
     this.box2dModel = new Box2DModel( this.verts, this.forceLines );
-    this.soundProperty = new Property( true );
     this.sounds = [
       new Howl( {urls: ['audio/OuchSmallest.mp3', 'audio/OuchSmallest.ogg']} ),
       new Howl( {urls: ['audio/ShockSmallest.mp3', 'audio/ShockSmallest.ogg']} )
