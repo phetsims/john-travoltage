@@ -47,18 +47,14 @@ define( function( require ) {
     node.children = [new Image( im, {scale: 1.0 / scale} )];
   } );
 
-  function MinusChargeNode( model ) {
+  function MinusChargeNode( pointChargeModel ) {
     var self = this;
 
-    // super constructor
-    // Use svg for the shape and text
     Node.call( this, {pickable: false} );
-
-//    this.translate( location.x - radius, location.y - radius );
 
     this.addChild( node );
 
-    model.locationProperty.link( function( entry ) {
+    pointChargeModel.locationProperty.link( function( entry ) {
       self.setTranslation( entry.x, entry.y );
     } );
   }
