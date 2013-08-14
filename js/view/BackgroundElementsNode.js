@@ -18,7 +18,6 @@ define( function( require ) {
   function BackgroundElementsNode( location ) {
 
     // super constructor
-    // Use svg for the shape and text
     Node.call( this );
 
     //wallpapers
