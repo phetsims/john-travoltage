@@ -102,15 +102,17 @@ define( function( require ) {
       distanceVector.Subtract( entry.GetWorldCenter() );
       var distanceLength = distanceVector.Length();
       if ( distanceLength > 1 ) {
-        distanceVector.Multiply( k / Math.pow( distanceLength, 2.5 ) );
+        distanceVector.Multiply( 1000 * k / Math.pow( distanceLength, 2.5 ) );
         var max = 0.05;
         if ( distanceVector.Length() > max ) {
           distanceVector.Multiply( max / distanceVector.Length() );
         }
-        force = distanceVector;
+        return distanceVector;
       }
-      force.Multiply( 1000 );
-      return force;
+      else {
+        force.Multiply( 1000 );
+        return force;
+      }
     },
     //when we got spark, electrons moved to finger
     //calculate force along forceline
