@@ -4,8 +4,8 @@
  * Returns version identifier for the simulation.
  * TODO: generate this file a build time, reading package.json
  */
-define( function( require ) {
+define( function() {
   'use strict';
 
-  return function() { return '0.0.0-3'; };
+  return function() { return '0.0.0-4'; };
 } );
