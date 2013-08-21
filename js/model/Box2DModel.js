@@ -12,13 +12,14 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Vector2 = require( 'DOT/Vector2' );
 
+  //Rename the constructors from Box2D to upper case so they will pass our linting with newcap:true
   var
-    b2Vec2 = Box2D.Common.Math.b2Vec2,
-    b2BodyDef = Box2D.Dynamics.b2BodyDef,
-    b2Body = Box2D.Dynamics.b2Body,
-    b2FixtureDef = Box2D.Dynamics.b2FixtureDef,
-    b2World = Box2D.Dynamics.b2World,
-    b2PolygonShape = Box2D.Collision.Shapes.b2PolygonShape;
+    B2Vec2 = Box2D.Common.Math.b2Vec2,
+    B2BodyDef = Box2D.Dynamics.b2BodyDef,
+    B2Body = Box2D.Dynamics.b2Body,
+    B2FixtureDef = Box2D.Dynamics.b2FixtureDef,
+    B2World = Box2D.Dynamics.b2World,
+    B2PolygonShape = Box2D.Collision.Shapes.b2PolygonShape;
 
   function Box2DModel( verts, forceLines ) {
     PropertySet.call( this, {
@@ -26,27 +27,27 @@ define( function( require ) {
     } );
 
     //creation of new world, full manual http://box2d.org/manual.pdf
-    this.world = new b2World( new b2Vec2( 0, 0 ), true ); //gravity, allow sleep
+    this.world = new B2World( new B2Vec2( 0, 0 ), true ); //gravity, allow sleep
 
     //params of border of the body
-    var fixDef = new b2FixtureDef();
+    var fixDef = new B2FixtureDef();
     fixDef.density = 1.0;
     fixDef.friction = 100;
     fixDef.restitution = 0;
 
-    var bodyDef = new b2BodyDef();
+    var bodyDef = new B2BodyDef();
 
     //create body border
-    bodyDef.type = b2Body.b2_staticBody;
+    bodyDef.type = B2Body.b2_staticBody;
     bodyDef.position.x = 255;
     bodyDef.position.y = -135;
-    fixDef.shape = new b2PolygonShape();
+    fixDef.shape = new B2PolygonShape();
     for ( var i = 0; i < verts.length - 1; i++ ) {
       //create ground
-      var vert1 = new b2Vec2( verts[i][0], verts[i][1] );
-      var vert2 = new b2Vec2( verts[i + 1][0], verts[i + 1][1] );
+      var vert1 = new B2Vec2( verts[i][0], verts[i][1] );
+      var vert2 = new B2Vec2( verts[i + 1][0], verts[i + 1][1] );
 
-      fixDef.shape = new b2PolygonShape();
+      fixDef.shape = new B2PolygonShape();
       fixDef.shape.SetAsEdge( vert1, vert2 );
       //fixDef.shape.SetAsBox(10, 0.5);
       var body = this.world.CreateBody( bodyDef );
@@ -92,7 +93,7 @@ define( function( require ) {
     //get sum of electrical forces to body from other particles
     calculateSumOfForces: function( body, particles ) {
       var self = this;
-      var sumVector = new b2Vec2();
+      var sumVector = new B2Vec2();
       particles.forEach( function( entry ) {
         if ( body !== entry.box2DInstance ) {
           sumVector.Add( self.getForce( body, entry.box2DInstance ) );
@@ -103,7 +104,7 @@ define( function( require ) {
     //get single force between two particles
     getForce: function( body, entry ) {
       var k = 5;
-      var force = new b2Vec2( 0, 0 );
+      var force = new B2Vec2( 0, 0 );
       var distanceVector = body.GetWorldCenter().Copy();
       distanceVector.Subtract( entry.GetWorldCenter() );
       var distanceLength = distanceVector.Length();
