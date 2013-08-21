@@ -54,7 +54,7 @@ define( function( require ) {
     step: function( globalModel ) {
       //calculate all forces on particles
       this.applyForces( globalModel );
-      this.world.Step( 1 / 2, 8, 3 ); //frame-rate, velocity iterations, position iterations
+      this.world.Step( 1 / 2, 32, 2 ); //frame-rate, velocity iterations, position iterations
       //more about this params and using http://box2d.org/manual.pdf paragraph 2.4
       //clear forces
       this.world.ClearForces();
