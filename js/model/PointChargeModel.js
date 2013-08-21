@@ -2,7 +2,7 @@
 
 /**
  * Model of a John-Travoltage.
- * Point charge model. Each charge have location amd box2d instance
+ * Point charge model. Each charge has a location and box2d instance.
  * @author Vasily Shakhov (Mlearner)
  */
 define( function( require ) {
