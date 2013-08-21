@@ -18,7 +18,7 @@ define( function( require ) {
   function BackgroundElementsNode( location ) {
 
     // super constructor
-    Node.call( this );
+    Node.call( this, {pickable: false} );
 
     //wallpapers
     this.addChild( new Rectangle( -1000, -300, 3000, 1100, {

@@ -29,7 +29,7 @@ define( function( require ) {
     this.addChild( new BackgroundElementsNode() );
 
     //Split layers after background for performance
-    this.addChild( new Node( {layerSplit: true} ) );
+    this.addChild( new Node( {layerSplit: true, pickable: false} ) );
 
     //arm and leg - only interactive elements
     this.arm = new ArmNode( model.arm, self );
@@ -48,7 +48,7 @@ define( function( require ) {
     this.rotationObject = null;
 
     //Split layers before particle layer for performance
-    this.addChild( new Node( {layerSplit: true} ) );
+    this.addChild( new Node( {layerSplit: true, pickable: false} ) );
 
 
     //listener to rotate arm or leg if needed

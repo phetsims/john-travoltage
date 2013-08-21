@@ -19,7 +19,7 @@ define( function( require ) {
     var self = this;
 
     // super constructor
-    Node.call( this );
+    Node.call( this, {pickable: false} );
 
     var customBackgroundShape = new Shape();
     var backgroundPath = new Path( {
