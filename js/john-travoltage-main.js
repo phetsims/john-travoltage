@@ -13,9 +13,9 @@ require( [
   'Strings',
   'JOIST/Sim',
   'model/JohnTravoltageModel',
-  'view/JohnTravoltageTabView',
+  'view/JohnTravoltageView',
   'JohnTravoltageImages'
-], function( SimLauncher, Text, Rectangle, Strings, Sim, JohnTravoltageModel, JohnTravoltageTabView, JohnTravoltageImages ) {
+], function( SimLauncher, Text, Rectangle, Strings, Sim, JohnTravoltageModel, JohnTravoltageView, JohnTravoltageImages ) {
   'use strict';
 
   //Create and start the sim
@@ -24,7 +24,7 @@ require( [
       {
         name: Strings['johnTravoltage.name'],
         createModel: function() {return new JohnTravoltageModel( 834, 504 );},
-        createView: function( model ) {return new JohnTravoltageTabView( model );},
+        createView: function( model ) {return new JohnTravoltageView( model );},
         backgroundColor: '#9ddcf8'
       }
     ] ).start();

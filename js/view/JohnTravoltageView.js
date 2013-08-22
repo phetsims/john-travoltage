@@ -2,13 +2,13 @@
 
 
 /**
- * Main tabview of simulation. Drawing starts here
+ * Main ScreenView of simulation. Drawing starts here
  * @author Vasily Shakhov (Mlearner)
  */
 define( function( require ) {
   'use strict';
 
-  var TabView = require( 'JOIST/TabView' );
+  var ScreenView = require( 'JOIST/ScreenView' );
   var inherit = require( 'PHET_CORE/inherit' );
   var BackgroundElementsNode = require( 'view/BackgroundElementsNode' );
   var ArmNode = require( 'view/ArmNode' );
@@ -20,10 +20,10 @@ define( function( require ) {
   var Node = require( 'SCENERY/nodes/Node' );
   var SoundToggleButton = require( 'SCENERY_PHET/SoundToggleButton' );
 
-  function JohnTravoltageTabView( model ) {
+  function JohnTravoltageView( model ) {
     var self = this;
 
-    TabView.call( this );
+    ScreenView.call( this );
 
     //add background elements
     this.addChild( new BackgroundElementsNode() );
@@ -147,5 +147,5 @@ define( function( require ) {
     }
   }
 
-  return inherit( TabView, JohnTravoltageTabView );
+  return inherit( ScreenView, JohnTravoltageView );
 } );
