@@ -116,8 +116,7 @@ define( function( require ) {
         customShape.lineTo( verts[i][0], verts[i][1] );
         customShape.moveTo( verts[i][0], verts[i][1] );
       }
-      var path = new Path( {
-        shape: customShape,
+      var path = new Path( customShape, {
         stroke: 'green',
         lineWidth: 1,
         pickable: false,
@@ -133,8 +132,7 @@ define( function( require ) {
         customShape = new Shape();
         customShape.moveTo( lines[i][0], lines[i][1] );
         customShape.lineTo( lines[i][2], lines[i][3] );
-        path = new Path( {
-          shape: customShape,
+        path = new Path( customShape, {
           stroke: 'red',
           lineWidth: 1,
           pickable: false,

@@ -37,8 +37,7 @@ define( function( require ) {
     // add the Balloon image
     this.addChild( new Image( JohnTravoltageImages.getImage( 'arm.png' ) ) );
 
-    this.border = new Path( {
-      shape: new Shape.roundRect( 0, 0, 120, 70, 10, 10 ),
+    this.border = new Path( new Shape.roundRect( 0, 0, 120, 70, 10, 10 ), {
       x: 0, y: 0,
       stroke: '#f58220',
       lineWidth: 1,

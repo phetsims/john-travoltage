@@ -22,8 +22,7 @@ define( function( require ) {
     Node.call( this, {pickable: false} );
 
     var customBackgroundShape = new Shape();
-    var backgroundPath = new Path( {
-      shape: customBackgroundShape,
+    var backgroundPath = new Path( customBackgroundShape, {
       stroke: 'white',
       lineWidth: 4,
       pickable: false,
@@ -32,8 +31,7 @@ define( function( require ) {
     this.addChild( backgroundPath );
 
     var customShape = new Shape();
-    var path = new Path( {
-      shape: customShape,
+    var path = new Path( customShape, {
       stroke: 'blue',
       lineWidth: 1,
       pickable: false,
