@@ -43,6 +43,5 @@ require.config( {
     }
   },
 
-  //TODO: Remove this before deploy!
   urlArgs: new Date().getTime()  // cache buster to make browser reload all included scripts
 } );
