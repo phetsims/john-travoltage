@@ -10,16 +10,16 @@ define( function( require ) {
 
   var ScreenView = require( 'JOIST/ScreenView' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var BackgroundElementsNode = require( 'view/BackgroundElementsNode' );
-  var ArmNode = require( 'view/ArmNode' );
-  var AppendageNode = require( 'view/AppendageNode' );
-  var SparkNode = require( 'view/SparkNode' );
-  var MinusChargeNode = require( 'view/MinusChargeNode' );
+  var BackgroundElementsNode = require( 'JOHN_TRAVOLTAGE/view/BackgroundElementsNode' );
+  var ArmNode = require( 'JOHN_TRAVOLTAGE/view/ArmNode' );
+  var AppendageNode = require( 'JOHN_TRAVOLTAGE/view/AppendageNode' );
+  var SparkNode = require( 'JOHN_TRAVOLTAGE/view/SparkNode' );
+  var MinusChargeNode = require( 'JOHN_TRAVOLTAGE/view/MinusChargeNode' );
   var Shape = require( 'KITE/Shape' );
   var Path = require( 'SCENERY/nodes/Path' );
   var Node = require( 'SCENERY/nodes/Node' );
   var SoundToggleButton = require( 'SCENERY_PHET/SoundToggleButton' );
-  var JohnTravoltageImages = require( 'JohnTravoltageImages' );
+  var JohnTravoltageImages = require( 'JOHN_TRAVOLTAGE/JohnTravoltageImages' );
 
   function JohnTravoltageView( model ) {
     var self = this;

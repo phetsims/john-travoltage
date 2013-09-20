@@ -13,7 +13,7 @@ define( function( require ) {
   var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
   var Shape = require( 'KITE/Shape' );
   var Path = require( 'SCENERY/nodes/Path' );
-  var JohnTravoltageImages = require( 'JohnTravoltageImages' );
+  var JohnTravoltageImages = require( 'JOHN_TRAVOLTAGE/JohnTravoltageImages' );
 
   function ArmNode( model, scene ) {
     var self = this;

@@ -8,11 +8,11 @@
 define( function( require ) {
   'use strict';
 
-  var ArmModel = require( 'model/ArmModel' );
-  var LegModel = require( 'model/LegModel' );
-  var Box2DModel = require( 'model/Box2DModel' );
-  var SparkModel = require( 'model/SparkModel' );
-  var PointChargeModel = require( 'model/PointChargeModel' );
+  var ArmModel = require( 'JOHN_TRAVOLTAGE/model/ArmModel' );
+  var LegModel = require( 'JOHN_TRAVOLTAGE/model/LegModel' );
+  var Box2DModel = require( 'JOHN_TRAVOLTAGE/model/Box2DModel' );
+  var SparkModel = require( 'JOHN_TRAVOLTAGE/model/SparkModel' );
+  var PointChargeModel = require( 'JOHN_TRAVOLTAGE/model/PointChargeModel' );
   var Property = require( 'AXON/Property' );
   var ObservableArray = require( 'AXON/ObservableArray' );
   var PropertySet = require( 'AXON/PropertySet' );

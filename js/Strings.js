@@ -8,6 +8,6 @@
 define( function( require ) {
   'use strict';
 
-  var Strings = require( 'i18n!../nls/john-travoltage-strings' );
+  var Strings = require( 'i18n!JOHN_TRAVOLTAGE/../nls/john-travoltage-strings' );
   return Strings;
 } );

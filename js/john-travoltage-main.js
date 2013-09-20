@@ -7,10 +7,10 @@
  */
 require( [
   'JOIST/SimLauncher',
-  'Strings',
+  'JOHN_TRAVOLTAGE/Strings',
   'JOIST/Sim',
-  'JohnTravoltageImages',
-  'JohnTravoltageScreen'
+  'JOHN_TRAVOLTAGE/JohnTravoltageImages',
+  'JOHN_TRAVOLTAGE/JohnTravoltageScreen'
 ], function( SimLauncher, Strings, Sim, JohnTravoltageImages, JohnTravoltageScreen ) {
   'use strict';
 

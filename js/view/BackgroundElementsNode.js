@@ -13,7 +13,7 @@ define( function( require ) {
 
   var Pattern = require( 'SCENERY/util/Pattern' );
   var Image = require( 'SCENERY/nodes/Image' );
-  var JohnTravoltageImages = require( 'JohnTravoltageImages' );
+  var JohnTravoltageImages = require( 'JOHN_TRAVOLTAGE/JohnTravoltageImages' );
 
   function BackgroundElementsNode( position ) {
 

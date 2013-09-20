@@ -14,7 +14,7 @@ define( function( require ) {
   var Vector2 = require( 'DOT/Vector2' );
   var Shape = require( 'KITE/Shape' );
   var Path = require( 'SCENERY/nodes/Path' );
-  var JohnTravoltageImages = require( 'JohnTravoltageImages' );
+  var JohnTravoltageImages = require( 'JOHN_TRAVOLTAGE/JohnTravoltageImages' );
   var Circle = require( 'SCENERY/nodes/Circle' );
 
   function AppendageNode( appendage, image, dx, dy, angleOffset, scene ) {

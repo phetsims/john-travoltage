@@ -1,8 +1,8 @@
 // Copyright 2002-2013, University of Colorado Boulder
 define( function( require ) {
   var Strings = require( 'Strings' );
-  var JohnTravoltageModel = require( 'model/JohnTravoltageModel' );
-  var JohnTravoltageView = require( 'view/JohnTravoltageView' );
+  var JohnTravoltageModel = require( 'JOHN_TRAVOLTAGE/model/JohnTravoltageModel' );
+  var JohnTravoltageView = require( 'JOHN_TRAVOLTAGE/view/JohnTravoltageView' );
 
   function JohnTravoltageScreen() {
     return {
