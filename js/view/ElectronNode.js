@@ -15,8 +15,10 @@ define( function( require ) {
   var Circle = require( 'SCENERY/nodes/Circle' );
   var RadialGradient = require( 'SCENERY/util/RadialGradient' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
+  var Rect = require( 'DOT/Rectangle' );
   var Electron = require( 'JOHN_TRAVOLTAGE/model/Electron' );
   var Image = require( 'SCENERY/nodes/Image' );
+  var Vector2 = require( 'DOT/Vector2' );
   require( 'SCENERY/Scene' ); //Force Scene to load before using Node.toImage
 
   var radius = Electron.radius;
@@ -49,7 +51,9 @@ define( function( require ) {
     node.children = [new Image( im, {scale: 1.0 / scale} )];
   } );
 
-  function ElectronNode( electron ) {
+  var legBounds = new Rect( 368.70275791624107, 332.0122574055158, 600, 600 );
+
+  function ElectronNode( electron, model, leg ) {
     var self = this;
 
     Node.call( this, {pickable: false} );
@@ -59,7 +63,19 @@ define( function( require ) {
     var height = node.height;
 
     electron.positionProperty.link( function( position ) {
-      self.setTranslation( position.x - node.width / 2, position.y - node.height / 2 );
+
+      //If in the leg, then show it at the correctly rotated angle
+      if ( legBounds.containsPoint( position ) ) {
+
+        var legPoint = leg.position;
+        var dr = new Vector2( position.x - legPoint.x, position.y - legPoint.y );
+        var deltaAngle = leg.deltaAngle();
+        dr = dr.rotated( deltaAngle ).plus( legPoint );
+        self.setTranslation( dr.x, dr.y );
+      }
+      else {
+        self.setTranslation( position.x - node.width / 2, position.y - node.height / 2 );
+      }
     } );
   }
 

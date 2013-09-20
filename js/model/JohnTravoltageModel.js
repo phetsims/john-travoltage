@@ -27,7 +27,8 @@ define( function( require ) {
     var johnTravoltageModel = this;
 
     //vertices of path, border of body, sampled using a listener in JohnTravoltageView
-    this.verts = [new Vector2( 272.2124616956078, 306.9090909090909 ),
+    this.verts = [
+      new Vector2( 272.2124616956078, 306.9090909090909 ),
       new Vector2( 274.5658835546476, 207.2808988764045 ),
       new Vector2( 346.73748723186924, 110.79060265577121 ),
       new Vector2( 378.1164453524004, 106.08375893769154 ),
@@ -60,7 +61,8 @@ define( function( require ) {
       new Vector2( 323.98774259448413, 482.63125638406535 ),
       new Vector2( 272.99693564862105, 469.2951991828396 ),
       new Vector2( 319.2808988764045, 348.48621041879466 ),
-      new Vector2( 272.2124616956078, 297.49540347293157 )];
+      new Vector2( 272.2124616956078, 297.49540347293157 )
+    ];
 
     //lines, to which electrons moves, when spark happened
     this.forceLines = [
@@ -181,8 +183,16 @@ define( function( require ) {
     },
     addElectron: function() {
 
+      var segment = new LineSegment( new Vector2( 423.6159346271706, 463.8038815117467 ), new Vector2( 450.2880490296221, 444.97650663942795 ) );
+      var v = segment.toVector();
+      var rand = Math.random() * v.magnitude();
+      var point = segment.getP0().plus( v.normalized().times( rand ) );
+
       //TODO: use phet-core Poolable?
-      this.particles.add( new Electron( this.verts[0].x + 50 + 50 * Math.random(), this.verts[0].y - 75 + 50 * Math.random(), this ) );
+      this.particles.add( new Electron( point.x, point.y, this, this.leg ) );
+
+      //Show randomly in the middle for debugging
+//      this.particles.add( new Electron( this.verts[0].x + 50 + 50 * Math.random(), this.verts[0].y - 75 + 50 * Math.random(), this ) );
     }
   } );
 } );

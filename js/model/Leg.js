@@ -16,7 +16,8 @@ define( function( require ) {
 
   function Leg() {
     var leg = this;
-    PropertySet.call( this, { angle: 1.3175443221852239  } );
+    this.initialAngle = 1.3175443221852239;
+    PropertySet.call( this, { angle: this.initialAngle  } );
     this.position = new Vector2( 385 + 18 - 5, 312 + 28 - 5 );
 
     //last 3 angles of leg, need to addElectron function in JohnTravoltageModel
@@ -27,5 +28,7 @@ define( function( require ) {
     } );
   }
 
-  return inherit( PropertySet, Leg );
+  return inherit( PropertySet, Leg, {
+    deltaAngle: function() { return this.angle - this.initialAngle; }
+  } );
 } );

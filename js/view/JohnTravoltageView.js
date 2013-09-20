@@ -76,7 +76,7 @@ define( function( require ) {
     //if new electron added to model - create and add new node to leg
     //TODO: Pooling for creation and use visible instead of addChild for performance
     model.particles.addItemAddedListener( function( item ) {
-      var newElectron = new ElectronNode( item );
+      var newElectron = new ElectronNode( item, model, model.leg );
       item.viewNode = newElectron;
       electronLayer.addChild( newElectron );
     } );
