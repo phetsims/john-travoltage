@@ -39,29 +39,29 @@ define( function( require ) {
 
 
     //changes visual position
-    model.verticesProperty.link( function updatePathOfSpark( verts ) {
-      customShape = new Shape();
-      customBackgroundShape = new Shape();
-      customShape.moveTo( verts[0].x, model.vertices[0].y );
-      customBackgroundShape.moveTo( verts[0].x, model.vertices[0].y );
-      for ( var i = 1; i < model.vertices.length; i++ ) {
-        customShape.lineTo( model.vertices[i].x, model.vertices[i].y );
-        customShape.moveTo( model.vertices[i].x, model.vertices[i].y );
-        customBackgroundShape.lineTo( model.vertices[i].x, model.vertices[i].y );
-        customBackgroundShape.moveTo( model.vertices[i].x, model.vertices[i].y );
-      }
-
-      path.shape = customShape;
-      backgroundPath.shape = customBackgroundShape;
-    } );
+//    model.verticesProperty.link( function updatePathOfSpark( verts ) {
+//      customShape = new Shape();
+//      customBackgroundShape = new Shape();
+//      customShape.moveTo( verts[0].x, model.vertices[0].y );
+//      customBackgroundShape.moveTo( verts[0].x, model.vertices[0].y );
+//      for ( var i = 1; i < model.vertices.length; i++ ) {
+//        customShape.lineTo( model.vertices[i].x, model.vertices[i].y );
+//        customShape.moveTo( model.vertices[i].x, model.vertices[i].y );
+//        customBackgroundShape.lineTo( model.vertices[i].x, model.vertices[i].y );
+//        customBackgroundShape.moveTo( model.vertices[i].x, model.vertices[i].y );
+//      }
+//
+//      path.shape = customShape;
+//      backgroundPath.shape = customBackgroundShape;
+//    } );
 
 //    arm.angleProperty.link( function checkAndUpdateSpark() {
 //      model.checkAndUpdateSpark( arm );
 //    } );
 
-    box2dModel.isSparkProperty.link( function setSparkVisibility( isVisible ) {
-      self.visible = isVisible;
-    } );
+//    box2dModel.isSparkProperty.link( function setSparkVisibility( isVisible ) {
+//      self.visible = isVisible;
+//    } );
 
     model.viewNode = this;
   }
