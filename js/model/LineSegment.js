@@ -16,7 +16,6 @@ define( function( require ) {
       this.y1 = y1;
       this.x2 = x2;
       this.y2 = y2;
-      console.log( 'hello' );
     }
 
     //Support for LineSegment(Vector2,Vector2)

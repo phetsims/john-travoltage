@@ -38,7 +38,6 @@ define( function( require ) {
       down: function( event ) {
         var pt = event.pointer.point;
         var global = self.globalToLocalPoint( pt );
-        console.log( pt, global );
         var a = 'new Vector2(' + global.x + ',' + global.y + '),\n';
 
         string = string + a;
@@ -85,7 +84,7 @@ define( function( require ) {
 //     borders are approximatly 8px = radius of particle from physical body, because physical raduis of electron = 1 in box2D
 //     larger physical radius of electron causes many bugs and model become very slow
     //TODO: move this to a separate file
-    var showBody = true;
+    var showBody = false;
     if ( showBody ) {
       //vertices and body path
       var verts = model.verts;

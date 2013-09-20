@@ -41,7 +41,7 @@ define( function( require ) {
       drag: function( event ) {
         var globalPoint = legImageNode.globalToParentPoint( event.pointer.point );
 //        console.log( globalPoint );
-        mousePosition.translation = globalPoint;
+//        mousePosition.translation = globalPoint;
         angle = globalPoint.minus( new Vector2( appendage.position.x, appendage.position.y ) ).angle();
         appendage.angle = angle;
       },
@@ -67,12 +67,12 @@ define( function( require ) {
     } );
 
     //For debugging
-    var origin = new Circle( 10, {fill: 'red', x: appendage.position.x, y: appendage.position.y, pickable: false} );
-//    console.log( appendage.position.x, appendage.position.y );
-    this.addChild( origin );
-
-    var mousePosition = new Circle( 7, {fill: 'blue', x: 0, y: 0, pickable: false} );
-    this.addChild( mousePosition );
+//    var origin = new Circle( 10, {fill: 'red', x: appendage.position.x, y: appendage.position.y, pickable: false} );
+////    console.log( appendage.position.x, appendage.position.y );
+//    this.addChild( origin );
+//
+//    var mousePosition = new Circle( 7, {fill: 'blue', x: 0, y: 0, pickable: false} );
+//    this.addChild( mousePosition );
   }
 
   return inherit( Node, AppendageNode ); // prototype chaining

@@ -53,6 +53,9 @@ define( function( require ) {
       //TODO: prevent allocations?
       if ( !bounced ) {
         this.position = new Vector2( x2, y2 );
+
+        //A bit of randomness to the motion
+        this.velocity = this.velocity.rotated( (Math.random() - 0.5) * 0.2 );
       }
     }
   } );
