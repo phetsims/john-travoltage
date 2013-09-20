@@ -98,10 +98,11 @@ define( function( require ) {
 //    );
 
     //if new electron added to model - create and add new node to leg
+    //TODO: Pooling for creation and use visible instead of addChild for performance
     model.particles.addItemAddedListener( function( item ) {
       var newElectron = new ElectronNode( item );
       item.viewNode = newElectron;
-      self.addChild( newElectron );
+      electronLayer.addChild( newElectron );
     } );
 
     // debug lines, body and forceline, uncomment this to view physical bounds of body
