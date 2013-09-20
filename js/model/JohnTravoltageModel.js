@@ -129,7 +129,7 @@ define( function( require ) {
 
     this.particles = new ObservableArray( [] );
     this.arm = new ArmModel( 418, 186 );
-    this.leg = new LegModel( 385, 312 );
+    this.leg = new LegModel( 385 + 18, 312 + 28 );
     this.spark = new SparkModel();
     this.box2dModel = new Box2DModel( this.verts, this.forceLines );
     this.sounds = [
@@ -162,7 +162,7 @@ define( function( require ) {
       }
       else {
         //check if we must firespark
-        var distToKnob = this.spark.sink.distance( this.arm.getFingerLocation() );
+        var distToKnob = this.spark.sink.distance( this.arm.getFingerPosition() );
         var n = this.particles.length / 2;
         for ( var i = 0; i < this.fireSparkConditions.length; i++ ) {
           if ( n > this.fireSparkConditions[i][0] && distToKnob < this.fireSparkConditions[i][1] ) {
@@ -177,7 +177,7 @@ define( function( require ) {
       }
       // recalculate model, spark, then particles positions
       this.box2dModel.step( this );
-      this.spark.step();
+//      this.spark.step();
       this.particles.forEach( function( entry ) {
         entry.step( self );
       } );

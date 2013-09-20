@@ -11,7 +11,6 @@ define( function( require ) {
   var Node = require( 'SCENERY/nodes/Node' );
   var Image = require( 'SCENERY/nodes/Image' );
   var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
-  var Vector2 = require( 'DOT/Vector2' );
   var Shape = require( 'KITE/Shape' );
   var Path = require( 'SCENERY/nodes/Path' );
   var JohnTravoltageImages = require( 'JohnTravoltageImages' );
@@ -22,8 +21,8 @@ define( function( require ) {
     // super constructor
     Node.call( this, { cursor: 'pointer' } );
 
-    this.x = model.location.x;
-    this.y = model.location.y;
+    this.x = model.position.x;
+    this.y = model.position.y;
 
     this.model = model;
 
@@ -46,7 +45,7 @@ define( function( require ) {
     this.addChild( this.border );
 
     //changes visual position
-    model.rotationAngleProperty.link( function updateLocation( angle ) {
+    model.angleProperty.link( function updatePosition( angle ) {
       self.rotation = angle;
     } );
   }

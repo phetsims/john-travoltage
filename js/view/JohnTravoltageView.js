@@ -50,32 +50,31 @@ define( function( require ) {
     //Split layers before particle layer for performance
     this.addChild( new Node( {layerSplit: true, pickable: false} ) );
 
-
     //listener to rotate arm or leg if needed
-    this.addInputListener( {
-        down: function( event ) {
-          startPoint = self.globalToLocalPoint( event.pointer.point );
-        },
-        up: function( event ) {
-          //release object
-          self.rotationObject = null;
-        },
-        move: function( event ) {
-          //if we click on arm or leg and move mouse - calculate rotation angle and set it
-          if ( self.rotationObject ) {
-            currentPoint = self.globalToLocalPoint( event.pointer.point );
-            if ( currentPoint.x !== self.rotationObject.x && currentPoint.y !== self.rotationObject.y ) {
-              var angle = Math.atan2( currentPoint.y - self.rotationObject.model.rotationCenter.y, currentPoint.x - self.rotationObject.model.rotationCenter.x );
-              angle -= Math.atan2( startPoint.y - self.rotationObject.model.rotationCenter.y, startPoint.x - self.rotationObject.model.rotationCenter.x );
-              self.rotationObject.model.rotationAngle += angle;
-              self.rotationObject.rotateAround( self.rotationObject.model.rotationCenter, angle );
-              startPoint = currentPoint;
-            }
-          }
-        }
-      }
-
-    );
+//    this.addInputListener( {
+//        down: function( event ) {
+//          startPoint = self.globalToLocalPoint( event.pointer.point );
+//        },
+//        up: function( event ) {
+//          //release object
+//          self.rotationObject = null;
+//        },
+//        move: function( event ) {
+//          //if we click on arm or leg and move mouse - calculate rotation angle and set it
+//          if ( self.rotationObject ) {
+//            currentPoint = self.globalToLocalPoint( event.pointer.point );
+//            if ( currentPoint.x !== self.rotationObject.x && currentPoint.y !== self.rotationObject.y ) {
+//              var angle = Math.atan2( currentPoint.y - self.rotationObject.model.rotationCenter.y, currentPoint.x - self.rotationObject.model.rotationCenter.x );
+//              angle -= Math.atan2( startPoint.y - self.rotationObject.model.rotationCenter.y, startPoint.x - self.rotationObject.model.rotationCenter.x );
+//              self.rotationObject.model.rotationAngle += angle;
+//              self.rotationObject.rotateAround( self.rotationObject.model.rotationCenter, angle );
+//              startPoint = currentPoint;
+//            }
+//          }
+//        }
+//      }
+//
+//    );
 
     //if new electron added to model - create and add new node to leg
     model.particles.addItemAddedListener( function( item ) {
@@ -85,7 +84,7 @@ define( function( require ) {
     } );
 
     //if last 3 position of leg is correct, add Electron to body
-    model.leg.rotationAngleProperty.link( function legRotated( angle ) {
+    model.leg.angleProperty.link( function legRotated( angle ) {
       var history = model.leg.angleHistory;
       var mustAddElectron = true;
       history.forEach( function( entry ) {

@@ -2,7 +2,7 @@
 
 /**
  * Model of a John-Travoltage.
- * Point charge model. Each charge has a location and box2d instance.
+ * Point charge model. Each charge has a position and box2d instance.
  * @author Vasily Shakhov (Mlearner)
  */
 define( function( require ) {
@@ -47,20 +47,20 @@ define( function( require ) {
 
   return inherit( PropertySet, PointChargeModel, {
     getCenter: function() {
-      return new Vector2( this.location.x + this.radius, this.location.y + this.radius );
+      return new Vector2( this.position.x + this.radius, this.position.y + this.radius );
     },
     step: function( globalModel ) {
 //      var self = this;
-//      var location = new Vector2( self.box2DInstance.m_xf.position.x, self.box2DInstance.m_xf.position.y );
+//      var position = new Vector2( self.box2DInstance.m_xf.position.x, self.box2DInstance.m_xf.position.y );
 //      //check if we in arm or leg, we must rotate this to keep charge inside arm/leg
-//      if ( location.x > globalModel.leg.location.x && location.y > globalModel.leg.location.y ) {
-//        location = globalModel.leg.rotationCenter.plus( location.minus( globalModel.leg.rotationCenter ).rotated( globalModel.leg.rotationAngle ) );
+//      if ( position.x > globalModel.leg.position.x && position.y > globalModel.leg.position.y ) {
+//        position = globalModel.leg.rotationCenter.plus( position.minus( globalModel.leg.rotationCenter ).rotated( globalModel.leg.rotationAngle ) );
 //      }
-//      else if ( location.x > globalModel.arm.location.x && location.y > globalModel.arm.location.y ) {
-//        location = globalModel.arm.rotationCenter.plus( location.minus( globalModel.arm.rotationCenter ).rotated( globalModel.arm.rotationAngle ) );
+//      else if ( position.x > globalModel.arm.position.x && position.y > globalModel.arm.position.y ) {
+//        position = globalModel.arm.rotationCenter.plus( position.minus( globalModel.arm.rotationCenter ).rotated( globalModel.arm.rotationAngle ) );
 //      }
 //
-//      this.location = location;
+//      this.position = position;
     }
 
   } );

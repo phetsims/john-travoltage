@@ -56,7 +56,7 @@ define( function( require ) {
     },
     //change and update spark when arm moved
     checkAndUpdateSpark: function( armModel ) {
-      this.source = armModel.getFingerLocation();
+      this.source = armModel.getFingerPosition();
       this.update();
     },
     //if sparks visible, update view

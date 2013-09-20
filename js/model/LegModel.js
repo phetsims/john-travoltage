@@ -13,11 +13,9 @@ define( function( require ) {
   var Vector2 = require( 'DOT/Vector2' );
 
   function LegModel( x, y ) {
-    PropertySet.call( this, {
-      rotationAngle: 0
-    } );
-    this.location = new Vector2( x, y );
-    this.rotationCenter = new Vector2( x + 5, y + 10 );
+    PropertySet.call( this, { angle: 1.3175443221852239  } );
+    this.position = new Vector2( x, y );
+
     //last 3 angles of leg, need to addElectron function in JohnTravoltageModel
     this.angleHistory = new Array( 3 );
   }

@@ -52,7 +52,7 @@ define( function( require ) {
 //          var force = self.getDischargeForce( entry.box2DInstance );
 //          entry.box2DInstance.ApplyForce( force, entry.box2DInstance.GetWorldCenter() );
 //          //if near finger - remove particle
-//          if ( globalModel.arm.getFingerLocation().distance( entry.location ) < 30 ) {
+//          if ( globalModel.arm.getFingerposition().distance( entry.position ) < 30 ) {
 //            entry.removed = true;
 //          }
 //        } );
@@ -102,10 +102,10 @@ define( function( require ) {
     //when we got spark, electrons moved to finger
     //calculate force along forceline
     getDischargeForce: function( body ) {
-      var bodyLocation = new Vector2( body.m_xf.position.x, body.m_xf.position.y );
+      var bodyPosition = new Vector2( body.m_xf.position.x, body.m_xf.position.y );
       //get closest forceline nad apply force to particle
-      var closest = this.getClosestForceLine( bodyLocation );
-      var vec = new Vector2( closest[2], closest[3] ).minus( bodyLocation );
+      var closest = this.getClosestForceLine( bodyPosition );
+      var vec = new Vector2( closest[2], closest[3] ).minus( bodyPosition );
       var k = 30;
       var v = vec.times( (k / Math.pow( vec.magnitude(), 1 )) / vec.magnitude() );
       var max = 10;
@@ -116,11 +116,11 @@ define( function( require ) {
       return v.times( 1000 );
     },
     //find closest forceline
-    getClosestForceLine: function( location ) {
+    getClosestForceLine: function( position ) {
       var closest = null;
       var closestDist = Number.POSITIVE_INFINITY;
       for ( var i = 0; i < this.forceLines.length; i++ ) {
-        var dist = new Vector2( this.forceLines[i][0], this.forceLines[i][1] ).distance( location );
+        var dist = new Vector2( this.forceLines[i][0], this.forceLines[i][1] ).distance( position );
         if ( dist < closestDist ) {
           closest = this.forceLines[i];
           closestDist = dist;

@@ -14,16 +14,16 @@ define( function( require ) {
 
   function ArmModel( x, y ) {
     PropertySet.call( this, {
-      rotationAngle: 0,
-      location: new Vector2( x, y )
+      angle: 0,
+      position: new Vector2( x, y )
     } );
     this.rotationCenter = new Vector2( x + 5, y + 40 );
   }
 
   return inherit( PropertySet, ArmModel, {
     //return Vector2, position of finger, where spark starts
-    getFingerLocation: function() {
-      return this.rotationCenter.plus( new Vector2( 107, 25 ).rotated( this.rotationAngle - 0.5 ) );
+    getFingerPosition: function() {
+      return this.rotationCenter.plus( new Vector2( 107, 25 ).rotated( this.angle - 0.5 ) );
     }
   } );
 } );

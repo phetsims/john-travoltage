@@ -15,7 +15,7 @@ define( function( require ) {
   var Image = require( 'SCENERY/nodes/Image' );
   var JohnTravoltageImages = require( 'JohnTravoltageImages' );
 
-  function BackgroundElementsNode( location ) {
+  function BackgroundElementsNode( position ) {
 
     // super constructor
     Node.call( this, {pickable: false} );
