@@ -17,19 +17,16 @@ define( function( require ) {
   var JohnTravoltageImages = require( 'JohnTravoltageImages' );
   var Circle = require( 'SCENERY/nodes/Circle' );
 
-  function LegNode( leg, scene ) {
-    var legNode = this;
+  function AppendageNode( appendage, image, dx, dy, angleOffset, scene ) {
+    var appendageNode = this;
 
-    // super constructor
-    var dx = 25;
-    var dy = 28;
     Node.call( this, { cursor: 'pointer'} );
 
-    this.model = leg;
+    this.model = appendage;
     var angle = 0;
 
     // add the image
-    var legImageNode = new Image( JohnTravoltageImages.getImage( 'leg.png' ) );
+    var legImageNode = new Image( image );
     this.addChild( legImageNode );
 
     legImageNode.addInputListener( new SimpleDragHandler( {
@@ -37,13 +34,14 @@ define( function( require ) {
       allowTouchSnag: true,
       start: function( event ) {
         this.clickOffset = legImageNode.globalToParentPoint( event.pointer.point ).minus( legImageNode.translation );
-        legNode.border.visible = false;
+        appendageNode.border.visible = false;
       },
       drag: function( event ) {
         var globalPoint = legImageNode.globalToParentPoint( event.pointer.point );
+//        console.log( globalPoint );
         mousePosition.translation = globalPoint;
-        angle = globalPoint.minus( new Vector2( leg.position.x, leg.position.y ) ).angle();
-        leg.angle = angle;
+        angle = globalPoint.minus( new Vector2( appendage.position.x, appendage.position.y ) ).angle();
+        appendage.angle = angle;
       },
       end: function() {
       },
@@ -51,7 +49,7 @@ define( function( require ) {
     } ) );
 
     this.border = new Path( new Shape.roundRect( 0, 0, 140, 160, 10, 10 ), {
-      x: leg.position.x, y: leg.position.y,
+      x: appendage.position.x, y: appendage.position.y,
       stroke: '#f58220',
       lineWidth: 1,
       lineDash: [ 10, 10 ],
@@ -60,20 +58,20 @@ define( function( require ) {
     this.addChild( this.border );
 
     //changes visual position
-    leg.angleProperty.link( function updatePosition( angle ) {
+    appendage.angleProperty.link( function updatePosition( angle ) {
       legImageNode.resetTransform();
-      legImageNode.translate( leg.position.x - dx, leg.position.y - dy );
-      legImageNode.rotateAround( leg.position.plus( new Vector2( 0, 0 ) ), angle - Math.PI / 2 * 0.7 );
+      legImageNode.translate( appendage.position.x - dx, appendage.position.y - dy );
+      legImageNode.rotateAround( appendage.position.plus( new Vector2( 0, 0 ) ), angle - angleOffset );
     } );
 
     //For debugging
-    var origin = new Circle( 10, {fill: 'red', x: leg.position.x, y: leg.position.y} );
-    console.log( leg.position.x, leg.position.y );
+    var origin = new Circle( 10, {fill: 'red', x: appendage.position.x, y: appendage.position.y} );
+//    console.log( appendage.position.x, appendage.position.y );
     this.addChild( origin );
 
     var mousePosition = new Circle( 7, {fill: 'blue', x: 0, y: 0} );
     this.addChild( mousePosition );
   }
 
-  return inherit( Node, LegNode ); // prototype chaining
+  return inherit( Node, AppendageNode ); // prototype chaining
 } );

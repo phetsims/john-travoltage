@@ -12,9 +12,9 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Vector2 = require( 'DOT/Vector2' );
 
-  function LegModel( x, y ) {
+  function LegModel() {
     PropertySet.call( this, { angle: 1.3175443221852239  } );
-    this.position = new Vector2( x, y );
+    this.position = new Vector2( 385 + 18 - 5, 312 + 28 - 5 );
 
     //last 3 angles of leg, need to addElectron function in JohnTravoltageModel
     this.angleHistory = new Array( 3 );

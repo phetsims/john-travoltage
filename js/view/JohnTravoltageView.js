@@ -12,13 +12,14 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var BackgroundElementsNode = require( 'view/BackgroundElementsNode' );
   var ArmNode = require( 'view/ArmNode' );
-  var LegNode = require( 'view/LegNode' );
+  var AppendageNode = require( 'view/AppendageNode' );
   var SparkNode = require( 'view/SparkNode' );
   var MinusChargeNode = require( 'view/MinusChargeNode' );
   var Shape = require( 'KITE/Shape' );
   var Path = require( 'SCENERY/nodes/Path' );
   var Node = require( 'SCENERY/nodes/Node' );
   var SoundToggleButton = require( 'SCENERY_PHET/SoundToggleButton' );
+  var JohnTravoltageImages = require( 'JohnTravoltageImages' );
 
   function JohnTravoltageView( model ) {
     var self = this;
@@ -32,10 +33,10 @@ define( function( require ) {
     this.addChild( new Node( {layerSplit: true, pickable: false} ) );
 
     //arm and leg - only interactive elements
-    this.arm = new ArmNode( model.arm, self );
+    this.arm = new AppendageNode( model.arm, JohnTravoltageImages.getImage( 'arm.png' ), 4, 45, -0.1, self );
     this.addChild( this.arm );
 
-    this.leg = new LegNode( model.leg, self );
+    this.leg = new AppendageNode( model.leg, JohnTravoltageImages.getImage( 'leg.png' ), 25, 28, Math.PI / 2 * 0.7, self );
     this.addChild( this.leg );
 
     //spark

@@ -128,8 +128,8 @@ define( function( require ) {
     PropertySet.call( this, { charge: 0, sound: true } );
 
     this.particles = new ObservableArray( [] );
-    this.arm = new ArmModel( 418, 186 );
-    this.leg = new LegModel( 385 + 18, 312 + 28 );
+    this.arm = new ArmModel();
+    this.leg = new LegModel();
     this.spark = new SparkModel();
     this.box2dModel = new Box2DModel( this.verts, this.forceLines );
     this.sounds = [

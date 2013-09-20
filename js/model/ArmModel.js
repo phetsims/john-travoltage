@@ -13,11 +13,9 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
 
   function ArmModel( x, y ) {
-    PropertySet.call( this, {
-      angle: 0,
-      position: new Vector2( x, y )
-    } );
+    PropertySet.call( this, { angle: 0 } );
     this.rotationCenter = new Vector2( x + 5, y + 40 );
+    this.position = new Vector2( 423.6179673321235, 229.84969476984 );
   }
 
   return inherit( PropertySet, ArmModel, {
