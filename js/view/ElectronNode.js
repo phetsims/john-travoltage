@@ -53,9 +53,11 @@ define( function( require ) {
     Node.call( this, {pickable: false} );
 
     this.addChild( node );
+    var width = node.width;
+    var height = node.height;
 
     electron.positionProperty.link( function( position ) {
-      self.setTranslation( position.x, position.y );
+      self.setTranslation( position.x - node.width / 2, position.y - node.height / 2 );
     } );
   }
 

@@ -100,20 +100,22 @@ define( function( require ) {
         johnTravoltageModel.addElectron();
       }
     } );
+
+    var array = [];
+    for ( var i = 0; i < this.verts.length - 1; i++ ) {
+      var current = this.verts[i];
+      var next = this.verts[i + 1];
+      array.push( new LineSegment( current.x, current.y, next.x, next.y ) );
+    }
+    //TODO: store, do not reallocate
+    array.push( new LineSegment( this.verts[this.verts.length - 1].x, this.verts[this.verts.length - 1].y, this.verts[0].x, this.verts[0].y ) );
+    this.lineSegments = array;
   }
 
   return inherit( PropertySet, JohnTravoltageModel, {
 
     getLineSegments: function() {
-      var array = [];
-      for ( var i = 0; i < this.verts.length - 1; i++ ) {
-        var current = this.verts[i];
-        var next = this.verts[i + 1];
-        array.push( new LineSegment( current.x, current.y, next.x, next.y ) );
-      }
-      //TODO: store, do not reallocate
-      array.push( new LineSegment( this.verts[this.verts.length - 1].x, this.verts[this.verts.length - 1].y, this.verts[0].x, this.verts[0].y ) );
-      return array;
+      return this.lineSegments;
     },
     // Called by the animation loop
     step: function( dt ) {
