@@ -3,7 +3,9 @@
 /**
  * Model of a John-Travoltage.
  * Spark model between arm and door.
+ *
  * @author Vasily Shakhov (Mlearner)
+ * @author Sam Reid
  */
 define( function( require ) {
   'use strict';

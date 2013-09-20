@@ -3,11 +3,12 @@
 /**
  * Model of a John-Travoltage.
  * Point charge model. Each charge has a position and box2d instance.
+ *
  * @author Vasily Shakhov (Mlearner)
+ * @author Sam Reid
  */
 define( function( require ) {
   'use strict';
-
 
   var x = {
     util1: function() {console.log( 'util1' )},

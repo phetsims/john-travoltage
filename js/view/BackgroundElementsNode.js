@@ -2,7 +2,9 @@
 
 /**
  * Background static elements of simulation
+ *
  * @author Vasily Shakhov (Mlearner)
+ * @author Sam Reid
  */
 define( function( require ) {
   'use strict';

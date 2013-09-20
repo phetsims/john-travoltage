@@ -3,7 +3,9 @@
 /**
  * main Model container.
  * creates box2d model, checks condition for spark
+ *
  * @author Vasily Shakhov (Mlearner.com)
+ * @author Sam Reid
  */
 define( function( require ) {
   'use strict';

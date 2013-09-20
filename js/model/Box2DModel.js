@@ -3,7 +3,8 @@
 /**
  * Box2D physical model. Calculates position of electrons within physical body.
  * Calculates electical force and then motion along forcelines, when discharge happens
- * Author: Vasily Shakhov (Mlearner)
+ * @author Vasily Shakhov (Mlearner)
+ * @author Sam Reid
  */
 define( function( require ) {
   'use strict';

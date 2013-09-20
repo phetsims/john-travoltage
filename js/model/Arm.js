@@ -4,6 +4,7 @@
  * Arm model of a John-Travoltage.
  * Can rotate around rotation center.
  * @author Vasily Shakhov (Mlearner)
+ * @author Sam Reid
  */
 define( function( require ) {
   'use strict';

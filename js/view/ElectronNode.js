@@ -2,7 +2,9 @@
 
 /**
  * Scenery display object (scene graph node) for minusCharge.
+ *
  * @author Vasily Shakhov (Mlearner)
+ * @author Sam Reid
  */
 define( function( require ) {
   'use strict';

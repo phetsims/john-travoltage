@@ -3,6 +3,7 @@
 /**
  * RequireJS configuration file for the sim.
  *
+ * @author Vasily Shakhov (Mlearner)
  * @author Chris Malley (PixelZoom, Inc.)
  * @author Sam Reid (PhET Interactive Simulations)
  */

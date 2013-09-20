@@ -3,7 +3,9 @@
 
 /**
  * Main ScreenView of simulation. Drawing starts here
+ *
  * @author Vasily Shakhov (Mlearner)
+ * @author Sam Reid
  */
 define( function( require ) {
   'use strict';

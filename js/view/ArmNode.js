@@ -2,7 +2,9 @@
 
 /**
  * Scenery display object (scene graph node) for the arm of the model.
+ *
  * @author Vasily Shakhov (Mlearner)
+ * @author Sam Reid
  */
 define( function( require ) {
   'use strict';

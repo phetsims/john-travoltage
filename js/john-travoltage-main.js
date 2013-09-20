@@ -3,6 +3,7 @@
 /**
  * Main entry point for the sim.
  *
+ * @author Vasily Shakhov (Mlearner)
  * @author Sam Reid (PhET Interactive Simulations)
  */
 require( [

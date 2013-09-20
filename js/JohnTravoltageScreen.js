@@ -1,4 +1,10 @@
 // Copyright 2002-2013, University of Colorado Boulder
+
+/**
+ * Screen for John Travoltage
+ *
+ * @author Sam Reid
+ */
 define( function( require ) {
   var Strings = require( 'Strings' );
   var JohnTravoltageModel = require( 'JOHN_TRAVOLTAGE/model/JohnTravoltageModel' );
