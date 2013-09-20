@@ -14,19 +14,13 @@ require( [
   'JOIST/Sim',
   'model/JohnTravoltageModel',
   'view/JohnTravoltageView',
-  'JohnTravoltageImages'
-], function( SimLauncher, Text, Rectangle, Strings, Sim, JohnTravoltageModel, JohnTravoltageView, JohnTravoltageImages ) {
+  'JohnTravoltageImages',
+  'JohnTravoltageScreen'
+], function( SimLauncher, Text, Rectangle, Strings, Sim, JohnTravoltageModel, JohnTravoltageView, JohnTravoltageImages, JohnTravoltageScreen ) {
   'use strict';
 
   //Create and start the sim
   SimLauncher.launch( JohnTravoltageImages, function() {
-    new Sim( Strings['johnTravoltage.name'], [
-      {
-        name: Strings['johnTravoltage.name'],
-        createModel: function() {return new JohnTravoltageModel( 834, 504 );},
-        createView: function( model ) {return new JohnTravoltageView( model );},
-        backgroundColor: '#9ddcf8'
-      }
-    ] ).start();
+    new Sim( Strings['johnTravoltage.name'], [new JohnTravoltageScreen()] ).start();
   } );
 } );
