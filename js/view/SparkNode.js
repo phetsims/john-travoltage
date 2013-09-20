@@ -20,14 +20,13 @@ define( function( require ) {
   function SparkNode( model, arm, box2dModel ) {
     var self = this;
 
-    // super constructor
     Node.call( this, {pickable: false} );
 
     var customBackgroundShape = new Shape();
     var backgroundPath = new Path( customBackgroundShape, {
       stroke: 'white',
       lineWidth: 4,
-      pickable: false,
+      pickable: false
     } );
     this.addChild( backgroundPath );
 

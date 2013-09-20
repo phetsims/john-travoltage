@@ -20,7 +20,6 @@ define( function( require ) {
   function ArmNode( model, scene ) {
     var self = this;
 
-    // super constructor
     Node.call( this, { cursor: 'pointer' } );
 
     this.x = model.position.x;

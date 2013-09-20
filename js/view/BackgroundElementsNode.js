@@ -19,7 +19,6 @@ define( function( require ) {
 
   function BackgroundElementsNode( position ) {
 
-    // super constructor
     Node.call( this, {pickable: false} );
 
     //wallpapers
