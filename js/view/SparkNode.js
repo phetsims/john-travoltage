@@ -55,9 +55,9 @@ define( function( require ) {
       backgroundPath.shape = customBackgroundShape;
     } );
 
-    armModel.angleProperty.link( function checkAndUpdateSpark() {
-      model.checkAndUpdateSpark( armModel );
-    } );
+//    armModel.angleProperty.link( function checkAndUpdateSpark() {
+//      model.checkAndUpdateSpark( armModel );
+//    } );
 
     box2dModel.isSparkProperty.link( function setSparkVisibility( isVisible ) {
       self.visible = isVisible;
