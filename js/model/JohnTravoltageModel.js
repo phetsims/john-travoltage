@@ -149,7 +149,7 @@ define( function( require ) {
     addElectron: function() {
 
       //TODO: use phet-core Poolable?
-      this.particles.add( new Electron( this.verts[0].x + 50 + 50 * Math.random(), this.verts[0].y - 75 + 50 * Math.random() ) );
+      this.particles.add( new Electron( this.verts[0].x + 50 + 50 * Math.random(), this.verts[0].y - 75 + 50 * Math.random(), this ) );
     }
   } );
 } );
