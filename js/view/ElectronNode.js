@@ -53,29 +53,76 @@ define( function( require ) {
 
   var legBounds = new Rect( 368.70275791624107, 332.0122574055158, 600, 600 );
 
-  function ElectronNode( electron, model, leg ) {
-    var self = this;
+  function ElectronNode( electron, model, leg, legNode, johnTravoltageView ) {
+    var electronNode = this;
 
     Node.call( this, {pickable: false} );
 
     this.addChild( node );
-    var width = node.width;
-    var height = node.height;
+    var width = this.width;
+    var height = this.height;
 
+//    var debugPoint = new Circle( 3, {fill: 'yellow'} );
+//    johnTravoltageView.addChild( debugPoint );
+
+    var history = [];
+    for ( var i = 0; i < 10; i++ ) {
+      history.push( 'leg' );
+    }
+
+    var legText = 'leg';
+    var bodyText = 'body';
     electron.positionProperty.link( function( position ) {
 
-      //If in the leg, then show it at the correctly rotated angle
-      if ( legBounds.containsPoint( position ) ) {
+      history.push( legBounds.containsPoint( position ) ? legText : bodyText );
+      if ( history.length > 10 ) {
+        history.shift();
+      }
 
+      var inLegCount = 0;
+      var inBodyCount = 0;
+      for ( var i = 0; i < history.length; i++ ) {
+        var element = history[i];
+        if ( element === legText ) {
+          inLegCount++;
+        }
+        else {
+          inBodyCount++;
+        }
+      }
+
+      //If in the leg, then show it at the correctly rotated angle
+      if ( inLegCount === history.length ) {
         var legPoint = leg.position;
+
+        //The vector relative to the leg pivot
         var dr = new Vector2( position.x - legPoint.x, position.y - legPoint.y );
+
+        //The leg'legText rotated angle
         var deltaAngle = leg.deltaAngle();
         dr = dr.rotated( deltaAngle ).plus( legPoint );
-        self.setTranslation( dr.x, dr.y );
+        electronNode.setTranslation( dr.x - node.width / 2, dr.y - node.height / 2 );
       }
+      else if ( inBodyCount === history.length ) {
+        electronNode.setTranslation( position.x - node.width / 2, position.y - node.height / 2 );
+      }
+
+      //Interpolate for smoothness at odd angles
       else {
-        self.setTranslation( position.x - node.width / 2, position.y - node.height / 2 );
+
+        var legPoint = leg.position;
+
+        var dr = new Vector2( position.x - legPoint.x, position.y - legPoint.y );
+
+        var deltaAngle = leg.deltaAngle();
+        dr = dr.rotated( deltaAngle ).plus( legPoint );
+        var a = new Vector2( dr.x - node.width / 2, dr.y - node.height / 2 );
+        var b = new Vector2( position.x - node.width / 2, position.y - node.height / 2 );
+        var c = a.blend( b, inBodyCount / history.length );
+        electronNode.setTranslation( c.x, c.y );
       }
+
+//      debugPoint.setTranslation( position.x, position.y );
     } );
   }
 

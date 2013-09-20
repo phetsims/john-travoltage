@@ -25,7 +25,7 @@ define( function( require ) {
   var JohnTravoltageImages = require( 'JOHN_TRAVOLTAGE/JohnTravoltageImages' );
 
   function JohnTravoltageView( model ) {
-    var self = this;
+    var johnTravoltageView = this;
 
     ScreenView.call( this, {renderer: 'svg'} );
 
@@ -37,7 +37,7 @@ define( function( require ) {
     this.addInputListener( {
       down: function( event ) {
         var pt = event.pointer.point;
-        var global = self.globalToLocalPoint( pt );
+        var global = johnTravoltageView.globalToLocalPoint( pt );
         var a = 'new Vector2(' + global.x + ',' + global.y + '),\n';
 
         string = string + a;
@@ -52,10 +52,10 @@ define( function( require ) {
     this.addChild( new Node( {layerSplit: true, pickable: false} ) );
 
     //arm and leg - only interactive elements
-    this.arm = new AppendageNode( model.arm, JohnTravoltageImages.getImage( 'arm.png' ), 4, 45, -0.1, self );
+    this.arm = new AppendageNode( model.arm, JohnTravoltageImages.getImage( 'arm.png' ), 4, 45, -0.1, johnTravoltageView );
     this.addChild( this.arm );
 
-    this.leg = new AppendageNode( model.leg, JohnTravoltageImages.getImage( 'leg.png' ), 25, 28, Math.PI / 2 * 0.7, self );
+    this.leg = new AppendageNode( model.leg, JohnTravoltageImages.getImage( 'leg.png' ), 25, 28, Math.PI / 2 * 0.7, johnTravoltageView );
     this.addChild( this.leg );
 
     //spark
@@ -75,7 +75,7 @@ define( function( require ) {
     //if new electron added to model - create and add new node to leg
     //TODO: Pooling for creation and use visible instead of addChild for performance
     model.particles.addItemAddedListener( function( item ) {
-      var newElectron = new ElectronNode( item, model, model.leg );
+      var newElectron = new ElectronNode( item, model, model.leg, johnTravoltageView.leg, johnTravoltageView );
       item.viewNode = newElectron;
       electronLayer.addChild( newElectron );
     } );

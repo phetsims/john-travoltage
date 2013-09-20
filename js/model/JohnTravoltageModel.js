@@ -115,7 +115,7 @@ define( function( require ) {
     ];
 
     //if last 3 position of leg is correct, add Electron to body
-    this.leg.angleProperty.link( function( angle ) {
+    this.leg.angleProperty.lazyLink( function( angle ) {
       if ( angle < 0.1 || angle > 0.8 ) {
         johnTravoltageModel.addElectron();
       }
