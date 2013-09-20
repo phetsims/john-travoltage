@@ -23,7 +23,7 @@ define( function( require ) {
   function JohnTravoltageView( model ) {
     var self = this;
 
-    ScreenView.call( this );
+    ScreenView.call( this, {renderer: 'svg'} );
 
     //add background elements
     this.addChild( new BackgroundElementsNode() );
@@ -120,7 +120,6 @@ define( function( require ) {
         stroke: 'green',
         lineWidth: 1,
         pickable: false,
-        renderer: 'svg',
         x: 255,
         y: -135
       } );
@@ -136,7 +135,6 @@ define( function( require ) {
           stroke: 'red',
           lineWidth: 1,
           pickable: false,
-          renderer: 'svg',
           x: 0,
           y: 0
         } );

@@ -26,7 +26,6 @@ define( function( require ) {
       stroke: 'white',
       lineWidth: 4,
       pickable: false,
-      renderer: 'svg'
     } );
     this.addChild( backgroundPath );
 
@@ -34,8 +33,7 @@ define( function( require ) {
     var path = new Path( customShape, {
       stroke: 'blue',
       lineWidth: 1,
-      pickable: false,
-      renderer: 'svg'
+      pickable: false
     } );
     this.addChild( path );
 
