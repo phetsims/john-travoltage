@@ -13,6 +13,7 @@ define( function( require ) {
   var Box2DModel = require( 'JOHN_TRAVOLTAGE/model/Box2DModel' );
   var SparkModel = require( 'JOHN_TRAVOLTAGE/model/SparkModel' );
   var Electron = require( 'JOHN_TRAVOLTAGE/model/Electron' );
+  var LineSegment = require( 'JOHN_TRAVOLTAGE/model/LineSegment' );
   var Property = require( 'AXON/Property' );
   var ObservableArray = require( 'AXON/ObservableArray' );
   var PropertySet = require( 'AXON/PropertySet' );
@@ -102,6 +103,18 @@ define( function( require ) {
   }
 
   return inherit( PropertySet, JohnTravoltageModel, {
+
+    getLineSegments: function() {
+      var array = [];
+      for ( var i = 0; i < this.verts.length - 1; i++ ) {
+        var current = this.verts[i];
+        var next = this.verts[i + 1];
+        array.push( new LineSegment( current.x, current.y, next.x, next.y ) );
+      }
+      //TODO: store, do not reallocate
+      array.push( new LineSegment( this.verts[this.verts.length - 1].x, this.verts[this.verts.length - 1].y, this.verts[0].x, this.verts[0].y ) );
+      return array;
+    },
     // Called by the animation loop
     step: function( dt ) {
       var self = this;
