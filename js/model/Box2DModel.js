@@ -12,47 +12,23 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Vector2 = require( 'DOT/Vector2' );
 
-  //Rename the constructors from Box2D to upper case so they will pass our linting with newcap:true
-  var
-    B2Vec2 = Box2D.Common.Math.b2Vec2,
-    B2BodyDef = Box2D.Dynamics.b2BodyDef,
-    B2Body = Box2D.Dynamics.b2Body,
-    B2FixtureDef = Box2D.Dynamics.b2FixtureDef,
-    B2World = Box2D.Dynamics.b2World,
-    B2PolygonShape = Box2D.Collision.Shapes.b2PolygonShape;
-
   function Box2DModel( verts, forceLines ) {
     PropertySet.call( this, {
       isSpark: false
     } );
 
-    //creation of new world, full manual http://box2d.org/manual.pdf
-    this.world = new B2World( new B2Vec2( 0, 0 ), true ); //gravity, allow sleep
-
-    //params of border of the body
-    var fixDef = new B2FixtureDef();
-    fixDef.density = 1.0;
-    fixDef.friction = 100;
-    fixDef.restitution = 0;
-
-    var bodyDef = new B2BodyDef();
-
-    //create body border
-    bodyDef.type = B2Body.b2_staticBody;
-    bodyDef.position.x = 255;
-    bodyDef.position.y = -135;
-    fixDef.shape = new B2PolygonShape();
-    for ( var i = 0; i < verts.length - 1; i++ ) {
-      //create ground
-      var vert1 = new B2Vec2( verts[i][0], verts[i][1] );
-      var vert2 = new B2Vec2( verts[i + 1][0], verts[i + 1][1] );
-
-      fixDef.shape = new B2PolygonShape();
-      fixDef.shape.SetAsEdge( vert1, vert2 );
-      //fixDef.shape.SetAsBox(10, 0.5);
-      var body = this.world.CreateBody( bodyDef );
-      body.CreateFixture( fixDef );
-    }
+//    fixDef.shape = new B2PolygonShape();
+//    for ( var i = 0; i < verts.length - 1; i++ ) {
+//      //create ground
+//      var vert1 = new B2Vec2( verts[i][0], verts[i][1] );
+//      var vert2 = new B2Vec2( verts[i + 1][0], verts[i + 1][1] );
+//
+//      fixDef.shape = new B2PolygonShape();
+//      fixDef.shape.SetAsEdge( vert1, vert2 );
+//      //fixDef.shape.SetAsBox(10, 0.5);
+//      var body = this.world.CreateBody( bodyDef );
+//      body.CreateFixture( fixDef );
+//    }
     //forcelines lines - when spark happens we use it to calculate motion of electrons
     this.forceLines = forceLines;
   }
@@ -60,66 +36,68 @@ define( function( require ) {
   return inherit( PropertySet, Box2DModel, {
     step: function( globalModel ) {
       //calculate all forces on particles
-      this.applyForces( globalModel );
-      this.world.Step( 1 / 2, 32, 2 ); //frame-rate, velocity iterations, position iterations
-      //more about this params and using http://box2d.org/manual.pdf paragraph 2.4
-      //clear forces
-      this.world.ClearForces();
+//      this.applyForces( globalModel );
+//      this.world.Step( 1 / 2, 32, 2 ); //frame-rate, velocity iterations, position iterations
+//      //more about this params and using http://box2d.org/manual.pdf paragraph 2.4
+//      //clear forces
+//      this.world.ClearForces();
     },
     //apply forces to each particle
     applyForces: function( globalModel ) {
-      var self = this;
-      //if spark - we use forcelines, else electical field from other particles
-      if ( this.isSpark ) {
-        globalModel.particles.forEach( function( entry ) {
-          //find closest forceline and calculate force
-          var force = self.getDischargeForce( entry.box2DInstance );
-          entry.box2DInstance.ApplyForce( force, entry.box2DInstance.GetWorldCenter() );
-          //if near finger - remove particle
-          if ( globalModel.arm.getFingerLocation().distance( entry.location ) < 30 ) {
-            entry.removed = true;
-          }
-        } );
-      }
-      else {
-        globalModel.particles.forEach( function( entry ) {
-          //sum of forces from other particles
-          var force = self.calculateSumOfForces( entry.box2DInstance, globalModel.particles );
-          entry.box2DInstance.ApplyForce( force, entry.box2DInstance.GetWorldCenter() );
-        } );
-      }
+//      var self = this;
+//      //if spark - we use forcelines, else electical field from other particles
+//      if ( this.isSpark ) {
+//        globalModel.particles.forEach( function( entry ) {
+//          //find closest forceline and calculate force
+//          var force = self.getDischargeForce( entry.box2DInstance );
+//          entry.box2DInstance.ApplyForce( force, entry.box2DInstance.GetWorldCenter() );
+//          //if near finger - remove particle
+//          if ( globalModel.arm.getFingerLocation().distance( entry.location ) < 30 ) {
+//            entry.removed = true;
+//          }
+//        } );
+//      }
+//      else {
+//        globalModel.particles.forEach( function( entry ) {
+//          //sum of forces from other particles
+//          var force = self.calculateSumOfForces( entry.box2DInstance, globalModel.particles );
+//          entry.box2DInstance.ApplyForce( force, entry.box2DInstance.GetWorldCenter() );
+//        } );
+//      }
 
     },
     //get sum of electrical forces to body from other particles
     calculateSumOfForces: function( body, particles ) {
-      var self = this;
-      var sumVector = new B2Vec2();
-      particles.forEach( function( entry ) {
-        if ( body !== entry.box2DInstance ) {
-          sumVector.Add( self.getForce( body, entry.box2DInstance ) );
-        }
-      } );
-      return sumVector;
+//      var self = this;
+//      var sumVector = new B2Vec2();
+//      particles.forEach( function( entry ) {
+//        if ( body !== entry.box2DInstance ) {
+//          sumVector.Add( self.getForce( body, entry.box2DInstance ) );
+//        }
+//      } );
+//      return sumVector;
+      return {};
     },
     //get single force between two particles
     getForce: function( body, entry ) {
-      var k = 5;
-      var force = new B2Vec2( 0, 0 );
-      var distanceVector = body.GetWorldCenter().Copy();
-      distanceVector.Subtract( entry.GetWorldCenter() );
-      var distanceLength = distanceVector.Length();
-      if ( distanceLength > 1 ) {
-        distanceVector.Multiply( 1000 * k / Math.pow( distanceLength, 2.5 ) );
-        var max = 0.05;
-        if ( distanceVector.Length() > max ) {
-          distanceVector.Multiply( max / distanceVector.Length() );
-        }
-        return distanceVector;
-      }
-      else {
-        force.Multiply( 1000 );
-        return force;
-      }
+//      var k = 5;
+//      var force = new B2Vec2( 0, 0 );
+//      var distanceVector = body.GetWorldCenter().Copy();
+//      distanceVector.Subtract( entry.GetWorldCenter() );
+//      var distanceLength = distanceVector.Length();
+//      if ( distanceLength > 1 ) {
+//        distanceVector.Multiply( 1000 * k / Math.pow( distanceLength, 2.5 ) );
+//        var max = 0.05;
+//        if ( distanceVector.Length() > max ) {
+//          distanceVector.Multiply( max / distanceVector.Length() );
+//        }
+//        return distanceVector;
+//      }
+//      else {
+//        force.Multiply( 1000 );
+//        return force;
+//      }
+      return {};
     },
     //when we got spark, electrons moved to finger
     //calculate force along forceline

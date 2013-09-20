@@ -16,6 +16,7 @@ define( function( require ) {
   var Property = require( 'AXON/Property' );
   var PropertySet = require( 'AXON/PropertySet' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var Sound = require( 'VIBE/Sound' );
 
   function JohnTravoltage() {
 
@@ -132,8 +133,8 @@ define( function( require ) {
     this.spark = new SparkModel();
     this.box2dModel = new Box2DModel( this.verts, this.forceLines );
     this.sounds = [
-      new Howl( {urls: ['audio/OuchSmallest.mp3', 'audio/OuchSmallest.ogg']} ),
-      new Howl( {urls: ['audio/ShockSmallest.mp3', 'audio/ShockSmallest.ogg']} )
+      new Sound( 'audio/OuchSmallest.mp3' ),
+      new Sound( 'audio/ShockSmallest.mp3' )
     ];
   }
 

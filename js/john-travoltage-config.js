@@ -28,13 +28,10 @@ require.config( {
     AXON: '../../axon/js',
     SUN: '../../sun/js',
     JOIST: '../../joist/js',
-
-    // contrib dependencies required by common directories
-    stats: '../../phetcommon/contrib/stats-r11',
+    VIBE: '../../vibe/js',
 
     // local contrib dependencies
-    i18n: '../lib/i18n-2.0.2',
-    tpl: '../lib/tpl-0.2'
+    i18n: '../../sherpa/i18n-2.0.4'
   },
 
   config: {
