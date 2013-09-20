@@ -41,8 +41,7 @@ define( function( require ) {
       x: 0, y: 0,
       stroke: '#f58220',
       lineWidth: 1,
-      lineDash: [ 10, 10 ],
-      renderer: 'svg'
+      lineDash: [ 10, 10 ]
     } );
     this.addChild( this.border );
 
