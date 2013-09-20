@@ -65,11 +65,11 @@ define( function( require ) {
     } );
 
     //For debugging
-    var origin = new Circle( 10, {fill: 'red', x: appendage.position.x, y: appendage.position.y} );
+    var origin = new Circle( 10, {fill: 'red', x: appendage.position.x, y: appendage.position.y, pickable: false} );
 //    console.log( appendage.position.x, appendage.position.y );
     this.addChild( origin );
 
-    var mousePosition = new Circle( 7, {fill: 'blue', x: 0, y: 0} );
+    var mousePosition = new Circle( 7, {fill: 'blue', x: 0, y: 0, pickable: false} );
     this.addChild( mousePosition );
   }
 
