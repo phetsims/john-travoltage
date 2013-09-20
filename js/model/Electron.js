@@ -17,7 +17,6 @@ define( function( require ) {
       position: new Vector2( x, y )
     } );
 
-
     //create physical model of pointcharge
 //    var bodyDef = new Box2D.Dynamics.b2BodyDef();
 //    var b2Body = Box2D.Dynamics.b2Body;
@@ -46,9 +45,6 @@ define( function( require ) {
   Electron.charge = -1;
 
   return inherit( PropertySet, Electron, {
-    getCenter: function() {
-      return new Vector2( this.position.x + this.radius, this.position.y + this.radius );
-    },
     step: function( globalModel ) {
 //      var self = this;
 //      var position = new Vector2( self.box2DInstance.m_xf.position.x, self.box2DInstance.m_xf.position.y );

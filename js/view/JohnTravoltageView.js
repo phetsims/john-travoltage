@@ -84,20 +84,6 @@ define( function( require ) {
       self.addChild( newElectron );
     } );
 
-    //if last 3 position of leg is correct, add Electron to body
-    model.leg.angleProperty.link( function legRotated( angle ) {
-      var history = model.leg.angleHistory;
-      var mustAddElectron = true;
-      history.forEach( function( entry ) {
-        if ( entry < 0.1 || entry > 0.8 ) {
-          mustAddElectron = false;
-        }
-      } );
-      if ( mustAddElectron ) {
-        model.addElectron();
-      }
-    } );
-
     // debug lines, body and forceline, uncomment this to view physical bounds of body
 //     borders are approximatly 8px = radius of particle from physical body, because physical raduis of electron = 1 in box2D
 //     larger physical radius of electron causes many bugs and model become very slow

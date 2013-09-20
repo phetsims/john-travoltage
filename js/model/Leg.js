@@ -17,7 +17,11 @@ define( function( require ) {
     this.position = new Vector2( 385 + 18 - 5, 312 + 28 - 5 );
 
     //last 3 angles of leg, need to addElectron function in JohnTravoltageModel
-    this.angleHistory = new Array( 3 );
+    this.angleHistory = [this.angle, this.angle, this.angle];
+    this.angleProperty.addListener( function( angle ) {
+      angles.push( angle );
+      angles.shift();
+    } );
   }
 
   return inherit( PropertySet, Leg );

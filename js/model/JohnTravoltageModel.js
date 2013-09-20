@@ -19,8 +19,8 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Sound = require( 'VIBE/Sound' );
 
-  function JohnTravoltage() {
-
+  function JohnTravoltageModel() {
+    var johnTravoltageModel = this;
     //vertices of path, border of body
     this.verts = [
       [170, 207],
@@ -136,9 +136,16 @@ define( function( require ) {
       new Sound( 'audio/OuchSmallest.mp3' ),
       new Sound( 'audio/ShockSmallest.mp3' )
     ];
+
+    //if last 3 position of leg is correct, add Electron to body
+    this.leg.angleProperty.link( function( angle ) {
+      if ( angle < 0.1 || angle > 0.8 ) {
+        johnTravoltageModel.addElectron();
+      }
+    } );
   }
 
-  return inherit( PropertySet, JohnTravoltage, {
+  return inherit( PropertySet, JohnTravoltageModel, {
     // Called by the animation loop
     step: function() {
       var self = this;
