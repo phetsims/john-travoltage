@@ -7,7 +7,7 @@ define( function( require ) {
   function JohnTravoltageScreen() {
     return {
       name: Strings['johnTravoltage.name'],
-      createModel: function() {return new JohnTravoltageModel( 834, 504 );},
+      createModel: function() {return new JohnTravoltageModel();},
       createView: function( model ) {return new JohnTravoltageView( model );},
       backgroundColor: '#9ddcf8'
     };
