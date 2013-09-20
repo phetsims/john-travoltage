@@ -125,7 +125,7 @@ define( function( require ) {
     ];
 
     //Properties of the model.  All user settings belong in the model, whether or not they are part of the physical model
-    PropertySet.call( this, { charge: 0, sound: true } );
+    PropertySet.call( this, { sound: true } );
 
     this.particles = new ObservableArray( [] );
     this.arm = new Arm();
@@ -147,7 +147,7 @@ define( function( require ) {
 
   return inherit( PropertySet, JohnTravoltageModel, {
     // Called by the animation loop
-    step: function() {
+    step: function( dt ) {
       var self = this;
 
       //if spark we must removed electrons from finger
@@ -187,13 +187,13 @@ define( function( require ) {
 //      this.box2dModel.step( this );
 //      this.spark.step();
       this.particles.forEach( function( entry ) {
-        entry.step( self );
+        entry.step( dt, self );
       } );
     },
     addElectron: function() {
-      this.particles.push( new Electron( 460, 450, this.box2dModel.world ) );
-      this.particlesLength++;
-      this.charge++;
+
+      //TODO: use phet-core Poolable?
+      this.particles.add( new Electron( 460 + 50 * Math.random(), 450 + 50 * Math.random(), this.box2dModel.world ) );
     }
   } );
 } );

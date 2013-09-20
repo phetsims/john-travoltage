@@ -14,7 +14,7 @@ define( function( require ) {
   var ArmNode = require( 'JOHN_TRAVOLTAGE/view/ArmNode' );
   var AppendageNode = require( 'JOHN_TRAVOLTAGE/view/AppendageNode' );
   var SparkNode = require( 'JOHN_TRAVOLTAGE/view/SparkNode' );
-  var MinusChargeNode = require( 'JOHN_TRAVOLTAGE/view/MinusChargeNode' );
+  var ElectronNode = require( 'JOHN_TRAVOLTAGE/view/ElectronNode' );
   var Shape = require( 'KITE/Shape' );
   var Path = require( 'SCENERY/nodes/Path' );
   var Node = require( 'SCENERY/nodes/Node' );
@@ -49,7 +49,9 @@ define( function( require ) {
     this.rotationObject = null;
 
     //Split layers before particle layer for performance
-    this.addChild( new Node( {layerSplit: true, pickable: false} ) );
+    //Use a layer for electrons so it has only one pickable flag, perhaps may improve performance compared to iterating over all electrons to see if they are pickable?
+    var electronLayer = new Node( {layerSplit: true, pickable: false} );
+    this.addChild( electronLayer );
 
     //listener to rotate arm or leg if needed
 //    this.addInputListener( {
@@ -79,7 +81,7 @@ define( function( require ) {
 
     //if new electron added to model - create and add new node to leg
     model.particles.addItemAddedListener( function( item ) {
-      var newElectron = new MinusChargeNode( item );
+      var newElectron = new ElectronNode( item );
       item.viewNode = newElectron;
       self.addChild( newElectron );
     } );

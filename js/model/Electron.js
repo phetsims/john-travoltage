@@ -45,7 +45,8 @@ define( function( require ) {
   Electron.charge = -1;
 
   return inherit( PropertySet, Electron, {
-    step: function( globalModel ) {
+    step: function( dt, globalModel ) {
+      this.position = this.position.plus( new Vector2( 0, -1 ) );
 //      var self = this;
 //      var position = new Vector2( self.box2DInstance.m_xf.position.x, self.box2DInstance.m_xf.position.y );
 //      //check if we in arm or leg, we must rotate this to keep charge inside arm/leg

@@ -47,17 +47,17 @@ define( function( require ) {
     node.children = [new Image( im, {scale: 1.0 / scale} )];
   } );
 
-  function MinusChargeNode( electron ) {
+  function ElectronNode( electron ) {
     var self = this;
 
     Node.call( this, {pickable: false} );
 
     this.addChild( node );
 
-    electron.positionProperty.link( function( entry ) {
-      self.setTranslation( entry.x, entry.y );
+    electron.positionProperty.link( function( position ) {
+      self.setTranslation( position.x, position.y );
     } );
   }
 
-  return inherit( Node, MinusChargeNode ); // prototype chaining
+  return inherit( Node, ElectronNode );
 } );
