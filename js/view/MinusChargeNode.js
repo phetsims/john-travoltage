@@ -13,11 +13,11 @@ define( function( require ) {
   var Circle = require( 'SCENERY/nodes/Circle' );
   var RadialGradient = require( 'SCENERY/util/RadialGradient' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
-  var PointChargeModel = require( 'JOHN_TRAVOLTAGE/model/PointChargeModel' );
+  var Electron = require( 'JOHN_TRAVOLTAGE/model/Electron' );
   var Image = require( 'SCENERY/nodes/Image' );
   require( 'SCENERY/Scene' ); //Force Scene to load before using Node.toImage
 
-  var radius = PointChargeModel.radius;
+  var radius = Electron.radius;
 
   //Scale up before rasterization so it won't be too pixellated/fuzzy
   var scale = 2;
@@ -47,14 +47,14 @@ define( function( require ) {
     node.children = [new Image( im, {scale: 1.0 / scale} )];
   } );
 
-  function MinusChargeNode( pointChargeModel ) {
+  function MinusChargeNode( electron ) {
     var self = this;
 
     Node.call( this, {pickable: false} );
 
     this.addChild( node );
 
-    pointChargeModel.positionProperty.link( function( entry ) {
+    electron.positionProperty.link( function( entry ) {
       self.setTranslation( entry.x, entry.y );
     } );
   }

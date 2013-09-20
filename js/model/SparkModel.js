@@ -11,7 +11,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Vector2 = require( 'DOT/Vector2' );
 
-  function SparkModel( armModel ) {
+  function SparkModel( arm ) {
     PropertySet.call( this, {
       //created path of spark
       vertices: [],
@@ -55,8 +55,8 @@ define( function( require ) {
       return new Vector2( prevPoint.x - this.segLength * Math.cos( thetaNew ), prevPoint.y - this.segLength * Math.sin( thetaNew ) );
     },
     //change and update spark when arm moved
-    checkAndUpdateSpark: function( armModel ) {
-      this.source = armModel.getFingerPosition();
+    checkAndUpdateSpark: function( arm ) {
+      this.source = arm.getFingerPosition();
       this.update();
     },
     //if sparks visible, update view

@@ -12,13 +12,13 @@ define( function( require ) {
   var PropertySet = require( 'AXON/PropertySet' );
   var inherit = require( 'PHET_CORE/inherit' );
 
-  function ArmModel( x, y ) {
+  function Arm( x, y ) {
     PropertySet.call( this, { angle: 0 } );
     this.rotationCenter = new Vector2( x + 5, y + 40 );
     this.position = new Vector2( 423.6179673321235, 229.84969476984 );
   }
 
-  return inherit( PropertySet, ArmModel, {
+  return inherit( PropertySet, Arm, {
     //return Vector2, position of finger, where spark starts
     getFingerPosition: function() {
       return this.rotationCenter.plus( new Vector2( 107, 25 ).rotated( this.angle - 0.5 ) );

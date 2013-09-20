@@ -12,7 +12,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Vector2 = require( 'DOT/Vector2' );
 
-  function PointChargeModel( x, y, world ) {
+  function Electron( x, y, world ) {
     PropertySet.call( this, {
       position: new Vector2( x, y )
     } );
@@ -42,10 +42,10 @@ define( function( require ) {
   }
 
   //statics
-  PointChargeModel.radius = 8;
-  PointChargeModel.charge = -1;
+  Electron.radius = 8;
+  Electron.charge = -1;
 
-  return inherit( PropertySet, PointChargeModel, {
+  return inherit( PropertySet, Electron, {
     getCenter: function() {
       return new Vector2( this.position.x + this.radius, this.position.y + this.radius );
     },

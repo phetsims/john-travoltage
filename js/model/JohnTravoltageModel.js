@@ -8,11 +8,11 @@
 define( function( require ) {
   'use strict';
 
-  var ArmModel = require( 'JOHN_TRAVOLTAGE/model/ArmModel' );
-  var LegModel = require( 'JOHN_TRAVOLTAGE/model/LegModel' );
+  var Arm = require( 'JOHN_TRAVOLTAGE/model/Arm' );
+  var Leg = require( 'JOHN_TRAVOLTAGE/model/Leg' );
   var Box2DModel = require( 'JOHN_TRAVOLTAGE/model/Box2DModel' );
   var SparkModel = require( 'JOHN_TRAVOLTAGE/model/SparkModel' );
-  var PointChargeModel = require( 'JOHN_TRAVOLTAGE/model/PointChargeModel' );
+  var Electron = require( 'JOHN_TRAVOLTAGE/model/Electron' );
   var Property = require( 'AXON/Property' );
   var ObservableArray = require( 'AXON/ObservableArray' );
   var PropertySet = require( 'AXON/PropertySet' );
@@ -128,8 +128,8 @@ define( function( require ) {
     PropertySet.call( this, { charge: 0, sound: true } );
 
     this.particles = new ObservableArray( [] );
-    this.arm = new ArmModel();
-    this.leg = new LegModel();
+    this.arm = new Arm();
+    this.leg = new Leg();
     this.spark = new SparkModel();
     this.box2dModel = new Box2DModel( this.verts, this.forceLines );
     this.sounds = [
@@ -184,7 +184,7 @@ define( function( require ) {
       } );
     },
     addElectron: function() {
-      this.particles.push( new PointChargeModel( 460, 450, this.box2dModel.world ) );
+      this.particles.push( new Electron( 460, 450, this.box2dModel.world ) );
       this.particlesLength++;
       this.charge++;
     }

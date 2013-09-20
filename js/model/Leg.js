@@ -12,7 +12,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Vector2 = require( 'DOT/Vector2' );
 
-  function LegModel() {
+  function Leg() {
     PropertySet.call( this, { angle: 1.3175443221852239  } );
     this.position = new Vector2( 385 + 18 - 5, 312 + 28 - 5 );
 
@@ -20,5 +20,5 @@ define( function( require ) {
     this.angleHistory = new Array( 3 );
   }
 
-  return inherit( PropertySet, LegModel );
+  return inherit( PropertySet, Leg );
 } );
