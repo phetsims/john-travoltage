@@ -54,7 +54,7 @@ define( function( require ) {
 
     this.addChild( node );
 
-    pointChargeModel.locationProperty.link( function( entry ) {
+    pointChargeModel.positionProperty.link( function( entry ) {
       self.setTranslation( entry.x, entry.y );
     } );
   }

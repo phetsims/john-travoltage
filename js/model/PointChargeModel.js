@@ -14,7 +14,7 @@ define( function( require ) {
 
   function PointChargeModel( x, y, world ) {
     PropertySet.call( this, {
-      location: new Vector2( x, y )
+      position: new Vector2( x, y )
     } );
 
 

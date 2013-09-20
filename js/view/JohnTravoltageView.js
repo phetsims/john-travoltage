@@ -78,14 +78,11 @@ define( function( require ) {
     );
 
     //if new electron added to model - create and add new node to leg
-    model.particlesLengthProperty.link( function updateLocation( length ) {
-      if ( model.particles.length ) {
-        var newElectron = new MinusChargeNode( model.particles[model.particles.length - 1] );
-        model.particles[model.particles.length - 1].viewNode = newElectron;
-        self.addChild( newElectron );
-      }
+    model.particles.addItemAddedListener( function( item ) {
+      var newElectron = new MinusChargeNode( item );
+      item.viewNode = newElectron;
+      self.addChild( newElectron );
     } );
-
 
     //if last 3 position of leg is correct, add Electron to body
     model.leg.rotationAngleProperty.link( function legRotated( angle ) {
