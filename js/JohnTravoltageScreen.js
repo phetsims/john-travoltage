@@ -6,7 +6,9 @@
  * @author Sam Reid
  */
 define( function( require ) {
-  var Strings = require( 'Strings' );
+  'use strict';
+
+  var Strings = require( 'JOHN_TRAVOLTAGE/Strings' );
   var JohnTravoltageModel = require( 'JOHN_TRAVOLTAGE/model/JohnTravoltageModel' );
   var JohnTravoltageView = require( 'JOHN_TRAVOLTAGE/view/JohnTravoltageView' );
 

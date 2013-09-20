@@ -91,15 +91,18 @@ define( function( require ) {
         }
       }
 
+      var legPoint;
+      var dr;
+      var deltaAngle;
       //If in the leg, then show it at the correctly rotated angle
       if ( inLegCount === history.length ) {
-        var legPoint = leg.position;
+        legPoint = leg.position;
 
         //The vector relative to the leg pivot
-        var dr = new Vector2( position.x - legPoint.x, position.y - legPoint.y );
+        dr = new Vector2( position.x - legPoint.x, position.y - legPoint.y );
 
         //The leg'legText rotated angle
-        var deltaAngle = leg.deltaAngle();
+        deltaAngle = leg.deltaAngle();
         dr = dr.rotated( deltaAngle ).plus( legPoint );
         electronNode.setTranslation( dr.x - node.width / 2, dr.y - node.height / 2 );
       }
@@ -110,11 +113,11 @@ define( function( require ) {
       //Interpolate for smoothness at odd angles
       else {
 
-        var legPoint = leg.position;
+        legPoint = leg.position;
 
-        var dr = new Vector2( position.x - legPoint.x, position.y - legPoint.y );
+        dr = new Vector2( position.x - legPoint.x, position.y - legPoint.y );
 
-        var deltaAngle = leg.deltaAngle();
+        deltaAngle = leg.deltaAngle();
         dr = dr.rotated( deltaAngle ).plus( legPoint );
         var a = new Vector2( dr.x - node.width / 2, dr.y - node.height / 2 );
         var b = new Vector2( position.x - node.width / 2, position.y - node.height / 2 );

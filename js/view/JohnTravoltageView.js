@@ -119,8 +119,8 @@ define( function( require ) {
       }
     }
 
-    this.addChild( new Circle( 10, {x: model.verts[0].x, y: model.verts[0].y, fill: 'blue'} ) );
-    this.addChild( new Circle( 10, {x: 0, y: 0, fill: 'blue'} ) )
+//    this.addChild( new Circle( 10, {x: model.verts[0].x, y: model.verts[0].y, fill: 'blue'} ) );
+//    this.addChild( new Circle( 10, {x: 0, y: 0, fill: 'blue'} ) );
   }
 
   return inherit( ScreenView, JohnTravoltageView );
