@@ -13,14 +13,15 @@ define( function( require ) {
   var Vector2 = require( 'DOT/Vector2' );
 
   function Leg() {
+    var leg = this;
     PropertySet.call( this, { angle: 1.3175443221852239  } );
     this.position = new Vector2( 385 + 18 - 5, 312 + 28 - 5 );
 
     //last 3 angles of leg, need to addElectron function in JohnTravoltageModel
     this.angleHistory = [this.angle, this.angle, this.angle];
-    this.angleProperty.addListener( function( angle ) {
-      angles.push( angle );
-      angles.shift();
+    this.angleProperty.link( function( angle ) {
+      leg.angleHistory.push( angle );
+      leg.angleHistory.shift();
     } );
   }
 
