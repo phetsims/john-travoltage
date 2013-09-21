@@ -116,7 +116,7 @@ define( function( require ) {
 
     //if last 3 position of leg is correct, add Electron to body
     this.leg.angleProperty.lazyLink( function( angle ) {
-      if ( angle < 0.1 || angle > 0.8 ) {
+      if ( angle < 0.1 || angle > 0.8 && johnTravoltageModel.electrons.length < 100 ) {
         johnTravoltageModel.addElectron();
       }
     } );
@@ -125,10 +125,18 @@ define( function( require ) {
     for ( var i = 0; i < this.verts.length - 1; i++ ) {
       var current = this.verts[i];
       var next = this.verts[i + 1];
-      array.push( new LineSegment( current.x, current.y, next.x, next.y ) );
+      var segment = new LineSegment( current.x, current.y, next.x, next.y );
+
+      //Precompute normal vectors for performance in Electron's inner loop
+      segment.normalVector = segment.getNormalVector();
+      array.push( segment );
     }
     //TODO: store, do not reallocate
-    array.push( new LineSegment( this.verts[this.verts.length - 1].x, this.verts[this.verts.length - 1].y, this.verts[0].x, this.verts[0].y ) );
+    var lineSegment = new LineSegment( this.verts[this.verts.length - 1].x, this.verts[this.verts.length - 1].y, this.verts[0].x, this.verts[0].y );
+
+    //Precompute normal vectors for performance in Electron's inner loop
+    lineSegment.normalVector = lineSegment.getNormalVector();
+    array.push( lineSegment );
     this.lineSegments = array;
   }
 

@@ -58,20 +58,28 @@ define( function( require ) {
         }
       }
 
-      this.velocity = new Vector2( this.velocity.x + netForceX, this.velocity.y + netForceY );
-      if ( this.velocity.magnitude() > 150 ) {
-        this.velocity = this.velocity.timesScalar( 150.0 / this.velocity.magnitude() );
-      }
-      this.velocity = this.velocity.timesScalar( 0.98 );
-      if ( isNaN( this.velocity.x ) ) {
-        debugger;
-      }
-      if ( isNaN( this.velocity.y ) ) {
-        debugger;
-      }
+      var vx2 = this.velocity.x + netForceX;
+      var vy2 = this.velocity.y + netForceY;
 
-      var x2 = x1 + this.velocity.x * dt;
-      var y2 = y1 + this.velocity.y * dt;
+      var d = Math.sqrt( vx2 * vx2 + vy2 * vy2 );
+      if ( d > 150 ) {
+        vx2 = vx2 / d * 150;
+        vy2 = vy2 / d * 150;
+      }
+      vx2 = vx2 * 0.98;
+      vy2 = vy2 * 0.98;
+
+//      this.velocity = new Vector2( this.velocity.x + netForceX, this.velocity.y + netForceY );
+//      if ( this.velocity.magnitude() > 150 ) {
+//        this.velocity = this.velocity.timesScalar( 150.0 / this.velocity.magnitude() );
+//      }
+//      this.velocity = this.velocity.timesScalar( 0.98 );
+
+      var x2 = x1 + vx2 * dt;
+      var y2 = y1 + vy2 * dt;
+
+      //Skipping notifications here because nobody needs to observe the velocity values, and this is faster (no allocation)
+      this.velocity.set( vx2, vy2 );
 
       var segments = this.model.getLineSegments();
       var bounced = false;
@@ -79,7 +87,7 @@ define( function( require ) {
         var segment = segments[i];
         if ( Util.lineSegmentIntersection( x1, y1, x2, y2, segment.x1, segment.y1, segment.x2, segment.y2 ) ) {
 
-          var normal = segment.getNormalVector();
+          var normal = segment.normalVector;
           //reflect velocity
           var newVelocity = this.velocity.minus( normal.times( 2 * normal.dot( this.velocity ) ) );
           this.velocity = newVelocity;
@@ -94,6 +102,10 @@ define( function( require ) {
 
         //A bit of randomness to the motion
         this.velocity = this.velocity.rotated( (Math.random() - 0.5) * 0.2 );
+      }
+      else {
+        //Notify observers anyways so the electron will redraw at the right leg angle
+        this.positionProperty.notifyObserversUnsafe();
       }
     }
   } );

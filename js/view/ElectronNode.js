@@ -96,6 +96,8 @@ define( function( require ) {
       var legPoint;
       var dr;
       var deltaAngle;
+
+      //TODO: improve performance and reduce allocations
       //If in the leg, then show it at the correctly rotated angle
       if ( inLegCount === history.length ) {
         legPoint = leg.position;
@@ -103,7 +105,7 @@ define( function( require ) {
         //The vector relative to the leg pivot
         dr = new Vector2( position.x - legPoint.x, position.y - legPoint.y );
 
-        //The leg'legText rotated angle
+        //The leg's rotated angle
         deltaAngle = leg.deltaAngle();
         dr = dr.rotated( deltaAngle ).plus( legPoint );
         electronNode.setTranslation( dr.x - node.width / 2, dr.y - node.height / 2 );
