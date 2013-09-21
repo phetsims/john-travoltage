@@ -38,9 +38,8 @@ define( function( require ) {
       return new Vector2( this.x2 - this.x1, this.y2 - this.y1 );
     },
 
-    getP0: function() {
-      return new Vector2( this.x1, this.y1 );
-    }
+    getP0: function() { return new Vector2( this.x1, this.y1 ); },
+    getP1: function() { return new Vector2( this.x2, this.y2 ); }
   };
 
   return LineSegment;

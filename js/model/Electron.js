@@ -27,7 +27,36 @@ define( function( require ) {
   Electron.radius = 8;
 
   return inherit( PropertySet, Electron, {
-    step: function( dt, globalModel ) {
+    stepInSpark: function( dt ) {
+      var electron = this;
+      //move to closest line segment
+      if ( !this.segment ) {
+        this.segment = _.sortBy( this.model.forceLines, function( forceLine ) { return forceLine.getP0().distance( electron.position ); } )[0];
+
+        //If the closest path is the same as the last one, it means we have reached the end of the road
+        if ( this.lastSegment === this.segment ) {
+
+          //Don't remove immediately or it will be concurrentmodificationexception in iterator
+          this.model.electronsToRemove.push( electron );
+          return;
+        }
+      }
+      //move at constant velocity toward the segment
+      var target = this.segment.getP1();
+      var current = this.position;
+      var delta = target.minus( current );
+
+      //Arrived at destination, go to the next segment
+      if ( delta.magnitude() <= 100 * dt ) {
+        this.lastSegment = this.segment;
+        this.segment = null;
+      }
+      else {
+        this.velocity = Vector2.createPolar( 100, delta.angle() );
+        this.position = this.velocity.timesScalar( dt ).plus( this.position );
+      }
+    },
+    step: function( dt ) {
       var i = 0;
       var x1 = this.position.x;
       var y1 = this.position.y;

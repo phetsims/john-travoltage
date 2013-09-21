@@ -13,16 +13,21 @@ define( function( require ) {
   var PropertySet = require( 'AXON/PropertySet' );
   var inherit = require( 'PHET_CORE/inherit' );
 
-  function Arm( x, y ) {
-    PropertySet.call( this, { angle: 0 } );
-    this.rotationCenter = new Vector2( x + 5, y + 40 );
+  function Arm() {
+    this.initialAngle = -0.5;
+//    this.initialAngle = 0;
+    PropertySet.call( this, { angle: this.initialAngle} );
     this.position = new Vector2( 423.6179673321235, 229.84969476984 );
+
+    var finger = new Vector2( 534.3076703633706, 206.63766358806117 );
+    this.fingerVector = finger.minus( this.position );
   }
 
   return inherit( PropertySet, Arm, {
-    //return Vector2, position of finger, where spark starts
     getFingerPosition: function() {
-      return this.rotationCenter.plus( new Vector2( 107, 25 ).rotated( this.angle - 0.5 ) );
+
+      //TODO: Reduce allocations
+      return this.fingerVector.rotated( this.angle ).plus( this.position );
     }
   } );
 } );

@@ -74,10 +74,18 @@ define( function( require ) {
 
     //if new electron added to model - create and add new node to leg
     //TODO: Pooling for creation and use visible instead of addChild for performance
-    model.electrons.addItemAddedListener( function( item ) {
-      var newElectron = new ElectronNode( item, model, model.leg, johnTravoltageView.leg, johnTravoltageView );
-      item.viewNode = newElectron;
+    model.electrons.addItemAddedListener( function( added ) {
+      var newElectron = new ElectronNode( added, model, model.leg, johnTravoltageView.leg, johnTravoltageView );
+      added.viewNode = newElectron;
       electronLayer.addChild( newElectron );
+
+      var itemRemovedListener = function( removed ) {
+        if ( removed === added ) {
+          electronLayer.removeChild( newElectron );
+          model.electrons.removeItemRemovedListener( itemRemovedListener );
+        }
+      };
+      model.electrons.addItemRemovedListener( itemRemovedListener );
     } );
 
     // debug lines, body and forceline, uncomment this to view physical bounds of body
@@ -121,6 +129,14 @@ define( function( require ) {
 
 //    this.addChild( new Circle( 10, {x: model.verts[0].x, y: model.verts[0].y, fill: 'blue'} ) );
 //    this.addChild( new Circle( 10, {x: 0, y: 0, fill: 'blue'} ) );
+
+    //Debugging for finger location
+//    var fingerCircle = new Circle( 10, {fill: 'red'} );
+//    model.arm.angleProperty.link( function( angle ) {
+//      fingerCircle.x = model.arm.getFingerPosition().x;
+//      fingerCircle.y = model.arm.getFingerPosition().y;
+//    } );
+//    this.addChild( fingerCircle );
   }
 
   return inherit( ScreenView, JohnTravoltageView );

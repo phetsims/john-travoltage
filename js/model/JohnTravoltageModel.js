@@ -26,6 +26,8 @@ define( function( require ) {
   function JohnTravoltageModel() {
     var johnTravoltageModel = this;
 
+    this.electronsToRemove = [];
+
     //vertices of path, border of body, sampled using a listener in JohnTravoltageView
     this.verts = [
       new Vector2( 272.2124616956078, 306.9090909090909 ),
@@ -66,55 +68,43 @@ define( function( require ) {
 
     //lines, to which electrons moves, when spark happened
     this.forceLines = [
-      [495, 428, 460, 447],
-      [460, 447, 381, 324],
-      [381, 324, 348, 222],
-      [348, 222, 437, 231],
-      [431, 230, 516, 198],
-      [430, 104, 340, 168],
-      [420, 136, 394, 125],
-      [390, 126, 370, 205],
-      [312, 147, 362, 211],
-      [270, 215, 360, 218],
-      [275, 260, 364, 230],
-      [296, 316, 361, 233],
-      [346, 476, 288, 466],
-      [287, 467, 333, 361],
-      [333, 361, 345, 231],
-      [410, 189, 383, 231],
-      [412, 210, 404, 236],
-      [390, 225, 461, 235],
-      [451, 220, 515, 198]
+      new LineSegment( 495, 428, 460, 447 ),
+      new LineSegment( 460, 447, 381, 324 ),
+      new LineSegment( 381, 324, 348, 222 ),
+      new LineSegment( 348, 222, 437, 231 ),
+      new LineSegment( 431, 230, 516, 198 ),
+      new LineSegment( 430, 104, 340, 168 ),
+      new LineSegment( 420, 136, 394, 125 ),
+      new LineSegment( 390, 126, 370, 205 ),
+      new LineSegment( 312, 147, 362, 211 ),
+      new LineSegment( 270, 215, 360, 218 ),
+      new LineSegment( 275, 260, 364, 230 ),
+      new LineSegment( 296, 316, 361, 233 ),
+      new LineSegment( 346, 476, 288, 466 ),
+      new LineSegment( 287, 467, 333, 361 ),
+      new LineSegment( 333, 361, 345, 231 ),
+      new LineSegment( 410, 189, 383, 231 ),
+      new LineSegment( 412, 210, 404, 236 ),
+      new LineSegment( 390, 225, 461, 235 ),
+      new LineSegment( 451, 220, 515, 198 )
     ];
 
-    //[num of electron, distance between door and knob, when spark started]
-    this.fireSparkConditions = [
-      [10, 20],
-      [15, 30],
-      [20, 40],
-      [25, 50],
-      [30, 60],
-      [35, 70],
-      [40, 80],
-      [50, 100],
-      [60, 120],
-      [70, 140]
-    ];
+    this.doorknobPosition = new Vector2( 543.9318903113076, 257.5894162536105 );
 
     //Properties of the model.  All user settings belong in the model, whether or not they are part of the physical model
-    PropertySet.call( this, { sound: true } );
+    PropertySet.call( this, { sound: true, spark: false } );
 
     this.electrons = new ObservableArray( [] );
     this.arm = new Arm();
     this.leg = new Leg();
-    this.spark = new SparkModel();
+//    this.spark = new SparkModel();
 //    this.box2dModel = new Box2DModel( this.verts, this.forceLines );
     this.sounds = [
       new Sound( 'audio/OuchSmallest.mp3' ),
       new Sound( 'audio/ShockSmallest.mp3' )
     ];
 
-    //if last 3 position of leg is correct, add Electron to body
+    //If leg dragged across carpet, add electron
     this.leg.angleProperty.lazyLink( function( angle ) {
       if ( angle < 0.1 || angle > 0.8 && johnTravoltageModel.electrons.length < 100 ) {
         johnTravoltageModel.addElectron();
@@ -149,45 +139,40 @@ define( function( require ) {
     step: function( dt ) {
       var self = this;
 
-      //if spark we must removed electrons from finger
-//      if ( this.box2dModel.isSpark ) {
-//        var newParticles = [];
-//        this.electrons.forEach( function( entry ) {
-//          if ( entry.removed ) {
-//            entry.viewNode.detach();
-//          }
-//          else {
-//            newParticles.push( entry );
-//          }
-//        } );
-//        this.electrons = newParticles;
-//        if ( newParticles.length === 0 ) {
-//          this.box2dModel.isSpark = false;
-//          this.electronsLength = 0;
-//        }
-//      }
-//
-//      //Test for spark
-//      else {
-////        var distToKnob = this.spark.sink.distance( this.arm.getFingerPosition() );
-////        var n = this.electrons.length / 2;
-////        for ( var i = 0; i < this.fireSparkConditions.length; i++ ) {
-////          if ( n > this.fireSparkConditions[i][0] && distToKnob < this.fireSparkConditions[i][1] ) {
-////            //if one of the conditions to fire spark correct - fire it
-////            if ( this.soundProperty.get() ) {
-////              this.sounds[Math.floor( Math.random() * 2 )].play();
-////            }
-////            this.box2dModel.isSpark = true;
-////            break;
-////          }
-////        }
-//      }
-      // recalculate model, spark, then particles positions
-//      this.box2dModel.step( this );
-//      this.spark.step();
-      this.electrons.forEach( function( entry ) {
-        entry.step( dt, self );
-      } );
+      //Test for spark
+      if ( !this.spark ) {
+        var distToKnob = this.arm.getFingerPosition().distance( this.doorknobPosition );
+//      console.log( distToKnob, this.electrons.length );
+        if ( distToKnob < this.electrons.length ) {
+          if ( this.sound ) {
+            this.sounds[Math.floor( Math.random() * 2 )].play();
+            this.spark = true;
+          }
+        }
+      }
+
+      //Step the model
+      var i = 0;
+      var length = this.electrons.length;
+      if ( !this.spark ) {
+        for ( i = 0; i < length; i++ ) {
+          this.electrons._array[i].step( dt );
+        }
+      }
+      else {
+        for ( i = 0; i < length; i++ ) {
+          this.electrons._array[i].stepInSpark( dt );
+        }
+        while ( this.electronsToRemove.length ) {
+          this.removeElectron( this.electronsToRemove.pop() );
+        }
+        if ( this.electrons.length === 0 ) {
+          this.spark = false;
+        }
+      }
+    },
+    removeElectron: function( electron ) {
+      this.electrons.remove( electron );
     },
     addElectron: function() {
 

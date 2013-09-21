@@ -21,22 +21,22 @@ define( function( require ) {
     var self = this;
 
     Node.call( this, {pickable: false} );
-
-    var customBackgroundShape = new Shape();
-    var backgroundPath = new Path( customBackgroundShape, {
-      stroke: 'white',
-      lineWidth: 4,
-      pickable: false
-    } );
-    this.addChild( backgroundPath );
-
-    var customShape = new Shape();
-    var path = new Path( customShape, {
-      stroke: 'blue',
-      lineWidth: 1,
-      pickable: false
-    } );
-    this.addChild( path );
+//
+//    var customBackgroundShape = new Shape();
+//    var backgroundPath = new Path( customBackgroundShape, {
+//      stroke: 'white',
+//      lineWidth: 4,
+//      pickable: false
+//    } );
+//    this.addChild( backgroundPath );
+//
+//    var customShape = new Shape();
+//    var path = new Path( customShape, {
+//      stroke: 'blue',
+//      lineWidth: 1,
+//      pickable: false
+//    } );
+//    this.addChild( path );
 
 
     //changes visual position
@@ -64,7 +64,7 @@ define( function( require ) {
 //      self.visible = isVisible;
 //    } );
 
-    model.viewNode = this;
+//    model.viewNode = this;
   }
 
   return inherit( Node, SparkNode ); // prototype chaining
