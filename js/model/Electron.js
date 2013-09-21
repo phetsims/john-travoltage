@@ -45,6 +45,7 @@ define( function( require ) {
           var deltaVectorY = electron.position.y - this.position.y;
 
           //TODO: Good luck tuning these magic numbers!
+          //TODO: tune to get some particles in the middle, I guess that means turning up the repulsion
           var scale = 5.0 / Math.pow( electron.position.distance( this.position ) * 2, 1.8 );
           var fx = deltaVectorX * scale;
           var fy = deltaVectorY * scale;
