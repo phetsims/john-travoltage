@@ -40,7 +40,7 @@ define( function( require ) {
 
         //Skipping some interactions speeds things up and also gives a good sense of more randomness
 //        if ( electron !== this && i % 2 === 0 ) {
-        if ( electron !== this && Math.random() < 0.5 ) {
+        if ( electron !== this && Math.random() < 0.4 ) {
           var deltaVectorX = electron.position.x - this.position.x;
           var deltaVectorY = electron.position.y - this.position.y;
 
@@ -66,8 +66,8 @@ define( function( require ) {
         vx2 = vx2 / d * 150;
         vy2 = vy2 / d * 150;
       }
-      vx2 = vx2 * 0.98;
-      vy2 = vy2 * 0.98;
+      vx2 = vx2 * 0.99;
+      vy2 = vy2 * 0.99;
 
 //      this.velocity = new Vector2( this.velocity.x + netForceX, this.velocity.y + netForceY );
 //      if ( this.velocity.magnitude() > 150 ) {
