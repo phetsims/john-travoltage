@@ -36,6 +36,7 @@ define( function( require ) {
     var string = '';
     this.addInputListener( {
       down: function( event ) {
+        console.log( 'xx' );
         var pt = event.pointer.point;
         var global = johnTravoltageView.globalToLocalPoint( pt );
         var a = 'new Vector2(' + global.x + ',' + global.y + '),\n';
@@ -44,6 +45,24 @@ define( function( require ) {
         console.log( string );
       }
     } );
+
+    //Utility to create force lines by clicking in the view
+//    var string = '';
+//    var p1 = null;
+//    this.addInputListener( {
+//      down: function( event ) {
+//        var pt = event.pointer.point;
+//        var global = johnTravoltageView.globalToLocalPoint( pt );
+//        if ( p1 ) {
+//          string = string + 'new LineSegment(' + p1.x + ',' + p1.y + ',' + global.x + ',' + global.y + '),\n';
+//          console.log( string );
+//          p1 = null;
+//        }
+//        else {
+//          p1 = global;
+//        }
+//      }
+//    } );
 
     //add background elements
     this.addChild( new BackgroundElementsNode() );
@@ -75,7 +94,7 @@ define( function( require ) {
     //if new electron added to model - create and add new node to leg
     //TODO: Pooling for creation and use visible instead of addChild for performance
     model.electrons.addItemAddedListener( function( added ) {
-      var newElectron = new ElectronNode( added, model, model.leg, johnTravoltageView.leg, model.arm, johnTravoltageView );
+      var newElectron = new ElectronNode( added, model.leg, model.arm, johnTravoltageView );
       added.viewNode = newElectron;
       electronLayer.addChild( newElectron );
 

@@ -67,8 +67,8 @@ define( function( require ) {
     } );
 
     //For debugging
-//    var origin = new Circle( 10, {fill: 'red', x: appendage.position.x, y: appendage.position.y, pickable: false} );
-//    this.addChild( origin );
+    var origin = new Circle( 10, {fill: 'red', x: appendage.position.x, y: appendage.position.y, pickable: false} );
+    this.addChild( origin );
 //
 //    var mousePosition = new Circle( 7, {fill: 'blue', x: 0, y: 0, pickable: false} );
 //    this.addChild( mousePosition );

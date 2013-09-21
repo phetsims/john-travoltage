@@ -14,7 +14,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
 
   function Arm() {
-    this.initialAngle = -0.5;
+    this.initialAngle = -0.0;//TODO: Setting this to 0.0
     PropertySet.call( this, { angle: this.initialAngle} );
     this.position = new Vector2( 423.6179673321235, 229.84969476984 );
 

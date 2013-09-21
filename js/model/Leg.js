@@ -20,14 +20,6 @@ define( function( require ) {
     this.initialAngle = 1.3175443221852239;
     PropertySet.call( this, { angle: this.initialAngle  } );
     this.position = new Vector2( 385 + 18 - 5, 312 + 28 - 5 );
-
-    //last 3 angles of leg, need to addElectron function in JohnTravoltageModel
-    //TODO: Delete me
-    this.angleHistory = [this.angle, this.angle, this.angle];
-    this.angleProperty.link( function( angle ) {
-      leg.angleHistory.push( angle );
-      leg.angleHistory.shift();
-    } );
   }
 
   return inherit( PropertySet, Leg, {

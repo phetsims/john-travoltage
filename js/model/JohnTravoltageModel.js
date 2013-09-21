@@ -68,25 +68,32 @@ define( function( require ) {
 
     //lines, to which electrons moves, when spark happened
     this.forceLines = [
-      new LineSegment( 495, 428, 460, 447 ),
-      new LineSegment( 460, 447, 381, 324 ),
-      new LineSegment( 381, 324, 348, 222 ),
-      new LineSegment( 348, 222, 437, 231 ),
-      new LineSegment( 431, 230, 516, 198 ),
-      new LineSegment( 430, 104, 340, 168 ),
-      new LineSegment( 420, 136, 394, 125 ),
-      new LineSegment( 390, 126, 370, 205 ),
-      new LineSegment( 312, 147, 362, 211 ),
-      new LineSegment( 270, 215, 360, 218 ),
-      new LineSegment( 275, 260, 364, 230 ),
-      new LineSegment( 296, 316, 361, 233 ),
-      new LineSegment( 346, 476, 288, 466 ),
-      new LineSegment( 287, 467, 333, 361 ),
-      new LineSegment( 333, 361, 345, 231 ),
-      new LineSegment( 410, 189, 383, 231 ),
-      new LineSegment( 412, 210, 404, 236 ),
-      new LineSegment( 390, 225, 461, 235 ),
-      new LineSegment( 451, 220, 515, 198 )
+      new LineSegment( 472.38690040454634, 428.7835099210171, 431.4047389712964, 450.8037757657484 ),
+      new LineSegment( 424.06465035638604, 445.2987093045656, 392.2575996917742, 324.79892120978616 ),
+      new LineSegment( 392.2575996917742, 321.12887690233094, 376.35407435946826, 225.70772490849546 ),
+      new LineSegment( 376.96574841071083, 222.6493546522828, 406.3261028703525, 217.75596224234252 ),
+      new LineSegment( 406.3261028703525, 217.75596224234252, 428.34636871508377, 232.43613947216335 ),
+//      new LineSegment(428.34636871508377,231.82446542092083,492.57214409554996,169.43371219418225)
+      new LineSegment( 421.5406360424028, 230.84098939929325, 507.4770318021201, 219.98586572438163 )
+//      new LineSegment( 495, 428, 460, 447 ),
+//      new LineSegment( 460, 447, 381, 324 ),
+//      new LineSegment( 381, 324, 348, 222 ),
+//      new LineSegment( 348, 222, 437, 231 ),
+//      new LineSegment( 431, 230, 516, 198 ),
+//      new LineSegment( 430, 104, 340, 168 ),
+//      new LineSegment( 420, 136, 394, 125 ),
+//      new LineSegment( 390, 126, 370, 205 ),
+//      new LineSegment( 312, 147, 362, 211 ),
+//      new LineSegment( 270, 215, 360, 218 ),
+//      new LineSegment( 275, 260, 364, 230 ),
+//      new LineSegment( 296, 316, 361, 233 ),
+//      new LineSegment( 346, 476, 288, 466 ),
+//      new LineSegment( 287, 467, 333, 361 ),
+//      new LineSegment( 333, 361, 345, 231 ),
+//      new LineSegment( 410, 189, 383, 231 ),
+//      new LineSegment( 412, 210, 404, 236 ),
+//      new LineSegment( 390, 225, 461, 235 ),
+//      new LineSegment( 451, 220, 515, 198 )
     ];
 
     this.doorknobPosition = new Vector2( 543.9318903113076, 257.5894162536105 );

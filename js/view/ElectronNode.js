@@ -51,10 +51,16 @@ define( function( require ) {
     node.children = [new Image( im, {scale: 1.0 / scale} )];
   } );
 
+
+  //Bounds for the leg and arm regions sampled by clicking on the JohnTravoltageView coordinates
   var legBounds = new Rect( 368.70275791624107, 332.0122574055158, 600, 600 );
   var armBounds = new Rect( 427.41602634467614, 210.03732162458834, 70, 42 );
 
-  function ElectronNode( electron, model, leg, legNode, arm, johnTravoltageView ) {
+  var topLeft = new Vector2( 427.83601359003404, 154.03488108720273 );
+  var bottomRight = new Vector2( 558.1263873159684, 294.67542468856175 );
+  armBounds = new Rect( topLeft.x, topLeft.y, bottomRight.x - topLeft.x, bottomRight.y - topLeft.y );
+
+  function ElectronNode( electron, leg, arm, johnTravoltageView ) {
     var electronNode = this;
 
     Node.call( this, {pickable: false} );
@@ -67,13 +73,15 @@ define( function( require ) {
 //    johnTravoltageView.addChild( debugPoint );
 
     var history = [];
-    for ( var i = 0; i < 10; i++ ) {
-      history.push( 'leg' );
-    }
 
     var legText = 'leg';
     var bodyText = 'body';
     var armText = 'arm';
+
+    //Electrons start in the leg
+    for ( var i = 0; i < 10; i++ ) {
+      history.push( legText );
+    }
 
     //Electrons fire a position changed every step whether their position changed or not, so that it will still be drawn in the proper place if the leg angle changed.
     electron.positionProperty.link( function( position ) {
@@ -132,6 +140,7 @@ define( function( require ) {
 
       //This assumes that no electron will blend arm/leg positions, which is a fair assumption since it is difficult to get from the leg to the arm in only 10 history steps
       else {
+        console.log( 'armPoint' );
 
         var armPoint = arm.position;
 
@@ -139,6 +148,7 @@ define( function( require ) {
 
         //The leg's rotated angle
         var deltaAngle = arm.deltaAngle();
+        console.log( 'delta angle', deltaAngle );
         dr = dr.rotated( deltaAngle ).plus( armPoint );
 
         //No need to blend, it was in the leg the whole time
