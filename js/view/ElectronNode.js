@@ -52,6 +52,7 @@ define( function( require ) {
   } );
 
   var legBounds = new Rect( 368.70275791624107, 332.0122574055158, 600, 600 );
+  var armBounds = new Rect( 427.41602634467614, 210.03732162458834, 70, 42 );
 
   function ElectronNode( electron, model, leg, legNode, johnTravoltageView ) {
     var electronNode = this;
@@ -72,11 +73,14 @@ define( function( require ) {
 
     var legText = 'leg';
     var bodyText = 'body';
+    var armText = 'arm';
 
-    //TODO: We also must update after leg angle changes, but we don't want to update twice per frame.  Perhaps a trigger or guard?
+    //Electrons fire a position changed every step whether their position changed or not, so that it will still be drawn in the proper place if the leg angle changed.
     electron.positionProperty.link( function( position ) {
 
-      history.push( legBounds.containsPoint( position ) ? legText : bodyText );
+      history.push( legBounds.containsPoint( position ) ? legText :
+                    armBounds.containsPoint( position ) ? armText :
+                    bodyText );
       if ( history.length > 10 ) {
         history.shift();
       }
@@ -93,25 +97,21 @@ define( function( require ) {
         }
       }
 
-      var legPoint;
-      var dr;
-      var deltaAngle;
-
-      //TODO: improve performance and reduce allocations
-      //If in the leg, then show it at the correctly rotated angle
+      //Simplest case, it wasn't in any appendage
       if ( inBodyCount === history.length ) {
         electronNode.setTranslation( position.x - node.width / 2, position.y - node.height / 2 );
       }
 
       //Interpolate for smoothness at intersection between leg/body
+      //TODO: improve performance and reduce allocations
       else {
 
-        legPoint = leg.position;
+        var legPoint = leg.position;
 
-        dr = new Vector2( position.x - legPoint.x, position.y - legPoint.y );
+        var dr = new Vector2( position.x - legPoint.x, position.y - legPoint.y );
 
         //The leg's rotated angle
-        deltaAngle = leg.deltaAngle();
+        var deltaAngle = leg.deltaAngle();
         dr = dr.rotated( deltaAngle ).plus( legPoint );
 
         //No need to blend, it was in the leg the whole time
