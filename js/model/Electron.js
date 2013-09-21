@@ -54,7 +54,7 @@ define( function( require ) {
       else {
 
         //Send toward the end point on the segment, but with a bit of randomness to make it seem a bit more realistic
-        this.velocity = Vector2.createPolar( 100, delta.angle() + (Math.random() - 0.5) * 1.2 );
+        this.velocity = Vector2.createPolar( 200, delta.angle() + (Math.random() - 0.5) * 1.2 );
         this.position = this.velocity.timesScalar( dt ).plus( this.position );
       }
     },
