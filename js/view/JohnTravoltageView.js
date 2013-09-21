@@ -78,7 +78,7 @@ define( function( require ) {
     this.addChild( this.leg );
 
     //spark
-    this.addChild( new SparkNode( model.spark, model.arm, model.box2dModel ) );
+    this.addChild( new SparkNode( model ) );
 
     //sound button
     this.addChild( new SoundToggleButton( model.soundProperty, {x: 700, y: 450} ) );

@@ -31,6 +31,8 @@ define( function( require ) {
       var electron = this;
       //move to closest line segment
       if ( !this.segment ) {
+
+        //TODO: precompute the getP0
         this.segment = _.sortBy( this.model.forceLines, function( forceLine ) { return forceLine.getP0().distance( electron.position ); } )[0];
 
         //If the closest path is the same as the last one, it means we have reached the end of the road

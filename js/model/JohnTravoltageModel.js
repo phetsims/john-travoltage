@@ -1,8 +1,7 @@
 // Copyright 2002-2013, University of Colorado Boulder
 
 /**
- * main Model container.
- * creates box2d model, checks condition for spark
+ * Model for John Travoltage.
  *
  * @author Vasily Shakhov (Mlearner.com)
  * @author Sam Reid
@@ -168,6 +167,8 @@ define( function( require ) {
       var segment = new LineSegment( new Vector2( 423.6159346271706, 463.8038815117467 ), new Vector2( 450.2880490296221, 444.97650663942795 ) );
       var v = segment.toVector();
       var rand = Math.random() * v.magnitude();
+
+      //TODO: precompute the getP0
       var point = segment.getP0().plus( v.normalized().times( rand ) );
 
       //TODO: use phet-core Poolable?
