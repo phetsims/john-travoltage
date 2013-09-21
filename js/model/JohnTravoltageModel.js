@@ -133,9 +133,9 @@ define( function( require ) {
         var distToKnob = this.arm.getFingerPosition().distance( this.doorknobPosition );
 //      console.log( distToKnob, this.electrons.length );
         if ( distToKnob < this.electrons.length ) {
+          this.spark = true;
           if ( this.sound ) {
             this.sounds[Math.floor( Math.random() * 2 )].play();
-            this.spark = true;
           }
         }
       }
