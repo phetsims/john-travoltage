@@ -25,7 +25,6 @@ define( function( require ) {
 
   //statics
   Electron.radius = 8;
-  Electron.charge = -1;
 
   return inherit( PropertySet, Electron, {
     step: function( dt, globalModel ) {
@@ -99,15 +98,11 @@ define( function( require ) {
       //See if it crossed a barrier, and reflect it
       //TODO: prevent allocations?
       if ( !bounced ) {
-        this.position = new Vector2( x2, y2 );
+        this.position.set( x2, y2 );
+      }
 
-        //A bit of randomness to the motion
-        this.velocity = this.velocity.rotated( (Math.random() - 0.5) * 0.2 );
-      }
-      else {
-        //Notify observers anyways so the electron will redraw at the right leg angle
-        this.positionProperty.notifyObserversUnsafe();
-      }
+      //Notify observers anyways so the electron will redraw at the right leg angle
+      this.positionProperty.notifyObserversUnsafe();
     }
   } );
 } );
