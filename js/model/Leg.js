@@ -3,6 +3,7 @@
 /**
  * Leg model of a John-Travoltage.
  * Can rotate around rotation center.
+ * TODO: Unify Leg and Arm to Appendage
  *
  * @author Vasily Shakhov (Mlearner)
  * @author Sam Reid
@@ -21,6 +22,7 @@ define( function( require ) {
     this.position = new Vector2( 385 + 18 - 5, 312 + 28 - 5 );
 
     //last 3 angles of leg, need to addElectron function in JohnTravoltageModel
+    //TODO: Delete me
     this.angleHistory = [this.angle, this.angle, this.angle];
     this.angleProperty.link( function( angle ) {
       leg.angleHistory.push( angle );

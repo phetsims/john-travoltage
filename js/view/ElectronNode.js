@@ -54,7 +54,7 @@ define( function( require ) {
   var legBounds = new Rect( 368.70275791624107, 332.0122574055158, 600, 600 );
   var armBounds = new Rect( 427.41602634467614, 210.03732162458834, 70, 42 );
 
-  function ElectronNode( electron, model, leg, legNode, johnTravoltageView ) {
+  function ElectronNode( electron, model, leg, legNode, arm, johnTravoltageView ) {
     var electronNode = this;
 
     Node.call( this, {pickable: false} );
@@ -87,10 +87,14 @@ define( function( require ) {
 
       var inLegCount = 0;
       var inBodyCount = 0;
+      var inArmCount = 0;
       for ( var i = 0; i < history.length; i++ ) {
         var element = history[i];
         if ( element === legText ) {
           inLegCount++;
+        }
+        else if ( element === armText ) {
+          inArmCount++;
         }
         else {
           inBodyCount++;
@@ -104,7 +108,7 @@ define( function( require ) {
 
       //Interpolate for smoothness at intersection between leg/body
       //TODO: improve performance and reduce allocations
-      else {
+      else if ( inLegCount >= inArmCount ) {
 
         var legPoint = leg.position;
 
@@ -116,6 +120,29 @@ define( function( require ) {
 
         //No need to blend, it was in the leg the whole time
         if ( inLegCount === history.length ) {
+          electronNode.setTranslation( dr.x - node.width / 2, dr.y - node.height / 2 );
+        }
+        else {
+          var a = new Vector2( dr.x - node.width / 2, dr.y - node.height / 2 );
+          var b = new Vector2( position.x - node.width / 2, position.y - node.height / 2 );
+          var c = a.blend( b, inBodyCount / history.length );
+          electronNode.setTranslation( c.x, c.y );
+        }
+      }
+
+      //This assumes that no electron will blend arm/leg positions, which is a fair assumption since it is difficult to get from the leg to the arm in only 10 history steps
+      else {
+
+        var armPoint = arm.position;
+
+        var dr = new Vector2( position.x - armPoint.x, position.y - armPoint.y );
+
+        //The leg's rotated angle
+        var deltaAngle = arm.deltaAngle();
+        dr = dr.rotated( deltaAngle ).plus( armPoint );
+
+        //No need to blend, it was in the leg the whole time
+        if ( inArmCount === history.length ) {
           electronNode.setTranslation( dr.x - node.width / 2, dr.y - node.height / 2 );
         }
         else {

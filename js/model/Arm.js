@@ -15,7 +15,6 @@ define( function( require ) {
 
   function Arm() {
     this.initialAngle = -0.5;
-//    this.initialAngle = 0;
     PropertySet.call( this, { angle: this.initialAngle} );
     this.position = new Vector2( 423.6179673321235, 229.84969476984 );
 
@@ -28,6 +27,7 @@ define( function( require ) {
 
       //TODO: Reduce allocations
       return this.fingerVector.rotated( this.angle ).plus( this.position );
-    }
+    },
+    deltaAngle: function() { return this.angle - this.initialAngle; }
   } );
 } );

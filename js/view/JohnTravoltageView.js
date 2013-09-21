@@ -75,7 +75,7 @@ define( function( require ) {
     //if new electron added to model - create and add new node to leg
     //TODO: Pooling for creation and use visible instead of addChild for performance
     model.electrons.addItemAddedListener( function( added ) {
-      var newElectron = new ElectronNode( added, model, model.leg, johnTravoltageView.leg, johnTravoltageView );
+      var newElectron = new ElectronNode( added, model, model.leg, johnTravoltageView.leg, model.arm, johnTravoltageView );
       added.viewNode = newElectron;
       electronLayer.addChild( newElectron );
 
