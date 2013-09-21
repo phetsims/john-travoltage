@@ -48,7 +48,7 @@ define( function( require ) {
 //      var self = this;
 //      //if spark - we use forcelines, else electical field from other particles
 //      if ( this.isSpark ) {
-//        globalModel.particles.forEach( function( entry ) {
+//        globalModel.electrons.forEach( function( entry ) {
 //          //find closest forceline and calculate force
 //          var force = self.getDischargeForce( entry.box2DInstance );
 //          entry.box2DInstance.ApplyForce( force, entry.box2DInstance.GetWorldCenter() );
@@ -59,9 +59,9 @@ define( function( require ) {
 //        } );
 //      }
 //      else {
-//        globalModel.particles.forEach( function( entry ) {
+//        globalModel.electrons.forEach( function( entry ) {
 //          //sum of forces from other particles
-//          var force = self.calculateSumOfForces( entry.box2DInstance, globalModel.particles );
+//          var force = self.calculateSumOfForces( entry.box2DInstance, globalModel.electrons );
 //          entry.box2DInstance.ApplyForce( force, entry.box2DInstance.GetWorldCenter() );
 //        } );
 //      }

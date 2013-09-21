@@ -72,6 +72,8 @@ define( function( require ) {
 
     var legText = 'leg';
     var bodyText = 'body';
+
+    //TODO: We also must update after leg angle changes, but we don't want to update twice per frame.  Perhaps a trigger or guard?
     electron.positionProperty.link( function( position ) {
 
       history.push( legBounds.containsPoint( position ) ? legText : bodyText );

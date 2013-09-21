@@ -104,7 +104,7 @@ define( function( require ) {
     //Properties of the model.  All user settings belong in the model, whether or not they are part of the physical model
     PropertySet.call( this, { sound: true } );
 
-    this.particles = new ObservableArray( [] );
+    this.electrons = new ObservableArray( [] );
     this.arm = new Arm();
     this.leg = new Leg();
     this.spark = new SparkModel();
@@ -144,7 +144,7 @@ define( function( require ) {
       //if spark we must removed electrons from finger
 //      if ( this.box2dModel.isSpark ) {
 //        var newParticles = [];
-//        this.particles.forEach( function( entry ) {
+//        this.electrons.forEach( function( entry ) {
 //          if ( entry.removed ) {
 //            entry.viewNode.detach();
 //          }
@@ -152,17 +152,17 @@ define( function( require ) {
 //            newParticles.push( entry );
 //          }
 //        } );
-//        this.particles = newParticles;
+//        this.electrons = newParticles;
 //        if ( newParticles.length === 0 ) {
 //          this.box2dModel.isSpark = false;
-//          this.particlesLength = 0;
+//          this.electronsLength = 0;
 //        }
 //      }
 //
 //      //Test for spark
 //      else {
 ////        var distToKnob = this.spark.sink.distance( this.arm.getFingerPosition() );
-////        var n = this.particles.length / 2;
+////        var n = this.electrons.length / 2;
 ////        for ( var i = 0; i < this.fireSparkConditions.length; i++ ) {
 ////          if ( n > this.fireSparkConditions[i][0] && distToKnob < this.fireSparkConditions[i][1] ) {
 ////            //if one of the conditions to fire spark correct - fire it
@@ -177,7 +177,7 @@ define( function( require ) {
       // recalculate model, spark, then particles positions
 //      this.box2dModel.step( this );
 //      this.spark.step();
-      this.particles.forEach( function( entry ) {
+      this.electrons.forEach( function( entry ) {
         entry.step( dt, self );
       } );
     },
@@ -189,10 +189,10 @@ define( function( require ) {
       var point = segment.getP0().plus( v.normalized().times( rand ) );
 
       //TODO: use phet-core Poolable?
-      this.particles.add( new Electron( point.x, point.y, this, this.leg ) );
+      this.electrons.add( new Electron( point.x, point.y, this, this.leg ) );
 
       //Show randomly in the middle for debugging
-//      this.particles.add( new Electron( this.verts[0].x + 50 + 50 * Math.random(), this.verts[0].y - 75 + 50 * Math.random(), this ) );
+//      this.electrons.add( new Electron( this.verts[0].x + 50 + 50 * Math.random(), this.verts[0].y - 75 + 50 * Math.random(), this ) );
     }
   } );
 } );
