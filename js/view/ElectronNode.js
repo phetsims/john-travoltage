@@ -99,34 +99,31 @@ define( function( require ) {
 
       //TODO: improve performance and reduce allocations
       //If in the leg, then show it at the correctly rotated angle
-      if ( inLegCount === history.length ) {
-        legPoint = leg.position;
-
-        //The vector relative to the leg pivot
-        dr = new Vector2( position.x - legPoint.x, position.y - legPoint.y );
-
-        //The leg's rotated angle
-        deltaAngle = leg.deltaAngle();
-        dr = dr.rotated( deltaAngle ).plus( legPoint );
-        electronNode.setTranslation( dr.x - node.width / 2, dr.y - node.height / 2 );
-      }
-      else if ( inBodyCount === history.length ) {
+      if ( inBodyCount === history.length ) {
         electronNode.setTranslation( position.x - node.width / 2, position.y - node.height / 2 );
       }
 
-      //Interpolate for smoothness at odd angles
+      //Interpolate for smoothness at intersection between leg/body
       else {
 
         legPoint = leg.position;
 
         dr = new Vector2( position.x - legPoint.x, position.y - legPoint.y );
 
+        //The leg's rotated angle
         deltaAngle = leg.deltaAngle();
         dr = dr.rotated( deltaAngle ).plus( legPoint );
-        var a = new Vector2( dr.x - node.width / 2, dr.y - node.height / 2 );
-        var b = new Vector2( position.x - node.width / 2, position.y - node.height / 2 );
-        var c = a.blend( b, inBodyCount / history.length );
-        electronNode.setTranslation( c.x, c.y );
+
+        //No need to blend, it was in the leg the whole time
+        if ( inLegCount === history.length ) {
+          electronNode.setTranslation( dr.x - node.width / 2, dr.y - node.height / 2 );
+        }
+        else {
+          var a = new Vector2( dr.x - node.width / 2, dr.y - node.height / 2 );
+          var b = new Vector2( position.x - node.width / 2, position.y - node.height / 2 );
+          var c = a.blend( b, inBodyCount / history.length );
+          electronNode.setTranslation( c.x, c.y );
+        }
       }
 
 //      debugPoint.setTranslation( position.x, position.y );
