@@ -95,7 +95,7 @@ define( function( require ) {
 
     //If leg dragged across carpet, add electron
     this.leg.angleProperty.lazyLink( function( angle ) {
-      if ( angle < 0.1 || angle > 0.8 && johnTravoltageModel.electrons.length < 100 ) {
+      if ( angle < 2.4 && angle > 1 && johnTravoltageModel.electrons.length < 100 ) {
         johnTravoltageModel.addElectron();
       }
     } );
