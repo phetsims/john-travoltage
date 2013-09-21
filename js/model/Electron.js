@@ -37,7 +37,10 @@ define( function( require ) {
       var netForceY = 0;
       for ( i = 0; i < this.model.electrons.length; i++ ) {
         var electron = this.model.electrons.get( i );
-        if ( electron !== this ) {
+
+        //Skipping some interactions speeds things up and also gives a good sense of more randomness
+//        if ( electron !== this && i % 2 === 0 ) {
+        if ( electron !== this && Math.random() < 0.5 ) {
           var deltaVectorX = electron.position.x - this.position.x;
           var deltaVectorY = electron.position.y - this.position.y;
 
