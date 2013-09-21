@@ -96,6 +96,7 @@ define( function( require ) {
       var inLegCount = 0;
       var inBodyCount = 0;
       var inArmCount = 0;
+      var dr, deltaAngle, a, b, c;
       for ( var i = 0; i < history.length; i++ ) {
         var element = history[i];
         if ( element === legText ) {
@@ -120,10 +121,10 @@ define( function( require ) {
 
         var legPoint = leg.position;
 
-        var dr = new Vector2( position.x - legPoint.x, position.y - legPoint.y );
+        dr = new Vector2( position.x - legPoint.x, position.y - legPoint.y );
 
         //The leg's rotated angle
-        var deltaAngle = leg.deltaAngle();
+        deltaAngle = leg.deltaAngle();
         dr = dr.rotated( deltaAngle ).plus( legPoint );
 
         //No need to blend, it was in the leg the whole time
@@ -131,24 +132,22 @@ define( function( require ) {
           electronNode.setTranslation( dr.x - node.width / 2, dr.y - node.height / 2 );
         }
         else {
-          var a = new Vector2( dr.x - node.width / 2, dr.y - node.height / 2 );
-          var b = new Vector2( position.x - node.width / 2, position.y - node.height / 2 );
-          var c = a.blend( b, inBodyCount / history.length );
+          a = new Vector2( dr.x - node.width / 2, dr.y - node.height / 2 );
+          b = new Vector2( position.x - node.width / 2, position.y - node.height / 2 );
+          c = a.blend( b, inBodyCount / history.length );
           electronNode.setTranslation( c.x, c.y );
         }
       }
 
       //This assumes that no electron will blend arm/leg positions, which is a fair assumption since it is difficult to get from the leg to the arm in only 10 history steps
       else {
-        console.log( 'armPoint' );
 
         var armPoint = arm.position;
 
-        var dr = new Vector2( position.x - armPoint.x, position.y - armPoint.y );
+        dr = new Vector2( position.x - armPoint.x, position.y - armPoint.y );
 
         //The leg's rotated angle
-        var deltaAngle = arm.deltaAngle();
-        console.log( 'delta angle', deltaAngle );
+        deltaAngle = arm.deltaAngle();
         dr = dr.rotated( deltaAngle ).plus( armPoint );
 
         //No need to blend, it was in the leg the whole time
@@ -156,9 +155,9 @@ define( function( require ) {
           electronNode.setTranslation( dr.x - node.width / 2, dr.y - node.height / 2 );
         }
         else {
-          var a = new Vector2( dr.x - node.width / 2, dr.y - node.height / 2 );
-          var b = new Vector2( position.x - node.width / 2, position.y - node.height / 2 );
-          var c = a.blend( b, inBodyCount / history.length );
+          a = new Vector2( dr.x - node.width / 2, dr.y - node.height / 2 );
+          b = new Vector2( position.x - node.width / 2, position.y - node.height / 2 );
+          c = a.blend( b, inBodyCount / history.length );
           electronNode.setTranslation( c.x, c.y );
         }
       }

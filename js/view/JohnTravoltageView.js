@@ -33,18 +33,18 @@ define( function( require ) {
     //TODO: Move this out to a separate file
     this.touchArea = Shape.rectangle( 0, 0, 1000, 1000 );
     this.mouseArea = Shape.rectangle( 0, 0, 1000, 1000 );
-    var string = '';
-    this.addInputListener( {
-      down: function( event ) {
-        console.log( 'xx' );
-        var pt = event.pointer.point;
-        var global = johnTravoltageView.globalToLocalPoint( pt );
-        var a = 'new Vector2(' + global.x + ',' + global.y + '),\n';
-
-        string = string + a;
-        console.log( string );
-      }
-    } );
+//    var string = '';
+//    this.addInputListener( {
+//      down: function( event ) {
+//        console.log( 'xx' );
+//        var pt = event.pointer.point;
+//        var global = johnTravoltageView.globalToLocalPoint( pt );
+//        var a = 'new Vector2(' + global.x + ',' + global.y + '),\n';
+//
+//        string = string + a;
+//        console.log( string );
+//      }
+//    } );
 
     //Utility to create force lines by clicking in the view
 //    var string = '';
@@ -111,7 +111,7 @@ define( function( require ) {
 //     borders are approximatly 8px = radius of particle from physical body, because physical raduis of electron = 1 in box2D
 //     larger physical radius of electron causes many bugs and model become very slow
     //TODO: move this to a separate file
-    var showBody = true;
+    var showBody = false;
     if ( showBody ) {
       //vertices and body path
       var verts = model.verts;
