@@ -92,7 +92,7 @@ define( function( require ) {
 //     borders are approximatly 8px = radius of particle from physical body, because physical raduis of electron = 1 in box2D
 //     larger physical radius of electron causes many bugs and model become very slow
     //TODO: move this to a separate file
-    var showBody = false;
+    var showBody = true;
     if ( showBody ) {
       //vertices and body path
       var verts = model.verts;
@@ -114,8 +114,8 @@ define( function( require ) {
       var lines = model.forceLines;
       for ( i = 0; i < lines.length; i++ ) {
         customShape = new Shape();
-        customShape.moveTo( lines[i][0], lines[i][1] );
-        customShape.lineTo( lines[i][2], lines[i][3] );
+        customShape.moveTo( lines[i].x1, lines[i].y1 );
+        customShape.lineTo( lines[i].x2, lines[i].y2 );
         path = new Path( customShape, {
           stroke: 'red',
           lineWidth: 1,
