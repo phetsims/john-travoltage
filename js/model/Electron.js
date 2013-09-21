@@ -40,18 +40,26 @@ define( function( require ) {
         if ( electron !== this ) {
           var deltaVectorX = electron.position.x - this.position.x;
           var deltaVectorY = electron.position.y - this.position.y;
-          var scale = 5.0 / Math.pow( electron.position.distance( this.position ), 1.5 );
-          netForceX = netForceX - deltaVectorX * scale;
-          netForceY = netForceY - deltaVectorY * scale;
+
+          //TODO: Good luck tuning these magic numbers!
+          var scale = 5.0 / Math.pow( electron.position.distance( this.position ) * 2, 1.8 );
+          var fx = deltaVectorX * scale;
+          var fy = deltaVectorY * scale;
+          var max = 5;
+          if ( fx * fx + fy * fy > max * max ) {
+            fx = fx / max;
+            fy = fy / max;
+          }
+          netForceX = netForceX - fx;
+          netForceY = netForceY - fy;
         }
       }
 
       this.velocity = new Vector2( this.velocity.x + netForceX, this.velocity.y + netForceY );
-//      console.log( this.velocity.magnitude() );
-      if ( this.velocity.magnitude() > 100 ) {
-        this.velocity = this.velocity.timesScalar( 100.0 / this.velocity.magnitude() );
+      if ( this.velocity.magnitude() > 150 ) {
+        this.velocity = this.velocity.timesScalar( 150.0 / this.velocity.magnitude() );
       }
-      this.velocity = this.velocity.timesScalar( 0.95 );
+      this.velocity = this.velocity.timesScalar( 0.98 );
       if ( isNaN( this.velocity.x ) ) {
         debugger;
       }
