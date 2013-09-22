@@ -108,6 +108,15 @@ define( function( require ) {
 
   return inherit( PropertySet, JohnTravoltageModel, {
 
+    reset: function() {
+      PropertySet.prototype.reset.call( this );
+      this.arm.reset();
+      this.leg.reset();
+      while ( this.electrons.length > 0 ) {
+        this.removeElectron( this.electrons.get( 0 ) );
+      }
+      this.trigger( 'reset' );
+    },
     getLineSegments: function() {
       return this.lineSegments;
     },

@@ -20,8 +20,10 @@ define( function( require ) {
   var Node = require( 'SCENERY/nodes/Node' );
   var SoundToggleButton = require( 'SCENERY_PHET/SoundToggleButton' );
   var JohnTravoltageImages = require( 'JOHN_TRAVOLTAGE/JohnTravoltageImages' );
+  var ResetAllButton = require( 'JOHN_TRAVOLTAGE/view/ResetAllButton' );
   var DebugPositions = require( 'JOHN_TRAVOLTAGE/view/DebugPositions' );
   var platform = require( 'PHET_CORE/platform' );
+  var HBox = require( 'SCENERY/nodes/HBox' );
 
   function JohnTravoltageView( model ) {
     var johnTravoltageView = this;
@@ -43,17 +45,20 @@ define( function( require ) {
     this.addChild( new Node( {layerSplit: true, pickable: false} ) );
 
     //arm and leg - only interactive elements
-    this.leg = new AppendageNode( model.leg, JohnTravoltageImages.getImage( 'leg.png' ), 25, 28, Math.PI / 2 * 0.7, johnTravoltageView );
+    this.leg = new AppendageNode( model, model.leg, JohnTravoltageImages.getImage( 'leg.png' ), 25, 28, Math.PI / 2 * 0.7, johnTravoltageView );
     this.addChild( this.leg );
 
-    this.arm = new AppendageNode( model.arm, JohnTravoltageImages.getImage( 'arm.png' ), 4, 45, -0.1, johnTravoltageView );
+    this.arm = new AppendageNode( model, model.arm, JohnTravoltageImages.getImage( 'arm.png' ), 4, 45, -0.1, johnTravoltageView );
     this.addChild( this.arm );
 
     //spark
     this.addChild( new SparkNode( model ) );
 
-    //sound button
-    this.addChild( new SoundToggleButton( model.soundProperty, {x: 700, y: 450} ) );
+    //Sound button and reset all button
+    var soundButton = new SoundToggleButton( model.soundProperty );
+    var resetAllButton = new ResetAllButton( model.reset.bind( model ) );
+    resetAllButton.scale( soundButton.height / resetAllButton.height );
+    this.addChild( new HBox( {spacing: 10, children: [soundButton, resetAllButton], right: this.layoutBounds.maxX - 7, bottom: this.layoutBounds.maxY - 7} ) );
 
     //Split layers before particle layer for performance
     //Use a layer for electrons so it has only one pickable flag, perhaps may improve performance compared to iterating over all electrons to see if they are pickable?

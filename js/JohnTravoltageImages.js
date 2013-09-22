@@ -14,6 +14,7 @@ define( function() {
   'use strict';
 
   return {
-    imageNames: ['wallpaper.png', 'arm.png', 'leg.png', 'window.svg', 'rug.svg', 'door.svg', 'body.png', 'floor.png']
+    imageNames: ['wallpaper.png', 'arm.png', 'leg.png', 'window.svg', 'rug.svg', 'door.svg', 'body.png', 'floor.png', 'reset_button_disabled.png',
+      'reset_button_down.png', 'reset_button_over.png', 'reset_button_up.png']
   };
 } );

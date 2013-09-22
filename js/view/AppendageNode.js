@@ -16,7 +16,7 @@ define( function( require ) {
   var Vector2 = require( 'DOT/Vector2' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
 
-  function AppendageNode( appendage, image, dx, dy, angleOffset, scene ) {
+  function AppendageNode( model, appendage, image, dx, dy, angleOffset, scene ) {
     var appendageNode = this;
 
     Node.call( this, { cursor: 'pointer'} );
@@ -27,6 +27,8 @@ define( function( require ) {
     // add the image
     var legImageNode = new Image( image );
     this.addChild( legImageNode );
+
+    model.on( 'reset', function() {appendageNode.border.visible = true;} );
 
     legImageNode.addInputListener( new SimpleDragHandler( {
       clickOffset: null, // x-offset between initial click and thumb's origin
