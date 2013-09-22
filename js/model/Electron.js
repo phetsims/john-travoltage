@@ -60,7 +60,6 @@ define( function( require ) {
       }
     },
     step: function( dt ) {
-      var i = 0;
       var x1 = this.position.x;
       var y1 = this.position.y;
 
@@ -71,7 +70,8 @@ define( function( require ) {
       //Compute the net force on each electron from pairwise repulsion.  This stabilizes the motion and pushes
       //the electrons to the outer boundary of the bodies
       //This is an expensive O(n^2) inner loop, so highly optimized and uses Number instead of Vector2 in a number of locations
-      for ( i = 0; i < this.model.electrons.length; i++ ) {
+      var length = this.model.electrons.length;
+      for ( var i = 0; i < length; i++ ) {
         var electron = this.model.electrons.get( i );
 
         //Skipping some interactions speeds things up and also gives a good sense of more randomness
@@ -85,7 +85,7 @@ define( function( require ) {
 
           //TODO: Good luck tuning these magic numbers!
           //TODO: tune to get some particles in the middle, I guess that means turning up the repulsion
-          var scale = 5.0 / Math.pow( electronPosition.distance( position ) * 2, 1.8 );
+          var scale = 83 / Math.pow( electronPosition.distance( position ) * 2, 1.8 );
           var fx = deltaVectorX * scale;
           var fy = deltaVectorY * scale;
           var max = 5;
@@ -98,8 +98,8 @@ define( function( require ) {
         }
       }
 
-      var vx2 = this.velocity.x + netForceX;
-      var vy2 = this.velocity.y + netForceY;
+      var vx2 = this.velocity.x + netForceX * dt;
+      var vy2 = this.velocity.y + netForceY * dt;
 
       var d = Math.sqrt( vx2 * vx2 + vy2 * vy2 );
       if ( d > 150 ) {
@@ -108,12 +108,6 @@ define( function( require ) {
       }
       vx2 = vx2 * 0.99;
       vy2 = vy2 * 0.99;
-
-//      this.velocity = new Vector2( this.velocity.x + netForceX, this.velocity.y + netForceY );
-//      if ( this.velocity.magnitude() > 150 ) {
-//        this.velocity = this.velocity.timesScalar( 150.0 / this.velocity.magnitude() );
-//      }
-//      this.velocity = this.velocity.timesScalar( 0.98 );
 
       var x2 = x1 + vx2 * dt;
       var y2 = y1 + vy2 * dt;

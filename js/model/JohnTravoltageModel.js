@@ -122,12 +122,10 @@ define( function( require ) {
     },
     // Called by the animation loop
     step: function( dt ) {
-      var self = this;
 
       //Test for spark
       if ( !this.electronsExiting ) {
         var distToKnob = this.arm.getFingerPosition().distance( this.doorknobPosition );
-//      console.log( distToKnob, this.electrons.length );
         if ( distToKnob < this.electrons.length ) {
           this.electronsExiting = true;
           if ( this.sound ) {
