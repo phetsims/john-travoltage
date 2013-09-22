@@ -34,7 +34,7 @@ define( function( require ) {
       if ( self.visible ) {
         var shape = new Shape();
 
-        //TODO: Allocations
+        //TODO: reduce allocations
         var point = model.arm.getFingerPosition();
         shape.moveToPoint( point );
         var distanceToTarget = model.doorknobPosition.distance( point );

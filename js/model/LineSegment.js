@@ -28,9 +28,9 @@ define( function( require ) {
   }
 
   LineSegment.prototype = {
-    getNormalVector: function() {
 
-      //TODO: reduce allocations
+    //Get a vector normal to the line.  The extra allocations are fine here since the value is precomputed and stored on the LineSegment
+    getNormalVector: function() {
       return new Vector2( this.x2 - this.x1, this.y2 - this.y1 ).perpendicular().normalized();
     },
 

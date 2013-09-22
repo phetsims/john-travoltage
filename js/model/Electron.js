@@ -122,14 +122,12 @@ define( function( require ) {
 
           var normal = segment.normalVector;
           //reflect velocity
-          var newVelocity = this.velocity.minus( normal.times( 2 * normal.dot( this.velocity ) ) );
-          this.velocity = newVelocity;
+          this.velocity = this.velocity.minus( normal.times( 2 * normal.dot( this.velocity ) ) );
           bounced = true;
           break;
         }
       }
       //See if it crossed a barrier, and reflect it
-      //TODO: prevent allocations?
       if ( !bounced ) {
         this.position.set( x2, y2 );
       }
