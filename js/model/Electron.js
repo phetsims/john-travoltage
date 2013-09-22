@@ -21,7 +21,10 @@ define( function( require ) {
       velocity: new Vector2( 0, -100 )
     } );
     this.model = model;
+
+    //Store some values that are used in an inner loop
     this.maxSpeed = 200;
+    this.maxForceSquared = 50 * 50;
   }
 
   //statics
@@ -89,11 +92,10 @@ define( function( require ) {
           var scale = 75 / Math.pow( electronPosition.distance( position ), 1.6 );
           var fx = deltaVectorX * scale;
           var fy = deltaVectorY * scale;
-          var max = 50;
           var forceMagnitudeSquared = fx * fx + fy * fy;
-          if ( forceMagnitudeSquared > max * max ) {
-            fx = fx / max;
-            fy = fy / max;
+          if ( forceMagnitudeSquared > this.maxForceSquared ) {
+            fx = fx / this.maxForceSquared;
+            fy = fy / this.maxForceSquared;
           }
           netForceX = netForceX - fx;
           netForceY = netForceY - fy;
