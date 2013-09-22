@@ -60,6 +60,11 @@ define( function( require ) {
   var bottomRight = new Vector2( 558.1263873159684, 294.67542468856175 );
   armBounds = new Rect( topLeft.x, topLeft.y, bottomRight.x - topLeft.x, bottomRight.y - topLeft.y );
 
+  //Precompute and reuse to avoid allocations
+  var a = new Vector2();
+  var b = new Vector2();
+  var dr = new Vector2();
+
   function ElectronNode( electron, leg, arm ) {
     var electronNode = this;
 
@@ -95,7 +100,7 @@ define( function( require ) {
       var inLegCount = 0;
       var inBodyCount = 0;
       var inArmCount = 0;
-      var dr, deltaAngle, a, b, c;
+      var deltaAngle, c;
       for ( var i = 0; i < history.length; i++ ) {
         var element = history[i];
         if ( element === legText ) {
@@ -120,7 +125,7 @@ define( function( require ) {
 
         var legPoint = leg.position;
 
-        dr = new Vector2( position.x - legPoint.x, position.y - legPoint.y );
+        dr.set( position.x - legPoint.x, position.y - legPoint.y );
 
         //The leg's rotated angle
         deltaAngle = leg.deltaAngle();
@@ -131,8 +136,8 @@ define( function( require ) {
           electronNode.setTranslation( dr.x - node.width / 2, dr.y - node.height / 2 );
         }
         else {
-          a = new Vector2( dr.x - node.width / 2, dr.y - node.height / 2 );
-          b = new Vector2( position.x - node.width / 2, position.y - node.height / 2 );
+          a.set( dr.x - node.width / 2, dr.y - node.height / 2 );
+          b.set( position.x - node.width / 2, position.y - node.height / 2 );
           c = a.blend( b, inBodyCount / history.length );
           electronNode.setTranslation( c.x, c.y );
         }
@@ -143,7 +148,7 @@ define( function( require ) {
 
         var armPoint = arm.position;
 
-        dr = new Vector2( position.x - armPoint.x, position.y - armPoint.y );
+        dr.set( position.x - armPoint.x, position.y - armPoint.y );
 
         //The leg's rotated angle
         deltaAngle = arm.deltaAngle();
@@ -154,8 +159,8 @@ define( function( require ) {
           electronNode.setTranslation( dr.x - node.width / 2, dr.y - node.height / 2 );
         }
         else {
-          a = new Vector2( dr.x - node.width / 2, dr.y - node.height / 2 );
-          b = new Vector2( position.x - node.width / 2, position.y - node.height / 2 );
+          a.set( dr.x - node.width / 2, dr.y - node.height / 2 );
+          b.set( position.x - node.width / 2, position.y - node.height / 2 );
           c = a.blend( b, inBodyCount / history.length );
           electronNode.setTranslation( c.x, c.y );
         }
