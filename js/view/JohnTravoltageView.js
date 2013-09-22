@@ -22,46 +22,19 @@ define( function( require ) {
   var Node = require( 'SCENERY/nodes/Node' );
   var SoundToggleButton = require( 'SCENERY_PHET/SoundToggleButton' );
   var JohnTravoltageImages = require( 'JOHN_TRAVOLTAGE/JohnTravoltageImages' );
+  var DebugPositions = require( 'JOHN_TRAVOLTAGE/view/DebugPositions' );
 
   function JohnTravoltageView( model ) {
     var johnTravoltageView = this;
+    this.model = model;
 
     ScreenView.call( this, {renderer: 'svg'} );
 
-    //Sample model points for bounds, see JohnTravoltageModel.bodyVertices
-    //TODO: Move this out to a separate file
-//    this.touchArea = Shape.rectangle( 0, 0, 1000, 1000 );
-//    this.mouseArea = Shape.rectangle( 0, 0, 1000, 1000 );
-//    var string = '';
-//    this.addInputListener( {
-//      down: function( event ) {
-//        console.log( 'xx' );
-//        var pt = event.pointer.point;
-//        var global = johnTravoltageView.globalToLocalPoint( pt );
-//        var a = 'new Vector2(' + global.x + ',' + global.y + '),\n';
-//
-//        string = string + a;
-//        console.log( string );
-//      }
-//    } );
+    //Sample model points for bounds, vertices or pivots, see JohnTravoltageModel.bodyVertices
+//    new DebugPositions().debugPositions( this );
 
-    //Utility to create force lines by clicking in the view
-//    var string = '';
-//    var p1 = null;
-//    this.addInputListener( {
-//      down: function( event ) {
-//        var pt = event.pointer.point;
-//        var global = johnTravoltageView.globalToLocalPoint( pt );
-//        if ( p1 ) {
-//          string = string + 'new LineSegment(' + p1.x + ',' + p1.y + ',' + global.x + ',' + global.y + '),\n';
-//          console.log( string );
-//          p1 = null;
-//        }
-//        else {
-//          p1 = global;
-//        }
-//      }
-//    } );
+    //Sample and print line segments, for creating force paths for electrons during spark traversal
+//    new DebugPositions().debugLineSegments( this );
 
     //add background elements
     this.addChild( new BackgroundElementsNode() );
@@ -104,13 +77,26 @@ define( function( require ) {
     } );
 
     // debug lines, body and forceline, uncomment this to view physical bounds of body
-//     borders are approximatly 8px = radius of particle from physical body, because physical raduis of electron = 1 in box2D
-//     larger physical radius of electron causes many bugs and model become very slow
-    //TODO: move this to a separate file
-    var showBody = false;
-    if ( showBody ) {
+    //     borders are approximatly 8px = radius of particle from physical body, because physical raduis of electron = 1 in box2D
+    //     larger physical radius of electron causes many bugs and model become very slow
+//    this.showBody();
+
+//    this.addChild( new Circle( 10, {x: model.bodyVertices[0].x, y: model.bodyVertices[0].y, fill: 'blue'} ) );
+//    this.addChild( new Circle( 10, {x: 0, y: 0, fill: 'blue'} ) );
+
+    //Debugging for finger location
+//    var fingerCircle = new Circle( 10, {fill: 'red'} );
+//    model.arm.angleProperty.link( function( angle ) {
+//      fingerCircle.x = model.arm.getFingerPosition().x;
+//      fingerCircle.y = model.arm.getFingerPosition().y;
+//    } );
+//    this.addChild( fingerCircle );
+  }
+
+  return inherit( ScreenView, JohnTravoltageView, {
+    showBody: function() {
       //vertices and body path
-      var bodyVertices = model.bodyVertices;
+      var bodyVertices = this.model.bodyVertices;
       var customShape = new Shape();
       customShape.moveTo( bodyVertices[0].x, bodyVertices[0].y );
 
@@ -126,7 +112,7 @@ define( function( require ) {
       this.addChild( path );
 
       //forcelines, which attract particles
-      var lines = model.forceLines;
+      var lines = this.model.forceLines;
       for ( i = 0; i < lines.length; i++ ) {
         customShape = new Shape();
         customShape.moveTo( lines[i].x1, lines[i].y1 );
@@ -141,18 +127,5 @@ define( function( require ) {
         this.addChild( path );
       }
     }
-
-//    this.addChild( new Circle( 10, {x: model.bodyVertices[0].x, y: model.bodyVertices[0].y, fill: 'blue'} ) );
-//    this.addChild( new Circle( 10, {x: 0, y: 0, fill: 'blue'} ) );
-
-    //Debugging for finger location
-//    var fingerCircle = new Circle( 10, {fill: 'red'} );
-//    model.arm.angleProperty.link( function( angle ) {
-//      fingerCircle.x = model.arm.getFingerPosition().x;
-//      fingerCircle.y = model.arm.getFingerPosition().y;
-//    } );
-//    this.addChild( fingerCircle );
-  }
-
-  return inherit( ScreenView, JohnTravoltageView );
+  } );
 } );
