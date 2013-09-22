@@ -169,7 +169,7 @@ define( function( require ) {
       //TODO: use phet-core Poolable?
       this.electrons.add( new Electron( point.x, point.y, this, this.leg ) );
 
-      //Show randomly in the middle for debugging
+      //For debugging: show randomly in the middle for debugging
 //      this.electrons.add( new Electron( this.bodyVertices[0].x + 50 + 50 * Math.random(), this.bodyVertices[0].y - 75 + 50 * Math.random(), this ) );
     }
   } );
