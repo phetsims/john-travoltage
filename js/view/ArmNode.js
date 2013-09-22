@@ -29,7 +29,6 @@ define( function( require ) {
 
     this.addInputListener( {
       down: function( event ) {
-        scene.rotationObject = self;
         self.border.visible = false;
       }
     } );

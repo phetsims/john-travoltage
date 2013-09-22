@@ -60,15 +60,14 @@ define( function( require ) {
   var bottomRight = new Vector2( 558.1263873159684, 294.67542468856175 );
   armBounds = new Rect( topLeft.x, topLeft.y, bottomRight.x - topLeft.x, bottomRight.y - topLeft.y );
 
-  function ElectronNode( electron, leg, arm, johnTravoltageView ) {
+  function ElectronNode( electron, leg, arm ) {
     var electronNode = this;
 
     Node.call( this, {pickable: false} );
 
     this.addChild( node );
-    var width = this.width;
-    var height = this.height;
 
+    //These lines can show the "true" model point of the electron without accounting for the appendange rotation
 //    var debugPoint = new Circle( 3, {fill: 'yellow'} );
 //    johnTravoltageView.addChild( debugPoint );
 
