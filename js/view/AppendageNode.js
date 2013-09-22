@@ -15,6 +15,7 @@ define( function( require ) {
   var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
   var Vector2 = require( 'DOT/Vector2' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
+  var Circle = require( 'SCENERY/nodes/Circle' );
 
   function AppendageNode( model, appendage, image, dx, dy, angleOffset, scene ) {
     var appendageNode = this;
@@ -65,7 +66,7 @@ define( function( require ) {
     this.addChild( this.border );
 
     //For debugging
-//    var origin = new Circle( 10, {fill: 'red', x: appendage.position.x, y: appendage.position.y, pickable: false} );
+//    var origin = new Circle( 22, {fill: '#080909', x: appendage.position.x, y: appendage.position.y, pickable: false} );
 //    this.addChild( origin );
 //
 //    var mousePosition = new Circle( 7, {fill: 'blue', x: 0, y: 0, pickable: false} );
