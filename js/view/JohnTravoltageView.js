@@ -29,7 +29,7 @@ define( function( require ) {
 
     ScreenView.call( this, {renderer: 'svg'} );
 
-    //Sample model points for bounds, see JohnTravoltageModel.verts
+    //Sample model points for bounds, see JohnTravoltageModel.bodyVertices
     //TODO: Move this out to a separate file
 //    this.touchArea = Shape.rectangle( 0, 0, 1000, 1000 );
 //    this.mouseArea = Shape.rectangle( 0, 0, 1000, 1000 );
@@ -114,13 +114,13 @@ define( function( require ) {
     var showBody = false;
     if ( showBody ) {
       //vertices and body path
-      var verts = model.verts;
+      var bodyVertices = model.bodyVertices;
       var customShape = new Shape();
-      customShape.moveTo( verts[0].x, verts[0].y );
+      customShape.moveTo( bodyVertices[0].x, bodyVertices[0].y );
 
       //model have array of points - verticles of polygon - border of body
-      for ( var i = 1; i < verts.length; i++ ) {
-        customShape.lineTo( verts[i].x, verts[i].y );
+      for ( var i = 1; i < bodyVertices.length; i++ ) {
+        customShape.lineTo( bodyVertices[i].x, bodyVertices[i].y );
       }
       var path = new Path( customShape, {
         stroke: 'green',
@@ -146,7 +146,7 @@ define( function( require ) {
       }
     }
 
-//    this.addChild( new Circle( 10, {x: model.verts[0].x, y: model.verts[0].y, fill: 'blue'} ) );
+//    this.addChild( new Circle( 10, {x: model.bodyVertices[0].x, y: model.bodyVertices[0].y, fill: 'blue'} ) );
 //    this.addChild( new Circle( 10, {x: 0, y: 0, fill: 'blue'} ) );
 
     //Debugging for finger location

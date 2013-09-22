@@ -11,7 +11,6 @@ define( function( require ) {
 
   var Arm = require( 'JOHN_TRAVOLTAGE/model/Arm' );
   var Leg = require( 'JOHN_TRAVOLTAGE/model/Leg' );
-  var Box2DModel = require( 'JOHN_TRAVOLTAGE/model/Box2DModel' );
   var SparkModel = require( 'JOHN_TRAVOLTAGE/model/SparkModel' );
   var Electron = require( 'JOHN_TRAVOLTAGE/model/Electron' );
   var LineSegment = require( 'JOHN_TRAVOLTAGE/model/LineSegment' );
@@ -28,7 +27,7 @@ define( function( require ) {
     this.electronsToRemove = [];
 
     //vertices of path, border of body, sampled using a listener in JohnTravoltageView
-    this.verts = [
+    this.bodyVertices = [
       new Vector2( 272.2124616956078, 306.9090909090909 ),
       new Vector2( 274.5658835546476, 207.2808988764045 ),
       new Vector2( 346.73748723186924, 110.79060265577121 ),
@@ -85,8 +84,6 @@ define( function( require ) {
     this.electrons = new ObservableArray( [] );
     this.arm = new Arm();
     this.leg = new Leg();
-//    this.spark = new SparkModel();
-//    this.box2dModel = new Box2DModel( this.verts, this.forceLines );
     this.sounds = [
       new Sound( 'audio/OuchSmallest.mp3' ),
       new Sound( 'audio/ShockSmallest.mp3' )
@@ -100,9 +97,9 @@ define( function( require ) {
     } );
 
     var array = [];
-    for ( var i = 0; i < this.verts.length - 1; i++ ) {
-      var current = this.verts[i];
-      var next = this.verts[i + 1];
+    for ( var i = 0; i < this.bodyVertices.length - 1; i++ ) {
+      var current = this.bodyVertices[i];
+      var next = this.bodyVertices[i + 1];
       var segment = new LineSegment( current.x, current.y, next.x, next.y );
 
       //Precompute normal vectors for performance in Electron's inner loop
@@ -110,7 +107,7 @@ define( function( require ) {
       array.push( segment );
     }
     //TODO: store, do not reallocate
-    var lineSegment = new LineSegment( this.verts[this.verts.length - 1].x, this.verts[this.verts.length - 1].y, this.verts[0].x, this.verts[0].y );
+    var lineSegment = new LineSegment( this.bodyVertices[this.bodyVertices.length - 1].x, this.bodyVertices[this.bodyVertices.length - 1].y, this.bodyVertices[0].x, this.bodyVertices[0].y );
 
     //Precompute normal vectors for performance in Electron's inner loop
     lineSegment.normalVector = lineSegment.getNormalVector();
@@ -181,7 +178,7 @@ define( function( require ) {
       this.electrons.add( new Electron( point.x, point.y, this, this.leg ) );
 
       //Show randomly in the middle for debugging
-//      this.electrons.add( new Electron( this.verts[0].x + 50 + 50 * Math.random(), this.verts[0].y - 75 + 50 * Math.random(), this ) );
+//      this.electrons.add( new Electron( this.bodyVertices[0].x + 50 + 50 * Math.random(), this.bodyVertices[0].y - 75 + 50 * Math.random(), this ) );
     }
   } );
 } );
