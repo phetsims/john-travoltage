@@ -67,6 +67,10 @@ define( function( require ) {
       var netForceX = 0;
       var netForceY = 0;
       var position = this.positionProperty.get();
+
+      //Compute the net force on each electron from pairwise repulsion.  This stabilizes the motion and pushes
+      //the electrons to the outer boundary of the bodies
+      //This is an expensive O(n^2) inner loop, so highly optimized and uses Number instead of Vector2 in a number of locations
       for ( i = 0; i < this.model.electrons.length; i++ ) {
         var electron = this.model.electrons.get( i );
 
