@@ -66,18 +66,22 @@ define( function( require ) {
 
       var netForceX = 0;
       var netForceY = 0;
+      var position = this.positionProperty.get();
       for ( i = 0; i < this.model.electrons.length; i++ ) {
         var electron = this.model.electrons.get( i );
 
         //Skipping some interactions speeds things up and also gives a good sense of more randomness
-//        if ( electron !== this && i % 2 === 0 ) {
         if ( electron !== this && Math.random() < 0.4 ) {
-          var deltaVectorX = electron.position.x - this.position.x;
-          var deltaVectorY = electron.position.y - this.position.y;
+
+          //ES5 getter shows up as expensive in this inner loop (7% out of 30%), so skip it and only get the position once
+          var electronPosition = electron.positionProperty.get();
+
+          var deltaVectorX = electronPosition.x - position.x;
+          var deltaVectorY = electronPosition.y - position.y;
 
           //TODO: Good luck tuning these magic numbers!
           //TODO: tune to get some particles in the middle, I guess that means turning up the repulsion
-          var scale = 5.0 / Math.pow( electron.position.distance( this.position ) * 2, 1.8 );
+          var scale = 5.0 / Math.pow( electronPosition.distance( position ) * 2, 1.8 );
           var fx = deltaVectorX * scale;
           var fy = deltaVectorY * scale;
           var max = 5;
