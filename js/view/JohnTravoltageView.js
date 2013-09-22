@@ -21,12 +21,14 @@ define( function( require ) {
   var SoundToggleButton = require( 'SCENERY_PHET/SoundToggleButton' );
   var JohnTravoltageImages = require( 'JOHN_TRAVOLTAGE/JohnTravoltageImages' );
   var DebugPositions = require( 'JOHN_TRAVOLTAGE/view/DebugPositions' );
+  var platform = require( 'PHET_CORE/platform' );
 
   function JohnTravoltageView( model ) {
     var johnTravoltageView = this;
     this.model = model;
 
-    ScreenView.call( this, {renderer: 'svg'} );
+    //The sim works best in most browsers using svg. But in firefox on Win8 it is very slow and buggy, so use canvas on firefox.
+    ScreenView.call( this, {renderer: platform.firefox ? 'canvas' : 'svg'} );
 
     //Sample model points for bounds, vertices or pivots, see JohnTravoltageModel.bodyVertices
 //    new DebugPositions().debugPositions( this );
