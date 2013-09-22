@@ -21,6 +21,7 @@ define( function( require ) {
       velocity: new Vector2( 0, -100 )
     } );
     this.model = model;
+    this.maxSpeed = 200;
   }
 
   //statics
@@ -102,9 +103,10 @@ define( function( require ) {
       var vy2 = this.velocity.y + netForceY * dt;
 
       var d = Math.sqrt( vx2 * vx2 + vy2 * vy2 );
-      if ( d > 150 ) {
-        vx2 = vx2 / d * 150;
-        vy2 = vy2 / d * 150;
+
+      if ( d > this.maxSpeed ) {
+        vx2 = vx2 / d * this.maxSpeed;
+        vy2 = vy2 / d * this.maxSpeed;
       }
       vx2 = vx2 * 0.99;
       vy2 = vy2 * 0.99;
