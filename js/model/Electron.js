@@ -86,11 +86,12 @@ define( function( require ) {
 
           //TODO: Good luck tuning these magic numbers!
           //TODO: tune to get some particles in the middle, I guess that means turning up the repulsion
-          var scale = 83 / Math.pow( electronPosition.distance( position ) * 2, 1.8 );
+          var scale = 75 / Math.pow( electronPosition.distance( position ), 1.6 );
           var fx = deltaVectorX * scale;
           var fy = deltaVectorY * scale;
-          var max = 5;
-          if ( fx * fx + fy * fy > max * max ) {
+          var max = 50;
+          var forceMagnitudeSquared = fx * fx + fy * fy;
+          if ( forceMagnitudeSquared > max * max ) {
             fx = fx / max;
             fy = fy / max;
           }
@@ -108,8 +109,8 @@ define( function( require ) {
         vx2 = vx2 / d * this.maxSpeed;
         vy2 = vy2 / d * this.maxSpeed;
       }
-      vx2 = vx2 * 0.99;
-      vy2 = vy2 * 0.99;
+      vx2 = vx2 * 0.98;
+      vy2 = vy2 * 0.98;
 
       var x2 = x1 + vx2 * dt;
       var y2 = y1 + vy2 * dt;
@@ -125,7 +126,7 @@ define( function( require ) {
 
           var normal = segment.normalVector;
           //reflect velocity
-          this.velocity = this.velocity.minus( normal.times( 2 * normal.dot( this.velocity ) ) );
+          this.velocity = this.velocity.minus( normal.times( 2 * normal.dot( this.velocity ) ) ).timesScalar( 0.8 );
           bounced = true;
           break;
         }
