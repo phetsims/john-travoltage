@@ -32,8 +32,7 @@ define( function( require ) {
       //move to closest line segment
       if ( !this.segment ) {
 
-        //TODO: precompute the getP0
-        this.segment = _.sortBy( this.model.forceLines, function( forceLine ) { return forceLine.getP0().distance( electron.position ); } )[0];
+        this.segment = _.sortBy( this.model.forceLines, function( forceLine ) { return forceLine.p0.distance( electron.position ); } )[0];
 
         //If the closest path is the same as the last one, it means we have reached the end of the road
         if ( this.lastSegment === this.segment ) {
@@ -44,7 +43,7 @@ define( function( require ) {
         }
       }
       //move at constant velocity toward the segment
-      var target = this.segment.getP1();
+      var target = this.segment.p1;
       var current = this.position;
       var delta = target.minus( current );
 

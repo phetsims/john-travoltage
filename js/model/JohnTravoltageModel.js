@@ -100,17 +100,10 @@ define( function( require ) {
     for ( var i = 0; i < this.bodyVertices.length - 1; i++ ) {
       var current = this.bodyVertices[i];
       var next = this.bodyVertices[i + 1];
-      var segment = new LineSegment( current.x, current.y, next.x, next.y );
-
-      //Precompute normal vectors for performance in Electron's inner loop
-      segment.normalVector = segment.getNormalVector();
-      array.push( segment );
+      array.push( new LineSegment( current.x, current.y, next.x, next.y ) );
     }
     //TODO: store, do not reallocate
     var lineSegment = new LineSegment( this.bodyVertices[this.bodyVertices.length - 1].x, this.bodyVertices[this.bodyVertices.length - 1].y, this.bodyVertices[0].x, this.bodyVertices[0].y );
-
-    //Precompute normal vectors for performance in Electron's inner loop
-    lineSegment.normalVector = lineSegment.getNormalVector();
     array.push( lineSegment );
     this.lineSegments = array;
   }
@@ -168,11 +161,10 @@ define( function( require ) {
     addElectron: function() {
 
       var segment = new LineSegment( new Vector2( 423.6159346271706, 463.8038815117467 ), new Vector2( 450.2880490296221, 444.97650663942795 ) );
-      var v = segment.toVector();
+      var v = segment.vector;
       var rand = Math.random() * v.magnitude();
 
-      //TODO: precompute the getP0
-      var point = segment.getP0().plus( v.normalized().times( rand ) );
+      var point = segment.p0.plus( v.normalized().times( rand ) );
 
       //TODO: use phet-core Poolable?
       this.electrons.add( new Electron( point.x, point.y, this, this.leg ) );

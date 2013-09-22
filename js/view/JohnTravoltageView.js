@@ -77,8 +77,7 @@ define( function( require ) {
     } );
 
     // debug lines, body and forceline, uncomment this to view physical bounds of body
-    //     borders are approximatly 8px = radius of particle from physical body, because physical raduis of electron = 1 in box2D
-    //     larger physical radius of electron causes many bugs and model become very slow
+    //  borders are approximatly 8px = radius of particle from physical body, because physical raduis of electron = 1 in box2D
 //    this.showBody();
 
 //    this.addChild( new Circle( 10, {x: model.bodyVertices[0].x, y: model.bodyVertices[0].y, fill: 'blue'} ) );

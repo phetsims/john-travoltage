@@ -27,7 +27,7 @@ define( function( require ) {
   return inherit( PropertySet, Arm, {
     getFingerPosition: function() {
 
-      //TODO: Reduce allocations
+      //TODO: Reduce allocations, possibly move this to a field that mutates
       return this.fingerVector.rotated( this.angle ).plus( this.position );
     },
     deltaAngle: function() { return this.angle; }
