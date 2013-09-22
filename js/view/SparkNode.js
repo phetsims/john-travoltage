@@ -28,59 +28,38 @@ define( function( require ) {
     var bluePath = new Path( null, {stroke: 'blue', lineWidth: 1} );
     this.addChild( whitePath );
     this.addChild( bluePath );
+
+    var numSegments = 10;
     model.on( 'step', function() {
       if ( self.visible ) {
         var shape = new Shape();
 
         //TODO: Allocations
-        shape.moveToPoint( model.arm.getFingerPosition() );
-        shape.lineToPoint( model.doorknobPosition );
+        var point = model.arm.getFingerPosition();
+        shape.moveToPoint( point );
+        var distanceToTarget = model.doorknobPosition.distance( point );
+        var segmentLength = distanceToTarget / numSegments;
+        for ( var i = 0; i < numSegments; i++ ) {
+          if ( i === numSegments - 1 ) {
+            segmentLength = distanceToTarget;
+            point = model.doorknobPosition;
+          }
+          else {
+
+            //go 1/numSegments of the remaining distance to the target, in a direction roughly toward the target
+            var delta = model.doorknobPosition.minus( point ).normalized().timesScalar( segmentLength );
+            delta = delta.rotated( Math.random() - 0.5 );
+            point = point.plus( delta );
+          }
+
+          shape.lineToPoint( point );
+        }
 
         whitePath.shape = shape;
         bluePath.shape = shape;
       }
     } );
-//    this.addChild( new Circle( 10, {fill: 'yellow'} ) );
-//    this.addChild(new Shape())
-//
-//    var customBackgroundShape = new Shape();
-//    var backgroundPath = new Path( customBackgroundShape, {
-//      stroke: 'white',
-//      lineWidth: 4,
-//      pickable: false
-//    } );
-//    this.addChild( backgroundPath );
-//
-//    var customShape = new Shape();
-//    var path = new Path( customShape, {
-//      stroke: 'blue',
-//      lineWidth: 1,
-//      pickable: false
-//    } );
-//    this.addChild( path );
-
-
-    //changes visual position
-//    model.verticesProperty.link( function updatePathOfSpark( verts ) {
-//      customShape = new Shape();
-//      customBackgroundShape = new Shape();
-//      customShape.moveTo( verts[0].x, model.vertices[0].y );
-//      customBackgroundShape.moveTo( verts[0].x, model.vertices[0].y );
-//      for ( var i = 1; i < model.vertices.length; i++ ) {
-//        customShape.lineTo( model.vertices[i].x, model.vertices[i].y );
-//        customShape.moveTo( model.vertices[i].x, model.vertices[i].y );
-//        customBackgroundShape.lineTo( model.vertices[i].x, model.vertices[i].y );
-//        customBackgroundShape.moveTo( model.vertices[i].x, model.vertices[i].y );
-//      }
-//
-//      path.shape = customShape;
-//      backgroundPath.shape = customBackgroundShape;
-//    } );
-
-//    arm.angleProperty.link( function checkAndUpdateSpark() {
-//      model.checkAndUpdateSpark( arm );
-//    } );
   }
 
-  return inherit( Node, SparkNode ); // prototype chaining
+  return inherit( Node, SparkNode );
 } );

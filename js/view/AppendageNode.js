@@ -74,5 +74,5 @@ define( function( require ) {
 //    this.addChild( mousePosition );
   }
 
-  return inherit( Node, AppendageNode ); // prototype chaining
+  return inherit( Node, AppendageNode );
 } );
