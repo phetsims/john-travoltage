@@ -24,7 +24,7 @@ define( function( require ) {
     Node.call( this, {pickable: false} );
 
     model.sparkProperty.linkAttribute( this, 'visible' );
-    this.addChild( new Circle( 10, {fill: 'yellow'} ) );
+//    this.addChild( new Circle( 10, {fill: 'yellow'} ) );
 //
 //    var customBackgroundShape = new Shape();
 //    var backgroundPath = new Path( customBackgroundShape, {
@@ -63,12 +63,6 @@ define( function( require ) {
 //    arm.angleProperty.link( function checkAndUpdateSpark() {
 //      model.checkAndUpdateSpark( arm );
 //    } );
-
-//    box2dModel.isSparkProperty.link( function setSparkVisibility( isVisible ) {
-//      self.visible = isVisible;
-//    } );
-
-//    model.viewNode = this;
   }
 
   return inherit( Node, SparkNode ); // prototype chaining

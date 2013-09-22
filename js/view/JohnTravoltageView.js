@@ -31,8 +31,8 @@ define( function( require ) {
 
     //Sample model points for bounds, see JohnTravoltageModel.verts
     //TODO: Move this out to a separate file
-    this.touchArea = Shape.rectangle( 0, 0, 1000, 1000 );
-    this.mouseArea = Shape.rectangle( 0, 0, 1000, 1000 );
+//    this.touchArea = Shape.rectangle( 0, 0, 1000, 1000 );
+//    this.mouseArea = Shape.rectangle( 0, 0, 1000, 1000 );
 //    var string = '';
 //    this.addInputListener( {
 //      down: function( event ) {

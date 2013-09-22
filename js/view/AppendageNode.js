@@ -16,6 +16,7 @@ define( function( require ) {
   var Vector2 = require( 'DOT/Vector2' );
   var Shape = require( 'KITE/Shape' );
   var Path = require( 'SCENERY/nodes/Path' );
+  var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var JohnTravoltageImages = require( 'JOHN_TRAVOLTAGE/JohnTravoltageImages' );
   var Circle = require( 'SCENERY/nodes/Circle' );
 
@@ -50,21 +51,20 @@ define( function( require ) {
       translate: function() { /* do nothing, override default behavior */ }
     } ) );
 
-    this.border = new Path( new Shape.roundRect( 0, 0, 140, 160, 10, 10 ), {
-      x: appendage.position.x, y: appendage.position.y,
-      stroke: '#f58220',
-      lineWidth: 1,
-      lineDash: [ 10, 10 ],
-      pickable: false
-    } );
-    this.addChild( this.border );
-
     //changes visual position
     appendage.angleProperty.link( function updatePosition( angle ) {
       legImageNode.resetTransform();
       legImageNode.translate( appendage.position.x - dx, appendage.position.y - dy );
       legImageNode.rotateAround( appendage.position.plus( new Vector2( 0, 0 ) ), angle - angleOffset );
     } );
+
+    this.border = new Rectangle( this.bounds.minX, this.bounds.minY, this.width, this.height, 10, 10, {
+      stroke: 'green',
+      lineWidth: 2,
+      lineDash: [ 10, 10 ],
+      pickable: false
+    } );
+    this.addChild( this.border );
 
     //For debugging
 //    var origin = new Circle( 10, {fill: 'red', x: appendage.position.x, y: appendage.position.y, pickable: false} );
