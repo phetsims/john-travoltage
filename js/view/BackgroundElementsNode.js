@@ -12,7 +12,6 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
-
   var Pattern = require( 'SCENERY/util/Pattern' );
   var Image = require( 'SCENERY/nodes/Image' );
   var JohnTravoltageImages = require( 'JOHN_TRAVOLTAGE/JohnTravoltageImages' );

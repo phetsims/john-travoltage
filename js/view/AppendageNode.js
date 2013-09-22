@@ -14,11 +14,7 @@ define( function( require ) {
   var Image = require( 'SCENERY/nodes/Image' );
   var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
   var Vector2 = require( 'DOT/Vector2' );
-  var Shape = require( 'KITE/Shape' );
-  var Path = require( 'SCENERY/nodes/Path' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
-  var JohnTravoltageImages = require( 'JOHN_TRAVOLTAGE/JohnTravoltageImages' );
-  var Circle = require( 'SCENERY/nodes/Circle' );
 
   function AppendageNode( appendage, image, dx, dy, angleOffset, scene ) {
     var appendageNode = this;

@@ -11,10 +11,8 @@ define( function( require ) {
 
   var Arm = require( 'JOHN_TRAVOLTAGE/model/Arm' );
   var Leg = require( 'JOHN_TRAVOLTAGE/model/Leg' );
-  var SparkModel = require( 'JOHN_TRAVOLTAGE/model/SparkModel' );
   var Electron = require( 'JOHN_TRAVOLTAGE/model/Electron' );
   var LineSegment = require( 'JOHN_TRAVOLTAGE/model/LineSegment' );
-  var Property = require( 'AXON/Property' );
   var ObservableArray = require( 'AXON/ObservableArray' );
   var PropertySet = require( 'AXON/PropertySet' );
   var inherit = require( 'PHET_CORE/inherit' );

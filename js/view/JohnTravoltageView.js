@@ -12,13 +12,11 @@ define( function( require ) {
   var ScreenView = require( 'JOIST/ScreenView' );
   var inherit = require( 'PHET_CORE/inherit' );
   var BackgroundElementsNode = require( 'JOHN_TRAVOLTAGE/view/BackgroundElementsNode' );
-  var ArmNode = require( 'JOHN_TRAVOLTAGE/view/ArmNode' );
   var AppendageNode = require( 'JOHN_TRAVOLTAGE/view/AppendageNode' );
   var SparkNode = require( 'JOHN_TRAVOLTAGE/view/SparkNode' );
   var ElectronNode = require( 'JOHN_TRAVOLTAGE/view/ElectronNode' );
   var Shape = require( 'KITE/Shape' );
   var Path = require( 'SCENERY/nodes/Path' );
-  var Circle = require( 'SCENERY/nodes/Circle' );
   var Node = require( 'SCENERY/nodes/Node' );
   var SoundToggleButton = require( 'SCENERY_PHET/SoundToggleButton' );
   var JohnTravoltageImages = require( 'JOHN_TRAVOLTAGE/JohnTravoltageImages' );
