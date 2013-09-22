@@ -80,7 +80,7 @@ define( function( require ) {
     this.doorknobPosition = new Vector2( 543.9318903113076, 257.5894162536105 );
 
     //Properties of the model.  All user settings belong in the model, whether or not they are part of the physical model
-    PropertySet.call( this, { sound: true, spark: false } );
+    PropertySet.call( this, { sound: true, spark: false, sparkVisible: false } );
 
     this.electrons = new ObservableArray( [] );
     this.arm = new Arm();
@@ -128,11 +128,11 @@ define( function( require ) {
       var self = this;
 
       //Test for spark
-      if ( !this.spark ) {
+      if ( !this.electronsExiting ) {
         var distToKnob = this.arm.getFingerPosition().distance( this.doorknobPosition );
 //      console.log( distToKnob, this.electrons.length );
         if ( distToKnob < this.electrons.length ) {
-          this.spark = true;
+          this.electronsExiting = true;
           if ( this.sound ) {
             this.sounds[Math.floor( Math.random() * 2 )].play();
           }
@@ -142,7 +142,7 @@ define( function( require ) {
       //Step the model
       var i = 0;
       var length = this.electrons.length;
-      if ( !this.spark ) {
+      if ( !this.electronsExiting ) {
         for ( i = 0; i < length; i++ ) {
           this.electrons._array[i].step( dt );
         }
@@ -151,13 +151,19 @@ define( function( require ) {
         for ( i = 0; i < length; i++ ) {
           this.electrons._array[i].stepInSpark( dt );
         }
+        if ( this.electronsToRemove.length ) {
+          this.sparkVisible = true;
+        }
         while ( this.electronsToRemove.length ) {
           this.removeElectron( this.electronsToRemove.pop() );
         }
         if ( this.electrons.length === 0 ) {
-          this.spark = false;
+          this.electronsExiting = false;
+          this.sparkVisible = false;
         }
       }
+
+      this.trigger( 'step' );
     },
     removeElectron: function( electron ) {
       this.electrons.remove( electron );

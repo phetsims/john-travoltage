@@ -23,8 +23,25 @@ define( function( require ) {
 
     Node.call( this, {pickable: false} );
 
-    model.sparkProperty.linkAttribute( this, 'visible' );
+    model.sparkVisibleProperty.linkAttribute( this, 'visible' );
+    var whitePath = new Path( null, {stroke: 'white', lineWidth: 4} );
+    var bluePath = new Path( null, {stroke: 'blue', lineWidth: 1} );
+    this.addChild( whitePath );
+    this.addChild( bluePath );
+    model.on( 'step', function() {
+      if ( self.visible ) {
+        var shape = new Shape();
+
+        //TODO: Allocations
+        shape.moveToPoint( model.arm.getFingerPosition() );
+        shape.lineToPoint( model.doorknobPosition );
+
+        whitePath.shape = shape;
+        bluePath.shape = shape;
+      }
+    } );
 //    this.addChild( new Circle( 10, {fill: 'yellow'} ) );
+//    this.addChild(new Shape())
 //
 //    var customBackgroundShape = new Shape();
 //    var backgroundPath = new Path( customBackgroundShape, {
