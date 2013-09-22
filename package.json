@@ -13,7 +13,11 @@
     "images/leg.png",
     "images/rug.svg",
     "images/wallpaper.png",
-    "images/window.svg" ],
+    "images/window.svg",
+    "images/reset_button_disabled.png",
+    "images/reset_button_down.png",
+    "images/reset_button_over.png",
+    "images/reset_button_up.png"],
   "sounds": [
     "audio/OuchSmallest.mp3",
     "audio/ShockSmallest.mp3"
