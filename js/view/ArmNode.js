@@ -15,6 +15,7 @@ define( function( require ) {
   var Shape = require( 'KITE/Shape' );
   var Path = require( 'SCENERY/nodes/Path' );
   var JohnTravoltageImages = require( 'JOHN_TRAVOLTAGE/JohnTravoltageImages' );
+  var armImage = require( 'image!JOHN_TRAVOLTAGE/../images/arm.png' );
 
   function ArmNode( model, scene ) {
     var self = this;
@@ -33,7 +34,7 @@ define( function( require ) {
     } );
 
     // add the Balloon image
-    this.addChild( new Image( JohnTravoltageImages.getImage( 'arm.png' ) ) );
+    this.addChild( new Image( armImage ) );
 
     this.border = new Path( new Shape.roundRect( 0, 0, 120, 70, 10, 10 ), {
       x: 0, y: 0,

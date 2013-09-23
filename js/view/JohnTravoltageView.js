@@ -19,11 +19,12 @@ define( function( require ) {
   var Path = require( 'SCENERY/nodes/Path' );
   var Node = require( 'SCENERY/nodes/Node' );
   var SoundToggleButton = require( 'SCENERY_PHET/SoundToggleButton' );
-  var JohnTravoltageImages = require( 'JOHN_TRAVOLTAGE/JohnTravoltageImages' );
   var ResetAllButton = require( 'SCENERY_PHET/ResetAllButton' );
   var DebugPositions = require( 'JOHN_TRAVOLTAGE/view/DebugPositions' );
   var platform = require( 'PHET_CORE/platform' );
   var HBox = require( 'SCENERY/nodes/HBox' );
+  var arm = require( 'image!JOHN_TRAVOLTAGE/../images/arm.png' );
+  var leg = require( 'image!JOHN_TRAVOLTAGE/../images/leg.png' );
 
   function JohnTravoltageView( model ) {
     var johnTravoltageView = this;
@@ -45,10 +46,10 @@ define( function( require ) {
     this.addChild( new Node( {layerSplit: true, pickable: false} ) );
 
     //arm and leg - only interactive elements
-    this.leg = new AppendageNode( model, model.leg, JohnTravoltageImages.getImage( 'leg.png' ), 25, 28, Math.PI / 2 * 0.7, johnTravoltageView );
+    this.leg = new AppendageNode( model, model.leg, leg, 25, 28, Math.PI / 2 * 0.7, johnTravoltageView );
     this.addChild( this.leg );
 
-    this.arm = new AppendageNode( model, model.arm, JohnTravoltageImages.getImage( 'arm.png' ), 4, 45, -0.1, johnTravoltageView );
+    this.arm = new AppendageNode( model, model.arm, arm, 4, 45, -0.1, johnTravoltageView );
     this.addChild( this.arm );
 
     //spark

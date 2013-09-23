@@ -10,13 +10,12 @@ require( [
   'JOIST/SimLauncher',
   'JOHN_TRAVOLTAGE/Strings',
   'JOIST/Sim',
-  'JOHN_TRAVOLTAGE/JohnTravoltageImages',
   'JOHN_TRAVOLTAGE/JohnTravoltageScreen'
-], function( SimLauncher, Strings, Sim, JohnTravoltageImages, JohnTravoltageScreen ) {
+], function( SimLauncher, Strings, Sim, JohnTravoltageScreen ) {
   'use strict';
 
   //Create and start the sim
-  SimLauncher.launch( JohnTravoltageImages, function() {
+  SimLauncher.launch( {imageNames: []}, function() {
     new Sim( Strings['johnTravoltage.name'], [new JohnTravoltageScreen()] ).start();
   } );
 } );
