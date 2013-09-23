@@ -18,6 +18,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Sound = require( 'VIBE/Sound' );
   var Vector2 = require( 'DOT/Vector2' );
+  var ouchSmallestAudio = require( 'audio!JOHN_TRAVOLTAGE/../audio/OuchSmallest.mp3' );
 
   function JohnTravoltageModel() {
     var johnTravoltageModel = this;
@@ -83,8 +84,7 @@ define( function( require ) {
     this.arm = new Arm();
     this.leg = new Leg();
     this.sounds = [
-      new Sound( 'audio/OuchSmallest.mp3' ),
-      new Sound( 'audio/ShockSmallest.mp3' )
+      new Sound( ouchSmallestAudio )
     ];
 
     //If leg dragged across carpet, add electron
@@ -129,7 +129,7 @@ define( function( require ) {
         if ( distToKnob < this.electrons.length ) {
           this.electronsExiting = true;
           if ( this.sound ) {
-            this.sounds[Math.floor( Math.random() * 2 )].play();
+            this.sounds[0].play();
           }
         }
       }
