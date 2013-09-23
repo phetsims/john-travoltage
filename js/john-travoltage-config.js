@@ -33,7 +33,8 @@ require.config( {
     VIBE: '../../vibe/js',
 
     // local contrib dependencies
-    i18n: '../../sherpa/i18n-2.0.4'
+    i18n: '../../sherpa/i18n-2.0.4',
+    image: '../../chipper/requirejs-plugins/image'
   },
 
   config: {
