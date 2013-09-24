@@ -15,7 +15,7 @@ require( [
   'use strict';
 
   //Create and start the sim
-  SimLauncher.launch( {imageNames: []}, function() {
+  SimLauncher.launch( function() {
     new Sim( Strings['johnTravoltage.name'], [new JohnTravoltageScreen()] ).start();
   } );
 } );
