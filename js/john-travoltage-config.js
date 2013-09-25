@@ -31,6 +31,7 @@ require.config( {
     SUN: '../../sun/js',
     JOIST: '../../joist/js',
     VIBE: '../../vibe/js',
+    SHERPA: '../../sherpa',
 
     // plugins
     i18n: '../../sherpa/i18n-2.0.4',
