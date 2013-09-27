@@ -105,7 +105,7 @@ define( function( require ) {
       var customShape = new Shape();
       customShape.moveTo( bodyVertices[0].x, bodyVertices[0].y );
 
-      //model have array of points - verticles of polygon - border of body
+      //model have array of points - vertices of polygon - border of body
       for ( var i = 1; i < bodyVertices.length; i++ ) {
         customShape.lineTo( bodyVertices[i].x, bodyVertices[i].y );
       }
