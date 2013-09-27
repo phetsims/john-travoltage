@@ -18,7 +18,7 @@ define( function( require ) {
   function Electron( x, y, model ) {
     PropertySet.call( this, {
       position: new Vector2( x, y ),
-      velocity: new Vector2( 0, -100 )
+      velocity: new Vector2( -50, -100 )
     } );
     this.model = model;
 
