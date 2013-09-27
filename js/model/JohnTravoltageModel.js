@@ -120,6 +120,10 @@ define( function( require ) {
     // Called by the animation loop
     step: function( dt ) {
 
+      //Clamp dt, since navigating to another tab and back gives the particles an apparent burst of energy, see #25
+      if ( dt > 2 / 60 ) {
+        dt = 2 / 60;
+      }
       //Test for spark
       if ( !this.electronsExiting ) {
         var distToKnob = this.arm.getFingerPosition().distance( this.doorknobPosition );
