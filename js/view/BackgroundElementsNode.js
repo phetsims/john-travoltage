@@ -19,7 +19,7 @@ define( function( require ) {
   var rug = require( 'image!JOHN_TRAVOLTAGE/../images/rug.svg' );
   var body = require( 'image!JOHN_TRAVOLTAGE/../images/body.png' );
   var door = require( 'image!JOHN_TRAVOLTAGE/../images/door.svg' );
-  var window = require( 'image!JOHN_TRAVOLTAGE/../images/window.svg' );
+  var window = require( 'image!JOHN_TRAVOLTAGE/../images/window.png' );
 
   function BackgroundElementsNode( position ) {
 
@@ -34,7 +34,7 @@ define( function( require ) {
     this.addChild( new Image( window, {
       x: 50,
       y: 60,
-      scale: 0.48
+      scale: 0.93
     } ) );
 
     // add the floor image
