@@ -14,6 +14,9 @@ require( [
 ], function( SimLauncher, Strings, Sim, JohnTravoltageScreen ) {
   'use strict';
 
+  //Workaround for #30
+  document.body.appendChild( document.createElement( 'audio' ) );
+
   //Create and start the sim
   SimLauncher.launch( function() {
     new Sim( Strings['johnTravoltage.name'], [new JohnTravoltageScreen()] ).start();
