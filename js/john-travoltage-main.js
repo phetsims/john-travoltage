@@ -15,7 +15,9 @@ require( [
   'use strict';
 
   //Workaround for #30
-  document.body.appendChild( document.createElement( 'audio' ) );
+  var newChild = document.createElement( 'audio' );
+  newChild.style.display = 'none';
+  document.body.appendChild( newChild );
 
   //Create and start the sim
   SimLauncher.launch( function() {
