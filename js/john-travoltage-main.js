@@ -8,10 +8,10 @@
  */
 require( [
   'JOIST/SimLauncher',
-  'JOHN_TRAVOLTAGE/Strings',
   'JOIST/Sim',
-  'JOHN_TRAVOLTAGE/JohnTravoltageScreen'
-], function( SimLauncher, Strings, Sim, JohnTravoltageScreen ) {
+  'JOHN_TRAVOLTAGE/JohnTravoltageScreen',
+  'string!JOHN_TRAVOLTAGE/johnTravoltage.name'
+], function( SimLauncher, Sim, JohnTravoltageScreen, title ) {
   'use strict';
 
   //Workaround for #30
@@ -21,6 +21,6 @@ require( [
 
   //Create and start the sim
   SimLauncher.launch( function() {
-    new Sim( Strings['johnTravoltage.name'], [new JohnTravoltageScreen()] ).start();
+    new Sim( title, [new JohnTravoltageScreen()] ).start();
   } );
 } );

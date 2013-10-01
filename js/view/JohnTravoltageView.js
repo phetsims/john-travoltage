@@ -25,6 +25,7 @@ define( function( require ) {
   var HBox = require( 'SCENERY/nodes/HBox' );
   var arm = require( 'image!JOHN_TRAVOLTAGE/../images/arm.png' );
   var leg = require( 'image!JOHN_TRAVOLTAGE/../images/leg.png' );
+  var title = require( 'string!JOHN_TRAVOLTAGE/johnTravoltage.name' );
 
   function JohnTravoltageView( model ) {
     var johnTravoltageView = this;

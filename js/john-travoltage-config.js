@@ -20,7 +20,6 @@ require.config( {
 
     // common directories, uppercase names to identify them in require imports
     PHETCOMMON: '../../phetcommon/js',
-    JOHN_TRAVOLTAGE: '../../john-travoltage/js',
     SCENERY: '../../scenery/js',
     SCENERY_PHET: '../../scenery-phet/js',
     KITE: '../../kite/js',
@@ -32,11 +31,12 @@ require.config( {
     JOIST: '../../joist/js',
     VIBE: '../../vibe/js',
     SHERPA: '../../sherpa',
+    JOHN_TRAVOLTAGE: '.',
 
     // plugins
-    i18n: '../../sherpa/i18n-2.0.4',
     image: '../../chipper/requirejs-plugins/image',
-    audio: '../../chipper/requirejs-plugins/audio'
+    audio: '../../chipper/requirejs-plugins/audio',
+    string: '../../chipper/requirejs-plugins/string'
   },
 
   config: {
