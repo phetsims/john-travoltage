@@ -1,0 +1,3 @@
+define( {
+  "johnTravoltage.name": "Travoltaje"
+} );
