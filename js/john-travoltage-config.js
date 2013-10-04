@@ -36,7 +36,9 @@ require.config( {
     // plugins
     image: '../../chipper/requirejs-plugins/image',
     audio: '../../chipper/requirejs-plugins/audio',
-    string: '../../chipper/requirejs-plugins/string'
+    string: '../../chipper/requirejs-plugins/string',
+
+    text: '../../sherpa/text'
   },
 
   config: {

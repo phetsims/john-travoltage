@@ -10,7 +10,7 @@ require( [
   'JOIST/SimLauncher',
   'JOIST/Sim',
   'JOHN_TRAVOLTAGE/JohnTravoltageScreen',
-  'string!JOHN_TRAVOLTAGE/johnTravoltage.name'
+  'string!JOHN_TRAVOLTAGE/travoltage.name'
 ], function( SimLauncher, Sim, JohnTravoltageScreen, title ) {
   'use strict';
 
