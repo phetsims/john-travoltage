@@ -1,8 +1,8 @@
-arm.png notes=notes=http://www.americancinematheque.com/ball/1997MPBTravolta.htm
-body.png notes=notes=http://www.americancinematheque.com/ball/1997MPBTravolta.htm
+arm.png notes=notes=http://www.americancinematheque.com/ball/1997MPBTravolta.htm edited by NP
+body.png notes=notes=http://www.americancinematheque.com/ball/1997MPBTravolta.htm edited by NP
 door.svg author=PhET
 floor.png author=PhET
-leg.png notes=notes=http://www.americancinematheque.com/ball/1997MPBTravolta.htm
+leg.png notes=notes=http://www.americancinematheque.com/ball/1997MPBTravolta.htm edited by NP
 rug.svg author=PhET
 wallpaper.png author=PhET
 window.svg author=PhET
