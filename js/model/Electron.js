@@ -23,12 +23,14 @@ define( function( require ) {
     this.model = model;
 
     //Store some values that are used in an inner loop
-    this.maxSpeed = 200;
-    this.maxForceSquared = 50 * 50;
+    this.maxSpeed = 500;
+    this.maxForceSquared = 100000000;
   }
 
   //statics
   Electron.radius = 8;
+
+  var frictionFactor = 0.95;
 
   return inherit( PropertySet, Electron, {
     stepInSpark: function( dt ) {
@@ -89,7 +91,7 @@ define( function( require ) {
 
           //TODO: Good luck tuning these magic numbers!
           //TODO: tune to get some particles in the middle, I guess that means turning up the repulsion
-          var scale = 75 / Math.pow( electronPosition.distance( position ), 1.6 );
+          var scale = 12000 / Math.pow( electronPosition.distance( position ), 3 );
           var fx = deltaVectorX * scale;
           var fy = deltaVectorY * scale;
           var forceMagnitudeSquared = fx * fx + fy * fy;
@@ -111,8 +113,8 @@ define( function( require ) {
         vx2 = vx2 / d * this.maxSpeed;
         vy2 = vy2 / d * this.maxSpeed;
       }
-      vx2 = vx2 * 0.98;
-      vy2 = vy2 * 0.98;
+      vx2 = vx2 * frictionFactor;
+      vy2 = vy2 * frictionFactor;
 
       var x2 = x1 + vx2 * dt;
       var y2 = y1 + vy2 * dt;
