@@ -30,7 +30,7 @@ define( function( require ) {
   //statics
   Electron.radius = 8;
 
-  var frictionFactor = 0.95;
+  var frictionFactor = 0.98;
 
   return inherit( PropertySet, Electron, {
     stepInSpark: function( dt ) {
