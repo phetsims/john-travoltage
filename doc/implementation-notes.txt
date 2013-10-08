@@ -1,2 +1,8 @@
-//REVIEW populate this file
-//REVIEW mention how the very precise values that appear in the model were created using DebugPosition
+When the leg sweeps across the carpet, electrons are brought into the leg.  The electrons repulse each other with an inverse force law,
+see coefficients in Electron.js.  The body is modeled as a closed polygon.  The polygon was created by using DebugPositions.js to sample points
+in the coordinate frame of the ScreenView.  When enough electrons have amassed (depends on the distance of the finger to the doorknob), it creates a spark.
+The electrons travel along force lines to the finger.  The force lines can also be sampled using DebugPositions.  Electron positions are computed
+in a body with unrotated appendages, and mapped in the view to the positions corresponding to the rotated appendages.
+
+Sam Reid
+10-7-2013
