@@ -137,7 +137,8 @@ define( function( require ) {
         if ( Util.lineSegmentIntersection( x1, y1, x2, y2, segment.x1, segment.y1, segment.x2, segment.y2 ) ) {
 
           var normal = segment.normalVector;
-          //reflect velocity
+
+          //reflect velocity, but lose some of the energy in the bounce to help keep the electrons near the walls and help them lose energy quicker
           this.velocity = this.velocity.minus( normal.times( 2 * normal.dot( this.velocity ) ) ).timesScalar( 0.8 );
           bounced = true;
           break;
