@@ -71,10 +71,6 @@ define( function( require ) {
 
     this.addChild( node );
 
-    //These lines can show the "true" model point of the electron without accounting for the appendange rotation
-//    var debugPoint = new Circle( 3, {fill: 'yellow'} );
-//    johnTravoltageView.addChild( debugPoint );
-
     var history = [];
 
     var legText = 'leg';

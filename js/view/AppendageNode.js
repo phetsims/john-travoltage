@@ -70,11 +70,14 @@ define( function( require ) {
     this.addChild( this.border );
 
     //For debugging
-//    var origin = new Circle( 22, {fill: '#080909', x: appendage.position.x, y: appendage.position.y, pickable: false} );
-//    this.addChild( origin );
-//
-//    var mousePosition = new Circle( 7, {fill: 'blue', x: 0, y: 0, pickable: false} );
-//    this.addChild( mousePosition );
+    var debugging = true;
+    if ( debugging ) {
+      var origin = new Circle( 22, {fill: '#080909', x: appendage.position.x, y: appendage.position.y, pickable: false} );
+      this.addChild( origin );
+
+      var mousePosition = new Circle( 7, {fill: 'blue', x: 0, y: 0, pickable: false} );
+      this.addChild( mousePosition );
+    }
   }
 
   return inherit( Node, AppendageNode );

@@ -176,7 +176,10 @@ define( function( require ) {
       this.electrons.add( new Electron( point.x, point.y, this, this.leg ) );
 
       //For debugging: show randomly in the middle for debugging
-//      this.electrons.add( new Electron( this.bodyVertices[0].x + 50 + 50 * Math.random(), this.bodyVertices[0].y - 75 + 50 * Math.random(), this ) );
+      var debugging = false;
+      if ( debugging ) {
+        this.electrons.add( new Electron( this.bodyVertices[0].x + 50 + 50 * Math.random(), this.bodyVertices[0].y - 75 + 50 * Math.random(), this ) );
+      }
     }
   } );
 } );

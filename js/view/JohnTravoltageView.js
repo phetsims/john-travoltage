@@ -34,12 +34,6 @@ define( function( require ) {
     //The sim works best in most browsers using svg. But in firefox on Win8 it is very slow and buggy, so use canvas on firefox.
     ScreenView.call( this, {renderer: platform.firefox ? 'canvas' : 'svg'} );
 
-    //Sample model points for bounds, vertices or pivots, see JohnTravoltageModel.bodyVertices
-//    new DebugPositions().debugPositions( this );
-
-    //Sample and print line segments, for creating force paths for electrons during spark traversal
-//    new DebugPositions().debugLineSegments( this );
-
     //add background elements
     this.addChild( new BackgroundElementsNode() );
 
