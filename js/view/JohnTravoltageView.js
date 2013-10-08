@@ -46,11 +46,17 @@ define( function( require ) {
     this.addChild( new Node( {layerSplit: true, pickable: false} ) );
 
     //arm and leg - only interactive elements
-    this.leg = new AppendageNode( model, model.leg, leg, 25, 28, Math.PI / 2 * 0.7, johnTravoltageView );
+    this.leg = new AppendageNode( model.leg, leg, 25, 28, Math.PI / 2 * 0.7 );
     this.addChild( this.leg );
 
-    this.arm = new AppendageNode( model, model.arm, arm, 4, 45, -0.1, johnTravoltageView );
+    this.arm = new AppendageNode( model.arm, arm, 4, 45, -0.1 );
     this.addChild( this.arm );
+
+    //Show the dotted lines again when the sim is reset
+    model.on( 'reset', function() {
+      johnTravoltageView.leg.border.visible = true;
+      johnTravoltageView.arm.border.visible = true;
+    } );
 
     //spark
     this.addChild( new SparkNode( model ) );

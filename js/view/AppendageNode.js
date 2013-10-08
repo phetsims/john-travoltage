@@ -17,10 +17,15 @@ define( function( require ) {
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Circle = require( 'SCENERY/nodes/Circle' );
 
-  //REVIEW overly broad interface, don't pass in the entire model, pass in the parts you need
-  //REVIEW Is appendage {Arm|Leg} ?
-  //REVIEW describe angleOffset
-  function AppendageNode( model, appendage, image, dx, dy, angleOffset ) {
+  /**
+   * @param {Leg|Arm} appendage the body part to display
+   * @param {Image} image
+   * @param {Number} dx
+   * @param {Number} dy
+   * @param {Number} angleOffset the angle about which to rotate
+   * @constructor
+   */
+  function AppendageNode( appendage, image, dx, dy, angleOffset ) {
     var appendageNode = this;
 
     Node.call( this, { cursor: 'pointer'} );
@@ -29,20 +34,18 @@ define( function( require ) {
     var angle = 0;
 
     // add the image
-    var legImageNode = new Image( image );
-    this.addChild( legImageNode );
+    var imageNode = new Image( image );
+    this.addChild( imageNode );
 
-    model.on( 'reset', function() {appendageNode.border.visible = true;} );
-
-    legImageNode.addInputListener( new SimpleDragHandler( {
+    imageNode.addInputListener( new SimpleDragHandler( {
       clickOffset: null, // x-offset between initial click and thumb's origin
       allowTouchSnag: true,
       start: function( event ) {
-        this.clickOffset = legImageNode.globalToParentPoint( event.pointer.point ).minus( legImageNode.translation );
+        this.clickOffset = imageNode.globalToParentPoint( event.pointer.point ).minus( imageNode.translation );
         appendageNode.border.visible = false;
       },
       drag: function( event ) {
-        var globalPoint = legImageNode.globalToParentPoint( event.pointer.point );
+        var globalPoint = imageNode.globalToParentPoint( event.pointer.point );
         //REVIEW delete dead code
 //        console.log( globalPoint );
 //        mousePosition.translation = globalPoint;
@@ -56,9 +59,9 @@ define( function( require ) {
 
     //changes visual position
     appendage.angleProperty.link( function updatePosition( angle ) {
-      legImageNode.resetTransform();
-      legImageNode.translate( appendage.position.x - dx, appendage.position.y - dy );
-      legImageNode.rotateAround( appendage.position.plus( new Vector2( 0, 0 ) ), angle - angleOffset );
+      imageNode.resetTransform();
+      imageNode.translate( appendage.position.x - dx, appendage.position.y - dy );
+      imageNode.rotateAround( appendage.position.plus( new Vector2( 0, 0 ) ), angle - angleOffset );
     } );
 
     this.border = new Rectangle( this.bounds.minX, this.bounds.minY, this.width, this.height, 10, 10, {
