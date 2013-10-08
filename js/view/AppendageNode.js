@@ -17,6 +17,10 @@ define( function( require ) {
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Circle = require( 'SCENERY/nodes/Circle' );
 
+  //REVIEW overly broad interface, don't pass in the entire model, pass in the parts you need
+  //REVIEW Is appendage {Arm|Leg} ?
+  //REVIEW describe angleOffset
+  //REVIEW scene param is unused. call sites are passing in a ScreenView, not a scene.
   function AppendageNode( model, appendage, image, dx, dy, angleOffset, scene ) {
     var appendageNode = this;
 
@@ -40,6 +44,7 @@ define( function( require ) {
       },
       drag: function( event ) {
         var globalPoint = legImageNode.globalToParentPoint( event.pointer.point );
+        //REVIEW delete dead code
 //        console.log( globalPoint );
 //        mousePosition.translation = globalPoint;
         angle = globalPoint.minus( new Vector2( appendage.position.x, appendage.position.y ) ).angle();

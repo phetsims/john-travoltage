@@ -14,12 +14,14 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
 
   function Arm() {
+    //REVIEW what is this significance of these very precise values? how were they arrived at?
     PropertySet.call( this, { angle: -0.5} );
     this.position = new Vector2( 423.6179673321235, 229.84969476984 );
 
     var finger = new Vector2( 534.3076703633706, 206.63766358806117 );
     this.fingerVector = finger.minus( this.position );
 
+    //REVIEW delete dead code
     //Set the initial angle to be up away from the doorknob a bit
 //    this.angle = -0.5;
   }

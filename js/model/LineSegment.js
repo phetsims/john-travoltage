@@ -19,6 +19,7 @@ define( function( require ) {
       this.y2 = y2;
     }
 
+    //REVIEW verify typeof x1 and y1 ?
     //Support for LineSegment(Vector2,Vector2)
     else {
       this.x1 = x1.x;

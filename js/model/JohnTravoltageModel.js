@@ -26,6 +26,7 @@ define( function( require ) {
 
     this.electronsToRemove = [];
 
+    //REVIEW the listener mentioned here seems to be in DebugPosition
     //vertices of path, border of body, sampled using a listener in JohnTravoltageView
     this.bodyVertices = [new Vector2( 422.21508828250404, 455.370786516854 ),
       new Vector2( 403.10754414125205, 424.5521669341895 ),
@@ -84,6 +85,7 @@ define( function( require ) {
       new Sound( shockSmallestAudio )
     ];
 
+    //REVIEW doc for Property.lazyLink says "mostly used for internal code". Is it appropriate to use here?
     //If leg dragged across carpet, add electron
     this.leg.angleProperty.lazyLink( function( angle ) {
       if ( angle < 2.4 && angle > 1 && johnTravoltageModel.electrons.length < 100 ) {

@@ -71,7 +71,7 @@ define( function( require ) {
 
       var netForceX = 0;
       var netForceY = 0;
-      var position = this.positionProperty.get();
+      var position = this.positionProperty.get(); //REVIEW why not use this.position?
 
       //Compute the net force on each electron from pairwise repulsion.  This stabilizes the motion and pushes
       //the electrons to the outer boundary of the bodies
@@ -84,7 +84,7 @@ define( function( require ) {
         if ( electron !== this && Math.random() < 0.4 ) {
 
           //ES5 getter shows up as expensive in this inner loop (7% out of 30%), so skip it and only get the position once
-          var electronPosition = electron.positionProperty.get();
+          var electronPosition = electron.positionProperty.get(); //REVIEW are you using this instead of electron.position for performance reasons?
 
           var deltaVectorX = electronPosition.x - position.x;
           var deltaVectorY = electronPosition.y - position.y;
@@ -141,7 +141,7 @@ define( function( require ) {
       }
 
       //Notify observers anyways so the electron will redraw at the right leg angle
-      this.positionProperty.notifyObserversUnsafe();
+      this.positionProperty.notifyObserversUnsafe(); //REVIEW doesn't this result in an unnecessary notification when !bounced ?
     }
   } );
 } );

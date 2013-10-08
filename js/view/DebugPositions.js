@@ -1,5 +1,6 @@
 // Copyright 2002-2013, University of Colorado Boulder
 
+//REVIEW provide more details. How would I use this if I needed to change one or more of the many very-precise values that appear in code?
 /**
  * Main ScreenView of simulation. Drawing starts here
  *

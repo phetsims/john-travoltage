@@ -14,6 +14,7 @@ define( function( require ) {
   var Shape = require( 'KITE/Shape' );
   var Path = require( 'SCENERY/nodes/Path' );
 
+  //REVIEW overly broad interface, don't pass in the entire model, pass in the parts you need
   function SparkNode( model ) {
     var self = this;
 

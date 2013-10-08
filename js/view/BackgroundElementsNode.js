@@ -21,6 +21,7 @@ define( function( require ) {
   var door = require( 'image!JOHN_TRAVOLTAGE/../images/door.svg' );
   var window = require( 'image!JOHN_TRAVOLTAGE/../images/window.png' );
 
+  //REVIEW position is not used, and not provided by call site
   function BackgroundElementsNode( position ) {
 
     Node.call( this, {pickable: false} );

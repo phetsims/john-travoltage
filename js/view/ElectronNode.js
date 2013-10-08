@@ -18,6 +18,7 @@ define( function( require ) {
   var Electron = require( 'JOHN_TRAVOLTAGE/model/Electron' );
   var Image = require( 'SCENERY/nodes/Image' );
   var Vector2 = require( 'DOT/Vector2' );
+  //REVIEW Say what?... I haven't seen this technique before. Is it legit?
   require( 'SCENERY/Scene' ); //Force Scene to load before using Node.toImage
 
   var radius = Electron.radius;
