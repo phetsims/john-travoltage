@@ -21,6 +21,7 @@ define( function( require ) {
   var SoundToggleButton = require( 'SCENERY_PHET/SoundToggleButton' );
   var ResetAllButton = require( 'SCENERY_PHET/ResetAllButton' );
   var DebugPositions = require( 'JOHN_TRAVOLTAGE/view/DebugPositions' );
+  var Circle = require( 'SCENERY/nodes/Circle' );
   var platform = require( 'PHET_CORE/platform' );
   var HBox = require( 'SCENERY/nodes/HBox' );
   var arm = require( 'image!JOHN_TRAVOLTAGE/../images/arm.png' );
@@ -89,23 +90,24 @@ define( function( require ) {
     } );
 
     //REVIEW A general comment about debug code that is commented out. There is a fair amount of it in this sim.
-    //REVIEW If it's important enough to keep, it would be better to bracket it with 'if (flag)', rather than
-    //REVIEW making it look like dead code that won't be maintained.
 
     // debug lines, body and forceline, uncomment this to view physical bounds of body
-    //  borders are approximatly 8px = radius of particle from physical body, because physical raduis of electron = 1 in box2D
-//    this.showBody();
+    // borders are appproximately 8px = radius of particle from physical body, because physical raduis of electron = 1 in box2D
+    var showDebugInfo = false;
+    if ( showDebugInfo ) {
+      this.showBody();
 
-//    this.addChild( new Circle( 10, {x: model.bodyVertices[0].x, y: model.bodyVertices[0].y, fill: 'blue'} ) );
-//    this.addChild( new Circle( 10, {x: 0, y: 0, fill: 'blue'} ) );
+      this.addChild( new Circle( 10, {x: model.bodyVertices[0].x, y: model.bodyVertices[0].y, fill: 'blue'} ) );
+      this.addChild( new Circle( 10, {x: 0, y: 0, fill: 'blue'} ) );
 
-    //Debugging for finger location
-//    var fingerCircle = new Circle( 10, {fill: 'red'} );
-//    model.arm.angleProperty.link( function( angle ) {
-//      fingerCircle.x = model.arm.getFingerPosition().x;
-//      fingerCircle.y = model.arm.getFingerPosition().y;
-//    } );
-//    this.addChild( fingerCircle );
+      //Debugging for finger location
+      var fingerCircle = new Circle( 10, {fill: 'red'} );
+      model.arm.angleProperty.link( function( angle ) {
+        fingerCircle.x = model.arm.getFingerPosition().x;
+        fingerCircle.y = model.arm.getFingerPosition().y;
+      } );
+      this.addChild( fingerCircle );
+    }
   }
 
   return inherit( ScreenView, JohnTravoltageView, {
