@@ -66,12 +66,15 @@ define( function( require ) {
       }
     },
     step: function( dt ) {
-      var x1 = this.position.x;
-      var y1 = this.position.y;
+
+      //Performance is critical in this method, so avoid es5 which can be slower
+      var position = this.positionProperty.get();
+
+      var x1 = position.x;
+      var y1 = position.y;
 
       var netForceX = 0;
       var netForceY = 0;
-      var position = this.positionProperty.get(); //REVIEW why not use this.position?
 
       //Compute the net force on each electron from pairwise repulsion.  This stabilizes the motion and pushes
       //the electrons to the outer boundary of the bodies
@@ -83,8 +86,9 @@ define( function( require ) {
         //Skipping some interactions speeds things up and also gives a good sense of more randomness
         if ( electron !== this && Math.random() < 0.4 ) {
 
+          //Using direct get method instead of ES5 getter to improve performance in this inner loop
           //ES5 getter shows up as expensive in this inner loop (7% out of 30%), so skip it and only get the position once
-          var electronPosition = electron.positionProperty.get(); //REVIEW are you using this instead of electron.position for performance reasons?
+          var electronPosition = electron.positionProperty.get();
 
           var deltaVectorX = electronPosition.x - position.x;
           var deltaVectorY = electronPosition.y - position.y;

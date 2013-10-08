@@ -26,8 +26,7 @@ define( function( require ) {
 
     this.electronsToRemove = [];
 
-    //REVIEW the listener mentioned here seems to be in DebugPosition
-    //vertices of path, border of body, sampled using a listener in JohnTravoltageView
+    //vertices of path, border of body, sampled using a listener in DebugPositions
     this.bodyVertices = [new Vector2( 422.21508828250404, 455.370786516854 ),
       new Vector2( 403.10754414125205, 424.5521669341895 ),
       new Vector2( 379.68539325842704, 328.3980738362762 ),
@@ -85,8 +84,7 @@ define( function( require ) {
       new Sound( shockSmallestAudio )
     ];
 
-    //REVIEW doc for Property.lazyLink says "mostly used for internal code". Is it appropriate to use here?
-    //If leg dragged across carpet, add electron
+    //If leg dragged across carpet, add electron.  Lazy link so that it won't add an electron when the sim starts up.
     this.leg.angleProperty.lazyLink( function( angle ) {
       if ( angle < 2.4 && angle > 1 && johnTravoltageModel.electrons.length < 100 ) {
         johnTravoltageModel.addElectron();

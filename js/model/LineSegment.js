@@ -11,6 +11,15 @@ define( function( require ) {
 
   var Vector2 = require( 'DOT/Vector2' );
 
+  /**
+   * Create a LineSegment from Number,Number,Number,Number or Vector2,Vector2
+   *
+   * @param {Number|Vector2} x1
+   * @param {Number|Vector2} y1
+   * @param {Number|undefined} x2
+   * @param {Number|undefined} y2
+   * @constructor
+   */
   function LineSegment( x1, y1, x2, y2 ) {
     if ( typeof x1 === 'number' ) {
       this.x1 = x1;
@@ -19,13 +28,15 @@ define( function( require ) {
       this.y2 = y2;
     }
 
-    //REVIEW verify typeof x1 and y1 ?
     //Support for LineSegment(Vector2,Vector2)
-    else {
+    else if ( typeof x1 === 'Vector2' && typeof y1 === 'Vector2' ) {
       this.x1 = x1.x;
       this.y1 = x1.y;
       this.x2 = y1.x;
       this.y2 = y1.y;
+    }
+    else {
+      throw new Error( 'unknown type in LineSegment' );
     }
 
     this.normalVector = new Vector2( this.x2 - this.x1, this.y2 - this.y1 ).perpendicular().normalized();
