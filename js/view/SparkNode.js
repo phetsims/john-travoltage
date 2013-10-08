@@ -14,7 +14,15 @@ define( function( require ) {
   var Shape = require( 'KITE/Shape' );
   var Path = require( 'SCENERY/nodes/Path' );
 
-  //REVIEW overly broad interface, don't pass in the entire model, pass in the parts you need
+  /**
+   * Constructor for the SparkNode, which shows the animated spark from the finger to the doorknob when electrons are flowing out.
+   *
+   * @param {Property<Boolean>} sparkVisibleProperty true if the spark should be shown
+   * @param {Arm} arm the arm the electrons will flow through
+   * @param {Vector2} doorknobPosition the position of the doorknob
+   * @param {Function} addStepListener function to add a step listener to the model
+   * @constructor
+   */
   function SparkNode( sparkVisibleProperty, arm, doorknobPosition, addStepListener ) {
     var self = this;
 
