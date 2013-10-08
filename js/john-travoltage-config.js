@@ -18,7 +18,10 @@ require.config( {
   // relative to baseUrl unless the paths setting starts with a '/' or has a URL protocol.
   paths: {
 
-    // common directories, uppercase names to identify them in require imports
+    // this sim
+    JOHN_TRAVOLTAGE: '.',
+
+    // PhET libs, uppercase names to identify them in require imports
     PHETCOMMON: '../../phetcommon/js',
     SCENERY: '../../scenery/js',
     SCENERY_PHET: '../../scenery-phet/js',
@@ -31,7 +34,6 @@ require.config( {
     JOIST: '../../joist/js',
     VIBE: '../../vibe/js',
     SHERPA: '../../sherpa',
-    JOHN_TRAVOLTAGE: '.',
 
     // PhET plugins
     image: '../../chipper/requirejs-plugins/image',
