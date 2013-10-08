@@ -83,8 +83,6 @@ define( function( require ) {
       model.electrons.addItemRemovedListener( itemRemovedListener );
     } );
 
-    //REVIEW A general comment about debug code that is commented out. There is a fair amount of it in this sim.
-
     // debug lines, body and forceline, uncomment this to view physical bounds of body
     // borders are appproximately 8px = radius of particle from physical body, because physical raduis of electron = 1 in box2D
     var showDebugInfo = false;
