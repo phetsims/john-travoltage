@@ -131,8 +131,9 @@ define( function( require ) {
       this.velocity.set( vx2, vy2 );
 
       var segments = this.model.getLineSegments();
+      var numSegments = segments.length;
       var bounced = false;
-      for ( i = 0; i < segments.length; i++ ) {
+      for ( i = 0; i < numSegments; i++ ) {
         var segment = segments[i];
         if ( Util.lineSegmentIntersection( x1, y1, x2, y2, segment.x1, segment.y1, segment.x2, segment.y2 ) ) {
 
