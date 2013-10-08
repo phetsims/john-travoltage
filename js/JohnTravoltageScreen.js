@@ -10,7 +10,7 @@ define( function( require ) {
 
   var JohnTravoltageModel = require( 'JOHN_TRAVOLTAGE/model/JohnTravoltageModel' );
   var JohnTravoltageView = require( 'JOHN_TRAVOLTAGE/view/JohnTravoltageView' );
-  var title = require( 'string!JOHN_TRAVOLTAGE/johnTravoltage.name' );
+  var title = require( 'string!JOHN_TRAVOLTAGE/travoltage.name' );
 
   function JohnTravoltageScreen() {
     return {
