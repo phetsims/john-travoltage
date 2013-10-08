@@ -141,11 +141,13 @@ define( function( require ) {
       }
       //See if it crossed a barrier, and reflect it
       if ( !bounced ) {
+
+        //Note, this does not send notifications because it is setting the x,y values on the vector itself
         this.position.set( x2, y2 );
       }
 
       //Notify observers anyways so the electron will redraw at the right leg angle
-      this.positionProperty.notifyObserversUnsafe(); //REVIEW doesn't this result in an unnecessary notification when !bounced ?
+      this.positionProperty.notifyObserversUnsafe();
     }
   } );
 } );
