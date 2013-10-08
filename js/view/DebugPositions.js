@@ -1,8 +1,14 @@
 // Copyright 2002-2013, University of Colorado Boulder
 
-//REVIEW provide more details. How would I use this if I needed to change one or more of the many very-precise values that appear in code?
 /**
- * Main ScreenView of simulation. Drawing starts here
+ * Utility for sampling positions and line segments for the model, which should be used in the JohnTravoltageView.
+ * Clicking around the view will output the values to the console, which can then be used in model code.
+ *
+ * //Sample model points for bounds, vertices or pivots, see JohnTravoltageModel.bodyVertices.
+ * new DebugPositions().debugPositions( this );
+ *
+ * //Sample and print line segments, for creating force paths for electrons during spark traversal
+ * new DebugPositions().debugLineSegments( this );
  *
  * @author Vasily Shakhov (Mlearner)
  * @author Sam Reid
