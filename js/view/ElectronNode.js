@@ -161,7 +161,6 @@ define( function( require ) {
         }
       }
 
-//      debugPoint.setTranslation( position.x, position.y );
     } );
   }
 
