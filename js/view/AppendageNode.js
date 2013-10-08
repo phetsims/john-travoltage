@@ -46,9 +46,6 @@ define( function( require ) {
       },
       drag: function( event ) {
         var globalPoint = imageNode.globalToParentPoint( event.pointer.point );
-        //REVIEW delete dead code
-//        console.log( globalPoint );
-//        mousePosition.translation = globalPoint;
         angle = globalPoint.minus( new Vector2( appendage.position.x, appendage.position.y ) ).angle();
         appendage.angle = angle;
       },

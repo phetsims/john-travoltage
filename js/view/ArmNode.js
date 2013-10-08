@@ -14,8 +14,6 @@ define( function( require ) {
   var Image = require( 'SCENERY/nodes/Image' );
   var Shape = require( 'KITE/Shape' );
   var Path = require( 'SCENERY/nodes/Path' );
-  //REVIEW not sure why this isn't failing, old-style image loader JohnTravoltageImages doesn't exist.
-  var JohnTravoltageImages = require( 'JOHN_TRAVOLTAGE/JohnTravoltageImages' );
   var armImage = require( 'image!JOHN_TRAVOLTAGE/../images/arm.png' );
 
   //REVIEW overly broad interface, don't pass in the entire model, pass in the parts you need
