@@ -33,18 +33,13 @@ require.config( {
     SHERPA: '../../sherpa',
     JOHN_TRAVOLTAGE: '.',
 
-    // plugins
+    // PhET plugins
     image: '../../chipper/requirejs-plugins/image',
     audio: '../../chipper/requirejs-plugins/audio',
     string: '../../chipper/requirejs-plugins/string',
 
+    // third-party libs
     text: '../../sherpa/text'
-  },
-
-  config: {
-    i18n: {
-      locale: 'en_us' // change this to test other locales
-    }
   },
 
   urlArgs: new Date().getTime()  // cache buster to make browser reload all included scripts
