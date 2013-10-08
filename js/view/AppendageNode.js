@@ -20,8 +20,7 @@ define( function( require ) {
   //REVIEW overly broad interface, don't pass in the entire model, pass in the parts you need
   //REVIEW Is appendage {Arm|Leg} ?
   //REVIEW describe angleOffset
-  //REVIEW scene param is unused. call sites are passing in a ScreenView, not a scene.
-  function AppendageNode( model, appendage, image, dx, dy, angleOffset, scene ) {
+  function AppendageNode( model, appendage, image, dx, dy, angleOffset ) {
     var appendageNode = this;
 
     Node.call( this, { cursor: 'pointer'} );
