@@ -18,6 +18,8 @@ define( function( require ) {
   function Electron( x, y, model ) {
     PropertySet.call( this, {
       position: new Vector2( x, y ),
+
+      //The velocity an electron has when it comes from the carpet into the leg.
       velocity: new Vector2( -50, -100 )
     } );
     this.model = model;
@@ -27,9 +29,10 @@ define( function( require ) {
     this.maxForceSquared = 100000000;
   }
 
-  //statics
+  //Radius of the electron
   Electron.radius = 8;
 
+  //If this value is 1.0, there is no friction.  The value is what the velocity is multiplied by at every step.
   var frictionFactor = 0.98;
 
   return inherit( PropertySet, Electron, {
@@ -93,8 +96,9 @@ define( function( require ) {
           var deltaVectorX = electronPosition.x - position.x;
           var deltaVectorY = electronPosition.y - position.y;
 
-          //TODO: Good luck tuning these magic numbers!
-          //TODO: tune to get some particles in the middle, I guess that means turning up the repulsion
+          //Good luck tuning these magic numbers!
+          //Tuning the power to a smaller number increases long range interactions.
+          //Tuning the coefficient to a higher number increases the strength of interaction at any distance.
           var scale = 12000 / Math.pow( electronPosition.distance( position ), 3 );
           var fx = deltaVectorX * scale;
           var fy = deltaVectorY * scale;
