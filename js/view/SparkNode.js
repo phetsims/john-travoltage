@@ -15,36 +15,36 @@ define( function( require ) {
   var Path = require( 'SCENERY/nodes/Path' );
 
   //REVIEW overly broad interface, don't pass in the entire model, pass in the parts you need
-  function SparkNode( model ) {
+  function SparkNode( sparkVisibleProperty, arm, doorknobPosition, addStepListener ) {
     var self = this;
 
     Node.call( this, {pickable: false} );
 
-    model.sparkVisibleProperty.linkAttribute( this, 'visible' );
+    sparkVisibleProperty.linkAttribute( this, 'visible' );
     var whitePath = new Path( null, {stroke: 'white', lineWidth: 4} );
     var bluePath = new Path( null, {stroke: 'blue', lineWidth: 1} );
     this.addChild( whitePath );
     this.addChild( bluePath );
 
     var numSegments = 10;
-    model.on( 'step', function() {
+    addStepListener( function() {
       if ( self.visible ) {
         var shape = new Shape();
 
         //TODO: reduce allocations
-        var point = model.arm.getFingerPosition();
+        var point = arm.getFingerPosition();
         shape.moveToPoint( point );
-        var distanceToTarget = model.doorknobPosition.distance( point );
+        var distanceToTarget = doorknobPosition.distance( point );
         var segmentLength = distanceToTarget / numSegments;
         for ( var i = 0; i < numSegments; i++ ) {
           if ( i === numSegments - 1 ) {
             segmentLength = distanceToTarget;
-            point = model.doorknobPosition;
+            point = doorknobPosition;
           }
           else {
 
             //go 1/numSegments of the remaining distance to the target, in a direction roughly toward the target
-            var delta = model.doorknobPosition.minus( point ).normalized().timesScalar( segmentLength );
+            var delta = doorknobPosition.minus( point ).normalized().timesScalar( segmentLength );
             delta = delta.rotated( Math.random() - 0.5 );
             point = point.plus( delta );
           }

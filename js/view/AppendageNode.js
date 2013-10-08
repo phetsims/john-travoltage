@@ -70,7 +70,7 @@ define( function( require ) {
     this.addChild( this.border );
 
     //For debugging
-    var debugging = true;
+    var debugging = false;
     if ( debugging ) {
       var origin = new Circle( 22, {fill: '#080909', x: appendage.position.x, y: appendage.position.y, pickable: false} );
       this.addChild( origin );
