@@ -14,12 +14,12 @@ define( function( require ) {
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Pattern = require( 'SCENERY/util/Pattern' );
   var Image = require( 'SCENERY/nodes/Image' );
-  var wallpaper = require( 'image!JOHN_TRAVOLTAGE/../images/wallpaper.png' );
-  var floor = require( 'image!JOHN_TRAVOLTAGE/../images/floor.png' );
-  var rug = require( 'image!JOHN_TRAVOLTAGE/../images/rug.svg' );
-  var body = require( 'image!JOHN_TRAVOLTAGE/../images/body.png' );
-  var door = require( 'image!JOHN_TRAVOLTAGE/../images/door.png' );
-  var window = require( 'image!JOHN_TRAVOLTAGE/../images/window.png' );
+  var wallpaper = require( 'image!JOHN_TRAVOLTAGE/wallpaper.png' );
+  var floor = require( 'image!JOHN_TRAVOLTAGE/floor.png' );
+  var rug = require( 'image!JOHN_TRAVOLTAGE/rug.svg' );
+  var body = require( 'image!JOHN_TRAVOLTAGE/body.png' );
+  var door = require( 'image!JOHN_TRAVOLTAGE/door.png' );
+  var window = require( 'image!JOHN_TRAVOLTAGE/window.png' );
 
   function BackgroundElementsNode() {
 
