@@ -28,7 +28,6 @@ define( function( require ) {
   var minusChargeNode = new Node( {
     children: [
       new Circle( radius, {
-        x: 0, y: 0,
         fill: new RadialGradient( 2, -3, 2, 2, -3, 7 )
           .addColorStop( 0, '#4fcfff' )
           .addColorStop( 0.5, '#2cbef5' )
@@ -42,14 +41,15 @@ define( function( require ) {
       } )
     ], scale: scale
   } );
+  minusChargeNode.top = 0;
+  minusChargeNode.left = 0;
 
   var node = new Node();
   minusChargeNode.toImage( function( im ) {
 
     //Scale back down so the image will be the desired size
     node.children = [new Image( im, {scale: 1.0 / scale} )];
-  } );
-
+  }, 0, 0, minusChargeNode.width, minusChargeNode.height );
 
   //Bounds for the leg and arm regions sampled by clicking on the JohnTravoltageView coordinates
   var legBounds = new Rect( 368.70275791624107, 332.0122574055158, 600, 600 );
@@ -64,12 +64,24 @@ define( function( require ) {
   var b = new Vector2();
   var dr = new Vector2();
 
+  var debugPosition = false;
+
   function ElectronNode( electron, leg, arm ) {
     var electronNode = this;
 
     Node.call( this, {pickable: false} );
 
     this.addChild( node );
+    node.centerX = 0;
+    node.centerY = 0;
+    if ( debugPosition ) {
+      var circle = new Circle( 2, {fill: 'yellow'} );
+      circle.centerX = 0;
+      circle.centerY = 0;
+      this.addChild( circle );
+
+      this.addChild( new Rectangle( node.bounds, {lineWidth: 1, stroke: 'red'} ) );
+    }
 
     var history = [];
 
@@ -111,7 +123,7 @@ define( function( require ) {
 
       //Simplest case, it wasn't in any appendage
       if ( inBodyCount === history.length ) {
-        electronNode.setTranslation( position.x - node.width / 2, position.y - node.height / 2 );
+        electronNode.setTranslation( position.x, position.y );
       }
 
       //Interpolate for smoothness at intersection between leg/body
@@ -128,11 +140,11 @@ define( function( require ) {
 
         //No need to blend, it was in the leg the whole time
         if ( inLegCount === history.length ) {
-          electronNode.setTranslation( dr.x - node.width / 2, dr.y - node.height / 2 );
+          electronNode.setTranslation( dr.x, dr.y );
         }
         else {
-          a.set( dr.x - node.width / 2, dr.y - node.height / 2 );
-          b.set( position.x - node.width / 2, position.y - node.height / 2 );
+          a.set( dr.x, dr.y );
+          b.set( position.x, position.y );
           c = a.blend( b, inBodyCount / history.length );
           electronNode.setTranslation( c.x, c.y );
         }
@@ -151,11 +163,11 @@ define( function( require ) {
 
         //No need to blend, it was in the leg the whole time
         if ( inArmCount === history.length ) {
-          electronNode.setTranslation( dr.x - node.width / 2, dr.y - node.height / 2 );
+          electronNode.setTranslation( dr.x, dr.y );
         }
         else {
-          a.set( dr.x - node.width / 2, dr.y - node.height / 2 );
-          b.set( position.x - node.width / 2, position.y - node.height / 2 );
+          a.set( dr.x, dr.y );
+          b.set( position.x, position.y );
           c = a.blend( b, inBodyCount / history.length );
           electronNode.setTranslation( c.x, c.y );
         }
