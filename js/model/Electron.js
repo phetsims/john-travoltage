@@ -140,7 +140,8 @@ define( function( require ) {
           var normal = segment.normalVector;
 
           //reflect velocity, but lose some of the energy in the bounce to help keep the electrons near the walls and help them lose energy quicker
-          this.velocity = this.velocity.minus( normal.times( 2 * normal.dot( this.velocity ) ) ).timesScalar( 0.8 );
+          //The Safari 6.0 heisenbug exhibits here if you use es5, so use property.get() instead
+          this.velocity = this.velocityProperty.get().minus( normal.times( 2 * normal.dot( this.velocityProperty.get() ) ) ).timesScalar( 0.8 );
           bounced = true;
           break;
         }
