@@ -76,6 +76,13 @@ define( function( require ) {
     //Properties of the model.  All user settings belong in the model, whether or not they are part of the physical model
     PropertySet.call( this, { sound: true, spark: false, sparkVisible: false } );
 
+    this.sparkVisibleProperty.link( function( sparkVisible ) {
+      console.log( sparkVisible, johnTravoltageModel.sound );
+      if ( sparkVisible && johnTravoltageModel.sound ) {
+        johnTravoltageModel.sounds[Math.floor( Math.random() * 2 )].play();
+      }
+    } );
+
     this.electrons = new ObservableArray( [] );
     this.arm = new Arm();
     this.leg = new Leg();
@@ -129,9 +136,6 @@ define( function( require ) {
         var distToKnob = this.arm.getFingerPosition().distance( this.doorknobPosition );
         if ( distToKnob < this.electrons.length ) {
           this.electronsExiting = true;
-          if ( this.sound ) {
-            this.sounds[Math.floor( Math.random() * 2 )].play();
-          }
         }
       }
 
