@@ -23,6 +23,7 @@ define( function( require ) {
       velocity: new Vector2( -50, -100 )
     } );
     this.model = model;
+    this.exiting = false;//mutable but not observable
 
     //Store some values that are used in an inner loop
     this.maxSpeed = 500;
@@ -69,6 +70,14 @@ define( function( require ) {
       }
     },
     step: function( dt ) {
+      if ( this.exiting ) {
+        this.stepInSpark( dt );
+      }
+      else {
+        this.stepInBody( dt );
+      }
+    },
+    stepInBody: function( dt ) {
 
       //Performance is critical in this method, so avoid es5 which can be slower
       var position = this.positionProperty.get();

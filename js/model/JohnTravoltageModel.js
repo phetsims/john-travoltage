@@ -135,31 +135,30 @@ define( function( require ) {
         var distToKnob = this.arm.getFingerPosition().distance( this.doorknobPosition );
         if ( distToKnob < this.electrons.length ) {
           this.electronsExiting = true;
+
+          //Mark all electrons for exiting
+          for ( var j = 0; j < this.electrons.length; j++ ) {
+            this.electrons.get( j ).exiting = true;
+          }
         }
       }
 
       //Step the model
-      var i = 0;
       var length = this.electrons.length;
-      if ( !this.electronsExiting ) {
-        for ( i = 0; i < length; i++ ) {
-          this.electrons._array[i].step( dt );
-        }
+      for ( var i = 0; i < length; i++ ) {
+        this.electrons._array[i].step( dt );
       }
-      else {
-        for ( i = 0; i < length; i++ ) {
-          this.electrons._array[i].stepInSpark( dt );
-        }
-        if ( this.electronsToRemove.length ) {
-          this.sparkVisible = true;
-        }
-        while ( this.electronsToRemove.length ) {
-          this.removeElectron( this.electronsToRemove.pop() );
-        }
-        if ( this.electrons.length === 0 ) {
-          this.electronsExiting = false;
-          this.sparkVisible = false;
-        }
+      if ( this.electronsToRemove.length ) {
+        this.sparkVisible = true;
+      }
+      while ( this.electronsToRemove.length ) {
+        this.removeElectron( this.electronsToRemove.pop() );
+      }
+
+      //TODO: allocations and performance
+      if ( this.electrons.length === 0 || _.filter( this.electrons._array,function( e ) {return e.exiting;} ).length === 0 ) {
+        this.electronsExiting = false;
+        this.sparkVisible = false;
       }
 
       this.trigger( 'step' );
