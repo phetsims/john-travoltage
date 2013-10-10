@@ -77,7 +77,6 @@ define( function( require ) {
     PropertySet.call( this, { sound: true, spark: false, sparkVisible: false } );
 
     this.sparkVisibleProperty.link( function( sparkVisible ) {
-      console.log( sparkVisible, johnTravoltageModel.sound );
       if ( sparkVisible && johnTravoltageModel.sound ) {
         johnTravoltageModel.sounds[Math.floor( Math.random() * 2 )].play();
       }
