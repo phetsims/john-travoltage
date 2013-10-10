@@ -52,8 +52,8 @@
     "branch": "master"
   },
   "john-travoltage": {
-    "sha": "c660b86d22deedce648e1a08823c0e504d417806",
+    "sha": "63f46bf4d5d4052fa2524e9acee1b244035d56c1",
     "branch": "1.0"
   },
-  "comment": "# john-travoltage 1.0.0-rc.1 Wed Oct 09 2013 23:37:32 GMT-0600 (Mountain Daylight Time)"
+  "comment": "# john-travoltage 1.0.0-rc.1 Wed Oct 09 2013 23:38:58 GMT-0600 (Mountain Daylight Time)"
 }
