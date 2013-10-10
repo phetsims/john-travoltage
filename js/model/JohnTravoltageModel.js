@@ -109,6 +109,9 @@ define( function( require ) {
     this.lineSegments = array;
   }
 
+  //Function to determine if electrons are exiting.
+  var exiting = function( e ) {return e.exiting;};
+
   return inherit( PropertySet, JohnTravoltageModel, {
 
     reset: function() {
@@ -155,8 +158,7 @@ define( function( require ) {
         this.removeElectron( this.electronsToRemove.pop() );
       }
 
-      //TODO: allocations and performance
-      if ( this.electrons.length === 0 || _.filter( this.electrons._array,function( e ) {return e.exiting;} ).length === 0 ) {
+      if ( this.electrons.length === 0 || _.filter( this.electrons._array, exiting ).length === 0 ) {
         this.electronsExiting = false;
         this.sparkVisible = false;
       }
