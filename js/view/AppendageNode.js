@@ -43,6 +43,7 @@ define( function( require ) {
       start: function( event ) {
         this.clickOffset = imageNode.globalToParentPoint( event.pointer.point ).minus( imageNode.translation );
         appendageNode.border.visible = false;
+        appendageNode.dragging = true;
       },
       drag: function( event ) {
         var globalPoint = imageNode.globalToParentPoint( event.pointer.point );
@@ -50,6 +51,7 @@ define( function( require ) {
         appendage.angle = angle;
       },
       end: function() {
+        appendageNode.dragging = false;
       },
       translate: function() { /* do nothing, override default behavior */ }
     } ) );

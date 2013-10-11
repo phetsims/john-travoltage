@@ -22,6 +22,9 @@ define( function( require ) {
     //Exact finger location sampled using DebugPositions.js
     var finger = new Vector2( 534.3076703633706, 206.63766358806117 );
     this.fingerVector = finger.minus( this.position );
+
+    //Keep track of dragging flag (non-observable) so that when the sim is reset, a border outline is not added if the leg is dragging
+    this.dragging = false;
   }
 
   return inherit( PropertySet, Arm, {

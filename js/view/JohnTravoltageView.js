@@ -49,8 +49,12 @@ define( function( require ) {
 
     //Show the dotted lines again when the sim is reset
     model.on( 'reset', function() {
-      johnTravoltageView.leg.border.visible = true;
-      johnTravoltageView.arm.border.visible = true;
+      if ( !johnTravoltageView.leg.dragging ) {
+        johnTravoltageView.leg.border.visible = true;
+      }
+      if ( !johnTravoltageView.arm.dragging ) {
+        johnTravoltageView.arm.border.visible = true;
+      }
     } );
 
     //spark

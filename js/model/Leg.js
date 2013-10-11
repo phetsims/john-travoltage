@@ -17,6 +17,9 @@ define( function( require ) {
     this.initialAngle = 1.3175443221852239;
     PropertySet.call( this, { angle: this.initialAngle  } );
     this.position = new Vector2( 398, 335 );
+
+    //Keep track of dragging flag (non-observable) so that when the sim is reset, a border outline is not added if the leg is dragging
+    this.dragging = false;
   }
 
   return inherit( PropertySet, Leg, {
