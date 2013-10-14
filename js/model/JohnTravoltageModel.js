@@ -133,16 +133,14 @@ define( function( require ) {
       if ( dt > 2 / 60 ) {
         dt = 2 / 60;
       }
-      //Test for spark
-      if ( !this.electronsExiting ) {
-        var distToKnob = this.arm.getFingerPosition().distance( this.doorknobPosition );
-        if ( distToKnob < this.electrons.length ) {
-          this.electronsExiting = true;
 
-          //Mark all electrons for exiting
-          for ( var j = 0; j < this.electrons.length; j++ ) {
-            this.electrons.get( j ).exiting = true;
-          }
+      //Test for spark.  Check every step so that newly added electrons can be assigned to exit if the threshold is still exceeded, see #27
+      var distToKnob = this.arm.getFingerPosition().distance( this.doorknobPosition );
+      if ( distToKnob < this.electrons.length ) {
+
+        //Mark all electrons for exiting
+        for ( var j = 0; j < this.electrons.length; j++ ) {
+          this.electrons.get( j ).exiting = true;
         }
       }
 
@@ -159,7 +157,6 @@ define( function( require ) {
       }
 
       if ( this.electrons.length === 0 || _.filter( this.electrons._array, exiting ).length === 0 ) {
-        this.electronsExiting = false;
         this.sparkVisible = false;
       }
 
