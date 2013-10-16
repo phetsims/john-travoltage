@@ -18,8 +18,8 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Sound = require( 'VIBE/Sound' );
   var Vector2 = require( 'DOT/Vector2' );
-  var shockOuchAudio = require( 'audio!JOHN_TRAVOLTAGE/shock-ouch.mp3' );
-  var shockAudio = require( 'audio!JOHN_TRAVOLTAGE/shock.mp3' );
+  var shockOuchAudio = require( 'audio!JOHN_TRAVOLTAGE/shock-ouch' );
+  var shockAudio = require( 'audio!JOHN_TRAVOLTAGE/shock' );
 
   function JohnTravoltageModel() {
     var johnTravoltageModel = this;
