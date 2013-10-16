@@ -105,6 +105,8 @@ define( function( require ) {
         fingerCircle.y = model.arm.getFingerPosition().y;
       } );
       this.addChild( fingerCircle );
+
+      new DebugPositions().debugLineSegments( this );
     }
   }
 
@@ -113,12 +115,12 @@ define( function( require ) {
       //vertices and body path
       var bodyVertices = this.model.bodyVertices;
       var customShape = new Shape();
-      customShape.moveTo( bodyVertices[0].x, bodyVertices[0].y );
-
-      //model have array of points - vertices of polygon - border of body
-      for ( var i = 1; i < bodyVertices.length; i++ ) {
-        customShape.lineTo( bodyVertices[i].x, bodyVertices[i].y );
+      for ( var i = 0; i < this.model.lineSegments.length; i++ ) {
+        var lineSegment = this.model.lineSegments[i];
+        customShape.moveTo( lineSegment.x1, lineSegment.y1 );
+        customShape.lineTo( lineSegment.x2, lineSegment.y2 );
       }
+
       var path = new Path( customShape, {
         stroke: 'green',
         lineWidth: 1,

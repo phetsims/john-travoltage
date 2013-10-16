@@ -27,6 +27,7 @@ define( function( require ) {
     this.electronsToRemove = [];
 
     //vertices of path, border of body, sampled using a listener in DebugPositions
+    //If you regenerate these, also fix: lineSegmentIndexForSleeve below
     this.bodyVertices = [new Vector2( 422.21508828250404, 455.370786516854 ),
       new Vector2( 403.10754414125205, 424.5521669341895 ),
       new Vector2( 379.68539325842704, 328.3980738362762 ),
@@ -61,14 +62,18 @@ define( function( require ) {
 
     //lines, to which electrons moves, when spark happened
     this.forceLines = [
-      new LineSegment( 472.38690040454634, 428.7835099210171, 431.4047389712964, 450.8037757657484 ),
-      new LineSegment( 424.06465035638604, 445.2987093045656, 392.2575996917742, 324.79892120978616 ),
-      new LineSegment( 392.2575996917742, 321.12887690233094, 376.35407435946826, 225.70772490849546 ),
-      new LineSegment( 376.96574841071083, 222.6493546522828, 406.3261028703525, 217.75596224234252 ),
-      new LineSegment( 406.3261028703525, 217.75596224234252, 428.34636871508377, 232.43613947216335 ),
-      new LineSegment( 395.56783691959237, 118.72253680634202, 405.3091732729332, 203.95922989807477 ),
-      new LineSegment( 308.5046432616082, 435.92480181200455, 338.33748584371466, 278.84575311438283 ),
-      new LineSegment( 421.74767836919597, 225.87723669309176, 527.0758776896943, 212.48289920724804 )
+      new LineSegment( 300.6483412322275, 443.79905213270143, 341.41421800947865, 338.97251184834124 ),
+      new LineSegment( 341.41421800947865, 335.33270142180095, 373.44454976303314, 204.29952606635067 ),
+      new LineSegment( 423.6739336492891, 438.703317535545, 406.2028436018957, 406.6729857819905 ),
+      new LineSegment( 406.2028436018957, 405.2170616113744, 393.0995260663507, 330.2369668246445 ),
+      new LineSegment( 392.37156398104264, 327.3251184834123, 375.6284360189573, 253.80094786729856 ),
+      new LineSegment( 377.08436018957343, 212.30710900473932, 395.28341232227484, 205.02748815165873 ),
+      new LineSegment( 398.92322274881514, 206.48341232227486, 418.5781990521327, 225.4104265402843 ),
+      new LineSegment( 418.5781990521327, 225.4104265402843, 516.8530805687203, 219.58672985781985 ),
+      new LineSegment( 417.85023696682464, 100.9289099526066, 385.81990521327015, 127.13554502369666 ),
+      new LineSegment( 379.9962085308057, 134.41516587677722, 366.89289099526064, 167.17345971563978 ),
+      new LineSegment( 369.8047393364929, 172.26919431279617, 392.37156398104264, 195.563981042654 ),
+      new LineSegment( 317.3914691943128, 255.98483412322273, 355.9734597156398, 222.4985781990521 )
     ];
 
     this.doorknobPosition = new Vector2( 543.9318903113076, 257.5894162536105 );
@@ -107,6 +112,7 @@ define( function( require ) {
     var lineSegment = new LineSegment( this.bodyVertices[this.bodyVertices.length - 1].x, this.bodyVertices[this.bodyVertices.length - 1].y, this.bodyVertices[0].x, this.bodyVertices[0].y );
     array.push( lineSegment );
     this.lineSegments = array;
+    this.lineSegmentIndexForSleeve = 22;
   }
 
   //Function to determine if electrons are exiting.
@@ -141,6 +147,20 @@ define( function( require ) {
         //Mark all electrons for exiting
         for ( var j = 0; j < this.electrons.length; j++ ) {
           this.electrons.get( j ).exiting = true;
+        }
+      }
+
+      //If we are under the threshold, consider stopping the spark, but only if no electrons are close to the finger
+      else {
+        //Mark all electrons for exiting
+        for ( var k = 0; k < this.electrons.length; k++ ) {
+          var electron = this.electrons.get( k );
+          if ( electron.positionProperty.get().distance( this.doorknobPosition ) > 200 ) {
+            electron.exiting = false;
+
+            //Choose a new nearest segment when traveling toward finger again
+            electron.segment = null;
+          }
         }
       }
 

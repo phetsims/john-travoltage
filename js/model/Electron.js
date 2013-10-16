@@ -25,6 +25,9 @@ define( function( require ) {
     this.model = model;
     this.exiting = false;//mutable but not observable
 
+    //Segment the electron is traveling towards
+    this.segment = null;
+
     //Store some values that are used in an inner loop
     this.maxSpeed = 500;
     this.maxForceSquared = 100000000;
@@ -38,6 +41,8 @@ define( function( require ) {
 
   return inherit( PropertySet, Electron, {
     stepInSpark: function( dt ) {
+      var x1 = this.positionProperty.get().x;
+      var y1 = this.positionProperty.get().y;
       var electron = this;
       //move to closest line segment
       if ( !this.segment ) {
@@ -65,8 +70,30 @@ define( function( require ) {
       else {
 
         //Send toward the end point on the segment, but with a bit of randomness to make it seem a bit more realistic
+        //However, adding the randomness makes particles sometimes step outside the body bounds during update, which
+        //Is problematic for stopping the spark while electrons in the body, so check for collisions
         this.velocity = Vector2.createPolar( 200, delta.angle() + (Math.random() - 0.5) * 0.5 );
-        this.position = this.velocity.timesScalar( dt ).plus( this.position );
+        var newPosition = this.velocity.timesScalar( dt ).plus( this.position );
+        this.position = newPosition;
+
+        var segments = this.model.getLineSegments();
+        var numSegments = segments.length;
+        var bounced = false;
+        for ( var i = 0; i < numSegments; i++ ) {
+          var segment = segments[i];
+
+          //allow to exit the sleeve going to the finger, but otherwise keep bounded in the body
+          if ( i !== this.model.lineSegmentIndexForSleeve && Util.lineSegmentIntersection( x1, y1, newPosition.x, newPosition.y, segment.x1, segment.y1, segment.x2, segment.y2 ) ) {
+
+            //reflect velocity, but lose some of the energy in the bounce to help keep the electrons near the walls and help them lose energy quicker
+            //The Safari 6.0 heisenbug exhibits here if you use es5, so use property.get() instead
+            this.velocity = Vector2.createPolar( 300, delta.angle() );
+            this.position = this.velocity.timesScalar( dt ).plusXY( x1, y1 );
+            bounced = true;
+            break;
+          }
+        }
+
       }
     },
     step: function( dt ) {
