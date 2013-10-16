@@ -155,7 +155,9 @@ define( function( require ) {
         //Mark all electrons for exiting
         for ( var k = 0; k < this.electrons.length; k++ ) {
           var electron = this.electrons.get( k );
-          if ( electron.positionProperty.get().distance( this.doorknobPosition ) > 200 ) {
+
+          //Tuned the distance threshold to make sure the spark will shut off more quickly when the finger moved far from the doorknob, but not soo small that electrons can leak out of the body, see #27
+          if ( electron.positionProperty.get().distance( this.doorknobPosition ) > 150 ) {
             electron.exiting = false;
 
             //Choose a new nearest segment when traveling toward finger again
