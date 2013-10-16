@@ -1,2 +1,2 @@
-OuchSmallest.mp3 source=PhET notes=recorded by Sam R.
-ShockSmallest.mp3 source=PhET notes=recorded by Sam R.
+shock.* source=PhET notes=recorded by Sam R.
+shock-ouch.* source=PhET notes=recorded by Sam R.

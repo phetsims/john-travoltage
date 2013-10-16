@@ -18,8 +18,8 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Sound = require( 'VIBE/Sound' );
   var Vector2 = require( 'DOT/Vector2' );
-  var ouchSmallestAudio = require( 'audio!JOHN_TRAVOLTAGE/OuchSmallest.mp3' );
-  var shockSmallestAudio = require( 'audio!JOHN_TRAVOLTAGE/ShockSmallest.mp3' );
+  var shockOuchAudio = require( 'audio!JOHN_TRAVOLTAGE/shock-ouch.mp3' );
+  var shockAudio = require( 'audio!JOHN_TRAVOLTAGE/shock.mp3' );
 
   function JohnTravoltageModel() {
     var johnTravoltageModel = this;
@@ -91,8 +91,8 @@ define( function( require ) {
     this.arm = new Arm();
     this.leg = new Leg();
     this.sounds = [
-      new Sound( ouchSmallestAudio ),
-      new Sound( shockSmallestAudio )
+      new Sound( shockOuchAudio ),
+      new Sound( shockAudio )
     ];
 
     //If leg dragged across carpet, add electron.  Lazy link so that it won't add an electron when the sim starts up.
