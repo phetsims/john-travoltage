@@ -140,9 +140,13 @@ define( function( require ) {
         dt = 2 / 60;
       }
 
+      //If closer than the grounded distance, discharge all electrons
+      var groundedDistance = 12;
+
       //Test for spark.  Check every step so that newly added electrons can be assigned to exit if the threshold is still exceeded, see #27
+      //If the finger is touching the doorknob, discharge everything
       var distToKnob = this.arm.getFingerPosition().distance( this.doorknobPosition );
-      if ( distToKnob < this.electrons.length ) {
+      if ( distToKnob < this.electrons.length || distToKnob < groundedDistance ) {
 
         //Mark all electrons for exiting
         for ( var j = 0; j < this.electrons.length; j++ ) {
@@ -157,7 +161,7 @@ define( function( require ) {
           var electron = this.electrons.get( k );
 
           //Tuned the distance threshold to make sure the spark will shut off more quickly when the finger moved far from the doorknob, but not soo small that electrons can leak out of the body, see #27
-          if ( electron.positionProperty.get().distance( this.doorknobPosition ) > 150 ) {
+          if ( electron.positionProperty.get().distance( this.doorknobPosition ) > 150 && distToKnob >= groundedDistance ) {
             electron.exiting = false;
 
             //Choose a new nearest segment when traveling toward finger again
