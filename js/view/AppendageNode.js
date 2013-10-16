@@ -52,8 +52,7 @@ define( function( require ) {
       },
       end: function() {
         appendageNode.dragging = false;
-      },
-      translate: function() { /* do nothing, override default behavior */ }
+      }
     } ) );
 
     //changes visual position
