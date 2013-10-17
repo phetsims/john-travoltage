@@ -10,6 +10,8 @@ define( function( require ) {
   'use strict';
 
   var ScreenView = require( 'JOIST/ScreenView' );
+  var Vector2 = require( 'DOT/Vector2' );
+  var Line = require( 'SCENERY/nodes/Line' );
   var inherit = require( 'PHET_CORE/inherit' );
   var BackgroundElementsNode = require( 'JOHN_TRAVOLTAGE/view/BackgroundElementsNode' );
   var AppendageNode = require( 'JOHN_TRAVOLTAGE/view/AppendageNode' );
@@ -91,7 +93,7 @@ define( function( require ) {
 
     // debug lines, body and forceline, uncomment this to view physical bounds of body
     // borders are approximately 8px = radius of particle from physical body, because physical radius of electron = 1 in box2D
-    var showDebugInfo = false;
+    var showDebugInfo = true;
     if ( showDebugInfo ) {
       this.showBody();
 
@@ -119,6 +121,14 @@ define( function( require ) {
         var lineSegment = this.model.lineSegments[i];
         customShape.moveTo( lineSegment.x1, lineSegment.y1 );
         customShape.lineTo( lineSegment.x2, lineSegment.y2 );
+      }
+
+      //Show normals
+      for ( i = 0; i < this.model.lineSegments.length; i++ ) {
+        lineSegment = this.model.lineSegments[i];
+        var center = lineSegment.center;
+        var normal = lineSegment.normal.times( 50 );
+        this.addChild( new Line( center.x, center.y, center.x + normal.x, center.y + normal.y, {lineWidth: 2, stroke: 'blue'} ) );
       }
 
       var path = new Path( customShape, {

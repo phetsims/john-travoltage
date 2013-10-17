@@ -45,5 +45,14 @@ define( function( require ) {
     this.p1 = new Vector2( this.x2, this.y2 );
   }
 
+  LineSegment.prototype = {
+
+    //No need for speed, only used in debugging
+    get center() { return new Vector2( (this.x1 + this.x2) / 2, (this.y1 + this.y2) / 2 ); },
+
+    //No need for speed, only used in debugging
+    get normal() { return new Vector2( this.x2 - this.x1, this.y2 - this.y1 ).normalized().perpendicular();}
+  };
+
   return LineSegment;
 } );
