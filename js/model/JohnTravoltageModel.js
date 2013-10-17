@@ -183,6 +183,7 @@ define( function( require ) {
       for ( var i = 0; i < length; i++ ) {
         this.electrons._array[i].step( dt );
       }
+      var wasSpark = this.sparkVisible;
       if ( this.electronsToRemove.length ) {
         this.sparkVisible = true;
       }
@@ -191,7 +192,11 @@ define( function( require ) {
       }
 
       if ( this.electrons.length === 0 || _.filter( this.electrons._array, exiting ).length === 0 ) {
-        this.sparkVisible = false;
+
+        //Make sure the spark shows at least one frame for a single electron exiting, see #55
+        if ( wasSpark ) {
+          this.sparkVisible = false;
+        }
       }
 
       this.trigger( 'step' );
