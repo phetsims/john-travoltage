@@ -93,7 +93,7 @@ define( function( require ) {
 
     // debug lines, body and forceline, uncomment this to view physical bounds of body
     // borders are approximately 8px = radius of particle from physical body, because physical radius of electron = 1 in box2D
-    var showDebugInfo = true;
+    var showDebugInfo = false;
     if ( showDebugInfo ) {
       this.showBody();
 

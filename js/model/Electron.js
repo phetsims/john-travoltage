@@ -69,8 +69,9 @@ define( function( require ) {
       }
       else {
 
-        //Send toward the end point on the segment, no randomness so we can try to ensure electrons stay in the body shape in case the spark stops
-        this.velocity = Vector2.createPolar( 200, delta.angle() );
+        //Send toward the end point on the segment, but with some randomness to make it look more realistic.
+        //If the electron moves outside the body, it will be corrected in JohnTravoltageModel.moveElectronInsideBody
+        this.velocity = Vector2.createPolar( 200, delta.angle() + (Math.random() - 0.5) );
         this.position = this.velocity.timesScalar( dt ).plus( this.position );
       }
     },
@@ -110,19 +111,23 @@ define( function( require ) {
           var deltaVectorX = electronPosition.x - position.x;
           var deltaVectorY = electronPosition.y - position.y;
 
-          //Good luck tuning these magic numbers!
-          //Tuning the power to a smaller number increases long range interactions.
-          //Tuning the coefficient to a higher number increases the strength of interaction at any distance.
-          var scale = 12000 / Math.pow( electronPosition.distance( position ), 3 );
-          var fx = deltaVectorX * scale;
-          var fy = deltaVectorY * scale;
-          var forceMagnitudeSquared = fx * fx + fy * fy;
-          if ( forceMagnitudeSquared > this.maxForceSquared ) {
-            fx = fx / this.maxForceSquared;
-            fy = fy / this.maxForceSquared;
+          //If the electrons are directly on top of one another (can be caused by moving them inside the body bounds when a spark is cancelled), then skip this computation
+          if ( deltaVectorX && deltaVectorY ) {
+
+            //Good luck tuning these magic numbers!
+            //Tuning the power to a smaller number increases long range interactions.
+            //Tuning the coefficient to a higher number increases the strength of interaction at any distance.
+            var scale = 12000 / Math.pow( electronPosition.distance( position ), 3 );
+            var fx = deltaVectorX * scale;
+            var fy = deltaVectorY * scale;
+            var forceMagnitudeSquared = fx * fx + fy * fy;
+            if ( forceMagnitudeSquared > this.maxForceSquared ) {
+              fx = fx / this.maxForceSquared;
+              fy = fy / this.maxForceSquared;
+            }
+            netForceX = netForceX - fx;
+            netForceY = netForceY - fy;
           }
-          netForceX = netForceX - fx;
-          netForceY = netForceY - fy;
         }
       }
 

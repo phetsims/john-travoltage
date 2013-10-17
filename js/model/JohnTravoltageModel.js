@@ -18,6 +18,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Sound = require( 'VIBE/Sound' );
   var Vector2 = require( 'DOT/Vector2' );
+  var Util = require( 'DOT/Util' );
   var shockOuchAudio = require( 'audio!JOHN_TRAVOLTAGE/shock-ouch' );
   var shockAudio = require( 'audio!JOHN_TRAVOLTAGE/shock' );
 
@@ -161,11 +162,17 @@ define( function( require ) {
           var electron = this.electrons.get( k );
 
           //Tuned the distance threshold to make sure the spark will shut off more quickly when the finger moved far from the doorknob, but not soo small that electrons can leak out of the body, see #27
-          if ( electron.positionProperty.get().distance( this.doorknobPosition ) > 150 && distToKnob >= groundedDistance ) {
+          if ( electron.positionProperty.get().distance( this.doorknobPosition ) > 100 && distToKnob >= groundedDistance ) {
+            var wasExiting = electron.exiting;
             electron.exiting = false;
 
             //Choose a new nearest segment when traveling toward finger again
             electron.segment = null;
+
+            //Ensure the electron is within the bounds of the body
+            if ( wasExiting ) {
+              this.moveElectronInsideBody( electron );
+            }
           }
         }
       }
@@ -206,6 +213,19 @@ define( function( require ) {
       var debugging = false;
       if ( debugging ) {
         this.electrons.add( new Electron( this.bodyVertices[0].x + 50 + 50 * Math.random(), this.bodyVertices[0].y - 75 + 50 * Math.random(), this ) );
+      }
+    },
+
+    //Electrons can get outside of the body when moving to the spark, this code moves them back inside
+    moveElectronInsideBody: function( electron ) {
+      var pt = electron.positionProperty.get();
+      var closestSegment = _.min( this.lineSegments, function( lineSegment ) {
+        return Util.distToSegmentSquared( pt, lineSegment.p0, lineSegment.p1 );
+      } );
+      var vector = pt.minus( closestSegment.center );
+      if ( vector.dot( closestSegment.normal ) > 0 ) {
+        //put it 1px inside the segment
+        electron.position = closestSegment.center.plus( closestSegment.normal.times( -1 ) );
       }
     }
   } );
