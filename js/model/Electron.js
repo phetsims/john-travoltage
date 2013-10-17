@@ -47,7 +47,7 @@ define( function( require ) {
       //move to closest line segment
       if ( !this.segment ) {
 
-        this.segment = _.sortBy( this.model.forceLines, function( forceLine ) { return forceLine.p0.distance( electron.position ); } )[0];
+        this.segment = _.min( this.model.forceLines, function( forceLine ) { return forceLine.p0.distance( electron.position ); } );
 
         //If the closest path is the same as the last one, it means we have reached the end of the road
         if ( this.lastSegment === this.segment ) {

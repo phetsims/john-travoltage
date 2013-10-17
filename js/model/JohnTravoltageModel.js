@@ -168,6 +168,7 @@ define( function( require ) {
 
             //Choose a new nearest segment when traveling toward finger again
             electron.segment = null;
+            electron.lastSegment = null;
 
             //Ensure the electron is within the bounds of the body
             if ( wasExiting ) {
