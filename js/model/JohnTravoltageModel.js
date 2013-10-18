@@ -190,9 +190,6 @@ define( function( require ) {
       var wasSpark = this.sparkVisible;
       if ( this.electronsToRemove.length ) {
         this.sparkVisible = true;
-
-        //Measure the distance to the knob, must be exceeded (plus a threshold) to stop the spark
-        this.sparkCreationDistToKnob = distToKnob;
       }
       while ( this.electronsToRemove.length ) {
         this.removeElectron( this.electronsToRemove.pop() );
@@ -203,7 +200,7 @@ define( function( require ) {
         //Make sure the spark shows at least one frame for a single electron exiting, see #55
         if ( wasSpark ) {
           this.sparkVisible = false;
-          this.sparkCreationDistToKnob = 0;
+          delete this.sparkCreationDistToKnob;
         }
       }
 
