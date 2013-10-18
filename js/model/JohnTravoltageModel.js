@@ -148,6 +148,7 @@ define( function( require ) {
       //If the finger is touching the doorknob, discharge everything
       var distToKnob = this.arm.getFingerPosition().distance( this.doorknobPosition );
       if ( distToKnob < this.electrons.length || distToKnob < groundedDistance ) {
+        this.sparkCreationDistToKnob = distToKnob;
 
         //Mark all electrons for exiting
         for ( var j = 0; j < this.electrons.length; j++ ) {
@@ -159,7 +160,7 @@ define( function( require ) {
       else {
 
         //Stop the spark, but only if the finger has moved further enough from the doorknob
-        if ( distToKnob > this.sparkCreationDistToKnob + 10 ) {
+        if ( this.sparkCreationDistToKnob && distToKnob > this.sparkCreationDistToKnob + 10 ) {
           for ( var k = 0; k < this.electrons.length; k++ ) {
             var electron = this.electrons.get( k );
 
