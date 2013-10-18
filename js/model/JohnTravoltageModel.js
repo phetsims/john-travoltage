@@ -157,22 +157,25 @@ define( function( require ) {
 
       //If we are under the threshold, consider stopping the spark, but only if no electrons are close to the finger
       else {
-        //Mark all electrons for exiting
-        for ( var k = 0; k < this.electrons.length; k++ ) {
-          var electron = this.electrons.get( k );
 
-          //Tuned the distance threshold to make sure the spark will shut off more quickly when the finger moved far from the doorknob, but not soo small that electrons can leak out of the body, see #27
-          if ( electron.positionProperty.get().distance( this.doorknobPosition ) > 100 && distToKnob >= groundedDistance ) {
-            var wasExiting = electron.exiting;
-            electron.exiting = false;
+        //Stop the spark, but only if the finger has moved further enough from the doorknob
+        if ( distToKnob > this.sparkCreationDistToKnob + 10 ) {
+          for ( var k = 0; k < this.electrons.length; k++ ) {
+            var electron = this.electrons.get( k );
 
-            //Choose a new nearest segment when traveling toward finger again
-            electron.segment = null;
-            electron.lastSegment = null;
+            //Tuned the distance threshold to make sure the spark will shut off more quickly when the finger moved far from the doorknob, but not soo small that electrons can leak out of the body, see #27
+            if ( electron.positionProperty.get().distance( this.doorknobPosition ) > 100 && distToKnob >= groundedDistance ) {
+              var wasExiting = electron.exiting;
+              electron.exiting = false;
 
-            //Ensure the electron is within the bounds of the body
-            if ( wasExiting ) {
-              this.moveElectronInsideBody( electron );
+              //Choose a new nearest segment when traveling toward finger again
+              electron.segment = null;
+              electron.lastSegment = null;
+
+              //Ensure the electron is within the bounds of the body
+              if ( wasExiting ) {
+                this.moveElectronInsideBody( electron );
+              }
             }
           }
         }
@@ -186,6 +189,9 @@ define( function( require ) {
       var wasSpark = this.sparkVisible;
       if ( this.electronsToRemove.length ) {
         this.sparkVisible = true;
+
+        //Measure the distance to the knob, must be exceeded (plus a threshold) to stop the spark
+        this.sparkCreationDistToKnob = distToKnob;
       }
       while ( this.electronsToRemove.length ) {
         this.removeElectron( this.electronsToRemove.pop() );
@@ -196,6 +202,7 @@ define( function( require ) {
         //Make sure the spark shows at least one frame for a single electron exiting, see #55
         if ( wasSpark ) {
           this.sparkVisible = false;
+          this.sparkCreationDistToKnob = 0;
         }
       }
 
