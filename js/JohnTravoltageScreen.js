@@ -8,18 +8,19 @@
 define( function( require ) {
   'use strict';
 
+  var inherit = require( 'PHET_CORE/inherit' );
   var JohnTravoltageModel = require( 'JOHN_TRAVOLTAGE/model/JohnTravoltageModel' );
   var JohnTravoltageView = require( 'JOHN_TRAVOLTAGE/view/JohnTravoltageView' );
+  var Screen = require( 'JOIST/Screen' );
   var title = require( 'string!JOHN_TRAVOLTAGE/travoltage.name' );
 
   function JohnTravoltageScreen() {
-    return {
-      name: title,
-      createModel: function() {return new JohnTravoltageModel();},
-      createView: function( model ) {return new JohnTravoltageView( model );},
-      backgroundColor: '#9ddcf8'
-    };
+    Screen.call( this, title, null /* single-screen sim, no icon */,
+      function() {return new JohnTravoltageModel();},
+      function( model ) {return new JohnTravoltageView( model );},
+      { backgroundColor: '#9ddcf8' }
+    );
   }
 
-  return JohnTravoltageScreen;
+  return inherit( Screen, JohnTravoltageScreen );
 } );
