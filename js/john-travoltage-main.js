@@ -6,13 +6,14 @@
  * @author Vasily Shakhov (Mlearner)
  * @author Sam Reid (PhET Interactive Simulations)
  */
-require( [
-  'JOIST/SimLauncher',
-  'JOIST/Sim',
-  'JOHN_TRAVOLTAGE/JohnTravoltageScreen',
-  'string!JOHN_TRAVOLTAGE/travoltage.name'
-], function( SimLauncher, Sim, JohnTravoltageScreen, title ) {
+define( function( require ) {
   'use strict';
+
+  var
+    SimLauncher = require( 'JOIST/SimLauncher' ),
+    Sim = require( 'JOIST/Sim' ),
+    JohnTravoltageScreen = require( 'JOHN_TRAVOLTAGE/JohnTravoltageScreen' ),
+    title = require( 'string!JOHN_TRAVOLTAGE/travoltage.name' );
 
   //Workaround for #30
   var newChild = document.createElement( 'audio' );
