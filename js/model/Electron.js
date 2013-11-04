@@ -14,8 +14,11 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Vector2 = require( 'DOT/Vector2' );
   var Util = require( 'DOT/Util' );
+  var count = 0;
 
   function Electron( x, y, model ) {
+    count++;
+    this.id = count;
     PropertySet.call( this, {
       position: new Vector2( x, y ),
 
@@ -41,13 +44,11 @@ define( function( require ) {
 
   return inherit( PropertySet, Electron, {
     stepInSpark: function( dt ) {
-      var x1 = this.positionProperty.get().x;
-      var y1 = this.positionProperty.get().y;
       var electron = this;
       //move to closest line segment
       if ( !this.segment ) {
 
-        this.segment = _.min( this.model.forceLines, function( forceLine ) { return forceLine.p0.distance( electron.position ); } );
+        this.segment = _.min( this.model.forceLines, function( forceLine ) { return forceLine.p0.distanceSquared( electron.position ); } );
 
         //If the closest path is the same as the last one, it means we have reached the end of the road
         if ( this.lastSegment === this.segment ) {

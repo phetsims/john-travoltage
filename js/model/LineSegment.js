@@ -43,6 +43,9 @@ define( function( require ) {
     this.vector = new Vector2( this.x2 - this.x1, this.y2 - this.y1 );
     this.p0 = new Vector2( this.x1, this.y1 );
     this.p1 = new Vector2( this.x2, this.y2 );
+    var epsilon = 0.01;
+    this.pre0 = this.p0.blend( this.p1, epsilon );
+    this.pre1 = this.p0.blend( this.p1, 1 - epsilon );
   }
 
   LineSegment.prototype = {

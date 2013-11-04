@@ -12,6 +12,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Circle = require( 'SCENERY/nodes/Circle' );
+  var Text = require( 'SCENERY/nodes/Text' );
   var RadialGradient = require( 'SCENERY/util/RadialGradient' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Rect = require( 'DOT/Rectangle' );
@@ -82,6 +83,9 @@ define( function( require ) {
 
       this.addChild( new Rectangle( node.bounds, {lineWidth: 1, stroke: 'red'} ) );
     }
+
+    //For debugging, show the electron id
+//    this.addChild( new Text( '' + electron.id, {fill: 'white'} ) );
 
     var history = [];
 

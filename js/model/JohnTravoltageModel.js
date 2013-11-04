@@ -230,8 +230,10 @@ define( function( require ) {
     //Electrons can get outside of the body when moving to the spark, this code moves them back inside
     moveElectronInsideBody: function( electron ) {
       var pt = electron.positionProperty.get();
+
+      //Adjacent segments share vertices, so use a point just before the vertex to find the closest segment, see https://github.com/phetsims/john-travoltage/issues/50
       var closestSegment = _.min( this.lineSegments, function( lineSegment ) {
-        return Util.distToSegmentSquared( pt, lineSegment.p0, lineSegment.p1 );
+        return Util.distToSegmentSquared( pt, lineSegment.pre0, lineSegment.pre1 );
       } );
       var vector = pt.minus( closestSegment.center );
       if ( vector.dot( closestSegment.normal ) > 0 ) {
