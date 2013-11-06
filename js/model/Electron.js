@@ -148,7 +148,7 @@ define( function( require ) {
       var y2 = y1 + vy2 * dt;
 
       //Skipping notifications here because nobody needs to observe the velocity values, and this is faster (no allocation)
-      this.velocity.set( vx2, vy2 );
+      this.velocity.setXY( vx2, vy2 );
 
       var segments = this.model.getLineSegments();
       var numSegments = segments.length;
@@ -170,7 +170,7 @@ define( function( require ) {
       if ( !bounced ) {
 
         //Note, this does not send notifications because it is setting the x,y values on the vector itself
-        this.position.set( x2, y2 );
+        this.position.setXY( x2, y2 );
       }
 
       //Notify observers anyways so the electron will redraw at the right leg angle

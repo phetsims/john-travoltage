@@ -136,7 +136,7 @@ define( function( require ) {
 
         var legPoint = leg.position;
 
-        dr.set( position.x - legPoint.x, position.y - legPoint.y );
+        dr.setXY( position.x - legPoint.x, position.y - legPoint.y );
 
         //The leg's rotated angle
         deltaAngle = leg.deltaAngle();
@@ -147,8 +147,8 @@ define( function( require ) {
           electronNode.setTranslation( dr.x, dr.y );
         }
         else {
-          a.set( dr.x, dr.y );
-          b.set( position.x, position.y );
+          a.setXY( dr.x, dr.y );
+          b.setXY( position.x, position.y );
           c = a.blend( b, inBodyCount / history.length );
           electronNode.setTranslation( c.x, c.y );
         }
@@ -159,7 +159,7 @@ define( function( require ) {
 
         var armPoint = arm.position;
 
-        dr.set( position.x - armPoint.x, position.y - armPoint.y );
+        dr.setXY( position.x - armPoint.x, position.y - armPoint.y );
 
         //The leg's rotated angle
         deltaAngle = arm.deltaAngle();
@@ -170,8 +170,8 @@ define( function( require ) {
           electronNode.setTranslation( dr.x, dr.y );
         }
         else {
-          a.set( dr.x, dr.y );
-          b.set( position.x, position.y );
+          a.setXY( dr.x, dr.y );
+          b.setXY( position.x, position.y );
           c = a.blend( b, inBodyCount / history.length );
           electronNode.setTranslation( c.x, c.y );
         }
