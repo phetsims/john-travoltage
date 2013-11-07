@@ -3,8 +3,8 @@
 /**
  * Background static elements of simulation
  *
- * @author Vasily Shakhov (Mlearner)
  * @author Sam Reid
+ * @author Vasily Shakhov (Mlearner)
  */
 define( function( require ) {
   'use strict';

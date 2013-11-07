@@ -4,8 +4,8 @@
  * Model of a John-Travoltage.
  * Point charge model. Each charge has a position and box2d instance.
  *
- * @author Vasily Shakhov (Mlearner)
  * @author Sam Reid
+ * @author Vasily Shakhov (Mlearner)
  */
 define( function( require ) {
   'use strict';

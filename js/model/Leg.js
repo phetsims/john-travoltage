@@ -3,8 +3,8 @@
 /**
  * Leg model of John Travoltage. Can rotate.
  *
- * @author Vasily Shakhov (Mlearner)
  * @author Sam Reid
+ * @author Vasily Shakhov (Mlearner)
  */
 define( function( require ) {
   'use strict';

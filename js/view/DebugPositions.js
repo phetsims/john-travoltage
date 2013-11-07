@@ -10,8 +10,8 @@
  * //Sample and print line segments, for creating force paths for electrons during spark traversal
  * new DebugPositions().debugLineSegments( this );
  *
- * @author Vasily Shakhov (Mlearner)
  * @author Sam Reid
+ * @author Vasily Shakhov (Mlearner)
  */
 define( function( require ) {
   'use strict';

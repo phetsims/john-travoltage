@@ -3,8 +3,8 @@
 /**
  * Model for John Travoltage.
  *
- * @author Vasily Shakhov (Mlearner.com)
  * @author Sam Reid
+ * @author Vasily Shakhov (Mlearner.com)
  */
 define( function( require ) {
   'use strict';

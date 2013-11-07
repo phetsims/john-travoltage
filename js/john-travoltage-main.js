@@ -3,8 +3,8 @@
 /**
  * Main entry point for the sim.
  *
- * @author Vasily Shakhov (Mlearner)
  * @author Sam Reid (PhET Interactive Simulations)
+ * @author Vasily Shakhov (Mlearner)
  */
 define( function( require ) {
   'use strict';

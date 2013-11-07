@@ -3,8 +3,8 @@
 /**
  * Scenery display object (scene graph node) for the spark of the model.
  *
- * @author Vasily Shakhov (Mlearner)
  * @author Sam Reid
+ * @author Vasily Shakhov (Mlearner)
  */
 define( function( require ) {
   'use strict';
