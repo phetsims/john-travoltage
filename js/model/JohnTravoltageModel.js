@@ -238,7 +238,7 @@ define( function( require ) {
       var vector = pt.minus( closestSegment.center );
       if ( vector.dot( closestSegment.normal ) > 0 ) {
         //put it 1px inside the segment
-        electron.position = closestSegment.center.plus( closestSegment.normal.times( -1 ) );
+        electron.positionProperty.set( closestSegment.center.plus( closestSegment.normal.times( -1 ) ) );
       }
     }
   } );

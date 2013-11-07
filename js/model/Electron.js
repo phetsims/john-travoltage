@@ -12,6 +12,7 @@ define( function( require ) {
 
   var PropertySet = require( 'AXON/PropertySet' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var ObservableVector2 = require( 'DOT/ObservableVector2' );
   var Vector2 = require( 'DOT/Vector2' );
   var Util = require( 'DOT/Util' );
   var count = 0;
@@ -19,12 +20,10 @@ define( function( require ) {
   function Electron( x, y, model ) {
     count++;
     this.id = count;
-    PropertySet.call( this, {
-      position: new Vector2( x, y ),
+    this.positionProperty = new ObservableVector2( x, y );
 
-      //The velocity an electron has when it comes from the carpet into the leg.
-      velocity: new Vector2( -50, -100 )
-    } );
+    //The velocity an electron has when it comes from the carpet into the leg.
+    this.velocity = new Vector2( -50, -100 );
     this.model = model;
     this.exiting = false;//mutable but not observable
 
@@ -42,13 +41,13 @@ define( function( require ) {
   //If this value is 1.0, there is no friction.  The value is what the velocity is multiplied by at every step.
   var frictionFactor = 0.98;
 
-  return inherit( PropertySet, Electron, {
+  return inherit( Object, Electron, {
     stepInSpark: function( dt ) {
       var electron = this;
       //move to closest line segment
       if ( !this.segment ) {
 
-        this.segment = _.min( this.model.forceLines, function( forceLine ) { return forceLine.p0.distanceSquared( electron.position ); } );
+        this.segment = _.min( this.model.forceLines, function( forceLine ) { return forceLine.p0.distanceSquared( electron.positionProperty.get() ); } );
 
         //If the closest path is the same as the last one, it means we have reached the end of the road
         if ( this.lastSegment === this.segment ) {
@@ -60,7 +59,7 @@ define( function( require ) {
       }
       //move at constant velocity toward the segment
       var target = this.segment.p1;
-      var current = this.position;
+      var current = this.positionProperty.get();
       var delta = target.minus( current );
 
       //Arrived at destination, go to the next segment
@@ -73,7 +72,7 @@ define( function( require ) {
         //Send toward the end point on the segment, but with some randomness to make it look more realistic.
         //If the electron moves outside the body, it will be corrected in JohnTravoltageModel.moveElectronInsideBody
         this.velocity = Vector2.createPolar( 200, delta.angle() + (Math.random() - 0.5) );
-        this.position = this.velocity.timesScalar( dt ).plus( this.position );
+        this.positionProperty.set( this.velocity.timesScalar( dt ).plus( this.positionProperty.get() ) );
       }
     },
     step: function( dt ) {
@@ -161,7 +160,7 @@ define( function( require ) {
 
           //reflect velocity, but lose some of the energy in the bounce to help keep the electrons near the walls and help them lose energy quicker
           //The Safari 6.0 heisenbug exhibits here if you use es5, so use property.get() instead
-          this.velocity = this.velocityProperty.get().minus( normal.times( 2 * normal.dot( this.velocityProperty.get() ) ) ).timesScalar( 0.8 );
+          this.velocity = this.velocity.minus( normal.times( 2 * normal.dot( this.velocity ) ) ).timesScalar( 0.8 );
           bounced = true;
           break;
         }
@@ -170,7 +169,8 @@ define( function( require ) {
       if ( !bounced ) {
 
         //Note, this does not send notifications because it is setting the x,y values on the vector itself
-        this.position.setXY( x2, y2 );
+        this.positionProperty.x = x2;
+        this.positionProperty.y = y2;
       }
 
       //Notify observers anyways so the electron will redraw at the right leg angle
