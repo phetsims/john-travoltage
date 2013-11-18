@@ -7,5 +7,5 @@
 define( function() {
   'use strict';
 
-  return function() { return '0.0.0-dev.30'; };
+  return function() { return '1.0.0-rc.2'; };
 } );
