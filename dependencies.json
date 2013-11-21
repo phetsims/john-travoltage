@@ -1,6 +1,6 @@
 {
   "chipper": {
-    "sha": "d3a17c5b4ddf6e1c665238466e30845d72302df4",
+    "sha": "e80f4bb16594e4420fb98713a52e65f74b9cb609",
     "branch": "master"
   },
   "sherpa": {
@@ -8,52 +8,52 @@
     "branch": "master"
   },
   "vibe": {
-    "sha": "a705a0fa734caa395866265951de6817f3205bea",
+    "sha": "db983fc7efd20967d792233fa41ced0b1a864847",
     "branch": "master"
   },
   "sun": {
-    "sha": "f05d7e6def1b36c652371e1e8af33e9ef833401d",
+    "sha": "95cd625f13e1759b56d0de4cc4169f52ced8793d",
     "branch": "master"
   },
   "scenery-phet": {
-    "sha": "c35091016edf1989951d004c5e5e187021d92df9",
+    "sha": "84c0132adda97ccca482eca4e4edb84adaef5e14",
     "branch": "master"
   },
   "scenery": {
-    "sha": "eacce8aeffe9e0d78d88ea18e0f91aa10d6deb64",
+    "sha": "01d79ef4032a8ad75205f3ceabb4d37fed5deb6f",
     "branch": "master"
   },
   "phetcommon": {
-    "sha": "19086b49a25071cb424862b296afccfe65f48d82",
+    "sha": "f5b48ba0c115ba9a1a7efb5b211047cb93893783",
     "branch": "master"
   },
   "phet-core": {
-    "sha": "0224cba319fec8a03b986085916f63b8dc6916b0",
+    "sha": "31549be40abeda91d44ef9446361d0b611121949",
     "branch": "master"
   },
   "kite": {
-    "sha": "835bd21ac21b58d147736d8a70a36d2736d0b7e3",
+    "sha": "b8e6d658327a10974c92516baf5764a406744c24",
     "branch": "master"
   },
   "joist": {
-    "sha": "982e7042f17319841fa4aa9763e97a0d2805f5e7",
+    "sha": "b20b7da4e9b3f4ec7c1fd98d65372131221f2a5a",
     "branch": "master"
   },
   "dot": {
-    "sha": "3ae27b7c37fc81f69b4d4b3b471295db75915ff8",
+    "sha": "9746bc1c2e1b7d8a23650327b1159c7db4377d01",
     "branch": "master"
   },
   "axon": {
-    "sha": "a3532264c777508f83a633c9af2fa8757b6ce1de",
+    "sha": "d355ba68093cad187924dd55f8c4f8e3fca30acd",
     "branch": "master"
   },
   "assert": {
-    "sha": "243a1befeb048c0a5354812fa0ee24b5a62df742",
+    "sha": "ce8013d3c65c140de3ec4c6f8ab508f8098793db",
     "branch": "master"
   },
   "john-travoltage": {
-    "sha": "63f46bf4d5d4052fa2524e9acee1b244035d56c1",
+    "sha": "4ffde21aa565b9b6e53a6f3b5f0188063a747e61",
     "branch": "1.0"
   },
-  "comment": "# john-travoltage 1.0.0-rc.1 Wed Oct 09 2013 23:38:58 GMT-0600 (Mountain Daylight Time)"
+  "comment": "# john-travoltage 1.0.0-rc.2 Sun Nov 17 2013 21:26:48 GMT-0700 (Mountain Standard Time)"
 }
