@@ -77,7 +77,7 @@ define( function( require ) {
       new LineSegment( 317.3914691943128, 255.98483412322273, 355.9734597156398, 222.4985781990521 )
     ];
 
-    this.doorknobPosition = new Vector2( 543.9318903113076, 257.5894162536105 );
+    this.doorknobPosition = new Vector2( 552.9318903113076, 257.5894162536105 );
 
     //Properties of the model.  All user settings belong in the model, whether or not they are part of the physical model
     PropertySet.call( this, { sound: true, spark: false, sparkVisible: false } );
@@ -96,10 +96,16 @@ define( function( require ) {
       new Sound( shockAudio )
     ];
 
+
     //If leg dragged across carpet, add electron.  Lazy link so that it won't add an electron when the sim starts up.
+    //But only add them every Nth event, so the rate of adding electrons is not too high, see #65
+    var dragEvents = 0;
     this.leg.angleProperty.lazyLink( function( angle ) {
       if ( angle < 2.4 && angle > 1 && johnTravoltageModel.electrons.length < 100 ) {
-        johnTravoltageModel.addElectron();
+        dragEvents++;
+        if ( dragEvents % 3 === 0 ) {
+          johnTravoltageModel.addElectron();
+        }
       }
     } );
 

@@ -16,6 +16,7 @@ define( function( require ) {
   var Vector2 = require( 'DOT/Vector2' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Circle = require( 'SCENERY/nodes/Circle' );
+  var Leg = require( 'JOHN_TRAVOLTAGE/model/Leg' );
 
   /**
    * @param {Leg|Arm} appendage the body part to display
@@ -48,6 +49,17 @@ define( function( require ) {
       drag: function( event ) {
         var globalPoint = imageNode.globalToParentPoint( event.pointer.point );
         angle = globalPoint.minus( new Vector2( appendage.position.x, appendage.position.y ) ).angle();
+
+        //Limit leg to approximately "half circle" so it cannot spin around, see #63
+        if ( appendage instanceof Leg ) {
+          if ( angle < -Math.PI / 2 ) {
+            angle = Math.PI;
+          }
+          else if ( angle > -Math.PI / 2 && angle < 0 ) {
+            angle = 0;
+          }
+        }
+
         appendage.angle = angle;
       },
       end: function() {
