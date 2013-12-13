@@ -77,7 +77,7 @@ define( function( require ) {
       new LineSegment( 317.3914691943128, 255.98483412322273, 355.9734597156398, 222.4985781990521 )
     ];
 
-    this.doorknobPosition = new Vector2( 543.9318903113076, 257.5894162536105 );
+    this.doorknobPosition = new Vector2( 552.9318903113076, 257.5894162536105 );
 
     //Properties of the model.  All user settings belong in the model, whether or not they are part of the physical model
     PropertySet.call( this, { sound: true, spark: false, sparkVisible: false } );
