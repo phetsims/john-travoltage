@@ -98,14 +98,21 @@ define( function( require ) {
 
 
     //If leg dragged across carpet, add electron.  Lazy link so that it won't add an electron when the sim starts up.
-    //But only add them every Nth event, so the rate of adding electrons is not too high, see #65
+    //The number of electrons accumulated only depends on the total angle subtended
     var dragEvents = 0;
+    var lastAngle = this.leg.angle;
+    var accumulatedAngle = 0;
+    var accumulatedAngleThreshold = Math.PI / 16;
     this.leg.angleProperty.lazyLink( function( angle ) {
       if ( angle < 2.4 && angle > 1 && johnTravoltageModel.electrons.length < 100 ) {
         dragEvents++;
-        if ( dragEvents % 3 === 0 ) {
+        accumulatedAngle += Math.abs( angle - lastAngle );
+
+        while ( accumulatedAngle > accumulatedAngleThreshold ) {
           johnTravoltageModel.addElectron();
+          accumulatedAngle -= accumulatedAngleThreshold;
         }
+        lastAngle = angle;
       }
     } );
 
