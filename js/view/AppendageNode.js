@@ -18,6 +18,12 @@ define( function( require ) {
   var Circle = require( 'SCENERY/nodes/Circle' );
   var Leg = require( 'JOHN_TRAVOLTAGE/model/Leg' );
 
+  //Compute the distance (in radians) between angles a and b, using an inlined dot product (inlined to remove allocations)
+  var distanceBetweenAngles = function( a, b ) {
+    var dotProduct = Math.cos( a ) * Math.cos( b ) + Math.sin( a ) * Math.sin( b );
+    return Math.acos( dotProduct );
+  };
+
   /**
    * @param {Leg|Arm} appendage the body part to display
    * @param {Image} image
@@ -38,6 +44,8 @@ define( function( require ) {
     var imageNode = new Image( image );
     this.addChild( imageNode );
 
+    var lastAngle = appendage.angle;
+    var currentAngle = appendage.angle;
     imageNode.addInputListener( new SimpleDragHandler( {
       clickOffset: null, // x-offset between initial click and thumb's origin
       allowTouchSnag: true,
@@ -47,8 +55,10 @@ define( function( require ) {
         appendageNode.dragging = true;
       },
       drag: function( event ) {
+        lastAngle = currentAngle;
         var globalPoint = imageNode.globalToParentPoint( event.pointer.point );
         angle = globalPoint.minus( new Vector2( appendage.position.x, appendage.position.y ) ).angle();
+        currentAngle = angle;
 
         //Limit leg to approximately "half circle" so it cannot spin around, see #63
         if ( appendage instanceof Leg ) {
@@ -60,7 +70,24 @@ define( function( require ) {
           }
         }
 
-        appendage.angle = angle;
+        //if clamped at one of the upper angles, only allow the right direction of movement to change the angle, so it won't skip halfway around
+        //Use 3d cross products to compute direction
+        //Inline the vector creations and dot product for performance
+        var z = Math.cos( currentAngle ) * Math.sin( lastAngle ) - Math.sin( currentAngle ) * Math.cos( lastAngle );
+
+        if ( appendage.angle === Math.PI && z < 0 ) {
+          //noop, at the left side
+        }
+        else if ( appendage.angle === 0 && z > 0 ) {
+          //noop, at the right side
+        }
+        else if ( distanceBetweenAngles( appendage.angle, angle ) > Math.PI / 3 ) {
+          //noop, too big a leap, may correspond to the user reversing direction after a leg is stuck against threshold
+        }
+        else {
+          appendage.angle = angle;
+        }
+
       },
       end: function() {
         appendageNode.dragging = false;
