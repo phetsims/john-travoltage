@@ -81,7 +81,7 @@ define( function( require ) {
         else if ( appendage.angle === 0 && z > 0 ) {
           //noop, at the right side
         }
-        else if ( distanceBetweenAngles( appendage.angle, angle ) > Math.PI / 3 ) {
+        else if ( distanceBetweenAngles( appendage.angle, angle ) > Math.PI / 3 && (appendage.angle === 0 || appendage.angle === Math.PI) ) {
           //noop, too big a leap, may correspond to the user reversing direction after a leg is stuck against threshold
         }
         else {
