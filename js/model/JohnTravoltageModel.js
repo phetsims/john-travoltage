@@ -154,13 +154,19 @@ define( function( require ) {
         dt = 2 / 60;
       }
 
-      //If closer than the grounded distance, discharge all electrons
-      var groundedDistance = 12;
-
       //Test for spark.  Check every step so that newly added electrons can be assigned to exit if the threshold is still exceeded, see #27
       //If the finger is touching the doorknob, discharge everything
       var distToKnob = this.arm.getFingerPosition().distance( this.doorknobPosition );
-      if ( distToKnob < this.electrons.length || distToKnob < groundedDistance ) {
+
+      //Minimum distance the finger can be to the knob, if pointed directly at it.  Sampled at runtime by printing angles.  Must be adjusted if the doorknob position is adjusted.
+      var actualMin = 15;
+
+      var query = this.electrons.length / distToKnob;
+      var threshold = 10 / actualMin;
+      console.log( query, threshold );
+
+      var electronThresholdExceeded = query > threshold;
+      if ( electronThresholdExceeded ) {
         this.sparkCreationDistToKnob = distToKnob;
 
         //Mark all electrons for exiting
@@ -173,12 +179,13 @@ define( function( require ) {
       else {
 
         //Stop the spark, but only if the finger has moved further enough from the doorknob
-        if ( this.sparkCreationDistToKnob && distToKnob > this.sparkCreationDistToKnob + 10 ) {
+        //Use an increased threshold to model the more conductive path once the spark has started
+        if ( this.sparkCreationDistToKnob && query < threshold * 2 ) {
           for ( var k = 0; k < this.electrons.length; k++ ) {
             var electron = this.electrons.get( k );
 
-            //Tuned the distance threshold to make sure the spark will shut off more quickly when the finger moved far from the doorknob, but not soo small that electrons can leak out of the body, see #27
-            if ( electron.positionProperty.get().distance( this.doorknobPosition ) > 100 && distToKnob >= groundedDistance ) {
+            //Tune the distance threshold to make sure the spark will shut off more quickly when the finger moved far from the doorknob, but not soo small that electrons can leak out of the body, see #27
+            if ( electron.positionProperty.get().distance( this.doorknobPosition ) > 100 ) {
               var wasExiting = electron.exiting;
               electron.exiting = false;
 
