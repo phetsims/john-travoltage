@@ -179,7 +179,7 @@ define( function( require ) {
 
         //Stop the spark, but only if the finger has moved further enough from the doorknob
         //Use an increased threshold to model the more conductive path once the spark has started
-        if ( this.sparkCreationDistToKnob && query < threshold * 2 ) {
+        if ( this.sparkCreationDistToKnob && distToKnob > this.sparkCreationDistToKnob + 10 && query < threshold * 2 ) {
           for ( var k = 0; k < this.electrons.length; k++ ) {
             var electron = this.electrons.get( k );
 
