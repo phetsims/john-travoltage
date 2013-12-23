@@ -10,7 +10,6 @@
 define( function( require ) {
   'use strict';
 
-  var PropertySet = require( 'AXON/PropertySet' );
   var inherit = require( 'PHET_CORE/inherit' );
   var ObservableVector2 = require( 'DOT/ObservableVector2' );
   var Vector2 = require( 'DOT/Vector2' );

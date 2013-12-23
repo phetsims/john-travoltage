@@ -163,7 +163,6 @@ define( function( require ) {
 
       var query = this.electrons.length / distToKnob;
       var threshold = 10 / actualMin;
-      console.log( query, threshold );
 
       var electronThresholdExceeded = query > threshold;
       if ( electronThresholdExceeded ) {

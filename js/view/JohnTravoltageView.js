@@ -10,7 +10,6 @@ define( function( require ) {
   'use strict';
 
   var ScreenView = require( 'JOIST/ScreenView' );
-  var Vector2 = require( 'DOT/Vector2' );
   var Line = require( 'SCENERY/nodes/Line' );
   var inherit = require( 'PHET_CORE/inherit' );
   var BackgroundElementsNode = require( 'JOHN_TRAVOLTAGE/view/BackgroundElementsNode' );
@@ -102,7 +101,7 @@ define( function( require ) {
 
       //Debugging for finger location
       var fingerCircle = new Circle( 10, {fill: 'red'} );
-      model.arm.angleProperty.link( function( angle ) {
+      model.arm.angleProperty.link( function() {
         fingerCircle.x = model.arm.getFingerPosition().x;
         fingerCircle.y = model.arm.getFingerPosition().y;
       } );
@@ -115,7 +114,6 @@ define( function( require ) {
   return inherit( ScreenView, JohnTravoltageView, {
     showBody: function() {
       //vertices and body path
-      var bodyVertices = this.model.bodyVertices;
       var customShape = new Shape();
       var lineSegment = null;
       for ( var i = 0; i < this.model.lineSegments.length; i++ ) {
