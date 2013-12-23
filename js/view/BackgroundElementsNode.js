@@ -51,7 +51,7 @@ define( function( require ) {
 
     // add the door image
     this.addChild( new Image( door, {
-      x: 518,
+      x: 513.5,
       y: 48,
       scale: 0.785
     } ) );
