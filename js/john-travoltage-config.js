@@ -30,6 +30,7 @@ require.config( {
     DOT: '../../dot/js',
     ASSERT: '../../assert/js',
     AXON: '../../axon/js',
+    BRAND: '../../brand/js',
     SUN: '../../sun/js',
     JOIST: '../../joist/js',
     VIBE: '../../vibe/js',
