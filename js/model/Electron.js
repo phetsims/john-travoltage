@@ -173,7 +173,7 @@ define( function( require ) {
       }
 
       //Notify observers anyways so the electron will redraw at the right leg angle
-      this.positionProperty.notifyObserversUnsafe();
+      this.positionProperty.notifyObserversStatic();
     }
   } );
 } );
