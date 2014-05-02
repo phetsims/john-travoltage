@@ -19,7 +19,7 @@ define( function( require ) {
   var Shape = require( 'KITE/Shape' );
   var Path = require( 'SCENERY/nodes/Path' );
   var Node = require( 'SCENERY/nodes/Node' );
-  var SoundToggleButton = require( 'SCENERY_PHET/SoundToggleButton' );
+  var SoundToggleButtonDeprecated = require( 'SCENERY_PHET/SoundToggleButtonDeprecated' );
   var ResetAllButtonDeprecated = require( 'SCENERY_PHET/ResetAllButtonDeprecated' );
   var DebugPositions = require( 'JOHN_TRAVOLTAGE/view/DebugPositions' );
   var Circle = require( 'SCENERY/nodes/Circle' );
@@ -64,7 +64,7 @@ define( function( require ) {
     } ) );
 
     //Sound button and reset all button
-    var soundButton = new SoundToggleButton( model.soundProperty );
+    var soundButton = new SoundToggleButtonDeprecated( model.soundProperty );
     var resetAllButton = new ResetAllButtonDeprecated( model.reset.bind( model ) );
     resetAllButton.scale( soundButton.height / resetAllButton.height );
     this.addChild( new HBox( {spacing: 10, children: [soundButton, resetAllButton], right: this.layoutBounds.maxX - 7, bottom: this.layoutBounds.maxY - 7} ) );
