@@ -24,7 +24,7 @@ define( function( require ) {
     credits: {
       leadDesign: 'Noah Podolefsky, Carl Wieman, Sam Reid',
       softwareDevelopment: 'Sam Reid',
-      designTeam: 'Ariel Paul, Kathy Perkins, Trish Loeblein, Sharon Simon-Tov',
+      designTeam: 'Ariel Paul, Kathy Perkins, Trish Loeblein, Sharon Siman-Tov',
       interviews: 'Ariel Paul, Wendy Adams',
       thanks: 'Thanks to Mobile Learner Labs for working with the PhET development team\n' +
               'to convert this simulation to HTML5.'
