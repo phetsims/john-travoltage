@@ -17,10 +17,11 @@ define( function( require ) {
   'use strict';
 
   var Shape = require( 'KITE/Shape' );
+  var inherit = require( 'PHET_CORE/inherit' );
 
   function DebugPositions() {}
 
-  DebugPositions.prototype = {
+  return inherit( Object, DebugPositions, {
 
     //Sample model points for bounds, see JohnTravoltageModel.bodyVertices
     debugPositions: function( johnTravoltageView ) {
@@ -60,6 +61,5 @@ define( function( require ) {
         }
       } );
     }
-  };
-  return DebugPositions;
+  } );
 } );

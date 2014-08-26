@@ -10,6 +10,7 @@ define( function( require ) {
   'use strict';
 
   var Vector2 = require( 'DOT/Vector2' );
+  var inherit = require( 'PHET_CORE/inherit' );
 
   /**
    * Create a LineSegment from Number,Number,Number,Number or Vector2,Vector2
@@ -48,14 +49,12 @@ define( function( require ) {
     this.pre1 = this.p0.blend( this.p1, 1 - epsilon );
   }
 
-  LineSegment.prototype = {
+  return inherit( Object, LineSegment, {
 
     //No need for speed, only used in debugging
     get center() { return new Vector2( (this.x1 + this.x2) / 2, (this.y1 + this.y2) / 2 ); },
 
     //No need for speed, only used in debugging
     get normal() { return new Vector2( this.x2 - this.x1, this.y2 - this.y1 ).normalized().perpendicular();}
-  };
-
-  return LineSegment;
+  } );
 } );
