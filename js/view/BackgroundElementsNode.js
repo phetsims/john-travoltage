@@ -16,7 +16,7 @@ define( function( require ) {
   var Image = require( 'SCENERY/nodes/Image' );
   var wallpaper = require( 'image!JOHN_TRAVOLTAGE/wallpaper.png' );
   var floor = require( 'image!JOHN_TRAVOLTAGE/floor.png' );
-  var rug = require( 'image!JOHN_TRAVOLTAGE/rug.svg' );
+  var rug = require( 'image!JOHN_TRAVOLTAGE/rug.png' );
   var body = require( 'image!JOHN_TRAVOLTAGE/body.png' );
   var door = require( 'image!JOHN_TRAVOLTAGE/door.png' );
   var window = require( 'image!JOHN_TRAVOLTAGE/window.png' );
@@ -44,9 +44,9 @@ define( function( require ) {
 
     // add the rug image
     this.addChild( new Image( rug, {
-      x: 100,
-      y: 365,
-      scale: 0.6
+      x: 110,
+      y: 446,
+      scale: 0.58
     } ) );
 
     // add the door image
