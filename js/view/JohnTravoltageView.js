@@ -19,8 +19,8 @@ define( function( require ) {
   var Shape = require( 'KITE/Shape' );
   var Path = require( 'SCENERY/nodes/Path' );
   var Node = require( 'SCENERY/nodes/Node' );
-  var SoundToggleButton = require( 'SCENERY_PHET/SoundToggleButton' );
-  var ResetAllButton = require( 'SCENERY_PHET/ResetAllButton' );
+  var SoundToggleButton = require( 'SCENERY_PHET/buttons/SoundToggleButton' );
+  var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
   var DebugPositions = require( 'JOHN_TRAVOLTAGE/view/DebugPositions' );
   var Circle = require( 'SCENERY/nodes/Circle' );
   var platform = require( 'PHET_CORE/platform' );
