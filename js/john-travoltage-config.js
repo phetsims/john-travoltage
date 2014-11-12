@@ -28,7 +28,6 @@ require.config( {
     KITE: '../../kite/js',
     PHET_CORE: '../../phet-core/js',
     DOT: '../../dot/js',
-    ASSERT: '../../assert/js',
     AXON: '../../axon/js',
     BRAND: '../../brand/js',
     SUN: '../../sun/js',
