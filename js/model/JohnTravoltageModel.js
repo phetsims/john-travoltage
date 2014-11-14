@@ -236,7 +236,7 @@ define( function( require ) {
 
       var point = segment.p0.plus( v.normalized().times( rand ) );
 
-      //TODO: use phet-core Poolable?
+      //TODO: use phet-core PoolableMixin?
       this.electrons.add( new Electron( point.x, point.y, this, this.leg ) );
 
       //For debugging: show randomly in the middle for debugging
