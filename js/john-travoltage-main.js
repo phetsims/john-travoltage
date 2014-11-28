@@ -13,7 +13,7 @@ define( function( require ) {
     SimLauncher = require( 'JOIST/SimLauncher' ),
     Sim = require( 'JOIST/Sim' ),
     JohnTravoltageScreen = require( 'JOHN_TRAVOLTAGE/JohnTravoltageScreen' ),
-    title = require( 'string!JOHN_TRAVOLTAGE/travoltage.name' );
+    title = require( 'string!JOHN_TRAVOLTAGE/john-travoltage.name' );
 
   //Workaround for #30
   var newChild = document.createElement( 'audio' );
