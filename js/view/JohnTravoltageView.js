@@ -9,6 +9,8 @@
 define( function( require ) {
   'use strict';
 
+  // modules
+  var Bounds2 = require( 'DOT/Bounds2' );
   var ScreenView = require( 'JOIST/ScreenView' );
   var Line = require( 'SCENERY/nodes/Line' );
   var inherit = require( 'PHET_CORE/inherit' );
@@ -33,7 +35,10 @@ define( function( require ) {
     this.model = model;
 
     //The sim works best in most browsers using svg. But in firefox on Win8 it is very slow and buggy, so use canvas on firefox.
-    ScreenView.call( this, {renderer: platform.firefox ? 'canvas' : 'svg'} );
+    ScreenView.call( this, {
+      renderer: platform.firefox ? 'canvas' : 'svg',
+      layoutBounds: new Bounds2( 0, 0, 768, 504 )
+    } );
 
     //add background elements
     this.addChild( new BackgroundElementsNode() );
