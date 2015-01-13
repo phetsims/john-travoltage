@@ -35,7 +35,7 @@ define( function( require ) {
   function AppendageNode( appendage, image, dx, dy, angleOffset ) {
     var appendageNode = this;
 
-    Node.call( this, { cursor: 'pointer'} );
+    Node.call( this, { cursor: 'pointer' } );
 
     this.model = appendage;
     var angle = 0;
@@ -112,10 +112,10 @@ define( function( require ) {
     //For debugging
     var debugging = false;
     if ( debugging ) {
-      var origin = new Circle( 22, {fill: '#080909', x: appendage.position.x, y: appendage.position.y, pickable: false} );
+      var origin = new Circle( 22, { fill: '#080909', x: appendage.position.x, y: appendage.position.y, pickable: false } );
       this.addChild( origin );
 
-      var mousePosition = new Circle( 7, {fill: 'blue', x: 0, y: 0, pickable: false} );
+      var mousePosition = new Circle( 7, { fill: 'blue', x: 0, y: 0, pickable: false } );
       this.addChild( mousePosition );
     }
   }

@@ -23,7 +23,7 @@ define( function( require ) {
 
   function BackgroundElementsNode() {
 
-    Node.call( this, {pickable: false} );
+    Node.call( this, { pickable: false } );
 
     //wallpapers
     this.addChild( new Rectangle( -1000, -300, 3000, 1100, {

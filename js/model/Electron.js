@@ -152,7 +152,7 @@ define( function( require ) {
       var numSegments = segments.length;
       var bounced = false;
       for ( i = 0; i < numSegments; i++ ) {
-        var segment = segments[i];
+        var segment = segments[ i ];
         if ( Util.lineSegmentIntersection( x1, y1, x2, y2, segment.x1, segment.y1, segment.x2, segment.y2 ) ) {
 
           var normal = segment.normalVector;

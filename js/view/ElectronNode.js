@@ -47,7 +47,7 @@ define( function( require ) {
   minusChargeNode.toImage( function( im ) {
 
     //Scale back down so the image will be the desired size
-    node.children = [new Image( im, {scale: 1.0 / scale} )];
+    node.children = [ new Image( im, { scale: 1.0 / scale } ) ];
   }, 0, 0, minusChargeNode.width, minusChargeNode.height );
 
   //Bounds for the leg and arm regions sampled by clicking on the JohnTravoltageView coordinates
@@ -68,18 +68,18 @@ define( function( require ) {
   function ElectronNode( electron, leg, arm ) {
     var electronNode = this;
 
-    Node.call( this, {pickable: false} );
+    Node.call( this, { pickable: false } );
 
     this.addChild( node );
     node.centerX = 0;
     node.centerY = 0;
     if ( debugPosition ) {
-      var circle = new Circle( 2, {fill: 'yellow'} );
+      var circle = new Circle( 2, { fill: 'yellow' } );
       circle.centerX = 0;
       circle.centerY = 0;
       this.addChild( circle );
 
-      this.addChild( new Rectangle( node.bounds, {lineWidth: 1, stroke: 'red'} ) );
+      this.addChild( new Rectangle( node.bounds, { lineWidth: 1, stroke: 'red' } ) );
     }
 
     //For debugging, show the electron id
@@ -111,7 +111,7 @@ define( function( require ) {
       var inArmCount = 0;
       var deltaAngle, c;
       for ( var i = 0; i < history.length; i++ ) {
-        var element = history[i];
+        var element = history[ i ];
         if ( element === legText ) {
           inLegCount++;
         }

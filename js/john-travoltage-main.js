@@ -33,6 +33,6 @@ define( function( require ) {
 
   //Create and start the sim
   SimLauncher.launch( function() {
-    new Sim( title, [new JohnTravoltageScreen()], simOptions ).start();
+    new Sim( title, [ new JohnTravoltageScreen() ], simOptions ).start();
   } );
 } );

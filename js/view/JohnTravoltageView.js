@@ -44,7 +44,7 @@ define( function( require ) {
     this.addChild( new BackgroundElementsNode() );
 
     //Split layers after background for performance
-    this.addChild( new Node( {layerSplit: true, pickable: false} ) );
+    this.addChild( new Node( { layerSplit: true, pickable: false } ) );
 
     //arm and leg - only interactive elements
     this.leg = new AppendageNode( model.leg, leg, 25, 28, Math.PI / 2 * 0.7 );
@@ -72,11 +72,16 @@ define( function( require ) {
     var soundButton = new SoundToggleButton( model.soundProperty );
     var resetAllButton = new ResetAllButton( { listener: model.reset.bind( model ), scale: 1.32 } );
     resetAllButton.scale( soundButton.height / resetAllButton.height );
-    this.addChild( new HBox( {spacing: 10, children: [soundButton, resetAllButton], right: this.layoutBounds.maxX - 7, bottom: this.layoutBounds.maxY - 7} ) );
+    this.addChild( new HBox( {
+      spacing: 10,
+      children: [ soundButton, resetAllButton ],
+      right:  this.layoutBounds.maxX - 7,
+      bottom: this.layoutBounds.maxY - 7
+    } ) );
 
     //Split layers before particle layer for performance
     //Use a layer for electrons so it has only one pickable flag, perhaps may improve performance compared to iterating over all electrons to see if they are pickable?
-    var electronLayer = new Node( {layerSplit: true, pickable: false} );
+    var electronLayer = new Node( { layerSplit: true, pickable: false } );
     this.addChild( electronLayer );
 
     //if new electron added to model - create and add new node to leg
@@ -101,11 +106,11 @@ define( function( require ) {
     if ( showDebugInfo ) {
       this.showBody();
 
-      this.addChild( new Circle( 10, {x: model.bodyVertices[0].x, y: model.bodyVertices[0].y, fill: 'blue'} ) );
-      this.addChild( new Circle( 10, {x: 0, y: 0, fill: 'blue'} ) );
+      this.addChild( new Circle( 10, { x: model.bodyVertices[ 0 ].x, y: model.bodyVertices[ 0 ].y, fill: 'blue' } ) );
+      this.addChild( new Circle( 10, { x: 0, y: 0, fill: 'blue' } ) );
 
       //Debugging for finger location
-      var fingerCircle = new Circle( 10, {fill: 'red'} );
+      var fingerCircle = new Circle( 10, { fill: 'red' } );
       model.arm.angleProperty.link( function() {
         fingerCircle.x = model.arm.getFingerPosition().x;
         fingerCircle.y = model.arm.getFingerPosition().y;
@@ -122,17 +127,17 @@ define( function( require ) {
       var customShape = new Shape();
       var lineSegment = null;
       for ( var i = 0; i < this.model.lineSegments.length; i++ ) {
-        lineSegment = this.model.lineSegments[i];
+        lineSegment = this.model.lineSegments[ i ];
         customShape.moveTo( lineSegment.x1, lineSegment.y1 );
         customShape.lineTo( lineSegment.x2, lineSegment.y2 );
       }
 
       //Show normals
       for ( i = 0; i < this.model.lineSegments.length; i++ ) {
-        lineSegment = this.model.lineSegments[i];
+        lineSegment = this.model.lineSegments[ i ];
         var center = lineSegment.center;
         var normal = lineSegment.normal.times( 50 );
-        this.addChild( new Line( center.x, center.y, center.x + normal.x, center.y + normal.y, {lineWidth: 2, stroke: 'blue'} ) );
+        this.addChild( new Line( center.x, center.y, center.x + normal.x, center.y + normal.y, { lineWidth: 2, stroke: 'blue' } ) );
       }
 
       var path = new Path( customShape, {
@@ -146,8 +151,8 @@ define( function( require ) {
       var lines = this.model.forceLines;
       for ( i = 0; i < lines.length; i++ ) {
         customShape = new Shape();
-        customShape.moveTo( lines[i].x1, lines[i].y1 );
-        customShape.lineTo( lines[i].x2, lines[i].y2 );
+        customShape.moveTo( lines[ i ].x1, lines[ i ].y1 );
+        customShape.lineTo( lines[ i ].x2, lines[ i ].y2 );
         path = new Path( customShape, {
           stroke: 'red',
           lineWidth: 1,

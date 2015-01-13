@@ -29,7 +29,7 @@ define( function( require ) {
 
     //vertices of path, border of body, sampled using a listener in DebugPositions
     //If you regenerate these, also fix: lineSegmentIndexForSleeve below
-    this.bodyVertices = [new Vector2( 422.21508828250404, 455.370786516854 ),
+    this.bodyVertices = [ new Vector2( 422.21508828250404, 455.370786516854 ),
       new Vector2( 403.10754414125205, 424.5521669341895 ),
       new Vector2( 379.68539325842704, 328.3980738362762 ),
       new Vector2( 357.4959871589086, 335.17817014446234 ),
@@ -59,7 +59,7 @@ define( function( require ) {
       new Vector2( 404.34028892455865, 319.1524879614768 ),
       new Vector2( 414.81861958266455, 404.2118780096309 ),
       new Vector2( 435.15890850722315, 433.18138041733556 ),
-      new Vector2( 464.1284109149278, 433.79775280898883 )];
+      new Vector2( 464.1284109149278, 433.79775280898883 ) ];
 
     //lines, to which electrons moves, when spark happened
     this.forceLines = [
@@ -84,7 +84,7 @@ define( function( require ) {
 
     this.sparkVisibleProperty.link( function( sparkVisible ) {
       if ( sparkVisible && johnTravoltageModel.sound ) {
-        johnTravoltageModel.sounds[Math.floor( Math.random() * 2 )].play();
+        johnTravoltageModel.sounds[ Math.floor( Math.random() * 2 ) ].play();
       }
     } );
 
@@ -118,12 +118,12 @@ define( function( require ) {
 
     var array = [];
     for ( var i = 0; i < this.bodyVertices.length - 1; i++ ) {
-      var current = this.bodyVertices[i];
-      var next = this.bodyVertices[i + 1];
+      var current = this.bodyVertices[ i ];
+      var next = this.bodyVertices[ i + 1 ];
       array.push( new LineSegment( current.x, current.y, next.x, next.y ) );
     }
     //TODO: store, do not reallocate
-    var lineSegment = new LineSegment( this.bodyVertices[this.bodyVertices.length - 1].x, this.bodyVertices[this.bodyVertices.length - 1].y, this.bodyVertices[0].x, this.bodyVertices[0].y );
+    var lineSegment = new LineSegment( this.bodyVertices[ this.bodyVertices.length - 1 ].x, this.bodyVertices[ this.bodyVertices.length - 1 ].y, this.bodyVertices[ 0 ].x, this.bodyVertices[ 0 ].y );
     array.push( lineSegment );
     this.lineSegments = array;
     this.lineSegmentIndexForSleeve = 22;
@@ -204,7 +204,7 @@ define( function( require ) {
       //Step the model
       var length = this.electrons.length;
       for ( var i = 0; i < length; i++ ) {
-        this.electrons._array[i].step( dt );
+        this.electrons._array[ i ].step( dt );
       }
       var wasSpark = this.sparkVisible;
       if ( this.electronsToRemove.length ) {
@@ -242,7 +242,7 @@ define( function( require ) {
       //For debugging: show randomly in the middle for debugging
       var debugging = false;
       if ( debugging ) {
-        this.electrons.add( new Electron( this.bodyVertices[0].x + 50 + 50 * Math.random(), this.bodyVertices[0].y - 75 + 50 * Math.random(), this ) );
+        this.electrons.add( new Electron( this.bodyVertices[ 0 ].x + 50 + 50 * Math.random(), this.bodyVertices[ 0 ].y - 75 + 50 * Math.random(), this ) );
       }
     },
 

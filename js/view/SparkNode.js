@@ -26,11 +26,11 @@ define( function( require ) {
   function SparkNode( sparkVisibleProperty, arm, doorknobPosition, addStepListener ) {
     var self = this;
 
-    Node.call( this, {pickable: false} );
+    Node.call( this, { pickable: false } );
 
     sparkVisibleProperty.linkAttribute( this, 'visible' );
-    var whitePath = new Path( null, {stroke: 'white', lineWidth: 4} );
-    var bluePath = new Path( null, {stroke: 'blue', lineWidth: 1} );
+    var whitePath = new Path( null, { stroke: 'white', lineWidth: 4 } );
+    var bluePath = new Path( null, { stroke: 'blue', lineWidth: 1 } );
     this.addChild( whitePath );
     this.addChild( bluePath );
 
