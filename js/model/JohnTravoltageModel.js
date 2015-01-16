@@ -9,6 +9,7 @@
 define( function( require ) {
   'use strict';
 
+  // modules
   var Arm = require( 'JOHN_TRAVOLTAGE/model/Arm' );
   var Leg = require( 'JOHN_TRAVOLTAGE/model/Leg' );
   var Electron = require( 'JOHN_TRAVOLTAGE/model/Electron' );
@@ -19,6 +20,8 @@ define( function( require ) {
   var Sound = require( 'VIBE/Sound' );
   var Vector2 = require( 'DOT/Vector2' );
   var Util = require( 'DOT/Util' );
+
+  // audio
   var shockOuchAudio = require( 'audio!JOHN_TRAVOLTAGE/shock-ouch' );
   var shockAudio = require( 'audio!JOHN_TRAVOLTAGE/shock' );
 

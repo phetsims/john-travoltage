@@ -10,10 +10,13 @@
 define( function( require ) {
   'use strict';
 
+  // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var ObservableVector2 = require( 'DOT/ObservableVector2' );
   var Vector2 = require( 'DOT/Vector2' );
   var Util = require( 'DOT/Util' );
+
+  // constants
   var count = 0;
 
   function Electron( x, y, model ) {

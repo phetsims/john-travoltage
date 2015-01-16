@@ -16,6 +16,7 @@
 define( function( require ) {
   'use strict';
 
+  // modules
   var Shape = require( 'KITE/Shape' );
   var inherit = require( 'PHET_CORE/inherit' );
 

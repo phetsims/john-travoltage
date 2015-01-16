@@ -9,11 +9,14 @@
 define( function( require ) {
   'use strict';
 
+  // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Pattern = require( 'SCENERY/util/Pattern' );
   var Image = require( 'SCENERY/nodes/Image' );
+
+  // images
   var wallpaper = require( 'image!JOHN_TRAVOLTAGE/wallpaper.png' );
   var floor = require( 'image!JOHN_TRAVOLTAGE/floor.png' );
   var rug = require( 'image!JOHN_TRAVOLTAGE/rug.png' );

@@ -27,6 +27,8 @@ define( function( require ) {
   var Circle = require( 'SCENERY/nodes/Circle' );
   var platform = require( 'PHET_CORE/platform' );
   var HBox = require( 'SCENERY/nodes/HBox' );
+
+  // images
   var arm = require( 'image!JOHN_TRAVOLTAGE/arm.png' );
   var leg = require( 'image!JOHN_TRAVOLTAGE/leg.png' );
 

@@ -9,11 +9,13 @@
 define( function( require ) {
   'use strict';
 
-  var
-    SimLauncher = require( 'JOIST/SimLauncher' ),
-    Sim = require( 'JOIST/Sim' ),
-    JohnTravoltageScreen = require( 'JOHN_TRAVOLTAGE/JohnTravoltageScreen' ),
-    title = require( 'string!JOHN_TRAVOLTAGE/john-travoltage.name' );
+  // modules
+  var SimLauncher = require( 'JOIST/SimLauncher' );
+  var Sim = require( 'JOIST/Sim' );
+  var JohnTravoltageScreen = require( 'JOHN_TRAVOLTAGE/JohnTravoltageScreen' );
+
+  // strings
+  var title = require( 'string!JOHN_TRAVOLTAGE/john-travoltage.name' );
 
   //Workaround for #30
   var newChild = document.createElement( 'audio' );
