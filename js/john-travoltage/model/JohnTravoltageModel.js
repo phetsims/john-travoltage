@@ -10,10 +10,10 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var Arm = require( 'JOHN_TRAVOLTAGE/model/Arm' );
-  var Leg = require( 'JOHN_TRAVOLTAGE/model/Leg' );
-  var Electron = require( 'JOHN_TRAVOLTAGE/model/Electron' );
-  var LineSegment = require( 'JOHN_TRAVOLTAGE/model/LineSegment' );
+  var Arm = require( 'JOHN_TRAVOLTAGE/john-travoltage/model/Arm' );
+  var Leg = require( 'JOHN_TRAVOLTAGE/john-travoltage/model/Leg' );
+  var Electron = require( 'JOHN_TRAVOLTAGE/john-travoltage/model/Electron' );
+  var LineSegment = require( 'JOHN_TRAVOLTAGE/john-travoltage/model/LineSegment' );
   var ObservableArray = require( 'AXON/ObservableArray' );
   var PropertySet = require( 'AXON/PropertySet' );
   var inherit = require( 'PHET_CORE/inherit' );

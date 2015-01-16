@@ -17,7 +17,7 @@ define( function( require ) {
   var Vector2 = require( 'DOT/Vector2' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Circle = require( 'SCENERY/nodes/Circle' );
-  var Leg = require( 'JOHN_TRAVOLTAGE/model/Leg' );
+  var Leg = require( 'JOHN_TRAVOLTAGE/john-travoltage/model/Leg' );
 
   //Compute the distance (in radians) between angles a and b, using an inlined dot product (inlined to remove allocations)
   var distanceBetweenAngles = function( a, b ) {

@@ -12,7 +12,7 @@ define( function( require ) {
   // modules
   var SimLauncher = require( 'JOIST/SimLauncher' );
   var Sim = require( 'JOIST/Sim' );
-  var JohnTravoltageScreen = require( 'JOHN_TRAVOLTAGE/JohnTravoltageScreen' );
+  var JohnTravoltageScreen = require( 'JOHN_TRAVOLTAGE/john-travoltage/JohnTravoltageScreen' );
 
   // strings
   var title = require( 'string!JOHN_TRAVOLTAGE/john-travoltage.name' );
