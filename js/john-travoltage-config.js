@@ -42,7 +42,7 @@ require.config( {
     string: '../../chipper/js/requirejs-plugins/string',
 
     // third-party libs
-    text: '../../sherpa/text-2.0.12'
+    text: '../../sherpa/lib/text-2.0.12'
   },
 
   // optional cache buster to make browser refresh load all included scripts, can be disabled with ?cacheBuster=false
