@@ -5,20 +5,6 @@
   "simTitleStringKey": "JOHN_TRAVOLTAGE/john-travoltage.name",
   "phetLibs": [
     "john-travoltage",
-    "assert",
-    "axon",
-    "babel",
-    "brand",
-    "chipper",
-    "dot",
-    "joist",
-    "kite",
-    "phet-core",
-    "phetcommon",
-    "scenery",
-    "scenery-phet",
-    "sherpa",
-    "sun",
     "vibe"
   ],
   "repository": {
