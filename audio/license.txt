@@ -1,2 +1,4 @@
-shock.* source=PhET notes=recorded by Sam R.
-shock-ouch.* source=PhET notes=recorded by Sam R.
+shock.mp3 source=PhET notes=recorded by Sam R.
+shock.ogg source=PhET notes=recorded by Sam R.
+shock-ouch.mp3 source=PhET notes=recorded by Sam R.
+shock-ouch.ogg source=PhET notes=recorded by Sam R.
