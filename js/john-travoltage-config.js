@@ -37,6 +37,7 @@ require.config( {
     SHERPA: '../../sherpa',
 
     // PhET plugins
+    mipmap: '../../chipper/js/requirejs-plugins/mipmap',
     image: '../../chipper/js/requirejs-plugins/image',
     audio: '../../chipper/js/requirejs-plugins/audio',
     string: '../../chipper/js/requirejs-plugins/string',
