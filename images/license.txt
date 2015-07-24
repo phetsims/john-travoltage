@@ -1,8 +1,66 @@
-arm.png notes=http://www.americancinematheque.com/ball/1997MPBTravolta.htm edited by NP
-body.png notes=http://www.americancinematheque.com/ball/1997MPBTravolta.htm edited by NP
-door.png author=PhET
-floor.png author=PhET
-leg.png notes=http://www.americancinematheque.com/ball/1997MPBTravolta.htm edited by NP
-rug.png author=PhET
-wallpaper.png author=PhET
-window.png author=PhET
+{
+  "arm.png": {
+    "text": [
+      ""
+    ],
+    "projectURL": "http://www.americancinematheque.com/ball/1997MPBTravolta.htm",
+    "license": "",
+    "notes": "edited by NP"
+  },
+  "body.png": {
+    "text": [
+      ""
+    ],
+    "projectURL": "",
+    "license": "",
+    "notes": "http://www.americancinematheque.com/ball/1997MPBTravolta.htm edited by NP"
+  },
+  "door.png": {
+    "text": [
+      "Copyright 2002-2015 University of Colorado Boulder"
+    ],
+    "projectURL": "http://phet.colorado.edu",
+    "license": "contact phethelp@colorado.edu",
+    "notes": ""
+  },
+  "floor.png": {
+    "text": [
+      "Copyright 2002-2015 University of Colorado Boulder"
+    ],
+    "projectURL": "http://phet.colorado.edu",
+    "license": "contact phethelp@colorado.edu",
+    "notes": ""
+  },
+  "leg.png": {
+    "text": [
+      ""
+    ],
+    "projectURL": "http://www.americancinematheque.com/ball/1997MPBTravolta.htm",
+    "license": "",
+    "notes": "edited by NP"
+  },
+  "rug.png": {
+    "text": [
+      "Copyright 2002-2015 University of Colorado Boulder"
+    ],
+    "projectURL": "http://phet.colorado.edu",
+    "license": "contact phethelp@colorado.edu",
+    "notes": ""
+  },
+  "wallpaper.png": {
+    "text": [
+      "Copyright 2002-2015 University of Colorado Boulder"
+    ],
+    "projectURL": "http://phet.colorado.edu",
+    "license": "contact phethelp@colorado.edu",
+    "notes": ""
+  },
+  "window.png": {
+    "text": [
+      "Copyright 2002-2015 University of Colorado Boulder"
+    ],
+    "projectURL": "http://phet.colorado.edu",
+    "license": "contact phethelp@colorado.edu",
+    "notes": ""
+  }
+}

@@ -1,4 +1,34 @@
-shock.mp3 source=PhET notes=recorded by Sam R.
-shock.ogg source=PhET notes=recorded by Sam R.
-shock-ouch.mp3 source=PhET notes=recorded by Sam R.
-shock-ouch.ogg source=PhET notes=recorded by Sam R.
+{
+  "shock.mp3": {
+    "text": [
+      "Copyright 2002-2015 University of Colorado Boulder"
+    ],
+    "projectURL": "http://phet.colorado.edu",
+    "license": "contact phethelp@colorado.edu",
+    "notes": "created by Sam Reid"
+  },
+  "shock.ogg": {
+    "text": [
+      "Copyright 2002-2015 University of Colorado Boulder"
+    ],
+    "projectURL": "http://phet.colorado.edu",
+    "license": "contact phethelp@colorado.edu",
+    "notes": "created by Sam Reid"
+  },
+  "shock-ouch.mp3": {
+    "text": [
+      "Copyright 2002-2015 University of Colorado Boulder"
+    ],
+    "projectURL": "http://phet.colorado.edu",
+    "license": "contact phethelp@colorado.edu",
+    "notes": "created by Sam Reid"
+  },
+  "shock-ouch.ogg": {
+    "text": [
+      "Copyright 2002-2015 University of Colorado Boulder"
+    ],
+    "projectURL": "http://phet.colorado.edu",
+    "license": "contact phethelp@colorado.edu",
+    "notes": "created by Sam Reid"
+  }
+}
