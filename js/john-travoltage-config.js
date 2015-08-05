@@ -30,7 +30,7 @@ require.config( {
     PHET_CORE: '../../phet-core/js',
     DOT: '../../dot/js',
     AXON: '../../axon/js',
-    BRAND: '../../brand/' + phet.chipper.getBrandName() + '/js',
+    BRAND: '../../brand/' + phet.chipper.brand + '/js',
     SUN: '../../sun/js',
     JOIST: '../../joist/js',
     VIBE: '../../vibe/js',
