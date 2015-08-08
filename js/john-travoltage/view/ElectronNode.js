@@ -15,7 +15,7 @@ define( function( require ) {
   var Circle = require( 'SCENERY/nodes/Circle' );
   var RadialGradient = require( 'SCENERY/util/RadialGradient' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
-  var Rect = require( 'DOT/Rectangle' );
+  var DotRectangle = require( 'DOT/Rectangle' );
   var Electron = require( 'JOHN_TRAVOLTAGE/john-travoltage/model/Electron' );
   var Image = require( 'SCENERY/nodes/Image' );
   var Vector2 = require( 'DOT/Vector2' );
@@ -52,12 +52,12 @@ define( function( require ) {
   }, 0, 0, minusChargeNode.width, minusChargeNode.height );
 
   //Bounds for the leg and arm regions sampled by clicking on the JohnTravoltageView coordinates
-  var legBounds = new Rect( 368.70275791624107, 332.0122574055158, 600, 600 );
-  var armBounds = new Rect( 427.41602634467614, 210.03732162458834, 70, 42 );
+  var legBounds = new DotRectangle( 368.70275791624107, 332.0122574055158, 600, 600 );
+  var armBounds = new DotRectangle( 427.41602634467614, 210.03732162458834, 70, 42 );
 
   var topLeft = new Vector2( 427.83601359003404, 154.03488108720273 );
   var bottomRight = new Vector2( 558.1263873159684, 294.67542468856175 );
-  armBounds = new Rect( topLeft.x, topLeft.y, bottomRight.x - topLeft.x, bottomRight.y - topLeft.y );
+  armBounds = new DotRectangle( topLeft.x, topLeft.y, bottomRight.x - topLeft.x, bottomRight.y - topLeft.y );
 
   //Precompute and reuse to avoid allocations
   var a = new Vector2();
