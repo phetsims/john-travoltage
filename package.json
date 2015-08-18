@@ -17,7 +17,6 @@
     "requirejsNamespace": "JOHN_TRAVOLTAGE",
     "simTitleStringKey": "JOHN_TRAVOLTAGE/john-travoltage.name",
     "phetLibs": [
-      "john-travoltage",
       "vibe"
     ]
   }
