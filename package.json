@@ -15,7 +15,6 @@
   },
   "phet": {
     "requirejsNamespace": "JOHN_TRAVOLTAGE",
-    "simTitleStringKey": "JOHN_TRAVOLTAGE/john-travoltage.name",
     "phetLibs": [
       "vibe"
     ]
