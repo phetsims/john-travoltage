@@ -15,7 +15,7 @@ define( function( require ) {
   var JohnTravoltageScreen = require( 'JOHN_TRAVOLTAGE/john-travoltage/JohnTravoltageScreen' );
 
   // strings
-  var title = require( 'string!JOHN_TRAVOLTAGE/john-travoltage.name' );
+  var title = require( 'string!JOHN_TRAVOLTAGE/john-travoltage.title' );
 
   //Workaround for #30
   var newChild = document.createElement( 'audio' );
