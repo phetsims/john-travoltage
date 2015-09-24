@@ -72,12 +72,15 @@ define( function( require ) {
 
     //Sound button and reset all button
     var soundButton = new SoundToggleButton( model.soundProperty );
-    var resetAllButton = new ResetAllButton( { listener: model.reset.bind( model ), scale: 1.32 } );
+    var resetAllButton = new ResetAllButton( {
+      listener: model.reset.bind( model ),
+      scale: 1.32
+    } );
     resetAllButton.scale( soundButton.height / resetAllButton.height );
     this.addChild( new HBox( {
       spacing: 10,
       children: [ soundButton, resetAllButton ],
-      right:  this.layoutBounds.maxX - 7,
+      right: this.layoutBounds.maxX - 7,
       bottom: this.layoutBounds.maxY - 7
     } ) );
 
@@ -139,7 +142,10 @@ define( function( require ) {
         lineSegment = this.model.lineSegments[ i ];
         var center = lineSegment.center;
         var normal = lineSegment.normal.times( 50 );
-        this.addChild( new Line( center.x, center.y, center.x + normal.x, center.y + normal.y, { lineWidth: 2, stroke: 'blue' } ) );
+        this.addChild( new Line( center.x, center.y, center.x + normal.x, center.y + normal.y, {
+          lineWidth: 2,
+          stroke: 'blue'
+        } ) );
       }
 
       var path = new Path( customShape, {
