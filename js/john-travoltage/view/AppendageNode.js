@@ -47,6 +47,7 @@ define( function( require ) {
 
     var lastAngle = appendage.angle;
     var currentAngle = appendage.angle;
+    this.dragging = false;
     imageNode.addInputListener( new SimpleDragHandler( {
       clickOffset: null, // x-offset between initial click and thumb's origin
       allowTouchSnag: true,
@@ -113,7 +114,12 @@ define( function( require ) {
     //For debugging
     var debugging = false;
     if ( debugging ) {
-      var origin = new Circle( 22, { fill: '#080909', x: appendage.position.x, y: appendage.position.y, pickable: false } );
+      var origin = new Circle( 22, {
+        fill: '#080909',
+        x: appendage.position.x,
+        y: appendage.position.y,
+        pickable: false
+      } );
       this.addChild( origin );
 
       var mousePosition = new Circle( 7, { fill: 'blue', x: 0, y: 0, pickable: false } );
