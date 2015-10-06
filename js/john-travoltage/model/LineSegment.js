@@ -23,23 +23,10 @@ define( function( require ) {
    * @constructor
    */
   function LineSegment( x1, y1, x2, y2 ) {
-    if ( typeof x1 === 'number' ) {
-      this.x1 = x1;
-      this.y1 = y1;
-      this.x2 = x2;
-      this.y2 = y2;
-    }
-
-    //Support for LineSegment(Vector2,Vector2)
-    else if ( typeof x1 === 'Vector2' && typeof y1 === 'Vector2' ) {
-      this.x1 = x1.x;
-      this.y1 = x1.y;
-      this.x2 = y1.x;
-      this.y2 = y1.y;
-    }
-    else {
-      throw new Error( 'unknown type in LineSegment' );
-    }
+    this.x1 = x1;
+    this.y1 = y1;
+    this.x2 = x2;
+    this.y2 = y2;
 
     this.normalVector = new Vector2( this.x2 - this.x1, this.y2 - this.y1 ).perpendicular().normalized();
     this.vector = new Vector2( this.x2 - this.x1, this.y2 - this.y1 );
