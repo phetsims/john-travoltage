@@ -15,7 +15,7 @@ define( function( require ) {
   var Circle = require( 'SCENERY/nodes/Circle' );
   var RadialGradient = require( 'SCENERY/util/RadialGradient' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
-  var DotRectangle = require( 'DOT/Rectangle' );
+  var DotRectangle = require( 'DOT/Rectangle' ); // eslint-disable-line require-statement-match
   var Electron = require( 'JOHN_TRAVOLTAGE/john-travoltage/model/Electron' );
   var Image = require( 'SCENERY/nodes/Image' );
   var Vector2 = require( 'DOT/Vector2' );
