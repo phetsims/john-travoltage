@@ -110,7 +110,8 @@ define( function( require ) {
       var inLegCount = 0;
       var inBodyCount = 0;
       var inArmCount = 0;
-      var deltaAngle, c;
+      var deltaAngle;
+      var c;
       for ( var i = 0; i < history.length; i++ ) {
         var element = history[ i ];
         if ( element === legText ) {
