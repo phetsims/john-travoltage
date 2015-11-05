@@ -15,7 +15,7 @@ define( function( require ) {
   var JohnTravoltageScreen = require( 'JOHN_TRAVOLTAGE/john-travoltage/JohnTravoltageScreen' );
 
   // strings
-  var title = require( 'string!JOHN_TRAVOLTAGE/john-travoltage.title' );
+  var johnTravoltageTitleString = require( 'string!JOHN_TRAVOLTAGE/john-travoltage.title' );
 
   //Workaround for #30
   var newChild = document.createElement( 'audio' );
@@ -35,6 +35,6 @@ define( function( require ) {
 
   //Create and start the sim
   SimLauncher.launch( function() {
-    new Sim( title, [ new JohnTravoltageScreen() ], simOptions ).start();
+    new Sim( johnTravoltageTitleString, [ new JohnTravoltageScreen() ], simOptions ).start();
   } );
 } );
