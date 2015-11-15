@@ -19,7 +19,10 @@ define( function( require ) {
   // constants
   var count = 0;
 
-  function Electron( x, y, model ) {
+  //If this value is 1.0, there is no friction.  The value is what the velocity is multiplied by at every step.
+  var frictionFactor = 0.98;
+
+  function Electron( x, y, model, tandem ) {
     count++;
     this.id = count;
     this.positionProperty = new ObservableVector2( x, y );
@@ -35,13 +38,14 @@ define( function( require ) {
     //Store some values that are used in an inner loop
     this.maxSpeed = 500;
     this.maxForceSquared = 100000000;
+
+    tandem.addInstance( this );
+
+    this.tandem = tandem;
   }
 
   //Radius of the electron
   Electron.radius = 8;
-
-  //If this value is 1.0, there is no friction.  The value is what the velocity is multiplied by at every step.
-  var frictionFactor = 0.98;
 
   return inherit( Object, Electron, {
     stepInSpark: function( dt ) {
@@ -84,6 +88,9 @@ define( function( require ) {
       else {
         this.stepInBody( dt );
       }
+    },
+    dispose: function() {
+      this.tandem.removeInstance( this );
     },
     stepInBody: function( dt ) {
 

@@ -13,6 +13,7 @@ define( function( require ) {
   var SimLauncher = require( 'JOIST/SimLauncher' );
   var Sim = require( 'JOIST/Sim' );
   var JohnTravoltageScreen = require( 'JOHN_TRAVOLTAGE/john-travoltage/JohnTravoltageScreen' );
+  var Tandem = require( 'TANDEM/Tandem' );
 
   // strings
   var johnTravoltageTitleString = require( 'string!JOHN_TRAVOLTAGE/john-travoltage.title' );
@@ -22,6 +23,8 @@ define( function( require ) {
   newChild.style.display = 'none';
   document.body.appendChild( newChild );
 
+  var tandem = new Tandem( 'johnTravoltage' );
+
   var simOptions = {
     credits: {
       leadDesign: 'Noah Podolefsky, Carl Wieman, Sam Reid',
@@ -30,11 +33,14 @@ define( function( require ) {
       graphicArts: 'Sharon Siman-Tov',
       thanks: 'Thanks to Mobile Learner Labs for working with the PhET development team\n' +
               'to convert this simulation to HTML5.'
-    }
+    },
+    tandem: tandem
   };
 
   //Create and start the sim
   SimLauncher.launch( function() {
-    new Sim( johnTravoltageTitleString, [ new JohnTravoltageScreen() ], simOptions ).start();
+    new Sim( johnTravoltageTitleString, [
+      new JohnTravoltageScreen( tandem.createTandem( 'johnTravoltageScreen' ) )
+    ], simOptions ).start();
   } );
 } );

@@ -32,6 +32,7 @@ require.config( {
     AXON: '../../axon/js',
     BRAND: '../../brand/' + phet.chipper.brand + '/js',
     SUN: '../../sun/js',
+    TANDEM: '../../tandem/js',
     JOIST: '../../joist/js',
     VIBE: '../../vibe/js',
     SHERPA: '../../sherpa',

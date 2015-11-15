@@ -17,11 +17,23 @@ define( function( require ) {
   // strings
   var johnTravoltageTitleString = require( 'string!JOHN_TRAVOLTAGE/john-travoltage.title' );
 
-  function JohnTravoltageScreen() {
-    Screen.call( this, johnTravoltageTitleString, null /* single-screen sim, no icon */,
-      function() {return new JohnTravoltageModel();},
-      function( model ) {return new JohnTravoltageView( model );},
-      { backgroundColor: '#9ddcf8' }
+  /**
+   * @param tandem
+   * @constructor
+   */
+  function JohnTravoltageScreen( tandem ) {
+    Screen.call(
+      this,
+      johnTravoltageTitleString,
+      null /* single-screen sim, no icon */,
+      function() {
+        return new JohnTravoltageModel( tandem );
+      },
+      function( model ) {
+        return new JohnTravoltageView( model );
+      }, {
+        backgroundColor: '#9ddcf8'
+      }
     );
   }
 

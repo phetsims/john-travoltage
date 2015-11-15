@@ -25,7 +25,14 @@ define( function( require ) {
   var shockOuchAudio = require( 'audio!JOHN_TRAVOLTAGE/shock-ouch' );
   var shockAudio = require( 'audio!JOHN_TRAVOLTAGE/shock' );
 
-  function JohnTravoltageModel() {
+  /**
+   *
+   * @param tandem
+   * @constructor
+   */
+  function JohnTravoltageModel( tandem ) {
+    this.tandem = tandem;
+    this.electronsTandem = tandem.createTandem( 'electrons' );
     var johnTravoltageModel = this;
 
     this.electronsToRemove = [];
@@ -91,14 +98,13 @@ define( function( require ) {
       }
     } );
 
-    this.electrons = new ObservableArray( [] );
+    this.electrons = new ObservableArray();
     this.arm = new Arm();
     this.leg = new Leg();
     this.sounds = [
       new Sound( shockOuchAudio ),
       new Sound( shockAudio )
     ];
-
 
     //If leg dragged across carpet, add electron.  Lazy link so that it won't add an electron when the sim starts up.
     //The number of electrons accumulated only depends on the total angle subtended
@@ -230,6 +236,7 @@ define( function( require ) {
     },
     removeElectron: function( electron ) {
       this.electrons.remove( electron );
+      electron.dispose();
     },
     addElectron: function() {
 
@@ -240,12 +247,18 @@ define( function( require ) {
       var point = segment.p0.plus( v.normalized().times( rand ) );
 
       //TODO: use phet-core PoolableMixin?
-      this.electrons.add( new Electron( point.x, point.y, this, this.leg ) );
+      this.electrons.add( new Electron( point.x, point.y, this, this.electronsTandem.createNextIndexTandem() ) );
 
       //For debugging: show randomly in the middle for debugging
       var debugging = false;
       if ( debugging ) {
-        this.electrons.add( new Electron( this.bodyVertices[ 0 ].x + 50 + 50 * Math.random(), this.bodyVertices[ 0 ].y - 75 + 50 * Math.random(), this ) );
+        this.electrons.add(
+          new Electron(
+            this.bodyVertices[ 0 ].x + 50 + 50 * Math.random(),
+            this.bodyVertices[ 0 ].y - 75 + 50 * Math.random(),
+            this,
+            this.tandem.createTandem( 'electrons', this.electrons.length )
+          ) );
       }
     },
 
