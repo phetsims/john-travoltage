@@ -32,7 +32,6 @@ define( function( require ) {
    */
   function JohnTravoltageModel( tandem ) {
     this.tandem = tandem;
-    this.electronsTandem = tandem.createTandem( 'electrons' );
     var johnTravoltageModel = this;
 
     this.electronsToRemove = [];
@@ -247,7 +246,7 @@ define( function( require ) {
       var point = segment.p0.plus( v.normalized().times( rand ) );
 
       //TODO: use phet-core PoolableMixin?
-      this.electrons.add( new Electron( point.x, point.y, this, this.electronsTandem.createNextIndexTandem() ) );
+      this.electrons.add( new Electron( point.x, point.y, this, this.tandem.createPoolElementTandem( 'electron' ) ) );
 
       //For debugging: show randomly in the middle for debugging
       var debugging = false;
