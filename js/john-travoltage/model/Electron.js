@@ -12,7 +12,7 @@ define( function( require ) {
 
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
-  var ObservableVector2 = require( 'DOT/ObservableVector2' );
+  var Property = require( 'AXON/Property' );
   var Vector2 = require( 'DOT/Vector2' );
   var Util = require( 'DOT/Util' );
 
@@ -25,7 +25,7 @@ define( function( require ) {
   function Electron( x, y, model, tandem ) {
     count++;
     this.id = count;
-    this.positionProperty = new ObservableVector2( x, y );
+    this.positionProperty = new Property( new Vector2( x, y ) );
 
     //The velocity an electron has when it comes from the carpet into the leg.
     this.velocity = new Vector2( -50, -100 );
@@ -178,12 +178,13 @@ define( function( require ) {
       if ( !bounced ) {
 
         //Note, this does not send notifications because it is setting the x,y values on the vector itself
-        this.positionProperty.x = x2;
-        this.positionProperty.y = y2;
+        this.positionProperty.set( new Vector2( x2, y2 ) );
       }
+      else {
 
-      //Notify observers anyways so the electron will redraw at the right leg angle
-      this.positionProperty.notifyObserversStatic();
+        //Notify observers anyways so the electron will redraw at the right leg angle
+        this.positionProperty.notifyObserversStatic();
+      }
     }
   } );
 } );
