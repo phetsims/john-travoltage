@@ -41,6 +41,9 @@ define( function( require ) {
 
     tandem.addInstance( this );
 
+    // TODO: Is this for prototyping or production?
+    tandem.createTandem( 'velocity' ).addInstance( this.velocity );
+
     this.tandem = tandem;
   }
 
@@ -77,7 +80,7 @@ define( function( require ) {
 
         //Send toward the end point on the segment, but with some randomness to make it look more realistic.
         //If the electron moves outside the body, it will be corrected in JohnTravoltageModel.moveElectronInsideBody
-        this.velocity = Vector2.createPolar( 200, delta.angle() + (Math.random() - 0.5) );
+        this.velocity.set( Vector2.createPolar( 200, delta.angle() + (Math.random() - 0.5) ) );
         this.positionProperty.set( this.velocity.timesScalar( dt ).plus( this.positionProperty.get() ) );
       }
     },
@@ -90,6 +93,7 @@ define( function( require ) {
       }
     },
     dispose: function() {
+      this.tandem.createTandem( 'velocity' ).removeInstance( this.velocity );
       this.tandem.removeInstance( this );
     },
     stepInBody: function( dt ) {
@@ -169,7 +173,7 @@ define( function( require ) {
 
           //reflect velocity, but lose some of the energy in the bounce to help keep the electrons near the walls and help them lose energy quicker
           //The Safari 6.0 heisenbug exhibits here if you use es5, so use property.get() instead
-          this.velocity = this.velocity.minus( normal.times( 2 * normal.dot( this.velocity ) ) ).timesScalar( 0.8 );
+          this.velocity.set( this.velocity.minus( normal.times( 2 * normal.dot( this.velocity ) ) ).timesScalar( 0.8 ) );
           bounced = true;
           break;
         }
