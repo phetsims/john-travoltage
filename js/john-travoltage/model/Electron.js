@@ -1,7 +1,6 @@
 // Copyright 2013-2015, University of Colorado Boulder
 
 /**
- * Model of a John-Travoltage.
  * Point charge model. Each charge has a position and box2d instance.
  *
  * @author Sam Reid
