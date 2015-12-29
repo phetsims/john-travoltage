@@ -14,6 +14,7 @@ define( function( require ) {
   var Property = require( 'AXON/Property' );
   var Vector2 = require( 'DOT/Vector2' );
   var Util = require( 'DOT/Util' );
+  var johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
 
   // constants
   var count = 0;
@@ -45,6 +46,8 @@ define( function( require ) {
 
     this.tandem = tandem;
   }
+
+  johnTravoltage.register( 'Electron', Electron );
 
   //Radius of the electron
   Electron.radius = 8;

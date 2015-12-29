@@ -135,6 +135,8 @@ define( function( require ) {
     array.push( lineSegment );
     this.lineSegments = array;
     this.lineSegmentIndexForSleeve = 22;
+
+    this.electronGroupTandem = this.tandem.createGroupTandem( 'electron' );
   }
 
   //Function to determine if electrons are exiting.
@@ -245,8 +247,7 @@ define( function( require ) {
 
       var point = segment.p0.plus( v.normalized().times( rand ) );
 
-      //TODO: use phet-core PoolableMixin?
-      this.electrons.add( new Electron( point.x, point.y, this, this.tandem.createPoolElementTandem( 'electron' ) ) );
+      this.electrons.add( new Electron( point.x, point.y, this, this.electronGroupTandem.createNextTandem() ) );
 
       //For debugging: show randomly in the middle for debugging
       var debugging = false;
