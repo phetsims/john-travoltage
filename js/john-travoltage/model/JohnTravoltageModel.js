@@ -136,7 +136,7 @@ define( function( require ) {
     this.lineSegments = array;
     this.lineSegmentIndexForSleeve = 22;
 
-    this.electronGroupTandem = this.tandem.createGroupTandem( 'electron' );
+    this.electronGroupTandem = this.tandem.createGroupTandem( 'electron' ); // @private
   }
 
   //Function to determine if electrons are exiting.
