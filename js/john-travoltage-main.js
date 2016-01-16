@@ -23,7 +23,7 @@ define( function( require ) {
   newChild.style.display = 'none';
   document.body.appendChild( newChild );
 
-  var tandem = new Tandem( 'johnTravoltage' );
+  var tandem = Tandem.createRootTandem();
 
   var simOptions = {
     credits: {
