@@ -17,6 +17,11 @@
     "requirejsNamespace": "JOHN_TRAVOLTAGE",
     "phetLibs": [
       "vibe"
-    ]
+    ],
+    "phet-io": {
+      "preload": [
+        "../together/js/api/john-travoltage-api.js"
+      ]
+    }
   }
 }
