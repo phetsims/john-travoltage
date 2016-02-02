@@ -27,7 +27,7 @@ define( function( require ) {
       johnTravoltageTitleString,
       null /* single-screen sim, no icon */,
       function() {
-        return new JohnTravoltageModel( tandem );
+        return new JohnTravoltageModel( tandem.createTandem( 'model' ) );
       },
       function( model ) {
         return new JohnTravoltageView( model );

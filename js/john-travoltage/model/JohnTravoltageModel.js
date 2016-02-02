@@ -20,6 +20,7 @@ define( function( require ) {
   var Sound = require( 'VIBE/Sound' );
   var Vector2 = require( 'DOT/Vector2' );
   var Util = require( 'DOT/Util' );
+  var johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
 
   // audio
   var shockOuchAudio = require( 'audio!JOHN_TRAVOLTAGE/shock-ouch' );
@@ -137,10 +138,14 @@ define( function( require ) {
     this.lineSegmentIndexForSleeve = 22;
 
     this.electronGroupTandem = this.tandem.createGroupTandem( 'electron' ); // @private
+
+    tandem.addInstance( this );
   }
 
   //Function to determine if electrons are exiting.
   var exiting = function( e ) {return e.exiting;};
+
+  johnTravoltage.register( 'JohnTravoltageModel', JohnTravoltageModel );
 
   return inherit( PropertySet, JohnTravoltageModel, {
 
