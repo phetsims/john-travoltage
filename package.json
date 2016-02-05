@@ -20,7 +20,7 @@
     ],
     "phet-io": {
       "preload": [
-        "../together/js/api/john-travoltage-api.js"
+        "../phet-io/js/api/john-travoltage-api.js"
       ]
     }
   }
