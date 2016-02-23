@@ -49,10 +49,8 @@ define( function( require ) {
     var currentAngle = appendage.angle;
     this.dragging = false;
     imageNode.addInputListener( new SimpleDragHandler( {
-      clickOffset: null, // x-offset between initial click and thumb's origin
       allowTouchSnag: true,
       start: function( event ) {
-        this.clickOffset = imageNode.globalToParentPoint( event.pointer.point ).minus( imageNode.translation );
         appendageNode.border.visible = false;
         appendageNode.dragging = true;
       },
