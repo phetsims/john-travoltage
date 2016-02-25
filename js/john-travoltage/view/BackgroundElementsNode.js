@@ -21,6 +21,7 @@ define( function( require ) {
   var floor = require( 'image!JOHN_TRAVOLTAGE/floor.png' );
   var rug = require( 'image!JOHN_TRAVOLTAGE/rug.png' );
   var body = require( 'image!JOHN_TRAVOLTAGE/body.png' );
+  var face = require( 'image!JOHN_TRAVOLTAGE/face.png' );
   var door = require( 'image!JOHN_TRAVOLTAGE/door.png' );
   var window = require( 'image!JOHN_TRAVOLTAGE/window.png' );
 
@@ -64,6 +65,15 @@ define( function( require ) {
       x: 260,
       y: 60,
       scale: 0.85
+    } ) );
+
+    // add the face image, this is temporary and will be updated soon
+    // see https://github.com/phetsims/john-travoltage/issues/83
+    // position and scale determined empirically
+    this.addChild( new Image( face, {
+      x: 381,
+      y: 61,
+      scale: 1.20
     } ) );
   }
 
