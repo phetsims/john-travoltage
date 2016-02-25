@@ -69,7 +69,7 @@ define( function( require ) {
   function ElectronNode( electron, leg, arm ) {
     var electronNode = this;
 
-    Node.call( this, { pickable: false } );
+    Node.call( this, { pickable: false, renderer: 'webgl' } );
 
     this.addChild( node );
     node.centerX = 0;

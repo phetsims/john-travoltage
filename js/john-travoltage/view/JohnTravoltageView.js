@@ -38,7 +38,7 @@ define( function( require ) {
 
     //The sim works best in most browsers using svg. But in firefox on Win8 it is very slow and buggy, so use canvas on firefox.
     ScreenView.call( this, {
-      renderer: platform.firefox ? 'canvas' : 'svg',
+      renderer: platform.firefox ? 'canvas' : null,
       layoutBounds: new Bounds2( 0, 0, 768, 504 )
     } );
 
