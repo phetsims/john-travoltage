@@ -1,10 +1,10 @@
 {
   "chipper": {
-    "sha": "e80f4bb16594e4420fb98713a52e65f74b9cb609",
+    "sha": "b3a8a3c24b598badc3b1089aa0eb28c812c47fa0",
     "branch": "master"
   },
   "sherpa": {
-    "sha": "71d59ca730a951e5faee5d10144b99da954bd8d2",
+    "sha": "bb68bbbc6e8e3ce98fc37a956f1e19fe8365c107",
     "branch": "master"
   },
   "vibe": {
@@ -12,43 +12,51 @@
     "branch": "master"
   },
   "sun": {
-    "sha": "95cd625f13e1759b56d0de4cc4169f52ced8793d",
+    "sha": "2b83e994039b2d33845d5e51d7735d144c188d97",
     "branch": "master"
   },
+  "tandem": {
+    "sha": "2441eec6b422cb20e08682da02ab2bf7bf73250c",
+    "branch": "HEAD"
+  },
   "scenery-phet": {
-    "sha": "84c0132adda97ccca482eca4e4edb84adaef5e14",
+    "sha": "71a9c7634c1c59de38afc9e277154126fbd83256",
     "branch": "master"
   },
   "scenery": {
-    "sha": "01d79ef4032a8ad75205f3ceabb4d37fed5deb6f",
+    "sha": "b34b4fea76b01c9b36a07c83ed6655930143f054",
     "branch": "master"
   },
   "phetcommon": {
-    "sha": "f5b48ba0c115ba9a1a7efb5b211047cb93893783",
+    "sha": "380b1fb5f15d097133bfceaf119d3eaf40a3a2d4",
     "branch": "master"
   },
   "phet-core": {
-    "sha": "31549be40abeda91d44ef9446361d0b611121949",
+    "sha": "c48bf32035dc5a4ed092ad611012fcbdeb5c6351",
     "branch": "master"
   },
   "kite": {
-    "sha": "b8e6d658327a10974c92516baf5764a406744c24",
+    "sha": "10ca8bf2b2712307ff528352de8451c0c8afe093",
     "branch": "master"
   },
   "joist": {
-    "sha": "b20b7da4e9b3f4ec7c1fd98d65372131221f2a5a",
+    "sha": "28f510089c0f5312ca58526b10ff063466ebbc5a",
     "branch": "master"
   },
   "dot": {
-    "sha": "9746bc1c2e1b7d8a23650327b1159c7db4377d01",
+    "sha": "da78031b6f080d20bc8346beaa1d37148188371e",
     "branch": "master"
   },
   "axon": {
-    "sha": "d355ba68093cad187924dd55f8c4f8e3fca30acd",
+    "sha": "9457f36aec22935c7b5f41a9d0777255dd5d9884",
     "branch": "master"
   },
+  "brand": {
+    "sha": "ac9ccaa74427844b170dcd1582f3e9bb931edef4",
+    "branch": "HEAD"
+  },
   "assert": {
-    "sha": "ce8013d3c65c140de3ec4c6f8ab508f8098793db",
+    "sha": "7d27130a4d27da15aa7f8a21bbfb9245288c1b44",
     "branch": "master"
   },
   "john-travoltage": {
