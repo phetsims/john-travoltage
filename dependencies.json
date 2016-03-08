@@ -1,67 +1,67 @@
 {
-  "chipper": {
-    "sha": "b3a8a3c24b598badc3b1089aa0eb28c812c47fa0",
-    "branch": "master"
-  },
-  "sherpa": {
-    "sha": "bb68bbbc6e8e3ce98fc37a956f1e19fe8365c107",
-    "branch": "master"
-  },
-  "vibe": {
-    "sha": "c84b3c41d026d31e208243de7b5852e2d6df69a0",
-    "branch": "master"
-  },
-  "sun": {
-    "sha": "2b83e994039b2d33845d5e51d7735d144c188d97",
-    "branch": "master"
-  },
-  "tandem": {
-    "sha": "2441eec6b422cb20e08682da02ab2bf7bf73250c",
+  "comment": "# john-travoltage 1.2.0-rc.1 Mon Mar 07 2016 17:10:55 GMT-0700 (Mountain Standard Time)",
+  "assert": {
+    "sha": "7d27130a4d27da15aa7f8a21bbfb9245288c1b44",
     "branch": "HEAD"
-  },
-  "scenery-phet": {
-    "sha": "71a9c7634c1c59de38afc9e277154126fbd83256",
-    "branch": "master"
-  },
-  "scenery": {
-    "sha": "b34b4fea76b01c9b36a07c83ed6655930143f054",
-    "branch": "master"
-  },
-  "phetcommon": {
-    "sha": "380b1fb5f15d097133bfceaf119d3eaf40a3a2d4",
-    "branch": "master"
-  },
-  "phet-core": {
-    "sha": "c48bf32035dc5a4ed092ad611012fcbdeb5c6351",
-    "branch": "master"
-  },
-  "kite": {
-    "sha": "10ca8bf2b2712307ff528352de8451c0c8afe093",
-    "branch": "master"
-  },
-  "joist": {
-    "sha": "28f510089c0f5312ca58526b10ff063466ebbc5a",
-    "branch": "master"
-  },
-  "dot": {
-    "sha": "da78031b6f080d20bc8346beaa1d37148188371e",
-    "branch": "master"
   },
   "axon": {
     "sha": "9457f36aec22935c7b5f41a9d0777255dd5d9884",
-    "branch": "master"
+    "branch": "HEAD"
   },
   "brand": {
     "sha": "ac9ccaa74427844b170dcd1582f3e9bb931edef4",
     "branch": "HEAD"
   },
-  "assert": {
-    "sha": "7d27130a4d27da15aa7f8a21bbfb9245288c1b44",
-    "branch": "master"
+  "chipper": {
+    "sha": "b3a8a3c24b598badc3b1089aa0eb28c812c47fa0",
+    "branch": "HEAD"
+  },
+  "dot": {
+    "sha": "da78031b6f080d20bc8346beaa1d37148188371e",
+    "branch": "HEAD"
   },
   "john-travoltage": {
-    "sha": "4c7871242ec08d5ebe8bb53120ddbe13cfcda1a2",
-    "branch": "1.0"
+    "sha": "f3d968624eae84fbba90d3703dca2c3adc172007",
+    "branch": "1.2"
   },
-  "comment": "# john-travoltage 1.0.0-rc.2 Sun Nov 17 2013 21:26:48 GMT-0700 (Mountain Standard Time)"
+  "joist": {
+    "sha": "28f510089c0f5312ca58526b10ff063466ebbc5a",
+    "branch": "HEAD"
+  },
+  "kite": {
+    "sha": "10ca8bf2b2712307ff528352de8451c0c8afe093",
+    "branch": "HEAD"
+  },
+  "phet-core": {
+    "sha": "c48bf32035dc5a4ed092ad611012fcbdeb5c6351",
+    "branch": "HEAD"
+  },
+  "phetcommon": {
+    "sha": "380b1fb5f15d097133bfceaf119d3eaf40a3a2d4",
+    "branch": "HEAD"
+  },
+  "scenery": {
+    "sha": "b34b4fea76b01c9b36a07c83ed6655930143f054",
+    "branch": "HEAD"
+  },
+  "scenery-phet": {
+    "sha": "71a9c7634c1c59de38afc9e277154126fbd83256",
+    "branch": "HEAD"
+  },
+  "sherpa": {
+    "sha": "bb68bbbc6e8e3ce98fc37a956f1e19fe8365c107",
+    "branch": "HEAD"
+  },
+  "sun": {
+    "sha": "2b83e994039b2d33845d5e51d7735d144c188d97",
+    "branch": "HEAD"
+  },
+  "tandem": {
+    "sha": "2441eec6b422cb20e08682da02ab2bf7bf73250c",
+    "branch": "HEAD"
+  },
+  "vibe": {
+    "sha": "c84b3c41d026d31e208243de7b5852e2d6df69a0",
+    "branch": "HEAD"
+  }
 }
