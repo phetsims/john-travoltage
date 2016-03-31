@@ -18,6 +18,8 @@ define( function( require ) {
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Circle = require( 'SCENERY/nodes/Circle' );
   var Leg = require( 'JOHN_TRAVOLTAGE/john-travoltage/model/Leg' );
+  var AccessiblePeer = require( 'SCENERY/accessibility/AccessiblePeer' );
+  var Input = require( 'SCENERY/input/Input' );
 
   //Compute the distance (in radians) between angles a and b, using an inlined dot product (inlined to remove allocations)
   var distanceBetweenAngles = function( a, b ) {
@@ -48,6 +50,16 @@ define( function( require ) {
     var lastAngle = appendage.angle;
     var currentAngle = appendage.angle;
     this.dragging = false;
+
+    var limitLegRotation = function( angle ) {
+      if ( angle < -Math.PI / 2 ) {
+        angle = Math.PI;
+      }
+      else if ( angle > -Math.PI / 2 && angle < 0 ) {
+        angle = 0;
+      }
+      return angle;
+    };
     imageNode.addInputListener( new SimpleDragHandler( {
       allowTouchSnag: true,
       start: function( event ) {
@@ -62,12 +74,7 @@ define( function( require ) {
 
         //Limit leg to approximately "half circle" so it cannot spin around, see #63
         if ( appendage instanceof Leg ) {
-          if ( angle < -Math.PI / 2 ) {
-            angle = Math.PI;
-          }
-          else if ( angle > -Math.PI / 2 && angle < 0 ) {
-            angle = 0;
-          }
+          angle = limitLegRotation( angle );
         }
 
         //if clamped at one of the upper angles, only allow the right direction of movement to change the angle, so it won't skip halfway around
@@ -86,6 +93,7 @@ define( function( require ) {
         }
         else {
           appendage.angle = angle;
+          console.log( appendage.angle );
         }
 
       },
@@ -122,6 +130,42 @@ define( function( require ) {
 
       var mousePosition = new Circle( 7, { fill: 'blue', x: 0, y: 0, pickable: false } );
       this.addChild( mousePosition );
+    }
+
+    // Add accessible content for the leg, introducing keyboard navigation and arrow keys to rotate the appendage.
+    if( appendage instanceof Leg ) {
+      this.setAccessibleContent( {
+        createPeer: function( accessibleInstance ) {
+          var trail = accessibleInstance.trail;
+          var uniqueId = trail.getUniqueId();
+
+          var domElement = document.createElement( 'input' );
+          domElement.setAttribute( 'role', 'slider' );
+          domElement.setAttribute( 'type', 'range' );
+          domElement.id = 'slider-' + uniqueId;
+
+          domElement.setAttribute( 'min', 0 );
+          domElement.setAttribute( 'max', 100 );
+          domElement.setAttribute( 'value', 0 );
+
+          domElement.addEventListener( 'keydown', function( event ) {
+
+            var angle = appendage.angle;
+
+            if ( event.keyCode === Input.KEY_DOWN_ARROW || event.keyCode === Input.KEY_RIGHT_ARROW ) {
+              angle -= 0.1;
+            }
+            else if ( event.keyCode === Input.KEY_UP_ARROW || event.keyCode === Input.KEY_LEFT_ARROW ) {
+              angle += 0.1;
+            }
+
+            appendage.angle = limitLegRotation( angle );
+
+          } );
+
+          return new AccessiblePeer( accessibleInstance, domElement );
+        }
+      } );
     }
   }
 
