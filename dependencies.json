@@ -1,5 +1,5 @@
 {
-  "comment": "# john-travoltage 1.2.0 Fri Apr 01 2016 14:31:32 GMT-0600 (MDT)",
+  "comment": "# john-travoltage 1.2.1-rc.1 Fri Apr 01 2016 15:44:12 GMT-0600 (MDT)",
   "assert": {
     "sha": "7d27130a4d27da15aa7f8a21bbfb9245288c1b44",
     "branch": "HEAD"
@@ -10,7 +10,7 @@
   },
   "brand": {
     "sha": "d9e64f424ae3ca05f3d10964f5845460a6ccbce6",
-    "branch": "john-travoltage-1.2"
+    "branch": "HEAD"
   },
   "chipper": {
     "sha": "b3a8a3c24b598badc3b1089aa0eb28c812c47fa0",
@@ -21,12 +21,12 @@
     "branch": "HEAD"
   },
   "john-travoltage": {
-    "sha": "406a44dc2312cf666795c271fe0bbc9330c7d6df",
+    "sha": "491b9bf488904fdf1e1acb189ec6c34228c37cda",
     "branch": "1.2"
   },
   "joist": {
     "sha": "c2998c16b418aebaae8da09278ecd2ea35863dc9",
-    "branch": "john-travoltage-1.2"
+    "branch": "HEAD"
   },
   "kite": {
     "sha": "10ca8bf2b2712307ff528352de8451c0c8afe093",
