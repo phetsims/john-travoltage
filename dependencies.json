@@ -1,5 +1,5 @@
 {
-  "comment": "# john-travoltage 1.2.1-rc.1 Fri Apr 01 2016 15:44:12 GMT-0600 (MDT)",
+  "comment": "# john-travoltage 1.2.1 Tue Apr 05 2016 13:53:34 GMT-0600 (MDT)",
   "assert": {
     "sha": "7d27130a4d27da15aa7f8a21bbfb9245288c1b44",
     "branch": "HEAD"
@@ -21,7 +21,7 @@
     "branch": "HEAD"
   },
   "john-travoltage": {
-    "sha": "491b9bf488904fdf1e1acb189ec6c34228c37cda",
+    "sha": "49d78302de7bc47d03a9f086d93ac6f66804ddb4",
     "branch": "1.2"
   },
   "joist": {
