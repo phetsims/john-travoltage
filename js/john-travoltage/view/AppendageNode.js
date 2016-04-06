@@ -27,6 +27,20 @@ define( function( require ) {
     return Math.acos( dotProduct );
   };
 
+  var radiansToScale = function ( radian, stepsInScale, round) {
+    var scaleValue = radian * (stepsInScale / ( 2 * Math.PI ) );
+
+    console.log( 'scaleValue: ', scaleValue );
+    return round ? Math.round(scaleValue): scaleValue;
+  };
+
+  var scaleToRadians = function ( scaleValue, stepsInScale) {
+    var radian = scaleValue * ( Math.PI / ( stepsInScale / 2 ) );
+
+    console.log( 'radian: ', radian );
+    return radian;
+  };
+
   /**
    * @param {Leg|Arm} appendage the body part to display
    * @param {Image} image
@@ -60,6 +74,7 @@ define( function( require ) {
       }
       return angle;
     };
+
     imageNode.addInputListener( new SimpleDragHandler( {
       allowTouchSnag: true,
       start: function( event ) {
@@ -93,7 +108,17 @@ define( function( require ) {
         }
         else {
           appendage.angle = angle;
-          console.log( appendage.angle );
+          // console.log( appendage.angle );
+
+          var scale = 50;
+
+          if ( appendage instanceof Leg ) {
+            scale = 30;
+          }
+
+          var position = appendage.angle * ( scale / Math.PI );
+
+          console.log( 'radian:', appendage.angle, 'position:',  position);
         }
 
       },
@@ -133,34 +158,99 @@ define( function( require ) {
     }
 
     // Add accessible content for the leg, introducing keyboard navigation and arrow keys to rotate the appendage.
+
     if( appendage instanceof Leg ) {
       this.setAccessibleContent( {
         createPeer: function( accessibleInstance ) {
+          var appendageType = 'foot';
+
+          var motion = {
+            min: 0,
+            max: 30,
+            step: 1,
+            totalRange: 60
+          };
+
+          // foot
+          var calculateValue = function () {
+            return motion.max - radiansToScale( appendage.angle, motion.totalRange, true );
+          };
+
+          var calculateScaleValue = function () {
+            return motion.max - domElement.value;
+          };
+
           var trail = accessibleInstance.trail;
           var uniqueId = trail.getUniqueId();
 
           var domElement = document.createElement( 'input' );
           domElement.setAttribute( 'role', 'slider' );
           domElement.setAttribute( 'type', 'range' );
-          domElement.id = 'slider-' + uniqueId;
+          domElement.id = appendageType + '-slider-' + uniqueId;
 
-          domElement.setAttribute( 'min', 0 );
-          domElement.setAttribute( 'max', 100 );
-          domElement.setAttribute( 'value', 0 );
+          domElement.setAttribute( 'min', motion.min );
+          domElement.setAttribute( 'max', motion.max );
+          domElement.setAttribute( 'step', motion.step );
+          domElement.value = calculateValue();
 
-          domElement.addEventListener( 'keydown', function( event ) {
+          domElement.addEventListener( 'input', function ( event ) {
+            console.log( 'original value:', domElement.value);
+            var scaleValue = calculateScaleValue();
 
-            var angle = appendage.angle;
+            appendage.angle = scaleToRadians(scaleValue, motion.totalRange);
+          } );
 
-            if ( event.keyCode === Input.KEY_DOWN_ARROW || event.keyCode === Input.KEY_RIGHT_ARROW ) {
-              angle -= 0.1;
-            }
-            else if ( event.keyCode === Input.KEY_UP_ARROW || event.keyCode === Input.KEY_LEFT_ARROW ) {
-              angle += 0.1;
-            }
+          //changes visual position
+          appendage.angleProperty.link( function updatePosition( angle ) {
+            domElement.value = calculateValue();
+          } );
 
-            appendage.angle = limitLegRotation( angle );
+          return new AccessiblePeer( accessibleInstance, domElement );
+        }
+      } );
+    } else {
+      this.setAccessibleContent( {
+        createPeer: function( accessibleInstance ) {
+          var appendageType = 'hand';
 
+          var motion = {
+            min: 0,
+            max: 100,
+            step: 1,
+            totalRange: 100
+          };
+
+          var calculateValue = function () {
+            return ( motion.max / 2 ) + radiansToScale( appendage.angle, motion.totalRange, true );
+          };
+
+          var calculateScaleValue = function () {
+            return domElement.value - ( motion.max / 2 );
+          };
+
+          var trail = accessibleInstance.trail;
+          var uniqueId = trail.getUniqueId();
+
+          var domElement = document.createElement( 'input' );
+          domElement.setAttribute( 'role', 'slider' );
+          domElement.setAttribute( 'type', 'range' );
+          domElement.id = appendageType + '-slider-' + uniqueId;
+
+          domElement.setAttribute( 'min', motion.min );
+          domElement.setAttribute( 'max', motion.max );
+          domElement.setAttribute( 'step', motion.step );
+          domElement.value = calculateValue();
+
+          domElement.addEventListener( 'input', function ( event ) {
+            console.log( 'original value:', domElement.value);
+            var scaleValue = calculateScaleValue();
+
+            appendage.angle = scaleToRadians(scaleValue, motion.totalRange);
+          } );
+
+          //changes visual position
+          appendage.angleProperty.link( function updatePosition( angle ) {
+            domElement.value = calculateValue();
           } );
 
           return new AccessiblePeer( accessibleInstance, domElement );
