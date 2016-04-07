@@ -28,7 +28,7 @@ define( function( require ) {
   };
 
   var radiansToScale = function ( radian, stepsInScale, round) {
-    var scaleValue = radian * (stepsInScale / ( 2 * Math.PI ) );
+    var scaleValue = radian * ( ( stepsInScale / 2 ) / Math.PI );
 
     console.log( 'scaleValue: ', scaleValue );
     return round ? Math.round(scaleValue): scaleValue;
@@ -39,6 +39,22 @@ define( function( require ) {
 
     console.log( 'radian: ', radian );
     return radian;
+  };
+
+  var scalePositionTransformation = function ( totalSteps, value ) {
+    return (totalSteps / 2 ) - value;
+  };
+
+  var angleToPosition = function (appendageAngle, motionRange) {
+    var scaleValue = radiansToScale( appendageAngle, motionRange, true );
+
+    return scalePositionTransformation(motionRange, scaleValue);
+  };
+
+  var positionToAngle = function (position, motionRange) {
+    var scaleValue = scalePositionTransformation(motionRange, position);
+
+    return scaleToRadians(scaleValue, motionRange);
   };
 
   /**
@@ -157,106 +173,51 @@ define( function( require ) {
       this.addChild( mousePosition );
     }
 
-    // Add accessible content for the leg, introducing keyboard navigation and arrow keys to rotate the appendage.
+    // Add accessible content for the appendageType
 
-    if( appendage instanceof Leg ) {
-      this.setAccessibleContent( {
-        createPeer: function( accessibleInstance ) {
-          var appendageType = 'foot';
+    this.setAccessibleContent( {
+      createPeer: function( accessibleInstance ) {
+        var appendageType = 'hand';
 
-          var motion = {
-            min: 0,
-            max: 30,
-            step: 1,
-            totalRange: 60
-          };
+        var keyboardMotion = {
+          min: 0,
+          max: 100,
+          step: 1,
+          totalRange: 100
+        };
 
-          // foot
-          var calculateValue = function () {
-            return motion.max - radiansToScale( appendage.angle, motion.totalRange, true );
-          };
-
-          var calculateScaleValue = function () {
-            return motion.max - domElement.value;
-          };
-
-          var trail = accessibleInstance.trail;
-          var uniqueId = trail.getUniqueId();
-
-          var domElement = document.createElement( 'input' );
-          domElement.setAttribute( 'role', 'slider' );
-          domElement.setAttribute( 'type', 'range' );
-          domElement.id = appendageType + '-slider-' + uniqueId;
-
-          domElement.setAttribute( 'min', motion.min );
-          domElement.setAttribute( 'max', motion.max );
-          domElement.setAttribute( 'step', motion.step );
-          domElement.value = calculateValue();
-
-          domElement.addEventListener( 'input', function ( event ) {
-            console.log( 'original value:', domElement.value);
-            var scaleValue = calculateScaleValue();
-
-            appendage.angle = scaleToRadians(scaleValue, motion.totalRange);
-          } );
-
-          //changes visual position
-          appendage.angleProperty.link( function updatePosition( angle ) {
-            domElement.value = calculateValue();
-          } );
-
-          return new AccessiblePeer( accessibleInstance, domElement );
+        if( appendage instanceof Leg ) {
+          appendageType = 'foot';
+          keyboardMotion.max = 30;
+          keyboardMotion.totalRange = 60;
         }
-      } );
-    } else {
-      this.setAccessibleContent( {
-        createPeer: function( accessibleInstance ) {
-          var appendageType = 'hand';
 
-          var motion = {
-            min: 0,
-            max: 100,
-            step: 1,
-            totalRange: 100
-          };
+        var trail = accessibleInstance.trail;
+        var uniqueId = trail.getUniqueId();
 
-          var calculateValue = function () {
-            return ( motion.max / 2 ) + radiansToScale( appendage.angle, motion.totalRange, true );
-          };
+        var domElement = document.createElement( 'input' );
+        domElement.setAttribute( 'role', 'slider' );
+        domElement.setAttribute( 'type', 'range' );
+        domElement.id = appendageType + '-slider-' + uniqueId;
 
-          var calculateScaleValue = function () {
-            return domElement.value - ( motion.max / 2 );
-          };
+        domElement.setAttribute( 'min', keyboardMotion.min );
+        domElement.setAttribute( 'max', keyboardMotion.max );
+        domElement.setAttribute( 'step', keyboardMotion.step );
+        domElement.value = angleToPosition(appendage.angle, keyboardMotion.totalRange);
 
-          var trail = accessibleInstance.trail;
-          var uniqueId = trail.getUniqueId();
+        // updates the model with changes from the PDOM
+        domElement.addEventListener( 'input', function ( event ) {
+          appendage.angle = positionToAngle(domElement.value, keyboardMotion.totalRange);
+        } );
 
-          var domElement = document.createElement( 'input' );
-          domElement.setAttribute( 'role', 'slider' );
-          domElement.setAttribute( 'type', 'range' );
-          domElement.id = appendageType + '-slider-' + uniqueId;
+        // Updates the PDOM with changes in the model
+        appendage.angleProperty.link( function updatePosition( angle ) {
+          domElement.value = angleToPosition(appendage.angle, keyboardMotion.totalRange);
+        } );
 
-          domElement.setAttribute( 'min', motion.min );
-          domElement.setAttribute( 'max', motion.max );
-          domElement.setAttribute( 'step', motion.step );
-          domElement.value = calculateValue();
-
-          domElement.addEventListener( 'input', function ( event ) {
-            console.log( 'original value:', domElement.value);
-            var scaleValue = calculateScaleValue();
-
-            appendage.angle = scaleToRadians(scaleValue, motion.totalRange);
-          } );
-
-          //changes visual position
-          appendage.angleProperty.link( function updatePosition( angle ) {
-            domElement.value = calculateValue();
-          } );
-
-          return new AccessiblePeer( accessibleInstance, domElement );
-        }
-      } );
-    }
+        return new AccessiblePeer( accessibleInstance, domElement );
+      }
+    } );
   }
 
   return inherit( Node, AppendageNode );
