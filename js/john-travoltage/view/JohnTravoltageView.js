@@ -27,6 +27,7 @@ define( function( require ) {
   var Circle = require( 'SCENERY/nodes/Circle' );
   var platform = require( 'PHET_CORE/platform' );
   var HBox = require( 'SCENERY/nodes/HBox' );
+  var AccessiblePeer = require( 'SCENERY/accessibility/AccessiblePeer' );
 
   // images
   var arm = require( 'image!JOHN_TRAVOLTAGE/arm.png' );
@@ -105,6 +106,15 @@ define( function( require ) {
         }
       };
       model.electrons.addItemRemovedListener( itemRemovedListener );
+    } );
+
+    // Add container for accessible content
+    this.setAccessibleContent( {
+      createPeer: function( accessibleInstance ) {
+        var domElement = document.createElement( 'form' );
+
+        return new AccessiblePeer( accessibleInstance, domElement );
+      }
     } );
 
     // debug lines, body and forceline, uncomment this to view physical bounds of body
