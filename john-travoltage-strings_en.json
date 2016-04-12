@@ -1,5 +1,11 @@
 {
   "john-travoltage.title": {
     "value": "John Travoltage"
+  },
+  "john-travoltage.armSliderLabel": {
+    "value": "Hand position"
+  },
+  "john-travoltage.legSliderLabel": {
+    "value": "Foot position"
   }
 }
