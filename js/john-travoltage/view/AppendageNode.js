@@ -19,7 +19,6 @@ define( function( require ) {
   var Circle = require( 'SCENERY/nodes/Circle' );
   var Leg = require( 'JOHN_TRAVOLTAGE/john-travoltage/model/Leg' );
   var AccessiblePeer = require( 'SCENERY/accessibility/AccessiblePeer' );
-  var Input = require( 'SCENERY/input/Input' );
 
   //Compute the distance (in radians) between angles a and b, using an inlined dot product (inlined to remove allocations)
   var distanceBetweenAngles = function( a, b ) {
@@ -27,34 +26,34 @@ define( function( require ) {
     return Math.acos( dotProduct );
   };
 
-  var radiansToScale = function ( radian, stepsInScale, round) {
-    var scaleValue = radian * ( ( stepsInScale / 2 ) / Math.PI );
+  var radiansToScale = function ( radian, stepsInScale, radianOffset ) {
+    var radianWithOffset = radian - radianOffset;
+    var scaleValue = ( radianWithOffset ) * ( ( stepsInScale / 2 ) / Math.PI );
 
-    console.log( 'scaleValue: ', scaleValue );
-    return round ? Math.round(scaleValue): scaleValue;
+    return Math.round( scaleValue );
   };
 
-  var scaleToRadians = function ( scaleValue, stepsInScale) {
+  var scaleToRadians = function ( scaleValue, stepsInScale, radianOffset ) {
     var radian = scaleValue * ( Math.PI / ( stepsInScale / 2 ) );
+    var radianWithOffset = radian + radianOffset;
 
-    console.log( 'radian: ', radian );
-    return radian;
+    return radianWithOffset;
   };
 
   var scalePositionTransformation = function ( totalSteps, value ) {
-    return (totalSteps / 2 ) - value;
+    return ( totalSteps / 2 ) - value;
   };
 
-  var angleToPosition = function (appendageAngle, motionRange) {
-    var scaleValue = radiansToScale( appendageAngle, motionRange, true );
+  var angleToPosition = function ( appendageAngle, motionRange, radianOffset ) {
+    var scaleValue = radiansToScale( appendageAngle, motionRange, radianOffset );
 
-    return scalePositionTransformation(motionRange, scaleValue);
+    return scalePositionTransformation( motionRange, scaleValue );
   };
 
-  var positionToAngle = function (position, motionRange) {
-    var scaleValue = scalePositionTransformation(motionRange, position);
+  var positionToAngle = function ( position, motionRange, radianOffset ) {
+    var scaleValue = scalePositionTransformation( motionRange, position );
 
-    return scaleToRadians(scaleValue, motionRange);
+    return scaleToRadians( scaleValue, motionRange, radianOffset );
   };
 
   /**
@@ -63,15 +62,19 @@ define( function( require ) {
    * @param {Number} dx
    * @param {Number} dy
    * @param {Number} angleOffset the angle about which to rotate
+   * @param {Object} options -  optional configuration such as "keyboardMidPointOffset"; which is used to adjust the
+   *                 centre position of the HTML slider for keyboard accessibility. For example it can be used to
+   *                 align the doorknob as the centre position of the arm slider.
    * @constructor
    */
-  function AppendageNode( appendage, image, dx, dy, angleOffset ) {
+  function AppendageNode( appendage, image, dx, dy, angleOffset, options ) {
     var appendageNode = this;
 
     Node.call( this, { cursor: 'pointer' } );
 
     this.model = appendage;
     var angle = 0;
+    options = _.extend( { keyboardMidPointOffset: 0 }, options );
 
     // add the image
     var imageNode = new Image( image );
@@ -119,22 +122,11 @@ define( function( require ) {
         else if ( appendage.angle === 0 && z > 0 ) {
           //noop, at the right side
         }
-        else if ( distanceBetweenAngles( appendage.angle, angle ) > Math.PI / 3 && (appendage.angle === 0 || appendage.angle === Math.PI) ) {
+        else if ( distanceBetweenAngles( appendage.angle, angle ) > Math.PI / 3 && ( appendage.angle === 0 || appendage.angle === Math.PI ) ) {
           //noop, too big a leap, may correspond to the user reversing direction after a leg is stuck against threshold
         }
         else {
           appendage.angle = angle;
-          // console.log( appendage.angle );
-
-          var scale = 50;
-
-          if ( appendage instanceof Leg ) {
-            scale = 30;
-          }
-
-          var position = appendage.angle * ( scale / Math.PI );
-
-          console.log( 'radian:', appendage.angle, 'position:',  position);
         }
 
       },
@@ -203,16 +195,16 @@ define( function( require ) {
         domElement.setAttribute( 'min', keyboardMotion.min );
         domElement.setAttribute( 'max', keyboardMotion.max );
         domElement.setAttribute( 'step', keyboardMotion.step );
-        domElement.value = angleToPosition(appendage.angle, keyboardMotion.totalRange);
+        domElement.value = angleToPosition( appendage.angle, keyboardMotion.totalRange, options.keyboardMidPointOffset );
 
         // updates the model with changes from the PDOM
         domElement.addEventListener( 'input', function ( event ) {
-          appendage.angle = positionToAngle(domElement.value, keyboardMotion.totalRange);
+          appendage.angle = positionToAngle( domElement.value, keyboardMotion.totalRange, options.keyboardMidPointOffset );
         } );
 
         // Updates the PDOM with changes in the model
         appendage.angleProperty.link( function updatePosition( angle ) {
-          domElement.value = angleToPosition(appendage.angle, keyboardMotion.totalRange);
+          domElement.value = angleToPosition( appendage.angle, keyboardMotion.totalRange, options.keyboardMidPointOffset );
         } );
 
         return new AccessiblePeer( accessibleInstance, domElement );
