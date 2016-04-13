@@ -1,10 +1,12 @@
 // Copyright 2013-2015, University of Colorado Boulder
+// Copyright 2016, OCAD University
 
 /**
  * Scenery display object (scene graph node) for the leg of the model.
  *
  * @author Sam Reid
  * @author Vasily Shakhov (Mlearner)
+ * @author Justin Obara
  */
 define( function( require ) {
   'use strict';

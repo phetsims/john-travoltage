@@ -1,10 +1,12 @@
 // Copyright 2013-2015, University of Colorado Boulder
+// Copyright 2016, OCAD University
 
 /**
  * Main ScreenView of simulation. Drawing starts here
  *
  * @author Sam Reid
  * @author Vasily Shakhov (Mlearner)
+ * @author Justin Obara
  */
 define( function( require ) {
   'use strict';
