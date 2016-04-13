@@ -17,6 +17,7 @@ define( function( require ) {
   var Line = require( 'SCENERY/nodes/Line' );
   var inherit = require( 'PHET_CORE/inherit' );
   var BackgroundElementsNode = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/BackgroundElementsNode' );
+  var LabelNode = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/LabelNode' );
   var AppendageNode = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/AppendageNode' );
   var SparkNode = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/SparkNode' );
   var ElectronNode = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/ElectronNode' );
@@ -36,8 +37,8 @@ define( function( require ) {
   var leg = require( 'image!JOHN_TRAVOLTAGE/leg.png' );
 
   // strings
-  var johnTravoltageArmSliderString = require( 'string!JOHN_TRAVOLTAGE/john-travoltage.armSliderLabel' );
-  var johnTravoltageLegSliderString = require( 'string!JOHN_TRAVOLTAGE/john-travoltage.legSliderLabel' );
+  var armLabelText = require( 'string!JOHN_TRAVOLTAGE/john-travoltage.armSliderLabel' );
+  var legLabelText = require( 'string!JOHN_TRAVOLTAGE/john-travoltage.legSliderLabel' );
 
   function JohnTravoltageView( model ) {
     var johnTravoltageView = this;
@@ -56,33 +57,17 @@ define( function( require ) {
     this.addChild( new Node( { layerSplit: true, pickable: false } ) );
 
     //arm and leg - only interactive elements
-    this.legLabel = new Node();
-    this.addChild(this.legLabel);
-    this.legLabel.setAccessibleContent( {
-      createPeer: function ( accessibleInstance ) {
-        var domElement = document.createElement( 'label' );
-        domElement.textContent = johnTravoltageLegSliderString;
-
-        return new AccessiblePeer( accessibleInstance, domElement );
-      }
-    } );
+    var legLabel = new LabelNode( legLabelText );
+    this.addChild(legLabel);
     this.leg = new AppendageNode( model.leg, leg, 25, 28, Math.PI / 2 * 0.7 );
-    this.legLabel.addChild( this.leg );
+    legLabel.addChild( this.leg );
 
-    this.armLabel = new Node();
-    this.addChild(this.armLabel);
-    this.armLabel.setAccessibleContent( {
-      createPeer: function ( accessibleInstance ) {
-        var domElement = document.createElement( 'label' );
-        domElement.textContent = johnTravoltageArmSliderString;
-
-        return new AccessiblePeer( accessibleInstance, domElement );
-      }
-    } );
+    var armLabel = new LabelNode( armLabelText );
+    this.addChild(armLabel);
     // the keyboardMidPointOffset was manually calculated as a radian offset that will trigger a discharge with the
     // minimum charge level.
     this.arm = new AppendageNode( model.arm, arm, 4, 45, -0.1 , { keyboardMidPointOffset: 0.41 } );
-    this.armLabel.addChild( this.arm );
+    armLabel.addChild( this.arm );
 
     //Show the dotted lines again when the sim is reset
     model.on( 'reset', function() {
