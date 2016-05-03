@@ -13,6 +13,7 @@ define( function( require ) {
   var Vector2 = require( 'DOT/Vector2' );
   var PropertySet = require( 'AXON/PropertySet' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
 
   function Arm() {
     PropertySet.call( this, { angle: -0.5 } );
@@ -27,6 +28,8 @@ define( function( require ) {
     //Keep track of dragging flag (non-observable) so that when the sim is reset, a border outline is not added if the leg is dragging
     this.dragging = false;
   }
+
+  johnTravoltage.register( 'Arm', Arm );
 
   return inherit( PropertySet, Arm, {
     getFingerPosition: function() {

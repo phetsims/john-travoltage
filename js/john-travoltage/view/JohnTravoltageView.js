@@ -27,6 +27,7 @@ define( function( require ) {
   var Circle = require( 'SCENERY/nodes/Circle' );
   var platform = require( 'PHET_CORE/platform' );
   var HBox = require( 'SCENERY/nodes/HBox' );
+  var johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
 
   // images
   var arm = require( 'image!JOHN_TRAVOLTAGE/arm.png' );
@@ -126,6 +127,8 @@ define( function( require ) {
     }
   }
 
+  johnTravoltage.register( 'JohnTravoltageView', JohnTravoltageView );
+  
   return inherit( ScreenView, JohnTravoltageView, {
     showBody: function() {
       //vertices and body path

@@ -14,6 +14,7 @@ define( function( require ) {
   var Node = require( 'SCENERY/nodes/Node' );
   var Shape = require( 'KITE/Shape' );
   var Path = require( 'SCENERY/nodes/Path' );
+  var johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
 
   /**
    * Constructor for the SparkNode, which shows the animated spark from the finger to the doorknob when electrons are flowing out.
@@ -67,5 +68,7 @@ define( function( require ) {
     } );
   }
 
+  johnTravoltage.register( 'SparkNode', SparkNode );
+  
   return inherit( Node, SparkNode );
 } );

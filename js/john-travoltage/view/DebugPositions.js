@@ -19,9 +19,12 @@ define( function( require ) {
   // modules
   var Shape = require( 'KITE/Shape' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
 
   function DebugPositions() {}
 
+  johnTravoltage.register( 'DebugPositions', DebugPositions );
+  
   return inherit( Object, DebugPositions, {
 
     //Sample model points for bounds, see JohnTravoltageModel.bodyVertices

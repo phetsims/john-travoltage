@@ -13,6 +13,7 @@ define( function( require ) {
   var PropertySet = require( 'AXON/PropertySet' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Vector2 = require( 'DOT/Vector2' );
+  var johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
 
   function Leg() {
     this.initialAngle = 1.3175443221852239;
@@ -23,6 +24,8 @@ define( function( require ) {
     this.dragging = false;
   }
 
+  johnTravoltage.register( 'Leg', Leg );
+  
   return inherit( PropertySet, Leg, {
     deltaAngle: function() { return this.angle - this.initialAngle; }
   } );
