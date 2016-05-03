@@ -94,7 +94,6 @@ define( function( require ) {
         }
         else {
           appendage.angle = angle;
-          console.log( appendage.angle );
         }
 
       },
