@@ -12,6 +12,7 @@ define( function( require ) {
   // modules
   var Vector2 = require( 'DOT/Vector2' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
 
   /**
    * Create a LineSegment from Number,Number,Number,Number or Vector2,Vector2
@@ -37,6 +38,8 @@ define( function( require ) {
     this.pre1 = this.p0.blend( this.p1, 1 - epsilon );
   }
 
+  johnTravoltage.register( 'LineSegment', LineSegment );
+  
   return inherit( Object, LineSegment, {
 
     //No need for speed, only used in debugging

@@ -19,6 +19,7 @@ define( function( require ) {
   var Electron = require( 'JOHN_TRAVOLTAGE/john-travoltage/model/Electron' );
   var Image = require( 'SCENERY/nodes/Image' );
   var Vector2 = require( 'DOT/Vector2' );
+  var johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
 
   var radius = Electron.radius;
 
@@ -180,5 +181,7 @@ define( function( require ) {
     } );
   }
 
+  johnTravoltage.register( 'ElectronNode', ElectronNode );
+  
   return inherit( Node, ElectronNode );
 } );

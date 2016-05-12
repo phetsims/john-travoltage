@@ -31,6 +31,7 @@ define( function( require ) {
   var platform = require( 'PHET_CORE/platform' );
   var HBox = require( 'SCENERY/nodes/HBox' );
   var AccessiblePeer = require( 'SCENERY/accessibility/AccessiblePeer' );
+  var johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
 
   // images
   var arm = require( 'image!JOHN_TRAVOLTAGE/arm.png' );
@@ -148,6 +149,8 @@ define( function( require ) {
       new DebugPositions().debugLineSegments( this );
     }
   }
+
+  johnTravoltage.register( 'JohnTravoltageView', JohnTravoltageView );
 
   return inherit( ScreenView, JohnTravoltageView, {
     showBody: function() {

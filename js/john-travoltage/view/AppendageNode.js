@@ -21,6 +21,8 @@ define( function( require ) {
   var Circle = require( 'SCENERY/nodes/Circle' );
   var Leg = require( 'JOHN_TRAVOLTAGE/john-travoltage/model/Leg' );
   var AccessiblePeer = require( 'SCENERY/accessibility/AccessiblePeer' );
+  var Input = require( 'SCENERY/input/Input' );
+  var johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
 
   //Compute the distance (in radians) between angles a and b, using an inlined dot product (inlined to remove allocations)
   var distanceBetweenAngles = function( a, b ) {
@@ -213,6 +215,8 @@ define( function( require ) {
       }
     } );
   }
+
+  johnTravoltage.register( 'AppendageNode', AppendageNode );
 
   return inherit( Node, AppendageNode );
 } );

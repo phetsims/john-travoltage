@@ -13,6 +13,7 @@ define( function( require ) {
   var JohnTravoltageModel = require( 'JOHN_TRAVOLTAGE/john-travoltage/model/JohnTravoltageModel' );
   var JohnTravoltageView = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/JohnTravoltageView' );
   var Screen = require( 'JOIST/Screen' );
+  var johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
 
   // strings
   var johnTravoltageTitleString = require( 'string!JOHN_TRAVOLTAGE/john-travoltage.title' );
@@ -37,5 +38,7 @@ define( function( require ) {
     );
   }
 
+  johnTravoltage.register( 'JohnTravoltageScreen', JohnTravoltageScreen );
+  
   return inherit( Screen, JohnTravoltageScreen );
 } );

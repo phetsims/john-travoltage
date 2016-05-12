@@ -15,6 +15,7 @@ define( function( require ) {
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Pattern = require( 'SCENERY/util/Pattern' );
   var Image = require( 'SCENERY/nodes/Image' );
+  var johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
 
   // images
   var wallpaper = require( 'image!JOHN_TRAVOLTAGE/wallpaper.png' );
@@ -77,5 +78,7 @@ define( function( require ) {
     } ) );
   }
 
+  johnTravoltage.register( 'BackgroundElementsNode', BackgroundElementsNode );
+  
   return inherit( Node, BackgroundElementsNode );
 } );
