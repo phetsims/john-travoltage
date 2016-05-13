@@ -60,18 +60,34 @@ define( function( require ) {
     return scaleToRadians( scaleValue, motionRange, radianOffset );
   };
 
+  var getPositionMessage = function ( position, template, rangeMap ) {
+    var compiled = _.template( template );
+    var message = '';
+
+    _.forEach(rangeMap, function (map) {
+      if (position >= map.range.min && position <= map.range.max) {
+        message = map.text;
+        return false;
+      }
+    });
+
+    return compiled( { position: position, message: message } );
+  };
+
   /**
    * @param {Leg|Arm} appendage the body part to display
    * @param {Image} image
    * @param {Number} dx
    * @param {Number} dy
    * @param {Number} angleOffset the angle about which to rotate
+   * @param {Array} rangeMap - an array of objects of the format {range: {max: Number, min: Number}, text: String}. This
+   *                           is used to map a position value to text to use for the valueText of the related slider.
    * @param {Object} options -  optional configuration such as "keyboardMidPointOffset"; which is used to adjust the
    *                 centre position of the HTML slider for keyboard accessibility. For example it can be used to
    *                 align the doorknob as the centre position of the arm slider.
    * @constructor
    */
-  function AppendageNode( appendage, image, dx, dy, angleOffset, options ) {
+  function AppendageNode( appendage, image, dx, dy, angleOffset, rangeMap, options ) {
     var appendageNode = this;
 
     Node.call( this, { cursor: 'pointer' } );
@@ -208,7 +224,9 @@ define( function( require ) {
 
         // Updates the PDOM with changes in the model
         appendage.angleProperty.link( function updatePosition( angle ) {
-          domElement.value = angleToPosition( appendage.angle, keyboardMotion.totalRange, options.keyboardMidPointOffset );
+          var position = angleToPosition( appendage.angle, keyboardMotion.totalRange, options.keyboardMidPointOffset );
+          domElement.value = position;
+          domElement.setAttribute( 'aria-valuetext', getPositionMessage(position, 'Position ${ position }: ${ message }', rangeMap) );
         } );
 
         return new AccessiblePeer( accessibleInstance, domElement );

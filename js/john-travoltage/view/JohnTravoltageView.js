@@ -40,6 +40,123 @@ define( function( require ) {
   // strings
   var armLabelText = require( 'string!JOHN_TRAVOLTAGE/john-travoltage.armSliderLabel' );
   var legLabelText = require( 'string!JOHN_TRAVOLTAGE/john-travoltage.legSliderLabel' );
+  var footOnCarpetText = require( 'string!JOHN_TRAVOLTAGE/john-travoltage.foot.onCarpet' );
+  var footOffCarpetText = require( 'string!JOHN_TRAVOLTAGE/john-travoltage.foot.offCarpet' );
+  var handClosestText = require( 'string!JOHN_TRAVOLTAGE/john-travoltage.hand.closest' );
+  var handVeryCloseText = require( 'string!JOHN_TRAVOLTAGE/john-travoltage.hand.veryClose' );
+  var handCloseText = require( 'string!JOHN_TRAVOLTAGE/john-travoltage.hand.close' );
+  var handNeitherText = require( 'string!JOHN_TRAVOLTAGE/john-travoltage.hand.neither' );
+  var handFarText = require( 'string!JOHN_TRAVOLTAGE/john-travoltage.hand.far' );
+  var handVeryFarText = require( 'string!JOHN_TRAVOLTAGE/john-travoltage.hand.veryFar' );
+  var handFarthestText = require( 'string!JOHN_TRAVOLTAGE/john-travoltage.hand.farthest' );
+
+
+  // rangeMaps
+  var legRangeMap = [
+    {
+        range: {
+            max: 5,
+            min: 0
+        },
+        text: footOffCarpetText
+    }, {
+        range: {
+            max: 21,
+            min: 6
+        },
+        text: footOnCarpetText
+    }, {
+        range: {
+            max: 30,
+            min: 22
+        },
+        text: footOffCarpetText
+    }
+  ];
+
+
+  var armRangeMap = [
+    {
+        range: {
+            max: 0,
+            min: 0
+        },
+        text: handFarthestText
+    }, {
+        range: {
+            max: 12,
+            min: 1
+        },
+        text: handVeryFarText
+    }, {
+        range: {
+            max: 24,
+            min: 13
+        },
+        text: handFarText
+    }, {
+        range: {
+            max: 25,
+            min: 25
+        },
+        text: handNeitherText
+    }, {
+        range: {
+            max: 37,
+            min: 26
+        },
+        text: handCloseText
+    }, {
+        range: {
+            max: 49,
+            min: 38
+        },
+        text: handVeryCloseText
+    }, {
+        range: {
+            max: 50,
+            min: 50
+        },
+        text: handClosestText
+    }, {
+        range: {
+            max: 62,
+            min: 51
+        },
+        text: handVeryCloseText
+    }, {
+        range: {
+            max: 74,
+            min: 63
+        },
+        text: handCloseText
+    }, {
+        range: {
+            max: 75,
+            min: 75
+        },
+        text: handNeitherText
+    }, {
+        range: {
+            max: 87,
+            min: 76
+        },
+        text: handFarText
+    }, {
+        range: {
+            max: 99,
+            min: 88
+        },
+        text: handVeryFarText
+    }, {
+        range: {
+            max: 100,
+            min: 100
+        },
+        text: handFarthestText
+    }
+  ];
+
 
   function JohnTravoltageView( model ) {
     var johnTravoltageView = this;
@@ -60,14 +177,14 @@ define( function( require ) {
     //arm and leg - only interactive elements
     var legLabel = new LabelNode( legLabelText );
     this.addChild(legLabel);
-    this.leg = new AppendageNode( model.leg, leg, 25, 28, Math.PI / 2 * 0.7 );
+    this.leg = new AppendageNode( model.leg, leg, 25, 28, Math.PI / 2 * 0.7, legRangeMap);
     legLabel.addChild( this.leg );
 
     var armLabel = new LabelNode( armLabelText );
     this.addChild(armLabel);
     // the keyboardMidPointOffset was manually calculated as a radian offset that will trigger a discharge with the
     // minimum charge level.
-    this.arm = new AppendageNode( model.arm, arm, 4, 45, -0.1 , { keyboardMidPointOffset: 0.41 } );
+    this.arm = new AppendageNode( model.arm, arm, 4, 45, -0.1 , armRangeMap, { keyboardMidPointOffset: 0.41 } );
     armLabel.addChild( this.arm );
 
     //Show the dotted lines again when the sim is reset
