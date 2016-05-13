@@ -48,10 +48,10 @@ define( function( require ) {
     return ( totalSteps / 2 ) - value;
   };
 
-  var angleToPosition = function ( appendageAngle, motionRange, radianOffset ) {
+  var angleToPosition = function ( appendageAngle, motionRange, maxPosition, radianOffset ) {
     var scaleValue = radiansToScale( appendageAngle, motionRange, radianOffset );
-
-    return scalePositionTransformation( motionRange, scaleValue );
+    var position = scalePositionTransformation( motionRange, scaleValue );
+    return position > maxPosition ? position % maxPosition : position;
   };
 
   var positionToAngle = function ( position, motionRange, radianOffset ) {
@@ -215,7 +215,7 @@ define( function( require ) {
         domElement.setAttribute( 'min', keyboardMotion.min );
         domElement.setAttribute( 'max', keyboardMotion.max );
         domElement.setAttribute( 'step', keyboardMotion.step );
-        domElement.value = angleToPosition( appendage.angle, keyboardMotion.totalRange, options.keyboardMidPointOffset );
+        domElement.value = angleToPosition( appendage.angle, keyboardMotion.totalRange, keyboardMotion.max, options.keyboardMidPointOffset );
 
         // updates the model with changes from the PDOM
         domElement.addEventListener( 'input', function ( event ) {
@@ -224,7 +224,7 @@ define( function( require ) {
 
         // Updates the PDOM with changes in the model
         appendage.angleProperty.link( function updatePosition( angle ) {
-          var position = angleToPosition( appendage.angle, keyboardMotion.totalRange, options.keyboardMidPointOffset );
+          var position = angleToPosition( appendage.angle, keyboardMotion.totalRange, keyboardMotion.max, options.keyboardMidPointOffset );
           domElement.value = position;
           domElement.setAttribute( 'aria-valuetext', getPositionMessage(position, 'Position ${ position }: ${ message }', rangeMap) );
         } );
