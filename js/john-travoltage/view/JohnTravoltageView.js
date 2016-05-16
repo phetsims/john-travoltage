@@ -49,6 +49,7 @@ define( function( require ) {
   var handFarText = require( 'string!JOHN_TRAVOLTAGE/john-travoltage.hand.far' );
   var handVeryFarText = require( 'string!JOHN_TRAVOLTAGE/john-travoltage.hand.veryFar' );
   var handFarthestText = require( 'string!JOHN_TRAVOLTAGE/john-travoltage.hand.farthest' );
+  var dischargeText = require( 'string!JOHN_TRAVOLTAGE/john-travoltage.electrons.discharged' );
 
 
   // rangeMaps
@@ -200,7 +201,7 @@ define( function( require ) {
     //spark
     this.addChild( new SparkNode( model.sparkVisibleProperty, model.arm, model.doorknobPosition, function( listener ) {
       model.on( 'step', listener );
-    } ) );
+    }, dischargeText ) );
 
     //Sound button and reset all button
     var soundButton = new SoundToggleButton( model.soundProperty );

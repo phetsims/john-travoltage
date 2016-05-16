@@ -34,5 +34,8 @@
   },
   "john-travoltage.hand.farthest": {
     "value": "Farthest from the doorknob."
+  },
+  "john-travoltage.electrons.discharged": {
+    "value": "Electrons discharged."
   }
 }

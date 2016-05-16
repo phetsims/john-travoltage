@@ -186,7 +186,6 @@ define( function( require ) {
     }
 
     // Add accessible content for the appendageType
-
     this.setAccessibleContent( {
       createPeer: function( accessibleInstance ) {
         var appendageType = 'hand';
