@@ -9,33 +9,33 @@
     "value": "Foot position"
   },
   "john-travoltage.foot.onCarpet": {
-    "value": "Foot is on the carpet."
+    "value": "Foot is on the carpet"
   },
   "john-travoltage.foot.offCarpet": {
-    "value": "Foot is off the carpet."
+    "value": "Foot is off the carpet"
   },
   "john-travoltage.hand.closest": {
-    "value": "Closest to the doorknob."
+    "value": "Closest to the doorknob"
   },
   "john-travoltage.hand.veryClose": {
-    "value": "Very close to the doorknob."
+    "value": "Very close to the doorknob"
   },
   "john-travoltage.hand.close": {
-    "value": "Close to the doorknob."
+    "value": "Close to the doorknob"
   },
   "john-travoltage.hand.neither": {
-    "value": "Niether far nor close to the doorknob."
+    "value": "Niether far nor close to the doorknob"
   },
   "john-travoltage.hand.far": {
-    "value": "Far from the doorknob."
+    "value": "Far from the doorknob"
   },
   "john-travoltage.hand.veryFar": {
-    "value": "Very far from the doorknob."
+    "value": "Very far from the doorknob"
   },
   "john-travoltage.hand.farthest": {
-    "value": "Farthest from the doorknob."
+    "value": "Farthest from the doorknob"
   },
   "john-travoltage.electrons.discharged": {
-    "value": "Electrons discharged."
+    "value": "Electrons discharged"
   }
 }
