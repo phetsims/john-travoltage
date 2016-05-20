@@ -23,6 +23,7 @@ define( function( require ) {
   var AccessiblePeer = require( 'SCENERY/accessibility/AccessiblePeer' );
   var Input = require( 'SCENERY/input/Input' );
   var johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
+  var Shape = require( 'KITE/Shape' );
 
   //Compute the distance (in radians) between angles a and b, using an inlined dot product (inlined to remove allocations)
   var distanceBetweenAngles = function( a, b ) {
@@ -185,8 +186,12 @@ define( function( require ) {
       this.addChild( mousePosition );
     }
 
+    var focusCircle = new Circle( imageNode.width / 2, { stroke: 'rgba(250,40,135,0.9)', lineWidth: 5 } );
+    // var focusCircle = Shape.circle( imageNode.centerX, imageNode.centerY, imageNode.width / 2);
+
     // Add accessible content for the appendageType
     this.setAccessibleContent( {
+      focusHighlight: focusCircle,
       createPeer: function( accessibleInstance ) {
         var appendageType = 'hand';
 
@@ -228,6 +233,9 @@ define( function( require ) {
           var position = angleToPosition( appendage.angle, keyboardMotion.totalRange, keyboardMotion.max, options.keyboardMidPointOffset );
           domElement.value = position;
           domElement.setAttribute( 'aria-valuetext', getPositionMessage(position, 'Position ${ position }: ${ message }', rangeMap) );
+
+          // updates the position of the focus highlight
+          focusCircle.center = imageNode.center;
         } );
 
         return new AccessiblePeer( accessibleInstance, domElement );
