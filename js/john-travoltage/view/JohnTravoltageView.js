@@ -27,12 +27,25 @@ define( function( require ) {
   var Circle = require( 'SCENERY/nodes/Circle' );
   var platform = require( 'PHET_CORE/platform' );
   var HBox = require( 'SCENERY/nodes/HBox' );
+  var JohnTravoltageModel = require( 'JOHN_TRAVOLTAGE/john-travoltage/model/JohnTravoltageModel' );
+  var JohnTravoltageQueryParameters = require( 'JOHN_TRAVOLTAGE/john-travoltage/JohnTravoltageQueryParameters' );
+  var PitchedPopGenerator = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/PitchedPopGenerator' );
+  var TextPushButton = require( 'SUN/buttons/TextPushButton' );
   var johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
 
   // images
   var arm = require( 'image!JOHN_TRAVOLTAGE/arm.png' );
   var leg = require( 'image!JOHN_TRAVOLTAGE/leg.png' );
 
+  // constants
+  var SONIFICATION_ENABLED = JohnTravoltageQueryParameters.SONIFICATION;
+  var SHOW_DEBUG_INFO = JohnTravoltageQueryParameters.SHOW_DEBUG_INFO;
+  var MAX_ELECTRONS = JohnTravoltageModel.MAX_ELECTRONS;
+
+  /**
+   * @param {JohnTravoltageModel} model
+   * @constructor
+   */
   function JohnTravoltageView( model ) {
     var johnTravoltageView = this;
     this.model = model;
@@ -85,6 +98,11 @@ define( function( require ) {
       bottom: this.layoutBounds.maxY - 7
     } ) );
 
+    //sound generator
+    if ( SONIFICATION_ENABLED ){
+      var pitchedPopGenerator = new PitchedPopGenerator( model.soundProperty );
+    }
+
     //Split layers before particle layer for performance
     //Use a layer for electrons so it has only one pickable flag, perhaps may improve performance compared to iterating over all electrons to see if they are pickable?
     var electronLayer = new Node( { layerSplit: true, pickable: false } );
@@ -93,23 +111,28 @@ define( function( require ) {
     //if new electron added to model - create and add new node to leg
     //TODO: Pooling for creation and use visible instead of addChild for performance
     model.electrons.addItemAddedListener( function( added ) {
+
+      // and the visual representation of the electron
       var newElectron = new ElectronNode( added, model.leg, model.arm );
       added.viewNode = newElectron;
       electronLayer.addChild( newElectron );
+
+      // play the sound that indicates that an electron was added
+      pitchedPopGenerator && pitchedPopGenerator.createPop( model.electrons.length / MAX_ELECTRONS );
 
       var itemRemovedListener = function( removed ) {
         if ( removed === added ) {
           electronLayer.removeChild( newElectron );
           model.electrons.removeItemRemovedListener( itemRemovedListener );
+          pitchedPopGenerator && pitchedPopGenerator.createPop( model.electrons.length / MAX_ELECTRONS );
         }
       };
       model.electrons.addItemRemovedListener( itemRemovedListener );
     } );
 
-    // debug lines, body and forceline, uncomment this to view physical bounds of body
+    // debug lines, body and force line, enabled through query parameter
     // borders are approximately 8px = radius of particle from physical body, because physical radius of electron = 1 in box2D
-    var showDebugInfo = false;
-    if ( showDebugInfo ) {
+    if ( SHOW_DEBUG_INFO ) {
       this.showBody();
 
       this.addChild( new Circle( 10, { x: model.bodyVertices[ 0 ].x, y: model.bodyVertices[ 0 ].y, fill: 'blue' } ) );
@@ -124,6 +147,15 @@ define( function( require ) {
       this.addChild( fingerCircle );
 
       new DebugPositions().debugLineSegments( this );
+    }
+
+    // TODO: temp for sonfication testing
+    if ( SONIFICATION_ENABLED ){
+      this.addChild( new TextPushButton( 'Test Sounds', {
+        listener: function(){
+          pitchedPopGenerator.createPop( 0.5 );
+        }
+      } ) );
     }
   }
 

@@ -26,6 +26,9 @@ define( function( require ) {
   var shockOuchAudio = require( 'audio!JOHN_TRAVOLTAGE/shock-ouch' );
   var shockAudio = require( 'audio!JOHN_TRAVOLTAGE/shock' );
 
+  // constants
+  var MAX_ELECTRONS = 100;
+
   /**
    *
    * @param tandem
@@ -113,7 +116,7 @@ define( function( require ) {
     var accumulatedAngle = 0;
     var accumulatedAngleThreshold = Math.PI / 16;
     this.leg.angleProperty.lazyLink( function( angle ) {
-      if ( angle < 2.4 && angle > 1 && johnTravoltageModel.electrons.length < 100 ) {
+      if ( angle < 2.4 && angle > 1 && johnTravoltageModel.electrons.length < MAX_ELECTRONS ) {
         dragEvents++;
         accumulatedAngle += Math.abs( angle - lastAngle );
 
@@ -281,5 +284,7 @@ define( function( require ) {
         electron.positionProperty.set( closestSegment.center.plus( closestSegment.normal.times( -1 ) ) );
       }
     }
+  }, {
+    MAX_ELECTRONS: MAX_ELECTRONS
   } );
 } );
