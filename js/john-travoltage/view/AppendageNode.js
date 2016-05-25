@@ -25,6 +25,10 @@ define( function( require ) {
   var johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
   var Shape = require( 'KITE/Shape' );
 
+  // Need to browser detect IE as it does not fire the input event when a slider value is changed.
+  // See: https://wiki.fluidproject.org/pages/viewpage.action?pageId=61767683
+  var isIE = navigator.appVersion.indexOf( 'Trident' ) >= 0;
+
   //Compute the distance (in radians) between angles a and b, using an inlined dot product (inlined to remove allocations)
   var distanceBetweenAngles = function( a, b ) {
     var dotProduct = Math.cos( a ) * Math.cos( b ) + Math.sin( a ) * Math.sin( b );
@@ -224,7 +228,8 @@ define( function( require ) {
         domElement.value = angleToPosition( appendage.angle, keyboardMotion.totalRange, keyboardMotion.max, options.keyboardMidPointOffset );
 
         // updates the model with changes from the PDOM
-        domElement.addEventListener( 'input', function ( event ) {
+        var keyboardEvent = isIE ? 'change' : 'input';
+        domElement.addEventListener( keyboardEvent, function ( event ) {
           appendage.angle = positionToAngle( domElement.value, keyboardMotion.totalRange, options.keyboardMidPointOffset );
         } );
 
