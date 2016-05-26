@@ -227,10 +227,20 @@ define( function( require ) {
         domElement.setAttribute( 'step', keyboardMotion.step );
         domElement.value = angleToPosition( appendage.angle, keyboardMotion.totalRange, keyboardMotion.max, options.keyboardMidPointOffset );
 
-        // updates the model with changes from the PDOM
-        var keyboardEvent = isIE ? 'change' : 'input';
-        domElement.addEventListener( keyboardEvent, function ( event ) {
+        // Due to the variability of input and change event firing across browsers,
+        // it is necessary to track if the input event was fired and if not, to
+        // handle the change event instead.
+        // see: https://wiki.fluidproject.org/pages/viewpage.action?pageId=61767683
+        var keyboardEventHandled = false;
+        domElement.addEventListener( 'change', function ( event ) {
+          if (!keyboardEventHandled) {
+            appendage.angle = positionToAngle( domElement.value, keyboardMotion.totalRange, options.keyboardMidPointOffset );
+          }
+          keyboardEventHandled = false;
+        } );
+        domElement.addEventListener( 'input', function ( event ) {
           appendage.angle = positionToAngle( domElement.value, keyboardMotion.totalRange, options.keyboardMidPointOffset );
+          keyboardEventHandled = true;
         } );
 
         // Updates the PDOM with changes in the model
