@@ -28,6 +28,7 @@ define( function( require ) {
    */
   function SparkNode( sparkVisibleProperty, arm, doorknobPosition, addStepListener, dischargeAlertText ) {
     var self = this;
+    var alertNode = document.getElementById( 'john-travoltage-alert' );
 
     Node.call( this, { pickable: false } );
 
@@ -65,29 +66,14 @@ define( function( require ) {
 
         whitePath.shape = shape;
         bluePath.shape = shape;
-      }
-    } );
 
-    // Add accessible content for the appendageType
-    this.setAccessibleContent( {
-      createPeer: function( accessibleInstance ) {
-        var trail = accessibleInstance.trail;
-        var uniqueId = trail.getUniqueId();
-
-        var domElement = document.createElement( 'p' );
-        domElement.id = 'discharge-alert-' + uniqueId;
-
-        addStepListener( function() {
-          if ( self.visible ) {
-            domElement.setAttribute( 'role', 'alert' );
-            domElement.textContent = dischargeAlertText;
-          } else {
-            domElement.removeAttribute( 'role' );
-            domElement.textContent = '';
-          }
-        } );
-
-        return new AccessiblePeer( accessibleInstance, domElement );
+        if (alertNode && !alertNode.textContent) {
+          alertNode.textContent = dischargeAlertText;
+          alertNode.style.display = 'block';
+        }
+      } else if (alertNode) {
+        alertNode.style.display = 'none';
+        alertNode.textContent = '';
       }
     } );
   }
