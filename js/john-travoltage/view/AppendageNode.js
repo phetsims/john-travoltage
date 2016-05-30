@@ -220,7 +220,7 @@ define( function( require ) {
         domElement.setAttribute( 'type', 'range' );
         domElement.id = appendageType + '-slider-' + uniqueId;
         // Safari seems to require that a range input has a width, otherwise it will not be keyboard accessible.
-        domElement.style.width = "1px";
+        domElement.style.width = '1px';
 
         domElement.setAttribute( 'min', keyboardMotion.min );
         domElement.setAttribute( 'max', keyboardMotion.max );
