@@ -232,14 +232,18 @@ define( function( require ) {
         // handle the change event instead.
         // see: https://wiki.fluidproject.org/pages/viewpage.action?pageId=61767683
         var keyboardEventHandled = false;
+        var rotateAppendage = function () {
+          appendage.angle = positionToAngle( domElement.value, keyboardMotion.totalRange, options.keyboardMidPointOffset );
+          appendageNode.border.visible = false;
+        };
         domElement.addEventListener( 'change', function ( event ) {
           if (!keyboardEventHandled) {
-            appendage.angle = positionToAngle( domElement.value, keyboardMotion.totalRange, options.keyboardMidPointOffset );
+            rotateAppendage();
           }
           keyboardEventHandled = false;
         } );
         domElement.addEventListener( 'input', function ( event ) {
-          appendage.angle = positionToAngle( domElement.value, keyboardMotion.totalRange, options.keyboardMidPointOffset );
+          rotateAppendage();
           keyboardEventHandled = true;
         } );
 
