@@ -1,4 +1,7 @@
 {
+  "john-travoltage.positionTemplate": {
+    "value": "Position {0}: {1}"
+  },
   "john-travoltage.title": {
     "value": "John Travoltage"
   },
@@ -24,7 +27,7 @@
     "value": "Close to the doorknob"
   },
   "john-travoltage.hand.neither": {
-    "value": "Niether far nor close to the doorknob"
+    "value": "Neither far nor close to the doorknob"
   },
   "john-travoltage.hand.far": {
     "value": "Far from the doorknob"

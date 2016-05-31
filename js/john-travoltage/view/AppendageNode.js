@@ -19,11 +19,15 @@ define( function( require ) {
   var Vector2 = require( 'DOT/Vector2' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Circle = require( 'SCENERY/nodes/Circle' );
+  var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   var Leg = require( 'JOHN_TRAVOLTAGE/john-travoltage/model/Leg' );
   var AccessiblePeer = require( 'SCENERY/accessibility/AccessiblePeer' );
   var Input = require( 'SCENERY/input/Input' );
   var johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
   var Shape = require( 'KITE/Shape' );
+
+  // strings
+  var positionTemplateText = require( 'string!JOHN_TRAVOLTAGE/john-travoltage.positionTemplate' );
 
   // Need to browser detect IE as it does not fire the input event when a slider value is changed.
   // See: https://wiki.fluidproject.org/pages/viewpage.action?pageId=61767683
@@ -65,8 +69,7 @@ define( function( require ) {
     return scaleToRadians( scaleValue, motionRange, radianOffset );
   };
 
-  var getPositionMessage = function ( position, template, rangeMap ) {
-    var compiled = _.template( template );
+  var getPositionMessage = function ( position, rangeMap ) {
     var message = '';
 
     _.forEach(rangeMap, function (map) {
@@ -76,7 +79,7 @@ define( function( require ) {
       }
     });
 
-    return compiled( { position: position, message: message } );
+    return StringUtils.format( positionTemplateText, position, message );
   };
 
   /**
@@ -251,7 +254,7 @@ define( function( require ) {
         appendage.angleProperty.link( function updatePosition( angle ) {
           var position = angleToPosition( appendage.angle, keyboardMotion.totalRange, keyboardMotion.max, options.keyboardMidPointOffset );
           domElement.value = position;
-          domElement.setAttribute( 'aria-valuetext', getPositionMessage(position, 'Position ${ position }: ${ message }', rangeMap) );
+          domElement.setAttribute( 'aria-valuetext', getPositionMessage( position, rangeMap ) );
 
           // updates the position of the focus highlight
           focusCircle.center = imageNode.center;
