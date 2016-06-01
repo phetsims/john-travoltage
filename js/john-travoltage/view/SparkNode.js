@@ -14,6 +14,7 @@ define( function( require ) {
   var Node = require( 'SCENERY/nodes/Node' );
   var Shape = require( 'KITE/Shape' );
   var Path = require( 'SCENERY/nodes/Path' );
+  var AccessiblePeer = require( 'SCENERY/accessibility/AccessiblePeer' );
   var johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
 
   /**
@@ -25,8 +26,9 @@ define( function( require ) {
    * @param {Function} addStepListener function to add a step listener to the model
    * @constructor
    */
-  function SparkNode( sparkVisibleProperty, arm, doorknobPosition, addStepListener ) {
+  function SparkNode( sparkVisibleProperty, arm, doorknobPosition, addStepListener, dischargeAlertText ) {
     var self = this;
+    var alertNode = document.getElementById( 'john-travoltage-alert' );
 
     Node.call( this, { pickable: false } );
 
@@ -64,11 +66,19 @@ define( function( require ) {
 
         whitePath.shape = shape;
         bluePath.shape = shape;
+
+        if (alertNode && !alertNode.textContent) {
+          alertNode.textContent = dischargeAlertText;
+          alertNode.style.display = 'block';
+        }
+      } else if (alertNode) {
+        alertNode.style.display = 'none';
+        alertNode.textContent = '';
       }
     } );
   }
 
   johnTravoltage.register( 'SparkNode', SparkNode );
-  
+
   return inherit( Node, SparkNode );
 } );

@@ -1,10 +1,12 @@
 // Copyright 2013-2015, University of Colorado Boulder
+// Copyright 2016, OCAD University
 
 /**
  * Scenery display object (scene graph node) for the leg of the model.
  *
  * @author Sam Reid
  * @author Vasily Shakhov (Mlearner)
+ * @author Justin Obara
  */
 define( function( require ) {
   'use strict';
@@ -17,15 +19,67 @@ define( function( require ) {
   var Vector2 = require( 'DOT/Vector2' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Circle = require( 'SCENERY/nodes/Circle' );
+  var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   var Leg = require( 'JOHN_TRAVOLTAGE/john-travoltage/model/Leg' );
   var AccessiblePeer = require( 'SCENERY/accessibility/AccessiblePeer' );
   var Input = require( 'SCENERY/input/Input' );
   var johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
+  var Shape = require( 'KITE/Shape' );
+
+  // strings
+  var positionTemplateText = require( 'string!JOHN_TRAVOLTAGE/john-travoltage.positionTemplate' );
+
+  // Need to browser detect IE as it does not fire the input event when a slider value is changed.
+  // See: https://wiki.fluidproject.org/pages/viewpage.action?pageId=61767683
+  var isIE = navigator.appVersion.indexOf( 'Trident' ) >= 0;
 
   //Compute the distance (in radians) between angles a and b, using an inlined dot product (inlined to remove allocations)
   var distanceBetweenAngles = function( a, b ) {
     var dotProduct = Math.cos( a ) * Math.cos( b ) + Math.sin( a ) * Math.sin( b );
     return Math.acos( dotProduct );
+  };
+
+  var radiansToScale = function ( radian, stepsInScale, radianOffset ) {
+    var radianWithOffset = radian - radianOffset;
+    var scaleValue = ( radianWithOffset ) * ( ( stepsInScale / 2 ) / Math.PI );
+
+    return Math.round( scaleValue );
+  };
+
+  var scaleToRadians = function ( scaleValue, stepsInScale, radianOffset ) {
+    var radian = scaleValue * ( Math.PI / ( stepsInScale / 2 ) );
+    var radianWithOffset = radian + radianOffset;
+
+    return radianWithOffset;
+  };
+
+  var scalePositionTransformation = function ( totalSteps, value ) {
+    return ( totalSteps / 2 ) - value;
+  };
+
+  var angleToPosition = function ( appendageAngle, motionRange, maxPosition, radianOffset ) {
+    var scaleValue = radiansToScale( appendageAngle, motionRange, radianOffset );
+    var position = scalePositionTransformation( motionRange, scaleValue );
+    return position > maxPosition ? position % maxPosition : position;
+  };
+
+  var positionToAngle = function ( position, motionRange, radianOffset ) {
+    var scaleValue = scalePositionTransformation( motionRange, position );
+
+    return scaleToRadians( scaleValue, motionRange, radianOffset );
+  };
+
+  var getPositionMessage = function ( position, rangeMap ) {
+    var message = '';
+
+    _.forEach(rangeMap, function (map) {
+      if (position >= map.range.min && position <= map.range.max) {
+        message = map.text;
+        return false;
+      }
+    });
+
+    return StringUtils.format( positionTemplateText, position, message );
   };
 
   /**
@@ -34,15 +88,21 @@ define( function( require ) {
    * @param {Number} dx
    * @param {Number} dy
    * @param {Number} angleOffset the angle about which to rotate
+   * @param {Array} rangeMap - an array of objects of the format {range: {max: Number, min: Number}, text: String}. This
+   *                           is used to map a position value to text to use for the valueText of the related slider.
+   * @param {Object} options -  optional configuration such as "keyboardMidPointOffset"; which is used to adjust the
+   *                 centre position of the HTML slider for keyboard accessibility. For example it can be used to
+   *                 align the doorknob as the centre position of the arm slider.
    * @constructor
    */
-  function AppendageNode( appendage, image, dx, dy, angleOffset ) {
+  function AppendageNode( appendage, image, dx, dy, angleOffset, rangeMap, options ) {
     var appendageNode = this;
 
     Node.call( this, { cursor: 'pointer' } );
 
     this.model = appendage;
     var angle = 0;
+    options = _.extend( { keyboardMidPointOffset: 0 }, options );
 
     // add the image
     var imageNode = new Image( image );
@@ -61,6 +121,7 @@ define( function( require ) {
       }
       return angle;
     };
+
     imageNode.addInputListener( new SimpleDragHandler( {
       allowTouchSnag: true,
       start: function( event ) {
@@ -89,7 +150,7 @@ define( function( require ) {
         else if ( appendage.angle === 0 && z > 0 ) {
           //noop, at the right side
         }
-        else if ( distanceBetweenAngles( appendage.angle, angle ) > Math.PI / 3 && (appendage.angle === 0 || appendage.angle === Math.PI) ) {
+        else if ( distanceBetweenAngles( appendage.angle, angle ) > Math.PI / 3 && ( appendage.angle === 0 || appendage.angle === Math.PI ) ) {
           //noop, too big a leap, may correspond to the user reversing direction after a leg is stuck against threshold
         }
         else {
@@ -132,44 +193,79 @@ define( function( require ) {
       this.addChild( mousePosition );
     }
 
-    // Add accessible content for the leg, introducing keyboard navigation and arrow keys to rotate the appendage.
-    if( appendage instanceof Leg ) {
-      this.setAccessibleContent( {
-        createPeer: function( accessibleInstance ) {
-          var trail = accessibleInstance.trail;
-          var uniqueId = trail.getUniqueId();
+    var focusCircle = new Circle( imageNode.width / 2, { stroke: 'rgba(250,40,135,0.9)', lineWidth: 5 } );
+    // var focusCircle = Shape.circle( imageNode.centerX, imageNode.centerY, imageNode.width / 2);
 
-          var domElement = document.createElement( 'input' );
-          domElement.setAttribute( 'role', 'slider' );
-          domElement.setAttribute( 'type', 'range' );
-          domElement.id = 'slider-' + uniqueId;
+    // Add accessible content for the appendageType
+    this.setAccessibleContent( {
+      focusHighlight: focusCircle,
+      createPeer: function( accessibleInstance ) {
+        var appendageType = 'hand';
 
-          domElement.setAttribute( 'min', 0 );
-          domElement.setAttribute( 'max', 100 );
-          domElement.setAttribute( 'value', 0 );
+        var keyboardMotion = {
+          min: 0,
+          max: 100,
+          step: 1,
+          totalRange: 100
+        };
 
-          domElement.addEventListener( 'keydown', function( event ) {
-
-            var angle = appendage.angle;
-
-            if ( event.keyCode === Input.KEY_DOWN_ARROW || event.keyCode === Input.KEY_RIGHT_ARROW ) {
-              angle -= 0.1;
-            }
-            else if ( event.keyCode === Input.KEY_UP_ARROW || event.keyCode === Input.KEY_LEFT_ARROW ) {
-              angle += 0.1;
-            }
-
-            appendage.angle = limitLegRotation( angle );
-
-          } );
-
-          return new AccessiblePeer( accessibleInstance, domElement );
+        if( appendage instanceof Leg ) {
+          appendageType = 'foot';
+          keyboardMotion.max = 30;
+          keyboardMotion.totalRange = 60;
         }
-      } );
-    }
+
+        var trail = accessibleInstance.trail;
+        var uniqueId = trail.getUniqueId();
+
+        var domElement = document.createElement( 'input' );
+        domElement.setAttribute( 'role', 'slider' );
+        domElement.setAttribute( 'type', 'range' );
+        domElement.id = appendageType + '-slider-' + uniqueId;
+        // Safari seems to require that a range input has a width, otherwise it will not be keyboard accessible.
+        domElement.style.width = '1px';
+
+        domElement.setAttribute( 'min', keyboardMotion.min );
+        domElement.setAttribute( 'max', keyboardMotion.max );
+        domElement.setAttribute( 'step', keyboardMotion.step );
+        domElement.value = angleToPosition( appendage.angle, keyboardMotion.totalRange, keyboardMotion.max, options.keyboardMidPointOffset );
+
+        // Due to the variability of input and change event firing across browsers,
+        // it is necessary to track if the input event was fired and if not, to
+        // handle the change event instead.
+        // see: https://wiki.fluidproject.org/pages/viewpage.action?pageId=61767683
+        var keyboardEventHandled = false;
+        var rotateAppendage = function () {
+          appendage.angle = positionToAngle( domElement.value, keyboardMotion.totalRange, options.keyboardMidPointOffset );
+          appendageNode.border.visible = false;
+        };
+        domElement.addEventListener( 'change', function ( event ) {
+          if (!keyboardEventHandled) {
+            rotateAppendage();
+          }
+          keyboardEventHandled = false;
+        } );
+        domElement.addEventListener( 'input', function ( event ) {
+          rotateAppendage();
+          keyboardEventHandled = true;
+        } );
+
+        // Updates the PDOM with changes in the model
+        appendage.angleProperty.link( function updatePosition( angle ) {
+          var position = angleToPosition( appendage.angle, keyboardMotion.totalRange, keyboardMotion.max, options.keyboardMidPointOffset );
+          domElement.value = position;
+          domElement.setAttribute( 'aria-valuetext', getPositionMessage( position, rangeMap ) );
+
+          // updates the position of the focus highlight
+          focusCircle.center = imageNode.center;
+        } );
+
+        return new AccessiblePeer( accessibleInstance, domElement );
+      }
+    } );
   }
 
   johnTravoltage.register( 'AppendageNode', AppendageNode );
-  
+
   return inherit( Node, AppendageNode );
 } );
