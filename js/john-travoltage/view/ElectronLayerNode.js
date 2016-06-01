@@ -66,7 +66,7 @@
         setElectronStatus();
 
         electrons.addItemAddedListener( setElectronStatus );
-        electrons.addItemRemovedListener( _.debounce( setElectronStatus, 200 ) );
+        electrons.addItemRemovedListener( _.debounce( setElectronStatus, 500 ) );
 
         return new AccessiblePeer( accessibleInstance, domElement );
       }
