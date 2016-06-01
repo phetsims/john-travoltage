@@ -29,10 +29,6 @@ define( function( require ) {
   // strings
   var positionTemplateText = require( 'string!JOHN_TRAVOLTAGE/john-travoltage.positionTemplate' );
 
-  // Need to browser detect IE as it does not fire the input event when a slider value is changed.
-  // See: https://wiki.fluidproject.org/pages/viewpage.action?pageId=61767683
-  var isIE = navigator.appVersion.indexOf( 'Trident' ) >= 0;
-
   //Compute the distance (in radians) between angles a and b, using an inlined dot product (inlined to remove allocations)
   var distanceBetweenAngles = function( a, b ) {
     var dotProduct = Math.cos( a ) * Math.cos( b ) + Math.sin( a ) * Math.sin( b );
