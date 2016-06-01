@@ -46,18 +46,18 @@ define( function( require ) {
   var MAX_ELECTRONS = JohnTravoltageModel.MAX_ELECTRONS;
 
   // strings
-  var armLabelText = require( 'string!JOHN_TRAVOLTAGE/john-travoltage.armSliderLabel' );
-  var legLabelText = require( 'string!JOHN_TRAVOLTAGE/john-travoltage.legSliderLabel' );
-  var footOnCarpetText = require( 'string!JOHN_TRAVOLTAGE/john-travoltage.foot.onCarpet' );
-  var footOffCarpetText = require( 'string!JOHN_TRAVOLTAGE/john-travoltage.foot.offCarpet' );
-  var handClosestText = require( 'string!JOHN_TRAVOLTAGE/john-travoltage.hand.closest' );
-  var handVeryCloseText = require( 'string!JOHN_TRAVOLTAGE/john-travoltage.hand.veryClose' );
-  var handCloseText = require( 'string!JOHN_TRAVOLTAGE/john-travoltage.hand.close' );
-  var handNeitherText = require( 'string!JOHN_TRAVOLTAGE/john-travoltage.hand.neither' );
-  var handFarText = require( 'string!JOHN_TRAVOLTAGE/john-travoltage.hand.far' );
-  var handVeryFarText = require( 'string!JOHN_TRAVOLTAGE/john-travoltage.hand.veryFar' );
-  var handFarthestText = require( 'string!JOHN_TRAVOLTAGE/john-travoltage.hand.farthest' );
-  var dischargeText = require( 'string!JOHN_TRAVOLTAGE/john-travoltage.electrons.discharged' );
+  var armSliderLabelString = require( 'string!JOHN_TRAVOLTAGE/armSliderLabel' );
+  var legSliderLabelString = require( 'string!JOHN_TRAVOLTAGE/legSliderLabel' );
+  var footOnCarpetString = require( 'string!JOHN_TRAVOLTAGE/foot.onCarpet' );
+  var footOffCarpetString = require( 'string!JOHN_TRAVOLTAGE/foot.offCarpet' );
+  var handClosestString = require( 'string!JOHN_TRAVOLTAGE/hand.closest' );
+  var handVeryCloseString = require( 'string!JOHN_TRAVOLTAGE/hand.veryClose' );
+  var handCloseString = require( 'string!JOHN_TRAVOLTAGE/hand.close' );
+  var handNeitherString = require( 'string!JOHN_TRAVOLTAGE/hand.neither' );
+  var handFarString = require( 'string!JOHN_TRAVOLTAGE/hand.far' );
+  var handVeryFarString = require( 'string!JOHN_TRAVOLTAGE/hand.veryFar' );
+  var handFarthestString = require( 'string!JOHN_TRAVOLTAGE/hand.farthest' );
+  var electronsDischargedString = require( 'string!JOHN_TRAVOLTAGE/electrons.discharged' );
 
   // rangeMaps
   var legRangeMap = [
@@ -66,19 +66,19 @@ define( function( require ) {
             max: 5,
             min: 0
         },
-        text: footOffCarpetText
+        text: footOffCarpetString
     }, {
         range: {
             max: 21,
             min: 6
         },
-        text: footOnCarpetText
+        text: footOnCarpetString
     }, {
         range: {
             max: 30,
             min: 22
         },
-        text: footOffCarpetText
+        text: footOffCarpetString
     }
   ];
 
@@ -88,79 +88,79 @@ define( function( require ) {
             max: 0,
             min: 0
         },
-        text: handFarthestText
+        text: handFarthestString
     }, {
         range: {
             max: 12,
             min: 1
         },
-        text: handVeryFarText
+        text: handVeryFarString
     }, {
         range: {
             max: 24,
             min: 13
         },
-        text: handFarText
+        text: handFarString
     }, {
         range: {
             max: 25,
             min: 25
         },
-        text: handNeitherText
+        text: handNeitherString
     }, {
         range: {
             max: 37,
             min: 26
         },
-        text: handCloseText
+        text: handCloseString
     }, {
         range: {
             max: 49,
             min: 38
         },
-        text: handVeryCloseText
+        text: handVeryCloseString
     }, {
         range: {
             max: 50,
             min: 50
         },
-        text: handClosestText
+        text: handClosestString
     }, {
         range: {
             max: 62,
             min: 51
         },
-        text: handVeryCloseText
+        text: handVeryCloseString
     }, {
         range: {
             max: 74,
             min: 63
         },
-        text: handCloseText
+        text: handCloseString
     }, {
         range: {
             max: 75,
             min: 75
         },
-        text: handNeitherText
+        text: handNeitherString
     }, {
         range: {
             max: 87,
             min: 76
         },
-        text: handFarText
+        text: handFarString
     }, {
         range: {
             max: 99,
             min: 88
         },
-        text: handVeryFarText
+        text: handVeryFarString
     }, {
         range: {
             max: 100,
             min: 100
         },
-        text: handFarthestText
+        text: handFarthestString
     }
   ];
 
@@ -185,12 +185,12 @@ define( function( require ) {
     this.addChild( new Node( { layerSplit: true, pickable: false } ) );
 
     //arm and leg - only interactive elements
-    var legLabel = new LabelNode( legLabelText );
+    var legLabel = new LabelNode( legSliderLabelString );
     this.addChild(legLabel);
     this.leg = new AppendageNode( model.leg, leg, 25, 28, Math.PI / 2 * 0.7, legRangeMap);
     legLabel.addChild( this.leg );
 
-    var armLabel = new LabelNode( armLabelText );
+    var armLabel = new LabelNode( armSliderLabelString );
     this.addChild(armLabel);
     // the keyboardMidPointOffset was manually calculated as a radian offset that will trigger a discharge with the
     // minimum charge level.
@@ -210,7 +210,7 @@ define( function( require ) {
     //spark
     this.addChild( new SparkNode( model.sparkVisibleProperty, model.arm, model.doorknobPosition, function( listener ) {
       model.on( 'step', listener );
-    }, dischargeText ) );
+    }, electronsDischargedString ) );
 
     //Sound button and reset all button
     var soundButton = new SoundToggleButton( model.soundProperty );

@@ -22,16 +22,15 @@ define( function( require ) {
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   var Leg = require( 'JOHN_TRAVOLTAGE/john-travoltage/model/Leg' );
   var AccessiblePeer = require( 'SCENERY/accessibility/AccessiblePeer' );
-  var Input = require( 'SCENERY/input/Input' );
   var johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
-  var Shape = require( 'KITE/Shape' );
 
   // strings
-  var positionTemplateText = require( 'string!JOHN_TRAVOLTAGE/john-travoltage.positionTemplate' );
+  var positionTemplateString = require( 'string!JOHN_TRAVOLTAGE/positionTemplate' );
 
   // Need to browser detect IE as it does not fire the input event when a slider value is changed.
   // See: https://wiki.fluidproject.org/pages/viewpage.action?pageId=61767683
-  var isIE = navigator.appVersion.indexOf( 'Trident' ) >= 0;
+  // TODO: Can this be removed?
+  // var isIE = navigator.appVersion.indexOf( 'Trident' ) >= 0;
 
   //Compute the distance (in radians) between angles a and b, using an inlined dot product (inlined to remove allocations)
   var distanceBetweenAngles = function( a, b ) {
@@ -79,7 +78,7 @@ define( function( require ) {
       }
     });
 
-    return StringUtils.format( positionTemplateText, position, message );
+    return StringUtils.format( positionTemplateString, position, message );
   };
 
   /**

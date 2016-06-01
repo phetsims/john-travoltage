@@ -1,44 +1,58 @@
 {
-  "john-travoltage.positionTemplate": {
-    "value": "Position {0}: {1}"
+  "positionTemplate": {
+    "value": "Position {0}: {1}",
+    "visible": false
   },
   "john-travoltage.title": {
-    "value": "John Travoltage"
+    "value": "John Travoltage",
+    "visible": false
   },
-  "john-travoltage.armSliderLabel": {
-    "value": "Hand position"
+  "armSliderLabel": {
+    "value": "Hand position",
+    "visible": false
   },
-  "john-travoltage.legSliderLabel": {
-    "value": "Foot position"
+  "legSliderLabel": {
+    "value": "Foot position",
+    "visible": false
   },
-  "john-travoltage.foot.onCarpet": {
-    "value": "Foot is on the carpet"
+  "foot.onCarpet": {
+    "value": "Foot is on the carpet",
+    "visible": false
   },
-  "john-travoltage.foot.offCarpet": {
-    "value": "Foot is off the carpet"
+  "foot.offCarpet": {
+    "value": "Foot is off the carpet",
+    "visible": false
   },
-  "john-travoltage.hand.closest": {
-    "value": "Closest to the doorknob"
+  "hand.closest": {
+    "value": "Closest to the doorknob",
+    "visible": false
   },
-  "john-travoltage.hand.veryClose": {
-    "value": "Very close to the doorknob"
+  "hand.veryClose": {
+    "value": "Very close to the doorknob",
+    "visible": false
   },
-  "john-travoltage.hand.close": {
-    "value": "Close to the doorknob"
+  "hand.close": {
+    "value": "Close to the doorknob",
+    "visible": false
   },
-  "john-travoltage.hand.neither": {
-    "value": "Neither far nor close to the doorknob"
+  "hand.neither": {
+    "value": "Neither far nor close to the doorknob",
+    "visible": false
   },
-  "john-travoltage.hand.far": {
-    "value": "Far from the doorknob"
+  "hand.far": {
+    "value": "Far from the doorknob",
+    "visible": false
   },
-  "john-travoltage.hand.veryFar": {
-    "value": "Very far from the doorknob"
+  "hand.veryFar": {
+    "value": "Very far from the doorknob",
+    "visible": false
   },
-  "john-travoltage.hand.farthest": {
-    "value": "Farthest from the doorknob"
+  "hand.farthest": {
+    "value": "Farthest from the doorknob",
+    "visible": false
   },
-  "john-travoltage.electrons.discharged": {
-    "value": "Electrons discharged"
+  "electrons.discharged": {
+    "value": "Electrons discharged",
+    "visible": false
   }
 }
