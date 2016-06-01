@@ -20,7 +20,7 @@ define( function( require ) {
   var LabelNode = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/LabelNode' );
   var AppendageNode = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/AppendageNode' );
   var SparkNode = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/SparkNode' );
-  var ElectronNode = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/ElectronNode' );
+  var ElectronLayerNode = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/ElectronLayerNode' );
   var Shape = require( 'KITE/Shape' );
   var Path = require( 'SCENERY/nodes/Path' );
   var Node = require( 'SCENERY/nodes/Node' );
@@ -219,24 +219,8 @@ define( function( require ) {
 
     //Split layers before particle layer for performance
     //Use a layer for electrons so it has only one pickable flag, perhaps may improve performance compared to iterating over all electrons to see if they are pickable?
-    var electronLayer = new Node( { layerSplit: true, pickable: false } );
+    var electronLayer = new ElectronLayerNode( model.electrons, model.leg, model.arm, { layerSplit: true, pickable: false } );
     this.addChild( electronLayer );
-
-    //if new electron added to model - create and add new node to leg
-    //TODO: Pooling for creation and use visible instead of addChild for performance
-    model.electrons.addItemAddedListener( function( added ) {
-      var newElectron = new ElectronNode( added, model.leg, model.arm );
-      added.viewNode = newElectron;
-      electronLayer.addChild( newElectron );
-
-      var itemRemovedListener = function( removed ) {
-        if ( removed === added ) {
-          electronLayer.removeChild( newElectron );
-          model.electrons.removeItemRemovedListener( itemRemovedListener );
-        }
-      };
-      model.electrons.addItemRemovedListener( itemRemovedListener );
-    } );
 
     // Add container for accessible content
     this.setAccessibleContent( {

@@ -40,5 +40,11 @@
   },
   "john-travoltage.electrons.discharged": {
     "value": "Electrons discharged"
+  },
+  "john-travoltage.electrons.total": {
+    "value": "Total electrons: {0}"
+  },
+  "john-travoltage.electrons.totalAfterDischarge": {
+    "value": "Total electrons: Discharge occurred. Electrons decreased from {1} to {0}"
   }
 }
