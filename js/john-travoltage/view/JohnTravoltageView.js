@@ -30,7 +30,9 @@ define( function( require ) {
   var JohnTravoltageModel = require( 'JOHN_TRAVOLTAGE/john-travoltage/model/JohnTravoltageModel' );
   var JohnTravoltageQueryParameters = require( 'JOHN_TRAVOLTAGE/john-travoltage/JohnTravoltageQueryParameters' );
   var PitchedPopGenerator = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/PitchedPopGenerator' );
+  var ToneGenerator = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/ToneGenerator' );
   var Sound = require( 'VIBE/Sound' );
+  var LinearFunction = require( 'DOT/LinearFunction' );
   var johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
 
   // audio
@@ -45,6 +47,8 @@ define( function( require ) {
   var SONIFICATION_ENABLED = JohnTravoltageQueryParameters.SONIFICATION;
   var SHOW_DEBUG_INFO = JohnTravoltageQueryParameters.SHOW_DEBUG_INFO;
   var MAX_ELECTRONS = JohnTravoltageModel.MAX_ELECTRONS;
+  var MAP_ARM_DISTANCE_TO_OSCILLATOR_FREQUENCY = new LinearFunction( 14, 240, 440, 110 );
+  var MAP_ARM_DISTANCE_TO_LFO_FREQUENCY = new LinearFunction( 14, 240, 10, 1 );
 
   /**
    * @param {JohnTravoltageModel} model
@@ -102,9 +106,10 @@ define( function( require ) {
       bottom: this.layoutBounds.maxY - 7
     } ) );
 
-    //sound generator
+    //sonification
     if ( SONIFICATION_ENABLED ) {
       var pitchedPopGenerator = new PitchedPopGenerator( model.soundProperty );
+      this.armPositionToneGenerator = new ToneGenerator();
       this.shoeDraggingForwardOnCarpetSound = new Sound( shoeDraggingForwardOnCarpetAudio );
       this.shoeDraggingBackwardOnCarpetSound = new Sound( shoeDraggingBackwardOnCarpetAudio );
       this.shoeDragSoundBeingPlayed = null;
@@ -167,7 +172,10 @@ define( function( require ) {
 
       if ( SONIFICATION_ENABLED ) {
 
+        //-------------------------------------------------------------------------------------------------------------
         // update the sound for shoe dragging
+        //-------------------------------------------------------------------------------------------------------------
+
         var shoeDragSoundToPlay;
         if ( !this.model.shoeOnCarpet ) {
 
@@ -203,6 +211,21 @@ define( function( require ) {
           if ( this.shoeDragSoundBeingPlayed ) {
             this.shoeDragSoundBeingPlayed.play();
           }
+        }
+
+        //-------------------------------------------------------------------------------------------------------------
+        // update the sound for the arm distance from the knob
+        //-------------------------------------------------------------------------------------------------------------
+        // TODO: Consider modifying the Arm class to have a property for dragging, and moving this code into constructor
+        if ( this.arm.dragging ) {
+          var distanceToKnob = this.model.arm.getFingerPosition().distance( this.model.doorknobPosition );
+          // TODO: maybe use a linear function here when things are more finalized
+          //this.armPositionToneGenerator.playTone( MAP_ARM_DISTANCE_TO_OSCILLATOR_FREQUENCY( distanceToKnob ) );
+          this.armPositionToneGenerator.playTone( 220 );
+          this.armPositionToneGenerator.setLfoFrequency( MAP_ARM_DISTANCE_TO_LFO_FREQUENCY( distanceToKnob ) );
+        }
+        else {
+          this.armPositionToneGenerator.stopTone();
         }
       }
     },
