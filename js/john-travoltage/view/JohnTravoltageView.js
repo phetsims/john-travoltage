@@ -30,8 +30,12 @@ define( function( require ) {
   var JohnTravoltageModel = require( 'JOHN_TRAVOLTAGE/john-travoltage/model/JohnTravoltageModel' );
   var JohnTravoltageQueryParameters = require( 'JOHN_TRAVOLTAGE/john-travoltage/JohnTravoltageQueryParameters' );
   var PitchedPopGenerator = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/PitchedPopGenerator' );
-  var TextPushButton = require( 'SUN/buttons/TextPushButton' );
+  var Sound = require( 'VIBE/Sound' );
   var johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
+
+  // audio
+  var shoeDraggingForwardOnCarpetAudio = require( 'audio!JOHN_TRAVOLTAGE/shoe-dragging-forward-on-carpet' );
+  var shoeDraggingBackwardOnCarpetAudio = require( 'audio!JOHN_TRAVOLTAGE/shoe-dragging-backward-on-carpet' );
 
   // images
   var arm = require( 'image!JOHN_TRAVOLTAGE/arm.png' );
@@ -99,8 +103,12 @@ define( function( require ) {
     } ) );
 
     //sound generator
-    if ( SONIFICATION_ENABLED ){
+    if ( SONIFICATION_ENABLED ) {
       var pitchedPopGenerator = new PitchedPopGenerator( model.soundProperty );
+      this.shoeDraggingForwardOnCarpetSound = new Sound( shoeDraggingForwardOnCarpetAudio );
+      this.shoeDraggingBackwardOnCarpetSound = new Sound( shoeDraggingBackwardOnCarpetAudio );
+      this.shoeDragSoundBeingPlayed = null;
+      this.legStillTime = 0;
     }
 
     //Split layers before particle layer for performance
@@ -148,20 +156,57 @@ define( function( require ) {
 
       new DebugPositions().debugLineSegments( this );
     }
-
-    // TODO: temp for sonfication testing
-    if ( SONIFICATION_ENABLED ){
-      this.addChild( new TextPushButton( 'Test Sounds', {
-        listener: function(){
-          pitchedPopGenerator.createPop( 0.5 );
-        }
-      } ) );
-    }
   }
 
   johnTravoltage.register( 'JohnTravoltageView', JohnTravoltageView );
-  
+
   return inherit( ScreenView, JohnTravoltageView, {
+
+    // @public, step the view
+    step: function( dt ) {
+
+      if ( SONIFICATION_ENABLED ) {
+
+        // update the sound for shoe dragging
+        var shoeDragSoundToPlay;
+        if ( !this.model.shoeOnCarpet ) {
+
+          // the shoe is above the carpet, so no sound should be playing
+          shoeDragSoundToPlay = null;
+        }
+        else {
+          if ( this.model.legAngularVelocity === 0 ) {
+
+            // implement a bit of hysteresis for turning the sound on and off, otherwise it can start and stop too often
+            this.legStillTime += dt;
+            if ( this.legStillTime > 0.1 ) {
+              shoeDragSoundToPlay = null;
+            }
+          }
+          else {
+            this.legStillTime = 0;
+            shoeDragSoundToPlay = this.model.legAngularVelocity > 0 ?
+                                  this.shoeDraggingBackwardOnCarpetSound :
+                                  this.shoeDraggingForwardOnCarpetSound;
+          }
+        }
+
+        // if the correct sound isn't currently being played, update it
+        if ( this.shoeDragSoundBeingPlayed !== shoeDragSoundToPlay ) {
+
+          if ( this.shoeDragSoundBeingPlayed ) {
+            this.shoeDragSoundBeingPlayed.stop();
+          }
+
+          this.shoeDragSoundBeingPlayed = shoeDragSoundToPlay;
+
+          if ( this.shoeDragSoundBeingPlayed ) {
+            this.shoeDragSoundBeingPlayed.play();
+          }
+        }
+      }
+    },
+
     showBody: function() {
       //vertices and body path
       var customShape = new Shape();

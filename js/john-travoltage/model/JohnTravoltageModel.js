@@ -28,6 +28,8 @@ define( function( require ) {
 
   // constants
   var MAX_ELECTRONS = 100;
+  var FOOT_ON_CARPET_MIN_ANGLE = 1; // in radians, empirically determined
+  var FOOT_ON_CARPET_MAX_ANGLE = 2.4; // in radians, empirically determined
 
   /**
    *
@@ -93,7 +95,13 @@ define( function( require ) {
     this.doorknobPosition = new Vector2( 548.4318903113076, 257.5894162536105 );
 
     //Properties of the model.  All user settings belong in the model, whether or not they are part of the physical model
-    PropertySet.call( this, { sound: true, spark: false, sparkVisible: false } );
+    PropertySet.call( this, {
+      sound: true,
+      spark: false,
+      sparkVisible: false,
+      legAngularVelocity: 0,
+      shoeOnCarpet: false // true when the foot is being dragged and is in contact with the carpet
+    } );
 
     this.sparkVisibleProperty.link( function( sparkVisible ) {
       if ( sparkVisible && johnTravoltageModel.sound ) {
@@ -104,6 +112,10 @@ define( function( require ) {
     this.electrons = new ObservableArray();
     this.arm = new Arm();
     this.leg = new Leg();
+    this.legAngleAtPreviousStep = this.leg.angle;
+
+    // TODO: (from jbphet) - IMO, sounds should be in the view, not here.  Sonification was done in the view, these
+    // TODO: should be moved to the view for consistency.
     this.sounds = [
       new Sound( shockOuchAudio ),
       new Sound( shockAudio )
@@ -116,7 +128,10 @@ define( function( require ) {
     var accumulatedAngle = 0;
     var accumulatedAngleThreshold = Math.PI / 16;
     this.leg.angleProperty.lazyLink( function( angle ) {
-      if ( angle < 2.4 && angle > 1 && johnTravoltageModel.electrons.length < MAX_ELECTRONS ) {
+      if ( angle > FOOT_ON_CARPET_MIN_ANGLE &&
+           angle < FOOT_ON_CARPET_MAX_ANGLE &&
+           johnTravoltageModel.electrons.length < MAX_ELECTRONS ) {
+
         dragEvents++;
         accumulatedAngle += Math.abs( angle - lastAngle );
 
@@ -240,6 +255,10 @@ define( function( require ) {
           delete this.sparkCreationDistToKnob;
         }
       }
+
+      this.legAngularVelocity = ( this.leg.angle - this.legAngleAtPreviousStep ) / dt;
+      this.legAngleAtPreviousStep = this.leg.angle;
+      this.shoeOnCarpet = ( this.leg.angle > FOOT_ON_CARPET_MIN_ANGLE && this.leg.angle < FOOT_ON_CARPET_MAX_ANGLE  );
 
       this.trigger( 'step' );
     },
