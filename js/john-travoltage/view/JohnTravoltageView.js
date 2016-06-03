@@ -219,9 +219,8 @@ define( function( require ) {
         // TODO: Consider modifying the Arm class to have a property for dragging, and moving this code into constructor
         if ( this.arm.dragging ) {
           var distanceToKnob = this.model.arm.getFingerPosition().distance( this.model.doorknobPosition );
-          // TODO: maybe use a linear function here when things are more finalized
-          //this.armPositionToneGenerator.playTone( MAP_ARM_DISTANCE_TO_OSCILLATOR_FREQUENCY( distanceToKnob ) );
-          this.armPositionToneGenerator.playTone( 220 );
+          this.armPositionToneGenerator.playTone( MAP_ARM_DISTANCE_TO_OSCILLATOR_FREQUENCY( distanceToKnob ) );
+          //this.armPositionToneGenerator.playTone( 220 );
           this.armPositionToneGenerator.setLfoFrequency( MAP_ARM_DISTANCE_TO_LFO_FREQUENCY( distanceToKnob ) );
         }
         else {
