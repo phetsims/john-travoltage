@@ -55,6 +55,10 @@
         var domElement = document.createElement( 'p' );
         domElement.setAttribute( 'role', 'status' );
 
+        if (options.peerID) {
+          domElement.id = options.peerID;
+        }
+
         var setElectronStatus = function () {
           var currentCharge = electrons.length;
           var chargeText = currentCharge >= priorCharge ? totalElectronsText : totalElectronsAfterDischargeText;

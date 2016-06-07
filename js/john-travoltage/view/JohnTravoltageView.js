@@ -163,6 +163,11 @@ define( function( require ) {
     var johnTravoltageView = this;
     this.model = model;
 
+    this.peerIDs = {
+      alert: 'john-travoltage-alert',
+      status: 'john-travoltage-status'
+    };
+
     //The sim works best in most browsers using svg. But in firefox on Win8 it is very slow and buggy, so use canvas on firefox.
     ScreenView.call( this, {
       renderer: platform.firefox ? 'canvas' : null,
@@ -178,14 +183,16 @@ define( function( require ) {
     //arm and leg - only interactive elements
     var legLabel = new LabelNode( legLabelText );
     this.addChild(legLabel);
-    this.leg = new AppendageNode( model.leg, leg, 25, 28, Math.PI / 2 * 0.7, legRangeMap);
+    this.leg = new AppendageNode( model.leg, leg, 25, 28, Math.PI / 2 * 0.7, legRangeMap,
+      { controls: [ this.peerIDs.status ] } );
     legLabel.addChild( this.leg );
 
     var armLabel = new LabelNode( armLabelText );
     this.addChild(armLabel);
     // the keyboardMidPointOffset was manually calculated as a radian offset that will trigger a discharge with the
     // minimum charge level.
-    this.arm = new AppendageNode( model.arm, arm, 4, 45, -0.1 , armRangeMap, { keyboardMidPointOffset: 0.41 } );
+    this.arm = new AppendageNode( model.arm, arm, 4, 45, -0.1 , armRangeMap,
+      { keyboardMidPointOffset: 0.41, controls: [ this.peerIDs.status ] } );
     armLabel.addChild( this.arm );
 
     //Show the dotted lines again when the sim is reset
@@ -219,7 +226,7 @@ define( function( require ) {
 
     //Split layers before particle layer for performance
     //Use a layer for electrons so it has only one pickable flag, perhaps may improve performance compared to iterating over all electrons to see if they are pickable?
-    var electronLayer = new ElectronLayerNode( model.electrons, model.leg, model.arm, { layerSplit: true, pickable: false } );
+    var electronLayer = new ElectronLayerNode( model.electrons, model.leg, model.arm, { layerSplit: true, pickable: false, peerID: this.peerIDs.status } );
     this.addChild( electronLayer );
 
     // Add container for accessible content

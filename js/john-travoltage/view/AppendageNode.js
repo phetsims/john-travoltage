@@ -226,6 +226,10 @@ define( function( require ) {
         domElement.setAttribute( 'step', keyboardMotion.step );
         domElement.value = angleToPosition( appendage.angle, keyboardMotion.totalRange, keyboardMotion.max, options.keyboardMidPointOffset );
 
+        if (options.controls) {
+          domElement.setAttribute( 'aria-controls', options.controls.join( ',' ));
+        }
+
         // Due to the variability of input and change event firing across browsers,
         // it is necessary to track if the input event was fired and if not, to
         // handle the change event instead.
