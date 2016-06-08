@@ -16,7 +16,6 @@
   var Node = require( 'SCENERY/nodes/Node' );
   var ElectronNode = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/ElectronNode' );
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
-  var AccessiblePeer = require( 'SCENERY/accessibility/AccessiblePeer' );
 
   // strings
   var totalElectronsText = require( 'string!JOHN_TRAVOLTAGE/john-travoltage.electrons.total' );
@@ -30,6 +29,8 @@
    */
   function ElectronLayerNode( electrons, leg, arm, options ) {
     var electronLayerView = this;
+    var statusNode = document.getElementById( options.peerID );
+
     Node.call( this, options );
 
     //if new electron added to model - create and add new node to leg
@@ -48,33 +49,21 @@
       electrons.addItemRemovedListener( itemRemovedListener );
     } );
 
-    // Add accessible content for the electron layer
-    this.setAccessibleContent( {
-      createPeer: function ( accessibleInstance ) {
-        var priorCharge = 0;
-        var domElement = document.createElement( 'p' );
-        domElement.setAttribute( 'role', 'status' );
+    if (statusNode) {
+      var priorCharge = 0;
 
-        if (options.peerID) {
-          domElement.id = options.peerID;
-        }
+      var setElectronStatus = function () {
+        var currentCharge = electrons.length;
+        var chargeText = currentCharge >= priorCharge ? totalElectronsText : totalElectronsAfterDischargeText;
 
-        var setElectronStatus = function () {
-          var currentCharge = electrons.length;
-          var chargeText = currentCharge >= priorCharge ? totalElectronsText : totalElectronsAfterDischargeText;
+        statusNode.textContent = '';
+        statusNode.textContent = StringUtils.format( chargeText, currentCharge, priorCharge );
+        priorCharge = currentCharge;
+      };
 
-          domElement.textContent = StringUtils.format( chargeText, currentCharge, priorCharge );
-          priorCharge = currentCharge;
-        };
-
-        setElectronStatus();
-
-        electrons.addItemAddedListener( setElectronStatus );
-        electrons.addItemRemovedListener( _.debounce( setElectronStatus, 500 ) );
-
-        return new AccessiblePeer( accessibleInstance, domElement );
-      }
-    } );
+      electrons.addItemAddedListener( setElectronStatus );
+      electrons.addItemRemovedListener( _.debounce( setElectronStatus, 500 ) );
+    }
   }
 
   return inherit( Node, ElectronLayerNode );

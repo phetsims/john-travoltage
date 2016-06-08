@@ -208,7 +208,7 @@ define( function( require ) {
     //spark
     this.addChild( new SparkNode( model.sparkVisibleProperty, model.arm, model.doorknobPosition, function( listener ) {
       model.on( 'step', listener );
-    }, dischargeText ) );
+    }, dischargeText, {peerID: this.peerIDs.alert} ) );
 
     //Sound button and reset all button
     var soundButton = new SoundToggleButton( model.soundProperty );

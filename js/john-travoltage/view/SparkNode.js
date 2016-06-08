@@ -26,9 +26,9 @@ define( function( require ) {
    * @param {Function} addStepListener function to add a step listener to the model
    * @constructor
    */
-  function SparkNode( sparkVisibleProperty, arm, doorknobPosition, addStepListener, dischargeAlertText ) {
+  function SparkNode( sparkVisibleProperty, arm, doorknobPosition, addStepListener, dischargeAlertText, options ) {
     var self = this;
-    var alertNode = document.getElementById( 'john-travoltage-alert' );
+    var alertNode = document.getElementById( options.peerID );
 
     Node.call( this, { pickable: false } );
 
