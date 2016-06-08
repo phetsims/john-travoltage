@@ -33,12 +33,13 @@ define( function( require ) {
       function( model ) {
         return new JohnTravoltageView( model );
       }, {
-        backgroundColor: '#9ddcf8'
+        backgroundColor: '#9ddcf8',
+        tandem: tandem
       }
     );
   }
 
   johnTravoltage.register( 'JohnTravoltageScreen', JohnTravoltageScreen );
-  
+
   return inherit( Screen, JohnTravoltageScreen );
 } );
