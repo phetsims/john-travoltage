@@ -44,7 +44,7 @@ define( function( require ) {
   var leg = require( 'image!JOHN_TRAVOLTAGE/leg.png' );
 
   // constants
-  var SONIFICATION_ENABLED = JohnTravoltageQueryParameters.SONIFICATION;
+  var SONIFICATION_CONTROL = JohnTravoltageQueryParameters.SONIFICATION;
   var SHOW_DEBUG_INFO = JohnTravoltageQueryParameters.SHOW_DEBUG_INFO;
   var MAX_ELECTRONS = JohnTravoltageModel.MAX_ELECTRONS;
   var MAP_ARM_DISTANCE_TO_OSCILLATOR_FREQUENCY = new LinearFunction( 14, 240, 440, 110 );
@@ -107,7 +107,7 @@ define( function( require ) {
     } ) );
 
     //sonification
-    if ( SONIFICATION_ENABLED ) {
+    if ( SONIFICATION_CONTROL ) {
       var pitchedPopGenerator = new PitchedPopGenerator( model.soundProperty );
       this.armPositionToneGenerator = new ToneGenerator();
       this.shoeDraggingForwardOnCarpetSound = new Sound( shoeDraggingForwardOnCarpetAudio );
@@ -170,7 +170,7 @@ define( function( require ) {
     // @public, step the view
     step: function( dt ) {
 
-      if ( SONIFICATION_ENABLED ) {
+      if ( SONIFICATION_CONTROL ) {
 
         //-------------------------------------------------------------------------------------------------------------
         // update the sound for shoe dragging
@@ -219,9 +219,24 @@ define( function( require ) {
         // TODO: Consider modifying the Arm class to have a property for dragging, and moving this code into constructor
         if ( this.arm.dragging ) {
           var distanceToKnob = this.model.arm.getFingerPosition().distance( this.model.doorknobPosition );
-          this.armPositionToneGenerator.playTone( MAP_ARM_DISTANCE_TO_OSCILLATOR_FREQUENCY( distanceToKnob ) );
-          //this.armPositionToneGenerator.playTone( 220 );
-          this.armPositionToneGenerator.setLfoFrequency( MAP_ARM_DISTANCE_TO_LFO_FREQUENCY( distanceToKnob ) );
+          if ( SONIFICATION_CONTROL === true || SONIFICATION_CONTROL === 1 ) {
+
+            // pitch and LFO change
+            this.armPositionToneGenerator.playTone( MAP_ARM_DISTANCE_TO_OSCILLATOR_FREQUENCY( distanceToKnob ) );
+            this.armPositionToneGenerator.setLfoFrequency( MAP_ARM_DISTANCE_TO_LFO_FREQUENCY( distanceToKnob ) );
+
+          }
+          else if ( SONIFICATION_CONTROL === 2 ) {
+
+            // pitch constant, LFO changes
+            this.armPositionToneGenerator.playTone( 220 );
+            this.armPositionToneGenerator.setLfoFrequency( MAP_ARM_DISTANCE_TO_LFO_FREQUENCY( distanceToKnob ) );
+          }
+          else {
+
+            // LFO not used, pitch changes
+            this.armPositionToneGenerator.playTone( MAP_ARM_DISTANCE_TO_OSCILLATOR_FREQUENCY( distanceToKnob ) );
+          }
         }
         else {
           this.armPositionToneGenerator.stopTone();

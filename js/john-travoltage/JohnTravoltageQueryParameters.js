@@ -13,10 +13,24 @@ define( function( require ) {
 
   var getQueryParameter = phet.chipper.getQueryParameter;
 
+  // sonification can either be simply set on or can be assigned a numerical value, so handle that here
+  var sonificationQueryParamValue = getQueryParameter( 'sonification' );
+  if ( sonificationQueryParamValue ) {
+    if ( sonificationQueryParamValue === 'undefined' ) {
+
+      // This is kind of a quick of PhET's query parameter system that a string of 'undefined' is the default value if
+      // the parameter is present.
+      sonificationQueryParamValue = true;
+    }
+    else {
+      sonificationQueryParamValue = parseInt( sonificationQueryParamValue );
+    }
+  }
+
   var JohnTravoltageQueryParameters = {
 
     // populates the output carousel with 1 card of each type
-    SONIFICATION: !!getQueryParameter( 'sonification' ),
+    SONIFICATION: sonificationQueryParamValue,
 
     SHOW_DEBUG_INFO: !!getQueryParameter( 'showDebugInfo' )
 
