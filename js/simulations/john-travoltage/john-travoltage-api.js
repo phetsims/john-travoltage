@@ -13,20 +13,20 @@
  * @author Sam Reid (PhET Interactive Simulations)
  */
 // Permit uppercase function names, such as TProperty(string)
-define(function(require) {
+define( function( require ) {
   'use strict';
 
   // modules
   var assertInstanceOf = require( 'PHET_IO/assertions/assertInstanceOf' );
   var phetio = require( 'PHET_IO/phetio' );
-  var PhETIOCommon = require( 'PHET_IO/api/PhETIOCommon' );
+  var PhETIOCommon = require( 'PHET_IO/types/PhETIOCommon' );
   var phetioInherit = require( 'PHET_IO/phetioInherit' );
   var phetioNamespace = require( 'PHET_IO/phetioNamespace' );
   var Tandem = require( 'TANDEM/Tandem' );
-  var TGroup = require( 'PHET_IO/api/TGroup' );
-  var TObject = require( 'PHET_IO/api/TObject' );
-  var TObservableArray = require( 'PHET_IO/api/axon/TObservableArray' );
-  var TVector2 = require( 'PHET_IO/api/dot/TVector2' );
+  var TGroup = require( 'PHET_IO/types/TGroup' );
+  var TObject = require( 'PHET_IO/types/TObject' );
+  var TObservableArray = require( 'PHET_IO/types/axon/TObservableArray' );
+  var TVector2 = require( 'PHET_IO/types/dot/TVector2' );
 
   var TElectron = phetioInherit( TObject, 'TElectron', function( instance, phetioID ) {
     assertInstanceOf( instance, phet.johnTravoltage.Electron );
@@ -67,7 +67,7 @@ define(function(require) {
     )
   } );
 
-    phetioNamespace.register( 'john-travoltage-api', johnTravoltageAPI );
+  phetioNamespace.register( 'john-travoltage-api', johnTravoltageAPI );
 
   // Set the phetio.api after it was declared
   phetio.api = johnTravoltageAPI;
@@ -76,4 +76,4 @@ define(function(require) {
   new Tandem( 'phetio' ).addInstance( phetio );
 
   return johnTravoltageAPI;
-});
+} );
