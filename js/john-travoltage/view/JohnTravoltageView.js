@@ -1,5 +1,4 @@
 // Copyright 2013-2015, University of Colorado Boulder
-// Copyright 2016, OCAD University
 
 /**
  * Main ScreenView of simulation. Drawing starts here
@@ -30,6 +29,10 @@ define( function( require ) {
   var Circle = require( 'SCENERY/nodes/Circle' );
   var platform = require( 'PHET_CORE/platform' );
   var HBox = require( 'SCENERY/nodes/HBox' );
+  var JohnTravoltageModel = require( 'JOHN_TRAVOLTAGE/john-travoltage/model/JohnTravoltageModel' );
+  var JohnTravoltageQueryParameters = require( 'JOHN_TRAVOLTAGE/john-travoltage/JohnTravoltageQueryParameters' );
+  var PitchedPopGenerator = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/PitchedPopGenerator' );
+  var TextPushButton = require( 'SUN/buttons/TextPushButton' );
   var AccessiblePeer = require( 'SCENERY/accessibility/AccessiblePeer' );
   var johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
 
@@ -37,20 +40,24 @@ define( function( require ) {
   var arm = require( 'image!JOHN_TRAVOLTAGE/arm.png' );
   var leg = require( 'image!JOHN_TRAVOLTAGE/leg.png' );
 
-  // strings
-  var armLabelText = require( 'string!JOHN_TRAVOLTAGE/john-travoltage.armSliderLabel' );
-  var legLabelText = require( 'string!JOHN_TRAVOLTAGE/john-travoltage.legSliderLabel' );
-  var footOnCarpetText = require( 'string!JOHN_TRAVOLTAGE/john-travoltage.foot.onCarpet' );
-  var footOffCarpetText = require( 'string!JOHN_TRAVOLTAGE/john-travoltage.foot.offCarpet' );
-  var handClosestText = require( 'string!JOHN_TRAVOLTAGE/john-travoltage.hand.closest' );
-  var handVeryCloseText = require( 'string!JOHN_TRAVOLTAGE/john-travoltage.hand.veryClose' );
-  var handCloseText = require( 'string!JOHN_TRAVOLTAGE/john-travoltage.hand.close' );
-  var handNeitherText = require( 'string!JOHN_TRAVOLTAGE/john-travoltage.hand.neither' );
-  var handFarText = require( 'string!JOHN_TRAVOLTAGE/john-travoltage.hand.far' );
-  var handVeryFarText = require( 'string!JOHN_TRAVOLTAGE/john-travoltage.hand.veryFar' );
-  var handFarthestText = require( 'string!JOHN_TRAVOLTAGE/john-travoltage.hand.farthest' );
-  var dischargeText = require( 'string!JOHN_TRAVOLTAGE/john-travoltage.electrons.discharged' );
+  // constants
+  var SONIFICATION_ENABLED = JohnTravoltageQueryParameters.SONIFICATION;
+  var SHOW_DEBUG_INFO = JohnTravoltageQueryParameters.SHOW_DEBUG_INFO;
+  var MAX_ELECTRONS = JohnTravoltageModel.MAX_ELECTRONS;
 
+  // strings
+  var armSliderLabelString = require( 'string!JOHN_TRAVOLTAGE/armSliderLabel' );
+  var legSliderLabelString = require( 'string!JOHN_TRAVOLTAGE/legSliderLabel' );
+  var footOnCarpetString = require( 'string!JOHN_TRAVOLTAGE/foot.onCarpet' );
+  var footOffCarpetString = require( 'string!JOHN_TRAVOLTAGE/foot.offCarpet' );
+  var handClosestString = require( 'string!JOHN_TRAVOLTAGE/hand.closest' );
+  var handVeryCloseString = require( 'string!JOHN_TRAVOLTAGE/hand.veryClose' );
+  var handCloseString = require( 'string!JOHN_TRAVOLTAGE/hand.close' );
+  var handNeitherString = require( 'string!JOHN_TRAVOLTAGE/hand.neither' );
+  var handFarString = require( 'string!JOHN_TRAVOLTAGE/hand.far' );
+  var handVeryFarString = require( 'string!JOHN_TRAVOLTAGE/hand.veryFar' );
+  var handFarthestString = require( 'string!JOHN_TRAVOLTAGE/hand.farthest' );
+  var electronsDischargedString = require( 'string!JOHN_TRAVOLTAGE/electrons.discharged' );
 
   // rangeMaps
   var legRangeMap = [
@@ -59,22 +66,21 @@ define( function( require ) {
             max: 5,
             min: 0
         },
-        text: footOffCarpetText
+        text: footOffCarpetString
     }, {
         range: {
             max: 21,
             min: 6
         },
-        text: footOnCarpetText
+        text: footOnCarpetString
     }, {
         range: {
             max: 30,
             min: 22
         },
-        text: footOffCarpetText
+        text: footOffCarpetString
     }
   ];
-
 
   var armRangeMap = [
     {
@@ -82,83 +88,86 @@ define( function( require ) {
             max: 0,
             min: 0
         },
-        text: handFarthestText
+        text: handFarthestString
     }, {
         range: {
             max: 12,
             min: 1
         },
-        text: handVeryFarText
+        text: handVeryFarString
     }, {
         range: {
             max: 24,
             min: 13
         },
-        text: handFarText
+        text: handFarString
     }, {
         range: {
             max: 25,
             min: 25
         },
-        text: handNeitherText
+        text: handNeitherString
     }, {
         range: {
             max: 37,
             min: 26
         },
-        text: handCloseText
+        text: handCloseString
     }, {
         range: {
             max: 49,
             min: 38
         },
-        text: handVeryCloseText
+        text: handVeryCloseString
     }, {
         range: {
             max: 50,
             min: 50
         },
-        text: handClosestText
+        text: handClosestString
     }, {
         range: {
             max: 62,
             min: 51
         },
-        text: handVeryCloseText
+        text: handVeryCloseString
     }, {
         range: {
             max: 74,
             min: 63
         },
-        text: handCloseText
+        text: handCloseString
     }, {
         range: {
             max: 75,
             min: 75
         },
-        text: handNeitherText
+        text: handNeitherString
     }, {
         range: {
             max: 87,
             min: 76
         },
-        text: handFarText
+        text: handFarString
     }, {
         range: {
             max: 99,
             min: 88
         },
-        text: handVeryFarText
+        text: handVeryFarString
     }, {
         range: {
             max: 100,
             min: 100
         },
-        text: handFarthestText
+        text: handFarthestString
     }
   ];
 
-
+  /**
+   * @param {JohnTravoltageModel} model
+   * @constructor
+   */
   function JohnTravoltageView( model ) {
     var johnTravoltageView = this;
     this.model = model;
@@ -181,13 +190,13 @@ define( function( require ) {
     this.addChild( new Node( { layerSplit: true, pickable: false } ) );
 
     //arm and leg - only interactive elements
-    var legLabel = new LabelNode( legLabelText );
+    var legLabel = new LabelNode( legSliderLabelString );
     this.addChild(legLabel);
     this.leg = new AppendageNode( model.leg, leg, 25, 28, Math.PI / 2 * 0.7, legRangeMap,
       { controls: [ this.peerIDs.status ] } );
     legLabel.addChild( this.leg );
 
-    var armLabel = new LabelNode( armLabelText );
+    var armLabel = new LabelNode( armSliderLabelString );
     this.addChild(armLabel);
     // the keyboardMidPointOffset was manually calculated as a radian offset that will trigger a discharge with the
     // minimum charge level.
@@ -208,7 +217,7 @@ define( function( require ) {
     //spark
     this.addChild( new SparkNode( model.sparkVisibleProperty, model.arm, model.doorknobPosition, function( listener ) {
       model.on( 'step', listener );
-    }, dischargeText, {peerID: this.peerIDs.alert} ) );
+    }, electronsDischargedString, {peerID: this.peerIDs.alert} ) );
 
     //Sound button and reset all button
     var soundButton = new SoundToggleButton( model.soundProperty );
@@ -224,9 +233,19 @@ define( function( require ) {
       bottom: this.layoutBounds.maxY - 7
     } ) );
 
+    //sound generator
+    if ( SONIFICATION_ENABLED ){
+      var pitchedPopGenerator = new PitchedPopGenerator( model.soundProperty );
+    }
+
     //Split layers before particle layer for performance
     //Use a layer for electrons so it has only one pickable flag, perhaps may improve performance compared to iterating over all electrons to see if they are pickable?
-    var electronLayer = new ElectronLayerNode( model.electrons, model.leg, model.arm, { layerSplit: true, pickable: false, peerID: this.peerIDs.status } );
+    var electronLayer = new ElectronLayerNode( model.electrons, MAX_ELECTRONS, model.leg, model.arm, {
+      layerSplit: true,
+      pickable: false,
+      peerID: this.peerIDs.status,
+      pitchedPopGenerator:  pitchedPopGenerator
+    } );
     this.addChild( electronLayer );
 
     // Add container for accessible content
@@ -240,8 +259,7 @@ define( function( require ) {
 
     // debug lines, body and forceline, uncomment this to view physical bounds of body
     // borders are approximately 8px = radius of particle from physical body, because physical radius of electron = 1 in box2D
-    var showDebugInfo = false;
-    if ( showDebugInfo ) {
+    if ( SHOW_DEBUG_INFO ) {
       this.showBody();
 
       this.addChild( new Circle( 10, { x: model.bodyVertices[ 0 ].x, y: model.bodyVertices[ 0 ].y, fill: 'blue' } ) );
@@ -256,6 +274,15 @@ define( function( require ) {
       this.addChild( fingerCircle );
 
       new DebugPositions().debugLineSegments( this );
+    }
+
+    // TODO: temp for sonfication testing
+    if ( SONIFICATION_ENABLED ){
+      this.addChild( new TextPushButton( 'Test Sounds', {
+        listener: function(){
+          pitchedPopGenerator.createPop( 0.5 );
+        }
+      } ) );
     }
   }
 

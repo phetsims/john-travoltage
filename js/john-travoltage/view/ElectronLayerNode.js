@@ -18,8 +18,8 @@
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
 
   // strings
-  var totalElectronsText = require( 'string!JOHN_TRAVOLTAGE/john-travoltage.electrons.total' );
-  var totalElectronsAfterDischargeText = require( 'string!JOHN_TRAVOLTAGE/john-travoltage.electrons.totalAfterDischarge' );
+  var totalElectronsString = require( 'string!JOHN_TRAVOLTAGE/electrons.total' );
+  var totalElectronsAfterDischargeString = require( 'string!JOHN_TRAVOLTAGE/electrons.totalAfterDischarge' );
 
   /**
    * @param {Electrons} electrons - the model for the number of electrons
@@ -27,34 +27,72 @@
    * @param {Arm} arm - the model for the arm appendage
    * @constructor
    */
-  function ElectronLayerNode( electrons, leg, arm, options ) {
+  function ElectronLayerNode( electrons, maxElectrons, leg, arm, options ) {
     var electronLayerView = this;
     var statusNode = document.getElementById( options.peerID );
 
     Node.call( this, options );
 
+    var playSound = function () {
+      options.pitchedPopGenerator && options.pitchedPopGenerator.createPop( electrons.length / maxElectrons );
+    };
+
     //if new electron added to model - create and add new node to leg
     //TODO: Pooling for creation and use visible instead of addChild for performance
     electrons.addItemAddedListener( function( added ) {
+
+      // and the visual representation of the electron
       var newElectron = new ElectronNode( added, leg, arm );
       added.viewNode = newElectron;
       electronLayerView.addChild( newElectron );
+
+      // play the sound that indicates that an electron was added
+      playSound();
 
       var itemRemovedListener = function( removed ) {
         if ( removed === added ) {
           electronLayerView.removeChild( newElectron );
           electrons.removeItemRemovedListener( itemRemovedListener );
+
+          // play the sound that indicates that an electron was removed
+          playSound();
         }
       };
       electrons.addItemRemovedListener( itemRemovedListener );
     } );
+
+    /*
+
+    //if new electron added to model - create and add new node to leg
+    //TODO: Pooling for creation and use visible instead of addChild for performance
+    model.electrons.addItemAddedListener( function( added ) {
+
+      // and the visual representation of the electron
+      var newElectron = new ElectronNode( added, model.leg, model.arm );
+      added.viewNode = newElectron;
+      electronLayer.addChild( newElectron );
+
+      // play the sound that indicates that an electron was added
+      pitchedPopGenerator && pitchedPopGenerator.createPop( model.electrons.length / MAX_ELECTRONS );
+
+      var itemRemovedListener = function( removed ) {
+        if ( removed === added ) {
+          electronLayer.removeChild( newElectron );
+          model.electrons.removeItemRemovedListener( itemRemovedListener );
+          pitchedPopGenerator && pitchedPopGenerator.createPop( model.electrons.length / MAX_ELECTRONS );
+        }
+      };
+      model.electrons.addItemRemovedListener( itemRemovedListener );
+    } );
+
+    */
 
     if (statusNode) {
       var priorCharge = 0;
 
       var setElectronStatus = function () {
         var currentCharge = electrons.length;
-        var chargeText = currentCharge >= priorCharge ? totalElectronsText : totalElectronsAfterDischargeText;
+        var chargeText = currentCharge >= priorCharge ? totalElectronsString : totalElectronsAfterDischargeString;
 
         statusNode.textContent = '';
         statusNode.textContent = StringUtils.format( chargeText, currentCharge, priorCharge );
