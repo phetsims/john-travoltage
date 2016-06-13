@@ -31,19 +31,28 @@ define( function( require ) {
   var HBox = require( 'SCENERY/nodes/HBox' );
   var JohnTravoltageModel = require( 'JOHN_TRAVOLTAGE/john-travoltage/model/JohnTravoltageModel' );
   var JohnTravoltageQueryParameters = require( 'JOHN_TRAVOLTAGE/john-travoltage/JohnTravoltageQueryParameters' );
-  var PitchedPopGenerator = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/PitchedPopGenerator' );
   var TextPushButton = require( 'SUN/buttons/TextPushButton' );
   var AccessiblePeer = require( 'SCENERY/accessibility/AccessiblePeer' );
+  var PitchedPopGenerator = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/PitchedPopGenerator' );
+  var ToneGenerator = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/ToneGenerator' );
+  var Sound = require( 'VIBE/Sound' );
+  var LinearFunction = require( 'DOT/LinearFunction' );
   var johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
+
+  // audio
+  var shoeDraggingForwardOnCarpetAudio = require( 'audio!JOHN_TRAVOLTAGE/shoe-dragging-forward-on-carpet' );
+  var shoeDraggingBackwardOnCarpetAudio = require( 'audio!JOHN_TRAVOLTAGE/shoe-dragging-backward-on-carpet' );
 
   // images
   var arm = require( 'image!JOHN_TRAVOLTAGE/arm.png' );
   var leg = require( 'image!JOHN_TRAVOLTAGE/leg.png' );
 
   // constants
-  var SONIFICATION_ENABLED = JohnTravoltageQueryParameters.SONIFICATION;
+  var SONIFICATION_CONTROL = JohnTravoltageQueryParameters.SONIFICATION;
   var SHOW_DEBUG_INFO = JohnTravoltageQueryParameters.SHOW_DEBUG_INFO;
   var MAX_ELECTRONS = JohnTravoltageModel.MAX_ELECTRONS;
+  var MAP_ARM_DISTANCE_TO_OSCILLATOR_FREQUENCY = new LinearFunction( 14, 240, 440, 110 );
+  var MAP_ARM_DISTANCE_TO_LFO_FREQUENCY = new LinearFunction( 14, 240, 10, 1 );
 
   // strings
   var armSliderLabelString = require( 'string!JOHN_TRAVOLTAGE/armSliderLabel' );
@@ -233,9 +242,14 @@ define( function( require ) {
       bottom: this.layoutBounds.maxY - 7
     } ) );
 
-    //sound generator
-    if ( SONIFICATION_ENABLED ){
+    //sonification
+    if ( SONIFICATION_CONTROL ) {
       var pitchedPopGenerator = new PitchedPopGenerator( model.soundProperty );
+      this.armPositionToneGenerator = new ToneGenerator();
+      this.shoeDraggingForwardOnCarpetSound = new Sound( shoeDraggingForwardOnCarpetAudio );
+      this.shoeDraggingBackwardOnCarpetSound = new Sound( shoeDraggingBackwardOnCarpetAudio );
+      this.shoeDragSoundBeingPlayed = null;
+      this.legStillTime = 0;
     }
 
     //Split layers before particle layer for performance
@@ -275,20 +289,89 @@ define( function( require ) {
 
       new DebugPositions().debugLineSegments( this );
     }
-
-    // TODO: temp for sonfication testing
-    if ( SONIFICATION_ENABLED ){
-      this.addChild( new TextPushButton( 'Test Sounds', {
-        listener: function(){
-          pitchedPopGenerator.createPop( 0.5 );
-        }
-      } ) );
-    }
   }
 
   johnTravoltage.register( 'JohnTravoltageView', JohnTravoltageView );
 
   return inherit( ScreenView, JohnTravoltageView, {
+
+    // @public, step the view
+    step: function( dt ) {
+
+      if ( SONIFICATION_CONTROL ) {
+
+        //-------------------------------------------------------------------------------------------------------------
+        // update the sound for shoe dragging
+        //-------------------------------------------------------------------------------------------------------------
+
+        var shoeDragSoundToPlay;
+        if ( !this.model.shoeOnCarpet ) {
+
+          // the shoe is above the carpet, so no sound should be playing
+          shoeDragSoundToPlay = null;
+        }
+        else {
+          if ( this.model.legAngularVelocity === 0 ) {
+
+            // implement a bit of hysteresis for turning the sound on and off, otherwise it can start and stop too often
+            this.legStillTime += dt;
+            if ( this.legStillTime > 0.1 ) {
+              shoeDragSoundToPlay = null;
+            }
+          }
+          else {
+            this.legStillTime = 0;
+            shoeDragSoundToPlay = this.model.legAngularVelocity > 0 ?
+                                  this.shoeDraggingBackwardOnCarpetSound :
+                                  this.shoeDraggingForwardOnCarpetSound;
+          }
+        }
+
+        // if the correct sound isn't currently being played, update it
+        if ( this.shoeDragSoundBeingPlayed !== shoeDragSoundToPlay ) {
+
+          if ( this.shoeDragSoundBeingPlayed ) {
+            this.shoeDragSoundBeingPlayed.stop();
+          }
+
+          this.shoeDragSoundBeingPlayed = shoeDragSoundToPlay;
+
+          if ( this.shoeDragSoundBeingPlayed ) {
+            this.shoeDragSoundBeingPlayed.play();
+          }
+        }
+
+        //-------------------------------------------------------------------------------------------------------------
+        // update the sound for the arm distance from the knob
+        //-------------------------------------------------------------------------------------------------------------
+        // TODO: Consider modifying the Arm class to have a property for dragging, and moving this code into constructor
+        if ( this.arm.dragging ) {
+          var distanceToKnob = this.model.arm.getFingerPosition().distance( this.model.doorknobPosition );
+          if ( SONIFICATION_CONTROL === true || SONIFICATION_CONTROL === 1 ) {
+
+            // pitch and LFO change
+            this.armPositionToneGenerator.playTone( MAP_ARM_DISTANCE_TO_OSCILLATOR_FREQUENCY( distanceToKnob ) );
+            this.armPositionToneGenerator.setLfoFrequency( MAP_ARM_DISTANCE_TO_LFO_FREQUENCY( distanceToKnob ) );
+
+          }
+          else if ( SONIFICATION_CONTROL === 2 ) {
+
+            // pitch constant, LFO changes
+            this.armPositionToneGenerator.playTone( 220 );
+            this.armPositionToneGenerator.setLfoFrequency( MAP_ARM_DISTANCE_TO_LFO_FREQUENCY( distanceToKnob ) );
+          }
+          else {
+
+            // LFO not used, pitch changes
+            this.armPositionToneGenerator.playTone( MAP_ARM_DISTANCE_TO_OSCILLATOR_FREQUENCY( distanceToKnob ) );
+          }
+        }
+        else {
+          this.armPositionToneGenerator.stopTone();
+        }
+      }
+    },
+
     showBody: function() {
       //vertices and body path
       var customShape = new Shape();

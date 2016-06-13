@@ -16,7 +16,7 @@ define( function( require ) {
   var Tandem = require( 'TANDEM/Tandem' );
 
   // If running as phet-io, load the API
-  require( 'ifphetio!PHET_IO/api/john-travoltage-api' );
+  require( 'ifphetio!PHET_IO/simulations/john-travoltage/john-travoltage-api' );
 
   // strings
   var johnTravoltageTitleString = require( 'string!JOHN_TRAVOLTAGE/john-travoltage.title' );
