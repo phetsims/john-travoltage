@@ -61,32 +61,6 @@
       electrons.addItemRemovedListener( itemRemovedListener );
     } );
 
-    /*
-
-    //if new electron added to model - create and add new node to leg
-    //TODO: Pooling for creation and use visible instead of addChild for performance
-    model.electrons.addItemAddedListener( function( added ) {
-
-      // and the visual representation of the electron
-      var newElectron = new ElectronNode( added, model.leg, model.arm );
-      added.viewNode = newElectron;
-      electronLayer.addChild( newElectron );
-
-      // play the sound that indicates that an electron was added
-      pitchedPopGenerator && pitchedPopGenerator.createPop( model.electrons.length / MAX_ELECTRONS );
-
-      var itemRemovedListener = function( removed ) {
-        if ( removed === added ) {
-          electronLayer.removeChild( newElectron );
-          model.electrons.removeItemRemovedListener( itemRemovedListener );
-          pitchedPopGenerator && pitchedPopGenerator.createPop( model.electrons.length / MAX_ELECTRONS );
-        }
-      };
-      model.electrons.addItemRemovedListener( itemRemovedListener );
-    } );
-
-    */
-
     if (statusNode) {
       var priorCharge = 0;
 

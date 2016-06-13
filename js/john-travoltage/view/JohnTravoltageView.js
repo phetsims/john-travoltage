@@ -16,7 +16,8 @@ define( function( require ) {
   var Line = require( 'SCENERY/nodes/Line' );
   var inherit = require( 'PHET_CORE/inherit' );
   var BackgroundElementsNode = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/BackgroundElementsNode' );
-  var LabelNode = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/LabelNode' );
+  var AccessibleFormNode = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/AccessibleFormNode' );
+  var AccessibleLabelNode = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/AccessibleLabelNode' );
   var AppendageNode = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/AppendageNode' );
   var SparkNode = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/SparkNode' );
   var ElectronLayerNode = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/ElectronLayerNode' );
@@ -31,8 +32,6 @@ define( function( require ) {
   var HBox = require( 'SCENERY/nodes/HBox' );
   var JohnTravoltageModel = require( 'JOHN_TRAVOLTAGE/john-travoltage/model/JohnTravoltageModel' );
   var JohnTravoltageQueryParameters = require( 'JOHN_TRAVOLTAGE/john-travoltage/JohnTravoltageQueryParameters' );
-  var TextPushButton = require( 'SUN/buttons/TextPushButton' );
-  var AccessiblePeer = require( 'SCENERY/accessibility/AccessiblePeer' );
   var PitchedPopGenerator = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/PitchedPopGenerator' );
   var ToneGenerator = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/ToneGenerator' );
   var Sound = require( 'VIBE/Sound' );
@@ -198,15 +197,19 @@ define( function( require ) {
     //Split layers after background for performance
     this.addChild( new Node( { layerSplit: true, pickable: false } ) );
 
+    //add an form element to contain all controls
+    var accessibleFormNode = new AccessibleFormNode();
+    this.addChild( accessibleFormNode );
+
     //arm and leg - only interactive elements
-    var legLabel = new LabelNode( legSliderLabelString );
-    this.addChild(legLabel);
+    var legLabel = new AccessibleLabelNode( legSliderLabelString );
+    accessibleFormNode.addChild(legLabel);
     this.leg = new AppendageNode( model.leg, leg, 25, 28, Math.PI / 2 * 0.7, legRangeMap,
       { controls: [ this.peerIDs.status ] } );
     legLabel.addChild( this.leg );
 
-    var armLabel = new LabelNode( armSliderLabelString );
-    this.addChild(armLabel);
+    var armLabel = new AccessibleLabelNode( armSliderLabelString );
+    accessibleFormNode.addChild(armLabel);
     // the keyboardMidPointOffset was manually calculated as a radian offset that will trigger a discharge with the
     // minimum charge level.
     this.arm = new AppendageNode( model.arm, arm, 4, 45, -0.1 , armRangeMap,
@@ -224,7 +227,7 @@ define( function( require ) {
     } );
 
     //spark
-    this.addChild( new SparkNode( model.sparkVisibleProperty, model.arm, model.doorknobPosition, function( listener ) {
+    accessibleFormNode.addChild( new SparkNode( model.sparkVisibleProperty, model.arm, model.doorknobPosition, function( listener ) {
       model.on( 'step', listener );
     }, electronsDischargedString, {peerID: this.peerIDs.alert} ) );
 
@@ -235,7 +238,7 @@ define( function( require ) {
       scale: 1.32
     } );
     resetAllButton.scale( soundButton.height / resetAllButton.height );
-    this.addChild( new HBox( {
+    accessibleFormNode.addChild( new HBox( {
       spacing: 10,
       children: [ soundButton, resetAllButton ],
       right: this.layoutBounds.maxX - 7,
@@ -260,24 +263,15 @@ define( function( require ) {
       peerID: this.peerIDs.status,
       pitchedPopGenerator:  pitchedPopGenerator
     } );
-    this.addChild( electronLayer );
-
-    // Add container for accessible content
-    this.setAccessibleContent( {
-      createPeer: function( accessibleInstance ) {
-        var domElement = document.createElement( 'form' );
-
-        return new AccessiblePeer( accessibleInstance, domElement );
-      }
-    } );
+    accessibleFormNode.addChild( electronLayer );
 
     // debug lines, body and forceline, uncomment this to view physical bounds of body
     // borders are approximately 8px = radius of particle from physical body, because physical radius of electron = 1 in box2D
     if ( SHOW_DEBUG_INFO ) {
       this.showBody();
 
-      this.addChild( new Circle( 10, { x: model.bodyVertices[ 0 ].x, y: model.bodyVertices[ 0 ].y, fill: 'blue' } ) );
-      this.addChild( new Circle( 10, { x: 0, y: 0, fill: 'blue' } ) );
+      accessibleFormNode.addChild( new Circle( 10, { x: model.bodyVertices[ 0 ].x, y: model.bodyVertices[ 0 ].y, fill: 'blue' } ) );
+      accessibleFormNode.addChild( new Circle( 10, { x: 0, y: 0, fill: 'blue' } ) );
 
       //Debugging for finger location
       var fingerCircle = new Circle( 10, { fill: 'red' } );
@@ -285,7 +279,7 @@ define( function( require ) {
         fingerCircle.x = model.arm.getFingerPosition().x;
         fingerCircle.y = model.arm.getFingerPosition().y;
       } );
-      this.addChild( fingerCircle );
+      accessibleFormNode.addChild( fingerCircle );
 
       new DebugPositions().debugLineSegments( this );
     }

@@ -2,7 +2,7 @@
 // Copyright 2016, OCAD University
 
 /**
- * Scenery display object (scene graph node) for the labels used to identify elements in the sim.
+ * Scenery display object (scene graph node) for a form element to contain all controls in sim.
  *
  * @author Justin Obara
  */
@@ -15,23 +15,20 @@ define( function( require ) {
   var AccessiblePeer = require( 'SCENERY/accessibility/AccessiblePeer' );
 
   /**
-   * @param {String} labelText - The text to output in the label
-   *
    * @constructor
    */
-  function LabelNode( labelText ) {
-    Node.call( this );
+  function AccessibleFormNode( options ) {
+    Node.call( this, options );
 
-    // Add accessible content for the label
+    // Add accessible form content
     this.setAccessibleContent( {
       createPeer: function ( accessibleInstance ) {
-        var domElement = document.createElement( 'label' );
-        domElement.textContent = labelText;
+        var domElement = document.createElement( 'form' );
 
         return new AccessiblePeer( accessibleInstance, domElement );
       }
     } );
   }
 
-  return inherit( Node, LabelNode );
+  return inherit( Node, AccessibleFormNode );
 } );
