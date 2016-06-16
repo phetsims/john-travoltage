@@ -16,49 +16,59 @@
     "visible": false
   },
   "foot.onCarpet": {
-    "value": "Foot is on the carpet",
+    "value": "on the carpet",
     "visible": false
   },
   "foot.offCarpet": {
-    "value": "Foot is off the carpet",
+    "value": "off the carpet",
     "visible": false
   },
   "hand.closest": {
-    "value": "Closest to the doorknob",
+    "value": "closest to the doorknob",
     "visible": false
   },
   "hand.veryClose": {
-    "value": "Very close to the doorknob",
+    "value": "very close to the doorknob",
     "visible": false
   },
   "hand.close": {
-    "value": "Close to the doorknob",
+    "value": "close to the doorknob",
     "visible": false
   },
   "hand.neither": {
-    "value": "Neither far nor close to the doorknob",
+    "value": "neither far nor close to the doorknob",
     "visible": false
   },
   "hand.far": {
-    "value": "Far from the doorknob",
+    "value": "far from the doorknob",
     "visible": false
   },
   "hand.veryFar": {
-    "value": "Very far from the doorknob",
+    "value": "very far from the doorknob",
     "visible": false
   },
   "hand.farthest": {
-    "value": "Farthest from the doorknob",
+    "value": "farthest from the doorknob",
     "visible": false
   },
   "electrons.discharged": {
-    "value": "Electrons discharged",
+    "value": "electrons discharged",
     "visible": false
   },
   "electrons.total": {
-    "value": "Total electrons: {0}"
+    "value": "Total electrons: {0}",
+    "visible": false
   },
   "electrons.totalAfterDischarge": {
-    "value": "Total electrons: Discharge occurred. Electrons decreased from {1} to {0}"
+    "value": "Total electrons: Discharge occurred. Electrons decreased from {1} to {0}",
+    "visible": false
+  },
+  "electrons.discription": {
+    "value": "He has {0} charges.",
+    "visible": false
+  },
+  "scene.descripton": {
+    "value": "John is standing with his foot {1}, and his hand is {0}. {2}",
+    "visible": false
   }
 }

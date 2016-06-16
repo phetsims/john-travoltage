@@ -63,7 +63,7 @@ define( function( require ) {
     return scaleToRadians( scaleValue, motionRange, radianOffset );
   };
 
-  var getPositionMessage = function ( position, rangeMap ) {
+  var getPositionDescription = function ( position, rangeMap ) {
     var message = '';
 
     _.forEach(rangeMap, function (map) {
@@ -73,7 +73,7 @@ define( function( require ) {
       }
     });
 
-    return StringUtils.format( positionTemplateString, position, message );
+    return message;
   };
 
   /**
@@ -248,15 +248,19 @@ define( function( require ) {
           keyboardEventHandled = true;
         } );
 
-        // Updates the PDOM with changes in the model
-        appendage.angleProperty.link( function updatePosition( angle ) {
+        var updatePosition = function ( angle ) {
           var position = angleToPosition( appendage.angle, keyboardMotion.totalRange, keyboardMotion.max, options.keyboardMidPointOffset );
+          var positionDescription = getPositionDescription( position, rangeMap );
           domElement.value = position;
-          domElement.setAttribute( 'aria-valuetext', getPositionMessage( position, rangeMap ) );
+          domElement.setAttribute( 'aria-valuetext', StringUtils.format( positionTemplateString, position, positionDescription ) );
+          appendageNode.positionDescription = positionDescription;
 
           // updates the position of the focus highlight
           focusCircle.center = imageNode.center;
-        } );
+        };
+
+        // Updates the PDOM with changes in the model
+        appendage.angleProperty.link( updatePosition );
 
         return new AccessiblePeer( accessibleInstance, domElement );
       }

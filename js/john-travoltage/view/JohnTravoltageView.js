@@ -18,6 +18,7 @@ define( function( require ) {
   var BackgroundElementsNode = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/BackgroundElementsNode' );
   var AccessibleFormNode = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/AccessibleFormNode' );
   var AccessibleLabelNode = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/AccessibleLabelNode' );
+  var AccessibleDescriptionNode = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/AccessibleDescriptionNode' );
   var AppendageNode = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/AppendageNode' );
   var SparkNode = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/SparkNode' );
   var ElectronLayerNode = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/ElectronLayerNode' );
@@ -54,6 +55,7 @@ define( function( require ) {
   var MAP_ARM_DISTANCE_TO_LFO_FREQUENCY = new LinearFunction( 14, 240, 10, 1 );
 
   // strings
+  var screenLabelString = require( 'string!JOHN_TRAVOLTAGE/john-travoltage.title' );
   var armSliderLabelString = require( 'string!JOHN_TRAVOLTAGE/armSliderLabel' );
   var legSliderLabelString = require( 'string!JOHN_TRAVOLTAGE/legSliderLabel' );
   var footOnCarpetString = require( 'string!JOHN_TRAVOLTAGE/foot.onCarpet' );
@@ -185,10 +187,12 @@ define( function( require ) {
       status: 'john-travoltage-status'
     };
 
-    //The sim works best in most browsers using svg. But in firefox on Win8 it is very slow and buggy, so use canvas on firefox.
+    //The sim works best in most browsers using svg.
+    //But in firefox on Win8 it is very slow and buggy, so use canvas on firefox.
     ScreenView.call( this, {
       renderer: platform.firefox ? 'canvas' : null,
-      layoutBounds: new Bounds2( 0, 0, 768, 504 )
+      layoutBounds: new Bounds2( 0, 0, 768, 504 ),
+      screenLabel: screenLabelString
     } );
 
     //add background elements
@@ -227,9 +231,10 @@ define( function( require ) {
     } );
 
     //spark
-    accessibleFormNode.addChild( new SparkNode( model.sparkVisibleProperty, model.arm, model.doorknobPosition, function( listener ) {
-      model.on( 'step', listener );
-    }, electronsDischargedString, {peerID: this.peerIDs.alert} ) );
+    accessibleFormNode.addChild( new SparkNode( model.sparkVisibleProperty, model.arm, model.doorknobPosition,
+      function( listener ) {
+        model.on( 'step', listener );
+      }, electronsDischargedString, { peerID: this.peerIDs.alert } ) );
 
     //Sound button and reset all button
     var soundButton = new SoundToggleButton( model.soundProperty );
@@ -256,7 +261,8 @@ define( function( require ) {
     }
 
     //Split layers before particle layer for performance
-    //Use a layer for electrons so it has only one pickable flag, perhaps may improve performance compared to iterating over all electrons to see if they are pickable?
+    //Use a layer for electrons so it has only one pickable flag, perhaps may improve performance compared to iterating
+    //over all electrons to see if they are pickable?
     var electronLayer = new ElectronLayerNode( model.electrons, MAX_ELECTRONS, model.leg, model.arm, {
       layerSplit: true,
       pickable: false,
@@ -265,12 +271,22 @@ define( function( require ) {
     } );
     accessibleFormNode.addChild( electronLayer );
 
+    // Scene description
+    var accessibleDescription = new AccessibleDescriptionNode( this.arm, this.leg, model.electrons, accessibleFormNode );
+    this.addChild( accessibleDescription );
+    // accessibleDescription.moveToBack();
+
     // debug lines, body and forceline, uncomment this to view physical bounds of body
-    // borders are approximately 8px = radius of particle from physical body, because physical radius of electron = 1 in box2D
+    // borders are approximately 8px = radius of particle from physical body,
+    // because physical radius of electron = 1 in box2D
     if ( SHOW_DEBUG_INFO ) {
       this.showBody();
 
-      accessibleFormNode.addChild( new Circle( 10, { x: model.bodyVertices[ 0 ].x, y: model.bodyVertices[ 0 ].y, fill: 'blue' } ) );
+      accessibleFormNode.addChild( new Circle( 10, {
+        x: model.bodyVertices[ 0 ].x,
+        y: model.bodyVertices[ 0 ].y,
+        fill: 'blue'
+      } ) );
       accessibleFormNode.addChild( new Circle( 10, { x: 0, y: 0, fill: 'blue' } ) );
 
       //Debugging for finger location
