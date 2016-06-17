@@ -21,6 +21,10 @@ define( function( require ) {
   var AccessiblePeer = require( 'SCENERY/accessibility/AccessiblePeer' );
   var Input = require( 'SCENERY/input/Input' );
   var johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
+  var Sound = require( 'VIBE/Sound' );
+
+  // audio
+  var limitBonkAudio = require( 'audio!JOHN_TRAVOLTAGE/limit-bonk' );
 
   //Compute the distance (in radians) between angles a and b, using an inlined dot product (inlined to remove allocations)
   var distanceBetweenAngles = function( a, b ) {
@@ -48,6 +52,9 @@ define( function( require ) {
     var imageNode = new Image( image );
     this.addChild( imageNode );
 
+    // create the sound that will be played when the motion range is reached
+    var limitBonkSound = new Sound( limitBonkAudio );
+
     var lastAngle = appendage.angle;
     var currentAngle = appendage.angle;
     this.dragging = false;
@@ -61,6 +68,7 @@ define( function( require ) {
       }
       return angle;
     };
+
     imageNode.addInputListener( new SimpleDragHandler( {
       allowTouchSnag: true,
       start: function( event ) {
@@ -76,6 +84,12 @@ define( function( require ) {
         //Limit leg to approximately "half circle" so it cannot spin around, see #63
         if ( appendage instanceof Leg ) {
           angle = limitLegRotation( angle );
+
+          // play a sound when the range of motion is reached
+          if ( ( angle === 0 && lastAngle > 0 ) ||
+               ( angle === Math.PI && lastAngle > 0 && lastAngle < Math.PI ) ){
+            limitBonkSound.play();
+          }
         }
 
         //if clamped at one of the upper angles, only allow the right direction of movement to change the angle, so it won't skip halfway around
@@ -133,7 +147,7 @@ define( function( require ) {
     }
 
     // Add accessible content for the leg, introducing keyboard navigation and arrow keys to rotate the appendage.
-    if( appendage instanceof Leg ) {
+    if ( appendage instanceof Leg ) {
       this.setAccessibleContent( {
         createPeer: function( accessibleInstance ) {
           var trail = accessibleInstance.trail;
@@ -170,6 +184,6 @@ define( function( require ) {
   }
 
   johnTravoltage.register( 'AppendageNode', AppendageNode );
-  
+
   return inherit( Node, AppendageNode );
 } );
