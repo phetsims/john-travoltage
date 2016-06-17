@@ -32,6 +32,7 @@ define( function( require ) {
   var PitchedPopGenerator = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/PitchedPopGenerator' );
   var ToneGenerator = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/ToneGenerator' );
   var JostlingChargesSoundGenerator = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/JostlingChargesSoundGenerator' );
+  var ChargeAmountToneGenerator = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/ChargeAmountToneGenerator' );
   var Sound = require( 'VIBE/Sound' );
   var LinearFunction = require( 'DOT/LinearFunction' );
   var johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
@@ -114,12 +115,22 @@ define( function( require ) {
     //sonification
     if ( SONIFICATION_CONTROL ) {
       var pitchedPopGenerator = new PitchedPopGenerator( model.soundProperty );
-      var jostlingChargesSoundGenerator = new JostlingChargesSoundGenerator(
-        model.soundProperty,
-        model.electrons.lengthProperty,
-        0,
-        JohnTravoltageModel.MAX_ELECTRONS
-      );
+      if ( SONIFICATION_CONTROL === 1 ){
+        this.chargeToneGenerator = new ChargeAmountToneGenerator(
+          model.soundProperty,
+          model.electrons.lengthProperty,
+          0,
+          JohnTravoltageModel.MAX_ELECTRONS
+        );
+      }
+      else{
+        this.jostlingChargesSoundGenerator = new JostlingChargesSoundGenerator(
+          model.soundProperty,
+          model.electrons.lengthProperty,
+          0,
+          JohnTravoltageModel.MAX_ELECTRONS
+        );
+      }
       this.armPositionToneGenerator = new ToneGenerator();
       this.shoeDraggingForwardOnCarpetSound = new Sound( shoeDraggingForwardOnCarpetAudio );
       this.shoeDraggingBackwardOnCarpetSound = new Sound( shoeDraggingBackwardOnCarpetAudio );

@@ -1,7 +1,7 @@
 // Copyright 2016, University of Colorado Boulder
 
 /**
- * a sound generator intended for use in portraying the sounds of a number of things jostling around, created for
+ * a sound generator intended for use in portraying the sound of a number of things jostling around, created for
  * sonification
  */
 define( function( require ) {
@@ -24,47 +24,41 @@ define( function( require ) {
 
     var jostlingSound = new Sound( jostlingAudio );
     var soundLoaded = false;
+    var soundIsPlaying = false;
     var audioContext = new ( window.AudioContext || window.webkitAudioContext )();
+    var jostlingSoundSource;
 
-    // create the sound source
-    var jostlingSoundSource = audioContext.createBufferSource();
-    jostlingSoundSource.loop = true;
-
-    // add in a gain stage - gain is adjusted as the number of particles increases and decreases
+    // create a gain stage - gain is adjusted as the number of particles increases and decreases
     var masterGainControl = audioContext.createGain();
     masterGainControl.gain.value = 0;
-
-    // connect things together
-    jostlingSoundSource.connect( masterGainControl );
     masterGainControl.connect( audioContext.destination );
 
-    // create a function to map number of particles to output gain
-    var mapNumItemsToGain = LinearFunction( 0, 100, 0.2, 1 );
+    // create a function to map the number of particles to output gain
+    var mapNumItemsToGain = LinearFunction( minItems, maxItems, 0.2, 1 );
 
-
-    var soundIsPlaying = false;
-
-    // adjust the sound based on the number of items that are jostling
+    // start and stop the sounds and adjust it based on the number of items
     numItemsProperty.link( function( numItems ){
 
       if ( numItems > 0 ) {
 
-        jostlingSoundSource
-
-        // This is necessary because of the async load of the impulse response buffer.
+        // This is necessary because of the async load of the audio buffer.
         if ( !soundLoaded && typeof( jostlingSound.audioBuffer ) !== 'undefined' ) {
-          jostlingSoundSource.buffer = jostlingSound.audioBuffer;
           soundLoaded = true;
         }
 
-        // start the sound if it isn't already playing
         if ( soundLoaded && !soundIsPlaying ) {
+
+          // create the sound source and start it up
+          jostlingSoundSource = audioContext.createBufferSource();
+          jostlingSoundSource.buffer = jostlingSound.audioBuffer;
+          jostlingSoundSource.loop = true;
+          jostlingSoundSource.connect( masterGainControl );
           jostlingSoundSource.start();
           soundIsPlaying = true;
         }
 
         // set the gain
-        masterGainControl.gain.value = mapNumItemsToGain( numItems );
+        masterGainControl.gain.value = soundEnabledProperty.value ? mapNumItemsToGain( numItems ) : 0;
       }
       else{
         if ( soundIsPlaying ){
@@ -74,6 +68,11 @@ define( function( require ) {
       }
     } );
 
+    soundEnabledProperty.link( function( soundEnabled ){
+      if ( !soundEnabled ){
+        masterGainControl.gain.value = 0;
+      }
+    } );
   }
 
   johnTravoltage.register( 'JostlingChargesSoundGenerator', JostlingChargesSoundGenerator );
