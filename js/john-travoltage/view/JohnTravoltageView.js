@@ -71,10 +71,10 @@ define( function( require ) {
     this.addChild( new Node( { layerSplit: true, pickable: false } ) );
 
     //arm and leg - only interactive elements
-    this.leg = new AppendageNode( model.leg, leg, 25, 28, Math.PI / 2 * 0.7 );
+    this.leg = new AppendageNode( model.leg, leg, 25, 28, Math.PI / 2 * 0.7, model.soundProperty );
     this.addChild( this.leg );
 
-    this.arm = new AppendageNode( model.arm, arm, 4, 45, -0.1 );
+    this.arm = new AppendageNode( model.arm, arm, 4, 45, -0.1, model.soundProperty );
     this.addChild( this.arm );
 
     //Show the dotted lines again when the sim is reset

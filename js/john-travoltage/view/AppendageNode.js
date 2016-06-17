@@ -21,7 +21,11 @@ define( function( require ) {
   var AccessiblePeer = require( 'SCENERY/accessibility/AccessiblePeer' );
   var Input = require( 'SCENERY/input/Input' );
   var johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
+  var JohnTravoltageQueryParameters = require( 'JOHN_TRAVOLTAGE/john-travoltage/JohnTravoltageQueryParameters' );
   var Sound = require( 'VIBE/Sound' );
+
+  // constants
+  var SONIFICATION_CONTROL = JohnTravoltageQueryParameters.SONIFICATION;
 
   // audio
   var limitBonkAudio = require( 'audio!JOHN_TRAVOLTAGE/limit-bonk' );
@@ -38,9 +42,10 @@ define( function( require ) {
    * @param {Number} dx
    * @param {Number} dy
    * @param {Number} angleOffset the angle about which to rotate
+   * @param {Property.<boolean> soundEnabledProperty
    * @constructor
    */
-  function AppendageNode( appendage, image, dx, dy, angleOffset ) {
+  function AppendageNode( appendage, image, dx, dy, angleOffset, soundEnabledProperty ) {
     var appendageNode = this;
 
     Node.call( this, { cursor: 'pointer' } );
@@ -85,10 +90,12 @@ define( function( require ) {
         if ( appendage instanceof Leg ) {
           angle = limitLegRotation( angle );
 
-          // play a sound when the range of motion is reached
-          if ( ( angle === 0 && lastAngle > 0 ) ||
-               ( angle === Math.PI && lastAngle > 0 && lastAngle < Math.PI ) ){
-            limitBonkSound.play();
+          if ( SONIFICATION_CONTROL && soundEnabledProperty.value ){
+            // play a sound when the range of motion is reached
+            if ( ( angle === 0 && lastAngle > 0 ) ||
+                 ( angle === Math.PI && lastAngle > 0 && lastAngle < Math.PI ) ){
+              limitBonkSound.play();
+            }
           }
         }
 
