@@ -64,6 +64,10 @@ define( function( require ) {
       layoutBounds: new Bounds2( 0, 0, 768, 504 )
     } );
 
+    //track previous arm position and time, used to decide if arm is currently moving
+    this.previousFingerPosition = this.model.arm.getFingerPosition();
+    this.timeAtCurrentFingerPosition = Number.POSITIVE_INFINITY;
+
     //add background elements
     this.addChild( new BackgroundElementsNode() );
 
@@ -216,8 +220,9 @@ define( function( require ) {
         //-------------------------------------------------------------------------------------------------------------
         // update the sound for the arm distance from the knob
         //-------------------------------------------------------------------------------------------------------------
-        // TODO: Consider modifying the Arm class to have a property for dragging, and moving this code into constructor
-        if ( this.arm.dragging ) {
+
+        //if the arm is moving, play the proximity sound
+        if ( this.arm.dragging && this.timeAtCurrentFingerPosition < 1.0 ) { // time threshold empirically determined
           var distanceToKnob = this.model.arm.getFingerPosition().distance( this.model.doorknobPosition );
           if ( SONIFICATION_CONTROL === true || SONIFICATION_CONTROL === 1 ) {
 
@@ -241,6 +246,14 @@ define( function( require ) {
         else {
           this.armPositionToneGenerator.stopTone();
         }
+      }
+
+      if ( this.model.arm.getFingerPosition().equals( this.previousFingerPosition ) ){
+        this.timeAtCurrentFingerPosition += dt;
+      }
+      else{
+        this.previousFingerPosition = this.model.arm.getFingerPosition();
+        this.timeAtCurrentFingerPosition = 0;
       }
     },
 
