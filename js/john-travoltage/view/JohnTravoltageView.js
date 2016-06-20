@@ -115,7 +115,7 @@ define( function( require ) {
     //sonification
     if ( SONIFICATION_CONTROL ) {
       var pitchedPopGenerator = new PitchedPopGenerator( model.soundProperty );
-      if ( SONIFICATION_CONTROL === true || SONIFICATION_CONTROL === 1 ){
+      if ( SONIFICATION_CONTROL === true || SONIFICATION_CONTROL === 1 ) {
 
         this.jostlingChargesSoundGenerator = new JostlingChargesSoundGenerator(
           model.soundProperty,
@@ -132,7 +132,7 @@ define( function( require ) {
           JohnTravoltageModel.MAX_ELECTRONS
         );
       }
-      else{
+      else {
 
         this.chargeToneGenerator = new ChargeAmountToneGenerator(
           model.soundProperty,
@@ -141,7 +141,6 @@ define( function( require ) {
           JohnTravoltageModel.MAX_ELECTRONS,
           { mapQuantityToFilterChangeRate: true, toneFrequency: 120 }
         );
-
 
 
       }
@@ -167,13 +166,16 @@ define( function( require ) {
       electronLayer.addChild( newElectron );
 
       // play the sound that indicates that an electron was added
-      pitchedPopGenerator && pitchedPopGenerator.createPop( model.electrons.length / MAX_ELECTRONS );
+      pitchedPopGenerator && pitchedPopGenerator.createPop(
+        model.electrons.length / MAX_ELECTRONS,
+        model.electrons.length < JohnTravoltageModel.MAX_ELECTRONS ? 0.02 : 1.75 // longer pitch for last electron
+      );
 
       var itemRemovedListener = function( removed ) {
         if ( removed === added ) {
           electronLayer.removeChild( newElectron );
           model.electrons.removeItemRemovedListener( itemRemovedListener );
-          pitchedPopGenerator && pitchedPopGenerator.createPop( model.electrons.length / MAX_ELECTRONS );
+          pitchedPopGenerator && pitchedPopGenerator.createPop( model.electrons.length / MAX_ELECTRONS, 0.02 );
         }
       };
       model.electrons.addItemRemovedListener( itemRemovedListener );
@@ -280,10 +282,10 @@ define( function( require ) {
         }
       }
 
-      if ( this.model.arm.getFingerPosition().equals( this.previousFingerPosition ) ){
+      if ( this.model.arm.getFingerPosition().equals( this.previousFingerPosition ) ) {
         this.timeAtCurrentFingerPosition += dt;
       }
-      else{
+      else {
         this.previousFingerPosition = this.model.arm.getFingerPosition();
         this.timeAtCurrentFingerPosition = 0;
       }

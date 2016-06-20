@@ -14,7 +14,6 @@ define( function( require ) {
   // constants
   var MIN_FREQUENCY = 261.626; // Hz
   var MAX_FREQUENCY = 783.991; // Hz
-  var NOTE_DURATION = 0.05; // seconds
   var MIN_INTER_NOTE_TIME = 0.01; // seconds
   var MAX_GAIN = 1.0;
 
@@ -26,7 +25,7 @@ define( function( require ) {
 
     this.soundEnabledProperty = soundEnabledProperty;
 
-    // queue for storing pops to be played if they are coming too quickly
+    // queue for storing sounds to be played if they are coming too quickly
     this.pitchQueue = [];
 
     // create the audio context
@@ -54,11 +53,14 @@ define( function( require ) {
      * create the pop sound
      * {number} relativePitch - a value from 0 to 1 indicating the frequency to play within the pitch range
      */
-    createPop: function( relativePitch ) {
+    createPop: function( relativePitch, duration ) {
 
       assert && assert( relativePitch >= 0 && relativePitch <= 1, 'relativePitch must be between 0 and 1' );
 
-      this.pitchQueue.push( MIN_FREQUENCY + relativePitch * ( MAX_FREQUENCY - MIN_FREQUENCY ) );
+      this.pitchQueue.push( {
+        pitch: MIN_FREQUENCY + relativePitch * ( MAX_FREQUENCY - MIN_FREQUENCY ),
+        duration: duration
+      } );
 
       if ( !this.noteTimer ) {
         // the timer isn't running, so play the pitch immediately
@@ -74,12 +76,14 @@ define( function( require ) {
       assert && assert( this.timer !== null, 'timer should not be running when starting to play queued sounds' );
 
       if ( this.pitchQueue.length > 0 ) {
-        this.pitchOn( this.pitchQueue[ 0 ], NOTE_DURATION );
+        var duration = this.pitchQueue[ 0 ].duration;
+        this.pitchOn( this.pitchQueue[ 0 ].pitch, duration );
         this.pitchQueue.splice( 0, 1 );
         this.noteTimer = Timer.setTimeout( function() {
           self.noteTimer = null;
           self.playNextPitchFromQueue();
-        }, NOTE_DURATION + MIN_INTER_NOTE_TIME * 1000 );
+        //}, ( duration + MIN_INTER_NOTE_TIME ) * 1000 );
+        }, 10 ); // TODO: Temp workaround for an issue where this gets too far behind, look at callbacks from parameter changes (if there is such a thing)
       }
     },
 
@@ -92,7 +96,7 @@ define( function( require ) {
       if ( this.soundEnabledProperty.value ) {
         var now = this.audioContext.currentTime;
         this.gainControl.gain.setTargetAtTime( MAX_GAIN, now, 0.015 );
-        this.gainControl.gain.setTargetAtTime( 0, now + NOTE_DURATION, 0.015 );
+        this.gainControl.gain.setTargetAtTime( 0, now + duration, 0.015 );
       }
     }
   } );
