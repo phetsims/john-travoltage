@@ -115,7 +115,16 @@ define( function( require ) {
     //sonification
     if ( SONIFICATION_CONTROL ) {
       var pitchedPopGenerator = new PitchedPopGenerator( model.soundProperty );
-      if ( SONIFICATION_CONTROL === 1 ){
+      if ( SONIFICATION_CONTROL === true || SONIFICATION_CONTROL === 1 ){
+
+        this.jostlingChargesSoundGenerator = new JostlingChargesSoundGenerator(
+          model.soundProperty,
+          model.electrons.lengthProperty,
+          0,
+          JohnTravoltageModel.MAX_ELECTRONS
+        );
+      }
+      else if ( SONIFICATION_CONTROL === 2 ) {
         this.chargeToneGenerator = new ChargeAmountToneGenerator(
           model.soundProperty,
           model.electrons.lengthProperty,
@@ -124,12 +133,17 @@ define( function( require ) {
         );
       }
       else{
-        this.jostlingChargesSoundGenerator = new JostlingChargesSoundGenerator(
+
+        this.chargeToneGenerator = new ChargeAmountToneGenerator(
           model.soundProperty,
           model.electrons.lengthProperty,
           0,
-          JohnTravoltageModel.MAX_ELECTRONS
+          JohnTravoltageModel.MAX_ELECTRONS,
+          { mapQuantityToFilterChangeRate: true, toneFrequency: 120 }
         );
+
+
+
       }
       this.armPositionToneGenerator = new ToneGenerator();
       this.shoeDraggingForwardOnCarpetSound = new Sound( shoeDraggingForwardOnCarpetAudio );

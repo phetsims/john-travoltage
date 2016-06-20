@@ -13,28 +13,43 @@ define( function( require ) {
   var johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
   var LinearFunction = require( 'DOT/LinearFunction' );
   var Sound = require( 'VIBE/Sound' );
+  var Timer = require( 'PHET_CORE/Timer' );
 
   // audio
   var ir = require( 'audio!JOHN_TRAVOLTAGE/koli_summer_site1_1way_mono.ogg' );
 
   // constants
-  var INITIAL_FREQUENCY = 60; // Hz
+  var DEFAULT_FREQUENCY = 60; // Hz
   var MAX_GAIN = 1;
+  var MIN_FILTER_UPDATES_PER_SECOND = 2;
+  var MAX_FILTER_UPDATES_PER_SECOND = 6;
+  var MAX_FILTER_CUTOFF = 6000;  // chosen empirically after experimenting with a number of headphones and computer speakers
+  var MAX_FILTER_CUTOFF_LOG = Math.log( MAX_FILTER_CUTOFF );
 
   /**
+   * @param {Property.<boolean>} soundEnabledProperty
+   * @param {Property.<number>} numChargesProperty
+   * @param {number} minCharges
+   * @param {number} maxCharges
+   * @param {Object} options
    * @constructor
-   * {Property.<boolean> soundEnabledProperty
    */
-  function ChargeAmountToneGenerator( soundEnabledProperty, numChargesProperty, minCharges, maxCharges ) {
+  function ChargeAmountToneGenerator( soundEnabledProperty, numChargesProperty, minCharges, maxCharges, options ) {
+
+    options = _.extend( {
+      mapQuantityToGain: true,
+      mapQuantityToFilterCutoff: false,
+      toneFrequency: DEFAULT_FREQUENCY
+    }, options );
 
     // create the audio context
     // TODO: Is this if clause still needed, or is window.AudioContext now widely supported?
-    var audioContext = new (window.AudioContext || window.webkitAudioContext)();
+    var audioContext = new ( window.AudioContext || window.webkitAudioContext )();
 
     // create and set up oscillator 1
     var oscillator1 = audioContext.createOscillator(); // Create sound source
     oscillator1.type = 'square';
-    oscillator1.frequency.value = INITIAL_FREQUENCY;
+    oscillator1.frequency.value = options.toneFrequency;
     oscillator1.detune.value = 7;
     oscillator1.start( 0 );
 
@@ -49,7 +64,7 @@ define( function( require ) {
     // create and set up oscillator 2
     var oscillator2 = audioContext.createOscillator(); // Create sound source
     oscillator2.type = 'triangle';
-    oscillator2.frequency.value = INITIAL_FREQUENCY;
+    oscillator2.frequency.value = options.toneFrequency;
     oscillator1.detune.value = -7;
     oscillator2.start( 0 );
 
@@ -64,7 +79,12 @@ define( function( require ) {
     // create a low frequency oscillator (LFO) that can be used to modulate the output volume
     var lfo = audioContext.createOscillator();
     lfo.frequency.value = 2; // Hz
-    lfo.start();
+
+    if ( !options.mapQuantityToFilterChangeRate ) {
+
+      // only start the LFO is not doing the filter changes, since otherwise it's a bit too much activity
+      lfo.start();
+    }
 
     // since oscillators go from -1 to +1 we need to put this value through a TODO finish comment
     var lfoGain = audioContext.createGain();
@@ -103,12 +123,67 @@ define( function( require ) {
     // connect the master gain control to the output
     masterGainControl.connect( audioContext.destination );
 
+    // function to map number of items to filter update rate
+    var mapNumItemsToFilterUpdateRate = new LinearFunction(
+      minCharges,
+      maxCharges,
+      MIN_FILTER_UPDATES_PER_SECOND,
+      MAX_FILTER_UPDATES_PER_SECOND
+    );
+
+    // variables used to update the filter cutoff frequency, only used if that behavior is enabled
+    var filterUpdateTimer = null;
+    var minFilterCutoffLog = Math.log( options.toneFrequency * 1.5 );
+
+    // function to update the filter range with a new randomly chosen cutoff value and set the time for the next change
+    function updateFilterCutoff() {
+
+      //var changeProportion = Math.random() * 0.5 + 0.25; // 25% to 50%
+      //var changeProportion = Math.random() * 0.333 + 0.333; // 33% to 67%
+      var changeProportion = Math.random() * 0.8 + 0.1; // 10% to 90%
+      var changeAmountLog = changeProportion * ( MAX_FILTER_CUTOFF_LOG - minFilterCutoffLog );
+      if ( Math.random() > 0.5 ){
+        // make the change negative half the time
+        changeAmountLog *= -1;
+      }
+      var newCutoffLog = Math.log( biquadFilter1.frequency.value ) + changeAmountLog;
+      if ( newCutoffLog > MAX_FILTER_CUTOFF_LOG ){
+        newCutoffLog = minFilterCutoffLog + ( newCutoffLog - MAX_FILTER_CUTOFF_LOG );
+      }
+      else if ( newCutoffLog < minFilterCutoffLog ){
+        newCutoffLog = MAX_FILTER_CUTOFF_LOG - ( minFilterCutoffLog - newCutoffLog );
+      }
+      var newCutoff = Math.exp( newCutoffLog );
+      biquadFilter1.frequency.setValueAtTime( newCutoff, audioContext.currentTime );
+      biquadFilter2.frequency.setValueAtTime( newCutoff, audioContext.currentTime );
+      filterUpdateTimer = Timer.setTimeout(
+        updateFilterCutoff,
+        1 / mapNumItemsToFilterUpdateRate( numChargesProperty.value ) * 1000
+      );
+    }
+
+    // function to stop filter cutoff updates
+    function stopFilterCutoffUpdates() {
+      if ( filterUpdateTimer ) {
+        Timer.clearInterval( filterUpdateTimer );
+        filterUpdateTimer = null;
+      }
+    }
+
     // create a function to map the number of particles to output gain
-    var mapNumItemsToGain = LinearFunction( minCharges, maxCharges, 0, MAX_GAIN );
+    var mapNumItemsToGain;
+    if ( options.mapQuantityToGain ) {
+      mapNumItemsToGain = LinearFunction( minCharges, maxCharges, 0, MAX_GAIN );
+    }
+    else {
+      // function that always maps to max gain
+      mapNumItemsToGain = LinearFunction( minCharges, maxCharges, MAX_GAIN, MAX_GAIN );
+    }
 
     // monitor the number of charges and adjust the tone in response
-    numChargesProperty.link( function( numCharges ){
-      if ( numCharges > 0 ){
+    numChargesProperty.link( function( numCharges ) {
+
+      if ( numCharges > 0 && soundEnabledProperty.value ) {
 
         // This is necessary because of the async load of the audio buffer.
         if ( !impulseLoaded && typeof( impulseResponse.audioBuffer ) !== 'undefined' ) {
@@ -116,10 +191,27 @@ define( function( require ) {
           impulseLoaded = true;
         }
 
+        // update the output gain
         masterGainControl.gain.value = mapNumItemsToGain( numCharges );
+
+        // if the timer isn't running but filter updates are enabled, kick it off
+        if ( options.mapQuantityToFilterChangeRate && filterUpdateTimer === null ) {
+          updateFilterCutoff();
+        }
+      }
+      else {
+        masterGainControl.gain.value = 0;
+        stopFilterCutoffUpdates();
+      }
+    } );
+
+    // if the sound enabled setting becomes false, turn off the sound right away
+    soundEnabledProperty.link( function( soundEnabled ) {
+      if ( !soundEnabled ) {
+        masterGainControl.gain.value = 0;
       }
       else{
-        masterGainControl.gain.value = 0;
+        masterGainControl.gain.value = mapNumItemsToGain( numChargesProperty.value );
       }
     } );
   }
