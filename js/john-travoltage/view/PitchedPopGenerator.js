@@ -14,7 +14,7 @@ define( function( require ) {
   // constants
   var MIN_FREQUENCY = 261.626; // Hz
   var MAX_FREQUENCY = 783.991; // Hz
-  var MIN_INTER_NOTE_TIME = 0.01; // seconds
+  //var MIN_INTER_NOTE_TIME = 0.01; // seconds
   var MAX_GAIN = 1.0;
 
   /**
