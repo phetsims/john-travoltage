@@ -17,8 +17,8 @@ define( function( require ) {
   var AccessiblePeer = require( 'SCENERY/accessibility/AccessiblePeer' );
 
   // strings
-  var sceneDescriptionString = require( 'string!JOHN_TRAVOLTAGE/scene.descripton' );
-  var electronsDescriptionString = require( 'string!JOHN_TRAVOLTAGE/electrons.discription' );
+  var sceneDescriptionString = require( 'string!JOHN_TRAVOLTAGE/scene.description' );
+  var electronsDescriptionString = require( 'string!JOHN_TRAVOLTAGE/electrons.description' );
 
   /**
    * @param {String} labelText - The text to output in the label

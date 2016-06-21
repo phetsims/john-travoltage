@@ -57,7 +57,7 @@ define( function( require ) {
   var MAP_ARM_DISTANCE_TO_LFO_FREQUENCY = new LinearFunction( 14, 240, 10, 1 ); // values empirically determined
 
   // strings
-  var screenLabelString = require( 'string!JOHN_TRAVOLTAGE/john-travoltage.title' );
+  var johnTravoltageTitleString = require( 'string!JOHN_TRAVOLTAGE/john-travoltage.title' );
   var armSliderLabelString = require( 'string!JOHN_TRAVOLTAGE/armSliderLabel' );
   var legSliderLabelString = require( 'string!JOHN_TRAVOLTAGE/legSliderLabel' );
   var footOnCarpetString = require( 'string!JOHN_TRAVOLTAGE/foot.onCarpet' );
@@ -194,7 +194,7 @@ define( function( require ) {
     ScreenView.call( this, {
       renderer: platform.firefox ? 'canvas' : null,
       layoutBounds: new Bounds2( 0, 0, 768, 504 ),
-      screenLabel: screenLabelString
+      screenLabel: johnTravoltageTitleString
     } );
 
     //track previous arm position and time, used to decide if arm is currently moving

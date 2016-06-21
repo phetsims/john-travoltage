@@ -63,11 +63,11 @@
     "value": "Total electrons: Discharge occurred. Electrons decreased from {1} to {0}",
     "visible": false
   },
-  "electrons.discription": {
+  "electrons.description": {
     "value": "He has {0} charges.",
     "visible": false
   },
-  "scene.descripton": {
+  "scene.description": {
     "value": "John is standing with his foot {1}, and his hand is {0}. {2}",
     "visible": false
   }

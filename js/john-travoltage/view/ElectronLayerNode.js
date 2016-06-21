@@ -19,8 +19,8 @@
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
 
   // strings
-  var totalElectronsString = require( 'string!JOHN_TRAVOLTAGE/electrons.total' );
-  var totalElectronsAfterDischargeString = require( 'string!JOHN_TRAVOLTAGE/electrons.totalAfterDischarge' );
+  var electronsTotalString = require( 'string!JOHN_TRAVOLTAGE/electrons.total' );
+  var electronsTotalAfterDischargeString = require( 'string!JOHN_TRAVOLTAGE/electrons.totalAfterDischarge' );
 
   /**
    * @param {Electrons} electrons - the model for the number of electrons
@@ -66,7 +66,7 @@
 
       var setElectronStatus = function () {
         var currentCharge = electrons.length;
-        var chargeText = currentCharge >= priorCharge ? totalElectronsString : totalElectronsAfterDischargeString;
+        var chargeText = currentCharge >= priorCharge ? electronsTotalString : electronsTotalAfterDischargeString;
 
         statusNode.textContent = '';
         statusNode.textContent = StringUtils.format( chargeText, currentCharge, priorCharge );
