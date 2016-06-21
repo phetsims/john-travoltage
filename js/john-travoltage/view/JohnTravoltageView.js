@@ -35,6 +35,8 @@ define( function( require ) {
   var JohnTravoltageQueryParameters = require( 'JOHN_TRAVOLTAGE/john-travoltage/JohnTravoltageQueryParameters' );
   var PitchedPopGenerator = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/PitchedPopGenerator' );
   var ToneGenerator = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/ToneGenerator' );
+  var JostlingChargesSoundGenerator = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/JostlingChargesSoundGenerator' );
+  var ChargeAmountToneGenerator = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/ChargeAmountToneGenerator' );
   var Sound = require( 'VIBE/Sound' );
   var LinearFunction = require( 'DOT/LinearFunction' );
   var johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
@@ -51,8 +53,8 @@ define( function( require ) {
   var SONIFICATION_CONTROL = JohnTravoltageQueryParameters.SONIFICATION;
   var SHOW_DEBUG_INFO = JohnTravoltageQueryParameters.SHOW_DEBUG_INFO;
   var MAX_ELECTRONS = JohnTravoltageModel.MAX_ELECTRONS;
-  var MAP_ARM_DISTANCE_TO_OSCILLATOR_FREQUENCY = new LinearFunction( 14, 240, 440, 110 );
-  var MAP_ARM_DISTANCE_TO_LFO_FREQUENCY = new LinearFunction( 14, 240, 10, 1 );
+  var MAP_ARM_DISTANCE_TO_OSCILLATOR_FREQUENCY = new LinearFunction( 14, 240, 440, 110 ); // values empirically determined
+  var MAP_ARM_DISTANCE_TO_LFO_FREQUENCY = new LinearFunction( 14, 240, 10, 1 ); // values empirically determined
 
   // strings
   var screenLabelString = require( 'string!JOHN_TRAVOLTAGE/john-travoltage.title' );
@@ -195,6 +197,10 @@ define( function( require ) {
       screenLabel: screenLabelString
     } );
 
+    //track previous arm position and time, used to decide if arm is currently moving
+    this.previousFingerPosition = this.model.arm.getFingerPosition();
+    this.timeAtCurrentFingerPosition = Number.POSITIVE_INFINITY;
+
     //add background elements
     this.addChild( new BackgroundElementsNode() );
 
@@ -208,7 +214,7 @@ define( function( require ) {
     //arm and leg - only interactive elements
     var legLabel = new AccessibleLabelNode( legSliderLabelString );
     accessibleFormNode.addChild(legLabel);
-    this.leg = new AppendageNode( model.leg, leg, 25, 28, Math.PI / 2 * 0.7, legRangeMap,
+    this.leg = new AppendageNode( model.leg, leg, 25, 28, Math.PI / 2 * 0.7, model.soundProperty, legRangeMap,
       { controls: [ this.peerIDs.status ] } );
     legLabel.addChild( this.leg );
 
@@ -216,7 +222,7 @@ define( function( require ) {
     accessibleFormNode.addChild(armLabel);
     // the keyboardMidPointOffset was manually calculated as a radian offset that will trigger a discharge with the
     // minimum charge level.
-    this.arm = new AppendageNode( model.arm, arm, 4, 45, -0.1 , armRangeMap,
+    this.arm = new AppendageNode( model.arm, arm, 4, 45, -0.1, model.soundProperty, armRangeMap,
       { keyboardMidPointOffset: 0.41, controls: [ this.peerIDs.status ] } );
     armLabel.addChild( this.arm );
 
@@ -253,6 +259,35 @@ define( function( require ) {
     //sonification
     if ( SONIFICATION_CONTROL ) {
       var pitchedPopGenerator = new PitchedPopGenerator( model.soundProperty );
+      if ( SONIFICATION_CONTROL === true || SONIFICATION_CONTROL === 1 ) {
+
+        this.jostlingChargesSoundGenerator = new JostlingChargesSoundGenerator(
+          model.soundProperty,
+          model.electrons.lengthProperty,
+          0,
+          JohnTravoltageModel.MAX_ELECTRONS
+        );
+      }
+      else if ( SONIFICATION_CONTROL === 2 ) {
+        this.chargeToneGenerator = new ChargeAmountToneGenerator(
+          model.soundProperty,
+          model.electrons.lengthProperty,
+          0,
+          JohnTravoltageModel.MAX_ELECTRONS
+        );
+      }
+      else {
+
+        this.chargeToneGenerator = new ChargeAmountToneGenerator(
+          model.soundProperty,
+          model.electrons.lengthProperty,
+          0,
+          JohnTravoltageModel.MAX_ELECTRONS,
+          { mapQuantityToFilterChangeRate: true, toneFrequency: 120 }
+        );
+
+
+      }
       this.armPositionToneGenerator = new ToneGenerator();
       this.shoeDraggingForwardOnCarpetSound = new Sound( shoeDraggingForwardOnCarpetAudio );
       this.shoeDraggingBackwardOnCarpetSound = new Sound( shoeDraggingBackwardOnCarpetAudio );
@@ -260,9 +295,9 @@ define( function( require ) {
       this.legStillTime = 0;
     }
 
-    //Split layers before particle layer for performance
     //Use a layer for electrons so it has only one pickable flag, perhaps may improve performance compared to iterating
     //over all electrons to see if they are pickable?
+    //Split layers before particle layer for performance
     var electronLayer = new ElectronLayerNode( model.electrons, MAX_ELECTRONS, model.leg, model.arm, {
       layerSplit: true,
       pickable: false,
@@ -354,8 +389,9 @@ define( function( require ) {
         //-------------------------------------------------------------------------------------------------------------
         // update the sound for the arm distance from the knob
         //-------------------------------------------------------------------------------------------------------------
-        // TODO: Consider modifying the Arm class to have a property for dragging, and moving this code into constructor
-        if ( this.arm.dragging ) {
+
+        //if the arm is moving, play the proximity sound
+        if ( this.arm.dragging && this.timeAtCurrentFingerPosition < 1.0 ) { // time threshold empirically determined
           var distanceToKnob = this.model.arm.getFingerPosition().distance( this.model.doorknobPosition );
           if ( SONIFICATION_CONTROL === true || SONIFICATION_CONTROL === 1 ) {
 
@@ -379,6 +415,14 @@ define( function( require ) {
         else {
           this.armPositionToneGenerator.stopTone();
         }
+      }
+
+      if ( this.model.arm.getFingerPosition().equals( this.previousFingerPosition ) ) {
+        this.timeAtCurrentFingerPosition += dt;
+      }
+      else {
+        this.previousFingerPosition = this.model.arm.getFingerPosition();
+        this.timeAtCurrentFingerPosition = 0;
       }
     },
 

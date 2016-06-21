@@ -33,10 +33,6 @@
 
     Node.call( this, options );
 
-    var playSound = function () {
-      options.pitchedPopGenerator && options.pitchedPopGenerator.createPop( electrons.length / maxElectrons );
-    };
-
     //if new electron added to model - create and add new node to leg
     //TODO: Pooling for creation and use visible instead of addChild for performance
     electrons.addItemAddedListener( function( added ) {
@@ -47,7 +43,10 @@
       electronLayerView.addChild( newElectron );
 
       // play the sound that indicates that an electron was added
-      playSound();
+      options.pitchedPopGenerator && options.pitchedPopGenerator.createPop(
+        electrons.length / maxElectrons,
+        electrons.length < maxElectrons ? 0.02 : 1.75 // longer pitch for last electron
+      );
 
       var itemRemovedListener = function( removed ) {
         if ( removed === added ) {
@@ -55,7 +54,7 @@
           electrons.removeItemRemovedListener( itemRemovedListener );
 
           // play the sound that indicates that an electron was removed
-          playSound();
+          options.pitchedPopGenerator && options.pitchedPopGenerator.createPop( electrons.length / maxElectrons, 0.02 );
         }
       };
       electrons.addItemRemovedListener( itemRemovedListener );

@@ -2,7 +2,7 @@
 
 /**
  * a 2 oscillator monophonic sound generator
- * TODO: This was created for sonification, should be generalized and put in common code at some point when we know
+ * TODO: This was created for sonification, and should be generalized and put in common code at some point when we know
  * TODO: more about what we need to do.
  */
 define( function( require ) {

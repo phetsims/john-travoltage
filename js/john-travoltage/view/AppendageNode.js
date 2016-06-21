@@ -23,6 +23,14 @@ define( function( require ) {
   var Leg = require( 'JOHN_TRAVOLTAGE/john-travoltage/model/Leg' );
   var AccessiblePeer = require( 'SCENERY/accessibility/AccessiblePeer' );
   var johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
+  var JohnTravoltageQueryParameters = require( 'JOHN_TRAVOLTAGE/john-travoltage/JohnTravoltageQueryParameters' );
+  var Sound = require( 'VIBE/Sound' );
+
+  // constants
+  var SONIFICATION_CONTROL = JohnTravoltageQueryParameters.SONIFICATION;
+
+  // audio
+  var limitBonkAudio = require( 'audio!JOHN_TRAVOLTAGE/limit-bonk' );
 
   // strings
   var positionTemplateString = require( 'string!JOHN_TRAVOLTAGE/positionTemplate' );
@@ -82,6 +90,7 @@ define( function( require ) {
    * @param {Number} dx
    * @param {Number} dy
    * @param {Number} angleOffset the angle about which to rotate
+   * @param {Property.<boolean> soundEnabledProperty
    * @param {Array} rangeMap - an array of objects of the format {range: {max: Number, min: Number}, text: String}. This
    *                           is used to map a position value to text to use for the valueText of the related slider.
    * @param {Object} options -  optional configuration such as "keyboardMidPointOffset"; which is used to adjust the
@@ -89,7 +98,7 @@ define( function( require ) {
    *                 align the doorknob as the centre position of the arm slider.
    * @constructor
    */
-  function AppendageNode( appendage, image, dx, dy, angleOffset, rangeMap, options ) {
+  function AppendageNode( appendage, image, dx, dy, angleOffset, soundEnabledProperty, rangeMap, options ) {
     var appendageNode = this;
 
     Node.call( this, { cursor: 'pointer' } );
@@ -101,6 +110,9 @@ define( function( require ) {
     // add the image
     var imageNode = new Image( image );
     this.addChild( imageNode );
+
+    // create the sound that will be played when the motion range is reached
+    var limitBonkSound = new Sound( limitBonkAudio );
 
     var lastAngle = appendage.angle;
     var currentAngle = appendage.angle;
@@ -131,6 +143,14 @@ define( function( require ) {
         //Limit leg to approximately "half circle" so it cannot spin around, see #63
         if ( appendage instanceof Leg ) {
           angle = limitLegRotation( angle );
+
+          if ( SONIFICATION_CONTROL && soundEnabledProperty.value ){
+            // play a sound when the range of motion is reached
+            if ( ( angle === 0 && lastAngle > 0 ) ||
+                 ( angle === Math.PI && lastAngle > 0 && lastAngle < Math.PI ) ){
+              limitBonkSound.play();
+            }
+          }
         }
 
         //if clamped at one of the upper angles, only allow the right direction of movement to change the angle, so it won't skip halfway around
@@ -188,7 +208,6 @@ define( function( require ) {
     }
 
     var focusCircle = new Circle( imageNode.width / 2, { stroke: 'rgba(250,40,135,0.9)', lineWidth: 5 } );
-    // var focusCircle = Shape.circle( imageNode.centerX, imageNode.centerY, imageNode.width / 2);
 
     // Add accessible content for the appendageType
     this.setAccessibleContent( {
