@@ -132,6 +132,15 @@ define( function( require ) {
           JohnTravoltageModel.MAX_ELECTRONS
         );
       }
+      else if ( SONIFICATION_CONTROL === 3 ) {
+        this.chargeToneGenerator = new ChargeAmountToneGenerator(
+          model.soundProperty,
+          model.electrons.lengthProperty,
+          0,
+          JohnTravoltageModel.MAX_ELECTRONS,
+          { mapQuantityToFilterCutoff: true, toneFrequency: 90 }
+        );
+      }
       else {
 
         this.chargeToneGenerator = new ChargeAmountToneGenerator(
@@ -139,7 +148,7 @@ define( function( require ) {
           model.electrons.lengthProperty,
           0,
           JohnTravoltageModel.MAX_ELECTRONS,
-          { mapQuantityToFilterChangeRate: true, toneFrequency: 120 }
+          { randomlyUpdateFilterCutoff: true, toneFrequency: 120 }
         );
 
 
