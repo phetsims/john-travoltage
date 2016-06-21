@@ -15,6 +15,7 @@
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var ElectronNode = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/ElectronNode' );
+  var johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
 
   // strings
@@ -76,6 +77,8 @@
       electrons.addItemRemovedListener( _.debounce( setElectronStatus, 500 ) );
     }
   }
+
+  johnTravoltage.register( 'ElectronLayerNode', ElectronLayerNode );
 
   return inherit( Node, ElectronLayerNode );
 } );

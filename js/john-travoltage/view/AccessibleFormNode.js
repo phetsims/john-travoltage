@@ -12,6 +12,7 @@ define( function( require ) {
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
+  var johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
   var AccessiblePeer = require( 'SCENERY/accessibility/AccessiblePeer' );
 
   /**
@@ -29,6 +30,8 @@ define( function( require ) {
       }
     } );
   }
+
+  johnTravoltage.register( 'AccessibleFormNode', AccessibleFormNode );
 
   return inherit( Node, AccessibleFormNode );
 } );

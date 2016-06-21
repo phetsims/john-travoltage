@@ -13,6 +13,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
+  var johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
   var AccessiblePeer = require( 'SCENERY/accessibility/AccessiblePeer' );
 
   // strings
@@ -57,6 +58,8 @@ define( function( require ) {
       }
     } );
   }
+
+  johnTravoltage.register( 'AccessibleDescriptionNode', AccessibleDescriptionNode );
 
   return inherit( Node, AccessibleDescriptionNode );
 } );
