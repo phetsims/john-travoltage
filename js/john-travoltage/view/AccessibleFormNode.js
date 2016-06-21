@@ -19,12 +19,19 @@ define( function( require ) {
    * @constructor
    */
   function AccessibleFormNode( options ) {
+    var accessibleFormNode = this;
+
     Node.call( this, options );
 
     // Add accessible form content
     this.setAccessibleContent( {
       createPeer: function ( accessibleInstance ) {
+        var trail = accessibleInstance.trail;
+        var uniqueId = trail.getUniqueId();
         var domElement = document.createElement( 'form' );
+
+        domElement.id = 'form-' + uniqueId;
+        accessibleFormNode.accessibleId = domElement.id;
 
         return new AccessiblePeer( accessibleInstance, domElement );
       }

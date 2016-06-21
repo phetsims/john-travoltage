@@ -37,8 +37,7 @@ define( function( require ) {
         var domElement = document.createElement( 'p' );
 
         domElement.id = 'scene-description-' + uniqueId;
-        //TODO: Is there a better way to set the 'aria-describedby' relationship? This doesn't seem very robust.
-        describedNode.getAccessibleInstances()[0].peer.domElement.setAttribute( 'aria-describedby', domElement.id );
+        document.getElementById( describedNode.accessibleId ).setAttribute( 'aria-describedby', domElement.id );
 
         var updateDescription = function () {
           var chargeMessage = hadElectrons ? StringUtils.format( electronsDescriptionString, electrons.length ) : '';
