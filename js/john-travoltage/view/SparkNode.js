@@ -27,7 +27,7 @@ define( function( require ) {
    */
   function SparkNode( sparkVisibleProperty, arm, doorknobPosition, addStepListener, dischargeAlertText, options ) {
     var self = this;
-    var alertNode = document.getElementById( options.peerID );
+    var alertElement = document.getElementById( options.peerID );
 
     Node.call( this, { pickable: false } );
 
@@ -66,13 +66,15 @@ define( function( require ) {
         whitePath.shape = shape;
         bluePath.shape = shape;
 
-        if (alertNode && !alertNode.textContent) {
-          alertNode.textContent = dischargeAlertText;
-          alertNode.style.display = 'block';
+        if (alertElement && !alertElement.textContent) {
+          alertElement.textContent = dischargeAlertText;
+          // makes the alert discoverable when a discharge occurs
+          alertElement.style.display = 'block';
         }
-      } else if (alertNode) {
-        alertNode.style.display = 'none';
-        alertNode.textContent = '';
+      } else if (alertElement) {
+        // removes the alert from the a11y tree after the discharge completes
+        alertElement.style.display = 'none';
+        alertElement.textContent = '';
       }
     } );
   }
