@@ -54,9 +54,10 @@ define( function( require ) {
 
   /**
    * @param {JohnTravoltageModel} model
+   * @param {Tandem} tandem
    * @constructor
    */
-  function JohnTravoltageView( model ) {
+  function JohnTravoltageView( model, tandem ) {
     var johnTravoltageView = this;
     this.model = model;
 
@@ -99,7 +100,7 @@ define( function( require ) {
     } ) );
 
     //Sound button and reset all button
-    var soundButton = new SoundToggleButton( model.soundProperty );
+    var soundButton = new SoundToggleButton( model.soundProperty, tandem.createTandem( 'soundButton' ) );
     var resetAllButton = new ResetAllButton( {
       listener: model.reset.bind( model ),
       scale: 1.32
