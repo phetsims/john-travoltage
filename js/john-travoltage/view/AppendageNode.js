@@ -19,6 +19,7 @@ define( function( require ) {
   var Vector2 = require( 'DOT/Vector2' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Circle = require( 'SCENERY/nodes/Circle' );
+  var Util = require( 'DOT/Util' );
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   var Leg = require( 'JOHN_TRAVOLTAGE/john-travoltage/model/Leg' );
   var AccessiblePeer = require( 'SCENERY/accessibility/AccessiblePeer' );
@@ -259,7 +260,7 @@ define( function( require ) {
       var radianWithOffset = radian - radianOffset;
       var scaleValue = ( radianWithOffset ) * ( ( stepsInScale / 2 ) / Math.PI );
 
-      return Math.round( scaleValue );
+      return Util.roundSymmetric( scaleValue );
     },
 
     /**
