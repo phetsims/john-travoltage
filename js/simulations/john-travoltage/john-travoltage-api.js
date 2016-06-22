@@ -61,7 +61,8 @@ define( function( require ) {
         model: TJohnTravoltageModel.extend( {
           electrons: TObservableArray( TElectron ),
           electron: TGroup( TElectron )
-        } )
+        } ),
+        view: {}
       }
       }
     )
