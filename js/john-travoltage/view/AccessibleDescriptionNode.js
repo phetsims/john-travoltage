@@ -54,6 +54,15 @@ define( function( require ) {
           updateDescription();
           hadElectrons = true;
         } );
+
+        //Events are fired for each electron removed. For example if there are 10 accrued charges, 10 events will be
+        //fired when a complete discharge occurs. However, we do not want to update the description for each individual
+        //electron being discharged, but rather for the operation of a single set of discharges. By using a debounce
+        //method ( http://underscorejs.org/#debounce ) we are able to collect all of the events fired together and
+        //operate on them as an individual event. In this case we are setting the time interval to 500ms. The time set
+        //here needs to be long enough that a discharge is counted as a single occurrence but short enough that multiple
+        //discharges, orchestrated by a user, do not appear to be a single one. 500ms likely won't be perfect in all
+        //cases, but based on some manual tests seems to work in most.
         electrons.addItemRemovedListener( _.debounce( updateDescription, 500 ) );
 
         return new AccessiblePeer( accessibleInstance, domElement );
