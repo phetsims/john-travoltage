@@ -19,6 +19,7 @@ define( function( require ) {
   var AccessibleFormNode = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/AccessibleFormNode' );
   var AccessibleLabelNode = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/AccessibleLabelNode' );
   var AccessibleDescriptionNode = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/AccessibleDescriptionNode' );
+  var AppendageRangeMaps = require( 'JOHN_TRAVOLTAGE/john-travoltage/AppendageRangeMaps' );
   var AppendageNode = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/AppendageNode' );
   var SparkNode = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/SparkNode' );
   var ElectronLayerNode = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/ElectronLayerNode' );
@@ -60,121 +61,7 @@ define( function( require ) {
   var johnTravoltageTitleString = require( 'string!JOHN_TRAVOLTAGE/john-travoltage.title' );
   var armSliderLabelString = require( 'string!JOHN_TRAVOLTAGE/armSliderLabel' );
   var legSliderLabelString = require( 'string!JOHN_TRAVOLTAGE/legSliderLabel' );
-  var footOnCarpetString = require( 'string!JOHN_TRAVOLTAGE/foot.onCarpet' );
-  var footOffCarpetString = require( 'string!JOHN_TRAVOLTAGE/foot.offCarpet' );
-  var handClosestString = require( 'string!JOHN_TRAVOLTAGE/hand.closest' );
-  var handVeryCloseString = require( 'string!JOHN_TRAVOLTAGE/hand.veryClose' );
-  var handCloseString = require( 'string!JOHN_TRAVOLTAGE/hand.close' );
-  var handNeitherString = require( 'string!JOHN_TRAVOLTAGE/hand.neither' );
-  var handFarString = require( 'string!JOHN_TRAVOLTAGE/hand.far' );
-  var handVeryFarString = require( 'string!JOHN_TRAVOLTAGE/hand.veryFar' );
-  var handFarthestString = require( 'string!JOHN_TRAVOLTAGE/hand.farthest' );
   var electronsDischargedString = require( 'string!JOHN_TRAVOLTAGE/electrons.discharged' );
-
-  // rangeMaps
-  var legRangeMap = [
-    {
-        range: {
-            max: 5,
-            min: 0
-        },
-        text: footOffCarpetString
-    }, {
-        range: {
-            max: 21,
-            min: 6
-        },
-        text: footOnCarpetString
-    }, {
-        range: {
-            max: 30,
-            min: 22
-        },
-        text: footOffCarpetString
-    }
-  ];
-
-  var armRangeMap = [
-    {
-        range: {
-            max: 0,
-            min: 0
-        },
-        text: handFarthestString
-    }, {
-        range: {
-            max: 12,
-            min: 1
-        },
-        text: handVeryFarString
-    }, {
-        range: {
-            max: 24,
-            min: 13
-        },
-        text: handFarString
-    }, {
-        range: {
-            max: 25,
-            min: 25
-        },
-        text: handNeitherString
-    }, {
-        range: {
-            max: 37,
-            min: 26
-        },
-        text: handCloseString
-    }, {
-        range: {
-            max: 49,
-            min: 38
-        },
-        text: handVeryCloseString
-    }, {
-        range: {
-            max: 50,
-            min: 50
-        },
-        text: handClosestString
-    }, {
-        range: {
-            max: 62,
-            min: 51
-        },
-        text: handVeryCloseString
-    }, {
-        range: {
-            max: 74,
-            min: 63
-        },
-        text: handCloseString
-    }, {
-        range: {
-            max: 75,
-            min: 75
-        },
-        text: handNeitherString
-    }, {
-        range: {
-            max: 87,
-            min: 76
-        },
-        text: handFarString
-    }, {
-        range: {
-            max: 99,
-            min: 88
-        },
-        text: handVeryFarString
-    }, {
-        range: {
-            max: 100,
-            min: 100
-        },
-        text: handFarthestString
-    }
-  ];
 
   /**
    * @param {JohnTravoltageModel} model
@@ -214,15 +101,17 @@ define( function( require ) {
     //arm and leg - only interactive elements
     var legLabel = new AccessibleLabelNode( legSliderLabelString );
     accessibleFormNode.addChild(legLabel);
-    this.leg = new AppendageNode( model.leg, leg, 25, 28, Math.PI / 2 * 0.7, model.soundProperty, legRangeMap,
-      { controls: [ this.peerIDs.status ] } );
+    this.leg = new AppendageNode( model.leg, leg, 25, 28, Math.PI / 2 * 0.7, model.soundProperty,
+      AppendageRangeMaps.leg,
+      { controls: [ this.peerIDs.status ] }
+    );
     legLabel.addChild( this.leg );
 
     var armLabel = new AccessibleLabelNode( armSliderLabelString );
     accessibleFormNode.addChild(armLabel);
     // the keyboardMidPointOffset was manually calculated as a radian offset that will trigger a discharge with the
     // minimum charge level.
-    this.arm = new AppendageNode( model.arm, arm, 4, 45, -0.1, model.soundProperty, armRangeMap,
+    this.arm = new AppendageNode( model.arm, arm, 4, 45, -0.1, model.soundProperty, AppendageRangeMaps.arm,
       { keyboardMidPointOffset: 0.41, controls: [ this.peerIDs.status ] } );
     armLabel.addChild( this.arm );
 
