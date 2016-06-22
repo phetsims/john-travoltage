@@ -241,7 +241,7 @@ define( function( require ) {
 
   return inherit( Node, AppendageNode, {
 
-    /*
+    /**
      * Compute the distance (in radians) between angles a and b, using an inlined dot product (inlined to remove allocations)
      * @private
      */
@@ -250,7 +250,7 @@ define( function( require ) {
       return Math.acos( dotProduct );
     },
 
-    /*
+    /**
      * Converts a radian value to a scale value ( based on number of stepsInScale ).
      * @accessibility
      * @private
@@ -262,7 +262,7 @@ define( function( require ) {
       return Math.round( scaleValue );
     },
 
-    /*
+    /**
      * Converts a scale value ( based on number of stepsInScale ) to a radian value.
      * @accessibility
      * @private
@@ -274,7 +274,7 @@ define( function( require ) {
       return radianWithOffset;
     },
 
-    /*
+    /**
      * Because the radian values for the complete range of motion is calculated from -1π to 1π radians,
      * the scale can become a negative value. This transforms the scale to a positive value, usable by the slider in
      * in the PDOM.
@@ -285,7 +285,7 @@ define( function( require ) {
       return ( totalSteps / 2 ) - value;
     },
 
-    /*
+    /**
      * Calculates the position of an appendage based on its angle. Useful for setting the position of the corresponding
      * slider in the PDOM.
      * @accessibility
@@ -297,7 +297,7 @@ define( function( require ) {
       return position > maxPosition ? position % maxPosition : position;
     },
 
-    /*
+    /**
      * Calculates the angle of an appendage based on its position. Useful for setting the angle of the appendage from
      * the corresponding slider in the PDOM.
      * @accessibility
@@ -309,7 +309,7 @@ define( function( require ) {
       return this.scaleToRadians( scaleValue, motionRange, radianOffset );
     },
 
-    /*
+    /**
      * Determines the position description based on where the position falls in the supplied rangeMap.
      * @accessibility
      * @private

@@ -21,8 +21,11 @@ define( function( require ) {
   var electronsDescriptionString = require( 'string!JOHN_TRAVOLTAGE/electrons.description' );
 
   /**
-   * @param {String} labelText - The text to output in the label
-   *
+   * @param {AppendageNode} arm -  the arm appendage
+   * @param {AppendageNode} leg -  the leg appendage
+   * @param {Electron} electron - the electron model
+   * @param {Node} describedNode - the node for which the accessible description is instantiated for. This is used
+   *                               to set the 'aria-describedby' relationship between the two PDOM elements.
    * @constructor
    */
   function AccessibleDescriptionNode( arm, leg, electrons, describedNode ) {
