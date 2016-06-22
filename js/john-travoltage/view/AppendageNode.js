@@ -35,55 +35,6 @@ define( function( require ) {
   // strings
   var positionTemplateString = require( 'string!JOHN_TRAVOLTAGE/positionTemplate' );
 
-  //Compute the distance (in radians) between angles a and b, using an inlined dot product (inlined to remove allocations)
-  var distanceBetweenAngles = function( a, b ) {
-    var dotProduct = Math.cos( a ) * Math.cos( b ) + Math.sin( a ) * Math.sin( b );
-    return Math.acos( dotProduct );
-  };
-
-  var radiansToScale = function ( radian, stepsInScale, radianOffset ) {
-    var radianWithOffset = radian - radianOffset;
-    var scaleValue = ( radianWithOffset ) * ( ( stepsInScale / 2 ) / Math.PI );
-
-    return Math.round( scaleValue );
-  };
-
-  var scaleToRadians = function ( scaleValue, stepsInScale, radianOffset ) {
-    var radian = scaleValue * ( Math.PI / ( stepsInScale / 2 ) );
-    var radianWithOffset = radian + radianOffset;
-
-    return radianWithOffset;
-  };
-
-  var scalePositionTransformation = function ( totalSteps, value ) {
-    return ( totalSteps / 2 ) - value;
-  };
-
-  var angleToPosition = function ( appendageAngle, motionRange, maxPosition, radianOffset ) {
-    var scaleValue = radiansToScale( appendageAngle, motionRange, radianOffset );
-    var position = scalePositionTransformation( motionRange, scaleValue );
-    return position > maxPosition ? position % maxPosition : position;
-  };
-
-  var positionToAngle = function ( position, motionRange, radianOffset ) {
-    var scaleValue = scalePositionTransformation( motionRange, position );
-
-    return scaleToRadians( scaleValue, motionRange, radianOffset );
-  };
-
-  var getPositionDescription = function ( position, rangeMap ) {
-    var message = '';
-
-    _.forEach(rangeMap, function (map) {
-      if (position >= map.range.min && position <= map.range.max) {
-        message = map.text;
-        return false;
-      }
-    });
-
-    return message;
-  };
-
   /**
    * @param {Leg|Arm} appendage the body part to display
    * @param {Image} image
@@ -164,7 +115,7 @@ define( function( require ) {
         else if ( appendage.angle === 0 && z > 0 ) {
           //noop, at the right side
         }
-        else if ( distanceBetweenAngles( appendage.angle, angle ) > Math.PI / 3 && ( appendage.angle === 0 || appendage.angle === Math.PI ) ) {
+        else if ( appendageNode.distanceBetweenAngles( appendage.angle, angle ) > Math.PI / 3 && ( appendage.angle === 0 || appendage.angle === Math.PI ) ) {
           //noop, too big a leap, may correspond to the user reversing direction after a leg is stuck against threshold
         }
         else {
@@ -241,7 +192,7 @@ define( function( require ) {
         domElement.setAttribute( 'min', keyboardMotion.min );
         domElement.setAttribute( 'max', keyboardMotion.max );
         domElement.setAttribute( 'step', keyboardMotion.step );
-        domElement.value = angleToPosition( appendage.angle, keyboardMotion.totalRange, keyboardMotion.max, options.keyboardMidPointOffset );
+        domElement.value = appendageNode.angleToPosition( appendage.angle, keyboardMotion.totalRange, keyboardMotion.max, options.keyboardMidPointOffset );
 
         if (options.controls) {
           domElement.setAttribute( 'aria-controls', options.controls.join( ',' ));
@@ -253,7 +204,7 @@ define( function( require ) {
         // see: https://wiki.fluidproject.org/pages/viewpage.action?pageId=61767683
         var keyboardEventHandled = false;
         var rotateAppendage = function () {
-          appendage.angle = positionToAngle( domElement.value, keyboardMotion.totalRange, options.keyboardMidPointOffset );
+          appendage.angle = appendageNode.positionToAngle( domElement.value, keyboardMotion.totalRange, options.keyboardMidPointOffset );
           appendageNode.border.visible = false;
         };
         domElement.addEventListener( 'change', function ( event ) {
@@ -268,8 +219,8 @@ define( function( require ) {
         } );
 
         var updatePosition = function ( angle ) {
-          var position = angleToPosition( appendage.angle, keyboardMotion.totalRange, keyboardMotion.max, options.keyboardMidPointOffset );
-          var positionDescription = getPositionDescription( position, rangeMap );
+          var position = appendageNode.angleToPosition( appendage.angle, keyboardMotion.totalRange, keyboardMotion.max, options.keyboardMidPointOffset );
+          var positionDescription = appendageNode.getPositionDescription( position, rangeMap );
           domElement.value = position;
           domElement.setAttribute( 'aria-valuetext', StringUtils.format( positionTemplateString, position, positionDescription ) );
           appendageNode.positionDescription = positionDescription;
@@ -288,5 +239,92 @@ define( function( require ) {
 
   johnTravoltage.register( 'AppendageNode', AppendageNode );
 
-  return inherit( Node, AppendageNode );
+  return inherit( Node, AppendageNode, {
+
+    /*
+     * Compute the distance (in radians) between angles a and b, using an inlined dot product (inlined to remove allocations)
+     * @private
+     */
+    distanceBetweenAngles: function( a, b ) {
+      var dotProduct = Math.cos( a ) * Math.cos( b ) + Math.sin( a ) * Math.sin( b );
+      return Math.acos( dotProduct );
+    },
+
+    /*
+     * Converts a radian value to a scale value ( based on number of stepsInScale ).
+     * @accessibility
+     * @private
+     */
+    radiansToScale: function ( radian, stepsInScale, radianOffset ) {
+      var radianWithOffset = radian - radianOffset;
+      var scaleValue = ( radianWithOffset ) * ( ( stepsInScale / 2 ) / Math.PI );
+
+      return Math.round( scaleValue );
+    },
+
+    /*
+     * Converts a scale value ( based on number of stepsInScale ) to a radian value.
+     * @accessibility
+     * @private
+     */
+    scaleToRadians: function ( scaleValue, stepsInScale, radianOffset ) {
+      var radian = scaleValue * ( Math.PI / ( stepsInScale / 2 ) );
+      var radianWithOffset = radian + radianOffset;
+
+      return radianWithOffset;
+    },
+
+    /*
+     * Because the radian values for the complete range of motion is calculated from -1π to 1π radians,
+     * the scale can become a negative value. This transforms the scale to a positive value, usable by the slider in
+     * in the PDOM.
+     * @accessibility
+     * @private
+     */
+    scalePositionTransformation: function ( totalSteps, value ) {
+      return ( totalSteps / 2 ) - value;
+    },
+
+    /*
+     * Calculates the position of an appendage based on its angle. Useful for setting the position of the corresponding
+     * slider in the PDOM.
+     * @accessibility
+     * @private
+     */
+    angleToPosition: function ( appendageAngle, motionRange, maxPosition, radianOffset ) {
+      var scaleValue = this.radiansToScale( appendageAngle, motionRange, radianOffset );
+      var position = this.scalePositionTransformation( motionRange, scaleValue );
+      return position > maxPosition ? position % maxPosition : position;
+    },
+
+    /*
+     * Calculates the angle of an appendage based on its position. Useful for setting the angle of the appendage from
+     * the corresponding slider in the PDOM.
+     * @accessibility
+     * @private
+     */
+    positionToAngle: function ( position, motionRange, radianOffset ) {
+      var scaleValue = this.scalePositionTransformation( motionRange, position );
+
+      return this.scaleToRadians( scaleValue, motionRange, radianOffset );
+    },
+
+    /*
+     * Determines the position description based on where the position falls in the supplied rangeMap.
+     * @accessibility
+     * @private
+     */
+    getPositionDescription: function ( position, rangeMap ) {
+      var message = '';
+
+      _.forEach(rangeMap, function (map) {
+        if (position >= map.range.min && position <= map.range.max) {
+          message = map.text;
+          return false;
+        }
+      });
+
+      return message;
+    }
+  } );
 } );
