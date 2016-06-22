@@ -67,14 +67,17 @@ define( function( require ) {
    * @param {JohnTravoltageModel} model
    * @constructor
    */
-  function JohnTravoltageView( model ) {
+  function JohnTravoltageView( model, options ) {
     var johnTravoltageView = this;
     this.model = model;
-
-    this.peerIDs = {
-      alert: 'john-travoltage-alert',
-      status: 'john-travoltage-status'
-    };
+    options = _.extend( {
+      //TODO: Once https://github.com/phetsims/john-travoltage/issues/98 has been addressed, update how the peerIDs
+      //are added/referenced by the view.
+      peerIDs: {
+        alert: 'john-travoltage-alert',
+        status: 'john-travoltage-status'
+      }
+    }, options );
 
     //The sim works best in most browsers using svg.
     //But in firefox on Win8 it is very slow and buggy, so use canvas on firefox.
@@ -103,7 +106,7 @@ define( function( require ) {
     accessibleFormNode.addChild(legLabel);
     this.leg = new AppendageNode( model.leg, leg, 25, 28, Math.PI / 2 * 0.7, model.soundProperty,
       AppendageRangeMaps.leg,
-      { controls: [ this.peerIDs.status ] }
+      { controls: [ options.peerIDs.status ] }
     );
     legLabel.addChild( this.leg );
 
@@ -112,7 +115,7 @@ define( function( require ) {
     // the keyboardMidPointOffset was manually calculated as a radian offset that will trigger a discharge with the
     // minimum charge level.
     this.arm = new AppendageNode( model.arm, arm, 4, 45, -0.1, model.soundProperty, AppendageRangeMaps.arm,
-      { keyboardMidPointOffset: 0.41, controls: [ this.peerIDs.status ] } );
+      { keyboardMidPointOffset: 0.41, controls: [ options.peerIDs.status ] } );
     armLabel.addChild( this.arm );
 
     //Show the dotted lines again when the sim is reset
@@ -129,7 +132,7 @@ define( function( require ) {
     accessibleFormNode.addChild( new SparkNode( model.sparkVisibleProperty, model.arm, model.doorknobPosition,
       function( listener ) {
         model.on( 'step', listener );
-      }, electronsDischargedString, { peerID: this.peerIDs.alert } ) );
+      }, electronsDischargedString, { peerID: options.peerIDs.alert } ) );
 
     //Sound button and reset all button
     var soundButton = new SoundToggleButton( model.soundProperty );
@@ -190,7 +193,7 @@ define( function( require ) {
     var electronLayer = new ElectronLayerNode( model.electrons, MAX_ELECTRONS, model.leg, model.arm, {
       layerSplit: true,
       pickable: false,
-      peerID: this.peerIDs.status,
+      peerID: options.peerIDs.status,
       pitchedPopGenerator:  pitchedPopGenerator
     } );
     accessibleFormNode.addChild( electronLayer );
