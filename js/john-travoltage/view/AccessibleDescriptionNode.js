@@ -40,7 +40,7 @@ define( function( require ) {
         var domElement = document.createElement( 'p' );
 
         domElement.id = 'scene-description-' + uniqueId;
-        document.getElementById( describedNode.accessibleId ).setAttribute( 'aria-describedby', domElement.id );
+        describedNode.domElement.setAttribute( 'aria-describedby', domElement.id );
 
         var updateDescription = function () {
           var chargeMessage = hadElectrons ? StringUtils.format( electronsDescriptionString, electrons.length ) : '';

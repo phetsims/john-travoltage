@@ -31,7 +31,7 @@ define( function( require ) {
         var domElement = document.createElement( 'form' );
 
         domElement.id = 'form-' + uniqueId;
-        accessibleFormNode.accessibleId = domElement.id;
+        accessibleFormNode.domElement = domElement;
 
         return new AccessiblePeer( accessibleInstance, domElement );
       }
