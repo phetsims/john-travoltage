@@ -15,12 +15,12 @@ define( function( require ) {
   var johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
 
   /**
-   * Create a LineSegment from Number,Number,Number,Number or Vector2,Vector2
+   * Create a LineSegment from Number,Number,Number,Number
    *
-   * @param {Number|Vector2} x1
-   * @param {Number|Vector2} y1
-   * @param {Number|undefined} x2
-   * @param {Number|undefined} y2
+   * @param {number} x1
+   * @param {number} y1
+   * @param {number} x2
+   * @param {number} y2
    * @constructor
    */
   function LineSegment( x1, y1, x2, y2 ) {
