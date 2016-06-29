@@ -42,7 +42,7 @@ define( function( require ) {
    * @param {Number} dx
    * @param {Number} dy
    * @param {Number} angleOffset the angle about which to rotate
-   * @param {Property.<boolean> soundEnabledProperty
+   * @param {Property.<boolean>} soundEnabledProperty
    * @constructor
    */
   function AppendageNode( appendage, image, dx, dy, angleOffset, soundEnabledProperty ) {

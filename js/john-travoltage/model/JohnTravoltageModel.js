@@ -33,7 +33,7 @@ define( function( require ) {
 
   /**
    *
-   * @param tandem
+   * @param {Tandem} tandem
    * @constructor
    */
   function JohnTravoltageModel( tandem ) {

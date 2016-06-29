@@ -22,8 +22,12 @@ define( function( require ) {
   var MAX_FILTER_CUTOFF = 5000;
 
   /**
+   * @param {Property.<boolean>} soundEnabledProperty
+   * @param {Property.<number> } numItemsProperty
+   * @param {number} minItems
+   * @param {number} maxItems
    * @constructor
-   * {Property.<boolean> soundEnabledProperty
+   * 
    */
   function ChargeAmountSoundGenerator( soundEnabledProperty, numItemsProperty, minItems, maxItems ) {
 

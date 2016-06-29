@@ -22,6 +22,14 @@ define( function( require ) {
   //If this value is 1.0, there is no friction.  The value is what the velocity is multiplied by at every step.
   var frictionFactor = 0.98;
 
+  /**
+   *
+   * @param {number} x
+   * @param {number} y
+   * @param {JohnTravoltageModel} model
+   * @param {Tandem} tandem
+   * @constructor
+   */
   function Electron( x, y, model, tandem ) {
     count++;
     this.id = count;
