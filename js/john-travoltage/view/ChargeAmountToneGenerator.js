@@ -4,6 +4,9 @@
  * a 2 oscillator monophonic sound generator for indicating the charge level
  * TODO: This was created for sonification, and should be generalized and put in common code at some point when we know
  * TODO: more about what we need to do.
+ *
+ * TODO: This got hacked up a lot in the process of getting the 6/21 demo out, needs to be overhauled once we decide
+ * TODO: which directtion in which the take this.
  */
 define( function( require ) {
   'use strict';
@@ -39,6 +42,7 @@ define( function( require ) {
     options = _.extend( {
       mapQuantityToGain: true,
       mapQuantityToFilterCutoff: false,
+      randomlyUpdateFilterCutoff: false,
       toneFrequency: DEFAULT_FREQUENCY
     }, options );
 
@@ -80,9 +84,8 @@ define( function( require ) {
     var lfo = audioContext.createOscillator();
     lfo.frequency.value = 2; // Hz
 
-    if ( !options.mapQuantityToFilterChangeRate ) {
-
-      // only start the LFO is not doing the filter changes, since otherwise it's a bit too much activity
+    // only start the LFO is not doing the filter changes, since otherwise it's a bit too much activity
+    if ( !options.mapQuantityToFilterCutoff && !options.randomlyUpdateFilterCutoff ) {
       lfo.start();
     }
 
@@ -136,28 +139,28 @@ define( function( require ) {
     var minFilterCutoffLog = Math.log( options.toneFrequency * 1.5 );
 
     // function to update the filter range with a new randomly chosen cutoff value and set the time for the next change
-    function updateFilterCutoff() {
+    function doRandomUpdateOfFilterCutoff() {
 
       //var changeProportion = Math.random() * 0.5 + 0.25; // 25% to 50%
       //var changeProportion = Math.random() * 0.333 + 0.333; // 33% to 67%
       var changeProportion = Math.random() * 0.8 + 0.1; // 10% to 90%
       var changeAmountLog = changeProportion * ( MAX_FILTER_CUTOFF_LOG - minFilterCutoffLog );
-      if ( Math.random() > 0.5 ){
+      if ( Math.random() > 0.5 ) {
         // make the change negative half the time
         changeAmountLog *= -1;
       }
       var newCutoffLog = Math.log( biquadFilter1.frequency.value ) + changeAmountLog;
-      if ( newCutoffLog > MAX_FILTER_CUTOFF_LOG ){
+      if ( newCutoffLog > MAX_FILTER_CUTOFF_LOG ) {
         newCutoffLog = minFilterCutoffLog + ( newCutoffLog - MAX_FILTER_CUTOFF_LOG );
       }
-      else if ( newCutoffLog < minFilterCutoffLog ){
+      else if ( newCutoffLog < minFilterCutoffLog ) {
         newCutoffLog = MAX_FILTER_CUTOFF_LOG - ( minFilterCutoffLog - newCutoffLog );
       }
       var newCutoff = Math.exp( newCutoffLog );
       biquadFilter1.frequency.setValueAtTime( newCutoff, audioContext.currentTime );
       biquadFilter2.frequency.setValueAtTime( newCutoff, audioContext.currentTime );
       filterUpdateTimer = Timer.setTimeout(
-        updateFilterCutoff,
+        doRandomUpdateOfFilterCutoff,
         1 / mapNumItemsToFilterUpdateRate( numChargesProperty.value ) * 1000
       );
     }
@@ -171,14 +174,10 @@ define( function( require ) {
     }
 
     // create a function to map the number of particles to output gain
-    var mapNumItemsToGain;
-    if ( options.mapQuantityToGain ) {
-      mapNumItemsToGain = LinearFunction( minCharges, maxCharges, 0, MAX_GAIN );
-    }
-    else {
-      // function that always maps to max gain
-      mapNumItemsToGain = LinearFunction( minCharges, maxCharges, MAX_GAIN, MAX_GAIN );
-    }
+    var mapNumItemsToGain = LinearFunction( minCharges, maxCharges, 0, MAX_GAIN );
+
+    // create a function to map number of particles to filter cutoff frequency
+    var mapNumItemsToFilterCutoff = LinearFunction( minCharges, maxCharges, options.toneFrequency, MAX_FILTER_CUTOFF );
 
     // monitor the number of charges and adjust the tone in response
     numChargesProperty.link( function( numCharges ) {
@@ -192,11 +191,21 @@ define( function( require ) {
         }
 
         // update the output gain
-        masterGainControl.gain.value = mapNumItemsToGain( numCharges );
+        if ( options.mapQuantityToGain ) {
+          masterGainControl.gain.value = mapNumItemsToGain( numCharges );
+        }
 
-        // if the timer isn't running but filter updates are enabled, kick it off
-        if ( options.mapQuantityToFilterChangeRate && filterUpdateTimer === null ) {
-          updateFilterCutoff();
+
+        // update the cutoff frequencies
+        if ( options.mapQuantityToFilterCutoff ) {
+          var newCutoff = mapNumItemsToFilterCutoff( numCharges );
+          biquadFilter1.frequency.setValueAtTime( newCutoff, audioContext.currentTime );
+          biquadFilter2.frequency.setValueAtTime( newCutoff, audioContext.currentTime );
+        }
+
+        // if the timer isn't running but random filter updates are enabled, kick it off
+        if ( options.randomlyUpdateFilterCutoff && filterUpdateTimer === null ) {
+          doRandomUpdateOfFilterCutoff();
         }
       }
       else {
@@ -210,7 +219,7 @@ define( function( require ) {
       if ( !soundEnabled ) {
         masterGainControl.gain.value = 0;
       }
-      else{
+      else {
         masterGainControl.gain.value = mapNumItemsToGain( numChargesProperty.value );
       }
     } );

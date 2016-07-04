@@ -42,7 +42,7 @@ define( function( require ) {
    * @param {Number} dx
    * @param {Number} dy
    * @param {Number} angleOffset the angle about which to rotate
-   * @param {Property.<boolean> soundEnabledProperty
+   * @param {Property.<boolean>} soundEnabledProperty
    * @param {Array} rangeMap - an array of objects of the format {range: {max: Number, min: Number}, text: String}. This
    *                           is used to map a position value to text to use for the valueText of the related slider.
    * @param {Object} options -  optional configuration such as "keyboardMidPointOffset"; which is used to adjust the

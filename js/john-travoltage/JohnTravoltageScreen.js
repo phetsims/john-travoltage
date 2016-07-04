@@ -26,12 +26,12 @@ define( function( require ) {
     Screen.call(
       this,
       johnTravoltageTitleString,
-      null /* single-screen sim, no icon */,
+      null /* single-screen sim, no icon */ ,
       function() {
         return new JohnTravoltageModel( tandem.createTandem( 'model' ) );
       },
       function( model ) {
-        return new JohnTravoltageView( model );
+        return new JohnTravoltageView( model, tandem.createTandem( 'view' ) );
       }, {
         backgroundColor: '#9ddcf8',
         tandem: tandem
@@ -43,3 +43,4 @@ define( function( require ) {
 
   return inherit( Screen, JohnTravoltageScreen );
 } );
+

@@ -36,7 +36,7 @@ define( function( require ) {
   var JohnTravoltageQueryParameters = require( 'JOHN_TRAVOLTAGE/john-travoltage/JohnTravoltageQueryParameters' );
   var PitchedPopGenerator = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/PitchedPopGenerator' );
   var ToneGenerator = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/ToneGenerator' );
-  var JostlingChargesSoundGenerator = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/JostlingChargesSoundGenerator' );
+  var ChargeAmountSoundGenerator = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/ChargeAmountSoundGenerator' );
   var ChargeAmountToneGenerator = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/ChargeAmountToneGenerator' );
   var Sound = require( 'VIBE/Sound' );
   var LinearFunction = require( 'DOT/LinearFunction' );
@@ -65,9 +65,11 @@ define( function( require ) {
 
   /**
    * @param {JohnTravoltageModel} model
+   * @param {Tandem} tandem
+   * @param {Object} options
    * @constructor
    */
-  function JohnTravoltageView( model, options ) {
+  function JohnTravoltageView( model, tandem, options ) {
     var johnTravoltageView = this;
     this.model = model;
     options = _.extend( {
@@ -135,7 +137,7 @@ define( function( require ) {
       }, electronsDischargedString, { peerID: options.peerIDs.alert } ) );
 
     //Sound button and reset all button
-    var soundButton = new SoundToggleButton( model.soundProperty );
+    var soundButton = new SoundToggleButton( model.soundProperty, tandem.createTandem( 'soundButton' ) );
     var resetAllButton = new ResetAllButton( {
       listener: model.reset.bind( model ),
       scale: 1.32
@@ -153,7 +155,7 @@ define( function( require ) {
       var pitchedPopGenerator = new PitchedPopGenerator( model.soundProperty );
       if ( SONIFICATION_CONTROL === true || SONIFICATION_CONTROL === 1 ) {
 
-        this.jostlingChargesSoundGenerator = new JostlingChargesSoundGenerator(
+        this.jostlingChargesSoundGenerator = new ChargeAmountSoundGenerator(
           model.soundProperty,
           model.electrons.lengthProperty,
           0,
@@ -168,6 +170,15 @@ define( function( require ) {
           JohnTravoltageModel.MAX_ELECTRONS
         );
       }
+      else if ( SONIFICATION_CONTROL === 3 ) {
+        this.chargeToneGenerator = new ChargeAmountToneGenerator(
+          model.soundProperty,
+          model.electrons.lengthProperty,
+          0,
+          JohnTravoltageModel.MAX_ELECTRONS,
+          { mapQuantityToFilterCutoff: true, toneFrequency: 90 }
+        );
+      }
       else {
 
         this.chargeToneGenerator = new ChargeAmountToneGenerator(
@@ -175,7 +186,7 @@ define( function( require ) {
           model.electrons.lengthProperty,
           0,
           JohnTravoltageModel.MAX_ELECTRONS,
-          { mapQuantityToFilterChangeRate: true, toneFrequency: 120 }
+          { randomlyUpdateFilterCutoff: true, toneFrequency: 120 }
         );
 
 
