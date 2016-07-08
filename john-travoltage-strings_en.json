@@ -1,5 +1,74 @@
 {
+  "positionTemplate": {
+    "value": "Position {0}: {1}",
+    "visible": false
+  },
   "john-travoltage.title": {
-    "value": "John Travoltage"
+    "value": "John Travoltage",
+    "visible": false
+  },
+  "armSliderLabel": {
+    "value": "Hand position",
+    "visible": false
+  },
+  "legSliderLabel": {
+    "value": "Foot position",
+    "visible": false
+  },
+  "foot.onCarpet": {
+    "value": "on the carpet",
+    "visible": false
+  },
+  "foot.offCarpet": {
+    "value": "off the carpet",
+    "visible": false
+  },
+  "hand.closest": {
+    "value": "closest to the doorknob",
+    "visible": false
+  },
+  "hand.veryClose": {
+    "value": "very close to the doorknob",
+    "visible": false
+  },
+  "hand.close": {
+    "value": "close to the doorknob",
+    "visible": false
+  },
+  "hand.neither": {
+    "value": "neither far nor close to the doorknob",
+    "visible": false
+  },
+  "hand.far": {
+    "value": "far from the doorknob",
+    "visible": false
+  },
+  "hand.veryFar": {
+    "value": "very far from the doorknob",
+    "visible": false
+  },
+  "hand.farthest": {
+    "value": "farthest from the doorknob",
+    "visible": false
+  },
+  "electrons.discharged": {
+    "value": "electrons discharged",
+    "visible": false
+  },
+  "electrons.total": {
+    "value": "Total electrons: {0}",
+    "visible": false
+  },
+  "electrons.totalAfterDischarge": {
+    "value": "Total electrons: Discharge occurred. Electrons decreased from {1} to {0}",
+    "visible": false
+  },
+  "electrons.description": {
+    "value": "He has {0} charges.",
+    "visible": false
+  },
+  "scene.description": {
+    "value": "John is standing with his foot {1}, and his hand is {0}. {2}",
+    "visible": false
   }
 }

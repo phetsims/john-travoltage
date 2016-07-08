@@ -5,6 +5,7 @@
  *
  * @author Sam Reid
  * @author Vasily Shakhov (Mlearner)
+ * @author Justin Obara
  */
 define( function( require ) {
   'use strict';
@@ -15,9 +16,13 @@ define( function( require ) {
   var Line = require( 'SCENERY/nodes/Line' );
   var inherit = require( 'PHET_CORE/inherit' );
   var BackgroundElementsNode = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/BackgroundElementsNode' );
+  var AccessibleFormNode = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/AccessibleFormNode' );
+  var AccessibleLabelNode = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/AccessibleLabelNode' );
+  var AccessibleDescriptionNode = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/AccessibleDescriptionNode' );
+  var AppendageRangeMaps = require( 'JOHN_TRAVOLTAGE/john-travoltage/AppendageRangeMaps' );
   var AppendageNode = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/AppendageNode' );
   var SparkNode = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/SparkNode' );
-  var ElectronNode = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/ElectronNode' );
+  var ElectronLayerNode = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/ElectronLayerNode' );
   var Shape = require( 'KITE/Shape' );
   var Path = require( 'SCENERY/nodes/Path' );
   var Node = require( 'SCENERY/nodes/Node' );
@@ -29,6 +34,7 @@ define( function( require ) {
   var HBox = require( 'SCENERY/nodes/HBox' );
   var JohnTravoltageQueryParameters = require( 'JOHN_TRAVOLTAGE/john-travoltage/JohnTravoltageQueryParameters' );
   var JohnTravoltageAudio = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/JohnTravoltageAudio' );
+  var JohnTravoltageModel = require( 'JOHN_TRAVOLTAGE/john-travoltage/model/JohnTravoltageModel' );
   var johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
 
   // images
@@ -39,19 +45,36 @@ define( function( require ) {
   var SONIFICATION_CONTROL = JohnTravoltageQueryParameters.SONIFICATION;
   var SHOW_DEBUG_INFO = JohnTravoltageQueryParameters.SHOW_DEBUG_INFO;
 
+  // strings
+  var johnTravoltageTitleString = require( 'string!JOHN_TRAVOLTAGE/john-travoltage.title' );
+  var armSliderLabelString = require( 'string!JOHN_TRAVOLTAGE/armSliderLabel' );
+  var legSliderLabelString = require( 'string!JOHN_TRAVOLTAGE/legSliderLabel' );
+  var electronsDischargedString = require( 'string!JOHN_TRAVOLTAGE/electrons.discharged' );
+
   /**
    * @param {JohnTravoltageModel} model
    * @param {Tandem} tandem
+   * @param {Object} options
    * @constructor
    */
-  function JohnTravoltageView( model, tandem ) {
+  function JohnTravoltageView( model, tandem, options ) {
     var johnTravoltageView = this;
     this.model = model;
+    options = _.extend( {
+      //TODO: Once https://github.com/phetsims/john-travoltage/issues/98 has been addressed, update how the peerIDs
+      //are added/referenced by the view.
+      peerIDs: {
+        alert: 'john-travoltage-alert',
+        status: 'john-travoltage-status'
+      }
+    }, options );
 
-    //The sim works best in most browsers using svg. But in firefox on Win8 it is very slow and buggy, so use canvas on firefox.
+    //The sim works best in most browsers using svg.
+    //But in firefox on Win8 it is very slow and buggy, so use canvas on firefox.
     ScreenView.call( this, {
       renderer: platform.firefox ? 'canvas' : null,
-      layoutBounds: new Bounds2( 0, 0, 768, 504 )
+      layoutBounds: new Bounds2( 0, 0, 768, 504 ),
+      screenLabel: johnTravoltageTitleString
     } );
 
     //add background elements
@@ -60,12 +83,26 @@ define( function( require ) {
     //Split layers after background for performance
     this.addChild( new Node( { layerSplit: true, pickable: false } ) );
 
-    //arm and leg - only interactive elements
-    this.leg = new AppendageNode( model.leg, leg, 25, 28, Math.PI / 2 * 0.7, model.soundProperty );
-    this.addChild( this.leg );
+    //add an form element to contain all controls
+    var accessibleFormNode = new AccessibleFormNode();
+    this.addChild( accessibleFormNode );
 
-    this.arm = new AppendageNode( model.arm, arm, 4, 45, -0.1, model.soundProperty );
-    this.addChild( this.arm );
+    //arm and leg - only interactive elements
+    var legLabel = new AccessibleLabelNode( legSliderLabelString );
+    accessibleFormNode.addChild(legLabel);
+    this.leg = new AppendageNode( model.leg, leg, 25, 28, Math.PI / 2 * 0.7, model.soundProperty,
+      AppendageRangeMaps.leg,
+      { controls: [ options.peerIDs.status ] }
+    );
+    legLabel.addChild( this.leg );
+
+    var armLabel = new AccessibleLabelNode( armSliderLabelString );
+    accessibleFormNode.addChild(armLabel);
+    // the keyboardMidPointOffset was manually calculated as a radian offset that will trigger a discharge with the
+    // minimum charge level.
+    this.arm = new AppendageNode( model.arm, arm, 4, 45, -0.1, model.soundProperty, AppendageRangeMaps.arm,
+      { keyboardMidPointOffset: 0.41, controls: [ options.peerIDs.status ] } );
+    armLabel.addChild( this.arm );
 
     //Show the dotted lines again when the sim is reset
     model.on( 'reset', function() {
@@ -78,9 +115,10 @@ define( function( require ) {
     } );
 
     //spark
-    this.addChild( new SparkNode( model.sparkVisibleProperty, model.arm, model.doorknobPosition, function( listener ) {
-      model.on( 'step', listener );
-    } ) );
+    accessibleFormNode.addChild( new SparkNode( model.sparkVisibleProperty, model.arm, model.doorknobPosition,
+      function( listener ) {
+        model.on( 'step', listener );
+      }, electronsDischargedString, { peerID: options.peerIDs.alert } ) );
 
     //Sound button and reset all button
     var soundButton = new SoundToggleButton( model.soundProperty, tandem.createTandem( 'soundButton' ) );
@@ -89,7 +127,7 @@ define( function( require ) {
       scale: 1.32
     } );
     resetAllButton.scale( soundButton.height / resetAllButton.height );
-    this.addChild( new HBox( {
+    accessibleFormNode.addChild( new HBox( {
       spacing: 10,
       children: [ soundButton, resetAllButton ],
       right: this.layoutBounds.maxX - 7,
@@ -101,36 +139,33 @@ define( function( require ) {
       this.audioView = new JohnTravoltageAudio( model, this.arm, SONIFICATION_CONTROL );
     }
 
+    //Use a layer for electrons so it has only one pickable flag, perhaps may improve performance compared to iterating
+    //over all electrons to see if they are pickable?
     //Split layers before particle layer for performance
-    //Use a layer for electrons so it has only one pickable flag, perhaps may improve performance compared to iterating over all electrons to see if they are pickable?
-    var electronLayer = new Node( { layerSplit: true, pickable: false } );
-    this.addChild( electronLayer );
-
-    //if new electron added to model - create and add new node to leg
-    //TODO: Pooling for creation and use visible instead of addChild for performance
-    model.electrons.addItemAddedListener( function( added ) {
-
-      // and the visual representation of the electron
-      var newElectron = new ElectronNode( added, model.leg, model.arm );
-      added.viewNode = newElectron;
-      electronLayer.addChild( newElectron );
-
-      var itemRemovedListener = function( removed ) {
-        if ( removed === added ) {
-          electronLayer.removeChild( newElectron );
-          model.electrons.removeItemRemovedListener( itemRemovedListener );
-        }
-      };
-      model.electrons.addItemRemovedListener( itemRemovedListener );
+    var electronLayer = new ElectronLayerNode( model.electrons, JohnTravoltageModel.MAX_ELECTRONS, model.leg, model.arm, {
+      layerSplit: true,
+      pickable: false,
+      peerID: options.peerIDs.status
     } );
+    accessibleFormNode.addChild( electronLayer );
 
-    // debug lines, body and force line, enabled through query parameter
-    // borders are approximately 8px = radius of particle from physical body, because physical radius of electron = 1 in box2D
+    // Scene description
+    var accessibleDescription = new AccessibleDescriptionNode( this.arm, this.leg, model.electrons, accessibleFormNode );
+    this.addChild( accessibleDescription );
+    // accessibleDescription.moveToBack();
+
+    // debug lines, body and forceline, uncomment this to view physical bounds of body
+    // borders are approximately 8px = radius of particle from physical body,
+    // because physical radius of electron = 1 in box2D
     if ( SHOW_DEBUG_INFO ) {
       this.showBody();
 
-      this.addChild( new Circle( 10, { x: model.bodyVertices[ 0 ].x, y: model.bodyVertices[ 0 ].y, fill: 'blue' } ) );
-      this.addChild( new Circle( 10, { x: 0, y: 0, fill: 'blue' } ) );
+      accessibleFormNode.addChild( new Circle( 10, {
+        x: model.bodyVertices[ 0 ].x,
+        y: model.bodyVertices[ 0 ].y,
+        fill: 'blue'
+      } ) );
+      accessibleFormNode.addChild( new Circle( 10, { x: 0, y: 0, fill: 'blue' } ) );
 
       //Debugging for finger location
       var fingerCircle = new Circle( 10, { fill: 'red' } );
@@ -138,7 +173,7 @@ define( function( require ) {
         fingerCircle.x = model.arm.getFingerPosition().x;
         fingerCircle.y = model.arm.getFingerPosition().y;
       } );
-      this.addChild( fingerCircle );
+      accessibleFormNode.addChild( fingerCircle );
 
       new DebugPositions().debugLineSegments( this );
     }

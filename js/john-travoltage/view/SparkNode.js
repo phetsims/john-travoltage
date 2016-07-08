@@ -25,8 +25,9 @@ define( function( require ) {
    * @param {Function} addStepListener function to add a step listener to the model
    * @constructor
    */
-  function SparkNode( sparkVisibleProperty, arm, doorknobPosition, addStepListener ) {
+  function SparkNode( sparkVisibleProperty, arm, doorknobPosition, addStepListener, dischargeAlertText, options ) {
     var self = this;
+    var alertElement = document.getElementById( options.peerID );
 
     Node.call( this, { pickable: false } );
 
@@ -64,11 +65,21 @@ define( function( require ) {
 
         whitePath.shape = shape;
         bluePath.shape = shape;
+
+        if (alertElement && !alertElement.textContent) {
+          alertElement.textContent = dischargeAlertText;
+          // makes the alert discoverable when a discharge occurs
+          alertElement.removeAttribute( 'aria-hidden' );
+        }
+      } else if (alertElement) {
+        // removes the alert from the a11y tree after the discharge completes
+        alertElement.setAttribute( 'aria-hidden', true );
+        alertElement.textContent = '';
       }
     } );
   }
 
   johnTravoltage.register( 'SparkNode', SparkNode );
-  
+
   return inherit( Node, SparkNode );
 } );

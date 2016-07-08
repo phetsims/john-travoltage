@@ -13,6 +13,8 @@
 </head>
 <body bgcolor="black">
 <img id="splash" style="position: absolute;top: 50%;left: 50%;margin-top: -210px;margin-left: -252px;">
+<p id="john-travoltage-alert" role="alert"></p>
+<p id="john-travoltage-status" role="status" aria-live="polite" aria-atomic="true"></p>
 
 <script type="text/javascript">
   ( function() {
@@ -25,21 +27,21 @@
 
     // Preloads, with more included for phet-io brand
     var preloads = ( brand === 'phet-io' ) ? [
-      '../sherpa/lib/jquery-2.1.0.js', 
-      '../sherpa/lib/lodash-2.4.1.js', 
-      '../sherpa/lib/FileSaver-b8054a2.js', 
-      '../assert/js/assert.js', 
-      '../chipper/js/initialize-globals.js', 
-      '../sherpa/lib/seedrandom-2.4.2.js', 
-      '../sherpa/lib/game-up-camera-1.0.0.js', 
+      '../sherpa/lib/jquery-2.1.0.js',
+      '../sherpa/lib/lodash-2.4.1.js',
+      '../sherpa/lib/FileSaver-b8054a2.js',
+      '../assert/js/assert.js',
+      '../chipper/js/initialize-globals.js',
+      '../sherpa/lib/seedrandom-2.4.2.js',
+      '../sherpa/lib/game-up-camera-1.0.0.js',
       '../sherpa/lib/jsondiffpatch-0.1.31.js'
     ] : [
-      '../sherpa/lib/jquery-2.1.0.js', 
-      '../sherpa/lib/lodash-2.4.1.js', 
-      '../sherpa/lib/FileSaver-b8054a2.js', 
-      '../assert/js/assert.js', 
-      '../chipper/js/initialize-globals.js', 
-      '../sherpa/lib/seedrandom-2.4.2.js', 
+      '../sherpa/lib/jquery-2.1.0.js',
+      '../sherpa/lib/lodash-2.4.1.js',
+      '../sherpa/lib/FileSaver-b8054a2.js',
+      '../assert/js/assert.js',
+      '../chipper/js/initialize-globals.js',
+      '../sherpa/lib/seedrandom-2.4.2.js',
       '../sherpa/lib/game-up-camera-1.0.0.js'
     ];
 
