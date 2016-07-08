@@ -165,19 +165,19 @@ define( function( require ) {
       //if the arm is moving, play the proximity sound
       if ( this.armView.dragging && this.timeAtCurrentFingerPosition < 1.0 ) { // time threshold empirically determined
         var distanceToKnob = this.model.arm.getFingerPosition().distance( this.model.doorknobPosition );
-        if ( this.sonificationControl === true || this.sonificationControl === 1 ) {
+        if ( this.sonificationControl === 2 ) {
 
           // pitch and LFO change
           this.armPositionToneGenerator.playTone( MAP_ARM_DISTANCE_TO_OSCILLATOR_FREQUENCY( distanceToKnob ) );
           this.armPositionToneGenerator.setLfoFrequency( MAP_ARM_DISTANCE_TO_LFO_FREQUENCY( distanceToKnob ) );
         }
-        else if ( this.sonificationControl === 2 ) {
+        else if ( this.sonificationControl === 3 ) {
 
           // pitch constant, LFO changes
           this.armPositionToneGenerator.playTone( 220 );
           this.armPositionToneGenerator.setLfoFrequency( MAP_ARM_DISTANCE_TO_LFO_FREQUENCY( distanceToKnob ) );
         }
-        else {
+        else if ( this.sonificationControl === 4 ) {
 
           // LFO not used, pitch changes
           this.armPositionToneGenerator.playTone( MAP_ARM_DISTANCE_TO_OSCILLATOR_FREQUENCY( distanceToKnob ) );

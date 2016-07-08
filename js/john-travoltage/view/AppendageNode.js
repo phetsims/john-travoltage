@@ -90,7 +90,7 @@ define( function( require ) {
         if ( appendage instanceof Leg ) {
           angle = limitLegRotation( angle );
 
-          if ( SONIFICATION_CONTROL && soundEnabledProperty.value ){
+          if ( SONIFICATION_CONTROL > 1 && soundEnabledProperty.value ){
             // play a sound when the range of motion is reached
             if ( ( angle === 0 && lastAngle > 0 ) ||
                  ( angle === Math.PI && lastAngle > 0 && lastAngle < Math.PI ) ){
