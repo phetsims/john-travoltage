@@ -13,7 +13,7 @@ define( function( require ) {
   var Sound = require( 'VIBE/Sound' );
 
   // audio
-  var padForChargeLevel1 = require( 'audio!JOHN_TRAVOLTAGE/pad-for-charge-level-01.wav' );
+  var jostlingSound = require( 'audio!JOHN_TRAVOLTAGE/jostling-03' );
 
   // constants
   var MIN_GAIN = 0.2;
@@ -31,7 +31,7 @@ define( function( require ) {
    */
   function ChargeAmountSoundGenerator( soundEnabledProperty, numItemsProperty, minItems, maxItems ) {
 
-    var sound = new Sound( padForChargeLevel1 );
+    var sound = new Sound( jostlingSound );
     var soundLoaded = false;
     var soundIsPlaying = false;
     var audioContext = new ( window.AudioContext || window.webkitAudioContext )();
