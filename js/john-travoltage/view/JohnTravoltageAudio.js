@@ -18,6 +18,7 @@ define( function( require ) {
   var JohnTravoltageModel = require( 'JOHN_TRAVOLTAGE/john-travoltage/model/JohnTravoltageModel' );
   var LinearFunction = require( 'DOT/LinearFunction' );
   var PitchedPopGenerator = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/PitchedPopGenerator' );
+  var RandomNotePlayer = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/RandomNotePlayer' );
   var Sound = require( 'VIBE/Sound' );
   var ToneGenerator = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/ToneGenerator' );
 
@@ -49,7 +50,18 @@ define( function( require ) {
     // add the object that will be used to create 'pitched pop' sounds when an electron is added or removed
     var pitchedPopGenerator = new PitchedPopGenerator( model.soundProperty );
 
+    // hook up sound generator for charge level, different types depending on control setting
     if ( sonificationControl === true || sonificationControl === 1 ) {
+
+      // create a random note player that will play notes more frequently as the number of charges increases
+      this.randomNotePlayer = new RandomNotePlayer(
+        model.soundProperty,
+        model.electrons.lengthProperty,
+        0,
+        JohnTravoltageModel.MAX_ELECTRONS
+      );
+    }
+    else if ( sonificationControl === 2 ) {
 
       // create a sound generator that will be used to create a jostling sound that represent the presence of charge
       this.jostlingChargesSoundGenerator = new ChargeAmountSoundGenerator(
@@ -59,28 +71,7 @@ define( function( require ) {
         JohnTravoltageModel.MAX_ELECTRONS
       );
     }
-    else if ( sonificationControl === 2 ) {
-
-      // create a tone generator that will indicate presence of charge with a transformer-like buzzing sound
-      this.chargeToneGenerator = new ChargeAmountToneGenerator(
-        model.soundProperty,
-        model.electrons.lengthProperty,
-        0,
-        JohnTravoltageModel.MAX_ELECTRONS
-      );
-    }
     else if ( sonificationControl === 3 ) {
-
-      // create a tone generator that will indicate the present of charge with a filtered buzzing sound
-      this.chargeToneGenerator = new ChargeAmountToneGenerator(
-        model.soundProperty,
-        model.electrons.lengthProperty,
-        0,
-        JohnTravoltageModel.MAX_ELECTRONS,
-        { mapQuantityToFilterCutoff: true, toneFrequency: 90 }
-      );
-    }
-    else {
 
       // create a tone generator that will indicate the presence of charge with a tone with a changing output filter
       this.chargeToneGenerator = new ChargeAmountToneGenerator(
@@ -89,6 +80,17 @@ define( function( require ) {
         0,
         JohnTravoltageModel.MAX_ELECTRONS,
         { randomlyUpdateFilterCutoff: true, toneFrequency: 120 }
+      );
+    }
+    else {
+
+      // create a tone generator that will indicate the present of charge with a filtered buzzing sound
+      this.chargeToneGenerator = new ChargeAmountToneGenerator(
+        model.soundProperty,
+        model.electrons.lengthProperty,
+        0,
+        JohnTravoltageModel.MAX_ELECTRONS,
+        { mapQuantityToFilterCutoff: true, toneFrequency: 90 }
       );
     }
     this.armPositionToneGenerator = new ToneGenerator();
