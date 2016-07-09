@@ -67,7 +67,13 @@ define( function( require ) {
     var noteTimer = null;
 
     // create a function to map the amount of charge to the inter-note time
-    var mapNumItemsToInterNoteTime = LinearFunction( minItems, maxItems, MAX_INTER_NOTE_TIME * 1000, MIN_INTER_NOTE_TIME * 1000 );
+    var linearMapTimeFunction = LinearFunction( minItems, maxItems, MAX_INTER_NOTE_TIME * 1000, MIN_INTER_NOTE_TIME * 1000 );
+    function mapNumItemsToInterNoteTime( numItems ){
+      var linearValue = linearMapTimeFunction( numItems );
+      // introduce a little random variation in the time
+      var randomAdjustFactor = ( 1 + ( Math.random() - 0.5 ) * 1.0 );
+      return linearValue * randomAdjustFactor;
+    }
 
     function playRandomNoteAndSetTimer() {
 
@@ -88,6 +94,7 @@ define( function( require ) {
       if ( interNoteTime !== Number.POSITIVE_INFINITY ) {
         // set a timeout to play the next note
         noteTimer = Timer.setTimeout( playRandomNoteAndSetTimer, interNoteTime );
+        interNoteTime = mapNumItemsToInterNoteTime( numItemsProperty.value );
       }
       else {
         noteTimer = null;
