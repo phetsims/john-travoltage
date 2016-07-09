@@ -64,16 +64,6 @@ define( function( require ) {
     }
     else if ( sonificationControl === 2 ) {
 
-      // create a sound generator that will be used to create a jostling sound that represent the presence of charge
-      this.jostlingChargesSoundGenerator = new ChargeAmountSoundGenerator(
-        model.soundProperty,
-        model.electrons.lengthProperty,
-        0,
-        JohnTravoltageModel.MAX_ELECTRONS
-      );
-    }
-    else if ( sonificationControl === 3 ) {
-
       // create a tone generator that will indicate the presence of charge with a tone with a changing output filter
       this.chargeToneGenerator = new ChargeAmountToneGenerator(
         model.soundProperty,
@@ -81,6 +71,16 @@ define( function( require ) {
         0,
         JohnTravoltageModel.MAX_ELECTRONS,
         { randomlyUpdateFilterCutoff: true, toneFrequency: 120 }
+      );
+    }
+    else if ( sonificationControl === 3 ) {
+
+      // create a sound generator that will be used to create a jostling sound that represent the presence of charge
+      this.jostlingChargesSoundGenerator = new ChargeAmountSoundGenerator(
+        model.soundProperty,
+        model.electrons.lengthProperty,
+        0,
+        JohnTravoltageModel.MAX_ELECTRONS
       );
     }
     else {
