@@ -57,6 +57,7 @@ define( function( require ) {
       this.randomNotePlayer = new RandomNotePlayer(
         model.soundProperty,
         model.electrons.lengthProperty,
+        model.sparkVisibleProperty,
         0,
         JohnTravoltageModel.MAX_ELECTRONS
       );

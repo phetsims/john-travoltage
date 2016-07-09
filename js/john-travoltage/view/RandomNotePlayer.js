@@ -15,15 +15,19 @@ define( function( require ) {
 
   // audio
   var ir = require( 'audio!JOHN_TRAVOLTAGE/koli_summer_site1_1way_mono.ogg' );
-  var piano_c3 = require( 'audio!JOHN_TRAVOLTAGE/piano-c3' );
   var piano_c4 = require( 'audio!JOHN_TRAVOLTAGE/piano-c4' );
   var piano_c5 = require( 'audio!JOHN_TRAVOLTAGE/piano-c5' );
+  var piano_c6 = require( 'audio!JOHN_TRAVOLTAGE/piano-c6' );
   var piano_f4 = require( 'audio!JOHN_TRAVOLTAGE/piano-f4' );
+  var piano_f5 = require( 'audio!JOHN_TRAVOLTAGE/piano-f5' );
   var piano_g4 = require( 'audio!JOHN_TRAVOLTAGE/piano-g4' );
+  var piano_g5 = require( 'audio!JOHN_TRAVOLTAGE/piano-g5' );
 
   // constants
   var MIN_INTER_NOTE_TIME = 0.1;
   var MAX_INTER_NOTE_TIME = 1.0;
+  var MAX_GAIN = 1;
+  var REDUCED_GAIN = MAX_GAIN / 2;
 
   /**
    * @param {Property.<boolean>} soundEnabledProperty
@@ -37,11 +41,13 @@ define( function( require ) {
   function RandomNotePlayer( soundEnabledProperty, numItemsProperty, reduceVolumeProperty, minItems, maxItems ) {
 
     var notes = [
-      new Sound( piano_c3 ),
       new Sound( piano_c4 ),
       new Sound( piano_c5 ),
+      new Sound( piano_c6 ),
       new Sound( piano_f4 ),
-      new Sound( piano_g4 )
+      new Sound( piano_f5 ),
+      new Sound( piano_g4 ),
+      new Sound( piano_g5 )
     ];
     var soundsLoaded = false;
     var mostRecentlyPlayedNote = null;
@@ -114,7 +120,7 @@ define( function( require ) {
 
           if ( soundEnabledProperty.value ) {
             interNoteTime = mapNumItemsToInterNoteTime( numItems );
-            masterGainControl.gain.value = 1;
+            masterGainControl.gain.value = reduceVolumeProperty.value ? REDUCED_GAIN : MAX_GAIN;
             if ( noteTimer === null ) {
               playRandomNoteAndSetTimer();
             }
@@ -133,7 +139,7 @@ define( function( require ) {
     // handle changes to whether sound is enabled at all
     soundEnabledProperty.link( function( soundEnabled ) {
       if ( soundEnabled ) {
-        masterGainControl.gain.value = 1;
+        masterGainControl.gain.value = MAX_GAIN;
         if ( numItemsProperty.value > 0 ){
           interNoteTime = mapNumItemsToInterNoteTime( numItemsProperty.value );
           playRandomNoteAndSetTimer();
@@ -145,12 +151,14 @@ define( function( require ) {
       }
     } );
 
-    // reduce the volume in some cases to avoid overpowering other sounds TODO:
+    // reduce the volume in some cases to avoid overpowering other sounds TODO: done quickly, not thought out well, needs refining
     reduceVolumeProperty.link( function( reduceVolume ){
       if ( reduceVolume && soundEnabledProperty.value ){
-        masterGainControl = 0.5;
+        masterGainControl.gain.value = REDUCED_GAIN;
       }
-
+      else if ( !reduceVolume && soundEnabledProperty.value ){
+        masterGainControl.gain.value = MAX_GAIN;
+      }
     } );
   }
 
