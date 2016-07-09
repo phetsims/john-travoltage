@@ -1,11 +1,11 @@
 {
-  "comment": "# john-travoltage 1.3.0-dev.2 Tue Jun 21 2016 11:36:57 GMT-0600 (Mountain Daylight Time)",
+  "comment": "# john-travoltage 1.3.0-dev.3 Fri Jul 08 2016 18:50:34 GMT-0600 (Mountain Daylight Time)",
   "assert": {
     "sha": "7d27130a4d27da15aa7f8a21bbfb9245288c1b44",
     "branch": "master"
   },
   "axon": {
-    "sha": "b71cc337f6748ee080e97b50497f05972b498de0",
+    "sha": "83211f200fee1453e62f20264accc418c53c6019",
     "branch": "master"
   },
   "brand": {
@@ -13,23 +13,23 @@
     "branch": "master"
   },
   "chipper": {
-    "sha": "e044eccd6b6c25ee7e1360c068444d191eeedf8c",
+    "sha": "4ab176ca3d7f80a349f340d48f822ddf21b348b2",
     "branch": "master"
   },
   "dot": {
-    "sha": "6d72717f9398531e4c1c14ec2765e7a700b9a120",
+    "sha": "3628c3aef07fca8751fdaba0f80d07812a2a0acd",
     "branch": "master"
   },
   "john-travoltage": {
-    "sha": "4bd36c63373059d2fdcf6993620e19fa806b570c",
+    "sha": "a230b5b458e87ed495948b025a6b6e21994692d1",
     "branch": "master"
   },
   "joist": {
-    "sha": "a42bced705887608a8f615cd35141fc1a630c1f1",
+    "sha": "94bc734c61a9569d975cb8c4c15d213d95dffd37",
     "branch": "master"
   },
   "kite": {
-    "sha": "dce9765e6fcb535970ef17c1a1bcb8db95599b08",
+    "sha": "88f0c3a051a24f71a6465641badeccab1246820a",
     "branch": "master"
   },
   "phet-core": {
@@ -41,11 +41,11 @@
     "branch": "master"
   },
   "scenery": {
-    "sha": "4476eb958b8e19367bd12c7e50636328058f077a",
+    "sha": "942889ad7b16f527d86a81bb1f2d219835671771",
     "branch": "master"
   },
   "scenery-phet": {
-    "sha": "52b783d9ea0b4d0dda0a1c6f685dbb8a541d9fdf",
+    "sha": "0d6b589e3674e0dccd013aa4790651fad81a6e78",
     "branch": "master"
   },
   "sherpa": {
@@ -53,11 +53,11 @@
     "branch": "master"
   },
   "sun": {
-    "sha": "0d7e743b1a91cae1a38f56b15393143a26ecb158",
+    "sha": "cccaf53409b87182a417d85906ef40047e495dfb",
     "branch": "master"
   },
   "tandem": {
-    "sha": "b3c68afaf8511b008b264a5829a40711c753b629",
+    "sha": "a8ac284b9dc4fa6a9e1e3ca039b594126c4de1f5",
     "branch": "master"
   },
   "vibe": {
