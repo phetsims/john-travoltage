@@ -17,40 +17,14 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var assertInstanceOf = require( 'PHET_IO/assertions/assertInstanceOf' );
   var phetio = require( 'PHET_IO/phetio' );
   var PhETIOCommon = require( 'PHET_IO/PhETIOCommon' );
-  var phetioInherit = require( 'PHET_IO/phetioInherit' );
   var phetioNamespace = require( 'PHET_IO/phetioNamespace' );
   var Tandem = require( 'TANDEM/Tandem' );
+  var TElectron = require( 'PHET_IO/simulations/john-travoltage/types/TElectron' );
   var TGroup = require( 'PHET_IO/types/TGroup' );
-  var TObject = require( 'PHET_IO/types/TObject' );
+  var TJohnTravoltageModel = require( 'PHET_IO/simulations/john-travoltage/types/TJohnTravoltageModel' );
   var TObservableArray = require( 'PHET_IO/types/axon/TObservableArray' );
-  var TVector2 = require( 'PHET_IO/types/dot/TVector2' );
-
-  var TElectron = phetioInherit( TObject, 'TElectron', function( instance, phetioID ) {
-    assertInstanceOf( instance, phet.johnTravoltage.Electron );
-    TObject.call( this, instance, phetioID );
-  }, {}, {
-    create: function( tandemID ) {
-      return new phet.johnTravoltage.Electron( 0, 0, phetio.getInstance( 'johnTravoltage.johnTravoltageScreen.model' ),
-        new phet.tandem.Tandem( tandemID ) );
-    },
-    fromStateObject: function( stateObject ) {
-      return phetio.getWrapper( stateObject ).instance;
-    },
-    toStateObject: function( instance ) {
-      return instance.phetioID;
-    },
-    api: {
-      velocity: TVector2
-    }
-  } );
-
-  var TJohnTravoltageModel = phetioInherit( TObject, 'TJohnTravoltageModel', function( instance, phetioID ) {
-    assertInstanceOf( instance, phet.johnTravoltage.JohnTravoltageModel );
-    TObject.call( this, instance, phetioID );
-  }, {}, {} );
 
   // Use explicit names for id keys so they will match what researchers see in data files
   // Use id and type instead of phetioID and typeID to simplify things for researchers
@@ -64,8 +38,7 @@ define( function( require ) {
         } ),
         view: {}
       }
-      }
-    )
+    } )
   } );
 
   phetioNamespace.register( 'john-travoltage-api', johnTravoltageAPI );
@@ -78,3 +51,4 @@ define( function( require ) {
 
   return johnTravoltageAPI;
 } );
+
