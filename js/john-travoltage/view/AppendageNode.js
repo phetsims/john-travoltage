@@ -213,10 +213,17 @@ define( function( require ) {
             rotateAppendage();
           }
           keyboardEventHandled = false;
+          appendageNode.dragging = true;
         } );
         domElement.addEventListener( 'input', function ( event ) {
           rotateAppendage();
           keyboardEventHandled = true;
+          appendageNode.dragging = true;
+        } );
+
+        // on blur, the appendage node is considered 'released' from dragging
+        domElement.addEventListener( 'blur', function( event ) {
+          appendageNode.dragging = 'false';
         } );
 
         var updatePosition = function ( angle ) {
