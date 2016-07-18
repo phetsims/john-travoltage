@@ -105,7 +105,7 @@ define( function( require ) {
     armLabel.addChild( this.arm );
 
     //Show the dotted lines again when the sim is reset
-    model.on( 'reset', function() {
+    model.resetEmitter.addListener( function() {
       if ( !johnTravoltageView.leg.dragging ) {
         johnTravoltageView.leg.border.visible = true;
       }
@@ -117,7 +117,7 @@ define( function( require ) {
     //spark
     accessibleFormNode.addChild( new SparkNode( model.sparkVisibleProperty, model.arm, model.doorknobPosition,
       function( listener ) {
-        model.on( 'step', listener );
+        model.stepEmitter.addListener( listener );
       }, electronsDischargedString, { peerID: options.peerIDs.alert } ) );
 
     //Sound button and reset all button

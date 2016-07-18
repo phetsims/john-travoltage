@@ -21,6 +21,7 @@ define( function( require ) {
   var Vector2 = require( 'DOT/Vector2' );
   var Util = require( 'DOT/Util' );
   var johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
+  var Emitter = require( 'AXON/Emitter' );
 
   // audio
   var shockOuchAudio = require( 'audio!JOHN_TRAVOLTAGE/shock-ouch' );
@@ -114,6 +115,10 @@ define( function( require ) {
     this.leg = new Leg();
     this.legAngleAtPreviousStep = this.leg.angle;
 
+    // @public - emitters for reset and step events
+    this.stepEmitter = new Emitter();
+    this.resetEmitter = new Emitter();
+
     // TODO: (from jbphet) - IMO, sounds should be in the view, not here.  Sonification was done in the view, these
     // TODO: should be moved to the view for consistency.
     this.sounds = [
@@ -174,7 +179,7 @@ define( function( require ) {
       while ( this.electrons.length > 0 ) {
         this.removeElectron( this.electrons.get( 0 ) );
       }
-      this.trigger( 'reset' );
+      this.resetEmitter.emit();
     },
     getLineSegments: function() {
       return this.lineSegments;
@@ -260,7 +265,7 @@ define( function( require ) {
       this.legAngleAtPreviousStep = this.leg.angle;
       this.shoeOnCarpet = ( this.leg.angle > FOOT_ON_CARPET_MIN_ANGLE && this.leg.angle < FOOT_ON_CARPET_MAX_ANGLE  );
 
-      this.trigger( 'step' );
+      this.stepEmitter.emit();
     },
     removeElectron: function( electron ) {
       this.electrons.remove( electron );
