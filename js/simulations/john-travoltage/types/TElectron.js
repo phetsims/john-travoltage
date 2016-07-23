@@ -28,9 +28,6 @@ define( function( require ) {
     },
     toStateObject: function( instance ) {
       return instance.phetioID;
-    },
-    api: {
-      velocity: TVector2
     }
   } );
 
