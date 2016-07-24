@@ -13,7 +13,6 @@ define( function( require ) {
   var phetioNamespace = require( 'PHET_IO/phetioNamespace' );
   var phetioInherit = require( 'PHET_IO/phetioInherit' );
   var TObject = require( 'PHET_IO/types/TObject' );
-  var TVector2 = require( 'PHET_IO/types/dot/TVector2' );
 
   var TElectron = phetioInherit( TObject, 'TElectron', function( instance, phetioID ) {
     assertInstanceOf( instance, phet.johnTravoltage.Electron );
