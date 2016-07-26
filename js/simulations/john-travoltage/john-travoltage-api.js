@@ -21,9 +21,9 @@ define( function( require ) {
   var PhETIOCommon = require( 'PHET_IO/PhETIOCommon' );
   var phetioNamespace = require( 'PHET_IO/phetioNamespace' );
   var Tandem = require( 'TANDEM/Tandem' );
-  var TElectron = require( 'PHET_IO/simulations/john-travoltage/types/TElectron' );
+  var TElectron = require( 'PHET_IO/simulations/john-travoltage/TElectron' );
   var TGroup = require( 'PHET_IO/types/TGroup' );
-  var TJohnTravoltageModel = require( 'PHET_IO/simulations/john-travoltage/types/TJohnTravoltageModel' );
+  var TJohnTravoltageModel = require( 'PHET_IO/simulations/john-travoltage/TJohnTravoltageModel' );
   var TObservableArray = require( 'PHET_IO/types/axon/TObservableArray' );
 
   // Use explicit names for id keys so they will match what researchers see in data files
