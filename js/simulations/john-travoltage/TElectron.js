@@ -18,13 +18,16 @@ define( function( require ) {
     assertInstanceOf( instance, phet.johnTravoltage.Electron );
     TObject.call( this, instance, phetioID );
   }, {}, {
+
     create: function( tandemID ) {
       return new phet.johnTravoltage.Electron( 0, 0, phetio.getInstance( 'johnTravoltage.johnTravoltageScreen.model' ),
         new phet.tandem.Tandem( tandemID ) );
     },
+
     fromStateObject: function( stateObject ) {
       return phetio.getWrapper( stateObject ).instance;
     },
+
     toStateObject: function( instance ) {
       return instance.phetioID;
     }
