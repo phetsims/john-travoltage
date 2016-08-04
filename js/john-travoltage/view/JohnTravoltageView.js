@@ -152,7 +152,9 @@ define( function( require ) {
     // Scene description
     var accessibleDescription = new AccessibleDescriptionNode( this.arm, this.leg, model.electrons, accessibleFormNode );
     this.addChild( accessibleDescription );
-    // accessibleDescription.moveToBack();
+
+    // adjust the order of the accessible content so that the description comes before the form in the DOM order.
+    this.setAccessibleOrder([accessibleDescription, accessibleFormNode]);
 
     // debug lines, body and forceline, uncomment this to view physical bounds of body
     // borders are approximately 8px = radius of particle from physical body,
