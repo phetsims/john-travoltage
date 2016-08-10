@@ -18,7 +18,6 @@ define( function( require ) {
 
   // modules
   var phetio = require( 'PHET_IO/phetio' );
-  var PhETIOCommon = require( 'PHET_IO/PhETIOCommon' );
   var phetioNamespace = require( 'PHET_IO/phetioNamespace' );
   var Tandem = require( 'TANDEM/Tandem' );
   var TElectron = require( 'PHET_IO/simulations/john-travoltage/TElectron' );
@@ -29,8 +28,8 @@ define( function( require ) {
   // Use explicit names for id keys so they will match what researchers see in data files
   // Use id and type instead of phetioID and typeID to simplify things for researchers
   // Use a map so that JS will help us check that there are no duplicate names.
-  var johnTravoltageAPI = PhETIOCommon.createAPI( {
-    johnTravoltage: PhETIOCommon.createSim( {
+  var johnTravoltageAPI = createAPI( {
+    johnTravoltage: createSim( {
       johnTravoltageScreen: {
         model: TJohnTravoltageModel.extend( {
           electrons: TObservableArray( TElectron ),
