@@ -28,8 +28,8 @@ define( function( require ) {
   // Use explicit names for id keys so they will match what researchers see in data files
   // Use id and type instead of phetioID and typeID to simplify things for researchers
   // Use a map so that JS will help us check that there are no duplicate names.
-  var johnTravoltageAPI = createAPI( {
-    johnTravoltage: createSim( {
+  var johnTravoltageAPI = ( {
+    johnTravoltage: ( {
       johnTravoltageScreen: {
         model: TJohnTravoltageModel.extend( {
           electrons: TObservableArray( TElectron ),
