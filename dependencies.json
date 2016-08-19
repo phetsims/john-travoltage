@@ -1,11 +1,11 @@
 {
-  "comment": "# john-travoltage 1.3.0-dev.5 Mon Jul 18 2016 12:11:29 GMT-0600 (Mountain Daylight Time)",
+  "comment": "# john-travoltage 1.3.0-dev.6 Fri Aug 19 2016 13:52:06 GMT-0600 (Mountain Daylight Time)",
   "assert": {
     "sha": "7d27130a4d27da15aa7f8a21bbfb9245288c1b44",
     "branch": "master"
   },
   "axon": {
-    "sha": "9a0e2f3a61a2416edf8247c6ccdb262195b2f420",
+    "sha": "1fd9183228d023c668b50d2230f13c03b6963a96",
     "branch": "master"
   },
   "brand": {
@@ -13,19 +13,19 @@
     "branch": "master"
   },
   "chipper": {
-    "sha": "535da6c1ad07b9c4e3fdcf2ce0ada7eb4c91a1c9",
+    "sha": "136b1d30c9cb95165fd05dbcef0e6dfc1704c576",
     "branch": "master"
   },
   "dot": {
-    "sha": "dc99e915a7cc262882a5fb3d78252ef8eebd6df8",
+    "sha": "1796b6f8c4246c02590baeac16bbcc155a535419",
     "branch": "master"
   },
   "john-travoltage": {
-    "sha": "0c1080fe63609ea2b37c6e6aae441994cebb2686",
+    "sha": "27763cf227b0ef0a67272d72bddc59b879b66db6",
     "branch": "master"
   },
   "joist": {
-    "sha": "ab7223adc22b6f7e28d01a938a93fd87588affde",
+    "sha": "ab5582ab6c8d87abb8bcdf947ef8144eb96ea7b6",
     "branch": "master"
   },
   "kite": {
@@ -41,23 +41,23 @@
     "branch": "master"
   },
   "scenery": {
-    "sha": "942889ad7b16f527d86a81bb1f2d219835671771",
+    "sha": "0ab22ac3398ee77a64b502c451c7b0bea3ddf83d",
     "branch": "master"
   },
   "scenery-phet": {
-    "sha": "767c8f510c9685e5d81d52ce06879daf0519b199",
+    "sha": "89a86ac660c9f101e13b544d97ac8d108216d8bb",
     "branch": "master"
   },
   "sherpa": {
-    "sha": "0f4d5f25eff41bdb0a0a4f1da451049f22ac3357",
+    "sha": "5ddfccd4d439c8ceeb4739de4c790d2e75cb7ef7",
     "branch": "master"
   },
   "sun": {
-    "sha": "c7b647dd8a493d96ed31678598ecafac2338b848",
+    "sha": "5a3135b517e511e88fc813a865d2df79ab93673a",
     "branch": "master"
   },
   "tandem": {
-    "sha": "a8ac284b9dc4fa6a9e1e3ca039b594126c4de1f5",
+    "sha": "43ebdfb3f57308563c7735b83ec9b4122eebf0a8",
     "branch": "master"
   },
   "vibe": {
