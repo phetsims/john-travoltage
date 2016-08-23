@@ -80,7 +80,7 @@ define( function( require ) {
       // select a note to play that is not the most recently played note
       var note;
       do {
-        note = _.sample( notes );
+        note = phet.joist.random.sample( notes );
       } while( note === mostRecentlyPlayedNote );
       mostRecentlyPlayedNote = note;
 
