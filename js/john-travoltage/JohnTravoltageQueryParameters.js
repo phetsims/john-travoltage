@@ -23,7 +23,7 @@ define( function( require ) {
       sonificationQueryParamValue = true;
     }
     else {
-      sonificationQueryParamValue = parseInt( sonificationQueryParamValue );
+      sonificationQueryParamValue = parseInt( sonificationQueryParamValue, 10 );
     }
   }
 
