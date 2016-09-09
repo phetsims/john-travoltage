@@ -15,18 +15,12 @@ define( function( require ) {
   var Screen = require( 'JOIST/Screen' );
   var johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
 
-  // strings
-  var johnTravoltageTitleString = require( 'string!JOHN_TRAVOLTAGE/john-travoltage.title' );
-
   /**
    * @param tandem
    * @constructor
    */
   function JohnTravoltageScreen( tandem ) {
-    Screen.call(
-      this,
-      johnTravoltageTitleString,
-      null /* single-screen sim, no icon */ ,
+    Screen.call( this,
       function() {
         return new JohnTravoltageModel( tandem.createTandem( 'model' ) );
       },
