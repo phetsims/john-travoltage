@@ -51,7 +51,7 @@ define( function( require ) {
    * @constructor
    */
   function AppendageNode( appendage, image, dx, dy, angleOffset, soundEnabledProperty, rangeMap, options ) {
-    var appendageNode = this;
+    var self = this;
 
     Node.call( this, { cursor: 'pointer' } );
 
@@ -83,8 +83,8 @@ define( function( require ) {
     imageNode.addInputListener( new SimpleDragHandler( {
       allowTouchSnag: true,
       start: function( event ) {
-        appendageNode.border.visible = false;
-        appendageNode.dragging = true;
+        self.border.visible = false;
+        self.dragging = true;
       },
       drag: function( event ) {
         lastAngle = currentAngle;
@@ -116,7 +116,7 @@ define( function( require ) {
         else if ( appendage.angle === 0 && z > 0 ) {
           //noop, at the right side
         }
-        else if ( appendageNode.distanceBetweenAngles( appendage.angle, angle ) > Math.PI / 3 && ( appendage.angle === 0 || appendage.angle === Math.PI ) ) {
+        else if ( self.distanceBetweenAngles( appendage.angle, angle ) > Math.PI / 3 && ( appendage.angle === 0 || appendage.angle === Math.PI ) ) {
           //noop, too big a leap, may correspond to the user reversing direction after a leg is stuck against threshold
         }
         else {
@@ -125,7 +125,7 @@ define( function( require ) {
 
       },
       end: function() {
-        appendageNode.dragging = false;
+        self.dragging = false;
       }
     } ) );
 
@@ -193,7 +193,7 @@ define( function( require ) {
         domElement.setAttribute( 'min', keyboardMotion.min );
         domElement.setAttribute( 'max', keyboardMotion.max );
         domElement.setAttribute( 'step', keyboardMotion.step );
-        domElement.value = appendageNode.angleToPosition( appendage.angle, keyboardMotion.totalRange, keyboardMotion.max, options.keyboardMidPointOffset );
+        domElement.value = self.angleToPosition( appendage.angle, keyboardMotion.totalRange, keyboardMotion.max, options.keyboardMidPointOffset );
 
         if (options.controls) {
           domElement.setAttribute( 'aria-controls', options.controls.join( ',' ));
@@ -205,33 +205,33 @@ define( function( require ) {
         // see: https://wiki.fluidproject.org/pages/viewpage.action?pageId=61767683
         var keyboardEventHandled = false;
         var rotateAppendage = function () {
-          appendage.angle = appendageNode.positionToAngle( domElement.value, keyboardMotion.totalRange, options.keyboardMidPointOffset );
-          appendageNode.border.visible = false;
+          appendage.angle = self.positionToAngle( domElement.value, keyboardMotion.totalRange, options.keyboardMidPointOffset );
+          self.border.visible = false;
         };
         domElement.addEventListener( 'change', function ( event ) {
           if (!keyboardEventHandled) {
             rotateAppendage();
           }
           keyboardEventHandled = false;
-          appendageNode.dragging = true;
+          self.dragging = true;
         } );
         domElement.addEventListener( 'input', function ( event ) {
           rotateAppendage();
           keyboardEventHandled = true;
-          appendageNode.dragging = true;
+          self.dragging = true;
         } );
 
         // on blur, the appendage node is considered 'released' from dragging
         domElement.addEventListener( 'blur', function( event ) {
-          appendageNode.dragging = 'false';
+          self.dragging = 'false';
         } );
 
         var updatePosition = function ( angle ) {
-          var position = appendageNode.angleToPosition( appendage.angle, keyboardMotion.totalRange, keyboardMotion.max, options.keyboardMidPointOffset );
-          var positionDescription = appendageNode.getPositionDescription( position, rangeMap );
+          var position = self.angleToPosition( appendage.angle, keyboardMotion.totalRange, keyboardMotion.max, options.keyboardMidPointOffset );
+          var positionDescription = self.getPositionDescription( position, rangeMap );
           domElement.value = position;
           domElement.setAttribute( 'aria-valuetext', StringUtils.format( positionTemplateString, position, positionDescription ) );
-          appendageNode.positionDescription = positionDescription;
+          self.positionDescription = positionDescription;
 
           // updates the position of the focus highlight
           focusCircle.center = imageNode.center;

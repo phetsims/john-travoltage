@@ -19,7 +19,7 @@ define( function( require ) {
    * @constructor
    */
   function AccessibleFormNode( options ) {
-    var accessibleFormNode = this;
+    var self = this;
 
     Node.call( this, options );
 
@@ -31,7 +31,7 @@ define( function( require ) {
         var domElement = document.createElement( 'form' );
 
         domElement.id = 'form-' + uniqueId;
-        accessibleFormNode.domElement = domElement;
+        self.domElement = domElement;
 
         return new AccessiblePeer( accessibleInstance, domElement );
       }

@@ -39,7 +39,7 @@ define( function( require ) {
    */
   function JohnTravoltageModel( tandem ) {
     this.tandem = tandem;
-    var johnTravoltageModel = this;
+    var self = this;
 
     this.electronsToRemove = [];
 
@@ -105,8 +105,8 @@ define( function( require ) {
     } );
 
     this.sparkVisibleProperty.link( function( sparkVisible ) {
-      if ( sparkVisible && johnTravoltageModel.sound ) {
-        johnTravoltageModel.sounds[ Math.floor( Math.random() * 2 ) ].play();
+      if ( sparkVisible && self.sound ) {
+        self.sounds[ Math.floor( Math.random() * 2 ) ].play();
       }
     } );
 
@@ -135,13 +135,13 @@ define( function( require ) {
     this.leg.angleProperty.lazyLink( function( angle ) {
       if ( angle > FOOT_ON_CARPET_MIN_ANGLE &&
            angle < FOOT_ON_CARPET_MAX_ANGLE &&
-           johnTravoltageModel.electrons.length < MAX_ELECTRONS ) {
+           self.electrons.length < MAX_ELECTRONS ) {
 
         dragEvents++;
         accumulatedAngle += Math.abs( angle - lastAngle );
 
         while ( accumulatedAngle > accumulatedAngleThreshold ) {
-          johnTravoltageModel.addElectron();
+          self.addElectron();
           accumulatedAngle -= accumulatedAngleThreshold;
         }
         lastAngle = angle;
