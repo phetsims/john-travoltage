@@ -12,15 +12,15 @@
     "visible": false
   },
   "legSliderLabel": {
-    "value": "Foot position",
+    "value": "Leg swing",
     "visible": false
   },
   "foot.onCarpet": {
-    "value": "on the carpet",
+    "value": "foot rubbing on the rug",
     "visible": false
   },
   "foot.offCarpet": {
-    "value": "off the carpet",
+    "value": "foot off the rug",
     "visible": false
   },
   "hand.closest": {
@@ -56,19 +56,23 @@
     "visible": false
   },
   "electrons.total": {
-    "value": "Total electrons: {0}",
+    "value": "Electrons on body: {0}",
     "visible": false
   },
   "electrons.totalAfterDischarge": {
-    "value": "Total electrons: Discharge occurred. Electrons decreased from {1} to {0}",
+    "value": "Electrons on body: Discharge occurred. Electrons decreased from {1} to {0}",
     "visible": false
   },
-  "electrons.description": {
-    "value": "He has {0} charges.",
-    "visible": false
+  "electrons.description.single": {
+      "value": "John has 1 charge on his body. ",
+      "visible": false
+  },
+  "electrons.description.multiple": {
+      "value": "John has {0} charges on his body. ",
+      "visible": false
   },
   "scene.description": {
-    "value": "John is standing with his foot {1}, and his hand is {0}. {2}",
+    "value": "{1}John's hand is {0}, and he is ready to swing his leg to rub his foot on the rug.",
     "visible": false
   }
 }
