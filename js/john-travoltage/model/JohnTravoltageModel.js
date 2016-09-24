@@ -128,7 +128,6 @@ define( function( require ) {
 
     //If leg dragged across carpet, add electron.  Lazy link so that it won't add an electron when the sim starts up.
     //The number of electrons accumulated only depends on the total angle subtended
-    var dragEvents = 0;
     var lastAngle = this.leg.angle;
     var accumulatedAngle = 0;
     var accumulatedAngleThreshold = Math.PI / 16;
@@ -137,7 +136,6 @@ define( function( require ) {
            angle < FOOT_ON_CARPET_MAX_ANGLE &&
            self.electrons.length < MAX_ELECTRONS ) {
 
-        dragEvents++;
         accumulatedAngle += Math.abs( angle - lastAngle );
 
         while ( accumulatedAngle > accumulatedAngleThreshold ) {
