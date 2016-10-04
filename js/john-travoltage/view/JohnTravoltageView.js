@@ -64,8 +64,8 @@ define( function( require ) {
       //TODO: Once https://github.com/phetsims/john-travoltage/issues/98 has been addressed, update how the peerIDs
       //are added/referenced by the view.
       peerIDs: {
-        alert: 'john-travoltage-alert',
-        status: 'john-travoltage-status'
+        alert: 'assertive-alert',
+        status: 'polite-status'
       }
     }, options );
 
