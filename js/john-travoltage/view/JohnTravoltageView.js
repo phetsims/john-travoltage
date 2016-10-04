@@ -69,6 +69,10 @@ define( function( require ) {
       }
     }, options );
 
+    // unhide the aria-live elements for use in this sim
+    // TODO: should be handled in common code
+    document.getElementById( 'aria-live-elements' ).hidden = false;
+
     //The sim works best in most browsers using svg.
     //But in firefox on Win8 it is very slow and buggy, so use canvas on firefox.
     ScreenView.call( this, {
