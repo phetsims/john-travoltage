@@ -62,17 +62,17 @@ define( function( require ) {
 
   return inherit( Object, Electron, {
     stepInSpark: function( dt ) {
-      var electron = this;
+      var self = this;
       //move to closest line segment
       if ( !this.segment ) {
 
-        this.segment = _.min( this.model.forceLines, function( forceLine ) { return forceLine.p0.distanceSquared( electron.positionProperty.get() ); } );
+        this.segment = _.min( this.model.forceLines, function( forceLine ) { return forceLine.p0.distanceSquared( self.positionProperty.get() ); } );
 
         //If the closest path is the same as the last one, it means we have reached the end of the road
         if ( this.lastSegment === this.segment ) {
 
           //Don't remove immediately or it will be concurrentmodificationexception in iterator
-          this.model.electronsToRemove.push( electron );
+          this.model.electronsToRemove.push( self );
           return;
         }
       }

@@ -29,7 +29,7 @@
    * @constructor
    */
   function ElectronLayerNode( electrons, maxElectrons, leg, arm, options ) {
-    var electronLayerView = this;
+    var self = this;
     var statusNode = document.getElementById( options.peerID );
 
     Node.call( this, options );
@@ -41,7 +41,7 @@
       // and the visual representation of the electron
       var newElectron = new ElectronNode( added, leg, arm );
       added.viewNode = newElectron;
-      electronLayerView.addChild( newElectron );
+      self.addChild( newElectron );
 
       // play the sound that indicates that an electron was added
       options.pitchedPopGenerator && options.pitchedPopGenerator.createPop(
@@ -51,7 +51,7 @@
 
       var itemRemovedListener = function( removed ) {
         if ( removed === added ) {
-          electronLayerView.removeChild( newElectron );
+          self.removeChild( newElectron );
           electrons.removeItemRemovedListener( itemRemovedListener );
 
           // play the sound that indicates that an electron was removed

@@ -68,7 +68,7 @@ define( function( require ) {
   var debugPosition = false;
 
   function ElectronNode( electron, leg, arm ) {
-    var electronNode = this;
+    var self = this;
 
     Node.call( this, { pickable: false } );
 
@@ -128,7 +128,7 @@ define( function( require ) {
 
       //Simplest case, it wasn't in any appendage
       if ( inBodyCount === history.length ) {
-        electronNode.setTranslation( position.x, position.y );
+        self.setTranslation( position.x, position.y );
       }
 
       //Interpolate for smoothness at intersection between leg/body
@@ -145,13 +145,13 @@ define( function( require ) {
 
         //No need to blend, it was in the leg the whole time
         if ( inLegCount === history.length ) {
-          electronNode.setTranslation( dr.x, dr.y );
+          self.setTranslation( dr.x, dr.y );
         }
         else {
           a.setXY( dr.x, dr.y );
           b.setXY( position.x, position.y );
           c = a.blend( b, inBodyCount / history.length );
-          electronNode.setTranslation( c.x, c.y );
+          self.setTranslation( c.x, c.y );
         }
       }
 
@@ -168,13 +168,13 @@ define( function( require ) {
 
         //No need to blend, it was in the leg the whole time
         if ( inArmCount === history.length ) {
-          electronNode.setTranslation( dr.x, dr.y );
+          self.setTranslation( dr.x, dr.y );
         }
         else {
           a.setXY( dr.x, dr.y );
           b.setXY( position.x, position.y );
           c = a.blend( b, inBodyCount / history.length );
-          electronNode.setTranslation( c.x, c.y );
+          self.setTranslation( c.x, c.y );
         }
       }
 

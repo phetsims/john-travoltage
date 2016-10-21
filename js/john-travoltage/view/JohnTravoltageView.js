@@ -58,16 +58,20 @@ define( function( require ) {
    * @constructor
    */
   function JohnTravoltageView( model, tandem, options ) {
-    var johnTravoltageView = this;
+    var self = this;
     this.model = model;
     options = _.extend( {
       //TODO: Once https://github.com/phetsims/john-travoltage/issues/98 has been addressed, update how the peerIDs
       //are added/referenced by the view.
       peerIDs: {
-        alert: 'john-travoltage-alert',
-        status: 'john-travoltage-status'
+        alert: 'assertive-alert',
+        status: 'polite-status'
       }
     }, options );
+
+    // unhide the aria-live elements for use in this sim
+    // TODO: should be handled in common code
+    document.getElementById( 'aria-live-elements' ).hidden = false;
 
     //The sim works best in most browsers using svg.
     //But in firefox on Win8 it is very slow and buggy, so use canvas on firefox.
@@ -106,11 +110,11 @@ define( function( require ) {
 
     //Show the dotted lines again when the sim is reset
     model.resetEmitter.addListener( function() {
-      if ( !johnTravoltageView.leg.dragging ) {
-        johnTravoltageView.leg.border.visible = true;
+      if ( !self.leg.dragging ) {
+        self.leg.border.visible = true;
       }
-      if ( !johnTravoltageView.arm.dragging ) {
-        johnTravoltageView.arm.border.visible = true;
+      if ( !self.arm.dragging ) {
+        self.arm.border.visible = true;
       }
     } );
 
