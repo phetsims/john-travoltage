@@ -35,6 +35,7 @@ define( function( require ) {
   var JohnTravoltageQueryParameters = require( 'JOHN_TRAVOLTAGE/john-travoltage/JohnTravoltageQueryParameters' );
   var JohnTravoltageAudio = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/JohnTravoltageAudio' );
   var JohnTravoltageModel = require( 'JOHN_TRAVOLTAGE/john-travoltage/model/JohnTravoltageModel' );
+  var AccessiblePeer = require( 'SCENERY/accessibility/AccessiblePeer' );
   var johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
 
   // images
@@ -125,7 +126,44 @@ define( function( require ) {
       }, electronsDischargedString, { peerID: options.peerIDs.alert } ) );
 
     //Sound button and reset all button
-    var soundButton = new SoundToggleButton( model.soundProperty, tandem.createTandem( 'soundButton' ) );
+    var soundButton = new SoundToggleButton( model.soundProperty, {
+      accessibleContent: {
+        createPeer: function( accessibleInstance ) {
+          // parent containing the dom element and its peer elements
+          var parentContainerElement = document.createElement( 'div' );
+
+          // the input element
+          var domElement = document.createElement( 'input' );
+          domElement.type = 'button';
+          domElement.id = 'sound-button';
+          domElement.setAttribute( 'aria-pressed', true );
+
+          // button exists for life of sim, no need to dispose of listener
+          domElement.addEventListener( 'click', function( event ) {
+            model.soundProperty.set( !model.soundProperty.get() );
+          } );
+
+          // label for the input element
+          var labelElement = document.createElement( 'label' );
+          labelElement.setAttribute( 'for', domElement.id );
+          labelElement.textContent = 'Play Sound';
+
+          parentContainerElement.appendChild( labelElement );
+
+          return new AccessiblePeer( accessibleInstance, domElement, {
+            parentContainerElement: parentContainerElement
+          } );
+        }
+      }
+    } );
+
+    // when the sound property changes, toggle the 'aria-pressed' state
+    // linked lazily as the parallel domElement won't exist in the document until
+    // after instantiation
+    model.soundProperty.lazyLink( function( pressed ) {
+      document.getElementById( 'sound-button' ).setAttribute( 'aria-pressed', pressed );
+    } );  
+
     var resetAllButton = new ResetAllButton( {
       listener: model.reset.bind( model ),
       scale: 1.32
