@@ -18,7 +18,8 @@ define( function( require ) {
 
   // strings
   var sceneDescriptionString = require( 'string!JOHN_TRAVOLTAGE/scene.description' );
-  var electronsDescriptionString = require( 'string!JOHN_TRAVOLTAGE/electrons.description' );
+  var electronsDescriptionStringSingle = require( 'string!JOHN_TRAVOLTAGE/electrons.description.single' );
+  var electronsDescriptionStringMultiple = require( 'string!JOHN_TRAVOLTAGE/electrons.description.multiple' );
 
   /**
    * @param {AppendageNode} arm -  the arm appendage
@@ -43,8 +44,9 @@ define( function( require ) {
         describedNode.domElement.setAttribute( 'aria-describedby', domElement.id );
 
         var updateDescription = function () {
-          var chargeMessage = hadElectrons ? StringUtils.format( electronsDescriptionString, electrons.length ) : '';
-          domElement.textContent = StringUtils.format( sceneDescriptionString, arm.positionDescription, leg.positionDescription,  chargeMessage );
+          var chargeDescriptor = electrons.length === 1 ? electronsDescriptionStringSingle : electronsDescriptionStringMultiple;
+          var chargeMessage = hadElectrons ? StringUtils.format( chargeDescriptor, electrons.length ) : '';
+          domElement.textContent = StringUtils.format( sceneDescriptionString, arm.positionDescription,  chargeMessage );
         };
 
         arm.model.angleProperty.link( updateDescription );
