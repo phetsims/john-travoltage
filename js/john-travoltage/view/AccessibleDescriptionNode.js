@@ -18,8 +18,8 @@ define( function( require ) {
 
   // strings
   var sceneDescriptionString = require( 'string!JOHN_TRAVOLTAGE/scene.description' );
-  var electronsDescriptionStringSingle = require( 'string!JOHN_TRAVOLTAGE/electrons.description.single' );
-  var electronsDescriptionStringMultiple = require( 'string!JOHN_TRAVOLTAGE/electrons.description.multiple' );
+  var electronsDescriptionSingleString = require( 'string!JOHN_TRAVOLTAGE/electrons.description.single' );
+  var electronsDescriptionMultipleString = require( 'string!JOHN_TRAVOLTAGE/electrons.description.multiple' );
 
   /**
    * @param {AppendageNode} arm -  the arm appendage
@@ -44,7 +44,7 @@ define( function( require ) {
         describedNode.domElement.setAttribute( 'aria-describedby', domElement.id );
 
         var updateDescription = function () {
-          var chargeDescriptor = electrons.length === 1 ? electronsDescriptionStringSingle : electronsDescriptionStringMultiple;
+          var chargeDescriptor = electrons.length === 1 ? electronsDescriptionSingleString : electronsDescriptionMultipleString;
           var chargeMessage = hadElectrons ? StringUtils.format( chargeDescriptor, electrons.length ) : '';
           domElement.textContent = StringUtils.format( sceneDescriptionString, arm.positionDescription,  chargeMessage );
         };
