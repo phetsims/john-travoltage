@@ -79,8 +79,28 @@ define( function( require ) {
     ScreenView.call( this, {
       renderer: platform.firefox ? 'canvas' : null,
       layoutBounds: new Bounds2( 0, 0, 768, 504 ),
-      screenLabel: johnTravoltageTitleString
+      accessibleContent: null
+      // screenLabel: johnTravoltageTitleString
     } );
+
+    this.accessibleContent = {
+      createPeer: function( accessibleInstance ) {
+        // the screen content should be contained in an article
+        var domElement = document.createElement( 'article' );
+
+        // create the label for the sim
+        var labelElement = document.createElement( 'h1' );
+        labelElement.textContent = johnTravoltageTitleString;
+        domElement.appendChild( labelElement );
+
+        var childContainerElement = document.createElement( 'div' );
+        domElement.appendChild( childContainerElement );
+
+        return new AccessiblePeer( accessibleInstance, domElement, {
+          childContainerElement: childContainerElement
+        } );
+      }
+    };
 
     //add background elements
     this.addChild( new BackgroundElementsNode() );
