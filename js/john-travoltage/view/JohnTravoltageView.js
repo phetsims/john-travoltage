@@ -136,7 +136,7 @@ define( function( require ) {
           var domElement = document.createElement( 'input' );
           domElement.type = 'button';
           domElement.id = 'sound-button';
-          domElement.setAttribute( 'aria-pressed', true );
+          domElement.setAttribute( 'aria-pressed', false );
 
           // button exists for life of sim, no need to dispose of listener
           domElement.addEventListener( 'click', function( event ) {
@@ -146,7 +146,7 @@ define( function( require ) {
           // label for the input element
           var labelElement = document.createElement( 'label' );
           labelElement.setAttribute( 'for', domElement.id );
-          labelElement.textContent = 'Play Sound';
+          labelElement.textContent = 'Mute Sound';
 
           parentContainerElement.appendChild( labelElement );
 
@@ -161,7 +161,7 @@ define( function( require ) {
     // linked lazily as the parallel domElement won't exist in the document until
     // after instantiation
     model.soundProperty.lazyLink( function( pressed ) {
-      document.getElementById( 'sound-button' ).setAttribute( 'aria-pressed', pressed );
+      document.getElementById( 'sound-button' ).setAttribute( 'aria-pressed', !pressed );
     } );  
 
     var resetAllButton = new ResetAllButton( {
