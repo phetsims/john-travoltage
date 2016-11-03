@@ -39,9 +39,9 @@ define( function( require ) {
   /**
    * @param {Leg|Arm} appendage the body part to display
    * @param {Image} image
-   * @param {Number} dx
-   * @param {Number} dy
-   * @param {Number} angleOffset the angle about which to rotate
+   * @param {number} dx
+   * @param {number} dy
+   * @param {number} angleOffset the angle about which to rotate
    * @param {Property.<boolean>} soundEnabledProperty
    * @param {Array} rangeMap - an array of objects of the format {range: {max: Number, min: Number}, text: String}. This
    *                           is used to map a position value to text to use for the valueText of the related slider.

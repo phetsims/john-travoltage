@@ -16,7 +16,7 @@ define( function( require ) {
   var AccessiblePeer = require( 'SCENERY/accessibility/AccessiblePeer' );
 
   /**
-   * @param {String} labelText - The text to output in the label
+   * @param {string} labelText - The text to output in the label
    *
    * @constructor
    */
