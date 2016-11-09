@@ -11,30 +11,42 @@ define( function( require ) {
   // modules
   var johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
 
-  var getQueryParameter = phet.chipper.getQueryParameter;
+  var JohnTravoltageQueryParameters = QueryStringMachine.getAll( {
 
-  // sonification can either be simply set on or can be assigned a numerical value, so handle that here
-  var sonificationQueryParamValue = getQueryParameter( 'sonification' );
-  if ( sonificationQueryParamValue ) {
-    if ( sonificationQueryParamValue === 'undefined' ) {
+    // adds sonification, with diffferent degrees and styles depending on the value
+    // of the query parameter.  The behavior of each value is described below:
+    // 0 -
+    //        No prototype sonification (default value).
+    // 1 -    
+    //        charge level - randomly selected piano pitches (more charges -> faster notes)
+    //        charges entering body - mild 'pop' sound when electron is added or removed 
+    //        leg range limit reached - nothing
+    //        max electrons reached - longer pitch matching last 'electron added' sound
+    // 2 -
+    //        arm proximity to doorknob - tone with pitch and LFO changing
+    //        charge level - randomly filtered tone (more charges -> faster changes)
+    //        electron added/removed - mild 'pop' sound when electron is added or removed
+    //        leg range limit reached - bonk
+    //        max electrons reached - longer pitch matching last electron added sound
+    // 3 -
+    //        arm proximity to doorknob - constant picth tone with LFO changing
+    //        charge level - looped 'jostling' sound (more charges -> louder sound)
+    //        electron added/removed - mild 'pop' sound when electron is added or removed
+    //        leg range limit reached - bonk
+    //        max electrons reached - longer pitch matching last electron added sound
+    // 4 -
+    //        arm proximity to doorknob - tone with pitch changing, no LFO
+    //        charge level - transformer-ish sound (more charge -> higher cutoff frequency and more volume)
+    //        electron added/removed - mild 'pop' sound when electron is added or removed
+    //        leg range limit reached - bonk
+    //        max electrons reached - longer pitch matching last electron added sound 
+    sonification: { type: 'number', defaultValue: 0 },
 
-      // This is kind of a quick of PhET's query parameter system that a string of 'undefined' is the default value if
-      // the parameter is present.
-      sonificationQueryParamValue = true;
-    }
-    else {
-      sonificationQueryParamValue = parseInt( sonificationQueryParamValue, 10 );
-    }
-  }
+    // shows debug lines which represent the body, and force lines which restrict the charges
+    // to stay inside of the body
+    showDebugInfo: { type: 'flag' }
 
-  var JohnTravoltageQueryParameters = {
-
-    // populates the output carousel with 1 card of each type
-    SONIFICATION: sonificationQueryParamValue,
-
-    SHOW_DEBUG_INFO: !!getQueryParameter( 'showDebugInfo' )
-
-  };
+  } );
 
   johnTravoltage.register( 'JohnTravoltageQueryParameters', JohnTravoltageQueryParameters );
 

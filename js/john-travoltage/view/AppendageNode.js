@@ -27,9 +27,6 @@ define( function( require ) {
   var JohnTravoltageQueryParameters = require( 'JOHN_TRAVOLTAGE/john-travoltage/JohnTravoltageQueryParameters' );
   var Sound = require( 'VIBE/Sound' );
 
-  // constants
-  var SONIFICATION_CONTROL = JohnTravoltageQueryParameters.SONIFICATION;
-
   // audio
   var limitBonkAudio = require( 'audio!JOHN_TRAVOLTAGE/limit-bonk' );
 
@@ -96,7 +93,7 @@ define( function( require ) {
         if ( appendage instanceof Leg ) {
           angle = limitLegRotation( angle );
 
-          if ( SONIFICATION_CONTROL > 1 && soundEnabledProperty.value ){
+          if ( JohnTravoltageQueryParameters.sonification > 1 && soundEnabledProperty.value ){
             // play a sound when the range of motion is reached
             if ( ( angle === 0 && lastAngle > 0 ) ||
                  ( angle === Math.PI && lastAngle > 0 && lastAngle < Math.PI ) ){

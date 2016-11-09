@@ -43,8 +43,7 @@ define( function( require ) {
   var leg = require( 'image!JOHN_TRAVOLTAGE/leg.png' );
 
   // constants
-  var SONIFICATION_CONTROL = JohnTravoltageQueryParameters.SONIFICATION;
-  var SHOW_DEBUG_INFO = JohnTravoltageQueryParameters.SHOW_DEBUG_INFO;
+  var SONIFICATION_CONTROL = JohnTravoltageQueryParameters.sonification;
 
   // strings
   var johnTravoltageTitleString = require( 'string!JOHN_TRAVOLTAGE/john-travoltage.title' );
@@ -218,10 +217,10 @@ define( function( require ) {
     // adjust the order of the accessible content so that the description comes before the form in the DOM order.
     this.setAccessibleOrder([accessibleDescription, accessibleFormNode]);
 
-    // debug lines, body and forceline, uncomment this to view physical bounds of body
+    // debug lines, body and forceline
     // borders are approximately 8px = radius of particle from physical body,
     // because physical radius of electron = 1 in box2D
-    if ( SHOW_DEBUG_INFO ) {
+    if ( JohnTravoltageQueryParameters.showDebugInfo ) {
       this.showBody();
 
       accessibleFormNode.addChild( new Circle( 10, {

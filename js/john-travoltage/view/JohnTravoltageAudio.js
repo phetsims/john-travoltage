@@ -35,7 +35,7 @@ define( function( require ) {
    * @param {JohnTravoltageModel} model
    * TODO: The arm view is needed because the model doesn't track if user is dragging it, consider changing this and using model instead
    * @param {AppendageNode} armView - view of arm, needed to determine whether arm is in motion
-   * @param {boolean | number} sonificationControl - controls which sounds to play, see code below for details
+   * @param {number} sonificationControl - controls which sounds to play, see JohnTravoltageQueryParameters and code below for details
    * @constructor
    */
   function JohnTravoltageAudio( model, armView, sonificationControl ) {
@@ -51,7 +51,7 @@ define( function( require ) {
     var pitchedPopGenerator = new PitchedPopGenerator( model.soundProperty );
 
     // hook up sound generator for charge level, different types depending on control setting
-    if ( sonificationControl === true || sonificationControl === 1 ) {
+    if ( sonificationControl === 1 ) {
 
       // create a random note player that will play notes more frequently as the number of charges increases
       this.randomNotePlayer = new RandomNotePlayer(
