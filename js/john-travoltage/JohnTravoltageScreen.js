@@ -14,6 +14,8 @@ define( function( require ) {
   var JohnTravoltageView = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/JohnTravoltageView' );
   var Screen = require( 'JOIST/Screen' );
   var johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
+  var Property = require( 'AXON/Property' );
+  var Color = require( 'SCENERY/util/Color' );
 
   /**
    * @param tandem
@@ -27,7 +29,7 @@ define( function( require ) {
       function( model ) {
         return new JohnTravoltageView( model, tandem.createTandem( 'view' ) );
       }, {
-        backgroundColor: '#9ddcf8',
+        backgroundColorProperty: new Property( Color.toColor( '#9ddcf8' ) ),
         tandem: tandem
       }
     );
