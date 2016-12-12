@@ -19,8 +19,10 @@
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
 
   // strings
-  var electronsTotalString = require( 'string!JOHN_TRAVOLTAGE/electrons.total' );
-  var electronsTotalAfterDischargeString = require( 'string!JOHN_TRAVOLTAGE/electrons.totalAfterDischarge' );
+  // a11y strings should not be translatable for now,
+  // see https://github.com/phetsims/john-travoltage/issues/130
+  var electronsTotalString = 'Electrons on body: {0}';
+  var electronsTotalAfterDischargeString = 'Electrons on body: Discharge occurred. Electrons decreased from {1} to {0}';
 
   /**
    * @param {Electrons} electrons - the model for the number of electrons

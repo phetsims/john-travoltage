@@ -17,9 +17,11 @@ define( function( require ) {
   var AccessiblePeer = require( 'SCENERY/accessibility/AccessiblePeer' );
 
   // strings
-  var sceneDescriptionString = require( 'string!JOHN_TRAVOLTAGE/scene.description' );
-  var electronsDescriptionSingleString = require( 'string!JOHN_TRAVOLTAGE/electrons.description.single' );
-  var electronsDescriptionMultipleString = require( 'string!JOHN_TRAVOLTAGE/electrons.description.multiple' );
+  // a11y strings should be hard coded for now so that they are not
+  // translatable, see https://github.com/phetsims/john-travoltage/issues/130
+  var sceneDescriptionString =  '{1}John\'s hand is {0}, and he is ready to swing his leg to rub his foot on the rug.';
+  var electronsDescriptionSingleString = 'John has 1 charge on his body.';
+  var electronsDescriptionMultipleString = 'John has {0} charges on his body.';
 
   /**
    * @param {AppendageNode} arm -  the arm appendage

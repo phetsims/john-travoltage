@@ -47,9 +47,12 @@ define( function( require ) {
 
   // strings
   var johnTravoltageTitleString = require( 'string!JOHN_TRAVOLTAGE/john-travoltage.title' );
-  var armSliderLabelString = require( 'string!JOHN_TRAVOLTAGE/armSliderLabel' );
-  var legSliderLabelString = require( 'string!JOHN_TRAVOLTAGE/legSliderLabel' );
-  var electronsDischargedString = require( 'string!JOHN_TRAVOLTAGE/electrons.discharged' );
+
+  // a11y strings should not be translatable for now, see
+  // https://github.com/phetsims/john-travoltage/issues/130
+  var armSliderLabelString = 'Hand position';
+  var legSliderLabelString = 'Leg swing';
+  var electronsDischargedString = 'electrons discharged';
 
   /**
    * @param {JohnTravoltageModel} model

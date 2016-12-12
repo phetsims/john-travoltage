@@ -31,7 +31,9 @@ define( function( require ) {
   var limitBonkAudio = require( 'audio!JOHN_TRAVOLTAGE/limit-bonk' );
 
   // strings
-  var positionTemplateString = require( 'string!JOHN_TRAVOLTAGE/positionTemplate' );
+  // a11y strings should not be translatable for now, see
+  // https://github.com/phetsims/john-travoltage/issues/130
+  var positionTemplateString = 'Position {0}: {1}';
 
   /**
    * @param {Leg|Arm} appendage the body part to display
