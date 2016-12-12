@@ -106,7 +106,7 @@ define( function( require ) {
 
     this.sparkVisibleProperty.link( function( sparkVisible ) {
       if ( sparkVisible && self.sound ) {
-        self.sounds[ Math.floor( Math.random() * 2 ) ].play();
+        self.sounds[ Math.floor( phet.joist.random.nextDouble() * 2 ) ].play();
       }
     } );
 
@@ -273,7 +273,7 @@ define( function( require ) {
 
       var segment = new LineSegment( 424.0642054574639, 452.28892455858755, 433.3097913322633, 445.5088282504014 );
       var v = segment.vector;
-      var rand = Math.random() * v.magnitude();
+      var rand = phet.joist.random.nextDouble() * v.magnitude();
 
       var point = segment.p0.plus( v.normalized().times( rand ) );
 
@@ -282,10 +282,11 @@ define( function( require ) {
       //For debugging: show randomly in the middle for debugging
       var debugging = false;
       if ( debugging ) {
+        var random = phet.joist.random;
         this.electrons.add(
           new Electron(
-            this.bodyVertices[ 0 ].x + 50 + 50 * Math.random(),
-            this.bodyVertices[ 0 ].y - 75 + 50 * Math.random(),
+            this.bodyVertices[ 0 ].x + 50 + 50 * random.nextDouble(),
+            this.bodyVertices[ 0 ].y - 75 + 50 * random.nextDouble(),
             this,
             this.tandem.createTandem( 'electrons', this.electrons.length )
           ) );

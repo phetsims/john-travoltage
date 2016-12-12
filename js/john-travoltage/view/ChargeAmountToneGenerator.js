@@ -143,9 +143,10 @@ define( function( require ) {
 
       //var changeProportion = Math.random() * 0.5 + 0.25; // 25% to 50%
       //var changeProportion = Math.random() * 0.333 + 0.333; // 33% to 67%
-      var changeProportion = Math.random() * 0.8 + 0.1; // 10% to 90%
+      var random = phet.joist.random;
+      var changeProportion = random.nextDouble() * 0.8 + 0.1; // 10% to 90%
       var changeAmountLog = changeProportion * ( MAX_FILTER_CUTOFF_LOG - minFilterCutoffLog );
-      if ( Math.random() > 0.5 ) {
+      if ( random.nextDouble() > 0.5 ) {
         // make the change negative half the time
         changeAmountLog *= -1;
       }

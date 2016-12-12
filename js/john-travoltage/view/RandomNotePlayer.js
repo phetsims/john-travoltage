@@ -71,7 +71,7 @@ define( function( require ) {
     function mapNumItemsToInterNoteTime( numItems ){
       var linearValue = linearMapTimeFunction( numItems );
       // introduce a little random variation in the time
-      var randomAdjustFactor = ( 1 + ( Math.random() - 0.5 ) * 1.0 );
+      var randomAdjustFactor = ( 1 + ( phet.joist.random.nextDouble() - 0.5 ) * 1.0 );
       return linearValue * randomAdjustFactor;
     }
 
