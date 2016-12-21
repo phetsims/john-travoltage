@@ -14,6 +14,7 @@ define( function( require ) {
   var Sim = require( 'JOIST/Sim' );
   var JohnTravoltageScreen = require( 'JOHN_TRAVOLTAGE/john-travoltage/JohnTravoltageScreen' );
   var Tandem = require( 'TANDEM/Tandem' );
+  var JohnTravoltageKeyboardHelpContent = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/JohnTravoltageKeyboardHelpContent' );
 
   // If running as phet-io, load the API
   require( 'ifphetio!PHET_IO/simulations/john-travoltage/john-travoltage-api' );
@@ -28,6 +29,9 @@ define( function( require ) {
 
   var tandem = Tandem.createRootTandem();
 
+  // help content to describe keyboard interactions
+  var keyboardHelpContent = new JohnTravoltageKeyboardHelpContent();
+
   var simOptions = {
     credits: {
       leadDesign: 'Noah Podolefsky, Carl Wieman, Sam Reid',
@@ -37,7 +41,8 @@ define( function( require ) {
       thanks: 'Thanks to Mobile Learner Labs for working with the PhET development team\n' +
               'to convert this simulation to HTML5.'
     },
-    accessibility: true
+    accessibility: true,
+    keyboardHelpNode: keyboardHelpContent
   };
 
   //Create and start the sim
