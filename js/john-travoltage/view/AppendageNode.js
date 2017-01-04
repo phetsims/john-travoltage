@@ -196,7 +196,7 @@ define( function( require ) {
     this.setAttribute( 'step', keyboardMotion.step );
 
     var rangeValue = self.angleToPosition( appendage.angle, keyboardMotion.totalRange, keyboardMotion.max, options.keyboardMidPointOffset );
-    this.setAttribute( 'value', rangeValue );
+    this.setInputValue( rangeValue );
 
     if ( options.controls ) {
       this.setAttribute( 'aria-controls', options.controls.join( ',' ));
@@ -232,7 +232,7 @@ define( function( require ) {
     var updatePosition = function ( angle ) {
       var position = self.angleToPosition( appendage.angle, keyboardMotion.totalRange, keyboardMotion.max, options.keyboardMidPointOffset );
       var positionDescription = self.getPositionDescription( position, rangeMap );
-      self.setAttribute( 'value', position );
+      self.setInputValue( position );
       self.setAttribute( 'aria-valuetext', StringUtils.format( positionTemplateString, position, positionDescription ) );
       self.positionDescription = positionDescription;
 
