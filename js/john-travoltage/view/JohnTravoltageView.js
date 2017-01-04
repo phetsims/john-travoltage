@@ -218,7 +218,10 @@ define( function( require ) {
     this.addChild( accessibleDescription );
 
     // adjust the order of the accessible content so that the description comes before the form in the DOM order.
-    this.setAccessibleOrder([accessibleDescription, accessibleFormNode]);
+    this.setAccessibleOrder( [ accessibleDescription, accessibleFormNode ] );
+
+    // the form is described by the description through aria-describedby
+    accessibleFormNode.setAriaDescribedBy( accessibleDescription.id );
 
     // debug lines, body and forceline
     // borders are approximately 8px = radius of particle from physical body,
