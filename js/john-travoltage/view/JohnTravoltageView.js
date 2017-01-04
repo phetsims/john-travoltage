@@ -17,7 +17,6 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var BackgroundElementsNode = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/BackgroundElementsNode' );
   var AccessibleFormNode = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/AccessibleFormNode' );
-  var AccessibleLabelNode = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/AccessibleLabelNode' );
   var AccessibleDescriptionNode = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/AccessibleDescriptionNode' );
   var AppendageRangeMaps = require( 'JOHN_TRAVOLTAGE/john-travoltage/AppendageRangeMaps' );
   var AppendageNode = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/AppendageNode' );
@@ -114,22 +113,23 @@ define( function( require ) {
     var accessibleFormNode = new AccessibleFormNode();
     this.addChild( accessibleFormNode );
 
-    //arm and leg - only interactive elements
-    var legLabel = new AccessibleLabelNode( legSliderLabelString );
-    accessibleFormNode.addChild(legLabel);
-    this.leg = new AppendageNode( model.leg, leg, 25, 28, Math.PI / 2 * 0.7, model.soundProperty,
-      AppendageRangeMaps.leg,
-      { controls: [ options.peerIDs.status ] }
-    );
-    legLabel.addChild( this.leg );
+    // arm and leg - only interactive elements
+    this.leg = new AppendageNode( model.leg, leg, 25, 28, Math.PI / 2 * 0.7, model.soundProperty, AppendageRangeMaps.leg, {
+      controls: [ options.peerIDs.status ],
+      labelTagName: 'label',
+      label: legSliderLabelString
+    } );
+    accessibleFormNode.addChild( this.leg );
 
-    var armLabel = new AccessibleLabelNode( armSliderLabelString );
-    accessibleFormNode.addChild(armLabel);
     // the keyboardMidPointOffset was manually calculated as a radian offset that will trigger a discharge with the
     // minimum charge level.
-    this.arm = new AppendageNode( model.arm, arm, 4, 45, -0.1, model.soundProperty, AppendageRangeMaps.arm,
-      { keyboardMidPointOffset: 0.41, controls: [ options.peerIDs.status ] } );
-    armLabel.addChild( this.arm );
+    this.arm = new AppendageNode( model.arm, arm, 4, 45, -0.1, model.soundProperty, AppendageRangeMaps.arm, {
+      keyboardMidPointOffset: 0.41,
+      controls: [ options.peerIDs.status ],
+      labelTagName: 'label',
+      label: armSliderLabelString
+    } );
+    accessibleFormNode.addChild( this.arm );
 
     //Show the dotted lines again when the sim is reset
     model.resetEmitter.addListener( function() {

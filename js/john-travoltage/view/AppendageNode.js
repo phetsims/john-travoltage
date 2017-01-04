@@ -53,18 +53,22 @@ define( function( require ) {
 
     this.model = appendage;
     var angle = 0;
-    options = _.extend( { keyboardMidPointOffset: 0 }, options );
 
-
-    AccessibleNode.call( this, { 
+    options = _.extend( {
+      keyboardMidPointOffset: 0,
       cursor: 'pointer',
 
       // a11y
       tagName: 'input',
       inputType: 'range',
       ariaRole: 'slider',
-      focusable: true
-    } );
+      focusable: true,
+
+      parentContainerTagName: 'div'
+
+    }, options );
+
+    AccessibleNode.call( this, options );
 
     // add the image
     var imageNode = new Image( image );
