@@ -11,10 +11,9 @@ define( function( require ) {
 
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
-  var Node = require( 'SCENERY/nodes/Node' );
+  var AccessibleNode = require( 'SCENERY/accessibility/AccessibleNode' );
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   var johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
-  var AccessiblePeer = require( 'SCENERY/accessibility/AccessiblePeer' );
 
   // strings
   // a11y strings should be hard coded for now so that they are not
@@ -32,49 +31,41 @@ define( function( require ) {
    * @constructor
    */
   function AccessibleDescriptionNode( arm, leg, electrons, describedNode ) {
-    Node.call( this );
-
-    // Add accessible content for the label
-    this.setAccessibleContent( {
-      createPeer: function ( accessibleInstance ) {
-        var trail = accessibleInstance.trail;
-        var uniqueId = trail.getUniqueId();
-        var hadElectrons = false;
-        var domElement = document.createElement( 'p' );
-
-        domElement.id = 'scene-description-' + uniqueId;
-        describedNode.domElement.setAttribute( 'aria-describedby', domElement.id );
-
-        var updateDescription = function () {
-          var chargeDescriptor = electrons.length === 1 ? electronsDescriptionSingleString : electronsDescriptionMultipleString;
-          var chargeMessage = hadElectrons ? StringUtils.format( chargeDescriptor, electrons.length ) : '';
-          domElement.textContent = StringUtils.format( sceneDescriptionString, arm.positionDescription,  chargeMessage );
-        };
-
-        arm.model.angleProperty.link( updateDescription );
-        leg.model.angleProperty.link( updateDescription );
-
-        electrons.addItemAddedListener( function () {
-          updateDescription();
-          hadElectrons = true;
-        } );
-
-        //Events are fired for each electron removed. For example if there are 10 accrued charges, 10 events will be
-        //fired when a complete discharge occurs. However, we do not want to update the description for each individual
-        //electron being discharged, but rather for the operation of a single set of discharges. By using a debounce
-        //method ( http://underscorejs.org/#debounce ) we are able to collect all of the events fired together and
-        //operate on them as an individual event. In this case we are setting the time interval to 500ms. The time set
-        //here needs to be long enough that a discharge is counted as a single occurrence but short enough that multiple
-        //discharges, orchestrated by a user, do not appear to be a single one. 500ms likely won't be perfect in all
-        //cases, but based on some manual tests seems to work in most.
-        electrons.addItemRemovedListener( _.debounce( updateDescription, 500 ) );
-
-        return new AccessiblePeer( accessibleInstance, domElement );
-      }
+    AccessibleNode.call( this, {
+      tagName: 'p'
     } );
+
+    // after travolta picks up electrons the first time, this flag will modify descriptions slightly
+    var hadElectrons = false;
+
+    var self = this;
+    var updateDescription = function() {
+      var chargeDescriptor = electrons.length === 1 ? electronsDescriptionSingleString : electronsDescriptionMultipleString;
+      var chargeMessage = hadElectrons ? StringUtils.format( chargeDescriptor, electrons.length ) : '';
+      self.domElement.textContent = StringUtils.format( sceneDescriptionString, arm.positionDescription,  chargeMessage );
+      hadElectrons = true;
+    };
+
+    // electrons observable array exists for the lifetime of the sim, so there is no need to remove these
+    // listeners
+    electrons.addItemAddedListener( updateDescription );
+
+    //Events are fired for each electron removed. For example if there are 10 accrued charges, 10 events will be
+    //fired when a complete discharge occurs. However, we do not want to update the description for each individual
+    //electron being discharged, but rather for the operation of a single set of discharges. By using a debounce
+    //method ( http://underscorejs.org/#debounce ) we are able to collect all of the events fired together and
+    //operate on them as an individual event. In this case we are setting the time interval to 500ms. The time set
+    //here needs to be long enough that a discharge is counted as a single occurrence but short enough that multiple
+    //discharges, orchestrated by a user, do not appear to be a single one. 500ms likely won't be perfect in all
+    //cases, but based on some manual tests seems to work in most.
+    electrons.addItemRemovedListener( _.debounce( updateDescription, 500 ) );
+
+    // properties exist for life of sim, no need to unlink
+    arm.model.angleProperty.link( updateDescription );
+    leg.model.angleProperty.link( updateDescription );
   }
 
   johnTravoltage.register( 'AccessibleDescriptionNode', AccessibleDescriptionNode );
 
-  return inherit( Node, AccessibleDescriptionNode );
+  return inherit( AccessibleNode, AccessibleDescriptionNode );
 } );

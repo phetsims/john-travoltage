@@ -11,9 +11,8 @@ define( function( require ) {
 
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
-  var Node = require( 'SCENERY/nodes/Node' );
+  var AccessibleNode = require( 'SCENERY/accessibility/AccessibleNode' );
   var johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
-  var AccessiblePeer = require( 'SCENERY/accessibility/AccessiblePeer' );
 
   /**
    * @param {string} labelText - The text to output in the label
@@ -21,20 +20,15 @@ define( function( require ) {
    * @constructor
    */
   function AccessibleLabelNode( labelText ) {
-    Node.call( this );
-
-    // Add accessible content for the label
-    this.setAccessibleContent( {
-      createPeer: function ( accessibleInstance ) {
-        var domElement = document.createElement( 'label' );
-        domElement.textContent = labelText;
-
-        return new AccessiblePeer( accessibleInstance, domElement );
-      }
+    AccessibleNode.call( this, {
+      tagName: 'label'
     } );
+
+    // set the label content
+    this.domElement.textContent = labelText;
   }
 
   johnTravoltage.register( 'AccessibleLabelNode', AccessibleLabelNode );
 
-  return inherit( Node, AccessibleLabelNode );
+  return inherit( AccessibleNode, AccessibleLabelNode );
 } );

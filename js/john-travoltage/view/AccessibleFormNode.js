@@ -11,34 +11,22 @@ define( function( require ) {
 
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
-  var Node = require( 'SCENERY/nodes/Node' );
+  var AccessibleNode = require( 'SCENERY/accessibility/AccessibleNode' );
   var johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
-  var AccessiblePeer = require( 'SCENERY/accessibility/AccessiblePeer' );
 
   /**
    * @constructor
    */
   function AccessibleFormNode( options ) {
-    var self = this;
 
-    Node.call( this, options );
-
-    // Add accessible form content
-    this.setAccessibleContent( {
-      createPeer: function ( accessibleInstance ) {
-        var trail = accessibleInstance.trail;
-        var uniqueId = trail.getUniqueId();
-        var domElement = document.createElement( 'form' );
-
-        domElement.id = 'form-' + uniqueId;
-        self.domElement = domElement;
-
-        return new AccessiblePeer( accessibleInstance, domElement );
-      }
-    } );
+    options = _.extend( {
+      tagName: 'form'
+    }, options );
+    
+    AccessibleNode.call( this, options );
   }
 
   johnTravoltage.register( 'AccessibleFormNode', AccessibleFormNode );
 
-  return inherit( Node, AccessibleFormNode );
+  return inherit( AccessibleNode, AccessibleFormNode );
 } );

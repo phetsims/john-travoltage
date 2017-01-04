@@ -13,7 +13,7 @@ define( function( require ) {
 
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
-  var Node = require( 'SCENERY/nodes/Node' );
+  var AccessibleNode = require( 'SCENERY/accessibility/AccessibleNode' );
   var Image = require( 'SCENERY/nodes/Image' );
   var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
   var Vector2 = require( 'DOT/Vector2' );
@@ -22,7 +22,6 @@ define( function( require ) {
   var Util = require( 'DOT/Util' );
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   var Leg = require( 'JOHN_TRAVOLTAGE/john-travoltage/model/Leg' );
-  var AccessiblePeer = require( 'SCENERY/accessibility/AccessiblePeer' );
   var johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
   var JohnTravoltageQueryParameters = require( 'JOHN_TRAVOLTAGE/john-travoltage/JohnTravoltageQueryParameters' );
   var Sound = require( 'VIBE/Sound' );
@@ -52,11 +51,20 @@ define( function( require ) {
   function AppendageNode( appendage, image, dx, dy, angleOffset, soundEnabledProperty, rangeMap, options ) {
     var self = this;
 
-    Node.call( this, { cursor: 'pointer' } );
-
     this.model = appendage;
     var angle = 0;
     options = _.extend( { keyboardMidPointOffset: 0 }, options );
+
+
+    AccessibleNode.call( this, { 
+      cursor: 'pointer',
+
+      // a11y
+      tagName: 'input',
+      inputType: 'range',
+      ariaRole: 'slider',
+      focusable: true
+    } );
 
     // add the image
     var imageNode = new Image( image );
@@ -158,95 +166,88 @@ define( function( require ) {
       this.addChild( mousePosition );
     }
 
+    // a11y
     var focusCircle = new Circle( imageNode.width / 2, { stroke: 'rgba(250,40,135,0.9)', lineWidth: 5 } );
+    this.focusHighlight = focusCircle;
 
-    // Add accessible content for the appendageType
-    this.setAccessibleContent( {
-      focusHighlight: focusCircle,
-      createPeer: function( accessibleInstance ) {
-        var appendageType = 'hand';
+    // limit ranges of input for the leg
+    var maxMotion;
+    var totalRange;
+    if ( appendage instanceof Leg ) {
+      maxMotion = 30;
+      totalRange = 60;
+    }
+    else {
+      maxMotion = 100;
+      totalRange = 100;
+    }
+    var keyboardMotion = {
+      min: 0,
+      max: maxMotion,
+      step: 1,
+      totalRange: totalRange
+    };
 
-        var keyboardMotion = {
-          min: 0,
-          max: 100,
-          step: 1,
-          totalRange: 100
-        };
+    // Safari seems to require that a range input has a width, otherwise it will not be keyboard accessible.
+    this.domElement.style.width = '1px';
 
-        if( appendage instanceof Leg ) {
-          appendageType = 'foot';
-          keyboardMotion.max = 30;
-          keyboardMotion.totalRange = 60;
-        }
+    this.setAttribute( 'min', keyboardMotion.min );
+    this.setAttribute( 'max', keyboardMotion.max );
+    this.setAttribute( 'step', keyboardMotion.step );
 
-        var trail = accessibleInstance.trail;
-        var uniqueId = trail.getUniqueId();
+    var rangeValue = self.angleToPosition( appendage.angle, keyboardMotion.totalRange, keyboardMotion.max, options.keyboardMidPointOffset );
+    this.setAttribute( 'value', rangeValue );
 
-        var domElement = document.createElement( 'input' );
-        domElement.setAttribute( 'role', 'slider' );
-        domElement.setAttribute( 'type', 'range' );
-        domElement.id = appendageType + '-slider-' + uniqueId;
-        // Safari seems to require that a range input has a width, otherwise it will not be keyboard accessible.
-        domElement.style.width = '1px';
+    if ( options.controls ) {
+      this.setAttribute( 'aria-controls', options.controls.join( ',' ));
+    }
 
-        domElement.setAttribute( 'min', keyboardMotion.min );
-        domElement.setAttribute( 'max', keyboardMotion.max );
-        domElement.setAttribute( 'step', keyboardMotion.step );
-        domElement.value = self.angleToPosition( appendage.angle, keyboardMotion.totalRange, keyboardMotion.max, options.keyboardMidPointOffset );
-
-        if (options.controls) {
-          domElement.setAttribute( 'aria-controls', options.controls.join( ',' ));
-        }
-
-        // Due to the variability of input and change event firing across browsers,
-        // it is necessary to track if the input event was fired and if not, to
-        // handle the change event instead.
-        // see: https://wiki.fluidproject.org/pages/viewpage.action?pageId=61767683
-        var keyboardEventHandled = false;
-        var rotateAppendage = function () {
-          appendage.angle = self.positionToAngle( domElement.value, keyboardMotion.totalRange, options.keyboardMidPointOffset );
-          self.border.visible = false;
-        };
-        domElement.addEventListener( 'change', function ( event ) {
-          if (!keyboardEventHandled) {
-            rotateAppendage();
-          }
-          keyboardEventHandled = false;
-          self.dragging = true;
-        } );
-        domElement.addEventListener( 'input', function ( event ) {
-          rotateAppendage();
-          keyboardEventHandled = true;
-          self.dragging = true;
-        } );
-
-        // on blur, the appendage node is considered 'released' from dragging
-        domElement.addEventListener( 'blur', function( event ) {
-          self.dragging = 'false';
-        } );
-
-        var updatePosition = function ( angle ) {
-          var position = self.angleToPosition( appendage.angle, keyboardMotion.totalRange, keyboardMotion.max, options.keyboardMidPointOffset );
-          var positionDescription = self.getPositionDescription( position, rangeMap );
-          domElement.value = position;
-          domElement.setAttribute( 'aria-valuetext', StringUtils.format( positionTemplateString, position, positionDescription ) );
-          self.positionDescription = positionDescription;
-
-          // updates the position of the focus highlight
-          focusCircle.center = imageNode.center;
-        };
-
-        // Updates the PDOM with changes in the model
-        appendage.angleProperty.link( updatePosition );
-
-        return new AccessiblePeer( accessibleInstance, domElement );
+    // Due to the variability of input and change event firing across browsers,
+    // it is necessary to track if the input event was fired and if not, to
+    // handle the change event instead.
+    // see: https://wiki.fluidproject.org/pages/viewpage.action?pageId=61767683
+    var keyboardEventHandled = false;
+    var rotateAppendage = function () {
+      appendage.angle = self.positionToAngle( self.domElement.value, keyboardMotion.totalRange, options.keyboardMidPointOffset );
+      self.border.visible = false;
+    };
+    this.addDOMEventListener( 'change', function( event ) {
+      if (!keyboardEventHandled) {
+        rotateAppendage();
       }
+      keyboardEventHandled = false;
+      self.dragging = true;
     } );
+    this.addDOMEventListener( 'input', function( event ) {
+      rotateAppendage();
+      keyboardEventHandled = true;
+      self.dragging = true;
+    } );
+
+    // on blur, the appendage node is considered 'released' from dragging
+    self.addDOMEventListener( 'blur', function( event ) {
+      self.dragging = 'false';
+    } );
+
+    var updatePosition = function ( angle ) {
+      var position = self.angleToPosition( appendage.angle, keyboardMotion.totalRange, keyboardMotion.max, options.keyboardMidPointOffset );
+      var positionDescription = self.getPositionDescription( position, rangeMap );
+      self.setAttribute( 'value', position );
+      self.setAttribute( 'aria-valuetext', StringUtils.format( positionTemplateString, position, positionDescription ) );
+      self.positionDescription = positionDescription;
+
+      // updates the position of the focus highlight
+      focusCircle.center = imageNode.center;
+    };
+
+    // Updates the PDOM with changes in the model
+    appendage.angleProperty.link( updatePosition );
+
   }
 
   johnTravoltage.register( 'AppendageNode', AppendageNode );
 
-  return inherit( Node, AppendageNode, {
+  return inherit( AccessibleNode, AppendageNode, {
 
     /**
      * Compute the distance (in radians) between angles a and b, using an inlined dot product (inlined to remove allocations)
