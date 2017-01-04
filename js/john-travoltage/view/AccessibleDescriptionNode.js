@@ -43,12 +43,14 @@ define( function( require ) {
       var chargeDescriptor = electrons.length === 1 ? electronsDescriptionSingleString : electronsDescriptionMultipleString;
       var chargeMessage = hadElectrons ? StringUtils.format( chargeDescriptor, electrons.length ) : '';
       self.domElement.textContent = StringUtils.format( sceneDescriptionString, arm.positionDescription,  chargeMessage );
-      hadElectrons = true;
     };
 
     // electrons observable array exists for the lifetime of the sim, so there is no need to remove these
     // listeners
-    electrons.addItemAddedListener( updateDescription );
+    electrons.addItemAddedListener( function() {
+      updateDescription();
+      hadElectrons = true;
+    } );
 
     //Events are fired for each electron removed. For example if there are 10 accrued charges, 10 events will be
     //fired when a complete discharge occurs. However, we do not want to update the description for each individual
