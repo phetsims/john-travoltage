@@ -12,6 +12,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Text = require( 'SCENERY/nodes/Text' );
   var HTMLText = require( 'SCENERY/nodes/HTMLText' );
+  var JohnTravoltageA11yStrings = require( 'JOHN_TRAVOLTAGE/john-travoltage/JohnTravoltageA11yStrings' );
   var johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
   var Panel = require( 'SUN/Panel' );
   var KeyNode = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/keys/KeyNode' );
@@ -32,18 +33,6 @@ define( function( require ) {
   var ICON_VERTICAL_SPACING = 8;
   var DESCRIPTION_FONT = new PhetFont( 14 );
 
-  // strings - accessibility content should not be translatable yet
-  var orString = 'or';
-  var shiftKeyString = 'Shift';
-  var escKeyString = 'Esc';
-  var tabKeyString = 'Tab';
-
-  var hotKeysAndHelpString = 'Hot Keys and Help';
-  var arrowKeysMoveFootString = '<b>Left or right arrow keys</b> move the hand or foot.';
-  var tabKeyDescriptionString = '<b>Tab key</b> moves to the next item.';
-  var shiftTabKeyDescriptionString = '<b>Shift plus Tab</b> moves to the previous item.';
-  var escapeKeyDescriptionString = '<b>Escape key</b> closes a dialog, like this one.';
-
   /**
    * Constructor.
    * @constructor
@@ -53,41 +42,41 @@ define( function( require ) {
     var content = new Node();
 
     // title
-    var titleText = new Text( hotKeysAndHelpString, { font: new PhetFont( { weight: 'bold', size: 20 } ) } );
+    var titleText = new Text( JohnTravoltageA11yStrings.hotKeysAndHelpString, { font: new PhetFont( { weight: 'bold', size: 20 } ) } );
 
     // icons
     // arrow keys, separated by 'or' text
     var leftArrowKeyNode = new ArrowKeyNode( 'left' );
     var rightArrowKeyNode = new ArrowKeyNode( 'right' );
-    var orText = new Text( orString, { font: new PhetFont( 12 ) } );
+    var orText = new Text( JohnTravoltageA11yStrings.orString, { font: new PhetFont( 12 ) } );
     var arrowKeysIconHBox = new HBox( {
       children: [ leftArrowKeyNode, orText, rightArrowKeyNode ],
       spacing: LAYOUT_SPACING
     } );
 
     // single tab key
-    var singleTabKeyIcon = new TextKeyNode( tabKeyString );
+    var singleTabKeyIcon = new TextKeyNode( JohnTravoltageA11yStrings.tabKeyString );
 
     // shift and tab keys, separated by plus sign
-    var shiftKeyIconNode = new TextKeyNode( shiftKeyString );
+    var shiftKeyIconNode = new TextKeyNode( JohnTravoltageA11yStrings.shiftKeyString );
     var plusIconNode = new PlusNode( {
       size: new Dimension2( 10, 1.5 )
     } );
     var shiftPlusTabIconHBox = new HBox( {
-      children: [ shiftKeyIconNode, plusIconNode, new TextKeyNode( tabKeyString ) ],
+      children: [ shiftKeyIconNode, plusIconNode, new TextKeyNode( JohnTravoltageA11yStrings.tabKeyString ) ],
       spacing: 10
     } );
 
     // escape key
-    var escText = new Text( escKeyString, { font: new PhetFont( 10 ) } );
+    var escText = new Text( JohnTravoltageA11yStrings.escKeyString, { font: new PhetFont( 10 ) } );
     var escapeKeyIconNode = new KeyNode( escText );
 
     // descriptions
     var descriptionOptions  = { font: DESCRIPTION_FONT };
-    var arrowKeyDescription = new HTMLText( arrowKeysMoveFootString, descriptionOptions );
-    var tabKeyDescription = new HTMLText( tabKeyDescriptionString, descriptionOptions );
-    var shiftPlusTabDescription = new HTMLText( shiftTabKeyDescriptionString, descriptionOptions );
-    var escapeKeyDescription = new HTMLText( escapeKeyDescriptionString, descriptionOptions );
+    var arrowKeyDescription = new HTMLText( JohnTravoltageA11yStrings.arrowKeysMoveFootString, descriptionOptions );
+    var tabKeyDescription = new HTMLText( JohnTravoltageA11yStrings.tabKeyDescriptionString, descriptionOptions );
+    var shiftPlusTabDescription = new HTMLText( JohnTravoltageA11yStrings.shiftTabKeyDescriptionString, descriptionOptions );
+    var escapeKeyDescription = new HTMLText( JohnTravoltageA11yStrings.escapeKeyDescriptionString, descriptionOptions );
 
     /**
      * Align the icon and its description vertically by placing in a vertical align group

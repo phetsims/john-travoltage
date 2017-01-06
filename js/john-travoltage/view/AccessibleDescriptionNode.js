@@ -13,14 +13,8 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var AccessibleNode = require( 'SCENERY/accessibility/AccessibleNode' );
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
+  var JohnTravoltageA11yStrings = require( 'JOHN_TRAVOLTAGE/john-travoltage/JohnTravoltageA11yStrings' );
   var johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
-
-  // strings
-  // a11y strings should be hard coded for now so that they are not
-  // translatable, see https://github.com/phetsims/john-travoltage/issues/130
-  var sceneDescriptionString =  '{1}John\'s hand is {0}, and he is ready to swing his leg to rub his foot on the rug.';
-  var electronsDescriptionSingleString = 'John has 1 charge on his body.';
-  var electronsDescriptionMultipleString = 'John has {0} charges on his body.';
 
   /**
    * @param {AppendageNode} arm -  the arm appendage
@@ -40,9 +34,9 @@ define( function( require ) {
 
     var self = this;
     var updateDescription = function() {
-      var chargeDescriptor = electrons.length === 1 ? electronsDescriptionSingleString : electronsDescriptionMultipleString;
+      var chargeDescriptor = electrons.length === 1 ? JohnTravoltageA11yStrings.electronsDescriptionSingleString : JohnTravoltageA11yStrings.electronsDescriptionMultipleString;
       var chargeMessage = hadElectrons ? StringUtils.format( chargeDescriptor, electrons.length ) : '';
-      self.domElement.textContent = StringUtils.format( sceneDescriptionString, arm.positionDescription,  chargeMessage );
+      self.domElement.textContent = StringUtils.format( JohnTravoltageA11yStrings.sceneDescriptionString, arm.positionDescription,  chargeMessage );
     };
 
     // electrons observable array exists for the lifetime of the sim, so there is no need to remove these

@@ -31,6 +31,7 @@ define( function( require ) {
   var Circle = require( 'SCENERY/nodes/Circle' );
   var platform = require( 'PHET_CORE/platform' );
   var HBox = require( 'SCENERY/nodes/HBox' );
+  var JohnTravoltageA11yStrings = require( 'JOHN_TRAVOLTAGE/john-travoltage/JohnTravoltageA11yStrings' );
   var JohnTravoltageQueryParameters = require( 'JOHN_TRAVOLTAGE/john-travoltage/JohnTravoltageQueryParameters' );
   var JohnTravoltageAudio = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/JohnTravoltageAudio' );
   var JohnTravoltageModel = require( 'JOHN_TRAVOLTAGE/john-travoltage/model/JohnTravoltageModel' );
@@ -46,12 +47,6 @@ define( function( require ) {
 
   // strings
   var johnTravoltageTitleString = require( 'string!JOHN_TRAVOLTAGE/john-travoltage.title' );
-
-  // a11y strings should not be translatable for now, see
-  // https://github.com/phetsims/john-travoltage/issues/130
-  var armSliderLabelString = 'Hand position';
-  var legSliderLabelString = 'Leg swing';
-  var electronsDischargedString = 'electrons discharged';
 
   /**
    * @param {JohnTravoltageModel} model
@@ -81,7 +76,6 @@ define( function( require ) {
       renderer: platform.firefox ? 'canvas' : null,
       layoutBounds: new Bounds2( 0, 0, 768, 504 ),
       accessibleContent: null
-      // screenLabel: johnTravoltageTitleString
     } );
 
     this.accessibleContent = {
@@ -117,7 +111,7 @@ define( function( require ) {
     this.leg = new AppendageNode( model.leg, leg, 25, 28, Math.PI / 2 * 0.7, model.soundProperty, AppendageRangeMaps.leg, {
       controls: [ options.peerIDs.status ],
       labelTagName: 'label',
-      label: legSliderLabelString
+      label: JohnTravoltageA11yStrings.legSliderLabelString
     } );
     accessibleFormNode.addChild( this.leg );
 
@@ -127,7 +121,7 @@ define( function( require ) {
       keyboardMidPointOffset: 0.41,
       controls: [ options.peerIDs.status ],
       labelTagName: 'label',
-      label: armSliderLabelString
+      label: JohnTravoltageA11yStrings.armSliderLabelString
     } );
     accessibleFormNode.addChild( this.arm );
 
@@ -145,7 +139,7 @@ define( function( require ) {
     accessibleFormNode.addChild( new SparkNode( model.sparkVisibleProperty, model.arm, model.doorknobPosition,
       function( listener ) {
         model.stepEmitter.addListener( listener );
-      }, electronsDischargedString, { peerID: options.peerIDs.alert } ) );
+      }, JohnTravoltageA11yStrings.electronsDischargedString, { peerID: options.peerIDs.alert } ) );
 
     //Sound button and reset all button
     var soundButton = new SoundToggleButton( model.soundProperty, {

@@ -24,15 +24,11 @@ define( function( require ) {
   var Leg = require( 'JOHN_TRAVOLTAGE/john-travoltage/model/Leg' );
   var johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
   var JohnTravoltageQueryParameters = require( 'JOHN_TRAVOLTAGE/john-travoltage/JohnTravoltageQueryParameters' );
+  var JohnTravoltageA11yStrings = require( 'JOHN_TRAVOLTAGE/john-travoltage/JohnTravoltageA11yStrings' );
   var Sound = require( 'VIBE/Sound' );
 
   // audio
   var limitBonkAudio = require( 'audio!JOHN_TRAVOLTAGE/limit-bonk' );
-
-  // strings
-  // a11y strings should not be translatable for now, see
-  // https://github.com/phetsims/john-travoltage/issues/130
-  var positionTemplateString = 'Position {0}: {1}';
 
   /**
    * @param {Leg|Arm} appendage the body part to display
@@ -237,7 +233,7 @@ define( function( require ) {
       var position = self.angleToPosition( appendage.angle, keyboardMotion.totalRange, keyboardMotion.max, options.keyboardMidPointOffset );
       var positionDescription = self.getPositionDescription( position, rangeMap );
       self.setInputValue( position );
-      self.setAttribute( 'aria-valuetext', StringUtils.format( positionTemplateString, position, positionDescription ) );
+      self.setAttribute( 'aria-valuetext', StringUtils.format( JohnTravoltageA11yStrings.positionTemplateString, position, positionDescription ) );
       self.positionDescription = positionDescription;
 
       // updates the position of the focus highlight

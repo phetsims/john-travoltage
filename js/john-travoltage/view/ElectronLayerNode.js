@@ -15,14 +15,9 @@
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var ElectronNode = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/ElectronNode' );
+  var JohnTravoltageA11yStrings = require( 'JOHN_TRAVOLTAGE/john-travoltage/JohnTravoltageA11yStrings' );
   var johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
-
-  // strings
-  // a11y strings should not be translatable for now,
-  // see https://github.com/phetsims/john-travoltage/issues/130
-  var electronsTotalString = 'Electrons on body: {0}';
-  var electronsTotalAfterDischargeString = 'Electrons on body: Discharge occurred. Electrons decreased from {1} to {0}';
 
   /**
    * @param {Electrons} electrons - the model for the number of electrons
@@ -68,7 +63,7 @@
 
       var setElectronStatus = function () {
         var currentCharge = electrons.length;
-        var chargeText = currentCharge >= priorCharge ? electronsTotalString : electronsTotalAfterDischargeString;
+        var chargeText = currentCharge >= priorCharge ? JohnTravoltageA11yStrings.electronsTotalString : JohnTravoltageA11yStrings.electronsTotalAfterDischargeString;
 
         statusNode.textContent = '';
         statusNode.textContent = StringUtils.format( chargeText, currentCharge, priorCharge );
