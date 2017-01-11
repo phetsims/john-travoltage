@@ -35,8 +35,8 @@ define( function( require ) {
     yShadowOffset: 2,
 
     // margins
-    xOffset: 0, // margin from the left/right edge of key depending on alignment
-    yOffset: 0, // margin from the top/bottom edge of key depending on alignment
+    xMargin: 0, // sets the horizontal margin for the icon from the left/right edge
+    yMargin: 0, // set the vertical margin for the icon from the top/botton edges
 
     // icon aligned in center of key by default
     xAlign: 'center', // 'left', 'center', or 'right'
@@ -67,8 +67,8 @@ define( function( require ) {
     // place content in an align box so that the key surrounding the icon has minimum bounds
     var content = new AlignBox( keyIcon, {
       alignBounds: new Bounds2( 0, 0, options.minKeyWidth, options.minKeyHeight ),
-      xMargin: options.xOffset,
-      yMargin: options.yOffset,
+      xMargin: options.xMargin,
+      yMargin: options.yMargin,
       xAlign: options.xAlign, 
       yAlign: options.yAlign,
       maxWidth: options.maxKeyWidth,
