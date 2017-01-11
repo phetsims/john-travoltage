@@ -27,7 +27,9 @@ define( function( require ) {
     options = _.extend( {
 
       // keynode options
-      align: 'leftTop',
+      xAlign: 'left',
+      yAlign: 'top',
+
       xOffset: 5,
       yOffset: 5,
 

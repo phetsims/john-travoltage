@@ -13,9 +13,10 @@ define( function( require ) {
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
-  var Panel = require( 'SUN/Panel' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
+  var Bounds2 = require( 'DOT/Bounds2' );
   var Node = require( 'SCENERY/nodes/Node' );
+  var AlignBox = require( 'SCENERY/nodes/AlignBox' );
 
   // constants
   // valid values for options.align
@@ -37,9 +38,9 @@ define( function( require ) {
     xOffset: 0, // margin from the left/right edge of key depending on alignment
     yOffset: 0, // margin from the top/bottom edge of key depending on alignment
 
-    // All alignments are equal when the content width >= minKeyWidth
-    // Center is the default alignment so the icon content will be aligned in the center of the key
-    align: 'center',
+    // icon aligned in center of key by default
+    xAlign: 'center', // 'left', 'center', or 'right'
+    yAlign: 'center', // 'top', 'center', or 'bottom'
 
     // by default the max and min widths are the same so that the icon size does not
     // change the size of the key
@@ -47,7 +48,7 @@ define( function( require ) {
     minKeyHeight: 32, // min height of the key
 
     maxKeyWidth: 32, // max width of the key, will apply scaling to the icon
-    maxKeyHeight: 32 // max height of key, will apply scalking to the icon 
+    maxKeyHeight: 32 // max height of key, will apply scaling to the icon 
   };
 
   /**
@@ -61,49 +62,40 @@ define( function( require ) {
     assert && assert( _.contains( ALIGN_VALUES, options.align ), 'invalid align: ' + options.align );
     assert && assert( options.minKeyWidth <= options.maxKeyWidth, 'max key width must be greater than min key width' );
     assert && assert( options.minKeyHeight <= options.maxKeyHeight, 'max key height must be greater than min key height' );
+    assert && assert( !options.children, 'KeyNode cannot have additional children' );
 
-    // the key will be at least this wide and tall
-    var minKeyWidth = Math.max( options.minKeyWidth, keyIcon.width );
-    var minKeyHeight = Math.max( options.minKeyHeight, keyIcon.height );
-    var alignmentManager = new Rectangle( 0, 0, minKeyWidth, minKeyHeight );
-
-    // place the icon in the desired alignment
-    keyIcon[ options.align ] = alignmentManager[ options.align ];
-    alignmentManager.addChild( keyIcon );
-
-    // handle offsets for fine tuning position
-    keyIcon.x += options.xOffset;
-    keyIcon.y += options.yOffset;
-
-    // scale down the icon so that it fits entirely within the max width/height of the button
-    var scaleWidth = options.maxKeyWidth / alignmentManager.width;
-    var scaleHeight = options.maxKeyHeight / alignmentManager.height;
-    var scaleFactor = Math.min( scaleWidth, scaleHeight, 1 );
-    alignmentManager.setScaleMagnitude( scaleFactor );
-    var keyPanel = new Panel( alignmentManager, {
-      xMargin: 0,
-      yMargin: 0,
-      fill: options.keyFill,
-      align: 'center',
-      lineWidth: options.line,
-      cornerRadius: options.cornerRadius
+    // place content in an align box so that the key surrounding the icon has minimum bounds
+    var content = new AlignBox( keyIcon, {
+      alignBounds: new Bounds2( 0, 0, options.minKeyWidth, options.minKeyHeight ),
+      xMargin: options.xOffset,
+      yMargin: options.yOffset,
+      xAlign: options.xAlign, 
+      yAlign: options.yAlign,
+      maxWidth: options.maxKeyWidth,
+      maxHeight: options.maxKeyHeight
     } );
 
-    var shadowRectangle = new Rectangle( keyPanel.bounds, {
-      cornerRadius: options.cornerRadius,
-      top: keyPanel.top + options.yShadowOffset,
-      left: keyPanel.left + options.xShadowOffset,
-
-      fill: options.keyShadowFill
-    } );
+    // children of the icon node, including the background shadow, foreground key, and content icon
+    options.children = [
+      // background (shadow rectangle)
+      Rectangle.roundedBounds( content.bounds.shifted( 
+        options.xShadowOffset, options.yShadowOffset ), options.cornerRadius, options.cornerRadius, {
+          fill: options.keyShadowFill
+        } ),
+      // foreground
+      Rectangle.roundedBounds( content.bounds, options.cornerRadius, options.cornerRadius, {
+        fill: options.keyFill,
+        stroke: 'black',
+        lineWidth: options.lineWidth
+      } ),
+      // content on top
+      content
+    ];
 
     Node.call( this, options );
-    this.addChild( shadowRectangle );
-    this.addChild( keyPanel );
-
  }
+
  johnTravoltage.register( 'KeyNode', KeyNode );
 
   return inherit( Node, KeyNode );
-
 } );
