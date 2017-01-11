@@ -22,11 +22,11 @@ define( function( require ) {
   var DEFAULT_ARROW_WIDTH = 1 / 2 * Math.sqrt( 3 ) * DEFAULT_ARROW_HEIGHT; // for equilateral triangle
 
   /**
-   *
+   * @param {string} direction - direction of arrow, one of 'up'|'down'|'left'|'right'
+   * @param {Object} options
    * @constructor
    */
   function ArrowKeyNode( direction, options ) {
-
 
     options = _.extend( {
 
@@ -49,23 +49,9 @@ define( function( require ) {
     var arrowFill = options.arrowFill;
     var arrowStroke = options.arrowStroke;
 
-    // draw the arrow shape
+    // draw the arrow shape - default shape pointing up
     var arrowShape = new Shape();
-    if ( direction === 'up' ) {
-      arrowShape.moveTo( arrowHeight / 2, 0 ).lineTo( arrowHeight, arrowWidth + 0 ).lineTo( 0, arrowWidth + 0 ).close();
-    }
-    else if ( direction === 'down' ) {
-      arrowShape.moveTo( 0, 0 ).lineTo( arrowHeight, 0 ).lineTo( arrowHeight / 2, arrowWidth + 0 ).close();
-    }
-    else if ( direction === 'left' ) {
-      arrowShape.moveTo( 0, arrowHeight / 2 ).lineTo( arrowWidth + 0, 0 ).lineTo( arrowWidth + 0, arrowHeight ).close();
-    }
-    else if ( direction === 'right' ) {
-      arrowShape.moveTo( 0, 0 ).lineTo( arrowWidth + 0, arrowHeight / 2 ).lineTo( 0, arrowHeight ).close();
-    }
-    else {
-      throw new Error( 'unsupported direction: ' + direction );
-    }
+    arrowShape.moveTo( arrowHeight / 2, 0 ).lineTo( arrowHeight, arrowWidth + 0 ).lineTo( 0, arrowWidth + 0 ).close();
 
     // draw the arrow
     var pathOptions = {
@@ -75,6 +61,22 @@ define( function( require ) {
       lineWidth: arrowLineWidth
     };
     var arrowPath = new Path( arrowShape, pathOptions );
+
+    if ( direction === 'up' ) {
+      arrowPath.rotate( 0 ); // default arrow shape points up
+    }
+    else if ( direction === 'down' ) {
+      arrowPath.rotate( Math.PI );
+    }
+    else if ( direction === 'left' ) {
+      arrowPath.rotate( -Math.PI / 2 );
+    }
+    else if ( direction === 'right' ) {
+      arrowPath.rotate( Math.PI / 2 );
+    }
+    else {
+      throw new Error( 'unsupported direction: ' + direction );
+    }
 
     // place in the key
     KeyNode.call( this, arrowPath, options );
