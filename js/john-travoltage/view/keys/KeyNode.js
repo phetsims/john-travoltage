@@ -19,9 +19,6 @@ define( function( require ) {
   var AlignBox = require( 'SCENERY/nodes/AlignBox' );
 
   // constants
-  // valid values for options.align
-  var ALIGN_VALUES = [ 'leftTop', 'leftCenter', 'leftBottom', 'centerTop', 'center', 'centerBottom', 'rightTop', 'rightCenter', 'rightBottom' ];
-
   var DEFAULT_OPTIONS = {
 
     // color and styling
@@ -59,7 +56,6 @@ define( function( require ) {
   function KeyNode( keyIcon, options ) {
 
     options = _.extend( {}, DEFAULT_OPTIONS, options );
-    assert && assert( _.contains( ALIGN_VALUES, options.align ), 'invalid align: ' + options.align );
     assert && assert( options.minKeyWidth <= options.maxKeyWidth, 'max key width must be greater than min key width' );
     assert && assert( options.minKeyHeight <= options.maxKeyHeight, 'max key height must be greater than min key height' );
     assert && assert( !options.children, 'KeyNode cannot have additional children' );
