@@ -51,7 +51,7 @@ define( function( require ) {
     var pitchedPopGenerator = new PitchedPopGenerator( model.soundProperty );
 
     // hook up sound generator for charge level, different types depending on control setting
-    if ( sonificationControl === 1 ) {
+    if ( sonificationControl === 'piano' ) {
 
       // create a random note player that will play notes more frequently as the number of charges increases
       this.randomNotePlayer = new RandomNotePlayer(
@@ -62,7 +62,7 @@ define( function( require ) {
         JohnTravoltageModel.MAX_ELECTRONS
       );
     }
-    else if ( sonificationControl === 2 ) {
+    else if ( sonificationControl === 'pitch' ) {
 
       // create a tone generator that will indicate the presence of charge with a tone with a changing output filter
       this.chargeToneGenerator = new ChargeAmountToneGenerator(
@@ -73,7 +73,7 @@ define( function( require ) {
         { randomlyUpdateFilterCutoff: true, toneFrequency: 120 }
       );
     }
-    else if ( sonificationControl === 3 ) {
+    else if ( sonificationControl === 'jostle' ) {
 
       // create a sound generator that will be used to create a jostling sound that represent the presence of charge
       this.jostlingChargesSoundGenerator = new ChargeAmountSoundGenerator(
@@ -83,7 +83,7 @@ define( function( require ) {
         JohnTravoltageModel.MAX_ELECTRONS
       );
     }
-    else {
+    else if ( sonificationControl === 'transformer' ) {
 
       // create a tone generator that will indicate the present of charge with a filtered buzzing sound
       this.chargeToneGenerator = new ChargeAmountToneGenerator(
@@ -94,6 +94,10 @@ define( function( require ) {
         { mapQuantityToFilterCutoff: true, toneFrequency: 90 }
       );
     }
+    else {
+      throw new Error( 'unhandled value for sonificationControl ' + sonificationControl );
+    }
+
     this.armPositionToneGenerator = new ToneGenerator();
     this.shoeDraggingForwardOnCarpetSound = new Sound( shoeDraggingForwardOnCarpetAudio );
     this.shoeDraggingBackwardOnCarpetSound = new Sound( shoeDraggingBackwardOnCarpetAudio );
@@ -168,19 +172,19 @@ define( function( require ) {
       //if the arm is moving, play the proximity sound
       if ( this.armView.dragging && this.timeAtCurrentFingerPosition < 1.0 ) { // time threshold empirically determined
         var distanceToKnob = this.model.arm.getFingerPosition().distance( this.model.doorknobPosition );
-        if ( this.sonificationControl === 2 ) {
+        if ( this.sonificationControl === 'pitch' ) {
 
           // pitch and LFO change
           this.armPositionToneGenerator.playTone( MAP_ARM_DISTANCE_TO_OSCILLATOR_FREQUENCY( distanceToKnob ) );
           this.armPositionToneGenerator.setLfoFrequency( MAP_ARM_DISTANCE_TO_LFO_FREQUENCY( distanceToKnob ) );
         }
-        else if ( this.sonificationControl === 3 ) {
+        else if ( this.sonificationControl === 'jostle' ) {
 
           // pitch constant, LFO changes
           this.armPositionToneGenerator.playTone( 220 );
           this.armPositionToneGenerator.setLfoFrequency( MAP_ARM_DISTANCE_TO_LFO_FREQUENCY( distanceToKnob ) );
         }
-        else if ( this.sonificationControl === 4 ) {
+        else if ( this.sonificationControl === 'transformer' ) {
 
           // LFO not used, pitch changes
           this.armPositionToneGenerator.playTone( MAP_ARM_DISTANCE_TO_OSCILLATOR_FREQUENCY( distanceToKnob ) );

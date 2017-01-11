@@ -103,7 +103,7 @@ define( function( require ) {
         if ( appendage instanceof Leg ) {
           angle = limitLegRotation( angle );
 
-          if ( JohnTravoltageQueryParameters.sonification > 1 && soundEnabledProperty.value ){
+          if ( JohnTravoltageQueryParameters.sonification !== 'none' && soundEnabledProperty.value ){
             // play a sound when the range of motion is reached
             if ( ( angle === 0 && lastAngle > 0 ) ||
                  ( angle === Math.PI && lastAngle > 0 && lastAngle < Math.PI ) ){

@@ -193,7 +193,7 @@ define( function( require ) {
     } ) );
 
     //add sonification if enabled
-    if ( SONIFICATION_CONTROL ) {
+    if ( SONIFICATION_CONTROL !== 'none' ) {
       this.audioView = new JohnTravoltageAudio( model, this.arm, SONIFICATION_CONTROL );
     }
 
