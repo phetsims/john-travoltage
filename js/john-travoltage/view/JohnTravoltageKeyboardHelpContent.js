@@ -15,9 +15,10 @@ define( function( require ) {
   var JohnTravoltageA11yStrings = require( 'JOHN_TRAVOLTAGE/john-travoltage/JohnTravoltageA11yStrings' );
   var johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
   var Panel = require( 'SUN/Panel' );
-  var KeyNode = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/keys/KeyNode' );
-  var ArrowKeyNode = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/keys/ArrowKeyNode' );
-  var TextKeyNode = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/keys/TextKeyNode' );
+  var ArrowKeyNode = require( 'SCENERY_PHET/keyboard/ArrowKeyNode' );
+  var TabKeyNode = require( 'SCENERY_PHET/keyboard/TabKeyNode' );
+  var ShiftKeyNode = require( 'SCENERY_PHET/keyboard/ShiftKeyNode' );
+  var EscapeKeyNode = require( 'SCENERY_PHET/keyboard/EscapeKeyNode' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var Dimension2 = require( 'DOT/Dimension2' );
   var PlusNode = require( 'SCENERY_PHET/PlusNode' );
@@ -31,6 +32,7 @@ define( function( require ) {
   var LAYOUT_SPACING = 10;
   var DIALOG_MARGIN = 25;
   var ICON_VERTICAL_SPACING = 8;
+  var TEXT_KEY_WIDTH = 42;
   var DESCRIPTION_FONT = new PhetFont( 14 );
 
   /**
@@ -55,24 +57,29 @@ define( function( require ) {
     } );
 
     // single tab key
-    var singleTabKeyIcon = new TextKeyNode( JohnTravoltageA11yStrings.tabKeyString );
+    var singleTabKeyIcon = new TabKeyNode( {
+      minKeyWidth: TEXT_KEY_WIDTH, // in ScreenView coordinates
+      maxKeyWidth: TEXT_KEY_WIDTH
+    } );
 
     // shift and tab keys, separated by plus sign
-    var shiftKeyIconNode = new TextKeyNode( JohnTravoltageA11yStrings.shiftKeyString );
+    var shiftKeyIconNode = new ShiftKeyNode( {
+      minKeyWidth: TEXT_KEY_WIDTH, // in ScreenView coordinates
+      maxKeyWidth: TEXT_KEY_WIDTH,
+    } );
     var plusIconNode = new PlusNode( {
       size: new Dimension2( 10, 1.5 )
     } );
     var shiftPlusTabIconHBox = new HBox( {
-      children: [ shiftKeyIconNode, plusIconNode, new TextKeyNode( JohnTravoltageA11yStrings.tabKeyString ) ],
+      children: [ shiftKeyIconNode, plusIconNode, new TabKeyNode( { minKeyWidth: TEXT_KEY_WIDTH, maxKeyWidth: TEXT_KEY_WIDTH } ) ],
       spacing: 10
     } );
 
     // escape key
-    var escText = new Text( JohnTravoltageA11yStrings.escKeyString, { font: new PhetFont( 10 ) } );
-    var escapeKeyIconNode = new KeyNode( escText );
+    var escapeKeyIconNode = new EscapeKeyNode();
 
     // descriptions
-    var descriptionOptions  = { font: DESCRIPTION_FONT };
+    var descriptionOptions = { font: DESCRIPTION_FONT };
     var arrowKeyDescription = new HTMLText( JohnTravoltageA11yStrings.arrowKeysMoveFootString, descriptionOptions );
     var tabKeyDescription = new HTMLText( JohnTravoltageA11yStrings.tabKeyDescriptionString, descriptionOptions );
     var shiftPlusTabDescription = new HTMLText( JohnTravoltageA11yStrings.shiftTabKeyDescriptionString, descriptionOptions );
