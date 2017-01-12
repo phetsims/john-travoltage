@@ -19,7 +19,7 @@ define( function( require ) {
   /**
    * @param {AppendageNode} arm -  the arm appendage
    * @param {AppendageNode} leg -  the leg appendage
-   * @param {Electron} electron - the electron model
+   * @param {ObservableArray.<Electron>} electrons - updates when electron is added or removed
    * @param {Node} describedNode - the node for which the accessible description is instantiated for. This is used
    *                               to set the 'aria-describedby' relationship between the two PDOM elements.
    * @constructor
