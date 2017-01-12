@@ -16,7 +16,7 @@ define( function( require ) {
   var Line = require( 'SCENERY/nodes/Line' );
   var inherit = require( 'PHET_CORE/inherit' );
   var BackgroundElementsNode = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/BackgroundElementsNode' );
-  var AccessibleFormNode = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/AccessibleFormNode' );
+  var AccessibleNode = require( 'SCENERY/accessibility/AccessibleNode' );
   var AccessibleDescriptionNode = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/AccessibleDescriptionNode' );
   var AppendageRangeMaps = require( 'JOHN_TRAVOLTAGE/john-travoltage/AppendageRangeMaps' );
   var AppendageNode = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/AppendageNode' );
@@ -104,7 +104,9 @@ define( function( require ) {
     this.addChild( new Node( { layerSplit: true, pickable: false } ) );
 
     //add an form element to contain all controls
-    var accessibleFormNode = new AccessibleFormNode();
+    var accessibleFormNode = new AccessibleNode( {
+      tagName: 'form'
+    } );
     this.addChild( accessibleFormNode );
 
     // arm and leg - only interactive elements
