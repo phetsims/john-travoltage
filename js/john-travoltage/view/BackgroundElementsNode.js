@@ -79,6 +79,6 @@ define( function( require ) {
   }
 
   johnTravoltage.register( 'BackgroundElementsNode', BackgroundElementsNode );
-  
+
   return inherit( Node, BackgroundElementsNode );
 } );

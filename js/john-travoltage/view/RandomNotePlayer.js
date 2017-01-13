@@ -68,7 +68,8 @@ define( function( require ) {
 
     // create a function to map the amount of charge to the inter-note time
     var linearMapTimeFunction = LinearFunction( minItems, maxItems, MAX_INTER_NOTE_TIME * 1000, MIN_INTER_NOTE_TIME * 1000 );
-    function mapNumItemsToInterNoteTime( numItems ){
+
+    function mapNumItemsToInterNoteTime( numItems ) {
       var linearValue = linearMapTimeFunction( numItems );
       // introduce a little random variation in the time
       var randomAdjustFactor = ( 1 + ( phet.joist.random.nextDouble() - 0.5 ) * 1.0 );
@@ -81,7 +82,7 @@ define( function( require ) {
       var note;
       do {
         note = phet.joist.random.sample( notes );
-      } while( note === mostRecentlyPlayedNote );
+      } while ( note === mostRecentlyPlayedNote );
       mostRecentlyPlayedNote = note;
 
       // play the note
@@ -114,10 +115,10 @@ define( function( require ) {
               allSoundsLoaded = false;
             }
           } );
-          if ( impulseResponse.audioBuffer ){
+          if ( impulseResponse.audioBuffer ) {
             convolver.buffer = impulseResponse.audioBuffer;
           }
-          else{
+          else {
             allSoundsLoaded = false;
           }
           soundsLoaded = allSoundsLoaded;
@@ -136,7 +137,7 @@ define( function( require ) {
       }
       else {
         interNoteTime = Number.POSITIVE_INFINITY;
-        if ( noteTimer ){
+        if ( noteTimer ) {
           Timer.clearTimeout( noteTimer );
           noteTimer = null;
         }
@@ -147,23 +148,23 @@ define( function( require ) {
     soundEnabledProperty.link( function( soundEnabled ) {
       if ( soundEnabled ) {
         masterGainControl.gain.value = MAX_GAIN;
-        if ( numItemsProperty.value > 0 ){
+        if ( numItemsProperty.value > 0 ) {
           interNoteTime = mapNumItemsToInterNoteTime( numItemsProperty.value );
           playRandomNoteAndSetTimer();
         }
       }
-      else{
+      else {
         masterGainControl.gain.value = 0;
         interNoteTime = Number.POSITIVE_INFINITY;
       }
     } );
 
     // reduce the volume in some cases to avoid overpowering other sounds TODO: done quickly, not thought out well, needs refining
-    reduceVolumeProperty.link( function( reduceVolume ){
-      if ( reduceVolume && soundEnabledProperty.value ){
+    reduceVolumeProperty.link( function( reduceVolume ) {
+      if ( reduceVolume && soundEnabledProperty.value ) {
         masterGainControl.gain.value = REDUCED_GAIN;
       }
-      else if ( !reduceVolume && soundEnabledProperty.value ){
+      else if ( !reduceVolume && soundEnabledProperty.value ) {
         masterGainControl.gain.value = MAX_GAIN;
       }
     } );

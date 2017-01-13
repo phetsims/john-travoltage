@@ -4,7 +4,7 @@
  * Single location of all accessibility strings.  These strings are not meant to be translatable yet.  Rosetta needs
  * some work to provide translators with context for these strings, and we want to receive some community feedback
  * before these strings are submitted for translation.
- * 
+ *
  * @author Jesse Greenberg
  */
 define( function( require ) {
@@ -15,7 +15,7 @@ define( function( require ) {
   var JohnTravoltageA11yStrings = {
 
     // summary information
-    sceneDescriptionString:  '{1}John\'s hand is {0}, and he is ready to swing his leg to rub his foot on the rug.',
+    sceneDescriptionString: '{1}John\'s hand is {0}, and he is ready to swing his leg to rub his foot on the rug.',
     electronsDescriptionSingleString: 'John has 1 charge on his body.',
     electronsDescriptionMultipleString: 'John has {0} charges on his body.',
     positionTemplateString: 'Position {0}: {1}',

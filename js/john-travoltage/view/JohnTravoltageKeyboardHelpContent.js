@@ -87,8 +87,8 @@ define( function( require ) {
 
     /**
      * Align the icon and its description vertically by placing in a vertical align group
-     * @param  {Node} icon        
-     * @param  {HTMLText} description 
+     * @param  {Node} icon
+     * @param  {HTMLText} description
      * @return {object} - keys icon {Node} and its description {HTMLText}
      */
     var createContentRow = function( icon, description ) {
@@ -146,7 +146,7 @@ define( function( require ) {
     // the content should be centered in the dialog relative to the description text
     var oldCenter = contentHBox.centerX;
     var newCenter = descriptionVBox.centerX;
-    var spacerWidth = newCenter - oldCenter + 2 * DIALOG_MARGIN;    
+    var spacerWidth = newCenter - oldCenter + 2 * DIALOG_MARGIN;
     var spacer = new Spacer( spacerWidth, 0 );
     contentHBox.addChild( spacer );
 

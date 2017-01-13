@@ -82,7 +82,7 @@ define( function( require ) {
         this.noteTimer = Timer.setTimeout( function() {
           self.noteTimer = null;
           self.playNextPitchFromQueue();
-        //}, ( duration + MIN_INTER_NOTE_TIME ) * 1000 );
+          //}, ( duration + MIN_INTER_NOTE_TIME ) * 1000 );
         }, 10 ); // TODO: Temp workaround for an issue where this gets too far behind, look at callbacks from parameter changes (if there is such a thing)
       }
     },

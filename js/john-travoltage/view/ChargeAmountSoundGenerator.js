@@ -56,7 +56,7 @@ define( function( require ) {
     var mapNumItemsToFilterCutoff = LinearFunction( minItems, maxItems, MIN_FILTER_CUTOFF, MAX_FILTER_CUTOFF );
 
     // start and stop the sounds and adjust it based on the number of items
-    numItemsProperty.link( function( numItems ){
+    numItemsProperty.link( function( numItems ) {
 
       if ( numItems > 0 ) {
 
@@ -82,16 +82,16 @@ define( function( require ) {
         // set the gain
         masterGainControl.gain.value = soundEnabledProperty.value ? mapNumItemsToGain( numItems ) : 0;
       }
-      else{
-        if ( soundIsPlaying ){
+      else {
+        if ( soundIsPlaying ) {
           soundSource.stop();
           soundIsPlaying = false;
         }
       }
     } );
 
-    soundEnabledProperty.link( function( soundEnabled ){
-      if ( !soundEnabled ){
+    soundEnabledProperty.link( function( soundEnabled ) {
+      if ( !soundEnabled ) {
         masterGainControl.gain.value = 0;
       }
     } );

@@ -182,6 +182,6 @@ define( function( require ) {
   }
 
   johnTravoltage.register( 'ElectronNode', ElectronNode );
-  
+
   return inherit( Node, ElectronNode );
 } );

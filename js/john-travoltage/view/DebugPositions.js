@@ -24,7 +24,7 @@ define( function( require ) {
   function DebugPositions() {}
 
   johnTravoltage.register( 'DebugPositions', DebugPositions );
-  
+
   return inherit( Object, DebugPositions, {
 
     //Sample model points for bounds, see JohnTravoltageModel.bodyVertices

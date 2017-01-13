@@ -8,7 +8,7 @@
  * @author Vasily Shakhov (Mlearner)
  * @author Justin Obara
  */
- define( function( require ) {
+define( function( require ) {
   'use strict';
 
   // modules
@@ -58,10 +58,10 @@
       electrons.addItemRemovedListener( itemRemovedListener );
     } );
 
-    if (statusNode) {
+    if ( statusNode ) {
       var priorCharge = 0;
 
-      var setElectronStatus = function () {
+      var setElectronStatus = function() {
         var currentCharge = electrons.length;
         var chargeText = currentCharge >= priorCharge ? JohnTravoltageA11yStrings.electronsTotalString : JohnTravoltageA11yStrings.electronsTotalAfterDischargeString;
 

@@ -25,7 +25,7 @@ define( function( require ) {
   }
 
   johnTravoltage.register( 'Leg', Leg );
-  
+
   return inherit( PropertySet, Leg, {
     deltaAngle: function() { return this.angle - this.initialAngle; }
   } );

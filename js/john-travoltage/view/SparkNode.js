@@ -66,12 +66,13 @@ define( function( require ) {
         whitePath.shape = shape;
         bluePath.shape = shape;
 
-        if (alertElement && !alertElement.textContent) {
+        if ( alertElement && !alertElement.textContent ) {
           alertElement.textContent = dischargeAlertText;
           // makes the alert discoverable when a discharge occurs
           alertElement.removeAttribute( 'aria-hidden' );
         }
-      } else if (alertElement) {
+      }
+      else if ( alertElement ) {
         // removes the alert from the a11y tree after the discharge completes
         alertElement.setAttribute( 'aria-hidden', true );
         alertElement.textContent = '';

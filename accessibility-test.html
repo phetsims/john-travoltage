@@ -19,9 +19,11 @@
     padding: 0;
     font-family: Arial, Helvetica, sans-serif
   }
+
   body {
     background: #ccc;
   }
+
   div.simulation_frame {
     position: absolute;
     top: 0;
@@ -30,6 +32,7 @@
     width: 50%;
     background: #ccc;
   }
+
   div.pdom_copy {
     background: #ccc;
     position: absolute;
@@ -39,12 +42,15 @@
     width: 50%;
     overflow: auto;
   }
+
   div.clearfix {
     clear: both;
   }
+
   p.alert {
     opacity: 0.6;
   }
+
   div.wrapper {
     height: auto;
     width: 100%;
@@ -123,9 +129,9 @@
       var politeStatusElement = innerDoc.getElementById( 'polite-status' );
 
       var assertiveElementCopy = document.getElementById( 'assertive-element-copy' );
-      var politeElementCopy = document.getElementById( 'polite-element-copy');
-      var assertiveAlertElementCopy = document.getElementById( 'assertive-alert-element-copy');
-      var politeStatusElementCopy = document.getElementById( 'polite-status-element-copy');
+      var politeElementCopy = document.getElementById( 'polite-element-copy' );
+      var assertiveAlertElementCopy = document.getElementById( 'assertive-alert-element-copy' );
+      var politeStatusElementCopy = document.getElementById( 'polite-status-element-copy' );
 
       // strip the styling from the copied DOM elements
       pDOMCopy.removeAttribute( 'style' );
@@ -170,14 +176,14 @@
           // make sure that the coppied html is completely out of navigation
           removeTabIndex();
 
-        } );    
+        } );
       } );
-       
+
       // configuration of the dom observer:
       var config = { attributes: true, childList: true, characterData: true, subtree: true };
-       
+
       // pass in the target node, as well as the observer options
-      domObserver.observe( pDOM, config);
+      domObserver.observe( pDOM, config );
 
       // add mutation observers to each of the aria-live elements
       var addLiveObserver = function( container, originalElement, copiedElement ) {
@@ -189,7 +195,7 @@
             politeElementCopy.textContent = '';
             assertiveAlertElementCopy.textContent = '';
             politeStatusElementCopy.textContent = '';
-            
+
 
             // update the text content of the copied element to match the element in
             // the iframe document
@@ -207,7 +213,7 @@
 
       // set focus to the loaded ifram
       document.getElementById( 'iframe' ).focus();
-      
+
     }
   } );
 </script>

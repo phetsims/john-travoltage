@@ -180,7 +180,7 @@ define( function( require ) {
     // after instantiation
     model.soundProperty.lazyLink( function( pressed ) {
       document.getElementById( 'sound-button' ).setAttribute( 'aria-pressed', !pressed );
-    } );  
+    } );
 
     var resetAllButton = new ResetAllButton( {
       listener: model.reset.bind( model ),

@@ -39,7 +39,7 @@ define( function( require ) {
   }
 
   johnTravoltage.register( 'LineSegment', LineSegment );
-  
+
   return inherit( Object, LineSegment, {
 
     //No need for speed, only used in debugging

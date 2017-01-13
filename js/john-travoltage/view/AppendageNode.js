@@ -103,10 +103,10 @@ define( function( require ) {
         if ( appendage instanceof Leg ) {
           angle = limitLegRotation( angle );
 
-          if ( JohnTravoltageQueryParameters.sonification !== 'none' && soundEnabledProperty.value ){
+          if ( JohnTravoltageQueryParameters.sonification !== 'none' && soundEnabledProperty.value ) {
             // play a sound when the range of motion is reached
             if ( ( angle === 0 && lastAngle > 0 ) ||
-                 ( angle === Math.PI && lastAngle > 0 && lastAngle < Math.PI ) ){
+                 ( angle === Math.PI && lastAngle > 0 && lastAngle < Math.PI ) ) {
               limitBonkSound.play();
             }
           }
@@ -199,7 +199,7 @@ define( function( require ) {
     this.setInputValue( rangeValue );
 
     if ( options.controls ) {
-      this.setAttribute( 'aria-controls', options.controls.join( ',' ));
+      this.setAttribute( 'aria-controls', options.controls.join( ',' ) );
     }
 
     // Due to the variability of input and change event firing across browsers,
@@ -207,12 +207,12 @@ define( function( require ) {
     // handle the change event instead.
     // see: https://wiki.fluidproject.org/pages/viewpage.action?pageId=61767683
     var keyboardEventHandled = false;
-    var rotateAppendage = function () {
+    var rotateAppendage = function() {
       appendage.angle = self.positionToAngle( self.domElement.value, keyboardMotion.totalRange, options.keyboardMidPointOffset );
       self.border.visible = false;
     };
     this.addDOMEventListener( 'change', function( event ) {
-      if (!keyboardEventHandled) {
+      if ( !keyboardEventHandled ) {
         rotateAppendage();
       }
       keyboardEventHandled = false;
@@ -229,7 +229,7 @@ define( function( require ) {
       self.dragging = 'false';
     } );
 
-    var updatePosition = function ( angle ) {
+    var updatePosition = function( angle ) {
       var position = self.angleToPosition( appendage.angle, keyboardMotion.totalRange, keyboardMotion.max, options.keyboardMidPointOffset );
       var positionDescription = self.getPositionDescription( position, rangeMap );
       self.setInputValue( position );
@@ -263,7 +263,7 @@ define( function( require ) {
      * @accessibility
      * @private
      */
-    radiansToScale: function ( radian, stepsInScale, radianOffset ) {
+    radiansToScale: function( radian, stepsInScale, radianOffset ) {
       var radianWithOffset = radian - radianOffset;
       var scaleValue = ( radianWithOffset ) * ( ( stepsInScale / 2 ) / Math.PI );
 
@@ -275,7 +275,7 @@ define( function( require ) {
      * @accessibility
      * @private
      */
-    scaleToRadians: function ( scaleValue, stepsInScale, radianOffset ) {
+    scaleToRadians: function( scaleValue, stepsInScale, radianOffset ) {
       var radian = scaleValue * ( Math.PI / ( stepsInScale / 2 ) );
       var radianWithOffset = radian + radianOffset;
 
@@ -289,7 +289,7 @@ define( function( require ) {
      * @accessibility
      * @private
      */
-    scalePositionTransformation: function ( totalSteps, value ) {
+    scalePositionTransformation: function( totalSteps, value ) {
       return ( totalSteps / 2 ) - value;
     },
 
@@ -299,7 +299,7 @@ define( function( require ) {
      * @accessibility
      * @private
      */
-    angleToPosition: function ( appendageAngle, motionRange, maxPosition, radianOffset ) {
+    angleToPosition: function( appendageAngle, motionRange, maxPosition, radianOffset ) {
       var scaleValue = this.radiansToScale( appendageAngle, motionRange, radianOffset );
       var position = this.scalePositionTransformation( motionRange, scaleValue );
       return position > maxPosition ? position % maxPosition : position;
@@ -311,7 +311,7 @@ define( function( require ) {
      * @accessibility
      * @private
      */
-    positionToAngle: function ( position, motionRange, radianOffset ) {
+    positionToAngle: function( position, motionRange, radianOffset ) {
       var scaleValue = this.scalePositionTransformation( motionRange, position );
 
       return this.scaleToRadians( scaleValue, motionRange, radianOffset );
@@ -322,15 +322,15 @@ define( function( require ) {
      * @accessibility
      * @private
      */
-    getPositionDescription: function ( position, rangeMap ) {
+    getPositionDescription: function( position, rangeMap ) {
       var message = '';
 
-      _.forEach(rangeMap, function (map) {
-        if (position >= map.range.min && position <= map.range.max) {
+      _.forEach( rangeMap, function( map ) {
+        if ( position >= map.range.min && position <= map.range.max ) {
           message = map.text;
           return false;
         }
-      });
+      } );
 
       return message;
     }

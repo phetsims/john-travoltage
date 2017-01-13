@@ -27,105 +27,105 @@ define( function( require ) {
 
     leg: [
       {
-          range: {
-              max: 5,
-              min: 0
-          },
-          text: footOffCarpetString
+        range: {
+          max: 5,
+          min: 0
+        },
+        text: footOffCarpetString
       }, {
-          range: {
-              max: 21,
-              min: 6
-          },
-          text: footOnCarpetString
+        range: {
+          max: 21,
+          min: 6
+        },
+        text: footOnCarpetString
       }, {
-          range: {
-              max: 30,
-              min: 22
-          },
-          text: footOffCarpetString
+        range: {
+          max: 30,
+          min: 22
+        },
+        text: footOffCarpetString
       }
     ],
 
     arm: [
       {
-          range: {
-              max: 0,
-              min: 0
-          },
-          text: handFarthestString
+        range: {
+          max: 0,
+          min: 0
+        },
+        text: handFarthestString
       }, {
-          range: {
-              max: 12,
-              min: 1
-          },
-          text: handVeryFarString
+        range: {
+          max: 12,
+          min: 1
+        },
+        text: handVeryFarString
       }, {
-          range: {
-              max: 24,
-              min: 13
-          },
-          text: handFarString
+        range: {
+          max: 24,
+          min: 13
+        },
+        text: handFarString
       }, {
-          range: {
-              max: 25,
-              min: 25
-          },
-          text: handNeitherString
+        range: {
+          max: 25,
+          min: 25
+        },
+        text: handNeitherString
       }, {
-          range: {
-              max: 37,
-              min: 26
-          },
-          text: handCloseString
+        range: {
+          max: 37,
+          min: 26
+        },
+        text: handCloseString
       }, {
-          range: {
-              max: 49,
-              min: 38
-          },
-          text: handVeryCloseString
+        range: {
+          max: 49,
+          min: 38
+        },
+        text: handVeryCloseString
       }, {
-          range: {
-              max: 50,
-              min: 50
-          },
-          text: handClosestString
+        range: {
+          max: 50,
+          min: 50
+        },
+        text: handClosestString
       }, {
-          range: {
-              max: 62,
-              min: 51
-          },
-          text: handVeryCloseString
+        range: {
+          max: 62,
+          min: 51
+        },
+        text: handVeryCloseString
       }, {
-          range: {
-              max: 74,
-              min: 63
-          },
-          text: handCloseString
+        range: {
+          max: 74,
+          min: 63
+        },
+        text: handCloseString
       }, {
-          range: {
-              max: 75,
-              min: 75
-          },
-          text: handNeitherString
+        range: {
+          max: 75,
+          min: 75
+        },
+        text: handNeitherString
       }, {
-          range: {
-              max: 87,
-              min: 76
-          },
-          text: handFarString
+        range: {
+          max: 87,
+          min: 76
+        },
+        text: handFarString
       }, {
-          range: {
-              max: 99,
-              min: 88
-          },
-          text: handVeryFarString
+        range: {
+          max: 99,
+          min: 88
+        },
+        text: handVeryFarString
       }, {
-          range: {
-              max: 100,
-              min: 100
-          },
-          text: handFarthestString
+        range: {
+          max: 100,
+          min: 100
+        },
+        text: handFarthestString
       }
     ]
   };
