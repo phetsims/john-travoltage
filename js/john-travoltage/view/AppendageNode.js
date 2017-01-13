@@ -25,6 +25,7 @@ define( function( require ) {
   var johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
   var JohnTravoltageQueryParameters = require( 'JOHN_TRAVOLTAGE/john-travoltage/JohnTravoltageQueryParameters' );
   var JohnTravoltageA11yStrings = require( 'JOHN_TRAVOLTAGE/john-travoltage/JohnTravoltageA11yStrings' );
+  var FocusOverlay = require( 'SCENERY/overlays/FocusOverlay' );
   var Sound = require( 'VIBE/Sound' );
 
   // audio
@@ -167,7 +168,7 @@ define( function( require ) {
     }
 
     // a11y
-    var focusCircle = new Circle( imageNode.width / 2, { stroke: 'rgba(250,40,135,0.9)', lineWidth: 5 } );
+    var focusCircle = new Circle( imageNode.width / 2, { stroke: FocusOverlay.innerFocusColor, lineWidth: 5 } );
     this.focusHighlight = focusCircle;
 
     // limit ranges of input for the leg
