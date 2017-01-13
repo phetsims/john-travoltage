@@ -2,6 +2,8 @@
 
 /**
  * a sound generator intended for use in portraying the quantity of charge present, created for sonification
+ *
+ * @author John Blanco
  */
 define( function( require ) {
   'use strict';
@@ -27,7 +29,6 @@ define( function( require ) {
    * @param {number} minItems
    * @param {number} maxItems
    * @constructor
-   * 
    */
   function ChargeAmountSoundGenerator( soundEnabledProperty, numItemsProperty, minItems, maxItems ) {
 
