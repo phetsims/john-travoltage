@@ -19,7 +19,7 @@ define( function( require ) {
 
   /**
    * @constructor
-   * {Property.<boolean> soundEnabledProperty
+   * {Property.<boolean>} soundEnabledProperty
    */
   function PitchedPopGenerator( soundEnabledProperty ) {
 
