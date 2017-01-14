@@ -31,8 +31,8 @@ define( function( require ) {
 
   /**
    * @param {Property.<boolean>} soundEnabledProperty
-   * @param {Property.<number> } numItemsProperty
-   * @param {Property.<boolean> } reduceVolumeProperty
+   * @param {Property.<number>} numItemsProperty
+   * @param {Property.<boolean>} reduceVolumeProperty
    * @param {number} minItems
    * @param {number} maxItems
    * @constructor
