@@ -16,13 +16,12 @@ define( function( require ) {
   var Line = require( 'SCENERY/nodes/Line' );
   var inherit = require( 'PHET_CORE/inherit' );
   var BackgroundElementsNode = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/BackgroundElementsNode' );
-  var AccessibleNode = require( 'SCENERY/accessibility/AccessibleNode' );
-  var AccessibleDescriptionNode = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/AccessibleDescriptionNode' );
   var AppendageRangeMaps = require( 'JOHN_TRAVOLTAGE/john-travoltage/AppendageRangeMaps' );
   var AppendageNode = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/AppendageNode' );
   var SparkNode = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/SparkNode' );
   var ElectronLayerNode = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/ElectronLayerNode' );
   var Shape = require( 'KITE/Shape' );
+  var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   var Path = require( 'SCENERY/nodes/Path' );
   var Node = require( 'SCENERY/nodes/Node' );
   var SoundToggleButton = require( 'SCENERY_PHET/buttons/SoundToggleButton' );
@@ -75,27 +74,14 @@ define( function( require ) {
     ScreenView.call( this, {
       renderer: platform.firefox ? 'canvas' : null,
       layoutBounds: new Bounds2( 0, 0, 768, 504 ),
-      accessibleContent: null
+
+      // accesibility
+      tagName: 'div',
+      parentContainerTagName: 'article',
+      labelTagName: 'h1',
+      accessibleLabel: johnTravoltageTitleString,
+      prependLabels: true
     } );
-
-    this.accessibleContent = {
-      createPeer: function( accessibleInstance ) {
-        // the screen content should be contained in an article
-        var domElement = document.createElement( 'article' );
-
-        // create the label for the sim
-        var labelElement = document.createElement( 'h1' );
-        labelElement.textContent = johnTravoltageTitleString;
-        domElement.appendChild( labelElement );
-
-        var childContainerElement = document.createElement( 'div' );
-        domElement.appendChild( childContainerElement );
-
-        return new AccessiblePeer( accessibleInstance, domElement, {
-          childContainerElement: childContainerElement
-        } );
-      }
-    };
 
     //add background elements
     this.addChild( new BackgroundElementsNode() );
@@ -104,7 +90,7 @@ define( function( require ) {
     this.addChild( new Node( { layerSplit: true, pickable: false } ) );
 
     //add an form element to contain all controls
-    var accessibleFormNode = new AccessibleNode( {
+    var accessibleFormNode = new Node( {
       tagName: 'form'
     } );
     this.addChild( accessibleFormNode );
@@ -209,15 +195,35 @@ define( function( require ) {
     } );
     accessibleFormNode.addChild( electronLayer );
 
-    // Scene description
-    var accessibleDescription = new AccessibleDescriptionNode( this.arm, this.leg, model.electrons, accessibleFormNode );
-    this.addChild( accessibleDescription );
+    // after travolta picks up electrons the first time, this flag will modify descriptions slightly
+    var hadElectrons = false;
+    var self = this;
+    var updateDescription = function() {
+      var chargeDescriptor = model.electrons.length === 1 ? JohnTravoltageA11yStrings.electronsDescriptionSingleString : JohnTravoltageA11yStrings.electronsDescriptionMultipleString;
+      var chargeMessage = hadElectrons ? StringUtils.format( chargeDescriptor, model.electrons.length ) : '';
 
-    // adjust the order of the accessible content so that the description comes before the form in the DOM order.
-    this.setAccessibleOrder( [ accessibleDescription, accessibleFormNode ] );
+      self.accessibleDescription = StringUtils.format( JohnTravoltageA11yStrings.sceneDescriptionString, arm.positionDescription, chargeMessage );
+    };
 
+    // electrons observable array exists for the lifetime of the sim, so there is no need to remove these
+    // listeners
+    model.electrons.addItemAddedListener( function() {
+      updateDescription();
+      hadElectrons = true;
+    } );
+
+    model.electrons.addItemRemovedListener( function() {
+      if ( model.electrons.length === 0 ) {
+        updateDescription();
+      }
+    } );    
+
+    // properties exist for life of sim, no need to unlink
+    this.arm.model.angleProperty.link( updateDescription );
+    this.leg.model.angleProperty.link( updateDescription ); 
+     
     // the form is described by the description through aria-describedby
-    accessibleFormNode.setAriaDescribedBy( accessibleDescription.id );
+    accessibleFormNode.setAriaDescribedById( this.descriptionElementId );
 
     // debug lines, body and forceline
     // borders are approximately 8px = radius of particle from physical body,

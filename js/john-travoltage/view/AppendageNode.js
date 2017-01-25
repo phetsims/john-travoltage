@@ -13,7 +13,7 @@ define( function( require ) {
 
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
-  var AccessibleNode = require( 'SCENERY/accessibility/AccessibleNode' );
+  var Node = require( 'SCENERY/nodes/Node' );
   var Image = require( 'SCENERY/nodes/Image' );
   var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
   var Vector2 = require( 'DOT/Vector2' );
@@ -60,12 +60,11 @@ define( function( require ) {
       inputType: 'range',
       ariaRole: 'slider',
       focusable: true,
-
       parentContainerTagName: 'div'
 
     }, options );
 
-    AccessibleNode.call( this, options );
+    Node.call( this, options );
 
     // add the image
     var imageNode = new Image( image );
@@ -189,18 +188,15 @@ define( function( require ) {
       totalRange: totalRange
     };
 
-    // Safari seems to require that a range input has a width, otherwise it will not be keyboard accessible.
-    this.domElement.style.width = '1px';
-
-    this.setAttribute( 'min', keyboardMotion.min );
-    this.setAttribute( 'max', keyboardMotion.max );
-    this.setAttribute( 'step', keyboardMotion.step );
+    this.setAccessibleAttribute( 'min', keyboardMotion.min );
+    this.setAccessibleAttribute( 'max', keyboardMotion.max );
+    this.setAccessibleAttribute( 'step', keyboardMotion.step );
 
     var rangeValue = self.angleToPosition( appendage.angle, keyboardMotion.totalRange, keyboardMotion.max, options.keyboardMidPointOffset );
     this.setInputValue( rangeValue );
 
     if ( options.controls ) {
-      this.setAttribute( 'aria-controls', options.controls.join( ',' ) );
+      this.setAccessibleAttribute( 'aria-controls', options.controls.join( ',' ) );
     }
 
     // Due to the variability of input and change event firing across browsers,
@@ -212,29 +208,52 @@ define( function( require ) {
       appendage.angle = self.positionToAngle( self.domElement.value, keyboardMotion.totalRange, options.keyboardMidPointOffset );
       self.border.visible = false;
     };
-    this.addDOMEventListener( 'change', function( event ) {
-      if ( !keyboardEventHandled ) {
+
+    this.addAccessibleInputListener( {
+      change: function( event ) {
+        if ( !keyboardEventHandled ) {
+          rotateAppendage();
+        }
+        keyboardEventHandled = false;
+        self.dragging = true;
+      },
+      input: function( event ) {
         rotateAppendage();
+        keyboardEventHandled = true;
+        self.dragging = true;
+      },
+      blur: function( event ) {
+        self.dragging = 'false';
       }
-      keyboardEventHandled = false;
-      self.dragging = true;
-    } );
-    this.addDOMEventListener( 'input', function( event ) {
-      rotateAppendage();
-      keyboardEventHandled = true;
-      self.dragging = true;
     } );
 
-    // on blur, the appendage node is considered 'released' from dragging
-    self.addDOMEventListener( 'blur', function( event ) {
-      self.dragging = 'false';
-    } );
+    // this.addAccessibleInputListener( {
+    //   change: function( event ) {
+    //     if ( !keyboardEventHandled ) {
+    //       rotateAppendage();
+    //     }
+    //     keyboardEventHandled = false;
+    //     self.dragging = true;
+    //   }
+    // } );
+    // this.addAccessibleInputListener( {
+    //   input: function( event ) {
+    //           rotateAppendage();
+    //     keyboardEventHandled = true;
+    //     self.dragging = true;
+    //   }
+    // } );
+    // this.addAccessibleInputListener( {
+    //   blur: function( event ) {
+    //     self.dragging = 'false';
+    //   }
+    // } );
 
     var updatePosition = function( angle ) {
       var position = self.angleToPosition( appendage.angle, keyboardMotion.totalRange, keyboardMotion.max, options.keyboardMidPointOffset );
       var positionDescription = self.getPositionDescription( position, rangeMap );
       self.setInputValue( position );
-      self.setAttribute( 'aria-valuetext', StringUtils.format( JohnTravoltageA11yStrings.positionTemplateString, position, positionDescription ) );
+      self.setAccessibleAttribute( 'aria-valuetext', StringUtils.format( JohnTravoltageA11yStrings.positionTemplateString, position, positionDescription ) );
       self.positionDescription = positionDescription;
 
       // updates the position of the focus highlight
@@ -248,7 +267,7 @@ define( function( require ) {
 
   johnTravoltage.register( 'AppendageNode', AppendageNode );
 
-  return inherit( AccessibleNode, AppendageNode, {
+  return inherit( Node, AppendageNode, {
 
     /**
      * Compute the distance (in radians) between angles a and b, using an inlined dot product (inlined to remove allocations)
