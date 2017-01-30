@@ -223,7 +223,7 @@ define( function( require ) {
     this.leg.model.angleProperty.link( updateDescription ); 
      
     // the form is described by the description through aria-describedby
-    accessibleFormNode.setAriaDescribedById( this.descriptionElementId );
+    accessibleFormNode.setAriaDescribedByElement( this.descriptionElement );
 
     // debug lines, body and forceline
     // borders are approximately 8px = radius of particle from physical body,
