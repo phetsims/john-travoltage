@@ -197,7 +197,6 @@ define( function( require ) {
 
     // after travolta picks up electrons the first time, this flag will modify descriptions slightly
     var hadElectrons = false;
-    var self = this;
     var updateDescription = function() {
       var chargeDescriptor = model.electrons.length === 1 ? JohnTravoltageA11yStrings.electronsDescriptionSingleString : JohnTravoltageA11yStrings.electronsDescriptionMultipleString;
       var chargeMessage = hadElectrons ? StringUtils.format( chargeDescriptor, model.electrons.length ) : '';
