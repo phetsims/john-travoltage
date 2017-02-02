@@ -74,12 +74,8 @@ define( function( require ) {
       renderer: platform.firefox ? 'canvas' : null,
       layoutBounds: new Bounds2( 0, 0, 768, 504 ),
 
-      // accesibility
-      tagName: 'div',
-      parentContainerTagName: 'article',
-      labelTagName: 'h1',
+      // a11y
       accessibleLabel: johnTravoltageTitleString,
-      prependLabels: true
     } );
 
     //add background elements
