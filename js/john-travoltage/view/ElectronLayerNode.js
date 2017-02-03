@@ -20,14 +20,12 @@ define( function( require ) {
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
 
   /**
-   * @param {Electrons} electrons - the model for the number of electrons
-   * @param {Leg} leg - the model for the leg appendage
-   * @param {Arm} arm - the model for the arm appendage
-   * @param {Emitter} dischargeEndedEmitter
-   * @param {object} options
+   * @param {JohnTravoltageModel} model
+   * @param {number} maxElectrons
+   * @param {Object} options
    * @constructor
    */
-  function ElectronLayerNode( electrons, maxElectrons, leg, arm, dischargeEndedEmitter, options ) {
+  function ElectronLayerNode( model, maxElectrons, options ) {
     var self = this;
     var statusNode = document.getElementById( options.peerID );
 
@@ -35,36 +33,36 @@ define( function( require ) {
 
     //if new electron added to model - create and add new node to leg
     //TODO: Pooling for creation and use visible instead of addChild for performance
-    electrons.addItemAddedListener( function( added ) {
+    model.electrons.addItemAddedListener( function( added ) {
 
       // and the visual representation of the electron
-      var newElectron = new ElectronNode( added, leg, arm );
+      var newElectron = new ElectronNode( added, model.leg, model.arm );
       added.viewNode = newElectron;
       self.addChild( newElectron );
 
       // play the sound that indicates that an electron was added
       options.pitchedPopGenerator && options.pitchedPopGenerator.createPop(
-        electrons.length / maxElectrons,
-        electrons.length < maxElectrons ? 0.02 : 1.75 // longer pitch for last electron
+        model.electrons.length / maxElectrons,
+        model.electrons.length < maxElectrons ? 0.02 : 1.75 // longer pitch for last electron
       );
 
       var itemRemovedListener = function( removed ) {
         if ( removed === added ) {
           self.removeChild( newElectron );
-          electrons.removeItemRemovedListener( itemRemovedListener );
+          model.electrons.removeItemRemovedListener( itemRemovedListener );
 
           // play the sound that indicates that an electron was removed
-          options.pitchedPopGenerator && options.pitchedPopGenerator.createPop( electrons.length / maxElectrons, 0.02 );
+          options.pitchedPopGenerator && options.pitchedPopGenerator.createPop( model.electrons.length / maxElectrons, 0.02 );
         }
       };
-      electrons.addItemRemovedListener( itemRemovedListener );
+      model.electrons.addItemRemovedListener( itemRemovedListener );
     } );
 
     if ( statusNode ) {
       var priorCharge = 0;
 
       var setElectronStatus = function() {
-        var currentCharge = electrons.length;
+        var currentCharge = model.electrons.length;
         var chargeText = currentCharge >= priorCharge ? JohnTravoltageA11yStrings.electronsTotalString : JohnTravoltageA11yStrings.electronsTotalAfterDischargeString;
 
         statusNode.textContent = '';
@@ -74,8 +72,8 @@ define( function( require ) {
 
       // update status whenever an electron is added, and whenever an electron discharge has ended
       // this node will exist for life of sim so disposal is not necessary
-      electrons.addItemAddedListener( setElectronStatus );
-      dischargeEndedEmitter.addListener( setElectronStatus );
+      model.electrons.addItemAddedListener( setElectronStatus );
+      model.dischargeEndedEmitter.addListener( setElectronStatus );
     }
   }
 
