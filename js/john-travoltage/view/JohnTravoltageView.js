@@ -92,7 +92,6 @@ define( function( require ) {
 
     // arm and leg - only interactive elements
     this.leg = new AppendageNode( model.leg, leg, 25, 28, Math.PI / 2 * 0.7, model.soundProperty, AppendageRangeMaps.leg, {
-      controls: [ options.peerIDs.status ],
       labelTagName: 'label',
       label: JohnTravoltageA11yStrings.legSliderLabelString
     } );
@@ -102,7 +101,6 @@ define( function( require ) {
     // minimum charge level.
     this.arm = new AppendageNode( model.arm, arm, 4, 45, -0.1, model.soundProperty, AppendageRangeMaps.arm, {
       keyboardMidPointOffset: 0.41,
-      controls: [ options.peerIDs.status ],
       labelTagName: 'label',
       label: JohnTravoltageA11yStrings.armSliderLabelString
     } );

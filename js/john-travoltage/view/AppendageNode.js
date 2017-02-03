@@ -195,9 +195,11 @@ define( function( require ) {
     var rangeValue = self.angleToPosition( appendage.angle, keyboardMotion.totalRange, keyboardMotion.max, options.keyboardMidPointOffset );
     this.setInputValue( rangeValue );
 
-    if ( options.controls ) {
-      this.setAccessibleAttribute( 'aria-controls', options.controls.join( ',' ) );
-    }
+    // set up a relationship between the appendage and the 'status' alert so that JAWS users can quickly navigate
+    // to the status element
+    // TODO: Not sure if this is necessary, see #181
+    // NOTE: If necessary, AriaHerald should handle this
+    this.setAccessibleAttribute( 'aria-controls', 'polite-status' );
 
     // Due to the variability of input and change event firing across browsers,
     // it is necessary to track if the input event was fired and if not, to
@@ -226,28 +228,6 @@ define( function( require ) {
         self.dragging = 'false';
       }
     } );
-
-    // this.addAccessibleInputListener( {
-    //   change: function( event ) {
-    //     if ( !keyboardEventHandled ) {
-    //       rotateAppendage();
-    //     }
-    //     keyboardEventHandled = false;
-    //     self.dragging = true;
-    //   }
-    // } );
-    // this.addAccessibleInputListener( {
-    //   input: function( event ) {
-    //           rotateAppendage();
-    //     keyboardEventHandled = true;
-    //     self.dragging = true;
-    //   }
-    // } );
-    // this.addAccessibleInputListener( {
-    //   blur: function( event ) {
-    //     self.dragging = 'false';
-    //   }
-    // } );
 
     var updatePosition = function( angle ) {
       var position = self.angleToPosition( appendage.angle, keyboardMotion.totalRange, keyboardMotion.max, options.keyboardMidPointOffset );
