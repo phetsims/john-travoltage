@@ -227,28 +227,6 @@ define( function( require ) {
       }
     } );
 
-    // this.addAccessibleInputListener( {
-    //   change: function( event ) {
-    //     if ( !keyboardEventHandled ) {
-    //       rotateAppendage();
-    //     }
-    //     keyboardEventHandled = false;
-    //     self.dragging = true;
-    //   }
-    // } );
-    // this.addAccessibleInputListener( {
-    //   input: function( event ) {
-    //           rotateAppendage();
-    //     keyboardEventHandled = true;
-    //     self.dragging = true;
-    //   }
-    // } );
-    // this.addAccessibleInputListener( {
-    //   blur: function( event ) {
-    //     self.dragging = 'false';
-    //   }
-    // } );
-
     var updatePosition = function( angle ) {
       var position = self.angleToPosition( appendage.angle, keyboardMotion.totalRange, keyboardMotion.max, options.keyboardMidPointOffset );
       var positionDescription = self.getPositionDescription( position, rangeMap );
