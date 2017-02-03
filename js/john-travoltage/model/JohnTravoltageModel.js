@@ -303,7 +303,7 @@ define( function( require ) {
       var pt = electron.positionProperty.get();
 
       //Adjacent segments share vertices, so use a point just before the vertex to find the closest segment, see https://github.com/phetsims/john-travoltage/issues/50
-      var closestSegment = _.min( this.lineSegments, function( lineSegment ) {
+      var closestSegment = _.minBy( this.lineSegments, function( lineSegment ) {
         return Util.distToSegmentSquared( pt, lineSegment.pre0, lineSegment.pre1 );
       } );
       var vector = pt.minus( closestSegment.center );
