@@ -119,6 +119,9 @@ define( function( require ) {
     this.stepEmitter = new Emitter();
     this.resetEmitter = new Emitter();
 
+    // @public (a11y) - emitter for when an electron discharge finishes or is canceled
+    this.dischargeEndedEmitter = new Emitter();
+
     // TODO: (from jbphet) - IMO, sounds should be in the view, not here.  Sonification was done in the view, these
     // TODO: should be moved to the view for consistency.
     this.sounds = [
@@ -256,6 +259,8 @@ define( function( require ) {
         if ( wasSpark ) {
           this.sparkVisible = false;
           delete this.sparkCreationDistToKnob;
+
+          this.dischargeEndedEmitter.emit();
         }
       }
 

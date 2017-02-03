@@ -154,7 +154,8 @@ define( function( require ) {
     //Use a layer for electrons so it has only one pickable flag, perhaps may improve performance compared to iterating
     //over all electrons to see if they are pickable?
     //Split layers before particle layer for performance
-    var electronLayer = new ElectronLayerNode( model.electrons, JohnTravoltageModel.MAX_ELECTRONS, model.leg, model.arm, {
+    var electronLayer = new ElectronLayerNode(
+      model.electrons, JohnTravoltageModel.MAX_ELECTRONS, model.leg, model.arm, model.dischargeEndedEmitter, {
       layerSplit: true,
       pickable: false,
       peerID: options.peerIDs.status
