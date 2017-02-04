@@ -37,14 +37,20 @@ define( function( require ) {
 
   /**
    * Constructor.
+   * @param {Tandem} tandem
    * @constructor
    */
-  function JohnTravoltageKeyboardHelpContent() {
+  function JohnTravoltageKeyboardHelpContent( tandem ) {
 
     var content = new Node();
 
     // title
-    var titleText = new Text( JohnTravoltageA11yStrings.hotKeysAndHelpString, { font: new PhetFont( { weight: 'bold', size: 20 } ) } );
+    var titleText = new Text( JohnTravoltageA11yStrings.hotKeysAndHelpString, {
+      font: new PhetFont( {
+        weight: 'bold',
+        size: 20
+      } )
+    } );
 
     // icons
     // arrow keys, separated by 'or' text
@@ -71,7 +77,10 @@ define( function( require ) {
       size: new Dimension2( 10, 1.5 )
     } );
     var shiftPlusTabIconHBox = new HBox( {
-      children: [ shiftKeyIconNode, plusIconNode, new TabKeyNode( { minKeyWidth: TEXT_KEY_WIDTH, maxKeyWidth: TEXT_KEY_WIDTH } ) ],
+      children: [ shiftKeyIconNode, plusIconNode, new TabKeyNode( {
+        minKeyWidth: TEXT_KEY_WIDTH,
+        maxKeyWidth: TEXT_KEY_WIDTH
+      } ) ],
       spacing: 10
     } );
 
@@ -140,7 +149,8 @@ define( function( require ) {
       stroke: null,
       xMargin: DIALOG_MARGIN,
       yMargin: DIALOG_MARGIN,
-      fill: 'rgb( 214, 237, 249 )'
+      fill: 'rgb( 214, 237, 249 )',
+      tandem: tandem
     } );
 
     // the content should be centered in the dialog relative to the description text

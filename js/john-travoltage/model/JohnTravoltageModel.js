@@ -22,6 +22,11 @@ define( function( require ) {
   var Util = require( 'DOT/Util' );
   var johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
   var Emitter = require( 'AXON/Emitter' );
+  var BooleanProperty = require( 'AXON/BooleanProperty' );
+  var Property = require( 'AXON/Property' );
+
+  // phet-io modules
+  var TJohnTravoltageModel = require( 'ifphetio!PHET_IO/simulations/john-travoltage/TJohnTravoltageModel' );
 
   // audio
   var shockOuchAudio = require( 'audio!JOHN_TRAVOLTAGE/shock-ouch' );
@@ -97,15 +102,20 @@ define( function( require ) {
 
     //Properties of the model.  All user settings belong in the model, whether or not they are part of the physical model
     PropertySet.call( this, {
-      sound: true,
       spark: false,
       sparkVisible: false,
       legAngularVelocity: 0,
       shoeOnCarpet: false // true when the foot is being dragged and is in contact with the carpet
     } );
 
+    Property.preventGetSet( this, 'sound' ); // TODO: Remove this line
+
+    this.soundProperty = new BooleanProperty( true, {
+      tandem: tandem.createTandem( 'soundProperty' )
+    } );
+
     this.sparkVisibleProperty.link( function( sparkVisible ) {
-      if ( sparkVisible && self.sound ) {
+      if ( sparkVisible && self.soundProperty.get() ) {
         self.sounds[ Math.floor( phet.joist.random.nextDouble() * 2 ) ].play();
       }
     } );
@@ -163,7 +173,7 @@ define( function( require ) {
 
     this.electronGroupTandem = this.tandem.createGroupTandem( 'electron' ); // @private
 
-    tandem.addInstance( this );
+    tandem.addInstance( this, TJohnTravoltageModel );
   }
 
   //Function to determine if electrons are exiting.

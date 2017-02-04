@@ -16,9 +16,6 @@ define( function( require ) {
   var Tandem = require( 'TANDEM/Tandem' );
   var JohnTravoltageKeyboardHelpContent = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/JohnTravoltageKeyboardHelpContent' );
 
-  // If running as phet-io, load the API
-  require( 'ifphetio!PHET_IO/simulations/john-travoltage/john-travoltage-api' );
-
   // strings
   var johnTravoltageTitleString = require( 'string!JOHN_TRAVOLTAGE/john-travoltage.title' );
 
@@ -30,7 +27,7 @@ define( function( require ) {
   var tandem = Tandem.createRootTandem();
 
   // help content to describe keyboard interactions
-  var keyboardHelpContent = new JohnTravoltageKeyboardHelpContent();
+  var keyboardHelpContent = new JohnTravoltageKeyboardHelpContent( tandem.createTandem( 'keyboardHelpContent' ) );
 
   var simOptions = {
     credits: {
