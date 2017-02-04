@@ -49,9 +49,6 @@ define( function( require ) {
 
     tandem.addInstance( this );
 
-    // TODO: Is this for prototyping or production?
-    tandem.createTandem( 'velocity' ).addInstance( this.velocity );
-
     this.tandem = tandem;
   }
 
