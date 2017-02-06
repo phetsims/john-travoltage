@@ -10,14 +10,15 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var PropertySet = require( 'AXON/PropertySet' );
+  var Property = require( 'AXON/Property' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Vector2 = require( 'DOT/Vector2' );
   var johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
 
   function Leg() {
     this.initialAngle = 1.3175443221852239;
-    PropertySet.call( this, { angle: this.initialAngle } );
+    this.angleProperty = new Property( this.initialAngle );
+    Property.preventGetSet( this, 'angle' );
     this.position = new Vector2( 398, 335 );
 
     //Keep track of dragging flag (non-observable) so that when the sim is reset, a border outline is not added if the leg is dragging
@@ -26,7 +27,11 @@ define( function( require ) {
 
   johnTravoltage.register( 'Leg', Leg );
 
-  return inherit( PropertySet, Leg, {
+  return inherit( Object, Leg, {
+    reset: function() {
+      this.angleProperty.reset();
+    },
+
     deltaAngle: function() { return this.angleProperty.get() - this.initialAngle; }
   } );
 } );

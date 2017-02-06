@@ -33,6 +33,9 @@ define( function( require ) {
   johnTravoltage.register( 'Arm', Arm );
 
   return inherit( Object, Arm, {
+    reset: function() {
+      this.angleProperty.reset();
+    },
     getFingerPosition: function() {
 
       //TODO: Reduce allocations, possibly move this to a field that mutates

@@ -15,7 +15,6 @@ define( function( require ) {
   var Electron = require( 'JOHN_TRAVOLTAGE/john-travoltage/model/Electron' );
   var LineSegment = require( 'JOHN_TRAVOLTAGE/john-travoltage/model/LineSegment' );
   var ObservableArray = require( 'AXON/ObservableArray' );
-  var PropertySet = require( 'AXON/PropertySet' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Sound = require( 'VIBE/Sound' );
   var Vector2 = require( 'DOT/Vector2' );
@@ -101,18 +100,21 @@ define( function( require ) {
     this.doorknobPosition = new Vector2( 548.4318903113076, 257.5894162536105 );
 
     //Properties of the model.  All user settings belong in the model, whether or not they are part of the physical model
-    PropertySet.call( this, {
-      spark: false,
-      sparkVisible: false,
-      legAngularVelocity: 0,
-      shoeOnCarpet: false // true when the foot is being dragged and is in contact with the carpet
-    } );
+    this.sparkProperty = new Property( false );
+    this.sparkVisibleProperty = new Property( false );
+    this.legAngularVelocityProperty = new Property( 0 );
 
-    Property.preventGetSet( this, 'sound' ); // TODO: Remove this line
+    // true when the foot is being dragged and is in contact with the carpet
+    this.shoeOnCarpetProperty = new Property( false );
 
     this.soundProperty = new BooleanProperty( true, {
       tandem: tandem.createTandem( 'soundProperty' )
     } );
+    Property.preventGetSet( this, 'sound' ); // TODO: Remove this line
+    Property.preventGetSet( this, 'spark' ); // TODO: Remove this line
+    Property.preventGetSet( this, 'sparkVisible' ); // TODO: Remove this line
+    Property.preventGetSet( this, 'legAngularVelocity' ); // TODO: Remove this line
+    Property.preventGetSet( this, 'shoeOnCarpet' ); // TODO: Remove this line
 
     this.sparkVisibleProperty.link( function( sparkVisible ) {
       if ( sparkVisible && self.soundProperty.get() ) {
@@ -181,10 +183,15 @@ define( function( require ) {
 
   johnTravoltage.register( 'JohnTravoltageModel', JohnTravoltageModel );
 
-  return inherit( PropertySet, JohnTravoltageModel, {
+  return inherit( Object, JohnTravoltageModel, {
 
     reset: function() {
-      PropertySet.prototype.reset.call( this );
+      //Properties of the model.  All user settings belong in the model, whether or not they are part of the physical model
+      this.sparkProperty.reset();
+      this.sparkVisibleProperty.reset();
+      this.legAngularVelocityProperty.reset();
+      this.shoeOnCarpetProperty.reset();
+      this.soundProperty.reset();
       this.arm.reset();
       this.leg.reset();
       while ( this.electrons.length > 0 ) {
@@ -255,9 +262,9 @@ define( function( require ) {
       for ( var i = 0; i < length; i++ ) {
         this.electrons._array[ i ].step( dt );
       }
-      var wasSpark = this.sparkVisible;
+      var wasSpark = this.sparkVisibleProperty.get();
       if ( this.electronsToRemove.length ) {
-        this.sparkVisible = true;
+        this.sparkVisibleProperty.set( true );
       }
       while ( this.electronsToRemove.length ) {
         this.removeElectron( this.electronsToRemove.pop() );
@@ -267,16 +274,16 @@ define( function( require ) {
 
         //Make sure the spark shows at least one frame for a single electron exiting, see #55
         if ( wasSpark ) {
-          this.sparkVisible = false;
+          this.sparkVisibleProperty.set( false );
           delete this.sparkCreationDistToKnob;
 
           this.dischargeEndedEmitter.emit();
         }
       }
 
-      this.legAngularVelocity = ( this.leg.angleProperty.get() - this.legAngleAtPreviousStep ) / dt;
+      this.legAngularVelocityProperty.set( ( this.leg.angleProperty.get() - this.legAngleAtPreviousStep ) / dt );
       this.legAngleAtPreviousStep = this.leg.angleProperty.get();
-      this.shoeOnCarpet = ( this.leg.angleProperty.get() > FOOT_ON_CARPET_MIN_ANGLE && this.leg.angleProperty.get() < FOOT_ON_CARPET_MAX_ANGLE  );
+      this.shoeOnCarpetProperty.set( ( this.leg.angleProperty.get() > FOOT_ON_CARPET_MIN_ANGLE && this.leg.angleProperty.get() < FOOT_ON_CARPET_MAX_ANGLE  ) );
 
       this.stepEmitter.emit();
     },
