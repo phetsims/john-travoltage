@@ -321,7 +321,9 @@ define( function( require ) {
 
       var point = segment.p0.plus( v.normalized().times( rand ) );
 
-      this.electrons.add( new Electron( point.x, point.y, this, tandem ) );
+      var electron = new Electron( point.x, point.y, this, tandem );
+      this.electrons.add( electron );
+      return electron;
     },
 
     //Electrons can get outside of the body when moving to the spark, this code moves them back inside

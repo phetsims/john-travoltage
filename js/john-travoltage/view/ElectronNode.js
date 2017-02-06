@@ -87,25 +87,18 @@ define( function( require ) {
     //For debugging, show the electron id
 //    this.addChild( new Text( '' + electron.id, {fill: 'white'} ) );
 
-    var history = [];
-
     var legText = 'leg';
     var bodyText = 'body';
     var armText = 'arm';
 
-    //Electrons start in the leg
-    for ( var i = 0; i < 10; i++ ) {
-      history.push( legText );
-    }
-
     //Electrons fire a position changed every step whether their position changed or not, so that it will still be drawn in the proper place if the leg angle changed.
     var updatePosition = function( position ) {
 
-      history.push( legBounds.containsPoint( position ) ? legText :
-                    armBounds.containsPoint( position ) ? armText :
-                    bodyText );
-      if ( history.length > 10 ) {
-        history.shift();
+      electron.history.push( legBounds.containsPoint( position ) ? legText :
+                             armBounds.containsPoint( position ) ? armText :
+                             bodyText );
+      if ( electron.history.length > 10 ) {
+        electron.history.shift();
       }
 
       var inLegCount = 0;
@@ -113,8 +106,8 @@ define( function( require ) {
       var inArmCount = 0;
       var deltaAngle;
       var c;
-      for ( var i = 0; i < history.length; i++ ) {
-        var element = history[ i ];
+      for ( var i = 0; i < electron.history.length; i++ ) {
+        var element = electron.history[ i ];
         if ( element === legText ) {
           inLegCount++;
         }
@@ -127,7 +120,7 @@ define( function( require ) {
       }
 
       //Simplest case, it wasn't in any appendage
-      if ( inBodyCount === history.length ) {
+      if ( inBodyCount === electron.history.length ) {
         self.setTranslation( position.x, position.y );
       }
 
@@ -143,13 +136,13 @@ define( function( require ) {
         dr = dr.rotated( deltaAngle ).plus( legPoint );
 
         //No need to blend, it was in the leg the whole time
-        if ( inLegCount === history.length ) {
+        if ( inLegCount === electron.history.length ) {
           self.setTranslation( dr.x, dr.y );
         }
         else {
           a.setXY( dr.x, dr.y );
           b.setXY( position.x, position.y );
-          c = a.blend( b, inBodyCount / history.length );
+          c = a.blend( b, inBodyCount / electron.history.length );
           self.setTranslation( c.x, c.y );
         }
       }
@@ -166,13 +159,13 @@ define( function( require ) {
         dr = dr.rotated( deltaAngle ).plus( armPoint );
 
         //No need to blend, it was in the leg the whole time
-        if ( inArmCount === history.length ) {
+        if ( inArmCount === electron.history.length ) {
           self.setTranslation( dr.x, dr.y );
         }
         else {
           a.setXY( dr.x, dr.y );
           b.setXY( position.x, position.y );
-          c = a.blend( b, inBodyCount / history.length );
+          c = a.blend( b, inBodyCount / electron.history.length );
           self.setTranslation( c.x, c.y );
         }
       }
@@ -180,8 +173,14 @@ define( function( require ) {
     };
     electron.positionProperty.link( updatePosition );
 
+    var updatePositionBound = function() {
+      updatePosition( electron.positionProperty.get() );
+    };
+    electron.historyChangedEmitter.addListener( updatePositionBound );
+
     var disposeListener = function() {
       electron.positionProperty.unlink( updatePosition );
+      electron.historyChangedEmitter.removeListener( updatePositionBound );
       electron.disposeEmitter.removeListener( disposeListener );
     };
     electron.disposeEmitter.addListener( disposeListener );
