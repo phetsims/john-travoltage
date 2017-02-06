@@ -123,7 +123,9 @@ define( function( require ) {
       }, JohnTravoltageA11yStrings.electronsDischargedString, { peerID: options.peerIDs.alert } ) );
 
     //Sound button and reset all button
-    var soundButton = new SoundToggleButton( model.soundProperty );
+    var soundToggleButton = new SoundToggleButton( model.soundProperty, {
+      tandem: tandem.createTandem( 'soundToggleButton' )
+    } );
 
     // when the sound property changes, toggle the 'aria-pressed' state
     // linked lazily as the parallel domElement won't exist in the document until
@@ -134,12 +136,13 @@ define( function( require ) {
 
     var resetAllButton = new ResetAllButton( {
       listener: model.reset.bind( model ),
-      scale: 1.32
+      scale: 1.32,
+      tandem: tandem.createTandem( 'resetAllButton' )
     } );
-    resetAllButton.scale( soundButton.height / resetAllButton.height );
+    resetAllButton.scale( soundToggleButton.height / resetAllButton.height );
     accessibleFormNode.addChild( new HBox( {
       spacing: 10,
-      children: [ soundButton, resetAllButton ],
+      children: [ soundToggleButton, resetAllButton ],
       right: this.layoutBounds.maxX - 7,
       bottom: this.layoutBounds.maxY - 7
     } ) );
@@ -179,12 +182,12 @@ define( function( require ) {
       if ( model.electrons.length === 0 ) {
         updateDescription();
       }
-    } );    
+    } );
 
     // properties exist for life of sim, no need to unlink
     this.arm.model.angleProperty.link( updateDescription );
-    this.leg.model.angleProperty.link( updateDescription ); 
-     
+    this.leg.model.angleProperty.link( updateDescription );
+
     // the form is described by the description through aria-describedby
     accessibleFormNode.setAriaDescribedByElement( this.descriptionElement );
 
