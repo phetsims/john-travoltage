@@ -12,7 +12,6 @@ define( function( require ) {
   var assertInstanceOf = require( 'PHET_IO/assertions/assertInstanceOf' );
   var phetioNamespace = require( 'PHET_IO/phetioNamespace' );
   var phetioInherit = require( 'PHET_IO/phetioInherit' );
-  var phetio = require( 'PHET_IO/phetio' );
   var TObject = require( 'PHET_IO/types/TObject' );
 
   var TElectron = function( instance, phetioID ) {
@@ -23,15 +22,21 @@ define( function( require ) {
   phetioInherit( TObject, 'TElectron', TElectron, {}, {
 
     fromStateObject: function( stateObject ) {
-      return {};
+      return stateObject;
     },
 
     toStateObject: function( value ) {
-      return {};
+      return {
+        history: value.history
+      };
     },
 
     setValue: function( instance, value ) {
-      // done in constructor, nothing else to do here, could be omitted
+      assert && assert( value.history, 'value should have history' );
+      instance.history = value.history;
+
+      // Trigger a computation of screen position
+      instance.historyChangedEmitter.emit();
     }
   } );
 
