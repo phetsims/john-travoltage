@@ -165,7 +165,7 @@ define( function( require ) {
         accumulatedAngle += Math.abs( angle - lastAngle );
 
         while ( accumulatedAngle > accumulatedAngleThreshold ) {
-          self.addElectron();
+          self.addElectron( self.electronGroupTandem.createNextTandem() );
           accumulatedAngle -= accumulatedAngleThreshold;
         }
         lastAngle = angle;
@@ -302,7 +302,18 @@ define( function( require ) {
       this.electrons.remove( electron );
       electron.dispose();
     },
-    addElectron: function() {
+
+    /**
+     * Removes all of the electrons.
+     * @public (phet-io)
+     */
+    clearElectrons: function() {
+      while ( this.electrons.length > 0 ) {
+        this.removeElectron( this.electrons.get( this.electrons.length - 1 ) );
+      }
+    },
+
+    addElectron: function( tandem ) {
 
       var segment = new LineSegment( 424.0642054574639, 452.28892455858755, 433.3097913322633, 445.5088282504014 );
       var v = segment.vector;
@@ -310,7 +321,7 @@ define( function( require ) {
 
       var point = segment.p0.plus( v.normalized().times( rand ) );
 
-      this.electrons.add( new Electron( point.x, point.y, this, this.electronGroupTandem.createNextTandem() ) );
+      this.electrons.add( new Electron( point.x, point.y, this, tandem ) );
     },
 
     //Electrons can get outside of the body when moving to the spark, this code moves them back inside
