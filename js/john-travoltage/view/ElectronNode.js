@@ -162,7 +162,7 @@ define( function( require ) {
         dr.setXY( position.x - armPoint.x, position.y - armPoint.y );
 
         //The leg's rotated angle
-        deltaAngle = arm.deltaAngle();
+        deltaAngle = arm.angleProperty.get();
         dr = dr.rotated( deltaAngle ).plus( armPoint );
 
         //No need to blend, it was in the leg the whole time
