@@ -42,7 +42,6 @@ define( function( require ) {
    * @constructor
    */
   function JohnTravoltageModel( tandem ) {
-    this.tandem = tandem;
     var self = this;
 
     this.electronsToRemove = [];
@@ -176,7 +175,7 @@ define( function( require ) {
     this.lineSegments = array;
     this.lineSegmentIndexForSleeve = 22;
 
-    this.electronGroupTandem = this.tandem.createGroupTandem( 'electron' ); // @private
+    this.electronGroupTandem = tandem.createGroupTandem( 'electron' ); // @private
 
     tandem.addInstance( this, TJohnTravoltageModel );
   }
@@ -303,19 +302,6 @@ define( function( require ) {
       var point = segment.p0.plus( v.normalized().times( rand ) );
 
       this.electrons.add( new Electron( point.x, point.y, this, this.electronGroupTandem.createNextTandem() ) );
-
-      //For debugging: show randomly in the middle for debugging
-      var debugging = false;
-      if ( debugging ) {
-        var random = phet.joist.random;
-        this.electrons.add(
-          new Electron(
-            this.bodyVertices[ 0 ].x + 50 + 50 * random.nextDouble(),
-            this.bodyVertices[ 0 ].y - 75 + 50 * random.nextDouble(),
-            this,
-            this.tandem.createTandem( 'electrons', this.electrons.length )
-          ) );
-      }
     },
 
     //Electrons can get outside of the body when moving to the spark, this code moves them back inside

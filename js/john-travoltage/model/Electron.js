@@ -15,6 +15,7 @@ define( function( require ) {
   var Vector2 = require( 'DOT/Vector2' );
   var Util = require( 'DOT/Util' );
   var johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
+  var Emitter = require( 'AXON/Emitter' );
 
   // phet-io modules
   var TElectron = require( 'ifphetio!PHET_IO/simulations/john-travoltage/TElectron' );
@@ -36,6 +37,7 @@ define( function( require ) {
    * @constructor
    */
   function Electron( x, y, model, tandem ) {
+    var self = this;
     electronCount++;
     this.id = electronCount;
     this.positionProperty = new Property( new Vector2( x, y ), {
@@ -57,7 +59,13 @@ define( function( require ) {
 
     tandem.addInstance( this, TElectron );
 
-    this.tandem = tandem;
+    this.disposeEmitter = new Emitter();
+
+    this.disposeElectron = function() {
+      tandem.removeInstance( this );
+      self.disposeEmitter.emit();
+      self.positionProperty.dispose();
+    };
   }
 
   johnTravoltage.register( 'Electron', Electron );
@@ -105,8 +113,7 @@ define( function( require ) {
       }
     },
     dispose: function() {
-      this.tandem.createTandem( 'velocity' ).removeInstance( this.velocity );
-      this.tandem.removeInstance( this );
+      this.disposeElectron();
     },
     stepInBody: function( dt ) {
 

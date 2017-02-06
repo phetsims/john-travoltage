@@ -99,7 +99,7 @@ define( function( require ) {
     }
 
     //Electrons fire a position changed every step whether their position changed or not, so that it will still be drawn in the proper place if the leg angle changed.
-    electron.positionProperty.link( function( position ) {
+    var updatePosition = function( position ) {
 
       history.push( legBounds.containsPoint( position ) ? legText :
                     armBounds.containsPoint( position ) ? armText :
@@ -177,7 +177,14 @@ define( function( require ) {
         }
       }
 
-    } );
+    };
+    electron.positionProperty.link( updatePosition );
+
+    var disposeListener = function() {
+      electron.positionProperty.unlink( updatePosition );
+      electron.disposeEmitter.removeListener( disposeListener );
+    };
+    electron.disposeEmitter.addListener( disposeListener );
   }
 
   johnTravoltage.register( 'ElectronNode', ElectronNode );
