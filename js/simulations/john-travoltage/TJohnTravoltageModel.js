@@ -21,7 +21,21 @@ define( function( require ) {
     TObject.call( this, instance, phetioID );
   };
 
-  phetioInherit( TObject, 'TJohnTravoltageModel', TJohnTravoltageModel, {}, {} );
+  phetioInherit( TObject, 'TJohnTravoltageModel', TJohnTravoltageModel, {}, {
+    clearChildInstances: function( model ) {
+      model.clearElectrons();
+    },
+
+    /**
+     * Adds an Electron as specified by the phetioID and state.
+     * @param {Object} model
+     * @param {Tandem} tandem
+     * @param {Object} electronStateObject
+     */
+    addChildInstance: function( model, tandem, electronStateObject ) {
+      model.addElectron( tandem );
+    }
+  } );
 
   phetioNamespace.register( 'TJohnTravoltageModel', TJohnTravoltageModel );
 

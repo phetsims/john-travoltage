@@ -23,11 +23,15 @@ define( function( require ) {
   phetioInherit( TObject, 'TElectron', TElectron, {}, {
 
     fromStateObject: function( stateObject ) {
-      return phetio.getWrapper( stateObject ).instance;
+      return {};
     },
 
-    toStateObject: function( instance ) {
-      return instance.phetioID;
+    toStateObject: function( value ) {
+      return {};
+    },
+
+    setValue: function( instance, value ) {
+      // done in constructor, nothing else to do here, could be omitted
     }
   } );
 
