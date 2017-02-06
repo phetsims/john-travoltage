@@ -115,7 +115,7 @@ define( function( require ) {
 
     // true when the foot is being dragged and is in contact with the carpet
     this.shoeOnCarpetProperty = new BooleanProperty( false, {
-      tandem: tandem.createTandem( 'shoeOnCarpet' )
+      tandem: tandem.createTandem( 'shoeOnCarpetProperty' )
     } );
 
     this.soundProperty = new BooleanProperty( true, {
