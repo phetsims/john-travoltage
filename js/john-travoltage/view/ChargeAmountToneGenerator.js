@@ -141,8 +141,6 @@ define( function( require ) {
     // function to update the filter range with a new randomly chosen cutoff value and set the time for the next change
     function doRandomUpdateOfFilterCutoff() {
 
-      //var changeProportion = Math.random() * 0.5 + 0.25; // 25% to 50%
-      //var changeProportion = Math.random() * 0.333 + 0.333; // 33% to 67%
       var random = phet.joist.random;
       var changeProportion = random.nextDouble() * 0.8 + 0.1; // 10% to 90%
       var changeAmountLog = changeProportion * ( MAX_FILTER_CUTOFF_LOG - minFilterCutoffLog );
