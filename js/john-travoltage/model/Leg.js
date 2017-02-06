@@ -11,13 +11,14 @@ define( function( require ) {
 
   // modules
   var Property = require( 'AXON/Property' );
+  var NumberProperty = require( 'AXON/NumberProperty' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Vector2 = require( 'DOT/Vector2' );
   var johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
 
   function Leg() {
     this.initialAngle = 1.3175443221852239;
-    this.angleProperty = new Property( this.initialAngle );
+    this.angleProperty = new NumberProperty( this.initialAngle );
     Property.preventGetSet( this, 'angle' );
     this.position = new Vector2( 398, 335 );
 

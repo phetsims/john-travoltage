@@ -11,12 +11,19 @@ define( function( require ) {
 
   // modules
   var Vector2 = require( 'DOT/Vector2' );
+  var NumberProperty = require( 'AXON/NumberProperty' );
   var Property = require( 'AXON/Property' );
   var inherit = require( 'PHET_CORE/inherit' );
   var johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
 
-  function Arm() {
-    this.angleProperty = new Property( -0.5 );
+  // phet-io modules
+  var TNumber = require( 'ifphetio!PHET_IO/types/TNumber' );
+
+  function Arm( tandem ) {
+    this.angleProperty = new NumberProperty( -0.5, {
+      tandem: tandem.createTandem( 'angleProperty' ),
+      phetioValueType: TNumber( { units: 'radians' } )
+    } );
     Property.preventGetSet( this, 'angle' );
 
     //Arm pivot (elbow point) sampled using DebugPositions.js

@@ -23,6 +23,7 @@ define( function( require ) {
   var Emitter = require( 'AXON/Emitter' );
   var BooleanProperty = require( 'AXON/BooleanProperty' );
   var Property = require( 'AXON/Property' );
+  var NumberProperty = require( 'AXON/NumberProperty' );
 
   // phet-io modules
   var TJohnTravoltageModel = require( 'ifphetio!PHET_IO/simulations/john-travoltage/TJohnTravoltageModel' );
@@ -100,12 +101,12 @@ define( function( require ) {
     this.doorknobPosition = new Vector2( 548.4318903113076, 257.5894162536105 );
 
     //Properties of the model.  All user settings belong in the model, whether or not they are part of the physical model
-    this.sparkProperty = new Property( false );
-    this.sparkVisibleProperty = new Property( false );
-    this.legAngularVelocityProperty = new Property( 0 );
+    this.sparkProperty = new BooleanProperty( false );
+    this.sparkVisibleProperty = new BooleanProperty( false );
+    this.legAngularVelocityProperty = new NumberProperty( 0 );
 
     // true when the foot is being dragged and is in contact with the carpet
-    this.shoeOnCarpetProperty = new Property( false );
+    this.shoeOnCarpetProperty = new BooleanProperty( false );
 
     this.soundProperty = new BooleanProperty( true, {
       tandem: tandem.createTandem( 'soundProperty' )
@@ -123,8 +124,8 @@ define( function( require ) {
     } );
 
     this.electrons = new ObservableArray();
-    this.arm = new Arm();
-    this.leg = new Leg();
+    this.arm = new Arm( tandem.createTandem( 'arm' ) );
+    this.leg = new Leg( tandem.createTandem( 'leg' ) );
     this.legAngleAtPreviousStep = this.leg.angleProperty.get();
 
     // @public - emitters for reset and step events

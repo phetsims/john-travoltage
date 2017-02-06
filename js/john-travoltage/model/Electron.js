@@ -18,6 +18,7 @@ define( function( require ) {
 
   // phet-io modules
   var TElectron = require( 'ifphetio!PHET_IO/simulations/john-travoltage/TElectron' );
+  var TVector2 = require( 'ifphetio!PHET_IO/types/dot/TVector2' );
 
   // constants
   var count = 0;
@@ -36,7 +37,10 @@ define( function( require ) {
   function Electron( x, y, model, tandem ) {
     count++;
     this.id = count;
-    this.positionProperty = new Property( new Vector2( x, y ) );
+    this.positionProperty = new Property( new Vector2( x, y ), {
+      tandem: tandem.createTandem( 'positionProperty' ),
+      phetioValueType: TVector2
+    } );
 
     //The velocity an electron has when it comes from the carpet into the leg.
     this.velocity = new Vector2( -50, -100 );
