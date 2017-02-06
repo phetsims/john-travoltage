@@ -15,7 +15,7 @@ define( function( require ) {
   var ScreenView = require( 'JOIST/ScreenView' );
   var Line = require( 'SCENERY/nodes/Line' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var BackgroundElementsNode = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/BackgroundElementsNode' );
+  var BackgroundNode = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/BackgroundNode' );
   var AppendageRangeMaps = require( 'JOHN_TRAVOLTAGE/john-travoltage/AppendageRangeMaps' );
   var AppendageNode = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/AppendageNode' );
   var SparkNode = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/SparkNode' );
@@ -56,6 +56,7 @@ define( function( require ) {
     var self = this;
     this.model = model;
     options = _.extend( {
+
       //TODO: Once https://github.com/phetsims/john-travoltage/issues/98 has been addressed, update how the peerIDs
       //are added/referenced by the view.
       peerIDs: {
@@ -79,7 +80,7 @@ define( function( require ) {
     } );
 
     //add background elements
-    this.addChild( new BackgroundElementsNode() );
+    this.addChild( new BackgroundNode( tandem.createTandem( 'backgroundNode' ) ) );
 
     //Split layers after background for performance
     this.addChild( new Node( { layerSplit: true, pickable: false } ) );
@@ -91,19 +92,21 @@ define( function( require ) {
     this.addChild( accessibleFormNode );
 
     // arm and leg - only interactive elements
-    this.leg = new AppendageNode( model.leg, leg, 25, 28, Math.PI / 2 * 0.7, model.soundProperty, AppendageRangeMaps.leg, {
-      labelTagName: 'label',
-      label: JohnTravoltageA11yStrings.legSliderLabelString
-    } );
+    this.leg = new AppendageNode( model.leg, leg, 25, 28, Math.PI / 2 * 0.7, model.soundProperty, AppendageRangeMaps.leg,
+      tandem.createTandem( 'legNode' ), {
+        labelTagName: 'label',
+        label: JohnTravoltageA11yStrings.legSliderLabelString
+      } );
     accessibleFormNode.addChild( this.leg );
 
     // the keyboardMidPointOffset was manually calculated as a radian offset that will trigger a discharge with the
     // minimum charge level.
-    this.arm = new AppendageNode( model.arm, arm, 4, 45, -0.1, model.soundProperty, AppendageRangeMaps.arm, {
-      keyboardMidPointOffset: 0.41,
-      labelTagName: 'label',
-      label: JohnTravoltageA11yStrings.armSliderLabelString
-    } );
+    this.arm = new AppendageNode( model.arm, arm, 4, 45, -0.1, model.soundProperty, AppendageRangeMaps.arm,
+      tandem.createTandem( 'armNode' ), {
+        keyboardMidPointOffset: 0.41,
+        labelTagName: 'label',
+        label: JohnTravoltageA11yStrings.armSliderLabelString
+      } );
     accessibleFormNode.addChild( this.arm );
 
     //Show the dotted lines again when the sim is reset
@@ -123,7 +126,9 @@ define( function( require ) {
       }, JohnTravoltageA11yStrings.electronsDischargedString, { peerID: options.peerIDs.alert } ) );
 
     //Sound button and reset all button
-    var soundButton = new SoundToggleButton( model.soundProperty );
+    var soundToggleButton = new SoundToggleButton( model.soundProperty, {
+      tandem: tandem.createTandem( 'soundToggleButton' )
+    } );
 
     // when the sound property changes, toggle the 'aria-pressed' state
     // linked lazily as the parallel domElement won't exist in the document until
@@ -134,12 +139,13 @@ define( function( require ) {
 
     var resetAllButton = new ResetAllButton( {
       listener: model.reset.bind( model ),
-      scale: 1.32
+      scale: 1.32,
+      tandem: tandem.createTandem( 'resetAllButton' )
     } );
-    resetAllButton.scale( soundButton.height / resetAllButton.height );
+    resetAllButton.scale( soundToggleButton.height / resetAllButton.height );
     accessibleFormNode.addChild( new HBox( {
       spacing: 10,
-      children: [ soundButton, resetAllButton ],
+      children: [ soundToggleButton, resetAllButton ],
       right: this.layoutBounds.maxX - 7,
       bottom: this.layoutBounds.maxY - 7
     } ) );
@@ -152,7 +158,7 @@ define( function( require ) {
     //Use a layer for electrons so it has only one pickable flag, perhaps may improve performance compared to iterating
     //over all electrons to see if they are pickable?
     //Split layers before particle layer for performance
-    var electronLayer = new ElectronLayerNode( model, JohnTravoltageModel.MAX_ELECTRONS, {
+    var electronLayer = new ElectronLayerNode( model, JohnTravoltageModel.MAX_ELECTRONS, tandem.createTandem( 'electronLayer' ), {
       layerSplit: true,
       pickable: false,
       peerID: options.peerIDs.status
@@ -179,12 +185,12 @@ define( function( require ) {
       if ( model.electrons.length === 0 ) {
         updateDescription();
       }
-    } );    
+    } );
 
     // properties exist for life of sim, no need to unlink
     this.arm.model.angleProperty.link( updateDescription );
-    this.leg.model.angleProperty.link( updateDescription ); 
-     
+    this.leg.model.angleProperty.link( updateDescription );
+
     // the form is described by the description through aria-describedby
     accessibleFormNode.setAriaDescribedByElement( this.descriptionElement );
 

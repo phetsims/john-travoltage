@@ -26,46 +26,59 @@ define( function( require ) {
   var door = require( 'image!JOHN_TRAVOLTAGE/door.png' );
   var window = require( 'image!JOHN_TRAVOLTAGE/window.png' );
 
-  function BackgroundElementsNode() {
+  /**
+   * @param {Tandem} tandem
+   * @constructor
+   */
+  function BackgroundNode( tandem ) {
 
-    Node.call( this, { pickable: false } );
+    Node.call( this, {
+      pickable: false,
+      tandem: tandem
+    } );
 
     //wallpapers
     this.addChild( new Rectangle( -1000, -300, 3000, 1100, {
-      fill: new Pattern( wallpaper )
+      fill: new Pattern( wallpaper ),
+      tandem: tandem.createTandem( 'wallpaper' )
     } ) );
 
     // add the Window image
     this.addChild( new Image( window, {
       x: 50,
       y: 60,
-      scale: 0.93
+      scale: 0.93,
+      tandem: tandem.createTandem( 'window' )
     } ) );
 
     // add the floor image
     this.addChild( new Rectangle( -1000, 440, 3000, 1100, {
-      fill: new Pattern( floor )
+      fill: new Pattern( floor ),
+      tandem: tandem.createTandem( 'floor' )
     } ) );
 
     // add the rug image
     this.addChild( new Image( rug, {
       x: 110,
       y: 446,
-      scale: 0.58
+      scale: 0.58,
+      tandem: tandem.createTandem( 'rug' )
     } ) );
 
     // add the door image
     this.addChild( new Image( door, {
       x: 513.5,
       y: 48,
-      scale: 0.785
+      scale: 0.785,
+      tandem: tandem.createTandem( 'door' )
     } ) );
 
     // add the body image
     this.addChild( new Image( body, {
       x: 260,
       y: 60,
-      scale: 0.85
+      scale: 0.85,
+      tandem: tandem.createTandem( 'body' )
     } ) );
 
     // add the face image, this is temporary and will be updated soon
@@ -74,11 +87,12 @@ define( function( require ) {
     this.addChild( new Image( face, {
       x: 381,
       y: 61,
-      scale: 1.20
+      scale: 1.20,
+      tandem: tandem.createTandem( 'face' )
     } ) );
   }
 
-  johnTravoltage.register( 'BackgroundElementsNode', BackgroundElementsNode );
+  johnTravoltage.register( 'BackgroundNode', BackgroundNode );
 
-  return inherit( Node, BackgroundElementsNode );
+  return inherit( Node, BackgroundNode );
 } );

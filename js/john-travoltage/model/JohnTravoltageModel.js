@@ -15,7 +15,6 @@ define( function( require ) {
   var Electron = require( 'JOHN_TRAVOLTAGE/john-travoltage/model/Electron' );
   var LineSegment = require( 'JOHN_TRAVOLTAGE/john-travoltage/model/LineSegment' );
   var ObservableArray = require( 'AXON/ObservableArray' );
-  var PropertySet = require( 'AXON/PropertySet' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Sound = require( 'VIBE/Sound' );
   var Vector2 = require( 'DOT/Vector2' );
@@ -23,10 +22,11 @@ define( function( require ) {
   var johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
   var Emitter = require( 'AXON/Emitter' );
   var BooleanProperty = require( 'AXON/BooleanProperty' );
-  var Property = require( 'AXON/Property' );
+  var NumberProperty = require( 'AXON/NumberProperty' );
 
   // phet-io modules
   var TJohnTravoltageModel = require( 'ifphetio!PHET_IO/simulations/john-travoltage/TJohnTravoltageModel' );
+  var TNumber = require( 'ifphetio!PHET_IO/types/TNumber' );
 
   // audio
   var shockOuchAudio = require( 'audio!JOHN_TRAVOLTAGE/shock-ouch' );
@@ -38,12 +38,10 @@ define( function( require ) {
   var FOOT_ON_CARPET_MAX_ANGLE = 2.4; // in radians, empirically determined
 
   /**
-   *
    * @param {Tandem} tandem
    * @constructor
    */
   function JohnTravoltageModel( tandem ) {
-    this.tandem = tandem;
     var self = this;
 
     this.electronsToRemove = [];
@@ -101,14 +99,21 @@ define( function( require ) {
     this.doorknobPosition = new Vector2( 548.4318903113076, 257.5894162536105 );
 
     //Properties of the model.  All user settings belong in the model, whether or not they are part of the physical model
-    PropertySet.call( this, {
-      spark: false,
-      sparkVisible: false,
-      legAngularVelocity: 0,
-      shoeOnCarpet: false // true when the foot is being dragged and is in contact with the carpet
+    this.sparkProperty = new BooleanProperty( false, {  // TODO: What is sparkVisible vs sparkProperty
+      tandem: tandem.createTandem( 'sparkProperty' )
+    } );
+    this.sparkVisibleProperty = new BooleanProperty( false, {
+      tandem: tandem.createTandem( 'sparkVisibleProperty' )
+    } );
+    this.legAngularVelocityProperty = new NumberProperty( 0, { // TODO: move to leg
+      tandem: tandem.createTandem( 'legAngularVelocityProperty' ),
+      phetioValueType: TNumber( { units: 'radians/second' } )
     } );
 
-    Property.preventGetSet( this, 'sound' ); // TODO: Remove this line
+    // true when the foot is being dragged and is in contact with the carpet
+    this.shoeOnCarpetProperty = new BooleanProperty( false, {
+      tandem: tandem.createTandem( 'shoeOnCarpetProperty' )
+    } );
 
     this.soundProperty = new BooleanProperty( true, {
       tandem: tandem.createTandem( 'soundProperty' )
@@ -121,9 +126,9 @@ define( function( require ) {
     } );
 
     this.electrons = new ObservableArray();
-    this.arm = new Arm();
-    this.leg = new Leg();
-    this.legAngleAtPreviousStep = this.leg.angle;
+    this.arm = new Arm( tandem.createTandem( 'arm' ) );
+    this.leg = new Leg( tandem.createTandem( 'leg' ) );
+    this.legAngleAtPreviousStep = this.leg.angleProperty.get();
 
     // @public - emitters for reset and step events
     this.stepEmitter = new Emitter();
@@ -132,8 +137,7 @@ define( function( require ) {
     // @public (a11y) - emitter for when an electron discharge finishes or is canceled
     this.dischargeEndedEmitter = new Emitter();
 
-    // TODO: (from jbphet) - IMO, sounds should be in the view, not here.  Sonification was done in the view, these
-    // TODO: should be moved to the view for consistency.
+    // TODO: Sounds should be in the view, not in the model.
     this.sounds = [
       new Sound( shockOuchAudio ),
       new Sound( shockAudio )
@@ -141,7 +145,7 @@ define( function( require ) {
 
     //If leg dragged across carpet, add electron.  Lazy link so that it won't add an electron when the sim starts up.
     //The number of electrons accumulated only depends on the total angle subtended
-    var lastAngle = this.leg.angle;
+    var lastAngle = this.leg.angleProperty.get();
     var accumulatedAngle = 0;
     var accumulatedAngleThreshold = Math.PI / 16;
     this.leg.angleProperty.lazyLink( function( angle ) {
@@ -171,7 +175,7 @@ define( function( require ) {
     this.lineSegments = array;
     this.lineSegmentIndexForSleeve = 22;
 
-    this.electronGroupTandem = this.tandem.createGroupTandem( 'electron' ); // @private
+    this.electronGroupTandem = tandem.createGroupTandem( 'electron' ); // @private
 
     tandem.addInstance( this, TJohnTravoltageModel );
   }
@@ -181,10 +185,15 @@ define( function( require ) {
 
   johnTravoltage.register( 'JohnTravoltageModel', JohnTravoltageModel );
 
-  return inherit( PropertySet, JohnTravoltageModel, {
+  return inherit( Object, JohnTravoltageModel, {
 
     reset: function() {
-      PropertySet.prototype.reset.call( this );
+      //Properties of the model.  All user settings belong in the model, whether or not they are part of the physical model
+      this.sparkProperty.reset();
+      this.sparkVisibleProperty.reset();
+      this.legAngularVelocityProperty.reset();
+      this.shoeOnCarpetProperty.reset();
+      this.soundProperty.reset();
       this.arm.reset();
       this.leg.reset();
       while ( this.electrons.length > 0 ) {
@@ -255,9 +264,9 @@ define( function( require ) {
       for ( var i = 0; i < length; i++ ) {
         this.electrons._array[ i ].step( dt );
       }
-      var wasSpark = this.sparkVisible;
+      var wasSpark = this.sparkVisibleProperty.get();
       if ( this.electronsToRemove.length ) {
-        this.sparkVisible = true;
+        this.sparkVisibleProperty.set( true );
       }
       while ( this.electronsToRemove.length ) {
         this.removeElectron( this.electronsToRemove.pop() );
@@ -267,16 +276,16 @@ define( function( require ) {
 
         //Make sure the spark shows at least one frame for a single electron exiting, see #55
         if ( wasSpark ) {
-          this.sparkVisible = false;
+          this.sparkVisibleProperty.set( false );
           delete this.sparkCreationDistToKnob;
 
           this.dischargeEndedEmitter.emit();
         }
       }
 
-      this.legAngularVelocity = ( this.leg.angle - this.legAngleAtPreviousStep ) / dt;
-      this.legAngleAtPreviousStep = this.leg.angle;
-      this.shoeOnCarpet = ( this.leg.angle > FOOT_ON_CARPET_MIN_ANGLE && this.leg.angle < FOOT_ON_CARPET_MAX_ANGLE  );
+      this.legAngularVelocityProperty.set( ( this.leg.angleProperty.get() - this.legAngleAtPreviousStep ) / dt );
+      this.legAngleAtPreviousStep = this.leg.angleProperty.get();
+      this.shoeOnCarpetProperty.set( ( this.leg.angleProperty.get() > FOOT_ON_CARPET_MIN_ANGLE && this.leg.angleProperty.get() < FOOT_ON_CARPET_MAX_ANGLE  ) );
 
       this.stepEmitter.emit();
     },
@@ -293,19 +302,6 @@ define( function( require ) {
       var point = segment.p0.plus( v.normalized().times( rand ) );
 
       this.electrons.add( new Electron( point.x, point.y, this, this.electronGroupTandem.createNextTandem() ) );
-
-      //For debugging: show randomly in the middle for debugging
-      var debugging = false;
-      if ( debugging ) {
-        var random = phet.joist.random;
-        this.electrons.add(
-          new Electron(
-            this.bodyVertices[ 0 ].x + 50 + 50 * random.nextDouble(),
-            this.bodyVertices[ 0 ].y - 75 + 50 * random.nextDouble(),
-            this,
-            this.tandem.createTandem( 'electrons', this.electrons.length )
-          ) );
-      }
     },
 
     //Electrons can get outside of the body when moving to the spark, this code moves them back inside

@@ -42,7 +42,6 @@ define( function( require ) {
       if ( self.visible ) {
         var shape = new Shape();
 
-        //TODO: reduce allocations
         var point = arm.getFingerPosition();
         shape.moveToPoint( point );
         var distanceToTarget = doorknobPosition.distance( point );

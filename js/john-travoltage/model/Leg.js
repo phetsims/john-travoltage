@@ -10,14 +10,25 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var PropertySet = require( 'AXON/PropertySet' );
+  var Property = require( 'AXON/Property' );
+  var NumberProperty = require( 'AXON/NumberProperty' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Vector2 = require( 'DOT/Vector2' );
   var johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
 
-  function Leg() {
+  // phet-io modules
+  var TNumber = require( 'ifphetio!PHET_IO/types/TNumber' );
+
+  /**
+   * @param {Tandem} tandem
+   * @constructor
+   */
+  function Leg( tandem ) {
     this.initialAngle = 1.3175443221852239;
-    PropertySet.call( this, { angle: this.initialAngle } );
+    this.angleProperty = new NumberProperty( this.initialAngle, {
+      tandem: tandem.createTandem( 'angleProperty' ),
+      phetioValueType: TNumber( 'radians' )
+    } );
     this.position = new Vector2( 398, 335 );
 
     //Keep track of dragging flag (non-observable) so that when the sim is reset, a border outline is not added if the leg is dragging
@@ -26,7 +37,11 @@ define( function( require ) {
 
   johnTravoltage.register( 'Leg', Leg );
 
-  return inherit( PropertySet, Leg, {
-    deltaAngle: function() { return this.angle - this.initialAngle; }
+  return inherit( Object, Leg, {
+    reset: function() {
+      this.angleProperty.reset();
+    },
+
+    deltaAngle: function() { return this.angleProperty.get() - this.initialAngle; }
   } );
 } );

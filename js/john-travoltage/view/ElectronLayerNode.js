@@ -22,17 +22,17 @@ define( function( require ) {
   /**
    * @param {JohnTravoltageModel} model
    * @param {number} maxElectrons
+   * @param {Tandem} tandem
    * @param {Object} options
    * @constructor
    */
-  function ElectronLayerNode( model, maxElectrons, options ) {
+  function ElectronLayerNode( model, maxElectrons, tandem, options ) {
     var self = this;
     var statusNode = document.getElementById( options.peerID );
 
     Node.call( this, options );
 
     //if new electron added to model - create and add new node to leg
-    //TODO: Pooling for creation and use visible instead of addChild for performance
     model.electrons.addItemAddedListener( function( added ) {
 
       // and the visual representation of the electron

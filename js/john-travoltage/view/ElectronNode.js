@@ -99,7 +99,7 @@ define( function( require ) {
     }
 
     //Electrons fire a position changed every step whether their position changed or not, so that it will still be drawn in the proper place if the leg angle changed.
-    electron.positionProperty.link( function( position ) {
+    var updatePosition = function( position ) {
 
       history.push( legBounds.containsPoint( position ) ? legText :
                     armBounds.containsPoint( position ) ? armText :
@@ -131,10 +131,9 @@ define( function( require ) {
         self.setTranslation( position.x, position.y );
       }
 
-      //Interpolate for smoothness at intersection between leg/body
-      //TODO: improve performance and reduce allocations
       else if ( inLegCount >= inArmCount ) {
 
+        // Interpolate for smoothness at intersection between leg/body
         var legPoint = leg.position;
 
         dr.setXY( position.x - legPoint.x, position.y - legPoint.y );
@@ -163,7 +162,7 @@ define( function( require ) {
         dr.setXY( position.x - armPoint.x, position.y - armPoint.y );
 
         //The leg's rotated angle
-        deltaAngle = arm.deltaAngle();
+        deltaAngle = arm.angleProperty.get();
         dr = dr.rotated( deltaAngle ).plus( armPoint );
 
         //No need to blend, it was in the leg the whole time
@@ -178,7 +177,14 @@ define( function( require ) {
         }
       }
 
-    } );
+    };
+    electron.positionProperty.link( updatePosition );
+
+    var disposeListener = function() {
+      electron.positionProperty.unlink( updatePosition );
+      electron.disposeEmitter.removeListener( disposeListener );
+    };
+    electron.disposeEmitter.addListener( disposeListener );
   }
 
   johnTravoltage.register( 'ElectronNode', ElectronNode );

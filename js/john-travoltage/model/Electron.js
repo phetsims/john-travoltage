@@ -1,7 +1,7 @@
 // Copyright 2013-2015, University of Colorado Boulder
 
 /**
- * Point charge model. Each charge has a position and box2d instance.
+ * Model for the electrons that are absorbed from the carpet and discharged into the doorknob.
  *
  * @author Sam Reid
  * @author Vasily Shakhov (Mlearner)
@@ -15,18 +15,21 @@ define( function( require ) {
   var Vector2 = require( 'DOT/Vector2' );
   var Util = require( 'DOT/Util' );
   var johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
+  var Emitter = require( 'AXON/Emitter' );
 
   // phet-io modules
-  var TElectron = require( 'ifphetio!PHET_IO/simulations/john-travoltage/TElectron');
-
-  // constants
-  var count = 0;
+  var TElectron = require( 'ifphetio!PHET_IO/simulations/john-travoltage/TElectron' );
+  var TVector2 = require( 'ifphetio!PHET_IO/types/dot/TVector2' );
 
   //If this value is 1.0, there is no friction.  The value is what the velocity is multiplied by at every step.
   var frictionFactor = 0.98;
 
+  var electronCount = 0;
+
+  //Radius of the electron
+  Electron.radius = 8;
+
   /**
-   *
    * @param {number} x
    * @param {number} y
    * @param {JohnTravoltageModel} model
@@ -34,9 +37,13 @@ define( function( require ) {
    * @constructor
    */
   function Electron( x, y, model, tandem ) {
-    count++;
-    this.id = count;
-    this.positionProperty = new Property( new Vector2( x, y ) );
+    var self = this;
+    electronCount++;
+    this.id = electronCount;
+    this.positionProperty = new Property( new Vector2( x, y ), {
+      tandem: tandem.createTandem( 'positionProperty' ),
+      phetioValueType: TVector2
+    } );
 
     //The velocity an electron has when it comes from the carpet into the leg.
     this.velocity = new Vector2( -50, -100 );
@@ -52,13 +59,17 @@ define( function( require ) {
 
     tandem.addInstance( this, TElectron );
 
-    this.tandem = tandem;
+    // @public (read-only) called when the Electron is disposed so listeners may clean themselves up
+    this.disposeEmitter = new Emitter();
+
+    this.disposeElectron = function() {
+      tandem.removeInstance( this );
+      self.disposeEmitter.emit();
+      self.positionProperty.dispose();
+    };
   }
 
   johnTravoltage.register( 'Electron', Electron );
-
-  //Radius of the electron
-  Electron.radius = 8;
 
   return inherit( Object, Electron, {
     stepInSpark: function( dt ) {
@@ -103,8 +114,7 @@ define( function( require ) {
       }
     },
     dispose: function() {
-      this.tandem.createTandem( 'velocity' ).removeInstance( this.velocity );
-      this.tandem.removeInstance( this );
+      this.disposeElectron();
     },
     stepInBody: function( dt ) {
 
