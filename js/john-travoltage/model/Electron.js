@@ -59,6 +59,7 @@ define( function( require ) {
 
     tandem.addInstance( this, TElectron );
 
+    // @public (read-only) called when the Electron is disposed so listeners may clean themselves up
     this.disposeEmitter = new Emitter();
 
     this.disposeElectron = function() {

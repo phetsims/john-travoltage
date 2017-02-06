@@ -15,7 +15,6 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Image = require( 'SCENERY/nodes/Image' );
-  var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
   var Vector2 = require( 'DOT/Vector2' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Circle = require( 'SCENERY/nodes/Circle' );
@@ -27,6 +26,7 @@ define( function( require ) {
   var JohnTravoltageA11yStrings = require( 'JOHN_TRAVOLTAGE/john-travoltage/JohnTravoltageA11yStrings' );
   var FocusOverlay = require( 'SCENERY/overlays/FocusOverlay' );
   var Sound = require( 'VIBE/Sound' );
+  var TandemSimpleDragHandler = require( 'TANDEM/scenery/input/TandemSimpleDragHandler' );
 
   // audio
   var limitBonkAudio = require( 'audio!JOHN_TRAVOLTAGE/limit-bonk' );
@@ -68,7 +68,9 @@ define( function( require ) {
     Node.call( this, options );
 
     // add the image
-    var imageNode = new Image( image );
+    var imageNode = new Image( image, {
+      tandem: tandem.createTandem( 'imageNode' )
+    } );
     this.addChild( imageNode );
 
     // create the sound that will be played when the motion range is reached
@@ -88,7 +90,8 @@ define( function( require ) {
       return angle;
     };
 
-    imageNode.addInputListener( new SimpleDragHandler( {
+    imageNode.addInputListener( new TandemSimpleDragHandler( {
+      tandem: tandem.createTandem( 'dragHandler' ),
       allowTouchSnag: true,
       start: function( event ) {
         self.border.visible = false;

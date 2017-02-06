@@ -16,13 +16,19 @@ define( function( require ) {
   var Vector2 = require( 'DOT/Vector2' );
   var johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
 
+  // phet-io modules
+  var TNumber = require( 'ifphetio!PHET_IO/types/TNumber' );
+
   /**
    * @param {Tandem} tandem
    * @constructor
    */
   function Leg( tandem ) {
     this.initialAngle = 1.3175443221852239;
-    this.angleProperty = new NumberProperty( this.initialAngle );
+    this.angleProperty = new NumberProperty( this.initialAngle, {
+      tandem: tandem.createTandem( 'angleProperty' ),
+      phetioValueType: TNumber( 'radians' )
+    } );
     this.position = new Vector2( 398, 335 );
 
     //Keep track of dragging flag (non-observable) so that when the sim is reset, a border outline is not added if the leg is dragging
