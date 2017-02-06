@@ -16,6 +16,9 @@ define( function( require ) {
   var Util = require( 'DOT/Util' );
   var johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
 
+  // phet-io modules
+  var TElectron = require( 'ifphetio!PHET_IO/simulations/john-travoltage/TElectron' );
+
   // constants
   var count = 0;
 
@@ -47,7 +50,7 @@ define( function( require ) {
     this.maxSpeed = 500;
     this.maxForceSquared = 100000000;
 
-    tandem.addInstance( this );
+    tandem.addInstance( this, TElectron );
 
     this.tandem = tandem;
   }
