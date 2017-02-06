@@ -62,6 +62,17 @@ define( function( require ) {
     // @public (read-only) called when the Electron is disposed so listeners may clean themselves up
     this.disposeEmitter = new Emitter();
 
+    // @public (phet-io) the history of body locations, 'arm', 'leg' and 'body' for rendering in the correct place
+    this.history = [];
+
+    // @public (phet-io) when the history changes, the electron's screen position is recomputed
+    this.historyChangedEmitter = new Emitter();
+
+    //Electrons start in the leg
+    for ( var i = 0; i < 10; i++ ) {
+      this.history.push( 'leg' );
+    }
+
     this.disposeElectron = function() {
       tandem.removeInstance( this );
       self.disposeEmitter.emit();

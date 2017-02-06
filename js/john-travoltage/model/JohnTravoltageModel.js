@@ -21,6 +21,7 @@ define( function( require ) {
   var Util = require( 'DOT/Util' );
   var johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
   var Emitter = require( 'AXON/Emitter' );
+  var TandemEmitter = require( 'TANDEM/axon/TandemEmitter' );
   var BooleanProperty = require( 'AXON/BooleanProperty' );
   var NumberProperty = require( 'AXON/NumberProperty' );
 
@@ -132,10 +133,18 @@ define( function( require ) {
 
     // @public - emitters for reset and step events
     this.stepEmitter = new Emitter();
-    this.resetEmitter = new Emitter();
+
+    // @public - emitter called when the reset all button is pressed
+    this.resetEmitter = new TandemEmitter( {
+      tandem: tandem.createTandem( 'resetEmitter' ),
+      phetioArgumentTypes: []
+    } );
 
     // @public (a11y) - emitter for when an electron discharge finishes or is canceled
-    this.dischargeEndedEmitter = new Emitter();
+    this.dischargeEndedEmitter = new TandemEmitter( {
+      tandem: tandem.createTandem( 'dischargeEndedEmitter' ),
+      phetioArgumentTypes: []
+    } );
 
     // TODO: Sounds should be in the view, not in the model.
     this.sounds = [
@@ -156,7 +165,7 @@ define( function( require ) {
         accumulatedAngle += Math.abs( angle - lastAngle );
 
         while ( accumulatedAngle > accumulatedAngleThreshold ) {
-          self.addElectron();
+          self.addElectron( self.electronGroupTandem.createNextTandem() );
           accumulatedAngle -= accumulatedAngleThreshold;
         }
         lastAngle = angle;
@@ -293,7 +302,18 @@ define( function( require ) {
       this.electrons.remove( electron );
       electron.dispose();
     },
-    addElectron: function() {
+
+    /**
+     * Removes all of the electrons.
+     * @public (phet-io)
+     */
+    clearElectrons: function() {
+      while ( this.electrons.length > 0 ) {
+        this.removeElectron( this.electrons.get( this.electrons.length - 1 ) );
+      }
+    },
+
+    addElectron: function( tandem ) {
 
       var segment = new LineSegment( 424.0642054574639, 452.28892455858755, 433.3097913322633, 445.5088282504014 );
       var v = segment.vector;
@@ -301,7 +321,9 @@ define( function( require ) {
 
       var point = segment.p0.plus( v.normalized().times( rand ) );
 
-      this.electrons.add( new Electron( point.x, point.y, this, this.electronGroupTandem.createNextTandem() ) );
+      var electron = new Electron( point.x, point.y, this, tandem );
+      this.electrons.add( electron );
+      return electron;
     },
 
     //Electrons can get outside of the body when moving to the spark, this code moves them back inside
