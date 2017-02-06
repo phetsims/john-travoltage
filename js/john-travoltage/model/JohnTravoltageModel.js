@@ -27,6 +27,7 @@ define( function( require ) {
 
   // phet-io modules
   var TJohnTravoltageModel = require( 'ifphetio!PHET_IO/simulations/john-travoltage/TJohnTravoltageModel' );
+  var TNumber = require( 'ifphetio!PHET_IO/types/TNumber' );
 
   // audio
   var shockOuchAudio = require( 'audio!JOHN_TRAVOLTAGE/shock-ouch' );
@@ -101,12 +102,21 @@ define( function( require ) {
     this.doorknobPosition = new Vector2( 548.4318903113076, 257.5894162536105 );
 
     //Properties of the model.  All user settings belong in the model, whether or not they are part of the physical model
-    this.sparkProperty = new BooleanProperty( false );
-    this.sparkVisibleProperty = new BooleanProperty( false );
-    this.legAngularVelocityProperty = new NumberProperty( 0 );
+    this.sparkProperty = new BooleanProperty( false, {  // TODO: What is sparkVisible vs sparkProperty
+      tandem: tandem.createTandem( 'sparkProperty' )
+    } );
+    this.sparkVisibleProperty = new BooleanProperty( false, {
+      tandem: tandem.createTandem( 'sparkVisibleProperty' )
+    } );
+    this.legAngularVelocityProperty = new NumberProperty( 0, { // TODO: move to leg
+      tandem: tandem.createTandem( 'legAngularVelocityProperty' ),
+      phetioValueType: TNumber( { units: 'radians/second' } )
+    } );
 
     // true when the foot is being dragged and is in contact with the carpet
-    this.shoeOnCarpetProperty = new BooleanProperty( false );
+    this.shoeOnCarpetProperty = new BooleanProperty( false, {
+      tandem: tandem.createTandem( 'shoeOnCarpet' )
+    } );
 
     this.soundProperty = new BooleanProperty( true, {
       tandem: tandem.createTandem( 'soundProperty' )
