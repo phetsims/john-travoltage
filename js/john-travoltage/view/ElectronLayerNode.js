@@ -22,10 +22,11 @@ define( function( require ) {
   /**
    * @param {JohnTravoltageModel} model
    * @param {number} maxElectrons
+   * @param {Tandem} tandem
    * @param {Object} options
    * @constructor
    */
-  function ElectronLayerNode( model, maxElectrons, options ) {
+  function ElectronLayerNode( model, maxElectrons, tandem, options ) {
     var self = this;
     var statusNode = document.getElementById( options.peerID );
 

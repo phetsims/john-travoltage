@@ -2,7 +2,8 @@
 
 /**
  * Simple line segment model.  Immutable, and all derived values are computed in advance for performance.
- * If you mutate the line, the derived values will be wrong.
+ * If you mutate the line, the derived values will be wrong.  This utility class does not need to be instrumented
+ * for PhET-iO.
  *
  * @author Sam Reid
  */

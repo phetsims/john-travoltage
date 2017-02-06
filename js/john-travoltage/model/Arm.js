@@ -12,13 +12,16 @@ define( function( require ) {
   // modules
   var Vector2 = require( 'DOT/Vector2' );
   var NumberProperty = require( 'AXON/NumberProperty' );
-  var Property = require( 'AXON/Property' );
   var inherit = require( 'PHET_CORE/inherit' );
   var johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
 
   // phet-io modules
   var TNumber = require( 'ifphetio!PHET_IO/types/TNumber' );
 
+  /**
+   * @param {Tandem} tandem
+   * @constructor
+   */
   function Arm( tandem ) {
 
     // @public (read-only) the angle of the arm.

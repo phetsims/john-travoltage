@@ -40,12 +40,13 @@ define( function( require ) {
    * @param {Property.<boolean>} soundEnabledProperty
    * @param {Array} rangeMap - an array of objects of the format {range: {max: Number, min: Number}, text: String}. This
    *                           is used to map a position value to text to use for the valueText of the related slider.
+   * @param {Tandem} tandem
    * @param {Object} options -  optional configuration such as "keyboardMidPointOffset"; which is used to adjust the
    *                 centre position of the HTML slider for keyboard accessibility. For example it can be used to
    *                 align the doorknob as the centre position of the arm slider.
    * @constructor
    */
-  function AppendageNode( appendage, image, dx, dy, angleOffset, soundEnabledProperty, rangeMap, options ) {
+  function AppendageNode( appendage, image, dx, dy, angleOffset, soundEnabledProperty, rangeMap, tandem, options ) {
     var self = this;
 
     this.model = appendage;

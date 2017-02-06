@@ -15,7 +15,7 @@ define( function( require ) {
   var ScreenView = require( 'JOIST/ScreenView' );
   var Line = require( 'SCENERY/nodes/Line' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var BackgroundElementsNode = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/BackgroundElementsNode' );
+  var BackgroundNode = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/BackgroundNode' );
   var AppendageRangeMaps = require( 'JOHN_TRAVOLTAGE/john-travoltage/AppendageRangeMaps' );
   var AppendageNode = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/AppendageNode' );
   var SparkNode = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/SparkNode' );
@@ -80,7 +80,7 @@ define( function( require ) {
     } );
 
     //add background elements
-    this.addChild( new BackgroundElementsNode() );
+    this.addChild( new BackgroundNode( tandem.createTandem( 'backgroundNode' ) ) );
 
     //Split layers after background for performance
     this.addChild( new Node( { layerSplit: true, pickable: false } ) );
@@ -92,19 +92,21 @@ define( function( require ) {
     this.addChild( accessibleFormNode );
 
     // arm and leg - only interactive elements
-    this.leg = new AppendageNode( model.leg, leg, 25, 28, Math.PI / 2 * 0.7, model.soundProperty, AppendageRangeMaps.leg, {
-      labelTagName: 'label',
-      label: JohnTravoltageA11yStrings.legSliderLabelString
-    } );
+    this.leg = new AppendageNode( model.leg, leg, 25, 28, Math.PI / 2 * 0.7, model.soundProperty, AppendageRangeMaps.leg,
+      tandem.createTandem( 'legNode' ), {
+        labelTagName: 'label',
+        label: JohnTravoltageA11yStrings.legSliderLabelString
+      } );
     accessibleFormNode.addChild( this.leg );
 
     // the keyboardMidPointOffset was manually calculated as a radian offset that will trigger a discharge with the
     // minimum charge level.
-    this.arm = new AppendageNode( model.arm, arm, 4, 45, -0.1, model.soundProperty, AppendageRangeMaps.arm, {
-      keyboardMidPointOffset: 0.41,
-      labelTagName: 'label',
-      label: JohnTravoltageA11yStrings.armSliderLabelString
-    } );
+    this.arm = new AppendageNode( model.arm, arm, 4, 45, -0.1, model.soundProperty, AppendageRangeMaps.arm,
+      tandem.createTandem( 'armNode' ), {
+        keyboardMidPointOffset: 0.41,
+        labelTagName: 'label',
+        label: JohnTravoltageA11yStrings.armSliderLabelString
+      } );
     accessibleFormNode.addChild( this.arm );
 
     //Show the dotted lines again when the sim is reset
@@ -156,7 +158,7 @@ define( function( require ) {
     //Use a layer for electrons so it has only one pickable flag, perhaps may improve performance compared to iterating
     //over all electrons to see if they are pickable?
     //Split layers before particle layer for performance
-    var electronLayer = new ElectronLayerNode( model, JohnTravoltageModel.MAX_ELECTRONS, {
+    var electronLayer = new ElectronLayerNode( model, JohnTravoltageModel.MAX_ELECTRONS, tandem.createTandem( 'electronLayer' ), {
       layerSplit: true,
       pickable: false,
       peerID: options.peerIDs.status

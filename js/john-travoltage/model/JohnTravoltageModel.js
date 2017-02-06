@@ -22,7 +22,6 @@ define( function( require ) {
   var johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
   var Emitter = require( 'AXON/Emitter' );
   var BooleanProperty = require( 'AXON/BooleanProperty' );
-  var Property = require( 'AXON/Property' );
   var NumberProperty = require( 'AXON/NumberProperty' );
 
   // phet-io modules
@@ -39,7 +38,6 @@ define( function( require ) {
   var FOOT_ON_CARPET_MAX_ANGLE = 2.4; // in radians, empirically determined
 
   /**
-   *
    * @param {Tandem} tandem
    * @constructor
    */

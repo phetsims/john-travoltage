@@ -26,7 +26,11 @@ define( function( require ) {
   var door = require( 'image!JOHN_TRAVOLTAGE/door.png' );
   var window = require( 'image!JOHN_TRAVOLTAGE/window.png' );
 
-  function BackgroundElementsNode() {
+  /**
+   * @param {Tandem} tandem
+   * @constructor
+   */
+  function BackgroundNode( tandem ) {
 
     Node.call( this, { pickable: false } );
 
@@ -78,7 +82,7 @@ define( function( require ) {
     } ) );
   }
 
-  johnTravoltage.register( 'BackgroundElementsNode', BackgroundElementsNode );
+  johnTravoltage.register( 'BackgroundNode', BackgroundNode );
 
-  return inherit( Node, BackgroundElementsNode );
+  return inherit( Node, BackgroundNode );
 } );
