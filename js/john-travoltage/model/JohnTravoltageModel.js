@@ -123,7 +123,7 @@ define( function( require ) {
     this.electrons = new ObservableArray();
     this.arm = new Arm();
     this.leg = new Leg();
-    this.legAngleAtPreviousStep = this.leg.angle;
+    this.legAngleAtPreviousStep = this.leg.angleProperty.get();
 
     // @public - emitters for reset and step events
     this.stepEmitter = new Emitter();
@@ -141,7 +141,7 @@ define( function( require ) {
 
     //If leg dragged across carpet, add electron.  Lazy link so that it won't add an electron when the sim starts up.
     //The number of electrons accumulated only depends on the total angle subtended
-    var lastAngle = this.leg.angle;
+    var lastAngle = this.leg.angleProperty.get();
     var accumulatedAngle = 0;
     var accumulatedAngleThreshold = Math.PI / 16;
     this.leg.angleProperty.lazyLink( function( angle ) {
@@ -274,9 +274,9 @@ define( function( require ) {
         }
       }
 
-      this.legAngularVelocity = ( this.leg.angle - this.legAngleAtPreviousStep ) / dt;
-      this.legAngleAtPreviousStep = this.leg.angle;
-      this.shoeOnCarpet = ( this.leg.angle > FOOT_ON_CARPET_MIN_ANGLE && this.leg.angle < FOOT_ON_CARPET_MAX_ANGLE  );
+      this.legAngularVelocity = ( this.leg.angleProperty.get() - this.legAngleAtPreviousStep ) / dt;
+      this.legAngleAtPreviousStep = this.leg.angleProperty.get();
+      this.shoeOnCarpet = ( this.leg.angleProperty.get() > FOOT_ON_CARPET_MIN_ANGLE && this.leg.angleProperty.get() < FOOT_ON_CARPET_MAX_ANGLE  );
 
       this.stepEmitter.emit();
     },

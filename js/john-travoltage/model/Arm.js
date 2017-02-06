@@ -11,12 +11,13 @@ define( function( require ) {
 
   // modules
   var Vector2 = require( 'DOT/Vector2' );
-  var PropertySet = require( 'AXON/PropertySet' );
+  var Property = require( 'AXON/Property' );
   var inherit = require( 'PHET_CORE/inherit' );
   var johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
 
   function Arm() {
-    PropertySet.call( this, { angle: -0.5 } );
+    this.angleProperty = new Property( -0.5 );
+    Property.preventGetSet( this, 'angle' );
 
     //Arm pivot (elbow point) sampled using DebugPositions.js
     this.position = new Vector2( 423.6179673321235, 229.84969476984 );
@@ -31,12 +32,12 @@ define( function( require ) {
 
   johnTravoltage.register( 'Arm', Arm );
 
-  return inherit( PropertySet, Arm, {
+  return inherit( Object, Arm, {
     getFingerPosition: function() {
 
       //TODO: Reduce allocations, possibly move this to a field that mutates
-      return this.fingerVector.rotated( this.angle ).plus( this.position );
+      return this.fingerVector.rotated( this.angleProperty.get() ).plus( this.position );
     },
-    deltaAngle: function() { return this.angle; }
+    deltaAngle: function() { return this.angleProperty.get(); }
   } );
 } );

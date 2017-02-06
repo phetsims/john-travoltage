@@ -73,8 +73,8 @@ define( function( require ) {
     // create the sound that will be played when the motion range is reached
     var limitBonkSound = new Sound( limitBonkAudio );
 
-    var lastAngle = appendage.angle;
-    var currentAngle = appendage.angle;
+    var lastAngle = appendage.angleProperty.get();
+    var currentAngle = appendage.angleProperty.get();
     this.dragging = false;
 
     var limitLegRotation = function( angle ) {
@@ -117,17 +117,17 @@ define( function( require ) {
         //Inline the vector creations and dot product for performance
         var z = Math.cos( currentAngle ) * Math.sin( lastAngle ) - Math.sin( currentAngle ) * Math.cos( lastAngle );
 
-        if ( appendage.angle === Math.PI && z < 0 ) {
+        if ( appendage.angleProperty.get() === Math.PI && z < 0 ) {
           //noop, at the left side
         }
-        else if ( appendage.angle === 0 && z > 0 ) {
+        else if ( appendage.angleProperty.get() === 0 && z > 0 ) {
           //noop, at the right side
         }
-        else if ( self.distanceBetweenAngles( appendage.angle, angle ) > Math.PI / 3 && ( appendage.angle === 0 || appendage.angle === Math.PI ) ) {
+        else if ( self.distanceBetweenAngles( appendage.angleProperty.get(), angle ) > Math.PI / 3 && ( appendage.angleProperty.get() === 0 || appendage.angleProperty.get() === Math.PI ) ) {
           //noop, too big a leap, may correspond to the user reversing direction after a leg is stuck against threshold
         }
         else {
-          appendage.angle = angle;
+          appendage.angleProperty.set( angle );
         }
 
       },
@@ -192,7 +192,7 @@ define( function( require ) {
     this.setAccessibleAttribute( 'max', keyboardMotion.max );
     this.setAccessibleAttribute( 'step', keyboardMotion.step );
 
-    var rangeValue = self.angleToPosition( appendage.angle, keyboardMotion.totalRange, keyboardMotion.max, options.keyboardMidPointOffset );
+    var rangeValue = self.angleToPosition( appendage.angleProperty.get(), keyboardMotion.totalRange, keyboardMotion.max, options.keyboardMidPointOffset );
     this.setInputValue( rangeValue );
 
     // set up a relationship between the appendage and the 'status' alert so that JAWS users can quickly navigate
@@ -207,7 +207,7 @@ define( function( require ) {
     // see: https://wiki.fluidproject.org/pages/viewpage.action?pageId=61767683
     var keyboardEventHandled = false;
     var rotateAppendage = function() {
-      appendage.angle = self.positionToAngle( self.domElement.value, keyboardMotion.totalRange, options.keyboardMidPointOffset );
+      appendage.angleProperty.set( self.positionToAngle( self.domElement.value, keyboardMotion.totalRange, options.keyboardMidPointOffset ) );
       self.border.visible = false;
     };
 
@@ -230,7 +230,7 @@ define( function( require ) {
     } );
 
     var updatePosition = function( angle ) {
-      var position = self.angleToPosition( appendage.angle, keyboardMotion.totalRange, keyboardMotion.max, options.keyboardMidPointOffset );
+      var position = self.angleToPosition( appendage.angleProperty.get(), keyboardMotion.totalRange, keyboardMotion.max, options.keyboardMidPointOffset );
       var positionDescription = self.getPositionDescription( position, rangeMap );
       self.setInputValue( position );
       self.setAccessibleAttribute( 'aria-valuetext', StringUtils.format( JohnTravoltageA11yStrings.positionTemplateString, position, positionDescription ) );
