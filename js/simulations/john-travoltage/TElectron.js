@@ -12,6 +12,7 @@ define( function( require ) {
   var assertInstanceOf = require( 'PHET_IO/assertions/assertInstanceOf' );
   var phetioNamespace = require( 'PHET_IO/phetioNamespace' );
   var phetioInherit = require( 'PHET_IO/phetioInherit' );
+  var phetio = require( 'PHET_IO/phetio' );
   var TObject = require( 'PHET_IO/types/TObject' );
 
   var TElectron = function( instance, phetioID ) {
