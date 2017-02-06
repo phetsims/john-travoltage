@@ -27,7 +27,6 @@ define( function( require ) {
   function ToneGenerator( soundEnabledProperty ) {
 
     // TODO: If this lives for a while, go through this an make things that are public private where possible.
-
     this.soundEnabledProperty = soundEnabledProperty;
 
     // queue for storing pops to be played if they are coming too quickly

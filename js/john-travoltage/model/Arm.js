@@ -44,8 +44,6 @@ define( function( require ) {
       this.angleProperty.reset();
     },
     getFingerPosition: function() {
-
-      //TODO: Reduce allocations, possibly move this to a field that mutates
       return this.fingerVector.rotated( this.angleProperty.get() ).plus( this.position );
     },
     deltaAngle: function() { return this.angleProperty.get(); }

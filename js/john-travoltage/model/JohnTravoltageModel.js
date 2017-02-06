@@ -121,11 +121,6 @@ define( function( require ) {
     this.soundProperty = new BooleanProperty( true, {
       tandem: tandem.createTandem( 'soundProperty' )
     } );
-    Property.preventGetSet( this, 'sound' ); // TODO: Remove this line
-    Property.preventGetSet( this, 'spark' ); // TODO: Remove this line
-    Property.preventGetSet( this, 'sparkVisible' ); // TODO: Remove this line
-    Property.preventGetSet( this, 'legAngularVelocity' ); // TODO: Remove this line
-    Property.preventGetSet( this, 'shoeOnCarpet' ); // TODO: Remove this line
 
     this.sparkVisibleProperty.link( function( sparkVisible ) {
       if ( sparkVisible && self.soundProperty.get() ) {
@@ -145,8 +140,7 @@ define( function( require ) {
     // @public (a11y) - emitter for when an electron discharge finishes or is canceled
     this.dischargeEndedEmitter = new Emitter();
 
-    // TODO: (from jbphet) - IMO, sounds should be in the view, not here.  Sonification was done in the view, these
-    // TODO: should be moved to the view for consistency.
+    // TODO: Sounds should be in the view, not in the model.
     this.sounds = [
       new Sound( shockOuchAudio ),
       new Sound( shockAudio )

@@ -56,6 +56,7 @@ define( function( require ) {
     var self = this;
     this.model = model;
     options = _.extend( {
+
       //TODO: Once https://github.com/phetsims/john-travoltage/issues/98 has been addressed, update how the peerIDs
       //are added/referenced by the view.
       peerIDs: {

@@ -131,10 +131,9 @@ define( function( require ) {
         self.setTranslation( position.x, position.y );
       }
 
-      //Interpolate for smoothness at intersection between leg/body
-      //TODO: improve performance and reduce allocations
       else if ( inLegCount >= inArmCount ) {
 
+        // Interpolate for smoothness at intersection between leg/body
         var legPoint = leg.position;
 
         dr.setXY( position.x - legPoint.x, position.y - legPoint.y );

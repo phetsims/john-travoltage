@@ -32,7 +32,6 @@ define( function( require ) {
     Node.call( this, options );
 
     //if new electron added to model - create and add new node to leg
-    //TODO: Pooling for creation and use visible instead of addChild for performance
     model.electrons.addItemAddedListener( function( added ) {
 
       // and the visual representation of the electron
