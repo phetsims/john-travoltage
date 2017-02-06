@@ -21,6 +21,7 @@ define( function( require ) {
   var Util = require( 'DOT/Util' );
   var johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
   var Emitter = require( 'AXON/Emitter' );
+  var TandemEmitter = require( 'TANDEM/axon/TandemEmitter' );
   var BooleanProperty = require( 'AXON/BooleanProperty' );
   var NumberProperty = require( 'AXON/NumberProperty' );
 
@@ -132,10 +133,18 @@ define( function( require ) {
 
     // @public - emitters for reset and step events
     this.stepEmitter = new Emitter();
-    this.resetEmitter = new Emitter();
+
+    // @public - emitter called when the reset all button is pressed
+    this.resetEmitter = new TandemEmitter( {
+      tandem: tandem.createTandem( 'resetEmitter' ),
+      phetioArgumentTypes: []
+    } );
 
     // @public (a11y) - emitter for when an electron discharge finishes or is canceled
-    this.dischargeEndedEmitter = new Emitter();
+    this.dischargeEndedEmitter = new TandemEmitter( {
+      tandem: tandem.createTandem( 'dischargeEndedEmitter' ),
+      phetioArgumentTypes: []
+    } );
 
     // TODO: Sounds should be in the view, not in the model.
     this.sounds = [
