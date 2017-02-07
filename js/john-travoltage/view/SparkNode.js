@@ -23,12 +23,13 @@ define( function( require ) {
    *
    * @param {JohnTravoltageModel} model
    * @param {function} addStepListener
+   * @param {Tandem} tandem
    * @constructor
    */
-  function SparkNode( model, addStepListener ) {
+  function SparkNode( model, addStepListener, tandem ) {
     var self = this;
 
-    Node.call( this, { pickable: false } );
+    Node.call( this, { pickable: false, tandem: tandem } );
 
     model.sparkVisibleProperty.linkAttribute( this, 'visible' );
     var whitePath = new Path( null, { stroke: 'white', lineWidth: 4 } );

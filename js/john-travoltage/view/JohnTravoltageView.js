@@ -108,7 +108,8 @@ define( function( require ) {
     //spark
     accessibleFormNode.addChild( new SparkNode(
       model,
-      function( listener ) { model.stepEmitter.addListener( listener ); }
+      function( listener ) { model.stepEmitter.addListener( listener ); },
+      tandem.createTandem( 'sparkNode' )
     ) );
 
     //Sound button and reset all button
