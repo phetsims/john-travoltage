@@ -11,16 +11,16 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var ChargeAmountSoundGenerator = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/ChargeAmountSoundGenerator' );
-  var ChargeAmountToneGenerator = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/ChargeAmountToneGenerator' );
+  var ChargeAmountSoundGenerator = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/audio/ChargeAmountSoundGenerator' );
+  var ChargeAmountToneGenerator = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/audio/ChargeAmountToneGenerator' );
   var inherit = require( 'PHET_CORE/inherit' );
   var johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
   var JohnTravoltageModel = require( 'JOHN_TRAVOLTAGE/john-travoltage/model/JohnTravoltageModel' );
   var LinearFunction = require( 'DOT/LinearFunction' );
-  var PitchedPopGenerator = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/PitchedPopGenerator' );
-  var RandomNotePlayer = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/RandomNotePlayer' );
+  var PitchedPopGenerator = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/audio/PitchedPopGenerator' );
+  var RandomNotePlayer = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/audio/RandomNotePlayer' );
   var Sound = require( 'VIBE/Sound' );
-  var ToneGenerator = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/ToneGenerator' );
+  var ToneGenerator = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/audio/ToneGenerator' );
 
   // audio
   var shoeDraggingForwardOnCarpetAudio = require( 'audio!JOHN_TRAVOLTAGE/shoe-dragging-forward-on-carpet' );
