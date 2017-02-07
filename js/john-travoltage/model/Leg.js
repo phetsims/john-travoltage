@@ -31,6 +31,7 @@ define( function( require ) {
     } );
 
     this.angularVelocityProperty = new NumberProperty( 0, {
+      phetioInstanceDocumentation: 'Values are set internally by simulation and cannot be controlled by the PhET-IO interface.',
       tandem: tandem.createTandem( 'angularVelocityProperty' ),
       phetioValueType: TNumber( { units: 'radians/second' } )
     } );
