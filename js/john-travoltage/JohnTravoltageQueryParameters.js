@@ -13,7 +13,7 @@ define( function( require ) {
 
   var JohnTravoltageQueryParameters = QueryStringMachine.getAll( {
 
-    // adds sonification, with diffferent degrees and styles depending on the value
+    // adds sonification, with different degrees and styles depending on the value
     // of the query parameter.  The behavior of each value is described below:
     // none -
     //        No prototype sonification (default value).
