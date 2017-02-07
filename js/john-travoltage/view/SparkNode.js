@@ -15,6 +15,8 @@ define( function( require ) {
   var Shape = require( 'KITE/Shape' );
   var Path = require( 'SCENERY/nodes/Path' );
   var johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
+  var AriaHerald = require( 'SCENERY_PHET/accessibility/AriaHerald' );
+  var JohnTravoltageA11yStrings = require( 'JOHN_TRAVOLTAGE/john-travoltage/JohnTravoltageA11yStrings' );
 
   /**
    * Constructor for the SparkNode, which shows the animated spark from the finger to the doorknob when electrons are flowing out.
@@ -23,38 +25,50 @@ define( function( require ) {
    * @param {Arm} arm the arm the electrons will flow through
    * @param {Vector2} doorknobPosition the position of the doorknob
    * @param {Function} addStepListener function to add a step listener to the model
+   * @param {Emitter} dischargeStartedEmitter
    * @constructor
    */
-  function SparkNode( sparkVisibleProperty, arm, doorknobPosition, addStepListener, dischargeAlertText, options ) {
+  function SparkNode( model, addStepListener ) {
     var self = this;
-    var alertElement = document.getElementById( options.peerID );
 
     Node.call( this, { pickable: false } );
 
-    sparkVisibleProperty.linkAttribute( this, 'visible' );
+    model.sparkVisibleProperty.linkAttribute( this, 'visible' );
     var whitePath = new Path( null, { stroke: 'white', lineWidth: 4 } );
     var bluePath = new Path( null, { stroke: 'blue', lineWidth: 1 } );
     this.addChild( whitePath );
     this.addChild( bluePath );
+
+    // a11y - whenever a discharge starts, announce as an alert
+    // spark node is created once, no need to dispose
+    model.dischargeStartedEmitter.addListener( function() {
+      AriaHerald.announceAssertiveWithAlert( JohnTravoltageA11yStrings.electronsDischargedString, true );
+    } );
+
+    // clear alert content so that it cannot be found with the virtual cursor when discharge is finished
+    // spark node is created once, no need to dispose
+    model.dischargeEndedEmitter.addListener( function() {
+      AriaHerald.clearAssertiveWithAlert();
+    } );
 
     var numSegments = 10;
     addStepListener( function() {
       if ( self.visible ) {
         var shape = new Shape();
 
-        var point = arm.getFingerPosition();
+        var point = model.arm.getFingerPosition();
         shape.moveToPoint( point );
-        var distanceToTarget = doorknobPosition.distance( point );
+        var distanceToTarget = model.doorknobPosition.distance( point );
         var segmentLength = distanceToTarget / numSegments;
         for ( var i = 0; i < numSegments; i++ ) {
           if ( i === numSegments - 1 ) {
             segmentLength = distanceToTarget;
-            point = doorknobPosition;
+            point = model.doorknobPosition;
           }
           else {
 
             //go 1/numSegments of the remaining distance to the target, in a direction roughly toward the target
-            var delta = doorknobPosition.minus( point ).normalized().timesScalar( segmentLength );
+            var delta = model.doorknobPosition.minus( point ).normalized().timesScalar( segmentLength );
             delta = delta.rotated( phet.joist.random.nextDouble() - 0.5 );
             point = point.plus( delta );
           }
@@ -64,17 +78,6 @@ define( function( require ) {
 
         whitePath.shape = shape;
         bluePath.shape = shape;
-
-        if ( alertElement && !alertElement.textContent ) {
-          alertElement.textContent = dischargeAlertText;
-          // makes the alert discoverable when a discharge occurs
-          alertElement.removeAttribute( 'aria-hidden' );
-        }
-      }
-      else if ( alertElement ) {
-        // removes the alert from the a11y tree after the discharge completes
-        alertElement.setAttribute( 'aria-hidden', true );
-        alertElement.textContent = '';
       }
     } );
   }

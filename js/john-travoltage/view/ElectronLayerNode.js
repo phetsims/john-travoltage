@@ -18,6 +18,7 @@ define( function( require ) {
   var JohnTravoltageA11yStrings = require( 'JOHN_TRAVOLTAGE/john-travoltage/JohnTravoltageA11yStrings' );
   var johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
+  var AriaHerald = require( 'SCENERY_PHET/accessibility/AriaHerald' );
 
   /**
    * @param {JohnTravoltageModel} model
@@ -28,7 +29,10 @@ define( function( require ) {
    */
   function ElectronLayerNode( model, maxElectrons, tandem, options ) {
     var self = this;
-    var statusNode = document.getElementById( options.peerID );
+
+    options = _.extend( {
+      pitchedPopGenerator: null
+    }, options );
 
     Node.call( this, options );
 
@@ -58,23 +62,19 @@ define( function( require ) {
       model.electrons.addItemRemovedListener( itemRemovedListener );
     } );
 
-    if ( statusNode ) {
-      var priorCharge = 0;
+    var priorCharge = 0;
+    var setElectronStatus = function() {
+      var currentCharge = model.electrons.length;
+      var chargeText = currentCharge >= priorCharge ? JohnTravoltageA11yStrings.electronsTotalString : JohnTravoltageA11yStrings.electronsTotalAfterDischargeString;
 
-      var setElectronStatus = function() {
-        var currentCharge = model.electrons.length;
-        var chargeText = currentCharge >= priorCharge ? JohnTravoltageA11yStrings.electronsTotalString : JohnTravoltageA11yStrings.electronsTotalAfterDischargeString;
+      AriaHerald.announcePoliteWithStatus( StringUtils.format( chargeText, currentCharge, priorCharge ), true );
+      priorCharge = currentCharge;
+    };
 
-        statusNode.textContent = '';
-        statusNode.textContent = StringUtils.format( chargeText, currentCharge, priorCharge );
-        priorCharge = currentCharge;
-      };
-
-      // update status whenever an electron is added, and whenever an electron discharge has ended
-      // this node will exist for life of sim so disposal is not necessary
-      model.electrons.addItemAddedListener( setElectronStatus );
-      model.dischargeEndedEmitter.addListener( setElectronStatus );
-    }
+    // update status whenever an electron is added, and whenever an electron discharge has ended
+    // this node will exist for life of sim so disposal is not necessary
+    model.electrons.addItemAddedListener( setElectronStatus );
+    model.dischargeEndedEmitter.addListener( setElectronStatus );
   }
 
   johnTravoltage.register( 'ElectronLayerNode', ElectronLayerNode );

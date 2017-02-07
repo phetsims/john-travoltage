@@ -49,25 +49,11 @@ define( function( require ) {
   /**
    * @param {JohnTravoltageModel} model
    * @param {Tandem} tandem
-   * @param {Object} options
    * @constructor
    */
-  function JohnTravoltageView( model, tandem, options ) {
+  function JohnTravoltageView( model, tandem ) {
     var self = this;
     this.model = model;
-    options = _.extend( {
-
-      //TODO: Once https://github.com/phetsims/john-travoltage/issues/98 has been addressed, update how the peerIDs
-      //are added/referenced by the view.
-      peerIDs: {
-        alert: 'assertive-alert',
-        status: 'polite-status'
-      }
-    }, options );
-
-    // unhide the aria-live elements for use in this sim
-    // TODO: should be handled in common code
-    document.getElementById( 'aria-live-elements' ).hidden = false;
 
     //The sim works best in most browsers using svg.
     //But in firefox on Win8 it is very slow and buggy, so use canvas on firefox.
@@ -120,10 +106,10 @@ define( function( require ) {
     } );
 
     //spark
-    accessibleFormNode.addChild( new SparkNode( model.sparkVisibleProperty, model.arm, model.doorknobPosition,
-      function( listener ) {
-        model.stepEmitter.addListener( listener );
-      }, JohnTravoltageA11yStrings.electronsDischargedString, { peerID: options.peerIDs.alert } ) );
+    accessibleFormNode.addChild( new SparkNode(
+      model,
+      function( listener ) { model.stepEmitter.addListener( listener ); }
+    ) );
 
     //Sound button and reset all button
     var soundToggleButton = new SoundToggleButton( model.soundProperty, {
@@ -160,8 +146,7 @@ define( function( require ) {
     //Split layers before particle layer for performance
     var electronLayer = new ElectronLayerNode( model, JohnTravoltageModel.MAX_ELECTRONS, tandem.createTandem( 'electronLayer' ), {
       layerSplit: true,
-      pickable: false,
-      peerID: options.peerIDs.status
+      pickable: false
     } );
     accessibleFormNode.addChild( electronLayer );
 
