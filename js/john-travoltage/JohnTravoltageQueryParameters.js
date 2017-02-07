@@ -45,7 +45,6 @@ define( function( require ) {
     // shows debug lines which represent the body, and force lines which restrict the charges
     // to stay inside of the body
     showDebugInfo: { type: 'flag' }
-
   } );
 
   johnTravoltage.register( 'JohnTravoltageQueryParameters', JohnTravoltageQueryParameters );
