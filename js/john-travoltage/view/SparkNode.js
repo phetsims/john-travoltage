@@ -21,11 +21,8 @@ define( function( require ) {
   /**
    * Constructor for the SparkNode, which shows the animated spark from the finger to the doorknob when electrons are flowing out.
    *
-   * @param {Property<Boolean>} sparkVisibleProperty true if the spark should be shown
-   * @param {Arm} arm the arm the electrons will flow through
-   * @param {Vector2} doorknobPosition the position of the doorknob
-   * @param {Function} addStepListener function to add a step listener to the model
-   * @param {Emitter} dischargeStartedEmitter
+   * @param {JohnTravoltageModel} model
+   * @param {function} addStepListener
    * @constructor
    */
   function SparkNode( model, addStepListener ) {
