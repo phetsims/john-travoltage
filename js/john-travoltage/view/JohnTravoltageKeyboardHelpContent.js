@@ -42,8 +42,6 @@ define( function( require ) {
    */
   function JohnTravoltageKeyboardHelpContent( tandem ) {
 
-    var content = new Node();
-
     // title
     var titleText = new Text( JohnTravoltageA11yStrings.hotKeysAndHelpString, {
       font: new PhetFont( {
@@ -139,11 +137,10 @@ define( function( require ) {
     } );
 
     // title and content aligned in a VBox
-    var titleContentHBox = new VBox( {
+    var content = new VBox( {
       children: [ titleText, contentHBox ],
       spacing: LAYOUT_SPACING
     } );
-    content.addChild( titleContentHBox );
 
     Panel.call( this, content, {
       stroke: null,
@@ -159,11 +156,9 @@ define( function( require ) {
     var spacerWidth = newCenter - oldCenter + 2 * DIALOG_MARGIN;
     var spacer = new Spacer( spacerWidth, 0 );
     contentHBox.addChild( spacer );
-
   }
 
   johnTravoltage.register( 'JohnTravoltageKeyboardHelpContent', JohnTravoltageKeyboardHelpContent );
 
   return inherit( Panel, JohnTravoltageKeyboardHelpContent );
-
 } );
