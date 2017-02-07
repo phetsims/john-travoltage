@@ -146,6 +146,11 @@ define( function( require ) {
       phetioArgumentTypes: []
     } );
 
+    this.dischargeStartedEmitter = new TandemEmitter( {
+      tandem: tandem.createTandem( 'dischargeStartedEmitter' ),
+      phetioArgumentTypes: []
+    } );
+
     // TODO: Sounds should be in the view, not in the model.
     this.sounds = [
       new Sound( shockOuchAudio ),
@@ -277,6 +282,12 @@ define( function( require ) {
       if ( this.electronsToRemove.length ) {
         this.sparkVisibleProperty.set( true );
       }
+      if ( !wasSpark && this.sparkVisible ) {
+
+        // spark is just turning visible, notify that a dischage has started
+        this.dischargeStartedEmitter.emit();
+      }
+
       while ( this.electronsToRemove.length ) {
         this.removeElectron( this.electronsToRemove.pop() );
       }
