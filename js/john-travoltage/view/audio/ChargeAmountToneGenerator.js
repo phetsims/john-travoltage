@@ -6,7 +6,7 @@
  * TODO: more about what we need to do.
  *
  * TODO: This got hacked up a lot in the process of getting the 6/21 demo out, needs to be overhauled once we decide
- * TODO: which directtion in which the take this.
+ * TODO: which direction in which the take this.
  */
 define( function( require ) {
   'use strict';
