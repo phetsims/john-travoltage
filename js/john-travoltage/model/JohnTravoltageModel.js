@@ -22,11 +22,9 @@ define( function( require ) {
   var Emitter = require( 'AXON/Emitter' );
   var TandemEmitter = require( 'TANDEM/axon/TandemEmitter' );
   var BooleanProperty = require( 'AXON/BooleanProperty' );
-  var NumberProperty = require( 'AXON/NumberProperty' );
 
   // phet-io modules
   var TJohnTravoltageModel = require( 'ifphetio!PHET_IO/simulations/john-travoltage/TJohnTravoltageModel' );
-  var TNumber = require( 'ifphetio!PHET_IO/types/TNumber' );
 
   // constants
   var MAX_ELECTRONS = 100;
