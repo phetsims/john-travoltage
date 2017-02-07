@@ -14,6 +14,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Vector2 = require( 'DOT/Vector2' );
   var johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
+  var Range = require( 'DOT/Range' );
 
   // phet-io modules
   var TNumber = require( 'ifphetio!PHET_IO/types/TNumber' );
@@ -26,7 +27,7 @@ define( function( require ) {
     this.initialAngle = 1.3175443221852239;
     this.angleProperty = new NumberProperty( this.initialAngle, {
       tandem: tandem.createTandem( 'angleProperty' ),
-      phetioValueType: TNumber( 'radians' )
+      phetioValueType: TNumber( { units: 'radians', range: new Range( 0, Math.PI ) } )
     } );
 
     this.angularVelocityProperty = new NumberProperty( 0, {
