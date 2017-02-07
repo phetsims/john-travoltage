@@ -67,7 +67,7 @@ define( function( require ) {
       layoutBounds: new Bounds2( 0, 0, 768, 504 ),
 
       // a11y
-      accessibleLabel: johnTravoltageTitleString,
+      accessibleLabel: johnTravoltageTitleString
     } );
 
     //add background elements
