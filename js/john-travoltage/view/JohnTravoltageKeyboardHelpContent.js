@@ -24,7 +24,6 @@ define( function( require ) {
   var PlusNode = require( 'SCENERY_PHET/PlusNode' );
   var HBox = require( 'SCENERY/nodes/HBox' );
   var VBox = require( 'SCENERY/nodes/VBox' );
-  var Node = require( 'SCENERY/nodes/Node' );
   var Spacer = require( 'SCENERY/nodes/Spacer' );
   var AlignGroup = require( 'SCENERY/nodes/AlignGroup' );
 
@@ -69,7 +68,7 @@ define( function( require ) {
     // shift and tab keys, separated by plus sign
     var shiftKeyIconNode = new ShiftKeyNode( {
       minKeyWidth: TEXT_KEY_WIDTH, // in ScreenView coordinates
-      maxKeyWidth: TEXT_KEY_WIDTH,
+      maxKeyWidth: TEXT_KEY_WIDTH
     } );
     var plusIconNode = new PlusNode( {
       size: new Dimension2( 10, 1.5 )
