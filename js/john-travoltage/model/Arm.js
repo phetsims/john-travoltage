@@ -14,6 +14,7 @@ define( function( require ) {
   var NumberProperty = require( 'AXON/NumberProperty' );
   var inherit = require( 'PHET_CORE/inherit' );
   var johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
+  var Range = require( 'DOT/Range' );
 
   // phet-io modules
   var TNumber = require( 'ifphetio!PHET_IO/types/TNumber' );
@@ -27,7 +28,7 @@ define( function( require ) {
     // @public (read-only) the angle of the arm.
     this.angleProperty = new NumberProperty( -0.5, {
       tandem: tandem.createTandem( 'angleProperty' ),
-      phetioValueType: TNumber( { units: 'radians' } )
+      phetioValueType: TNumber( { units: 'radians', range: new Range( -Math.PI, Math.PI ) } )
     } );
 
     // Arm pivot (elbow point) sampled using DebugPositions.js
