@@ -152,7 +152,8 @@ define( function( require ) {
       stroke: 'green',
       lineWidth: 2,
       lineDash: [ 10, 10 ],
-      pickable: false
+      pickable: false,
+      tandem: tandem.createTandem( 'border' )
     } );
     this.addChild( this.border );
 
@@ -172,7 +173,11 @@ define( function( require ) {
     }
 
     // a11y
-    var focusCircle = new Circle( imageNode.width / 2, { stroke: FocusOverlay.innerFocusColor, lineWidth: 5 } );
+    var focusCircle = new Circle( imageNode.width / 2, {
+      stroke: FocusOverlay.innerFocusColor,
+      lineWidth: 5,
+      tandem: tandem.createTandem( 'focusCircle' )
+    } );
     this.focusHighlight = focusCircle;
 
     // limit ranges of input for the leg
@@ -233,7 +238,7 @@ define( function( require ) {
     } );
 
     var updatePosition = function( angle ) {
-      var position = self.angleToPosition( appendage.angleProperty.get(), keyboardMotion.totalRange, keyboardMotion.max, options.keyboardMidPointOffset );
+      var position = self.angleToPosition( angle, keyboardMotion.totalRange, keyboardMotion.max, options.keyboardMidPointOffset );
       var positionDescription = self.getPositionDescription( position, rangeMap );
       self.setInputValue( position );
       self.setAccessibleAttribute( 'aria-valuetext', StringUtils.format( JohnTravoltageA11yStrings.positionTemplateString, position, positionDescription ) );
@@ -245,7 +250,6 @@ define( function( require ) {
 
     // Updates the PDOM with changes in the model
     appendage.angleProperty.link( updatePosition );
-
   }
 
   johnTravoltage.register( 'AppendageNode', AppendageNode );
