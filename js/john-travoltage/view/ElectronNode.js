@@ -21,9 +21,10 @@ define( function( require ) {
   var Vector2 = require( 'DOT/Vector2' );
   var johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
 
+  // constants
   var radius = Electron.radius;
 
-  //Scale up before rasterization so it won't be too pixellated/fuzzy
+  //Scale up before rasterization so it won't be too pixelated/fuzzy
   var scale = 2;
 
   var minusChargeNode = new Node( {
@@ -67,10 +68,10 @@ define( function( require ) {
 
   var debugPosition = false;
 
-  function ElectronNode( electron, leg, arm ) {
+  function ElectronNode( electron, leg, arm, tandem ) {
     var self = this;
 
-    Node.call( this, { pickable: false } );
+    Node.call( this, { pickable: false, tandem: tandem } );
 
     this.addChild( node );
     node.centerX = 0;
@@ -179,14 +180,23 @@ define( function( require ) {
     electron.historyChangedEmitter.addListener( updatePositionBound );
 
     var disposeListener = function() {
+      self.dispose();
+    };
+    electron.disposeEmitter.addListener( disposeListener );
+
+    this.disposeElectronNode = function() {
       electron.positionProperty.unlink( updatePosition );
       electron.historyChangedEmitter.removeListener( updatePositionBound );
       electron.disposeEmitter.removeListener( disposeListener );
     };
-    electron.disposeEmitter.addListener( disposeListener );
   }
 
   johnTravoltage.register( 'ElectronNode', ElectronNode );
 
-  return inherit( Node, ElectronNode );
+  return inherit( Node, ElectronNode, {
+    dispose: function() {
+      this.disposeElectronNode();
+      Node.prototype.dispose.call( this );
+    }
+  } );
 } );

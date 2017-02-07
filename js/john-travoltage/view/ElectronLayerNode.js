@@ -40,7 +40,7 @@ define( function( require ) {
     model.electrons.addItemAddedListener( function( added ) {
 
       // and the visual representation of the electron
-      var newElectron = new ElectronNode( added, model.leg, model.arm );
+      var newElectron = new ElectronNode( added, model.leg, model.arm, tandem.createTandem( added.electronTandem.tail ) );
       added.viewNode = newElectron;
       self.addChild( newElectron );
 

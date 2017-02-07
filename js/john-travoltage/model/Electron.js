@@ -78,6 +78,9 @@ define( function( require ) {
       self.disposeEmitter.emit();
       self.positionProperty.dispose();
     };
+
+    // @public (read-only)
+    this.electronTandem = tandem;
   }
 
   johnTravoltage.register( 'Electron', Electron );
