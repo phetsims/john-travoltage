@@ -46,50 +46,73 @@ define( function( require ) {
       font: new PhetFont( {
         weight: 'bold',
         size: 20
-      } )
+      } ),
+      tandem: tandem.createTandem( 'titleText' )
     } );
 
     // icons
     // arrow keys, separated by 'or' text
-    var leftArrowKeyNode = new ArrowKeyNode( 'left' );
-    var rightArrowKeyNode = new ArrowKeyNode( 'right' );
-    var orText = new Text( JohnTravoltageA11yStrings.orString, { font: new PhetFont( 12 ) } );
+    var leftArrowKeyNode = new ArrowKeyNode( 'left', {
+      tandem: tandem.createTandem( 'leftArrowKeyNode' )
+    } );
+    var rightArrowKeyNode = new ArrowKeyNode( 'right', {
+      tandem: tandem.createTandem( 'rightArrowKeyNode' )
+    } );
+    var orText = new Text( JohnTravoltageA11yStrings.orString, {
+      font: new PhetFont( 12 ),
+      tandem: tandem.createTandem( 'orText' )
+    } );
     var arrowKeysIconHBox = new HBox( {
       children: [ leftArrowKeyNode, orText, rightArrowKeyNode ],
-      spacing: LAYOUT_SPACING
+      spacing: LAYOUT_SPACING,
+      tandem: tandem.createTandem( 'arrowKeysIconHBox' )
     } );
 
     // single tab key
     var singleTabKeyIcon = new TabKeyNode( {
       minKeyWidth: TEXT_KEY_WIDTH, // in ScreenView coordinates
-      maxKeyWidth: TEXT_KEY_WIDTH
+      maxKeyWidth: TEXT_KEY_WIDTH,
+      tandem: tandem.createTandem( 'singleTabKeyIcon' )
     } );
 
     // shift and tab keys, separated by plus sign
-    var shiftKeyIconNode = new ShiftKeyNode( {
+    var shiftKeyIcon = new ShiftKeyNode( {
       minKeyWidth: TEXT_KEY_WIDTH, // in ScreenView coordinates
-      maxKeyWidth: TEXT_KEY_WIDTH
+      maxKeyWidth: TEXT_KEY_WIDTH,
+      tandem: tandem.createTandem( 'shiftKeyIcon' )
     } );
     var plusIconNode = new PlusNode( {
-      size: new Dimension2( 10, 1.5 )
+      size: new Dimension2( 10, 1.5 ),
+      tandem: tandem.createTandem( 'plusIconNode' )
     } );
     var shiftPlusTabIconHBox = new HBox( {
-      children: [ shiftKeyIconNode, plusIconNode, new TabKeyNode( {
+      children: [ shiftKeyIcon, plusIconNode, new TabKeyNode( {
         minKeyWidth: TEXT_KEY_WIDTH,
         maxKeyWidth: TEXT_KEY_WIDTH
       } ) ],
-      spacing: 10
+      spacing: 10,
+      tandem: tandem.createTandem( 'shiftPlusTabIconHBox' )
     } );
 
     // escape key
-    var escapeKeyIconNode = new EscapeKeyNode();
+    var escapeKeyIconNode = new EscapeKeyNode( {
+      tandem: tandem.createTandem( 'escapeKeyNode' )
+    } );
 
     // descriptions
     var descriptionOptions = { font: DESCRIPTION_FONT };
-    var arrowKeyDescription = new HTMLText( JohnTravoltageA11yStrings.arrowKeysMoveFootString, descriptionOptions );
-    var tabKeyDescription = new HTMLText( JohnTravoltageA11yStrings.tabKeyDescriptionString, descriptionOptions );
-    var shiftPlusTabDescription = new HTMLText( JohnTravoltageA11yStrings.shiftTabKeyDescriptionString, descriptionOptions );
-    var escapeKeyDescription = new HTMLText( JohnTravoltageA11yStrings.escapeKeyDescriptionString, descriptionOptions );
+    var arrowKeyDescription = new HTMLText( JohnTravoltageA11yStrings.arrowKeysMoveFootString, _.extend( {
+      tandem: tandem.createTandem( 'arrowKeyDescription' )
+    }, descriptionOptions ) );
+    var tabKeyDescription = new HTMLText( JohnTravoltageA11yStrings.tabKeyDescriptionString, _.extend( {
+      tandem: tandem.createTandem( 'tabKeyDescription' )
+    }, descriptionOptions ) );
+    var shiftPlusTabDescription = new HTMLText( JohnTravoltageA11yStrings.shiftTabKeyDescriptionString, _.extend( {
+      tandem: tandem.createTandem( 'shiftPlusTabDescription' )
+    }, descriptionOptions ) );
+    var escapeKeyDescription = new HTMLText( JohnTravoltageA11yStrings.escapeKeyDescriptionString, _.extend( {
+      tandem: tandem.createTandem( 'escapeKeyDescription' )
+    }, descriptionOptions ) );
 
     /**
      * Align the icon and its description vertically by placing in a vertical align group
@@ -118,27 +141,31 @@ define( function( require ) {
     var iconVBox = new VBox( {
       children: [ arrowKeyContentRow.icon, tabKeyContentRow.icon, shiftPlusTabContentRow.icon, escapeKeyContentRow.icon ],
       align: 'right',
-      spacing: ICON_VERTICAL_SPACING
+      spacing: ICON_VERTICAL_SPACING,
+      tandem: tandem.createTandem( 'iconVBox' )
     } );
 
-    // place descriptions in a left aligned hbox
+    // place descriptions in a left aligned box
     var descriptionVBox = new VBox( {
       children: [ arrowKeyContentRow.description, tabKeyContentRow.description, shiftPlusTabContentRow.description, escapeKeyContentRow.description ],
       align: 'left',
-      spacing: ICON_VERTICAL_SPACING
+      spacing: ICON_VERTICAL_SPACING,
+      tandem: tandem.createTandem( 'descriptionVBox' )
     } );
 
-    // the two boxes are aligedn horizontally, vertical spacing is guaranteed 
+    // the two boxes are aligned horizontally, vertical spacing is guaranteed
     // to be corrected by the AlignGroup
     var contentHBox = new HBox( {
       children: [ iconVBox, descriptionVBox ],
-      spacing: 15
+      spacing: 15,
+      tandem: tandem.createTandem( 'contentHBox' )
     } );
 
     // title and content aligned in a VBox
     var content = new VBox( {
       children: [ titleText, contentHBox ],
-      spacing: LAYOUT_SPACING
+      spacing: LAYOUT_SPACING,
+      tandem: tandem.createTandem( 'content' )
     } );
 
     Panel.call( this, content, {
@@ -153,8 +180,9 @@ define( function( require ) {
     var oldCenter = contentHBox.centerX;
     var newCenter = descriptionVBox.centerX;
     var spacerWidth = newCenter - oldCenter + 2 * DIALOG_MARGIN;
-    var spacer = new Spacer( spacerWidth, 0 );
-    contentHBox.addChild( spacer );
+    contentHBox.addChild( new Spacer( spacerWidth, 0, {
+      tandem: tandem.createTandem( 'spacer' )
+    } ) );
   }
 
   johnTravoltage.register( 'JohnTravoltageKeyboardHelpContent', JohnTravoltageKeyboardHelpContent );
