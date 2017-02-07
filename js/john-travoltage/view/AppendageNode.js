@@ -25,6 +25,7 @@ define( function( require ) {
   var JohnTravoltageQueryParameters = require( 'JOHN_TRAVOLTAGE/john-travoltage/JohnTravoltageQueryParameters' );
   var JohnTravoltageA11yStrings = require( 'JOHN_TRAVOLTAGE/john-travoltage/JohnTravoltageA11yStrings' );
   var FocusOverlay = require( 'SCENERY/overlays/FocusOverlay' );
+  var AriaHerald = require( 'SCENERY_PHET/accessibility/AriaHerald' );
   var Sound = require( 'VIBE/Sound' );
   var TandemSimpleDragHandler = require( 'TANDEM/scenery/input/TandemSimpleDragHandler' );
 
@@ -201,9 +202,7 @@ define( function( require ) {
 
     // set up a relationship between the appendage and the 'status' alert so that JAWS users can quickly navigate
     // to the status element
-    // TODO: Not sure if this is necessary, see #181
-    // NOTE: If necessary, AriaHerald should handle this
-    this.setAccessibleAttribute( 'aria-controls', 'polite-status' );
+    this.setAccessibleAttribute( 'aria-controls', AriaHerald.POLITE_STATUS_ELEMENT_ID );
 
     // Due to the variability of input and change event firing across browsers,
     // it is necessary to track if the input event was fired and if not, to
