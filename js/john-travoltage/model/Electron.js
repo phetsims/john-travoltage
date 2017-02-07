@@ -74,7 +74,7 @@ define( function( require ) {
     }
 
     this.disposeElectron = function() {
-      tandem.removeInstance( this );
+      tandem.removeInstance( self );
       self.disposeEmitter.emit();
       self.positionProperty.dispose();
     };
