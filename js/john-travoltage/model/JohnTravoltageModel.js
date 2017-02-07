@@ -98,10 +98,6 @@ define( function( require ) {
     this.sparkVisibleProperty = new BooleanProperty( false, {
       tandem: tandem.createTandem( 'sparkVisibleProperty' )
     } );
-    this.legAngularVelocityProperty = new NumberProperty( 0, { // TODO: move to leg
-      tandem: tandem.createTandem( 'legAngularVelocityProperty' ),
-      phetioValueType: TNumber( { units: 'radians/second' } )
-    } );
 
     // true when the foot is being dragged and is in contact with the carpet
     this.shoeOnCarpetProperty = new BooleanProperty( false, {
@@ -189,7 +185,6 @@ define( function( require ) {
 
       //Properties of the model.  All user settings belong in the model, whether or not they are part of the physical model
       this.sparkVisibleProperty.reset();
-      this.legAngularVelocityProperty.reset();
       this.shoeOnCarpetProperty.reset();
       this.soundProperty.reset();
       this.arm.reset();
@@ -287,7 +282,7 @@ define( function( require ) {
         }
       }
 
-      this.legAngularVelocityProperty.set( ( this.leg.angleProperty.get() - this.legAngleAtPreviousStep ) / dt );
+      this.leg.angularVelocityProperty.set( ( this.leg.angleProperty.get() - this.legAngleAtPreviousStep ) / dt );
       this.legAngleAtPreviousStep = this.leg.angleProperty.get();
       this.shoeOnCarpetProperty.set( ( this.leg.angleProperty.get() > FOOT_ON_CARPET_MIN_ANGLE && this.leg.angleProperty.get() < FOOT_ON_CARPET_MAX_ANGLE  ) );
 

@@ -135,7 +135,7 @@ define( function( require ) {
         shoeDragSoundToPlay = null;
       }
       else {
-        if ( this.model.legAngularVelocityProperty.get() === 0 ) {
+        if ( this.model.leg.angularVelocityProperty.get() === 0 ) {
 
           // implement a bit of hysteresis for turning the sound on and off, otherwise it can start and stop too often
           this.legStillTime += dt;
@@ -145,7 +145,7 @@ define( function( require ) {
         }
         else {
           this.legStillTime = 0;
-          shoeDragSoundToPlay = this.model.legAngularVelocityProperty.get() > 0 ?
+          shoeDragSoundToPlay = this.model.leg.angularVelocityProperty.get() > 0 ?
                                 this.shoeDraggingBackwardOnCarpetSound :
                                 this.shoeDraggingForwardOnCarpetSound;
         }
