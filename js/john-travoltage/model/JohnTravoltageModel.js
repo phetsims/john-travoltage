@@ -1,4 +1,4 @@
-// Copyright 2013-2015, University of Colorado Boulder
+// Copyright 2013-2017, University of Colorado Boulder
 
 /**
  * Model for John Travoltage.
@@ -16,7 +16,6 @@ define( function( require ) {
   var LineSegment = require( 'JOHN_TRAVOLTAGE/john-travoltage/model/LineSegment' );
   var ObservableArray = require( 'AXON/ObservableArray' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var Sound = require( 'VIBE/Sound' );
   var Vector2 = require( 'DOT/Vector2' );
   var Util = require( 'DOT/Util' );
   var johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
@@ -28,10 +27,6 @@ define( function( require ) {
   // phet-io modules
   var TJohnTravoltageModel = require( 'ifphetio!PHET_IO/simulations/john-travoltage/TJohnTravoltageModel' );
   var TNumber = require( 'ifphetio!PHET_IO/types/TNumber' );
-
-  // audio
-  var shockOuchAudio = require( 'audio!JOHN_TRAVOLTAGE/shock-ouch' );
-  var shockAudio = require( 'audio!JOHN_TRAVOLTAGE/shock' );
 
   // constants
   var MAX_ELECTRONS = 100;
@@ -120,12 +115,6 @@ define( function( require ) {
       tandem: tandem.createTandem( 'soundProperty' )
     } );
 
-    this.sparkVisibleProperty.link( function( sparkVisible ) {
-      if ( sparkVisible && self.soundProperty.get() ) {
-        self.sounds[ Math.floor( phet.joist.random.nextDouble() * 2 ) ].play();
-      }
-    } );
-
     this.electrons = new ObservableArray();
     this.arm = new Arm( tandem.createTandem( 'arm' ) );
     this.leg = new Leg( tandem.createTandem( 'leg' ) );
@@ -150,12 +139,6 @@ define( function( require ) {
       tandem: tandem.createTandem( 'dischargeStartedEmitter' ),
       phetioArgumentTypes: []
     } );
-
-    // TODO: Sounds should be in the view, not in the model.
-    this.sounds = [
-      new Sound( shockOuchAudio ),
-      new Sound( shockAudio )
-    ];
 
     //If leg dragged across carpet, add electron.  Lazy link so that it won't add an electron when the sim starts up.
     //The number of electrons accumulated only depends on the total angle subtended

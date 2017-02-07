@@ -35,6 +35,11 @@ define( function( require ) {
   var JohnTravoltageAudio = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/audio/JohnTravoltageAudio' );
   var JohnTravoltageModel = require( 'JOHN_TRAVOLTAGE/john-travoltage/model/JohnTravoltageModel' );
   var johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
+  var Sound = require( 'VIBE/Sound' );
+
+  // audio
+  var shockOuchAudio = require( 'audio!JOHN_TRAVOLTAGE/shock-ouch' );
+  var shockAudio = require( 'audio!JOHN_TRAVOLTAGE/shock' );
 
   // images
   var arm = require( 'image!JOHN_TRAVOLTAGE/arm.png' );
@@ -203,6 +208,17 @@ define( function( require ) {
 
       new DebugPositions().debugLineSegments( this );
     }
+
+    this.sounds = [
+      new Sound( shockOuchAudio ),
+      new Sound( shockAudio )
+    ];
+
+    model.sparkVisibleProperty.link( function( sparkVisible ) {
+      if ( sparkVisible && model.soundProperty.get() ) {
+        self.sounds[ Math.floor( phet.joist.random.nextDouble() * 2 ) ].play();
+      }
+    } );
   }
 
   johnTravoltage.register( 'JohnTravoltageView', JohnTravoltageView );
