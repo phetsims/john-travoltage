@@ -156,7 +156,7 @@ define( function( require ) {
       var next = this.bodyVertices[ i + 1 ];
       array.push( new LineSegment( current.x, current.y, next.x, next.y ) );
     }
-    //TODO: store, do not reallocate
+
     var lineSegment = new LineSegment( this.bodyVertices[ this.bodyVertices.length - 1 ].x, this.bodyVertices[ this.bodyVertices.length - 1 ].y, this.bodyVertices[ 0 ].x, this.bodyVertices[ 0 ].y );
     array.push( lineSegment );
     this.lineSegments = array;
