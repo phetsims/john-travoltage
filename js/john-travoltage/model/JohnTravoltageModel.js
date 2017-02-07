@@ -41,7 +41,6 @@ define( function( require ) {
     this.electronsToRemove = [];
 
     //vertices of path, border of body, sampled using a listener in DebugPositions
-    //If you regenerate these, also fix: lineSegmentIndexForSleeve below
     this.bodyVertices = [ new Vector2( 422.21508828250404, 455.370786516854 ),
       new Vector2( 403.10754414125205, 424.5521669341895 ),
       new Vector2( 379.68539325842704, 328.3980738362762 ),
@@ -161,7 +160,6 @@ define( function( require ) {
     var lineSegment = new LineSegment( this.bodyVertices[ this.bodyVertices.length - 1 ].x, this.bodyVertices[ this.bodyVertices.length - 1 ].y, this.bodyVertices[ 0 ].x, this.bodyVertices[ 0 ].y );
     array.push( lineSegment );
     this.lineSegments = array;
-    this.lineSegmentIndexForSleeve = 22;
 
     this.electronGroupTandem = tandem.createGroupTandem( 'electron' ); // @private
 
