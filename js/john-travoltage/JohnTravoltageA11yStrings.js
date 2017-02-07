@@ -36,7 +36,7 @@ define( function( require ) {
     // appendage positions
     armSliderLabelString: 'Hand position',
     legSliderLabelString: 'Leg swing',
-    electronsDischargedString: 'electrons discharged',
+    electronsDischargedString: 'electrons discharged'
   };
 
   // verify that object is immutable, without the runtime penalty in production code
