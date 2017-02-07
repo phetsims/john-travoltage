@@ -95,9 +95,6 @@ define( function( require ) {
     this.doorknobPosition = new Vector2( 548.4318903113076, 257.5894162536105 );
 
     //Properties of the model.  All user settings belong in the model, whether or not they are part of the physical model
-    this.sparkProperty = new BooleanProperty( false, {  // TODO: What is sparkVisible vs sparkProperty
-      tandem: tandem.createTandem( 'sparkProperty' )
-    } );
     this.sparkVisibleProperty = new BooleanProperty( false, {
       tandem: tandem.createTandem( 'sparkVisibleProperty' )
     } );
@@ -184,9 +181,13 @@ define( function( require ) {
 
   return inherit( Object, JohnTravoltageModel, {
 
+    /**
+     * Reset the model when "Reset All" is pressed.
+     * @public
+     */
     reset: function() {
+
       //Properties of the model.  All user settings belong in the model, whether or not they are part of the physical model
-      this.sparkProperty.reset();
       this.sparkVisibleProperty.reset();
       this.legAngularVelocityProperty.reset();
       this.shoeOnCarpetProperty.reset();
