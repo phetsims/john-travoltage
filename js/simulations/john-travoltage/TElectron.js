@@ -27,13 +27,17 @@ define( function( require ) {
 
     toStateObject: function( value ) {
       return {
-        history: value.history
+        history: value.history,
+        velocityX: value.velocity.x,
+        velocityY: value.velocity.y
       };
     },
 
     setValue: function( instance, value ) {
       assert && assert( value.history, 'value should have history' );
       instance.history = value.history;
+      instance.velocity.x = value.velocityX;
+      instance.velocity.y = value.velocityY;
 
       // Trigger a computation of screen position
       instance.historyChangedEmitter.emit();
