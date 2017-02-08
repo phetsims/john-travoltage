@@ -40,7 +40,11 @@ define( function( require ) {
     //        electron added/removed - mild 'pop' sound when electron is added or removed
     //        leg range limit reached - bonk
     //        max electrons reached - longer pitch matching last electron added sound 
-    sonification: { type: 'string', defaultValue: 'none', validValues: [ 'none', 'piano', 'pitch', 'jostle', 'transformer' ] },
+    sonification: {
+      type: 'string',
+      defaultValue: 'none',
+      validValues: [ 'none', 'piano', 'pitch', 'jostle', 'transformer' ]
+    },
 
     // shows debug lines which represent the body, and force lines which restrict the charges
     // to stay inside of the body
