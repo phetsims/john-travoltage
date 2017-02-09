@@ -35,7 +35,7 @@ define( function( require ) {
    * @param {JohnTravoltageModel} model
    * TODO: The arm view is needed because the model doesn't track if user is dragging it, consider changing this and using model instead
    * @param {AppendageNode} armView - view of arm, needed to determine whether arm is in motion
-   * @param {number} sonificationControl - controls which sounds to play, see JohnTravoltageQueryParameters and code below for details
+   * @param {string} sonificationControl - ['none'|'piano'|'pitch'|'jostle'|'transformer'], see JohnTravoltageQueryParameters
    * @constructor
    */
   function JohnTravoltageAudio( model, armView, sonificationControl ) {
