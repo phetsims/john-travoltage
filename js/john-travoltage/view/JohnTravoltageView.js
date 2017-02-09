@@ -122,13 +122,6 @@ define( function( require ) {
       tandem: tandem.createTandem( 'soundToggleButton' )
     } );
 
-    // when the sound property changes, toggle the 'aria-pressed' state
-    // linked lazily as the parallel domElement won't exist in the document until
-    // after instantiation
-    // model.soundProperty.lazyLink( function( pressed ) {
-    //   document.getElementById( 'sound-button' ).setAttribute( 'aria-pressed', !pressed );
-    // } );
-
     var resetAllButton = new ResetAllButton( {
       listener: model.reset.bind( model ),
       scale: 1.32,
