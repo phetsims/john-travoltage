@@ -191,7 +191,7 @@ define( function( require ) {
     this.setInputValue( rangeValue );
 
     // set up a relationship between the appendage and the 'status' alert so that JAWS users can quickly navigate
-    // to the status element
+    // to the status element after interacting with the appendage
     this.setAccessibleAttribute( 'aria-controls', AriaHerald.POLITE_STATUS_ELEMENT_ID );
 
     // Due to the variability of input and change event firing across browsers,
