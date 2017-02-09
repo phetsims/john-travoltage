@@ -257,7 +257,7 @@ define( function( require ) {
       if ( this.electronsToRemove.length ) {
         this.sparkVisibleProperty.set( true );
       }
-      if ( !wasSpark && this.sparkVisible ) {
+      if ( !wasSpark && this.sparkVisibleProperty.get() ) {
 
         // spark is just turning visible, notify that a dischage has started
         this.dischargeStartedEmitter.emit();
