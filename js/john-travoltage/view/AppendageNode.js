@@ -218,7 +218,7 @@ define( function( require ) {
         self.dragging = true;
       },
       blur: function( event ) {
-        self.dragging = 'false';
+        self.dragging = false;
       }
     } );
 
