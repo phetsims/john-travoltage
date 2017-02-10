@@ -204,6 +204,7 @@ define( function( require ) {
       self.border.visible = false;
     };
 
+    // appendages exist for life of sim, no need to remove listener
     this.addAccessibleInputListener( {
       input: function( event ) {
         rotateAppendage();
