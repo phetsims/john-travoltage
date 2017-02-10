@@ -36,6 +36,7 @@ define( function( require ) {
   var JohnTravoltageModel = require( 'JOHN_TRAVOLTAGE/john-travoltage/model/JohnTravoltageModel' );
   var johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
   var Sound = require( 'VIBE/Sound' );
+  var AriaHerald = require( 'SCENERY_PHET/accessibility/AriaHerald' );
 
   // audio
   var shockOuchAudio = require( 'audio!JOHN_TRAVOLTAGE/shock-ouch' );
@@ -123,7 +124,13 @@ define( function( require ) {
     } );
 
     var resetAllButton = new ResetAllButton( {
-      listener: model.reset.bind( model ),
+      listener: function() {
+        model.reset();
+        // model.reset.bind( model )
+
+        // clear status content
+        AriaHerald.clearPoliteWithStatus();
+      },
       scale: 1.32,
       tandem: tandem.createTandem( 'resetAllButton' )
     } );
