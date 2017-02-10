@@ -194,9 +194,9 @@ define( function( require ) {
     // to the status element after interacting with the appendage
     this.setAccessibleAttribute( 'aria-controls', AriaHerald.POLITE_STATUS_ELEMENT_ID );
 
-    // Due to the variability of input and change event firing across browsers,
-    // it is necessary to track if the input event was fired and if not, to
-    // handle the change event instead.
+    // Due to the variability of input and change event firing across browsers, it is necessary to track if the input
+    // event was fired and if not, to handle the change event instead. If both events fire, the input event will fire
+    // first.
     // see: https://wiki.fluidproject.org/pages/viewpage.action?pageId=61767683
     var keyboardEventHandled = false;
     var rotateAppendage = function() {
@@ -205,16 +205,16 @@ define( function( require ) {
     };
 
     this.addAccessibleInputListener( {
+      input: function( event ) {
+        rotateAppendage();
+        keyboardEventHandled = true;
+        self.dragging = true;
+      },
       change: function( event ) {
         if ( !keyboardEventHandled ) {
           rotateAppendage();
         }
         keyboardEventHandled = false;
-        self.dragging = true;
-      },
-      input: function( event ) {
-        rotateAppendage();
-        keyboardEventHandled = true;
         self.dragging = true;
       },
       blur: function( event ) {
