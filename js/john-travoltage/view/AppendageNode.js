@@ -194,17 +194,18 @@ define( function( require ) {
     // to the status element after interacting with the appendage
     this.setAccessibleAttribute( 'aria-controls', AriaHerald.POLITE_STATUS_ELEMENT_ID );
 
-    // Due to the variability of input and change event firing across browsers, it is necessary to track if the input
-    // event was fired and if not, to handle the change event instead. If both events fire, the input event will fire
-    // first.
-    // see: https://wiki.fluidproject.org/pages/viewpage.action?pageId=61767683
+    // a11y - the keyboard motion treats the appendages like range slider, this function maps the range value to the
+    // correct rotation.
     var keyboardEventHandled = false;
     var rotateAppendage = function() {
-      appendage.angleProperty.set( self.positionToAngle( self.domElement.value, keyboardMotion.totalRange, options.keyboardMidPointOffset ) );
+      appendage.angleProperty.set( self.positionToAngle( self.inputValue, keyboardMotion.totalRange, options.keyboardMidPointOffset ) );
       self.border.visible = false;
     };
 
-    // appendages exist for life of sim, no need to remove listener
+    // Due to the variability of input and change event firing across browsers, it is necessary to track if the input
+    // event was fired and if not, to handle the change event instead. If both events fire, the input event will fire
+    // first. AppendageNodes exist for life of sim, no need to dispose.
+    // see: https://wiki.fluidproject.org/pages/viewpage.action?pageId=61767683
     this.addAccessibleInputListener( {
       input: function( event ) {
         rotateAppendage();
