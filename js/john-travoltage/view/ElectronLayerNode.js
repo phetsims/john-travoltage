@@ -41,7 +41,6 @@ define( function( require ) {
 
       // and the visual representation of the electron
       var newElectron = new ElectronNode( added, model.leg, model.arm, tandem.createTandem( added.electronTandem.tail ) );
-      added.viewNode = newElectron;
       self.addChild( newElectron );
 
       // play the sound that indicates that an electron was added
@@ -77,6 +76,7 @@ define( function( require ) {
     model.dischargeEndedEmitter.addListener( setElectronStatus );
 
     // when the model is reset, update prior charge - disposal not necessary
+    // 
     model.resetEmitter.addListener( function() {
       priorCharge = 0;
     } );
