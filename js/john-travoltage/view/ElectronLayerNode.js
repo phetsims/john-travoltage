@@ -75,6 +75,11 @@ define( function( require ) {
     // this node will exist for life of sim so disposal is not necessary
     model.electrons.addItemAddedListener( setElectronStatus );
     model.dischargeEndedEmitter.addListener( setElectronStatus );
+
+    // when the model is reset, update prior charge - disposal not necessary
+    model.resetEmitter.addListener( function() {
+      priorCharge = 0;
+    } );
   }
 
   johnTravoltage.register( 'ElectronLayerNode', ElectronLayerNode );
