@@ -244,13 +244,16 @@ define( function( require ) {
   return inherit( Node, AppendageNode, {}, {
 
     /**
-     * Compute the distance (in radians) between angles a and b, using an inlined dot product (inlined to remove allocations)
+     * Compute the distance (in radians) between angles a and b.
+     * @param {number} a - first angle (radians)
+     * @param {number} b - second angle (radians)
+     * 
      * @private
      * @static
      */
     distanceBetweenAngles: function( a, b ) {
-      var dotProduct = Math.cos( a ) * Math.cos( b ) + Math.sin( a ) * Math.sin( b );
-      return Math.acos( dotProduct );
+      var diff = Math.abs( a - b ) % ( Math.PI * 2 );
+      return Math.min( Math.abs( diff - Math.PI * 2 ), diff );
     },
 
     /**
