@@ -86,6 +86,13 @@ define( function( require ) {
   johnTravoltage.register( 'Electron', Electron );
 
   return inherit( Object, Electron, {
+
+    /**
+     * Step function for when the electron is exiting the body (discharging).  Electrons leave the body through
+     * a spark.
+     * @private
+     * @param  {number} dt - in seconds
+     */
     stepInSpark: function( dt ) {
       var self = this;
       //move to closest line segment
@@ -119,6 +126,12 @@ define( function( require ) {
         this.positionProperty.set( this.velocity.timesScalar( dt ).plus( this.positionProperty.get() ) );
       }
     },
+
+    /**
+     * Step function for an electron.
+     * @param  {number} dt - in seconds
+     * @public
+     */
     step: function( dt ) {
       if ( this.exiting ) {
         this.stepInSpark( dt );
@@ -127,9 +140,21 @@ define( function( require ) {
         this.stepInBody( dt );
       }
     },
+
+    /**
+     * Make eligible for garbage collection.
+     * @public
+     */
     dispose: function() {
       this.disposeElectron();
     },
+
+    /**
+     * Step function for the electron when it is moving through the body (not discharging). Electrons in the body
+     * will 'bounce' and 'repel' away from each other.  The result is that they will spread uniformily throughout
+     * the body and do so in a dynamically appealing way.
+     * @param  {number} dt - in seconds
+     */
     stepInBody: function( dt ) {
 
       //Performance is critical in this method, so avoid es5 which can be slower
@@ -141,14 +166,14 @@ define( function( require ) {
       var netForceX = 0;
       var netForceY = 0;
 
-      //Compute the net force on each electron from pairwise repulsion.  This stabilizes the motion and pushes
-      //the electrons to the outer boundary of the bodies
-      //This is an expensive O(n^2) inner loop, so highly optimized and uses Number instead of Vector2 in a number of locations
+      // Compute the net force on each electron from pairwise repulsion.  This stabilizes the motion and pushes
+      // the electrons to the outer boundary of the bodies
+      // This is an expensive O(n^2) inner loop, so highly optimized and uses Number instead of Vector2 in a number of locations
       var length = this.model.electrons.length;
       for ( var i = 0; i < length; i++ ) {
         var electron = this.model.electrons.get( i );
 
-        //Skipping some interactions speeds things up and also gives a good sense of more randomness
+        // Skipping some interactions speeds things up and also gives a good sense of more randomness
         if ( electron !== this && phet.joist.random.nextDouble() < 0.4 ) {
 
           //Using direct get method instead of ES5 getter to improve performance in this inner loop
@@ -193,7 +218,7 @@ define( function( require ) {
       var x2 = x1 + vx2 * dt;
       var y2 = y1 + vy2 * dt;
 
-      //Skipping notifications here because nobody needs to observe the velocity values, and this is faster (no allocation)
+      // Skipping notifications here because nobody needs to observe the velocity values, and this is faster (no allocation)
       this.velocity.setXY( vx2, vy2 );
 
       var segments = this.model.getLineSegments();
@@ -205,22 +230,23 @@ define( function( require ) {
 
           var normal = segment.normalVector;
 
-          //reflect velocity, but lose some of the energy in the bounce to help keep the electrons near the walls and help them lose energy quicker
-          //The Safari 6.0 heisenbug exhibits here if you use es5, so use property.get() instead
+          // reflect velocity, but lose some of the energy in the bounce to help keep the electrons near the walls and help them lose energy quicker
+          // The Safari 6.0 heisenbug exhibits here if you use es5, so use property.get() instead
           this.velocity.set( this.velocity.minus( normal.times( 2 * normal.dot( this.velocity ) ) ).timesScalar( 0.8 ) );
           bounced = true;
           break;
         }
       }
-      //See if it crossed a barrier, and reflect it
+
+      // See if it crossed a barrier, and reflect it
       if ( !bounced ) {
 
-        //Note, this does not send notifications because it is setting the x,y values on the vector itself
+        // Note, this does not send notifications because it is setting the x,y values on the vector itself
         this.positionProperty.set( new Vector2( x2, y2 ) );
       }
       else {
 
-        //Notify observers anyways so the electron will redraw at the right leg angle
+        // Notify observers anyways so the electron will redraw at the right leg angle
         this.positionProperty.notifyObserversStatic();
       }
     }
