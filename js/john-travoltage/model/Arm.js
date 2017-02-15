@@ -31,10 +31,10 @@ define( function( require ) {
       phetioValueType: TNumber( { units: 'radians', range: new Range( -Math.PI, Math.PI ) } )
     } );
 
-    // Arm pivot (elbow point) sampled using DebugPositions.js
+    // Arm pivot (elbow point) sampled using DebugUtils.js
     this.position = new Vector2( 423.6179673321235, 229.84969476984 );
 
-    // Exact finger location sampled using DebugPositions.js
+    // Exact finger location sampled using DebugUtils.js
     var finger = new Vector2( 534.3076703633706, 206.63766358806117 );
     this.fingerVector = finger.minus( this.position );
 

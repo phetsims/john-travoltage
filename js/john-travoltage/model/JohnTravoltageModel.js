@@ -40,7 +40,7 @@ define( function( require ) {
 
     this.electronsToRemove = [];
 
-    //vertices of path, border of body, sampled using a listener in DebugPositions
+    //vertices of path, border of body, sampled using a listener in DebugUtils
     this.bodyVertices = [ new Vector2( 422.21508828250404, 455.370786516854 ),
       new Vector2( 403.10754414125205, 424.5521669341895 ),
       new Vector2( 379.68539325842704, 328.3980738362762 ),
@@ -179,7 +179,7 @@ define( function( require ) {
      */
     reset: function() {
 
-      //Properties of the model.  All user settings belong in the model, whether or not they are part of the physical model
+      // Properties of the model.  All user settings belong in the model, whether or not they are part of the physical model
       this.sparkVisibleProperty.reset();
       this.shoeOnCarpetProperty.reset();
       this.soundProperty.reset();

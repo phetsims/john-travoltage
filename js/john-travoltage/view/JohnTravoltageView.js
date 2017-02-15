@@ -26,7 +26,7 @@ define( function( require ) {
   var Node = require( 'SCENERY/nodes/Node' );
   var SoundToggleButton = require( 'SCENERY_PHET/buttons/SoundToggleButton' );
   var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
-  var DebugPositions = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/DebugPositions' );
+  var DebugUtils = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/DebugUtils' );
   var Circle = require( 'SCENERY/nodes/Circle' );
   var platform = require( 'PHET_CORE/platform' );
   var HBox = require( 'SCENERY/nodes/HBox' );
@@ -206,7 +206,7 @@ define( function( require ) {
       } );
       accessibleFormNode.addChild( fingerCircle );
 
-      new DebugPositions().debugLineSegments( this );
+      DebugUtils.debugLineSegments( this );
     }
 
     this.sounds = [

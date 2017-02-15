@@ -5,10 +5,10 @@
  * Clicking around the view will output the values to the console, which can then be used in model code.
  *
  * //Sample model points for bounds, vertices or pivots, see JohnTravoltageModel.bodyVertices.
- * new DebugPositions().debugPositions( this );
+ * DebugUtils.debugPositions( view );
  *
  * //Sample and print line segments, for creating force paths for electrons during spark traversal
- * new DebugPositions().debugLineSegments( this );
+ * DebugUtils.debugLineSegments( view );
  *
  * @author Sam Reid
  * @author Vasily Shakhov (Mlearner)
@@ -18,14 +18,9 @@ define( function( require ) {
 
   // modules
   var Shape = require( 'KITE/Shape' );
-  var inherit = require( 'PHET_CORE/inherit' );
   var johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
 
-  function DebugPositions() {}
-
-  johnTravoltage.register( 'DebugPositions', DebugPositions );
-
-  return inherit( Object, DebugPositions, {
+  var DebugUtils = {
 
     /**
      * Sample model points for bounds, see JohnTravoltageModel.bodyVertices
@@ -71,5 +66,9 @@ define( function( require ) {
         }
       } );
     }
-  } );
+  };
+
+  johnTravoltage.register( 'DebugUtils', DebugUtils );
+
+  return DebugUtils;
 } );
