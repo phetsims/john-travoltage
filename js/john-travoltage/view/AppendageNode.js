@@ -33,7 +33,7 @@ define( function( require ) {
   var limitBonkAudio = require( 'audio!JOHN_TRAVOLTAGE/limit-bonk' );
 
   /**
-   * @param {Leg|Arm} appendage the body part to display
+   * @param {Appendage} appendage the body part to display
    * @param {Image} image
    * @param {number} dx
    * @param {number} dy
