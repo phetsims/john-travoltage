@@ -11,6 +11,7 @@ define( function( require ) {
 
   var johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
   var JohnTravoltageA11yStrings = require( 'JOHN_TRAVOLTAGE/john-travoltage/JohnTravoltageA11yStrings' );
+  var Range = require( 'DOT/Range' );
 
   // strings - a11y strings should NOT be translatable yet
   // see https://github.com/phetsims/john-travoltage/issues/130
@@ -28,104 +29,56 @@ define( function( require ) {
 
     leg: [
       {
-        range: {
-          max: 5,
-          min: 0
-        },
+        range: new Range( 0, 5 ),
         text: footOffCarpetString
       }, {
-        range: {
-          max: 21,
-          min: 6
-        },
+        range: new Range( 6, 21 ),
         text: footOnCarpetString
       }, {
-        range: {
-          max: 30,
-          min: 22
-        },
+        range: new Range( 22, 30 ),
         text: footOffCarpetString
       }
     ],
 
     arm: [
       {
-        range: {
-          max: 0,
-          min: 0
-        },
+        range: new Range( 0, 0 ),
         text: handFarthestString
       }, {
-        range: {
-          max: 12,
-          min: 1
-        },
+        range: new Range( 1, 12 ),
         text: handVeryFarString
       }, {
-        range: {
-          max: 24,
-          min: 13
-        },
+        range: new Range( 13, 24 ),
         text: handFarString
       }, {
-        range: {
-          max: 25,
-          min: 25
-        },
+        range: new Range( 25, 25 ),
         text: handNeitherString
       }, {
-        range: {
-          max: 37,
-          min: 26
-        },
+        range: new Range( 26, 37 ),
         text: handCloseString
       }, {
-        range: {
-          max: 49,
-          min: 38
-        },
+        range: new Range( 38, 49 ),
         text: handVeryCloseString
       }, {
-        range: {
-          max: 50,
-          min: 50
-        },
+        range: new Range( 50, 50 ),
         text: handClosestString
       }, {
-        range: {
-          max: 62,
-          min: 51
-        },
+        range: new Range( 51, 62 ),
         text: handVeryCloseString
       }, {
-        range: {
-          max: 74,
-          min: 63
-        },
+        range: new Range( 63, 74 ),
         text: handCloseString
       }, {
-        range: {
-          max: 75,
-          min: 75
-        },
+        range: new Range( 75, 75 ),
         text: handNeitherString
       }, {
-        range: {
-          max: 87,
-          min: 76
-        },
+        range: new Range( 76, 87 ),
         text: handFarString
       }, {
-        range: {
-          max: 99,
-          min: 88
-        },
+        range: new Range( 88, 99 ),
         text: handVeryFarString
       }, {
-        range: {
-          max: 100,
-          min: 100
-        },
+        range: new Range( 100, 100 ),
         text: handFarthestString
       }
     ]
