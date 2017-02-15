@@ -24,12 +24,17 @@ define( function( require ) {
    * @constructor
    */
   function Leg( tandem ) {
+
+    // @private
     this.initialAngle = 1.3175443221852239;
+
+    // @public - used to pick up new charges
     this.angleProperty = new NumberProperty( this.initialAngle, {
       tandem: tandem.createTandem( 'angleProperty' ),
       phetioValueType: TNumber( { units: 'radians', range: new Range( 0, Math.PI ) } )
     } );
 
+    // @public (sonification) - speed of leg determines volume of some audio
     this.angularVelocityProperty = new NumberProperty( 0, {
       phetioInstanceDocumentation: 'Values are set internally by simulation and cannot be controlled by the PhET-IO interface.',
       tandem: tandem.createTandem( 'angularVelocityProperty' ),
@@ -37,18 +42,27 @@ define( function( require ) {
     } );
     this.position = new Vector2( 398, 335 );
 
-    //Keep track of dragging flag (non-observable) so that when the sim is reset, a border outline is not added if the leg is dragging
+    // @public - Keep track of dragging flag (non-observable) so that when the sim is reset, a border outline is not added if the leg is dragging
     this.dragging = false;
   }
 
   johnTravoltage.register( 'Leg', Leg );
 
   return inherit( Object, Leg, {
+
+    /**
+     * Reset the leg.
+     * @public
+     */
     reset: function() {
       this.angleProperty.reset();
       this.angularVelocityProperty.reset();
     },
 
+    /**
+     * Calculate the change in angle from the initial value at construction.
+     * @return {number}
+     */
     deltaAngle: function() { return this.angleProperty.get() - this.initialAngle; }
   } );
 } );
