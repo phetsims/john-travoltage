@@ -190,9 +190,6 @@ define( function( require ) {
       }
       this.resetEmitter.emit();
     },
-    getLineSegments: function() {
-      return this.lineSegments;
-    },
     // Called by the animation loop
     step: function( dt ) {
 

@@ -221,7 +221,7 @@ define( function( require ) {
       // Skipping notifications here because nobody needs to observe the velocity values, and this is faster (no allocation)
       this.velocity.setXY( vx2, vy2 );
 
-      var segments = this.model.getLineSegments();
+      var segments = this.model.lineSegments;
       var numSegments = segments.length;
       var bounced = false;
       for ( i = 0; i < numSegments; i++ ) {
