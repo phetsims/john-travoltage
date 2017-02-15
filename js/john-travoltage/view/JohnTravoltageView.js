@@ -104,10 +104,10 @@ define( function( require ) {
     // Show the dotted lines again when the sim is reset
     model.resetEmitter.addListener( function() {
       if ( !self.leg.dragging ) {
-        self.leg.border.visible = true;
+        model.leg.borderVisibleProperty.set( true );
       }
       if ( !self.arm.dragging ) {
-        self.arm.border.visible = true;
+        model.arm.borderVisibleProperty.set( true );
       }
     } );
 

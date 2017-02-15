@@ -90,7 +90,7 @@ define( function( require ) {
       tandem: tandem.createTandem( 'dragHandler' ),
       allowTouchSnag: true,
       start: function( event ) {
-        self.border.visible = false;
+        appendage.borderVisibleProperty.set( false );
         self.dragging = true;
       },
       drag: function( event ) {
@@ -152,6 +152,9 @@ define( function( require ) {
       tandem: tandem.createTandem( 'border' )
     } );
     this.addChild( this.border );
+
+    // link node visibility to Property - no need to dispose
+    appendage.borderVisibleProperty.linkAttribute( this.border, 'visible' );
 
     // a11y
     this.focusHighlight = new Circle( this.imageNode.width / 2, {
@@ -218,7 +221,7 @@ define( function( require ) {
      */
     rotateAppendage: function() {
       this.model.angleProperty.set( AppendageNode.positionToAngle( this.inputValue, this.keyboardMotion.totalRange, this.keyboardMidPointOffset ) );
-      this.border.visible = false;
+      this.model.borderVisibleProperty.set( false );
     },
 
     /**

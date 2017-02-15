@@ -15,6 +15,7 @@ define( function( require ) {
   var johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
   var NumberProperty = require( 'AXON/NumberProperty' );
   var Range = require( 'DOT/Range' );
+  var BooleanProperty = require( 'AXON/BooleanProperty' );
 
   // phet-io modules
   var TNumber = require( 'ifphetio!PHET_IO/types/TNumber' );
@@ -38,6 +39,11 @@ define( function( require ) {
     this.angleProperty = new NumberProperty( options.initialAngle, {
       tandem: tandem.createTandem( 'angleProperty' ),
       phetioValueType: TNumber( { units: 'radians', range: new Range( -Math.PI, Math.PI ) } )
+    } );
+
+    // @public
+    this.borderVisibleProperty = new BooleanProperty( true, {
+      tandem: tandem.createTandem( 'borderVisibleProperty' )
     } );
 
     // @public (read-only)
