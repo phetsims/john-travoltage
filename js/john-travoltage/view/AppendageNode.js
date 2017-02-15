@@ -42,20 +42,13 @@ define( function( require ) {
    * @param {Array} rangeMap - an array of objects of the format {range: {max: Number, min: Number}, text: String}. This
    *                           is used to map a position value to text to use for the valueText of the related slider.
    * @param {Tandem} tandem
-   * @param {Object} options -  optional configuration such as "keyboardMidPointOffset"; which is used to adjust the
-   *                 centre position of the HTML slider for keyboard accessibility. For example it can be used to
-   *                 align the doorknob as the centre position of the arm slider.
+   * @param {Object} options
    * @constructor
    */
   function AppendageNode( appendage, image, dx, dy, angleOffset, soundEnabledProperty, rangeMap, tandem, options ) {
     var self = this;
 
-    // @private
-    this.model = appendage;
-    var angle = 0;
-
     options = _.extend( {
-      keyboardMidPointOffset: 0,
       cursor: 'pointer',
 
       // a11y
@@ -63,17 +56,27 @@ define( function( require ) {
       inputType: 'range',
       ariaRole: 'slider',
       focusable: true,
-      parentContainerTagName: 'div'
+      parentContainerTagName: 'div',
+      keyboardMidPointOffset: 0, // adjust center position of accessible slider, to align important locations at center
 
     }, options );
 
     Node.call( this, options );
 
-    // add the image
-    var imageNode = new Image( image, {
+    // @private
+    this.model = appendage;
+    this.dragging = false;
+    this.keyboardMidPointOffset = options.keyboardMidPointOffset;
+    this.rangeMap = rangeMap;
+
+    // @a11y @public (read-only), description for this arm, publicly visible so that it can be used elsewhere
+    this.positionDescription = '';
+
+    // @private add the image
+    this.imageNode = new Image( image, {
       tandem: tandem.createTandem( 'imageNode' )
     } );
-    this.addChild( imageNode );
+    this.addChild( this.imageNode );
 
     // create the sound that will be played when the motion range is reached
     var limitBonkSound = new Sound( limitBonkAudio );
@@ -81,26 +84,9 @@ define( function( require ) {
     var lastAngle = appendage.angleProperty.get();
     var currentAngle = appendage.angleProperty.get();
 
-    // @private
-    this.dragging = false;
-
-    /**
-     * Prevent the leg from rotation all the way around (it looks weird)
-     * @param  {number} angle - radians
-     * @return {nuber} angle - radians
-     */
-    var limitLegRotation = function( angle ) {
-      if ( angle < -Math.PI / 2 ) {
-        angle = Math.PI;
-      }
-      else if ( angle > -Math.PI / 2 && angle < 0 ) {
-        angle = 0;
-      }
-      return angle;
-    };
-
     // no need for dispose - exists for life of sim
-    imageNode.addInputListener( new TandemSimpleDragHandler( {
+    var angle = 0;
+    this.imageNode.addInputListener( new TandemSimpleDragHandler( {
       tandem: tandem.createTandem( 'dragHandler' ),
       allowTouchSnag: true,
       start: function( event ) {
@@ -109,13 +95,13 @@ define( function( require ) {
       },
       drag: function( event ) {
         lastAngle = currentAngle;
-        var globalPoint = imageNode.globalToParentPoint( event.pointer.point );
+        var globalPoint = self.imageNode.globalToParentPoint( event.pointer.point );
         angle = globalPoint.minus( new Vector2( appendage.position.x, appendage.position.y ) ).angle();
         currentAngle = angle;
 
         //Limit leg to approximately "half circle" so it cannot spin around, see #63
         if ( appendage instanceof Leg ) {
-          angle = limitLegRotation( angle );
+          angle = AppendageNode.limitLegRotation( angle );
 
           if ( JohnTravoltageQueryParameters.sonification !== 'none' && soundEnabledProperty.value ) {
             // play a sound when the range of motion is reached
@@ -152,9 +138,9 @@ define( function( require ) {
 
     // changes visual position
     appendage.angleProperty.link( function( angle ) {
-      imageNode.resetTransform();
-      imageNode.translate( appendage.position.x - dx, appendage.position.y - dy );
-      imageNode.rotateAround( appendage.position.plus( new Vector2( 0, 0 ) ), angle - angleOffset );
+      self.imageNode.resetTransform();
+      self.imageNode.translate( appendage.position.x - dx, appendage.position.y - dy );
+      self.imageNode.rotateAround( appendage.position.plus( new Vector2( 0, 0 ) ), angle - angleOffset );
     } );
 
     // @public
@@ -168,63 +154,45 @@ define( function( require ) {
     this.addChild( this.border );
 
     // a11y
-    var focusCircle = new Circle( imageNode.width / 2, {
+    this.focusHighlight = new Circle( this.imageNode.width / 2, {
       stroke: FocusOverlay.innerFocusColor,
       lineWidth: 5,
       tandem: tandem.createTandem( 'focusCircle' )
     } );
-    this.focusHighlight = focusCircle;
 
-    // limit ranges of input for the leg
-    var maxMotion;
-    var totalRange;
-    if ( appendage instanceof Leg ) {
-      maxMotion = 30;
-      totalRange = 60;
-    }
-    else {
-      maxMotion = 100;
-      totalRange = 100;
-    }
-    var keyboardMotion = {
+    // @private limit ranges of input for the leg
+    this.keyboardMotion = {
       min: 0,
-      max: maxMotion,
+      max: appendage instanceof Leg ? 30 : 60,
       step: 1,
-      totalRange: totalRange
+      totalRange: appendage instanceof Leg ? 60 : 100
     };
 
-    this.setAccessibleAttribute( 'min', keyboardMotion.min );
-    this.setAccessibleAttribute( 'max', keyboardMotion.max );
-    this.setAccessibleAttribute( 'step', keyboardMotion.step );
+    this.setAccessibleAttribute( 'min', this.keyboardMotion.min );
+    this.setAccessibleAttribute( 'max', this.keyboardMotion.max );
+    this.setAccessibleAttribute( 'step', this.keyboardMotion.step );
 
-    var rangeValue = AppendageNode.angleToPosition( appendage.angleProperty.get(), keyboardMotion.totalRange, keyboardMotion.max, options.keyboardMidPointOffset );
+    var rangeValue = AppendageNode.angleToPosition( appendage.angleProperty.get(), this.keyboardMotion.totalRange, this.keyboardMotion.max, this.keyboardMidPointOffset );
     this.setInputValue( rangeValue );
 
     // set up a relationship between the appendage and the 'status' alert so that JAWS users can quickly navigate
     // to the status element after interacting with the appendage
     this.setAccessibleAttribute( 'aria-controls', AriaHerald.POLITE_STATUS_ELEMENT_ID );
 
-    // a11y - the keyboard motion treats the appendages like range slider, this function maps the range value to the
-    // correct rotation.
-    var keyboardEventHandled = false;
-    var rotateAppendage = function() {
-      appendage.angleProperty.set( self.positionToAngle( self.inputValue, keyboardMotion.totalRange, options.keyboardMidPointOffset ) );
-      self.border.visible = false;
-    };
-
     // Due to the variability of input and change event firing across browsers, it is necessary to track if the input
     // event was fired and if not, to handle the change event instead. If both events fire, the input event will fire
     // first. AppendageNodes exist for life of sim, no need to dispose.
     // see: https://wiki.fluidproject.org/pages/viewpage.action?pageId=61767683
+    var keyboardEventHandled = false;
     this.addAccessibleInputListener( {
       input: function( event ) {
-        rotateAppendage();
+        self.rotateAppendage();
         keyboardEventHandled = true;
         self.dragging = true;
       },
       change: function( event ) {
         if ( !keyboardEventHandled ) {
-          rotateAppendage();
+          self.rotateAppendage();
         }
         keyboardEventHandled = false;
         self.dragging = true;
@@ -234,25 +202,60 @@ define( function( require ) {
       }
     } );
 
-    // a11y - when the angle changes - update the value of the accessible slider, and move the focus rectangle
-    var updatePosition = function( angle ) {
-      var position = AppendageNode.angleToPosition( angle, keyboardMotion.totalRange, keyboardMotion.max, options.keyboardMidPointOffset );
-      var positionDescription = AppendageNode.getPositionDescription( position, rangeMap );
-      self.setInputValue( position );
-      self.setAccessibleAttribute( 'aria-valuetext', StringUtils.format( JohnTravoltageA11yStrings.positionTemplateString, position, positionDescription ) );
-      self.positionDescription = positionDescription;
-
-      // updates the position of the focus highlight
-      focusCircle.center = imageNode.center;
-    };
-
     // Updates the PDOM with changes in the model
-    appendage.angleProperty.link( updatePosition );
+    appendage.angleProperty.link( this.updatePosition.bind( this ) );
   }
 
   johnTravoltage.register( 'AppendageNode', AppendageNode );
 
-  return inherit( Node, AppendageNode, {}, {
+  return inherit( Node, AppendageNode, {
+
+    /**
+     * Keyboard interaction treats the appendages like a linear range slider.  This function maps the slider range value
+     * to the correct rotation
+     * @private
+     * @a11y
+     */
+    rotateAppendage: function() {
+      this.appendage.angleProperty.set( this.positionToAngle( this.inputValue, this.keyboardMotion.totalRange, this.keyboardMidPointOffset ) );
+      this.border.visible = false;
+    },
+
+    /**
+     * When the angle changes, update the value of the accessible range slider which represents this node for
+     * accessibility.
+     * @private
+     * @a11y
+     * @param {number} angle - radians
+     */
+    updatePosition:  function( angle ) {
+      var position = AppendageNode.angleToPosition( angle, this.keyboardMotion.totalRange, this.keyboardMotion.max, this.keyboardMidPointOffset );
+      var positionDescription = AppendageNode.getPositionDescription( position, this.rangeMap );
+
+      // update the accessible input value and description text
+      this.setInputValue( position );
+      this.setAccessibleAttribute( 'aria-valuetext', StringUtils.format( JohnTravoltageA11yStrings.positionTemplateString, position, positionDescription ) );
+      this.positionDescription = positionDescription;
+
+      // updates the position of the focus highlight
+      this.focusHighlight.center = this.imageNode.center;
+    }
+  }, {
+
+    /**
+     * Prevents the leg from rotation all the way around (because it looks weird)
+     * @param  {number} angle - radians
+     * @return {nuber} angle - radians
+     */
+    limitLegRotation: function( angle ) {
+      if ( angle < -Math.PI / 2 ) {
+        angle = Math.PI;
+      }
+      else if ( angle > -Math.PI / 2 && angle < 0 ) {
+        angle = 0;
+      }
+      return angle;
+    },
 
     /**
      * Compute the distance (in radians) between angles a and b.
