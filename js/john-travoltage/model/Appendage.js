@@ -29,16 +29,17 @@ define( function( require ) {
   function Appendage( pivotPoint, tandem, options ) {
 
     options = _.extend( {
-      initialAngle: -0.5 // radians
+      initialAngle: -0.5, // radians
+      range: new Range( -Math.PI, Math.PI )
     }, options );
 
     // @private
     this.initialAngle = options.initialAngle;
 
     // @public
-    this.angleProperty = new NumberProperty( options.initialAngle, {
+    this.angleProperty = new NumberProperty( this.initialAngle, {
       tandem: tandem.createTandem( 'angleProperty' ),
-      phetioValueType: TNumber( { units: 'radians', range: new Range( -Math.PI, Math.PI ) } )
+      phetioValueType: TNumber( { units: 'radians', range: options.range } )
     } );
 
     // @public

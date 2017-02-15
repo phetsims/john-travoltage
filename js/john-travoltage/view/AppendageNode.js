@@ -166,7 +166,7 @@ define( function( require ) {
     // @private limit ranges of input for the leg
     this.keyboardMotion = {
       min: 0,
-      max: appendage instanceof Leg ? 30 : 60,
+      max: appendage instanceof Leg ? 30 : 100,
       step: 1,
       totalRange: appendage instanceof Leg ? 60 : 100
     };
