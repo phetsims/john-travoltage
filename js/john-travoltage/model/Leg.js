@@ -14,7 +14,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Vector2 = require( 'DOT/Vector2' );
   var johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
-  var Range = require( 'DOT/Range' );
+  var Appendage = require( 'JOHN_TRAVOLTAGE/john-travoltage/model/Appendage' );
 
   // phet-io modules
   var TNumber = require( 'ifphetio!PHET_IO/types/TNumber' );
@@ -25,13 +25,11 @@ define( function( require ) {
    */
   function Leg( tandem ) {
 
-    // @private
-    this.initialAngle = 1.3175443221852239;
+    // empirically determined by inspecting the view
+    var pivotPoint = new Vector2( 398, 335 );
 
-    // @public - used to pick up new charges
-    this.angleProperty = new NumberProperty( this.initialAngle, {
-      tandem: tandem.createTandem( 'angleProperty' ),
-      phetioValueType: TNumber( { units: 'radians', range: new Range( 0, Math.PI ) } )
+    Appendage.call( this, pivotPoint, tandem, {
+      initialAngle: 1.3175443221852239 // determined empirically with DebutUtils
     } );
 
     // @public (sonification) - speed of leg determines volume of some audio
@@ -40,28 +38,25 @@ define( function( require ) {
       tandem: tandem.createTandem( 'angularVelocityProperty' ),
       phetioValueType: TNumber( { units: 'radians/second' } )
     } );
-    this.position = new Vector2( 398, 335 );
-
-    // @public - Keep track of dragging flag (non-observable) so that when the sim is reset, a border outline is not added if the leg is dragging
-    this.dragging = false;
   }
 
   johnTravoltage.register( 'Leg', Leg );
 
-  return inherit( Object, Leg, {
+  return inherit( Appendage, Leg, {
 
     /**
      * Reset the leg.
      * @public
      */
     reset: function() {
-      this.angleProperty.reset();
       this.angularVelocityProperty.reset();
+      Appendage.prototype.reset.call( this );
     },
 
     /**
      * Calculate the change in angle from the initial value at construction.
      * @return {number}
+     * @public
      */
     deltaAngle: function() { return this.angleProperty.get() - this.initialAngle; }
   } );

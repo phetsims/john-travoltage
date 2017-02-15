@@ -11,13 +11,9 @@ define( function( require ) {
 
   // modules
   var Vector2 = require( 'DOT/Vector2' );
-  var NumberProperty = require( 'AXON/NumberProperty' );
   var inherit = require( 'PHET_CORE/inherit' );
   var johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
-  var Range = require( 'DOT/Range' );
-
-  // phet-io modules
-  var TNumber = require( 'ifphetio!PHET_IO/types/TNumber' );
+  var Appendage = require( 'JOHN_TRAVOLTAGE/john-travoltage/model/Appendage' );
 
   /**
    * @param {Tandem} tandem
@@ -25,37 +21,35 @@ define( function( require ) {
    */
   function Arm( tandem ) {
 
-    // @public (read-only) the angle of the arm.
-    this.angleProperty = new NumberProperty( -0.5, {
-      tandem: tandem.createTandem( 'angleProperty' ),
-      phetioValueType: TNumber( { units: 'radians', range: new Range( -Math.PI, Math.PI ) } )
-    } );
+    // position determined empirically with DebugUtils
+    var pivotPoint = new Vector2( 423.6179673321235, 229.84969476984 );
 
-    // Arm pivot (elbow point) sampled using DebugUtils.js
-    this.position = new Vector2( 423.6179673321235, 229.84969476984 );
+    Appendage.call( this, pivotPoint, tandem );
 
     // Exact finger location sampled using DebugUtils.js
     var finger = new Vector2( 534.3076703633706, 206.63766358806117 );
+
+    // @public (read-only) - vector from pivot point to the finger
     this.fingerVector = finger.minus( this.position );
 
-    //Keep track of dragging flag (non-observable) so that when the sim is reset, a border outline is not added if the leg is dragging
-    this.dragging = false;
   }
 
   johnTravoltage.register( 'Arm', Arm );
 
-  return inherit( Object, Arm, {
+  return inherit( Appendage, Arm, {
 
     /**
      * Reset the arm.
+     * @public
      */
     reset: function() {
       this.angleProperty.reset();
     },
 
     /**
-     * Gets the location of the finger
+     * Gets the location of the finger with the current appendage rotation.
      * @returns {Vector2}
+     * @public
      */
     getFingerPosition: function() {
       return this.fingerVector.rotated( this.angleProperty.get() ).plus( this.position );
