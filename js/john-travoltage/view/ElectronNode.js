@@ -1,7 +1,8 @@
 // Copyright 2013-2015, University of Colorado Boulder
 
 /**
- * Scenery display object (scene graph node) for minusCharge.
+ * Scenery display object (scene graph node) for minusCharge. All electron nodes use a single image node, and are added
+ * to the scene graph using Scenery's DAG feature.
  *
  * @author Sam Reid
  * @author Vasily Shakhov (Mlearner)
@@ -24,9 +25,10 @@ define( function( require ) {
   // constants
   var radius = Electron.radius;
 
-  //Scale up before rasterization so it won't be too pixelated/fuzzy
+  // Scale up before rasterization so it won't be too pixelated/fuzzy
   var scale = 2;
 
+  // single node for all electrons, making use of scenery's DAG feature
   var minusChargeNode = new Node( {
     children: [
       new Circle( radius, {
@@ -85,8 +87,8 @@ define( function( require ) {
       this.addChild( new Rectangle( node.bounds, { lineWidth: 1, stroke: 'red' } ) );
     }
 
-    //For debugging, show the electron id
-//    this.addChild( new Text( '' + electron.id, {fill: 'white'} ) );
+    // For debugging, show the electron id
+    // this.addChild( new Text( '' + electron.id, {fill: 'white'} ) );
 
     var legText = 'leg';
     var bodyText = 'body';
@@ -194,6 +196,11 @@ define( function( require ) {
   johnTravoltage.register( 'ElectronNode', ElectronNode );
 
   return inherit( Node, ElectronNode, {
+
+    /**
+     * Make eligible for garbage collection.
+     * @public
+     */
     dispose: function() {
       this.disposeElectronNode();
       Node.prototype.dispose.call( this );
