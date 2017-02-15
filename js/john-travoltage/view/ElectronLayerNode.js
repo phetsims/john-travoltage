@@ -24,17 +24,12 @@ define( function( require ) {
    * @param {JohnTravoltageModel} model
    * @param {number} maxElectrons
    * @param {Tandem} tandem
-   * @param {Object} options
    * @constructor
    */
-  function ElectronLayerNode( model, maxElectrons, tandem, options ) {
+  function ElectronLayerNode( model, maxElectrons, tandem ) {
     var self = this;
 
-    options = _.extend( {
-      pitchedPopGenerator: null
-    }, options );
-
-    Node.call( this, options );
+    Node.call( this );
 
     var priorCharge = 0;
 
@@ -54,12 +49,6 @@ define( function( require ) {
       var newElectron = new ElectronNode( added, model.leg, model.arm, tandem.createTandem( added.electronTandem.tail ) );
       self.addChild( newElectron );
 
-      // play the sound that indicates that an electron was added
-      options.pitchedPopGenerator && options.pitchedPopGenerator.createPop(
-        model.electrons.length / maxElectrons,
-        model.electrons.length < maxElectrons ? 0.02 : 1.75 // longer pitch for last electron
-      );
-
       // a11y - anounce the state of charges with a status update
       setElectronStatus();
 
@@ -69,9 +58,6 @@ define( function( require ) {
         if ( removed === added ) {
           self.removeChild( newElectron );
           model.electrons.removeItemRemovedListener( itemRemovedListener );
-
-          // play the sound that indicates that an electron was removed
-          options.pitchedPopGenerator && options.pitchedPopGenerator.createPop( model.electrons.length / maxElectrons, 0.02 );
         }
       };
       model.electrons.addItemRemovedListener( itemRemovedListener );
