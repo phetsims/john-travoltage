@@ -10,18 +10,19 @@ define( function( require ) {
   'use strict';
 
   var johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
+  var JohnTravoltageA11yStrings = require( 'JOHN_TRAVOLTAGE/john-travoltage/JohnTravoltageA11yStrings' );
 
   // strings - a11y strings should NOT be translatable yet
   // see https://github.com/phetsims/john-travoltage/issues/130
-  var footOnCarpetString = 'foot rubbing on the rug';
-  var footOffCarpetString = 'foot off the rug';
-  var handClosestString = 'closest to the doorknob';
-  var handVeryCloseString = 'very close to the doorknob';
-  var handCloseString = 'close to the doorknob';
-  var handNeitherString = 'neither far nor close to the doorknob';
-  var handFarString = 'far from the doorknob';
-  var handVeryFarString = 'very far from the doorknob';
-  var handFarthestString = 'farthest from the doorknob';
+  var footOnCarpetString = JohnTravoltageA11yStrings.footOnCarpetString;
+  var footOffCarpetString = JohnTravoltageA11yStrings.footOffCarpetString;
+  var handClosestString = JohnTravoltageA11yStrings.handClosestString;
+  var handVeryCloseString = JohnTravoltageA11yStrings.handVeryCloseString;
+  var handCloseString = JohnTravoltageA11yStrings.handCloseString;
+  var handNeitherString = JohnTravoltageA11yStrings.handNeitherString;
+  var handFarString = JohnTravoltageA11yStrings.handFarString;
+  var handVeryFarString = JohnTravoltageA11yStrings.handVeryFarString;
+  var handFarthestString = JohnTravoltageA11yStrings.handFarthestString;
 
   var AppendageRangeMaps = {
 

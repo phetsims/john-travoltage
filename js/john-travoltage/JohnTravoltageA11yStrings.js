@@ -33,10 +33,24 @@ define( function( require ) {
     shiftTabKeyDescriptionString: '<b>Shift plus Tab</b> moves to the previous item.',
     escapeKeyDescriptionString: '<b>Escape key</b> closes a dialog, like this one.',
 
-    // appendage positions
+    // appendage labels
     armSliderLabelString: 'Hand position',
     legSliderLabelString: 'Leg swing',
-    electronsDischargedString: 'electrons discharged'
+
+    // used in status updates
+    electronsDischargedString: 'electrons discharged',
+
+    // appendage position descriptions
+    footOnCarpetString: 'foot rubbing on the rug',
+    footOffCarpetString: 'foot off the rug',
+    handClosestString: 'closest to the doorknob',
+    handVeryCloseString: 'very close to the doorknob',
+    handCloseString: 'close to the doorknob',
+    handNeitherString: 'neither far nor close to the doorknob',
+    handFarString: 'far from the doorknob',
+    handVeryFarString: 'very far from the doorknob',
+    handFarthestString: 'farthest from the doorknob'
+    
   };
 
   // verify that object is immutable, without the runtime penalty in production code
