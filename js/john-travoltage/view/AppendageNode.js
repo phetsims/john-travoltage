@@ -128,7 +128,7 @@ define( function( require ) {
         else if ( appendage.angleProperty.get() === 0 && z > 0 ) {
           //noop, at the right side
         }
-        else if ( self.distanceBetweenAngles( appendage.angleProperty.get(), angle ) > Math.PI / 3 && ( appendage.angleProperty.get() === 0 || appendage.angleProperty.get() === Math.PI ) ) {
+        else if ( AppendageNode.distanceBetweenAngles( appendage.angleProperty.get(), angle ) > Math.PI / 3 && ( appendage.angleProperty.get() === 0 || appendage.angleProperty.get() === Math.PI ) ) {
           //noop, too big a leap, may correspond to the user reversing direction after a leg is stuck against threshold
         }
         else {
@@ -187,7 +187,7 @@ define( function( require ) {
     this.setAccessibleAttribute( 'max', keyboardMotion.max );
     this.setAccessibleAttribute( 'step', keyboardMotion.step );
 
-    var rangeValue = self.angleToPosition( appendage.angleProperty.get(), keyboardMotion.totalRange, keyboardMotion.max, options.keyboardMidPointOffset );
+    var rangeValue = AppendageNode.angleToPosition( appendage.angleProperty.get(), keyboardMotion.totalRange, keyboardMotion.max, options.keyboardMidPointOffset );
     this.setInputValue( rangeValue );
 
     // set up a relationship between the appendage and the 'status' alert so that JAWS users can quickly navigate
@@ -225,8 +225,8 @@ define( function( require ) {
     } );
 
     var updatePosition = function( angle ) {
-      var position = self.angleToPosition( angle, keyboardMotion.totalRange, keyboardMotion.max, options.keyboardMidPointOffset );
-      var positionDescription = self.getPositionDescription( position, rangeMap );
+      var position = AppendageNode.angleToPosition( angle, keyboardMotion.totalRange, keyboardMotion.max, options.keyboardMidPointOffset );
+      var positionDescription = AppendageNode.getPositionDescription( position, rangeMap );
       self.setInputValue( position );
       self.setAccessibleAttribute( 'aria-valuetext', StringUtils.format( JohnTravoltageA11yStrings.positionTemplateString, position, positionDescription ) );
       self.positionDescription = positionDescription;
@@ -241,11 +241,12 @@ define( function( require ) {
 
   johnTravoltage.register( 'AppendageNode', AppendageNode );
 
-  return inherit( Node, AppendageNode, {
+  return inherit( Node, AppendageNode, {}, {
 
     /**
      * Compute the distance (in radians) between angles a and b, using an inlined dot product (inlined to remove allocations)
      * @private
+     * @static
      */
     distanceBetweenAngles: function( a, b ) {
       var dotProduct = Math.cos( a ) * Math.cos( b ) + Math.sin( a ) * Math.sin( b );
@@ -256,6 +257,7 @@ define( function( require ) {
      * Converts a radian value to a scale value ( based on number of stepsInScale ).
      * @accessibility
      * @private
+     * @static
      */
     radiansToScale: function( radian, stepsInScale, radianOffset ) {
       var radianWithOffset = radian - radianOffset;
@@ -268,6 +270,7 @@ define( function( require ) {
      * Converts a scale value ( based on number of stepsInScale ) to a radian value.
      * @accessibility
      * @private
+     * @static
      */
     scaleToRadians: function( scaleValue, stepsInScale, radianOffset ) {
       var radian = scaleValue * ( Math.PI / ( stepsInScale / 2 ) );
@@ -282,6 +285,7 @@ define( function( require ) {
      * in the PDOM.
      * @accessibility
      * @private
+     * @static
      */
     scalePositionTransformation: function( totalSteps, value ) {
       return ( totalSteps / 2 ) - value;
@@ -294,8 +298,8 @@ define( function( require ) {
      * @private
      */
     angleToPosition: function( appendageAngle, motionRange, maxPosition, radianOffset ) {
-      var scaleValue = this.radiansToScale( appendageAngle, motionRange, radianOffset );
-      var position = this.scalePositionTransformation( motionRange, scaleValue );
+      var scaleValue = AppendageNode.radiansToScale( appendageAngle, motionRange, radianOffset );
+      var position = AppendageNode.scalePositionTransformation( motionRange, scaleValue );
       return position > maxPosition ? position % maxPosition : position;
     },
 
@@ -304,9 +308,10 @@ define( function( require ) {
      * the corresponding slider in the PDOM.
      * @accessibility
      * @private
+     * @static
      */
     positionToAngle: function( position, motionRange, radianOffset ) {
-      var scaleValue = this.scalePositionTransformation( motionRange, position );
+      var scaleValue = AppendageNode.scalePositionTransformation( motionRange, position );
 
       return this.scaleToRadians( scaleValue, motionRange, radianOffset );
     },
