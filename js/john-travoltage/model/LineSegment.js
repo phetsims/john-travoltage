@@ -25,16 +25,22 @@ define( function( require ) {
    * @constructor
    */
   function LineSegment( x1, y1, x2, y2 ) {
+
+    // @private
     this.x1 = x1;
     this.y1 = y1;
     this.x2 = x2;
     this.y2 = y2;
 
+    // @public (read-only)
     this.normalVector = new Vector2( this.x2 - this.x1, this.y2 - this.y1 ).perpendicular().normalized();
     this.vector = new Vector2( this.x2 - this.x1, this.y2 - this.y1 );
     this.p0 = new Vector2( this.x1, this.y1 );
     this.p1 = new Vector2( this.x2, this.y2 );
+
     var epsilon = 0.01;
+
+    // @public (read-only)
     this.pre0 = this.p0.blend( this.p1, epsilon );
     this.pre1 = this.p0.blend( this.p1, 1 - epsilon );
   }
@@ -43,10 +49,17 @@ define( function( require ) {
 
   return inherit( Object, LineSegment, {
 
-    //No need for speed, only used in debugging
+    /**
+     * Get the center of this line segment.  Does not need to be fast, this is only used for debugging.
+     * @return {[type]} [description]
+     */
     get center() { return new Vector2( (this.x1 + this.x2) / 2, (this.y1 + this.y2) / 2 ); },
 
-    //No need for speed, only used in debugging
+    /**
+     * Get a normal vector to this line segment.
+     * 
+     * @return {Vector2}
+     */
     get normal() { return new Vector2( this.x2 - this.x1, this.y2 - this.y1 ).normalized().perpendicular();}
   } );
 } );
