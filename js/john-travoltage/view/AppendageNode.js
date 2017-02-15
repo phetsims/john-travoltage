@@ -50,6 +50,7 @@ define( function( require ) {
   function AppendageNode( appendage, image, dx, dy, angleOffset, soundEnabledProperty, rangeMap, tandem, options ) {
     var self = this;
 
+    // @private
     this.model = appendage;
     var angle = 0;
 
@@ -79,8 +80,15 @@ define( function( require ) {
 
     var lastAngle = appendage.angleProperty.get();
     var currentAngle = appendage.angleProperty.get();
+
+    // @private
     this.dragging = false;
 
+    /**
+     * Prevent the leg from rotation all the way around (it looks weird)
+     * @param  {number} angle - radians
+     * @return {nuber} angle - radians
+     */
     var limitLegRotation = function( angle ) {
       if ( angle < -Math.PI / 2 ) {
         angle = Math.PI;
@@ -91,6 +99,7 @@ define( function( require ) {
       return angle;
     };
 
+    // no need for dispose - exists for life of sim
     imageNode.addInputListener( new TandemSimpleDragHandler( {
       tandem: tandem.createTandem( 'dragHandler' ),
       allowTouchSnag: true,
@@ -117,16 +126,16 @@ define( function( require ) {
           }
         }
 
-        //if clamped at one of the upper angles, only allow the right direction of movement to change the angle, so it won't skip halfway around
-        //Use 3d cross products to compute direction
-        //Inline the vector creations and dot product for performance
+        // if clamped at one of the upper angles, only allow the right direction of movement to change the angle, so it won't skip halfway around
+        // Use 3d cross products to compute direction
+        // Inline the vector creations and dot product for performance
         var z = Math.cos( currentAngle ) * Math.sin( lastAngle ) - Math.sin( currentAngle ) * Math.cos( lastAngle );
 
         if ( appendage.angleProperty.get() === Math.PI && z < 0 ) {
-          //noop, at the left side
+          // noop, at the left side
         }
         else if ( appendage.angleProperty.get() === 0 && z > 0 ) {
-          //noop, at the right side
+          // noop, at the right side
         }
         else if ( AppendageNode.distanceBetweenAngles( appendage.angleProperty.get(), angle ) > Math.PI / 3 && ( appendage.angleProperty.get() === 0 || appendage.angleProperty.get() === Math.PI ) ) {
           //noop, too big a leap, may correspond to the user reversing direction after a leg is stuck against threshold
@@ -141,13 +150,14 @@ define( function( require ) {
       }
     } ) );
 
-    //changes visual position
-    appendage.angleProperty.link( function updatePosition( angle ) {
+    // changes visual position
+    appendage.angleProperty.link( function( angle ) {
       imageNode.resetTransform();
       imageNode.translate( appendage.position.x - dx, appendage.position.y - dy );
       imageNode.rotateAround( appendage.position.plus( new Vector2( 0, 0 ) ), angle - angleOffset );
     } );
 
+    // @public
     this.border = new Rectangle( this.bounds.minX, this.bounds.minY, this.width, this.height, 10, 10, {
       stroke: 'green',
       lineWidth: 2,
@@ -224,6 +234,7 @@ define( function( require ) {
       }
     } );
 
+    // a11y - when the angle changes - update the value of the accessible slider, and move the focus rectangle
     var updatePosition = function( angle ) {
       var position = AppendageNode.angleToPosition( angle, keyboardMotion.totalRange, keyboardMotion.max, options.keyboardMidPointOffset );
       var positionDescription = AppendageNode.getPositionDescription( position, rangeMap );
@@ -247,7 +258,6 @@ define( function( require ) {
      * Compute the distance (in radians) between angles a and b.
      * @param {number} a - first angle (radians)
      * @param {number} b - second angle (radians)
-     * 
      * @private
      * @static
      */
