@@ -36,6 +36,15 @@ define( function( require ) {
 
     Node.call( this, options );
 
+    var priorCharge = 0;
+    var setElectronStatus = function() {
+      var currentCharge = model.electrons.length;
+      var chargeText = currentCharge >= priorCharge ? JohnTravoltageA11yStrings.electronsTotalString : JohnTravoltageA11yStrings.electronsTotalAfterDischargeString;
+
+      AriaHerald.announcePoliteWithStatus( StringUtils.format( chargeText, currentCharge, priorCharge ), true );
+      priorCharge = currentCharge;
+    };
+
     //if new electron added to model - create and add new node to leg
     model.electrons.addItemAddedListener( function( added ) {
 
@@ -49,6 +58,11 @@ define( function( require ) {
         model.electrons.length < maxElectrons ? 0.02 : 1.75 // longer pitch for last electron
       );
 
+      // a11y - anounce the state of charges with a status update
+      setElectronStatus();
+
+      // If GC issues are noticeable from creating this IIFE, consider a map that maps model elements to 
+      // corresponding view components, see https://github.com/phetsims/john-travoltage/issues/170
       var itemRemovedListener = function( removed ) {
         if ( removed === added ) {
           self.removeChild( newElectron );
@@ -61,18 +75,7 @@ define( function( require ) {
       model.electrons.addItemRemovedListener( itemRemovedListener );
     } );
 
-    var priorCharge = 0;
-    var setElectronStatus = function() {
-      var currentCharge = model.electrons.length;
-      var chargeText = currentCharge >= priorCharge ? JohnTravoltageA11yStrings.electronsTotalString : JohnTravoltageA11yStrings.electronsTotalAfterDischargeString;
-
-      AriaHerald.announcePoliteWithStatus( StringUtils.format( chargeText, currentCharge, priorCharge ), true );
-      priorCharge = currentCharge;
-    };
-
-    // update status whenever an electron is added, and whenever an electron discharge has ended
-    // this node will exist for life of sim so disposal is not necessary
-    model.electrons.addItemAddedListener( setElectronStatus );
+    // update status whenever an electron discharge has ended - disposal is not necessary
     model.dischargeEndedEmitter.addListener( setElectronStatus );
 
     // when the model is reset, update prior charge - disposal not necessary
