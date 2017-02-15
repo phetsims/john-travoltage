@@ -27,7 +27,10 @@ define( function( require ) {
 
   return inherit( Object, DebugPositions, {
 
-    //Sample model points for bounds, see JohnTravoltageModel.bodyVertices
+    /**
+     * Sample model points for bounds, see JohnTravoltageModel.bodyVertices
+     * @param  {JohnTravoltageView} johnTravoltageView
+     */
     debugPositions: function( johnTravoltageView ) {
       johnTravoltageView.touchArea = Shape.rectangle( 0, 0, 1000, 1000 );
       johnTravoltageView.mouseArea = Shape.rectangle( 0, 0, 1000, 1000 );
@@ -44,7 +47,10 @@ define( function( require ) {
       } );
     },
 
-    //Utility to create force lines by clicking in the view
+    /**
+     * Utility to create force lines by clicking in the view
+     * @param  {JohnTravoltageView} johnTravoltageView
+     */
     debugLineSegments: function( johnTravoltageView ) {
       johnTravoltageView.touchArea = Shape.rectangle( 0, 0, 1000, 1000 );
       johnTravoltageView.mouseArea = Shape.rectangle( 0, 0, 1000, 1000 );

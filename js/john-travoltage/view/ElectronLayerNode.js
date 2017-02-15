@@ -69,7 +69,6 @@ define( function( require ) {
     model.dischargeEndedEmitter.addListener( setElectronStatus );
 
     // when the model is reset, update prior charge - disposal not necessary
-    // 
     model.resetEmitter.addListener( function() {
       priorCharge = 0;
     } );
