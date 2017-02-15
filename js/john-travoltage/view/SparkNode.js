@@ -65,7 +65,7 @@ define( function( require ) {
           }
           else {
 
-            //go 1/numSegments of the remaining distance to the target, in a direction roughly toward the target
+            // go 1/numSegments of the remaining distance to the target, in a direction roughly toward the target
             var delta = model.doorknobPosition.minus( point ).normalized().timesScalar( segmentLength );
             delta = delta.rotated( phet.joist.random.nextDouble() - 0.5 );
             point = point.plus( delta );

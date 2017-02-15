@@ -83,7 +83,7 @@ define( function( require ) {
     } );
     this.addChild( accessibleFormNode );
 
-    // arm and leg - only interactive elements
+    // @public (read-only) arm and leg - only interactive elements
     this.leg = new AppendageNode( model.leg, leg, 25, 28, Math.PI / 2 * 0.7, model.soundProperty, AppendageRangeMaps.leg,
       tandem.createTandem( 'legNode' ), {
         labelTagName: 'label',
@@ -91,7 +91,7 @@ define( function( require ) {
       } );
     accessibleFormNode.addChild( this.leg );
 
-    // the keyboardMidPointOffset was manually calculated as a radian offset that will trigger a discharge with the
+    // @public (read-only) the keyboardMidPointOffset was manually calculated as a radian offset that will trigger a discharge with the
     // minimum charge level.
     this.arm = new AppendageNode( model.arm, arm, 4, 45, -0.1, model.soundProperty, AppendageRangeMaps.arm,
       tandem.createTandem( 'armNode' ), {
@@ -101,7 +101,7 @@ define( function( require ) {
       } );
     accessibleFormNode.addChild( this.arm );
 
-    //Show the dotted lines again when the sim is reset
+    // Show the dotted lines again when the sim is reset
     model.resetEmitter.addListener( function() {
       if ( !self.leg.dragging ) {
         self.leg.border.visible = true;
@@ -111,14 +111,14 @@ define( function( require ) {
       }
     } );
 
-    //spark
+    // spark
     accessibleFormNode.addChild( new SparkNode(
       model,
       function( listener ) { model.stepEmitter.addListener( listener ); },
       tandem.createTandem( 'sparkNode' )
     ) );
 
-    //Sound button and reset all button
+    // Sound button and reset all button
     var soundToggleButton = new SoundToggleButton( model.soundProperty, {
       tandem: tandem.createTandem( 'soundToggleButton' )
     } );
@@ -225,13 +225,22 @@ define( function( require ) {
 
   return inherit( ScreenView, JohnTravoltageView, {
 
-    // @public, step the view
+    /**
+     * Step function for the view.
+     * @param  {number} dt - seconds
+     * @public
+     */
     step: function( dt ) {
 
       // step the sonification
       this.audioView && this.audioView.step( dt );
     },
 
+    /**
+     * Only used for debugging.  Show debug information for the body and charges, and visual information
+     * regarding how the model calculates charge positions.
+     * @private
+     */
     showBody: function() {
       //vertices and body path
       var customShape = new Shape();
@@ -260,7 +269,7 @@ define( function( require ) {
       } );
       this.addChild( path );
 
-      //forcelines, which attract particles
+      // forcelines, which attract particles
       var lines = this.model.forceLines;
       for ( i = 0; i < lines.length; i++ ) {
         customShape = new Shape();
