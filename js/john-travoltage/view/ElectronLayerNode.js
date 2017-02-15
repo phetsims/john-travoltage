@@ -37,6 +37,8 @@ define( function( require ) {
     Node.call( this, options );
 
     var priorCharge = 0;
+
+    // a11y - when electrons enter or leave the body, announce this change with a status update to assistive technology
     var setElectronStatus = function() {
       var currentCharge = model.electrons.length;
       var chargeText = currentCharge >= priorCharge ? JohnTravoltageA11yStrings.electronsTotalString : JohnTravoltageA11yStrings.electronsTotalAfterDischargeString;
@@ -45,8 +47,8 @@ define( function( require ) {
       priorCharge = currentCharge;
     };
 
-    //if new electron added to model - create and add new node to leg
-    model.electrons.addItemAddedListener( function( added ) {
+    // if new electron added to model - create and add new node to leg
+    function electronAddedListener( added ) {
 
       // and the visual representation of the electron
       var newElectron = new ElectronNode( added, model.leg, model.arm, tandem.createTandem( added.electronTandem.tail ) );
@@ -73,7 +75,9 @@ define( function( require ) {
         }
       };
       model.electrons.addItemRemovedListener( itemRemovedListener );
-    } );
+    }
+    model.electrons.addItemAddedListener( electronAddedListener );
+    model.electrons.forEach( electronAddedListener );
 
     // update status whenever an electron discharge has ended - disposal is not necessary
     model.dischargeEndedEmitter.addListener( setElectronStatus );
