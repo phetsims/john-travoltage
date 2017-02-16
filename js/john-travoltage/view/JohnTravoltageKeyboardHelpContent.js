@@ -100,18 +100,28 @@ define( function( require ) {
     } );
 
     // descriptions
-    var descriptionOptions = { font: DESCRIPTION_FONT };
+    var descriptionOptions = {
+      font: DESCRIPTION_FONT,
+
+      // a11y options
+      tagName: 'p',
+      parentContainerTagName: 'li'
+    };
     var arrowKeyDescription = new HTMLText( JohnTravoltageA11yStrings.arrowKeysMoveFootString, _.extend( {
-      tandem: tandem.createTandem( 'arrowKeyDescription' )
+      tandem: tandem.createTandem( 'arrowKeyDescription' ),
+      accessibleLabel: JohnTravoltageA11yStrings.arrowKeysMoveFootString
     }, descriptionOptions ) );
     var tabKeyDescription = new HTMLText( JohnTravoltageA11yStrings.tabKeyDescriptionString, _.extend( {
-      tandem: tandem.createTandem( 'tabKeyDescription' )
+      tandem: tandem.createTandem( 'tabKeyDescription' ),
+      accessibleLabel: JohnTravoltageA11yStrings.tabKeyDescriptionString
     }, descriptionOptions ) );
     var shiftPlusTabDescription = new HTMLText( JohnTravoltageA11yStrings.shiftTabKeyDescriptionString, _.extend( {
-      tandem: tandem.createTandem( 'shiftPlusTabDescription' )
+      tandem: tandem.createTandem( 'shiftPlusTabDescription' ),
+      accessibleLabel: JohnTravoltageA11yStrings.shiftTabKeyDescriptionString
     }, descriptionOptions ) );
     var escapeKeyDescription = new HTMLText( JohnTravoltageA11yStrings.escapeKeyDescriptionString, _.extend( {
-      tandem: tandem.createTandem( 'escapeKeyDescription' )
+      tandem: tandem.createTandem( 'escapeKeyDescription' ),
+      accessibleLabel: JohnTravoltageA11yStrings.shiftTabKeyDescriptionString
     }, descriptionOptions ) );
 
     /**
@@ -150,7 +160,10 @@ define( function( require ) {
       children: [ arrowKeyContentRow.description, tabKeyContentRow.description, shiftPlusTabContentRow.description, escapeKeyContentRow.description ],
       align: 'left',
       spacing: ICON_VERTICAL_SPACING,
-      tandem: tandem.createTandem( 'descriptionVBox' )
+      tandem: tandem.createTandem( 'descriptionVBox' ),
+
+      // a11y - wrap all descriptions in an unordered list
+      tagName: 'ul'
     } );
 
     // the two boxes are aligned horizontally, vertical spacing is guaranteed
