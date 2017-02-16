@@ -47,7 +47,11 @@ define( function( require ) {
         weight: 'bold',
         size: 20
       } ),
-      tandem: tandem.createTandem( 'titleText' )
+      tandem: tandem.createTandem( 'titleText' ),
+
+      // a11y options
+      tagName: 'h1',
+      accessibleLabel: JohnTravoltageA11yStrings.hotKeysAndHelpString
     } );
 
     // icons
