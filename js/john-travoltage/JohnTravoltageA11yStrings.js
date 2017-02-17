@@ -28,10 +28,10 @@ define( function( require ) {
     escKeyString: 'Esc',
     tabKeyString: 'Tab',
     hotKeysAndHelpString: 'Hot Keys and Help',
-    arrowKeysMoveFootString: '<b>Left or right arrow keys</b> move the hand or foot.',
-    tabKeyDescriptionString: '<b>Tab key</b> moves to the next item.',
-    shiftTabKeyDescriptionString: '<b>Shift plus Tab</b> moves to the previous item.',
-    escapeKeyDescriptionString: '<b>Escape key</b> closes a dialog, like this one.',
+    arrowKeysMoveFootString: '<strong>Left or right arrow keys</strong> move the hand or foot.',
+    tabKeyDescriptionString: '<strong>Tab key</strong> moves to the next item.',
+    shiftTabKeyDescriptionString: '<strong>Shift plus Tab</strong> moves to the previous item.',
+    escapeKeyDescriptionString: '<strong>Escape key</strong> closes a dialog, like this one.',
 
     // appendage labels
     armSliderLabelString: 'Hand position',
