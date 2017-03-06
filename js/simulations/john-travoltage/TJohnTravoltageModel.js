@@ -14,8 +14,6 @@ define( function( require ) {
   var phetioInherit = require( 'PHET_IO/phetioInherit' );
   var TObject = require( 'PHET_IO/types/TObject' );
 
-  // TODO: this file is likely where we will deal with serializing the particles
-
   var TJohnTravoltageModel = function( instance, phetioID ) {
     assertInstanceOf( instance, phet.johnTravoltage.JohnTravoltageModel );
     TObject.call( this, instance, phetioID );
