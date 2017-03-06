@@ -150,6 +150,12 @@ define( function( require ) {
       }
     } );
 
+    // reset angle counting variables when the sim is reset - does not need to be disposed
+    this.resetEmitter.addListener( function() {
+      lastAngle = self.leg.angleProperty.get();
+      accumulatedAngle = 0;
+    } );
+
     var array = [];
     for ( var i = 0; i < this.bodyVertices.length - 1; i++ ) {
       var current = this.bodyVertices[ i ];
