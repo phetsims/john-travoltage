@@ -205,8 +205,19 @@ define( function( require ) {
       }
     } );
 
-    // Updates the PDOM with changes in the model
+    // Updates the accessibility content with changes in the model
     appendage.angleProperty.link( this.updatePosition.bind( this ) );
+
+    // prevent user from manipulating with both keybaord and mouse at the same time
+    // no need to dispose, listener AppendageNodes should exist for life of sim
+    this.addAccessibleInputListener( {
+      focus: function( event ) {
+        self.pickable = false;
+      },
+      blur: function( event ) {
+        self.pickable = true;
+      }
+    } );
   }
 
   johnTravoltage.register( 'AppendageNode', AppendageNode );
