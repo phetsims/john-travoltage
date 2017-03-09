@@ -162,7 +162,7 @@ define( function( require ) {
       var chargeDescriptor = model.electrons.length === 1 ? JohnTravoltageA11yStrings.electronsDescriptionSingleString : JohnTravoltageA11yStrings.electronsDescriptionMultipleString;
       var chargeMessage = hadElectrons ? StringUtils.format( chargeDescriptor, model.electrons.length ) : '';
 
-      self.accessibleDescription = StringUtils.format( JohnTravoltageA11yStrings.sceneDescriptionString, arm.positionDescription, chargeMessage );
+      self.accessibleDescription = StringUtils.format( JohnTravoltageA11yStrings.sceneDescriptionString, self.arm.positionDescription, chargeMessage );
     };
 
     // electrons observable array exists for the lifetime of the sim, so there is no need to remove these
