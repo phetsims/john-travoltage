@@ -1,5 +1,5 @@
 {
-  "comment": "# john-travoltage 1.3.0-dev.13 Tue Mar 07 2017 18:26:11 GMT-0700 (Mountain Standard Time)",
+  "comment": "# john-travoltage 1.3.0-dev.14 Thu Mar 09 2017 13:10:25 GMT-0700 (Mountain Standard Time)",
   "assert": {
     "sha": "a707328cc11048787a807714496af23e0bd25be1",
     "branch": "master"
@@ -13,7 +13,7 @@
     "branch": "master"
   },
   "chipper": {
-    "sha": "ea8fbc92d20a80ca21a948b4b1e0bc53a8193962",
+    "sha": "17b52fdab1f445621b54e68e9f0f8d29ed052550",
     "branch": "master"
   },
   "dot": {
@@ -21,7 +21,7 @@
     "branch": "master"
   },
   "john-travoltage": {
-    "sha": "57804257cfeb13266c3e7b7241d64c6a75b47b49",
+    "sha": "a488855a5cc9fcd36d4ce6e6996bffdccaa76949",
     "branch": "master"
   },
   "joist": {
