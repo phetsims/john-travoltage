@@ -78,10 +78,21 @@ define( function( require ) {
     this.addChild( new Node( { layerSplit: true, pickable: false } ) );
 
     //add an form element to contain all controls
-    var accessibleFormNode = new Node( {
-      tagName: 'form'
+    var playAreaNode = new Node( {
+      tagName: 'section',
+      labelTagName: 'h2',
+      accessibleLabel: 'Play Area',
+      prependLabels: true
     } );
-    this.addChild( accessibleFormNode );
+    this.addChild( playAreaNode );
+
+    var controlPanelNode = new Node( {
+      tagName: 'section',
+      labelTagName: 'h2',
+      accessibleLabel: 'Control Panel',
+      prependLabels: true
+    } );
+    this.addChild( controlPanelNode );
 
     // @public (read-only) arm and leg - only interactive elements
     this.leg = new AppendageNode( model.leg, leg, 25, 28, Math.PI / 2 * 0.7, model.soundProperty, AppendageRangeMaps.leg,
@@ -89,7 +100,7 @@ define( function( require ) {
         labelTagName: 'label',
         label: JohnTravoltageA11yStrings.legSliderLabelString
       } );
-    accessibleFormNode.addChild( this.leg );
+    playAreaNode.addChild( this.leg );
 
     // @public (read-only) the keyboardMidPointOffset was manually calculated as a radian offset that will trigger a discharge with the
     // minimum charge level.
@@ -99,7 +110,7 @@ define( function( require ) {
         labelTagName: 'label',
         label: JohnTravoltageA11yStrings.armSliderLabelString
       } );
-    accessibleFormNode.addChild( this.arm );
+    playAreaNode.addChild( this.arm );
 
     // Show the dotted lines again when the sim is reset
     model.resetEmitter.addListener( function() {
@@ -112,7 +123,7 @@ define( function( require ) {
     } );
 
     // spark
-    accessibleFormNode.addChild( new SparkNode(
+    playAreaNode.addChild( new SparkNode(
       model,
       function( listener ) { model.stepEmitter.addListener( listener ); },
       tandem.createTandem( 'sparkNode' )
@@ -135,7 +146,7 @@ define( function( require ) {
       tandem: tandem.createTandem( 'resetAllButton' )
     } );
     resetAllButton.scale( soundToggleButton.height / resetAllButton.height );
-    accessibleFormNode.addChild( new HBox( {
+    controlPanelNode.addChild( new HBox( {
       spacing: 10,
       children: [ soundToggleButton, resetAllButton ],
       right: this.layoutBounds.maxX - 7,
@@ -154,7 +165,7 @@ define( function( require ) {
       layerSplit: true,
       pickable: false
     } );
-    accessibleFormNode.addChild( electronLayer );
+    playAreaNode.addChild( electronLayer );
 
     // after travolta picks up electrons the first time, this flag will modify descriptions slightly
     var hadElectrons = false;
@@ -183,7 +194,7 @@ define( function( require ) {
     this.leg.model.angleProperty.link( updateDescription );
 
     // the form is described by the description through aria-describedby
-    accessibleFormNode.setAriaDescribedByElement( this.descriptionElement );
+    playAreaNode.setAriaDescribedByElement( this.descriptionElement );
 
     // debug lines, body and forceline
     // borders are approximately 8px = radius of particle from physical body,
@@ -191,12 +202,12 @@ define( function( require ) {
     if ( JohnTravoltageQueryParameters.showDebugInfo ) {
       this.showBody();
 
-      accessibleFormNode.addChild( new Circle( 10, {
+      playAreaNode.addChild( new Circle( 10, {
         x: model.bodyVertices[ 0 ].x,
         y: model.bodyVertices[ 0 ].y,
         fill: 'blue'
       } ) );
-      accessibleFormNode.addChild( new Circle( 10, { x: 0, y: 0, fill: 'blue' } ) );
+      playAreaNode.addChild( new Circle( 10, { x: 0, y: 0, fill: 'blue' } ) );
 
       //Debugging for finger location
       var fingerCircle = new Circle( 10, { fill: 'red' } );
@@ -204,7 +215,7 @@ define( function( require ) {
         fingerCircle.x = model.arm.getFingerPosition().x;
         fingerCircle.y = model.arm.getFingerPosition().y;
       } );
-      accessibleFormNode.addChild( fingerCircle );
+      playAreaNode.addChild( fingerCircle );
 
       DebugUtils.debugLineSegments( this );
     }
