@@ -94,6 +94,9 @@ define( function( require ) {
     } );
     this.addChild( controlPanelNode );
 
+    // control panel uses aria-labelledby so that whenever focus enters the control panel, the label is read
+    controlPanelNode.setAriaLabelledByElement( controlPanelNode.getLabelElement() );
+
     // @public (read-only) arm and leg - only interactive elements
     this.leg = new AppendageNode( model.leg, leg, 25, 28, Math.PI / 2 * 0.7, model.soundProperty, AppendageRangeMaps.leg,
       tandem.createTandem( 'legNode' ), {
@@ -193,8 +196,9 @@ define( function( require ) {
     this.arm.model.angleProperty.link( updateDescription );
     this.leg.model.angleProperty.link( updateDescription );
 
-    // the form is described by the description through aria-describedby
+    // the play area is described by the description through aria-describedby
     playAreaNode.setAriaDescribedByElement( this.descriptionElement );
+    playAreaNode.setAriaLabelledByElement( playAreaNode.getLabelElement() );
 
     // debug lines, body and forceline
     // borders are approximately 8px = radius of particle from physical body,
