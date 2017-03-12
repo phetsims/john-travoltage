@@ -35,7 +35,6 @@ require.config( {
     SUN: '../../sun/js',
     JOIST: '../../joist/js',
     VIBE: '../../vibe/js',
-    SHERPA: '../../sherpa',
     TANDEM: '../../tandem/js',
 
     // PhET plugins
