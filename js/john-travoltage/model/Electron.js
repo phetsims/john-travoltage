@@ -16,10 +16,8 @@ define( function( require ) {
   var Util = require( 'DOT/Util' );
   var johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
   var Emitter = require( 'AXON/Emitter' );
-
-  // phet-io modules
+  var TVector2 = require( 'DOT/TVector2' );
   var TElectron = require( 'JOHN_TRAVOLTAGE/john-travoltage/model/TElectron' );
-  var TVector2 = require( 'ifphetio!PHET_IO/types/dot/TVector2' );
 
   //If this value is 1.0, there is no friction.  The value is what the velocity is multiplied by at every step.
   var frictionFactor = 0.98;
