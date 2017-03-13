@@ -9,10 +9,10 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var assertInstanceOf = require( 'PHET_IO/assertions/assertInstanceOf' );
-  var phetioNamespace = require( 'PHET_IO/phetioNamespace' );
-  var phetioInherit = require( 'PHET_IO/phetioInherit' );
-  var TObject = require( 'PHET_IO/types/TObject' );
+  var assertInstanceOf = require( 'ifphetio!PHET_IO/assertions/assertInstanceOf' );
+  var johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
+  var phetioInherit = require( 'ifphetio!PHET_IO/phetioInherit' );
+  var TObject = require( 'ifphetio!PHET_IO/types/TObject' );
 
   var TElectron = function( instance, phetioID ) {
     assertInstanceOf( instance, phet.johnTravoltage.Electron );
@@ -44,7 +44,7 @@ define( function( require ) {
     }
   } );
 
-  phetioNamespace.register( 'TElectron', TElectron );
+  johnTravoltage.register( 'TElectron', TElectron );
 
   return TElectron;
 } );
