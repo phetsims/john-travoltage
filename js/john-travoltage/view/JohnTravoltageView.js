@@ -100,7 +100,7 @@ define( function( require ) {
     this.leg = new AppendageNode( model.leg, leg, 25, 28, Math.PI / 2 * 0.7, model.soundProperty, AppendageRangeMaps.leg,
       tandem.createTandem( 'legNode' ), {
         labelTagName: 'label',
-        label: JohnTravoltageA11yStrings.legSliderLabelString
+        accessibleLabel: JohnTravoltageA11yStrings.legSliderLabelString
       } );
     playAreaNode.addChild( this.leg );
 
@@ -110,7 +110,7 @@ define( function( require ) {
       tandem.createTandem( 'armNode' ), {
         keyboardMidPointOffset: 0.41,
         labelTagName: 'label',
-        label: JohnTravoltageA11yStrings.armSliderLabelString
+        accessibleLabel: JohnTravoltageA11yStrings.armSliderLabelString
       } );
     playAreaNode.addChild( this.arm );
 
