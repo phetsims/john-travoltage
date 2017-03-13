@@ -41,19 +41,6 @@ define( function( require ) {
    */
   function JohnTravoltageKeyboardHelpContent( tandem ) {
 
-    // title
-    var titleText = new Text( JohnTravoltageA11yStrings.hotKeysAndHelpString, {
-      font: new PhetFont( {
-        weight: 'bold',
-        size: 20
-      } ),
-      tandem: tandem.createTandem( 'titleText' ),
-
-      // a11y options
-      tagName: 'h1',
-      accessibleLabel: JohnTravoltageA11yStrings.hotKeysAndHelpString
-    } );
-
     // icons
     // arrow keys, separated by 'or' text
     var leftArrowKeyNode = new ArrowKeyNode( 'left', {
@@ -179,18 +166,21 @@ define( function( require ) {
     } );
 
     // title and content aligned in a VBox
-    var content = new VBox( {
-      children: [ titleText, contentHBox ],
-      spacing: LAYOUT_SPACING,
-      tandem: tandem.createTandem( 'content' )
-    } );
+    // var content = new VBox( {
+    //   children: [ titleText, contentHBox ],
+    //   spacing: LAYOUT_SPACING,
+    //   tandem: tandem.createTandem( 'content' )
+    // } );
 
-    Panel.call( this, content, {
+    Panel.call( this, contentHBox, {
       stroke: null,
       xMargin: DIALOG_MARGIN,
       yMargin: DIALOG_MARGIN,
       fill: 'rgb( 214, 237, 249 )',
-      tandem: tandem
+      tandem: tandem,
+
+      // a11y 
+      tagName: 'div'
     } );
 
     // the content should be centered in the dialog relative to the description text
