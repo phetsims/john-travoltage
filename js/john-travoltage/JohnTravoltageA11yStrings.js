@@ -49,7 +49,11 @@ define( function( require ) {
     handNeitherString: 'neither far nor close to the doorknob',
     handFarString: 'far from the doorknob',
     handVeryFarString: 'very far from the doorknob',
-    handFarthestString: 'farthest from the doorknob'
+    handFarthestString: 'farthest from the doorknob',
+
+    // section labels
+    controlPanelString: 'Control Panel',
+    playAreaString: 'Play Area'
     
   };
 

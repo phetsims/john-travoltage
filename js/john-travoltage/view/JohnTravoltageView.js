@@ -79,23 +79,22 @@ define( function( require ) {
 
     //add an form element to contain all controls
     var playAreaNode = new Node( {
-      tagName: 'section',
+      parentContainerTagName: 'section',
+      tagName: 'div',
       labelTagName: 'h2',
-      accessibleLabel: 'Play Area',
+      accessibleLabel: JohnTravoltageA11yStrings.playAreaString,
       prependLabels: true
     } );
     this.addChild( playAreaNode );
 
     var controlPanelNode = new Node( {
-      tagName: 'section',
+      parentContainerTagName: 'section',
+      tagName: 'div',
       labelTagName: 'h2',
-      accessibleLabel: 'Control Panel',
+      accessibleLabel: JohnTravoltageA11yStrings.controlPanelString,
       prependLabels: true
     } );
     this.addChild( controlPanelNode );
-
-    // control panel uses aria-labelledby so that whenever focus enters the control panel, the label is read
-    controlPanelNode.setAriaLabelledByElement( controlPanelNode.getLabelElement() );
 
     // @public (read-only) arm and leg - only interactive elements
     this.leg = new AppendageNode( model.leg, leg, 25, 28, Math.PI / 2 * 0.7, model.soundProperty, AppendageRangeMaps.leg,
@@ -198,7 +197,6 @@ define( function( require ) {
 
     // the play area is described by the description through aria-describedby
     playAreaNode.setAriaDescribedByElement( this.descriptionElement );
-    playAreaNode.setAriaLabelledByElement( playAreaNode.getLabelElement() );
 
     // debug lines, body and forceline
     // borders are approximately 8px = radius of particle from physical body,
