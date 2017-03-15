@@ -1,11 +1,11 @@
 {
-  "comment": "# john-travoltage 1.3.0-dev.16 Mon Mar 13 2017 17:03:56 GMT-0600 (Mountain Daylight Time)",
+  "comment": "# john-travoltage 1.3.0-dev.17 Wed Mar 15 2017 08:59:19 GMT-0600 (Mountain Daylight Time)",
   "assert": {
     "sha": "a707328cc11048787a807714496af23e0bd25be1",
     "branch": "master"
   },
   "axon": {
-    "sha": "79a65b1584833a3101416bce2ffa3a19fa7f9c9e",
+    "sha": "e3d28c14b7733d5bcf7c85ac164c9ad87ad12ba0",
     "branch": "master"
   },
   "brand": {
@@ -21,11 +21,11 @@
     "branch": "master"
   },
   "john-travoltage": {
-    "sha": "842c392904de9beb17983fe7d9f4b658ff144dad",
+    "sha": "328633313928859f0e8b5d1bf19562af0594be40",
     "branch": "master"
   },
   "joist": {
-    "sha": "db7eab214eac51395e97ad8684fef3c9a558880e",
+    "sha": "2670920e409c36d7b9df0d042b81f3a71dbdb0c1",
     "branch": "master"
   },
   "kite": {
@@ -45,7 +45,7 @@
     "branch": "master"
   },
   "scenery": {
-    "sha": "e8bb0c34eabb61274984d3bb6b1f126b90860c47",
+    "sha": "219afb06f72e4f8426fda24f4566ba439be1b9d6",
     "branch": "master"
   },
   "scenery-phet": {
