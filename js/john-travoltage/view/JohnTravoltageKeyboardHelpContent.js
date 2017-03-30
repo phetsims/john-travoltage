@@ -112,7 +112,7 @@ define( function( require ) {
     }, descriptionOptions ) );
     var escapeKeyDescription = new HTMLText( JohnTravoltageA11yStrings.escapeKeyDescriptionString, _.extend( {
       tandem: tandem.createTandem( 'escapeKeyDescription' ),
-      accessibleLabel: JohnTravoltageA11yStrings.shiftTabKeyDescriptionString
+      accessibleLabel: JohnTravoltageA11yStrings.escapeKeyDescriptionString
     }, descriptionOptions ) );
 
     /**
@@ -165,17 +165,8 @@ define( function( require ) {
       tandem: tandem.createTandem( 'contentHBox' )
     } );
 
-    // title and content aligned in a VBox
-    // var content = new VBox( {
-    //   children: [ titleText, contentHBox ],
-    //   spacing: LAYOUT_SPACING,
-    //   tandem: tandem.createTandem( 'content' )
-    // } );
-
     Panel.call( this, contentHBox, {
       stroke: null,
-      xMargin: DIALOG_MARGIN,
-      yMargin: DIALOG_MARGIN,
       fill: 'rgb( 214, 237, 249 )',
       tandem: tandem,
 
