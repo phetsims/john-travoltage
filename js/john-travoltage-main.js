@@ -24,6 +24,10 @@ define( function( require ) {
   newChild.style.display = 'none';
   document.body.appendChild( newChild );
 
+  // make sure that the audio element above cannot be found by AT, and is out of tab navigation order for Firefox
+  newChild.setAttribute( 'aria-hidden', true );
+  newChild.tabIndex = -1;
+
   var tandem = Tandem.createRootTandem();
 
   // help content to describe keyboard interactions
