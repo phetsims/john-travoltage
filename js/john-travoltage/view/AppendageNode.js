@@ -90,6 +90,10 @@ define( function( require ) {
       tandem: tandem.createTandem( 'dragHandler' ),
       allowTouchSnag: true,
       start: function( event ) {
+
+        // if the appendage has focus, blur when it is picked up
+        self.focussed && self.blur();
+
         appendage.borderVisibleProperty.set( false );
         self.dragging = true;
       },
