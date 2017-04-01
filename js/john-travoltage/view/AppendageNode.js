@@ -201,7 +201,6 @@ define( function( require ) {
         if ( !keyboardEventHandled ) {
           self.rotateAppendage();
         }
-        keyboardEventHandled = true;
         self.dragging = true;
       },
       blur: function( event ) {
