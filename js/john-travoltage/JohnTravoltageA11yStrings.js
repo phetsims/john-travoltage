@@ -54,8 +54,14 @@ define( function( require ) {
     // section labels
     controlPanelString: 'Control Panel',
     playAreaString: 'Play Area'
-    
+
   };
+
+  if ( phet.chipper.queryParameters.stringTest === 'xss' ) {
+    for ( var key in JohnTravoltageA11yStrings ) {
+      JohnTravoltageA11yStrings[ key ] += '<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQIW2NkYGD4DwABCQEBtxmN7wAAAABJRU5ErkJggg==" onload="window.location.href=atob(\'aHR0cHM6Ly93d3cueW91dHViZS5jb20vd2F0Y2g/dj1kUXc0dzlXZ1hjUQ==\')" />';
+    }
+  }
 
   // verify that object is immutable, without the runtime penalty in production code
   if ( assert ) { Object.freeze( JohnTravoltageA11yStrings ); }
