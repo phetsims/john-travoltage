@@ -94,6 +94,9 @@ define( function( require ) {
         // if the appendage has focus, blur when it is picked up
         self.focussed && self.blur();
 
+        // if the appendage is picked up with the mouse, it should not be keyboard focusable until dropped
+        self.focusable = false;
+
         appendage.borderVisibleProperty.set( false );
         self.dragging = true;
       },
@@ -137,6 +140,9 @@ define( function( require ) {
       },
       end: function() {
         self.dragging = false;
+
+        // when we are done dragging with the mouse, place back in tab order
+        self.focusable = true;
       }
     } ) );
 
