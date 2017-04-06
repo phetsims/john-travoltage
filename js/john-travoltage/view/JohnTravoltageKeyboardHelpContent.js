@@ -119,7 +119,7 @@ define( function( require ) {
      * Align the icon and its description vertically by placing in a vertical align group
      * @param  {Node} icon
      * @param  {HTMLText} description
-     * @return {object} - keys icon {Node} and its description {HTMLText}
+     * @returns {object} - keys icon {Node} and its description {HTMLText}
      */
     var createContentRow = function( icon, description ) {
       var alignGroup = new AlignGroup( { matchHorizontal: false } );

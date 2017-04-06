@@ -51,14 +51,14 @@ define( function( require ) {
 
     /**
      * Get the center of this line segment.  Does not need to be fast, this is only used for debugging.
-     * @return {[type]} [description]
+     * @returns {[type]} [description]
      */
     get center() { return new Vector2( (this.x1 + this.x2) / 2, (this.y1 + this.y2) / 2 ); },
 
     /**
      * Get a normal vector to this line segment.
      * 
-     * @return {Vector2}
+     * @returns {Vector2}
      */
     get normal() { return new Vector2( this.x2 - this.x1, this.y2 - this.y1 ).normalized().perpendicular();}
   } );

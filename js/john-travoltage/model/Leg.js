@@ -57,7 +57,7 @@ define( function( require ) {
 
     /**
      * Calculate the change in angle from the initial value at construction.
-     * @return {number}
+     * @returns {number}
      * @public
      */
     deltaAngle: function() { return this.angleProperty.get() - this.initialAngle; }

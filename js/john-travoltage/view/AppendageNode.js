@@ -268,7 +268,7 @@ define( function( require ) {
     /**
      * Prevents the leg from rotation all the way around (because it looks weird)
      * @param  {number} angle - radians
-     * @return {nuber} angle - radians
+     * @returns {nuber} angle - radians
      */
     limitLegRotation: function( angle ) {
       if ( angle < -Math.PI / 2 ) {
