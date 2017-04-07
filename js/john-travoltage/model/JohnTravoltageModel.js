@@ -25,6 +25,7 @@ define( function( require ) {
 
   // phet-io modules
   var TJohnTravoltageModel = require( 'JOHN_TRAVOLTAGE/john-travoltage/model/TJohnTravoltageModel' );
+  var TElectron = require( 'JOHN_TRAVOLTAGE/john-travoltage/model/TElectron' );
 
   // constants
   var MAX_ELECTRONS = 100;
@@ -105,7 +106,7 @@ define( function( require ) {
       tandem: tandem.createTandem( 'soundProperty' )
     } );
 
-    this.electrons = new ObservableArray();
+    this.electrons = new ObservableArray( { tandem: tandem.createTandem( 'electrons' ), phetioValueType: TElectron } );
     this.arm = new Arm( tandem.createTandem( 'arm' ) );
     this.leg = new Leg( tandem.createTandem( 'leg' ) );
     this.legAngleAtPreviousStep = this.leg.angleProperty.get();
