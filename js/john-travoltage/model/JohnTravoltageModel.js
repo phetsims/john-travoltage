@@ -24,7 +24,8 @@ define( function( require ) {
   var BooleanProperty = require( 'AXON/BooleanProperty' );
 
   // phet-io modules
-  var TJohnTravoltageModel = require( 'ifphetio!PHET_IO/simulations/john-travoltage/TJohnTravoltageModel' );
+  var TJohnTravoltageModel = require( 'JOHN_TRAVOLTAGE/john-travoltage/model/TJohnTravoltageModel' );
+  var TElectron = require( 'JOHN_TRAVOLTAGE/john-travoltage/model/TElectron' );
 
   // constants
   var MAX_ELECTRONS = 100;
@@ -40,7 +41,7 @@ define( function( require ) {
 
     this.electronsToRemove = [];
 
-    //vertices of path, border of body, sampled using a listener in DebugPositions
+    //vertices of path, border of body, sampled using a listener in DebugUtils
     this.bodyVertices = [ new Vector2( 422.21508828250404, 455.370786516854 ),
       new Vector2( 403.10754414125205, 424.5521669341895 ),
       new Vector2( 379.68539325842704, 328.3980738362762 ),
@@ -105,7 +106,7 @@ define( function( require ) {
       tandem: tandem.createTandem( 'soundProperty' )
     } );
 
-    this.electrons = new ObservableArray();
+    this.electrons = new ObservableArray( { tandem: tandem.createTandem( 'electrons' ), phetioValueType: TElectron } );
     this.arm = new Arm( tandem.createTandem( 'arm' ) );
     this.leg = new Leg( tandem.createTandem( 'leg' ) );
     this.legAngleAtPreviousStep = this.leg.angleProperty.get();
@@ -150,6 +151,12 @@ define( function( require ) {
       }
     } );
 
+    // reset angle counting variables when the sim is reset - does not need to be disposed
+    this.resetEmitter.addListener( function() {
+      lastAngle = self.leg.angleProperty.get();
+      accumulatedAngle = 0;
+    } );
+
     var array = [];
     for ( var i = 0; i < this.bodyVertices.length - 1; i++ ) {
       var current = this.bodyVertices[ i ];
@@ -179,7 +186,7 @@ define( function( require ) {
      */
     reset: function() {
 
-      //Properties of the model.  All user settings belong in the model, whether or not they are part of the physical model
+      // Properties of the model.  All user settings belong in the model, whether or not they are part of the physical model
       this.sparkVisibleProperty.reset();
       this.shoeOnCarpetProperty.reset();
       this.soundProperty.reset();
@@ -190,10 +197,12 @@ define( function( require ) {
       }
       this.resetEmitter.emit();
     },
-    getLineSegments: function() {
-      return this.lineSegments;
-    },
-    // Called by the animation loop
+
+    /**
+     * Main step function for the model, called by animation loop in Sim.
+     * @param  {number} dt - seconds
+     * @public
+     */
     step: function( dt ) {
 
       //Clamp dt, since navigating to another tab and back gives the particles an apparent burst of energy, see #25
@@ -201,11 +210,11 @@ define( function( require ) {
         dt = 2 / 60;
       }
 
-      //Test for spark.  Check every step so that newly added electrons can be assigned to exit if the threshold is still exceeded, see #27
-      //If the finger is touching the doorknob, discharge everything
+      // Test for spark.  Check every step so that newly added electrons can be assigned to exit if the threshold is still exceeded, see #27
+      // If the finger is touching the doorknob, discharge everything
       var distToKnob = this.arm.getFingerPosition().distance( this.doorknobPosition );
 
-      //Minimum distance the finger can be to the knob, if pointed directly at it.  Sampled at runtime by printing angles.  Must be adjusted if the doorknob position is adjusted.
+      // Minimum distance the finger can be to the knob, if pointed directly at it.  Sampled at runtime by printing angles.  Must be adjusted if the doorknob position is adjusted.
       var actualMin = 15;
 
       var query = this.electrons.length / distToKnob;
@@ -221,11 +230,11 @@ define( function( require ) {
         }
       }
 
-      //If we are under the threshold, consider stopping the spark, but only if no electrons are close to the finger
+      // If we are under the threshold, consider stopping the spark, but only if no electrons are close to the finger
       else {
 
-        //Stop the spark, but only if the finger has moved further enough from the doorknob
-        //Use an increased threshold to model the more conductive path once the spark has started
+        // Stop the spark, but only if the finger has moved further enough from the doorknob
+        // Use an increased threshold to model the more conductive path once the spark has started
         if ( this.sparkCreationDistToKnob && distToKnob > this.sparkCreationDistToKnob + 10 ) {
           for ( var k = 0; k < this.electrons.length; k++ ) {
             var electron = this.electrons.get( k );
@@ -248,7 +257,7 @@ define( function( require ) {
         }
       }
 
-      //Step the model
+      // Step the model
       var length = this.electrons.length;
       for ( var i = 0; i < length; i++ ) {
         this.electrons._array[ i ].step( dt );
@@ -257,7 +266,7 @@ define( function( require ) {
       if ( this.electronsToRemove.length ) {
         this.sparkVisibleProperty.set( true );
       }
-      if ( !wasSpark && this.sparkVisible ) {
+      if ( !wasSpark && this.sparkVisibleProperty.get() ) {
 
         // spark is just turning visible, notify that a dischage has started
         this.dischargeStartedEmitter.emit();
@@ -269,7 +278,7 @@ define( function( require ) {
 
       if ( this.electrons.length === 0 || _.filter( this.electrons._array, exiting ).length === 0 ) {
 
-        //Make sure the spark shows at least one frame for a single electron exiting, see #55
+        // Make sure the spark shows at least one frame for a single electron exiting, see #55
         if ( wasSpark ) {
           this.sparkVisibleProperty.set( false );
           delete this.sparkCreationDistToKnob;
@@ -284,6 +293,12 @@ define( function( require ) {
 
       this.stepEmitter.emit();
     },
+
+    /**
+     * Remove an electron from this model's observable array of electrons.
+     * @param  {Electron} electron
+     * @public
+     */
     removeElectron: function( electron ) {
       this.electrons.remove( electron );
       electron.dispose();
@@ -299,6 +314,10 @@ define( function( require ) {
       }
     },
 
+    /**
+     * Create and add an electron to the body and this model's observable array.
+     * @param {Tandem} tandem
+     */
     addElectron: function( tandem ) {
 
       var segment = new LineSegment( 424.0642054574639, 452.28892455858755, 433.3097913322633, 445.5088282504014 );
@@ -312,7 +331,11 @@ define( function( require ) {
       return electron;
     },
 
-    //Electrons can get outside of the body when moving to the spark, this code moves them back inside
+    /**
+     * Electrons can get outside of the body when moving to the spark.  This code moves an electron back inside
+     * if this happens.
+     * @param  {Electron} electron
+     */
     moveElectronInsideBody: function( electron ) {
       var pt = electron.positionProperty.get();
 
@@ -327,6 +350,8 @@ define( function( require ) {
       }
     }
   }, {
+
+    // static - max number of electrons that can be inside the body
     MAX_ELECTRONS: MAX_ELECTRONS
   } );
 } );
