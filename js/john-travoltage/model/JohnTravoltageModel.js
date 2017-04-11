@@ -24,8 +24,8 @@ define( function( require ) {
   var BooleanProperty = require( 'AXON/BooleanProperty' );
 
   // phet-io modules
-  var TJohnTravoltageModel = require( 'PHET_IO/simulations/john-travoltage/TJohnTravoltageModel' );
-  var TElectron = require( 'PHET_IO/simulations/john-travoltage/TElectron' );
+  var TJohnTravoltageModel = require( 'ifphetio!PHET_IO/simulations/john-travoltage/TJohnTravoltageModel' );
+  var TElectron = require( 'ifphetio!PHET_IO/simulations/john-travoltage/TElectron' );
 
   // constants
   var MAX_ELECTRONS = 100;
