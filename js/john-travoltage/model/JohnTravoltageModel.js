@@ -24,8 +24,8 @@ define( function( require ) {
   var BooleanProperty = require( 'AXON/BooleanProperty' );
 
   // phet-io modules
-  var TJohnTravoltageModel = require( 'JOHN_TRAVOLTAGE/john-travoltage/model/TJohnTravoltageModel' );
-  var TElectron = require( 'JOHN_TRAVOLTAGE/john-travoltage/model/TElectron' );
+  var TJohnTravoltageModel = require( 'PHET_IO/simulations/john-travoltage/TJohnTravoltageModel' );
+  var TElectron = require( 'PHET_IO/simulations/john-travoltage/TElectron' );
 
   // constants
   var MAX_ELECTRONS = 100;
@@ -196,6 +196,10 @@ define( function( require ) {
         this.removeElectron( this.electrons.get( 0 ) );
       }
       this.resetEmitter.emit();
+    },
+
+    getLineSegments: function() {
+      return this.lineSegments;
     },
 
     /**
