@@ -1,5 +1,5 @@
 {
-  "comment": "# john-travoltage 1.2.5 Thu Apr 13 2017 12:59:23 GMT-0600 (MDT)",
+  "comment": "# john-travoltage 1.2.5 Thu Apr 13 2017 16:22:53 GMT-0600 (MDT)",
   "assert": {
     "sha": "7d27130a4d27da15aa7f8a21bbfb9245288c1b44",
     "branch": "HEAD"
@@ -10,18 +10,18 @@
   },
   "brand": {
     "sha": "f541724200f6d20009ad960847c362456ac9da1b",
-    "branch": "john-travoltage-1.2"
+    "branch": "HEAD"
   },
   "chipper": {
     "sha": "b3a8a3c24b598badc3b1089aa0eb28c812c47fa0",
-    "branch": "john-travoltage-1.2"
+    "branch": "HEAD"
   },
   "dot": {
     "sha": "da78031b6f080d20bc8346beaa1d37148188371e",
     "branch": "HEAD"
   },
   "john-travoltage": {
-    "sha": "84f4c8335c960486064aa32483bfaaf17b6536fb",
+    "sha": "f5295fbfd95e08c42ad94f0480d5ff2e76e2df4f",
     "branch": "1.2"
   },
   "joist": {
@@ -38,7 +38,7 @@
   },
   "phetcommon": {
     "sha": "4d7dcf9e4d2cf2a645e6cc91e34fb3caa7c7fd25",
-    "branch": "john-travoltage-1.2"
+    "branch": "HEAD"
   },
   "scenery": {
     "sha": "4ab9fc738e721e9e293042205c48a6d31505db98",
@@ -61,7 +61,7 @@
     "branch": "HEAD"
   },
   "vibe": {
-    "sha": "c84b3c41d026d31e208243de7b5852e2d6df69a0",
-    "branch": "HEAD"
+    "sha": "51cf879a48270639bc0db99f9dbcbfcbd9f106a7",
+    "branch": "john-travoltage-1.2"
   }
 }
