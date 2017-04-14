@@ -40,16 +40,44 @@ define( function( require ) {
     // used in status updates
     electronsDischargedString: 'electrons discharged',
 
-    // appendage position descriptions
+    // leg appendage position descriptions
     footOnCarpetString: 'foot rubbing on the rug',
     footOffCarpetString: 'foot off the rug',
-    handClosestString: 'closest to the doorknob',
-    handVeryCloseString: 'very close to the doorknob',
-    handCloseString: 'close to the doorknob',
-    handNeitherString: 'neither far nor close to the doorknob',
-    handFarString: 'far from the doorknob',
-    handVeryFarString: 'very far from the doorknob',
-    handFarthestString: 'farthest from the doorknob',
+    // handClosestString: 'closest to the doorknob',
+    // handVeryCloseString: 'very close to the doorknob',
+    // handCloseString: 'close to the doorknob',
+    // handNeitherString: 'neither far nor close to the doorknob',
+    // handFarString: 'far from the doorknob',
+    // handVeryFarString: 'very far from the doorknob',
+    // handFarthestString: 'farthest from the doorknob',
+    
+    // arm appendage position descriptions
+    farthestFromDoorknobString: 'Farthest from doorknob.',
+    veryFarFromDoorknobString: 'Very far from doorknob.',
+    farFromDoorknobString: 'Far from doorknob.',
+    notSoCloseToDoorknobString: 'Not so close to doorknob.',
+    closeToDoorknobString: 'Close to doorknob.',
+    veryClosetoDoorknobString: 'Very close to doorknob',
+    justAbotDoorknobString: 'Just above doorknob.',
+    atDoorknobString: 'At doorknob.',
+    justBelowDoorknobString: 'Just below doorknob.',
+
+    // directional change indicators
+    towardsDoorknobString: 'Towards doorknob',
+    awayFromDoorknobString: 'Away from doorknob',
+
+    // progress indicators
+    closerToDoorknobString: 'Closer to doorknob',
+    furtherAwayFromDoorknobString: 'Further away from doorknob',
+    closerStillPatternString: 'Closer, still {0}',
+    fartherAwayStillPatternString: 'Farther away, still {0}',
+
+    // landmark positions for the arm
+    handPointingAwayStringString: 'Hand pointing away, very far from doorknob',
+    handPointingStraightUpString: 'Hand pointing straight up.',
+    handPointingAtUpperDoorframeString: 'Hand pointing at upper doorframe, close to doorknob',
+    handPointingAtLowerDoorFrameString: 'Hand pointing at lower doorframe, close to doorknob',
+    handPointingStraightDownString: 'Hand pointing straight down.'
 
     // section labels
     controlPanelString: 'Control Panel',
