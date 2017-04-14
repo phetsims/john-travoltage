@@ -1,5 +1,5 @@
 {
-  "comment": "# john-travoltage 1.2.5 Thu Apr 13 2017 17:46:46 GMT-0600 (MDT)",
+  "comment": "# john-travoltage 1.2.5 Thu Apr 13 2017 21:04:09 GMT-0600 (MDT)",
   "assert": {
     "sha": "7d27130a4d27da15aa7f8a21bbfb9245288c1b44",
     "branch": "HEAD"
@@ -21,12 +21,12 @@
     "branch": "HEAD"
   },
   "john-travoltage": {
-    "sha": "77c39e2e6d55fd3685c2f4bdf6f927b716c6e8b6",
+    "sha": "11805f1659bc2be8a5828e7b6623c5fb723154c5",
     "branch": "1.2"
   },
   "joist": {
     "sha": "5b412238d13cc9fba88c0f9609c70a1cb8dacea4",
-    "branch": "john-travoltage-1.2"
+    "branch": "HEAD"
   },
   "kite": {
     "sha": "10ca8bf2b2712307ff528352de8451c0c8afe093",
@@ -37,8 +37,8 @@
     "branch": "HEAD"
   },
   "phetcommon": {
-    "sha": "4d7dcf9e4d2cf2a645e6cc91e34fb3caa7c7fd25",
-    "branch": "HEAD"
+    "sha": "dd29fa7de6ba257e8b1afb2d287c127a5bf39355",
+    "branch": "john-travoltage-1.2"
   },
   "scenery": {
     "sha": "4ab9fc738e721e9e293042205c48a6d31505db98",
