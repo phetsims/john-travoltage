@@ -175,10 +175,10 @@ define( function( require ) {
 
     // @private limit ranges of input for the leg
     this.keyboardMotion = {
-      min: 0,
-      max: appendage instanceof Leg ? 30 : 100,
+      min: appendage instanceof Leg ? -15 : -30; 
+      max: appendage instanceof Leg ? 15 : 30,
       step: 1,
-      totalRange: appendage instanceof Leg ? 60 : 100
+      totalRange: appendage instanceof Leg ? 30 : 60
     };
 
     this.setAccessibleAttribute( 'min', this.keyboardMotion.min );
