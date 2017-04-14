@@ -77,7 +77,7 @@ define( function( require ) {
     handPointingStraightUpString: 'Hand pointing straight up.',
     handPointingAtUpperDoorframeString: 'Hand pointing at upper doorframe, close to doorknob',
     handPointingAtLowerDoorFrameString: 'Hand pointing at lower doorframe, close to doorknob',
-    handPointingStraightDownString: 'Hand pointing straight down.'
+    handPointingStraightDownString: 'Hand pointing straight down.',
 
     // section labels
     controlPanelString: 'Control Panel',

@@ -27,61 +27,66 @@ define( function( require ) {
 
   var AppendageRangeMaps = {
 
-    leg: [
-      {
-        range: new Range( 0, 5 ),
-        text: footOffCarpetString
-      }, {
-        range: new Range( 6, 21 ),
-        text: footOnCarpetString
-      }, {
-        range: new Range( 22, 30 ),
-        text: footOffCarpetString
-      }
-    ],
+    legMap: {
+      regions: [
+        {
+          range: new Range( 0, 5 ),
+          text: footOffCarpetString
+        }, {
+          range: new Range( 6, 21 ),
+          text: footOnCarpetString
+        }, {
+          range: new Range( 22, 30 ),
+          text: footOffCarpetString
+        }
+      ],
+      landmarks: {}
+    },
 
-    arm: [
-      {
-        range: new Range( 0, 0 ),
-        text: handFarthestString
-      }, {
-        range: new Range( 1, 12 ),
-        text: handVeryFarString
-      }, {
-        range: new Range( 13, 24 ),
-        text: handFarString
-      }, {
-        range: new Range( 25, 25 ),
-        text: handNeitherString
-      }, {
-        range: new Range( 26, 37 ),
-        text: handCloseString
-      }, {
-        range: new Range( 38, 49 ),
-        text: handVeryCloseString
-      }, {
-        range: new Range( 50, 50 ),
-        text: handClosestString
-      }, {
-        range: new Range( 51, 62 ),
-        text: handVeryCloseString
-      }, {
-        range: new Range( 63, 74 ),
-        text: handCloseString
-      }, {
-        range: new Range( 75, 75 ),
-        text: handNeitherString
-      }, {
-        range: new Range( 76, 87 ),
-        text: handFarString
-      }, {
-        range: new Range( 88, 99 ),
-        text: handVeryFarString
-      }, {
-        range: new Range( 100, 100 ),
-        text: handFarthestString
-      }
-    ]
+    armMap: {
+      regions: [
+        {
+          range: new Range( 0, 0 ),
+          text: handFarthestString
+        }, {
+          range: new Range( 1, 12 ),
+          text: handVeryFarString
+        }, {
+          range: new Range( 13, 24 ),
+          text: handFarString
+        }, {
+          range: new Range( 25, 25 ),
+          text: handNeitherString
+        }, {
+          range: new Range( 26, 37 ),
+          text: handCloseString
+        }, {
+          range: new Range( 38, 49 ),
+          text: handVeryCloseString
+        }, {
+          range: new Range( 50, 50 ),
+          text: handClosestString
+        }, {
+          range: new Range( 51, 62 ),
+          text: handVeryCloseString
+        }, {
+          range: new Range( 63, 74 ),
+          text: handCloseString
+        }, {
+          range: new Range( 75, 75 ),
+          text: handNeitherString
+        }, {
+          range: new Range( 76, 87 ),
+          text: handFarString
+        }, {
+          range: new Range( 88, 99 ),
+          text: handVeryFarString
+        }, {
+          range: new Range( 100, 100 ),
+          text: handFarthestString
+        }
+      ]
+    }
   };
 
   johnTravoltage.register( 'AppendageRangeMaps', AppendageRangeMaps );

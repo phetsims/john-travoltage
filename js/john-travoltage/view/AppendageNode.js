@@ -175,7 +175,7 @@ define( function( require ) {
 
     // @private limit ranges of input for the leg
     this.keyboardMotion = {
-      min: appendage instanceof Leg ? -15 : -30; 
+      min: appendage instanceof Leg ? -15 : -30, 
       max: appendage instanceof Leg ? 15 : 30,
       step: 1,
       totalRange: appendage instanceof Leg ? 30 : 60
@@ -253,7 +253,7 @@ define( function( require ) {
      */
     updatePosition:  function( angle ) {
       var position = AppendageNode.angleToPosition( angle, this.keyboardMotion.totalRange, this.keyboardMotion.max, this.keyboardMidPointOffset );
-      var positionDescription = AppendageNode.getPositionDescription( position, this.rangeMap );
+      var positionDescription = AppendageNode.getPositionDescription( position, this.rangeMap.regions );
 
       // update the accessible input value and description text
       this.setInputValue( position );
