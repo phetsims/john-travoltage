@@ -58,7 +58,7 @@ define( function( require ) {
     notSoCloseToDoorknobString: 'Not so close to doorknob.',
     closeToDoorknobString: 'Close to doorknob.',
     veryClosetoDoorknobString: 'Very close to doorknob',
-    justAbotDoorknobString: 'Just above doorknob.',
+    justAboveDoorknobString: 'Just above doorknob.',
     atDoorknobString: 'At doorknob.',
     justBelowDoorknobString: 'Just below doorknob.',
 

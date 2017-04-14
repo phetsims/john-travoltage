@@ -17,13 +17,16 @@ define( function( require ) {
   // see https://github.com/phetsims/john-travoltage/issues/130
   var footOnCarpetString = JohnTravoltageA11yStrings.footOnCarpetString;
   var footOffCarpetString = JohnTravoltageA11yStrings.footOffCarpetString;
-  var handClosestString = JohnTravoltageA11yStrings.handClosestString;
-  var handVeryCloseString = JohnTravoltageA11yStrings.handVeryCloseString;
-  var handCloseString = JohnTravoltageA11yStrings.handCloseString;
-  var handNeitherString = JohnTravoltageA11yStrings.handNeitherString;
-  var handFarString = JohnTravoltageA11yStrings.handFarString;
-  var handVeryFarString = JohnTravoltageA11yStrings.handVeryFarString;
-  var handFarthestString = JohnTravoltageA11yStrings.handFarthestString;
+
+  var farthestFromDoorknobString = JohnTravoltageA11yStrings.farthestFromDoorknobString;
+  var veryFarFromDoorknobString = JohnTravoltageA11yStrings.veryFarFromDoorknobString;
+  var farFromDoorknobString = JohnTravoltageA11yStrings.farFromDoorknobString;
+  var notSoCloseToDoorknobString = JohnTravoltageA11yStrings.notSoCloseToDoorknobString;
+  var closeToDoorknobString = JohnTravoltageA11yStrings.closeToDoorknobString;
+  var veryClosetoDoorknobString = JohnTravoltageA11yStrings.veryClosetoDoorknobString;
+  var justAboveDoorknobString = JohnTravoltageA11yStrings.justAboveDoorknobString;
+  var atDoorknobString = JohnTravoltageA11yStrings.atDoorknobString;
+  var justBelowDoorknobString = JohnTravoltageA11yStrings.justBelowDoorknobString;
 
   var AppendageRangeMaps = {
 
@@ -46,44 +49,50 @@ define( function( require ) {
     armMap: {
       regions: [
         {
-          range: new Range( 0, 0 ),
-          text: handFarthestString
+          range: new Range( -30, -30 ),
+          text: farthestFromDoorknobString
         }, {
-          range: new Range( 1, 12 ),
-          text: handVeryFarString
+          range: new Range( -24, -29 ),
+          text: veryFarFromDoorknobString
         }, {
-          range: new Range( 13, 24 ),
-          text: handFarString
+          range: new Range( -18, -23 ),
+          text: farFromDoorknobString
         }, {
-          range: new Range( 25, 25 ),
-          text: handNeitherString
+          range: new Range( -13, -17 ),
+          text: notSoCloseToDoorknobString
         }, {
-          range: new Range( 26, 37 ),
-          text: handCloseString
+          range: new Range( -9, -12 ),
+          text: closeToDoorknobString
         }, {
-          range: new Range( 38, 49 ),
-          text: handVeryCloseString
+          range: new Range( -5, -8 ),
+          text: veryClosetoDoorknobString
         }, {
-          range: new Range( 50, 50 ),
-          text: handClosestString
+          range: new Range( -2, -4 ),
+          text: justBelowDoorknobString
         }, {
-          range: new Range( 51, 62 ),
-          text: handVeryCloseString
+          range: new Range( -1, 1 ),
+          text: atDoorknobString
         }, {
-          range: new Range( 63, 74 ),
-          text: handCloseString
+          range: new Range( 2, 4 ),
+          text: justAboveDoorknobString
         }, {
-          range: new Range( 75, 75 ),
-          text: handNeitherString
+          range: new Range( 5, 8 ),
+          text: veryClosetoDoorknobString
         }, {
-          range: new Range( 76, 87 ),
-          text: handFarString
+          range: new Range( 9, 12 ),
+          text: closeToDoorknobString
         }, {
-          range: new Range( 88, 99 ),
-          text: handVeryFarString
+          range: new Range( 13, 17 ),
+          text: notSoCloseToDoorknobString
         }, {
-          range: new Range( 100, 100 ),
-          text: handFarthestString
+          range: new Range( 18, 23 ),
+          text: farFromDoorknobString
+        }, {
+          range: new Range( 24, 29 ),
+          text: veryFarFromDoorknobString
+        }, {
+          range: new Range( 30, 30 ),
+          text: farthestFromDoorknobString
         }
       ]
     }
