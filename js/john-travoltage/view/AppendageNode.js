@@ -267,13 +267,28 @@ define( function( require ) {
      * @param {number} angle - radians
      */
     updatePosition:  function( angle ) {
+      var valueDescription;
       var position = AppendageNode.angleToPosition( angle, this.linearFunction, this.keyboardMidPointOffset );
-      var positionDescription = AppendageNode.getPositionDescription( position, this.rangeMap.regions );
+
+      // landmark description, if at a landmark this will always take priority
+      var landmarkDescription = AppendageNode.getLandmarkDescription( position, this.rangeMap.landmarks );
+
+      // region description, this is the fallback if nothing else should be read
+      var regionDescription = AppendageNode.getPositionDescription( position, this.rangeMap.regions );
+
+      if ( landmarkDescription ) {
+        valueDescription = landmarkDescription;
+      }
+      else if ( regionDescription ) {
+        valueDescription = regionDescription;
+      }
 
       // update the accessible input value and description text
       this.setInputValue( position );
-      this.setAccessibleAttribute( 'aria-valuetext', StringUtils.format( JohnTravoltageA11yStrings.positionTemplateString, position, positionDescription ) );
-      this.positionDescription = positionDescription;
+      this.setAccessibleAttribute( 'aria-valuetext', StringUtils.format( JohnTravoltageA11yStrings.positionTemplateString, position, valueDescription ) );
+
+      // the public position description should always be the region description
+      this.positionDescription = regionDescription;
 
       // updates the position of the focus highlight
       this.focusHighlight.center = this.imageNode.center;
@@ -359,6 +374,19 @@ define( function( require ) {
       _.forEach( rangeMap, function( map ) {
         if ( position >= map.range.min && position <= map.range.max ) {
           message = map.text;
+          return false;
+        }
+      } );
+
+      return message;
+    },
+
+    getLandmarkDescription: function( position, landmarkMap ) {
+      var message = '';
+
+      _.forEach( landmarkMap, function( landmark ) {
+        if ( position === landmark.value ) {
+          message = landmark.text;
           return false;
         }
       } );

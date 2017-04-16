@@ -73,10 +73,10 @@ define( function( require ) {
     fartherAwayStillPatternString: 'farther away, still {0}',
 
     // landmark positions for the arm
-    handPointingAwayStringString: 'hand pointing away, very far from doorknob',
-    handPointingStraightUpString: 'hand pointing straight up.',
+    handPointingAwayString: 'hand pointing away, very far from doorknob',
+    handPointingStraightUpString: 'hand pointing straight up',
     handPointingAtUpperDoorframeString: 'hand pointing at upper doorframe, close to doorknob',
-    handPointingAtLowerDoorFrameString: 'hand pointing at lower doorframe, close to doorknob',
+    handPointingAtLowerDoorFrameString: 'hand pointing at lower doorframe, very close to doorknob',
     handPointingStraightDownString: 'hand pointing straight down',
 
     // section labels

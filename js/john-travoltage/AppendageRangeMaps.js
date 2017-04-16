@@ -28,6 +28,12 @@ define( function( require ) {
   var atDoorknobString = JohnTravoltageA11yStrings.atDoorknobString;
   var justBelowDoorknobString = JohnTravoltageA11yStrings.justBelowDoorknobString;
 
+  var handPointingAwayString = JohnTravoltageA11yStrings.handPointingAwayString;
+  var handPointingStraightUpString = JohnTravoltageA11yStrings.handPointingStraightUpString;
+  var handPointingAtUpperDoorframeString = JohnTravoltageA11yStrings.handPointingAtUpperDoorframeString;
+  var handPointingAtLowerDoorFrameString = JohnTravoltageA11yStrings.handPointingAtLowerDoorFrameString;
+  var handPointingStraightDownString = JohnTravoltageA11yStrings.handPointingStraightDownString;
+
   var AppendageRangeMaps = {
 
     legMap: {
@@ -93,6 +99,33 @@ define( function( require ) {
         }, {
           range: new Range( 30, 30 ),
           text: farthestFromDoorknobString
+        }
+      ],
+
+      landmarks: [
+        {
+          value: 26,
+          text: handPointingAwayString
+        },
+        {
+          value: 17,
+          text: handPointingStraightUpString
+        },
+        {
+          value: 11,
+          text: handPointingAtUpperDoorframeString
+        },
+        {
+          value: -7,
+          text: handPointingAtLowerDoorFrameString
+        },
+        {
+          value: -13,
+          text: handPointingStraightDownString
+        },
+        {
+          value: -26,
+          text: handPointingAwayString
         }
       ]
     }
