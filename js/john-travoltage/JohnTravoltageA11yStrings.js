@@ -52,15 +52,15 @@ define( function( require ) {
     // handFarthestString: 'farthest from the doorknob',
     
     // arm appendage position descriptions
-    farthestFromDoorknobString: 'Farthest from doorknob.',
-    veryFarFromDoorknobString: 'Very far from doorknob.',
-    farFromDoorknobString: 'Far from doorknob.',
-    notSoCloseToDoorknobString: 'Not so close to doorknob.',
-    closeToDoorknobString: 'Close to doorknob.',
+    farthestFromDoorknobString: 'Farthest from doorknob',
+    veryFarFromDoorknobString: 'Very far from doorknob',
+    farFromDoorknobString: 'Far from doorknob',
+    notSoCloseToDoorknobString: 'Not so close to doorknob',
+    closeToDoorknobString: 'Close to doorknob',
     veryClosetoDoorknobString: 'Very close to doorknob',
-    justAboveDoorknobString: 'Just above doorknob.',
-    atDoorknobString: 'At doorknob.',
-    justBelowDoorknobString: 'Just below doorknob.',
+    justAboveDoorknobString: 'Just above doorknob',
+    atDoorknobString: 'At doorknob',
+    justBelowDoorknobString: 'Just below doorknob',
 
     // directional change indicators
     towardsDoorknobString: 'Towards doorknob',
@@ -77,7 +77,7 @@ define( function( require ) {
     handPointingStraightUpString: 'Hand pointing straight up.',
     handPointingAtUpperDoorframeString: 'Hand pointing at upper doorframe, close to doorknob',
     handPointingAtLowerDoorFrameString: 'Hand pointing at lower doorframe, close to doorknob',
-    handPointingStraightDownString: 'Hand pointing straight down.',
+    handPointingStraightDownString: 'Hand pointing straight down',
 
     // section labels
     controlPanelString: 'Control Panel',
