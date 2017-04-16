@@ -17,6 +17,11 @@ define( function( require ) {
   var Range = require( 'DOT/Range' );
   var BooleanProperty = require( 'AXON/BooleanProperty' );
 
+  var MOVEMENT_DIRECTIONS = {
+    CLOSER: 'CLOSER',
+    FARTHER: 'FARTHER'
+  };
+
   // phet-io modules
   var TNumber = require( 'ifphetio!PHET_IO/types/TNumber' );
 
@@ -35,6 +40,9 @@ define( function( require ) {
 
     // @private
     this.initialAngle = options.initialAngle;
+
+    // @public (a11y) - public indication of whether the appendage is moving closer or farther from its central position
+    this.movementDirection = null;
 
     // @public
     this.angleProperty = new NumberProperty( this.initialAngle, {
@@ -64,8 +72,13 @@ define( function( require ) {
      * @public
      */
     reset: function() {
+      this.movementDirection = null;
       this.angleProperty.reset();
     }
+  }, {
+
+    // @public @static
+    MOVEMENT_DIRECTIONS: MOVEMENT_DIRECTIONS
   } );
 
 } );

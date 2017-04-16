@@ -22,6 +22,7 @@ define( function( require ) {
   var Util = require( 'DOT/Util' );
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   var Leg = require( 'JOHN_TRAVOLTAGE/john-travoltage/model/Leg' );
+  var Appendage = require( 'JOHN_TRAVOLTAGE/john-travoltage/model/Appendage' );
   var johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
   var JohnTravoltageQueryParameters = require( 'JOHN_TRAVOLTAGE/john-travoltage/JohnTravoltageQueryParameters' );
   var JohnTravoltageA11yStrings = require( 'JOHN_TRAVOLTAGE/john-travoltage/JohnTravoltageA11yStrings' );
@@ -35,6 +36,14 @@ define( function( require ) {
   var furtherAwayFromDoorknobString = JohnTravoltageA11yStrings.furtherAwayFromDoorknobString;
   var closerStillPatternString = JohnTravoltageA11yStrings.closerStillPatternString;
   var fartherAwayStillPatternString = JohnTravoltageA11yStrings.fartherAwayStillPatternString;
+  var towardsDoorknobString = JohnTravoltageA11yStrings.towardsDoorknobString;
+  var awayFromDoorknobString = JohnTravoltageA11yStrings.awayFromDoorknobString;
+
+  // constants
+  var DIRECTION_DESCRIPTIONS = {
+    CLOSER: towardsDoorknobString,
+    FARTHER: awayFromDoorknobString
+  };
 
   // audio
   var limitBonkAudio = require( 'audio!JOHN_TRAVOLTAGE/limit-bonk' );
@@ -81,6 +90,9 @@ define( function( require ) {
 
     // @private (a11y) - arm description will change depending on how the appendage moves through the regions
     this.currentRegion = null;
+
+    // @private (a11y) - flag that is set to true after construction, initial description needs to be slightly different
+    this.constructed = false;
 
     // @private add the image
     this.imageNode = new Image( image, {
@@ -241,6 +253,7 @@ define( function( require ) {
     // Updates the accessibility content with changes in the model
     appendage.angleProperty.link( function( angle, previousAngle ) {
       self.updatePosition( angle, previousAngle );
+      self.constructed = true;
     } );
 
     // prevent user from manipulating with both keybaord and mouse at the same time
@@ -275,7 +288,8 @@ define( function( require ) {
      * accessibility.
      * @private
      * @a11y
-     * @param {number} angle - radians
+     * @param {number} angle - in radians
+     * @param {number} oldAngle - in radians
      */
     updatePosition:  function( angle, oldAngle ) {
       var valueDescription;
@@ -288,34 +302,48 @@ define( function( require ) {
         previousPosition = AppendageNode.angleToPosition( oldAngle, this.linearFunction, this.keyboardMidPointOffset );
       }
 
-      var newRegion = AppendageNode.getPositionDescription( position, this.rangeMap.regions );
+      // generate description
+      var newRegion = AppendageNode.getRegion( position, this.rangeMap.regions );
       var landmarkDescription = AppendageNode.getLandmarkDescription( position, this.rangeMap.landmarks );
       var progressDescription = AppendageNode.getProgressDescription( position, previousPosition, newRegion );
+      var directionDescription = this.getDirectionDescription( position, previousPosition );
 
-      if ( landmarkDescription ) {
+      // descriptions should be read in this priority
+      if ( !this.constructed ) { valueDescription = newRegion.text; }
+      else if ( landmarkDescription ) { valueDescription = landmarkDescription; }
+      else if ( !isLeg && directionDescription ) { valueDescription = directionDescription; }
+      else if ( !isLeg && previousRegion && newRegion.range.equals( previousRegion.range ) ) { valueDescription = progressDescription; }
+      else if ( newRegion ) { valueDescription = newRegion.text; }
 
-        // we are at a landmark, this description always takes priority
-        valueDescription = landmarkDescription;
-      }
-      else if ( !isLeg && previousRegion && newRegion.range.equals( previousRegion.range ) ) {
-
-        // we are still in the same regoin, let the user know that they are progressing through
-        valueDescription = progressDescription;
-      }
-      else if ( newRegion ) {
-        valueDescription = newRegion.text;
-      }
-      console.log( valueDescription );
-
-      // update the accessible input value and description text
       this.setInputValue( position );
       this.setAccessibleAttribute( 'aria-valuetext', StringUtils.format( JohnTravoltageA11yStrings.positionTemplateString, position, valueDescription ) );
+      // console.log( StringUtils.format( JohnTravoltageA11yStrings.positionTemplateString, position, valueDescription ) );
 
       // the public position description should always be the region description
       this.positionDescription = newRegion.text;
 
       this.focusHighlight.center = this.imageNode.center;
       this.currentRegion = newRegion;
+    },
+
+    /**
+     * Get a description of the movement direction, if the appendage changes directions during movement. Direction
+     * 
+     * @param  {number} position
+     * @param  {number} previousPosition
+     */
+    getDirectionDescription: function( position, previousPosition ) {
+      var deltaPosition = Math.abs( previousPosition ) - Math.abs( position );
+      var newDirection = deltaPosition > 0 ? Appendage.MOVEMENT_DIRECTIONS.CLOSER : Appendage.MOVEMENT_DIRECTIONS.FARTHER;
+
+      var description = '';
+      if ( this.model.movementDirection !== newDirection ) {
+        description = DIRECTION_DESCRIPTIONS[ newDirection ];
+      }
+
+      this.model.movementDirection = newDirection;
+
+      return description;
     }
   }, {
 
@@ -393,7 +421,7 @@ define( function( require ) {
      * @param {rangeMap} [Object] - a map that will determine the correct description from a provided input value
      * @returns {Object} region - {range, text}
      */
-    getPositionDescription: function( position, rangeMap ) {
+    getRegion: function( position, rangeMap ) {
       var region;
 
       _.forEach( rangeMap, function( map ) {
