@@ -44,6 +44,7 @@ define( function( require ) {
      */
     reset: function() {
       this.angleProperty.reset();
+      Appendage.prototype.reset.call( this );
     },
 
     /**

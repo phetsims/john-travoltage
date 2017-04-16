@@ -15,6 +15,7 @@ define( function( require ) {
   var johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
   var NumberProperty = require( 'AXON/NumberProperty' );
   var Range = require( 'DOT/Range' );
+  var Emitter = require( 'AXON/Emitter' );
   var BooleanProperty = require( 'AXON/BooleanProperty' );
 
   var MOVEMENT_DIRECTIONS = {
@@ -61,6 +62,9 @@ define( function( require ) {
     // @public - Keep track of dragging flag (non-observable) so that when the sim is reset, a border outline is not added if the leg is dragging
     this.dragging = false;
 
+    // @public - emits an event when the appendage is reset
+    this.appendageResetEmitter = new Emitter();
+
   }
 
   johnTravoltage.register( 'Appendage', Appendage );
@@ -74,6 +78,7 @@ define( function( require ) {
     reset: function() {
       this.movementDirection = null;
       this.angleProperty.reset();
+      this.appendageResetEmitter.emit();
     }
   }, {
 

@@ -92,7 +92,15 @@ define( function( require ) {
     this.currentRegion = null;
 
     // @private (a11y) - flag that is set to true after construction, initial description needs to be slightly different
-    this.constructed = false;
+    this.isFirstDescription = false;
+
+    // when the model is reset, reset the flags that track previous interactions with the appendage and reset
+    // descriptions, no need to dispose this listener since appendages exist for life of sim
+    this.model.appendageResetEmitter.addListener( function() {
+      self.currentRegion = null;
+      self.isFirstDescription = false;
+      self.updatePosition( self.model.angleProperty.get() );
+    } );
 
     // @private add the image
     this.imageNode = new Image( image, {
@@ -253,7 +261,7 @@ define( function( require ) {
     // Updates the accessibility content with changes in the model
     appendage.angleProperty.link( function( angle, previousAngle ) {
       self.updatePosition( angle, previousAngle );
-      self.constructed = true;
+      self.isFirstDescription = true;
     } );
 
     // prevent user from manipulating with both keybaord and mouse at the same time
@@ -285,7 +293,11 @@ define( function( require ) {
 
     /**
      * When the angle changes, update the value of the accessible range slider which represents this node for
-     * accessibility.
+     * accessibility.  Only one description should be included at any given time, with the following priority
+     * - region description for initial description (on load/reset, we should always hear the default region)
+     * - landmark description (cricial locations for the appendage)
+     * - direction description (closer vs fartherther away from 0)
+     * - progress description (movement progress through the current region)
      * @private
      * @a11y
      * @param {number} angle - in radians
@@ -302,22 +314,45 @@ define( function( require ) {
         previousPosition = AppendageNode.angleToPosition( oldAngle, this.linearFunction, this.keyboardMidPointOffset );
       }
 
-      // generate description
+      // generate descriptions that could be used depending on movement
       var newRegion = AppendageNode.getRegion( position, this.rangeMap.regions );
       var landmarkDescription = AppendageNode.getLandmarkDescription( position, this.rangeMap.landmarks );
       var progressDescription = AppendageNode.getProgressDescription( position, previousPosition, newRegion );
       var directionDescription = this.getDirectionDescription( position, previousPosition );
 
-      // descriptions should be read in this priority
-      if ( !this.constructed ) { valueDescription = newRegion.text; }
-      else if ( landmarkDescription ) { valueDescription = landmarkDescription; }
-      else if ( !isLeg && directionDescription ) { valueDescription = directionDescription; }
-      else if ( !isLeg && previousRegion && newRegion.range.equals( previousRegion.range ) ) { valueDescription = progressDescription; }
-      else if ( newRegion ) { valueDescription = newRegion.text; }
+      if ( !this.isFirstDescription ) {
+
+        // on construction and reset, the description should be the default region text
+        valueDescription = newRegion.text;
+      }
+      else if ( landmarkDescription ) {
+
+        // if we are ever on a critical landmark, that description should take priority
+        valueDescription = landmarkDescription;
+      }
+      else if ( !isLeg && directionDescription ) {
+
+        // if we change directions of movement (relative to the doorknob or center of carpet, that gets next priority)
+        valueDescription = directionDescription;
+        this.usedDirectionDescription = true;
+      }
+      else if ( !isLeg && !this.usedDirectionDescription && previousRegion && newRegion.range.equals( previousRegion.range ) ) {
+
+        // if the previous description was not for direction and we are still in the same region, provide a short
+        // description that indicates we are still moving through the same regions
+        valueDescription = progressDescription;
+        this.usedDirectionDescription = false;
+      }
+      else if ( newRegion ) {
+
+        // fall back to default region description
+        this.usedDirectionDescription = false;
+        valueDescription = newRegion.text;
+      }
 
       this.setInputValue( position );
       this.setAccessibleAttribute( 'aria-valuetext', StringUtils.format( JohnTravoltageA11yStrings.positionTemplateString, position, valueDescription ) );
-      // console.log( StringUtils.format( JohnTravoltageA11yStrings.positionTemplateString, position, valueDescription ) );
+      console.log( StringUtils.format( JohnTravoltageA11yStrings.positionTemplateString, position, valueDescription ) );
 
       // the public position description should always be the region description
       this.positionDescription = newRegion.text;
