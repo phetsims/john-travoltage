@@ -39,13 +39,13 @@ define( function( require ) {
     legMap: {
       regions: [
         {
-          range: new Range( 0, 5 ),
+          range: new Range( -15, -10 ),
           text: footOffCarpetString
         }, {
-          range: new Range( 6, 21 ),
+          range: new Range( -9, 6 ),
           text: footOnCarpetString
         }, {
-          range: new Range( 22, 30 ),
+          range: new Range( 7, 15 ),
           text: footOffCarpetString
         }
       ],
