@@ -116,6 +116,18 @@ define( function( require ) {
           text: handPointingAtUpperDoorframeString
         },
         {
+          value: 1,
+          text: atDoorknobString
+        },
+        {
+          value: 0,
+          text: atDoorknobString
+        },
+        {
+          value: -1,
+          text: atDoorknobString
+        },
+        {
           value: -7,
           text: handPointingAtLowerDoorFrameString
         },

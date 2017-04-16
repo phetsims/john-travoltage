@@ -30,6 +30,12 @@ define( function( require ) {
   var Sound = require( 'VIBE/Sound' );
   var TandemSimpleDragHandler = require( 'TANDEM/scenery/input/TandemSimpleDragHandler' );
 
+  // strings
+  var closerToDoorknobString = JohnTravoltageA11yStrings.closerToDoorknobString;
+  var furtherAwayFromDoorknobString = JohnTravoltageA11yStrings.furtherAwayFromDoorknobString;
+  var closerStillPatternString = JohnTravoltageA11yStrings.closerStillPatternString;
+  var fartherAwayStillPatternString = JohnTravoltageA11yStrings.fartherAwayStillPatternString;
+
   // audio
   var limitBonkAudio = require( 'audio!JOHN_TRAVOLTAGE/limit-bonk' );
 
@@ -70,8 +76,11 @@ define( function( require ) {
     this.keyboardMidPointOffset = options.keyboardMidPointOffset;
     this.rangeMap = rangeMap;
 
-    // @a11y @public (read-only), description for this arm, publicly visible so that it can be used elsewhere
+    // @public (a11y, read-only), description for this arm, publicly visible so that it can be used elsewhere
     this.positionDescription = '';
+
+    // @private (a11y) - arm description will change depending on how the appendage moves through the regions
+    this.currentRegion = null;
 
     // @private add the image
     this.imageNode = new Image( image, {
@@ -230,7 +239,9 @@ define( function( require ) {
     } );
 
     // Updates the accessibility content with changes in the model
-    appendage.angleProperty.link( this.updatePosition.bind( this ) );
+    appendage.angleProperty.link( function( angle, previousAngle ) {
+      self.updatePosition( angle, previousAngle );
+    } );
 
     // prevent user from manipulating with both keybaord and mouse at the same time
     // no need to dispose, listener AppendageNodes should exist for life of sim
@@ -266,32 +277,45 @@ define( function( require ) {
      * @a11y
      * @param {number} angle - radians
      */
-    updatePosition:  function( angle ) {
+    updatePosition:  function( angle, oldAngle ) {
       var valueDescription;
       var position = AppendageNode.angleToPosition( angle, this.linearFunction, this.keyboardMidPointOffset );
+      var previousRegion = this.currentRegion;
+      var previousPosition;
+      var isLeg = this.model instanceof Leg;
 
-      // landmark description, if at a landmark this will always take priority
+      if ( oldAngle ) {
+        previousPosition = AppendageNode.angleToPosition( oldAngle, this.linearFunction, this.keyboardMidPointOffset );
+      }
+
+      var newRegion = AppendageNode.getPositionDescription( position, this.rangeMap.regions );
       var landmarkDescription = AppendageNode.getLandmarkDescription( position, this.rangeMap.landmarks );
-
-      // region description, this is the fallback if nothing else should be read
-      var regionDescription = AppendageNode.getPositionDescription( position, this.rangeMap.regions );
+      var progressDescription = AppendageNode.getProgressDescription( position, previousPosition, newRegion );
 
       if ( landmarkDescription ) {
+
+        // we are at a landmark, this description always takes priority
         valueDescription = landmarkDescription;
       }
-      else if ( regionDescription ) {
-        valueDescription = regionDescription;
+      else if ( !isLeg && previousRegion && newRegion.range.equals( previousRegion.range ) ) {
+
+        // we are still in the same regoin, let the user know that they are progressing through
+        valueDescription = progressDescription;
       }
+      else if ( newRegion ) {
+        valueDescription = newRegion.text;
+      }
+      console.log( valueDescription );
 
       // update the accessible input value and description text
       this.setInputValue( position );
       this.setAccessibleAttribute( 'aria-valuetext', StringUtils.format( JohnTravoltageA11yStrings.positionTemplateString, position, valueDescription ) );
 
       // the public position description should always be the region description
-      this.positionDescription = regionDescription;
+      this.positionDescription = newRegion.text;
 
-      // updates the position of the focus highlight
       this.focusHighlight.center = this.imageNode.center;
+      this.currentRegion = newRegion;
     }
   }, {
 
@@ -367,20 +391,32 @@ define( function( require ) {
      *
      * @param {number} position - input value for the accessible input
      * @param {rangeMap} [Object] - a map that will determine the correct description from a provided input value
+     * @returns {Object} region - {range, text}
      */
     getPositionDescription: function( position, rangeMap ) {
-      var message = '';
+      var region;
 
       _.forEach( rangeMap, function( map ) {
         if ( position >= map.range.min && position <= map.range.max ) {
-          message = map.text;
+          region = map;
           return false;
         }
       } );
 
-      return message;
+      return region;
     },
 
+    /**
+     * If the appendage is at acritical location, returns a 'landmark' description that will always be read to the user.
+     * Otherwise, return an empty string.
+     * @static
+     * @private
+     * @a11y
+     * 
+     * @param  {number} position
+     * @param  {Object} landmarkMap {value, text}
+     * @return {string}             
+     */
     getLandmarkDescription: function( position, landmarkMap ) {
       var message = '';
 
@@ -392,6 +428,44 @@ define( function( require ) {
       } );
 
       return message;
+    },
+
+    /**
+     * Get a description of the appendage as it moves through the same region.
+     * @param  {number} position
+     * @param  {number} previousPosition
+     * @param  {Object} currentRegion {range, text}
+     * @return {string}
+     */
+    getProgressDescription: function( position, previousPosition, currentRegion ) {
+      var description = '';
+      var regionRange = currentRegion.range;
+
+      // getting closer to the doorknob (0)
+      if ( ( Math.abs( previousPosition ) - Math.abs( position ) ) > 0 ) {
+        if ( ( regionRange.min === position && position > 0 ) || ( regionRange.max === position && position < 0 )  ){
+
+          // at the last position in the region, say 'closer, still [old region]'
+          description = StringUtils.format( closerStillPatternString, currentRegion.text );
+        }
+        else {
+          description = closerToDoorknobString;
+        }
+      }
+      else {
+
+        // getting farther from the doorknob
+        if ( ( regionRange.min === position && position < 0 ) || ( regionRange.max === position ) && position > 0 ) {
+
+          // at the last position in the region, say 'farther, still [old region]'
+          description = StringUtils.format( fartherAwayStillPatternString, currentRegion.text );          
+        }
+        else {
+          description = furtherAwayFromDoorknobString;
+        }
+      }
+
+      return description;
     }
   } );
 } );
