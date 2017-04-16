@@ -14,6 +14,7 @@ define( function( require ) {
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
+  var LinearFunction = require( 'DOT/LinearFunction' );
   var Image = require( 'SCENERY/nodes/Image' );
   var Vector2 = require( 'DOT/Vector2' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
@@ -181,12 +182,26 @@ define( function( require ) {
       totalRange: appendage instanceof Leg ? 30 : 60
     };
 
+    // angles for each of the appendages that determine limitations to rotation
+    var angleMotion = {
+      min: appendage instanceof Leg ? Math.PI : -Math.PI,
+      max: appendage instanceof Leg ? 0 : Math.PI
+    };
+
+    // @private - linear function that will map appendage angle to input value for accessibility, rotation of the arm
+    // is inversely mapped to the range of the keyboard input.  The arm has an offset that does not fit in this mapping,
+    // but it is more convenient to use these maps since the drag handler set position in range of -PI to PI.
+    this.linearFunction = appendage instanceof Leg ?
+                          new LinearFunction( angleMotion.min, angleMotion.max, this.keyboardMotion.min, this.keyboardMotion.max ) :
+                          new LinearFunction( angleMotion.min, angleMotion.max, this.keyboardMotion.max, this.keyboardMotion.min );
+
+    // set the initial input range values
+    var rangeValue = AppendageNode.angleToPosition( appendage.angleProperty.get(), this.linearFunction, this.keyboardMidPointOffset );
+    this.setInputValue( rangeValue );
+
     this.setAccessibleAttribute( 'min', this.keyboardMotion.min );
     this.setAccessibleAttribute( 'max', this.keyboardMotion.max );
     this.setAccessibleAttribute( 'step', this.keyboardMotion.step );
-
-    var rangeValue = AppendageNode.angleToPosition( appendage.angleProperty.get(), this.keyboardMotion.totalRange, this.keyboardMotion.max, this.keyboardMidPointOffset );
-    this.setInputValue( rangeValue );
 
     // set up a relationship between the appendage and the 'status' alert so that JAWS users can quickly navigate
     // to the status element after interacting with the appendage
@@ -240,7 +255,7 @@ define( function( require ) {
      * @a11y
      */
     rotateAppendage: function() {
-      this.model.angleProperty.set( AppendageNode.positionToAngle( this.inputValue, this.keyboardMotion.totalRange, this.keyboardMidPointOffset ) );
+      this.model.angleProperty.set( AppendageNode.positionToAngle( this.inputValue, this.linearFunction, this.keyboardMidPointOffset ) );
       this.model.borderVisibleProperty.set( false );
     },
 
@@ -252,7 +267,7 @@ define( function( require ) {
      * @param {number} angle - radians
      */
     updatePosition:  function( angle ) {
-      var position = AppendageNode.angleToPosition( angle, this.keyboardMotion.totalRange, this.keyboardMotion.max, this.keyboardMidPointOffset );
+      var position = AppendageNode.angleToPosition( angle, this.linearFunction, this.keyboardMidPointOffset );
       var positionDescription = AppendageNode.getPositionDescription( position, this.rangeMap.regions );
 
       // update the accessible input value and description text
@@ -293,72 +308,50 @@ define( function( require ) {
     },
 
     /**
-     * Converts a radian value to a scale value ( based on number of stepsInScale ).
+     * Calculates the position of an appendage based on its angle. Useful for setting the position of the accessible
+     * input value.  An angle offset can be applied which is convenient here because the drag handler will always
+     * restrict angles from -PI to PI.  This function lets us wrap around the negative values.
      * @accessibility
      * @private
-     * @static
+     *
+     * @param {number} appendageAngle - in radians
+     * @param {LinearFunction} linearFunction - linear function that maps from angle to input value
+     * @param {number} angleOffset - offset angle from mapping, in radians
      */
-    radiansToScale: function( radian, stepsInScale, radianOffset ) {
-      var radianWithOffset = radian - radianOffset;
-      var scaleValue = ( radianWithOffset ) * ( ( stepsInScale / 2 ) / Math.PI );
+    angleToPosition: function( appendageAngle, linearFunction, angleOffset ) {
+      var angleWithOffset = appendageAngle - angleOffset;
+      
+      // the drag handler is mapped from PI to -PI. If we wrap around PI, apply the offset
+      if ( angleWithOffset < - Math.PI ) {
+        angleWithOffset = angleWithOffset + 2 * Math.PI;
+      }
 
-      return Util.roundSymmetric( scaleValue );
+      return Util.roundSymmetric( linearFunction( angleWithOffset ) );
     },
 
     /**
-     * Converts a scale value ( based on number of stepsInScale ) to a radian value.
-     * @accessibility
+     * Map the position of the appendage from its accessible value to rotation angle.
      * @private
      * @static
+     * @a11y
+     * 
+     * @param  {number} position - input value, value of the accessible input
+     * @param  {LinearFunction} linearFunction - linear function that maps angle to accessible input value
+     * @param  {number} angleOffset - angle of offset for the mapping, in radians
+     * @return {number} in radians                
      */
-    scaleToRadians: function( scaleValue, stepsInScale, radianOffset ) {
-      var radian = scaleValue * ( Math.PI / ( stepsInScale / 2 ) );
-      var radianWithOffset = radian + radianOffset;
-
-      return radianWithOffset;
-    },
-
-    /**
-     * Because the radian values for the complete range of motion is calculated from -1π to 1π radians,
-     * the scale can become a negative value. This transforms the scale to a positive value, usable by the slider in
-     * in the PDOM.
-     * @accessibility
-     * @private
-     * @static
-     */
-    scalePositionTransformation: function( totalSteps, value ) {
-      return ( totalSteps / 2 ) - value;
-    },
-
-    /**
-     * Calculates the position of an appendage based on its angle. Useful for setting the position of the corresponding
-     * slider in the PDOM.
-     * @accessibility
-     * @private
-     */
-    angleToPosition: function( appendageAngle, motionRange, maxPosition, radianOffset ) {
-      var scaleValue = AppendageNode.radiansToScale( appendageAngle, motionRange, radianOffset );
-      var position = AppendageNode.scalePositionTransformation( motionRange, scaleValue );
-      return position > maxPosition ? position % maxPosition : position;
-    },
-
-    /**
-     * Calculates the angle of an appendage based on its position. Useful for setting the angle of the appendage from
-     * the corresponding slider in the PDOM.
-     * @accessibility
-     * @private
-     * @static
-     */
-    positionToAngle: function( position, motionRange, radianOffset ) {
-      var scaleValue = AppendageNode.scalePositionTransformation( motionRange, position );
-
-      return this.scaleToRadians( scaleValue, motionRange, radianOffset );
+    positionToAngle: function( position, linearFunction, angleOffset ) {
+      return linearFunction.inverse( position ) + angleOffset;
     },
 
     /**
      * Determines the position description based on where the position falls in the supplied rangeMap.
-     * @accessibility
+     * @a11y
      * @private
+     * @static
+     *
+     * @param {number} position - input value for the accessible input
+     * @param {rangeMap} [Object] - a map that will determine the correct description from a provided input value
      */
     getPositionDescription: function( position, rangeMap ) {
       var message = '';
