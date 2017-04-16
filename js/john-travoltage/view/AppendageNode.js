@@ -352,7 +352,6 @@ define( function( require ) {
 
       this.setInputValue( position );
       this.setAccessibleAttribute( 'aria-valuetext', StringUtils.format( JohnTravoltageA11yStrings.positionTemplateString, position, valueDescription ) );
-      console.log( StringUtils.format( JohnTravoltageA11yStrings.positionTemplateString, position, valueDescription ) );
 
       // the public position description should always be the region description
       this.positionDescription = newRegion.text;
