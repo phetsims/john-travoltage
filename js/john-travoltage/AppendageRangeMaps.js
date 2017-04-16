@@ -52,22 +52,22 @@ define( function( require ) {
           range: new Range( -30, -30 ),
           text: farthestFromDoorknobString
         }, {
-          range: new Range( -24, -29 ),
+          range: new Range( -29, -24 ),
           text: veryFarFromDoorknobString
         }, {
-          range: new Range( -18, -23 ),
+          range: new Range( -23, -18 ),
           text: farFromDoorknobString
         }, {
-          range: new Range( -13, -17 ),
+          range: new Range( -17, -13 ),
           text: notSoCloseToDoorknobString
         }, {
-          range: new Range( -9, -12 ),
+          range: new Range( -12, -9 ),
           text: closeToDoorknobString
         }, {
-          range: new Range( -5, -8 ),
+          range: new Range( -8, -5 ),
           text: veryClosetoDoorknobString
         }, {
-          range: new Range( -2, -4 ),
+          range: new Range( -4, -2 ),
           text: justBelowDoorknobString
         }, {
           range: new Range( -1, 1 ),
