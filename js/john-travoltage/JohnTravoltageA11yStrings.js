@@ -52,32 +52,32 @@ define( function( require ) {
     // handFarthestString: 'farthest from the doorknob',
     
     // arm appendage position descriptions
-    farthestFromDoorknobString: 'Farthest from doorknob',
-    veryFarFromDoorknobString: 'Very far from doorknob',
-    farFromDoorknobString: 'Far from doorknob',
-    notSoCloseToDoorknobString: 'Not so close to doorknob',
-    closeToDoorknobString: 'Close to doorknob',
-    veryClosetoDoorknobString: 'Very close to doorknob',
-    justAboveDoorknobString: 'Just above doorknob',
-    atDoorknobString: 'At doorknob',
-    justBelowDoorknobString: 'Just below doorknob',
+    farthestFromDoorknobString: 'farthest from doorknob',
+    veryFarFromDoorknobString: 'very far from doorknob',
+    farFromDoorknobString: 'far from doorknob',
+    notSoCloseToDoorknobString: 'not so close to doorknob',
+    closeToDoorknobString: 'close to doorknob',
+    veryClosetoDoorknobString: 'very close to doorknob',
+    justAboveDoorknobString: 'just above doorknob',
+    atDoorknobString: 'at doorknob',
+    justBelowDoorknobString: 'just below doorknob',
 
     // directional change indicators
-    towardsDoorknobString: 'Towards doorknob',
-    awayFromDoorknobString: 'Away from doorknob',
+    towardsDoorknobString: 'towards doorknob',
+    awayFromDoorknobString: 'away from doorknob',
 
     // progress indicators
-    closerToDoorknobString: 'Closer to doorknob',
-    furtherAwayFromDoorknobString: 'Further away from doorknob',
-    closerStillPatternString: 'Closer, still {0}',
-    fartherAwayStillPatternString: 'Farther away, still {0}',
+    closerToDoorknobString: 'closer to doorknob',
+    furtherAwayFromDoorknobString: 'further away from doorknob',
+    closerStillPatternString: 'closer, still {0}',
+    fartherAwayStillPatternString: 'farther away, still {0}',
 
     // landmark positions for the arm
-    handPointingAwayStringString: 'Hand pointing away, very far from doorknob',
-    handPointingStraightUpString: 'Hand pointing straight up.',
-    handPointingAtUpperDoorframeString: 'Hand pointing at upper doorframe, close to doorknob',
-    handPointingAtLowerDoorFrameString: 'Hand pointing at lower doorframe, close to doorknob',
-    handPointingStraightDownString: 'Hand pointing straight down',
+    handPointingAwayStringString: 'hand pointing away, very far from doorknob',
+    handPointingStraightUpString: 'hand pointing straight up.',
+    handPointingAtUpperDoorframeString: 'hand pointing at upper doorframe, close to doorknob',
+    handPointingAtLowerDoorFrameString: 'hand pointing at lower doorframe, close to doorknob',
+    handPointingStraightDownString: 'hand pointing straight down',
 
     // section labels
     controlPanelString: 'Control Panel',
