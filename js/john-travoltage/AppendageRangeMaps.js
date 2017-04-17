@@ -73,13 +73,13 @@ define( function( require ) {
           range: new Range( -8, -5 ),
           text: veryClosetoDoorknobString
         }, {
-          range: new Range( -4, -2 ),
+          range: new Range( -4, -1 ),
           text: justBelowDoorknobString
         }, {
-          range: new Range( -1, 1 ),
+          range: new Range( 0, 0 ),
           text: atDoorknobString
         }, {
-          range: new Range( 2, 4 ),
+          range: new Range( 1, 4 ),
           text: justAboveDoorknobString
         }, {
           range: new Range( 5, 8 ),
@@ -116,15 +116,7 @@ define( function( require ) {
           text: handPointingAtUpperDoorframeString
         },
         {
-          value: 1,
-          text: atDoorknobString
-        },
-        {
           value: 0,
-          text: atDoorknobString
-        },
-        {
-          value: -1,
           text: atDoorknobString
         },
         {
