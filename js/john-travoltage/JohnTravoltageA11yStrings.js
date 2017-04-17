@@ -68,7 +68,7 @@ define( function( require ) {
 
     // progress indicators
     closerToDoorknobString: 'closer to doorknob',
-    furtherAwayFromDoorknobString: 'further away from doorknob',
+    fartherAwayFromDoorknobString: 'farther away from doorknob',
     closerStillPatternString: 'closer, still {0}',
     fartherAwayStillPatternString: 'farther away, still {0}',
 

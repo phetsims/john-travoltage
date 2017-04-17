@@ -33,7 +33,7 @@ define( function( require ) {
 
   // strings
   var closerToDoorknobString = JohnTravoltageA11yStrings.closerToDoorknobString;
-  var furtherAwayFromDoorknobString = JohnTravoltageA11yStrings.furtherAwayFromDoorknobString;
+  var fartherAwayFromDoorknobString = JohnTravoltageA11yStrings.fartherAwayFromDoorknobString;
   var closerStillPatternString = JohnTravoltageA11yStrings.closerStillPatternString;
   var fartherAwayStillPatternString = JohnTravoltageA11yStrings.fartherAwayStillPatternString;
   var towardsDoorknobString = JohnTravoltageA11yStrings.towardsDoorknobString;
@@ -529,7 +529,7 @@ define( function( require ) {
           description = StringUtils.format( fartherAwayStillPatternString, currentRegion.text );          
         }
         else {
-          description = furtherAwayFromDoorknobString;
+          description = fartherAwayFromDoorknobString;
         }
       }
 
