@@ -12,6 +12,8 @@ define( function( require ) {
 
   // modules
   var Bounds2 = require( 'DOT/Bounds2' );
+  var Text = require( 'SCENERY/nodes/Text' );
+  var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var ScreenView = require( 'JOIST/ScreenView' );
   var Line = require( 'SCENERY/nodes/Line' );
   var inherit = require( 'PHET_CORE/inherit' );
@@ -220,6 +222,16 @@ define( function( require ) {
       playAreaNode.addChild( fingerCircle );
 
       DebugUtils.debugLineSegments( this );
+    }
+
+    if ( JohnTravoltageQueryParameters.valueText ) {
+      var armText = new Text( this.arm.valueText, { x: 15, y: 20, font: new PhetFont( 16 ) } );
+      var legText = new Text( this.leg.valueText, { x: 15, y: 40, font: new PhetFont( 16 ) } );
+      this.addChild( armText );
+      this.addChild( legText );
+
+      model.arm.angleProperty.link( function() { armText.text = self.arm.valueText; } );
+      model.leg.angleProperty.link( function() { legText.text = self.leg.valueText; } );
     }
 
     this.sounds = [

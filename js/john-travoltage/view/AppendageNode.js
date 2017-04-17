@@ -88,6 +88,9 @@ define( function( require ) {
     // @public (a11y, read-only), description for this arm, publicly visible so that it can be used elsewhere
     this.positionDescription = '';
 
+    // @public (a11y, read-only) purely for debugging
+    this.valueText = '';
+
     // @private (a11y) - arm description will change depending on how the appendage moves through the regions
     this.currentRegion = null;
 
@@ -351,10 +354,13 @@ define( function( require ) {
       }
 
       this.setInputValue( position );
-      this.setAccessibleAttribute( 'aria-valuetext', StringUtils.format( JohnTravoltageA11yStrings.positionTemplateString, position, valueDescription ) );
+
+      var valueText = StringUtils.format( JohnTravoltageA11yStrings.positionTemplateString, position, valueDescription );
+      this.setAccessibleAttribute( 'aria-valuetext', valueText );
 
       // the public position description should always be the region description
       this.positionDescription = newRegion.text;
+      this.valueText = valueText;
 
       this.focusHighlight.center = this.imageNode.center;
       this.currentRegion = newRegion;
