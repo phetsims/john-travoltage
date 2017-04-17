@@ -11,7 +11,7 @@ define( function( require ) {
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var Text = require( 'SCENERY/nodes/Text' );
-  var HTMLText = require( 'SCENERY/nodes/HTMLText' );
+  var RichText = require( 'SCENERY_PHET/RichText' );
   var JohnTravoltageA11yStrings = require( 'JOHN_TRAVOLTAGE/john-travoltage/JohnTravoltageA11yStrings' );
   var johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
   var Panel = require( 'SUN/Panel' );
@@ -98,19 +98,19 @@ define( function( require ) {
       tagName: 'p',
       parentContainerTagName: 'li'
     };
-    var arrowKeyDescription = new HTMLText( JohnTravoltageA11yStrings.arrowKeysMoveFootString, _.extend( {
+    var arrowKeyDescription = new RichText( JohnTravoltageA11yStrings.arrowKeysMoveFootString, _.extend( {
       tandem: tandem.createTandem( 'arrowKeyDescription' ),
       accessibleLabel: JohnTravoltageA11yStrings.arrowKeysMoveFootString
     }, descriptionOptions ) );
-    var tabKeyDescription = new HTMLText( JohnTravoltageA11yStrings.tabKeyDescriptionString, _.extend( {
+    var tabKeyDescription = new RichText( JohnTravoltageA11yStrings.tabKeyDescriptionString, _.extend( {
       tandem: tandem.createTandem( 'tabKeyDescription' ),
       accessibleLabel: JohnTravoltageA11yStrings.tabKeyDescriptionString
     }, descriptionOptions ) );
-    var shiftPlusTabDescription = new HTMLText( JohnTravoltageA11yStrings.shiftTabKeyDescriptionString, _.extend( {
+    var shiftPlusTabDescription = new RichText( JohnTravoltageA11yStrings.shiftTabKeyDescriptionString, _.extend( {
       tandem: tandem.createTandem( 'shiftPlusTabDescription' ),
       accessibleLabel: JohnTravoltageA11yStrings.shiftTabKeyDescriptionString
     }, descriptionOptions ) );
-    var escapeKeyDescription = new HTMLText( JohnTravoltageA11yStrings.escapeKeyDescriptionString, _.extend( {
+    var escapeKeyDescription = new RichText( JohnTravoltageA11yStrings.escapeKeyDescriptionString, _.extend( {
       tandem: tandem.createTandem( 'escapeKeyDescription' ),
       accessibleLabel: JohnTravoltageA11yStrings.escapeKeyDescriptionString
     }, descriptionOptions ) );
@@ -118,8 +118,8 @@ define( function( require ) {
     /**
      * Align the icon and its description vertically by placing in a vertical align group
      * @param  {Node} icon
-     * @param  {HTMLText} description
-     * @returns {object} - keys icon {Node} and its description {HTMLText}
+     * @param  {RichText} description
+     * @returns {object} - keys icon {Node} and its description {RichText}
      */
     var createContentRow = function( icon, description ) {
       var alignGroup = new AlignGroup( { matchHorizontal: false } );
@@ -170,7 +170,7 @@ define( function( require ) {
       fill: 'rgb( 214, 237, 249 )',
       tandem: tandem,
 
-      // a11y 
+      // a11y
       tagName: 'div'
     } );
 
