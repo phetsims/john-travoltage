@@ -1,5 +1,5 @@
 {
-  "comment": "# john-travoltage 1.3.0-dev.22 Sun Apr 16 2017 16:18:29 GMT-0600 (Mountain Daylight Time)",
+  "comment": "# john-travoltage 1.3.0-dev.24 Mon Apr 17 2017 11:21:29 GMT-0600 (Mountain Daylight Time)",
   "assert": {
     "sha": "a707328cc11048787a807714496af23e0bd25be1",
     "branch": "master"
@@ -13,7 +13,7 @@
     "branch": "master"
   },
   "chipper": {
-    "sha": "56ffd4ea52c39061d3bb3f3f6d00b5cfa3719633",
+    "sha": "9d45ee45e95e3f1b9418a635845f3df26cd84b6a",
     "branch": "master"
   },
   "dot": {
@@ -21,7 +21,7 @@
     "branch": "master"
   },
   "john-travoltage": {
-    "sha": "35c8d54bb3fa0fee302bb49edf736f64887477aa",
+    "sha": "c035374496f3f15cc787cf7b16865b404e22300e",
     "branch": "master"
   },
   "joist": {
@@ -45,7 +45,7 @@
     "branch": "master"
   },
   "scenery": {
-    "sha": "0589c10bd4b8979d1b1e12a24488f1bf421af3ff",
+    "sha": "676b981e6d925f4cc899a0e23d8f6a23a6057655",
     "branch": "master"
   },
   "scenery-phet": {
