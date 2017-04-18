@@ -208,10 +208,10 @@ define( function( require ) {
 
     // @private limit ranges of input for the leg
     this.keyboardMotion = {
-      min: appendage instanceof Leg ? -15 : -30, 
-      max: appendage instanceof Leg ? 15 : 30,
+      min: appendage instanceof Leg ? -7 : -7, 
+      max: appendage instanceof Leg ? 7 : 7,
       step: 1,
-      totalRange: appendage instanceof Leg ? 30 : 60
+      totalRange: appendage instanceof Leg ? 15 : 15
     };
 
     // angles for each of the appendages that determine limitations to rotation

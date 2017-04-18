@@ -34,6 +34,12 @@ define( function( require ) {
   var handPointingAtLowerDoorFrameString = JohnTravoltageA11yStrings.handPointingAtLowerDoorFrameString;
   var handPointingStraightDownString = JohnTravoltageA11yStrings.handPointingStraightDownString;
 
+  var footOffRugPointingBackwardsString = JohnTravoltageA11yStrings.footOffRugPointingBackwardsString;
+  var footOffRugString = JohnTravoltageA11yStrings.footOffRugString;
+  var footRubbingOnRugString = JohnTravoltageA11yStrings.footRubbingOnRugString;
+  var footOffRugPointingForwardString = JohnTravoltageA11yStrings.footOffRugPointingForwardString;
+
+
   var AppendageRangeMaps = {
 
     legMap: {
@@ -49,7 +55,60 @@ define( function( require ) {
           text: footOffCarpetString
         }
       ],
-      landmarks: {}
+      landmarks: [
+        {
+          value: -7,
+          text: footOffRugPointingBackwardsString
+        },
+        {
+          value: -6,
+          text: footOffRugString
+        },
+        {
+          value: -5,
+          text: footOffRugString
+        },
+        {
+          value: -4,
+          text: footRubbingOnRugString
+        },
+        {
+          value: -3,
+          text: footRubbingOnRugString
+        },
+        {
+          value: -2,
+          text: footRubbingOnRugString
+        },
+        {
+          value: -1,
+          text: footRubbingOnRugString
+        }, {
+          value: 0,
+          text: footRubbingOnRugString
+        }, {
+          value: 1,
+          text: footRubbingOnRugString
+        }, {
+          value: 2,
+          text: footRubbingOnRugString
+        }, {
+          value: 3,
+          text: footRubbingOnRugString
+        }, {
+          value: 4,
+          text: footOffRugString
+        }, {
+          value: 5,
+          text: footOffRugString
+        }, {
+          value: 6,
+          text: footOffRugString
+        }, {
+          value: 7,
+          text: footOffRugPointingForwardString
+        }
+      ]
     },
 
     armMap: {
@@ -104,31 +163,55 @@ define( function( require ) {
 
       landmarks: [
         {
-          value: 26,
+          value: -7,
           text: handPointingAwayString
         },
         {
-          value: 17,
+          value: -6,
+          text: veryFarFromDoorknobString
+        },
+        {
+          value: -5,
+          text: farFromDoorknobString
+        },
+        {
+          value: -4,
           text: handPointingStraightUpString
         },
         {
-          value: 11,
+          value: -3,
           text: handPointingAtUpperDoorframeString
         },
         {
+          value: -2,
+          text: closeToDoorknobString
+        },
+        {
+          value: -1,
+          text: justAboveDoorknobString
+        }, {
           value: 0,
           text: atDoorknobString
-        },
-        {
-          value: -7,
+        }, {
+          value: 1,
+          text: justBelowDoorknobString
+        }, {
+          value: 2,
+          text: closeToDoorknobString
+        }, {
+          value: 3,
           text: handPointingAtLowerDoorFrameString
-        },
-        {
-          value: -13,
+        }, {
+          value: 4,
           text: handPointingStraightDownString
-        },
-        {
-          value: -26,
+        }, {
+          value: 5,
+          text: farFromDoorknobString
+        }, {
+          value: 6,
+          text: veryFarFromDoorknobString
+        }, {
+          value: 7,
           text: handPointingAwayString
         }
       ]

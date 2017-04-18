@@ -43,6 +43,11 @@ define( function( require ) {
     // leg appendage position descriptions
     footOnCarpetString: 'foot rubbing on the rug',
     footOffCarpetString: 'foot off the rug',
+
+    footOffRugStringPointingBackward: 'foot off rug, pointing backward',
+    footOffRugString: 'foot off rug',
+    footRubbingOnRugString: 'foot rubbing on rug',
+    footOffRugStringPointingForward: 'foot off rug, pointing forward',
     
     // arm appendage position descriptions
     farthestFromDoorknobString: 'farthest from doorknob',
@@ -66,10 +71,10 @@ define( function( require ) {
     fartherAwayStillPatternString: 'farther away, still {0}',
 
     // landmark positions for the arm
-    handPointingAwayString: 'hand pointing away, very far from doorknob',
+    handPointingAwayString: 'hand pointing away, farthest from doorknob',
     handPointingStraightUpString: 'hand pointing straight up',
-    handPointingAtUpperDoorframeString: 'hand pointing at upper doorframe, close to doorknob',
-    handPointingAtLowerDoorFrameString: 'hand pointing at lower doorframe, very close to doorknob',
+    handPointingAtUpperDoorframeString: 'hand pointing at upper doorframe, not so close to doorknob',
+    handPointingAtLowerDoorFrameString: 'hand pointing at lower doorframe, not close to doorknob',
     handPointingStraightDownString: 'hand pointing straight down',
 
     // section labels
