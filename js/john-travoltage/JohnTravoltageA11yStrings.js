@@ -42,14 +42,7 @@ define( function( require ) {
 
     // leg appendage position descriptions
     footOnCarpetString: 'foot rubbing on the rug',
-    footOffCarpetString: 'foot off the rug',
-    // handClosestString: 'closest to the doorknob',
-    // handVeryCloseString: 'very close to the doorknob',
-    // handCloseString: 'close to the doorknob',
-    // handNeitherString: 'neither far nor close to the doorknob',
-    // handFarString: 'far from the doorknob',
-    // handVeryFarString: 'very far from the doorknob',
-    // handFarthestString: 'farthest from the doorknob',
+    footOffCarpetString: 'foot off the rug',s
     
     // arm appendage position descriptions
     farthestFromDoorknobString: 'farthest from doorknob',
