@@ -42,7 +42,7 @@ define( function( require ) {
 
     // leg appendage position descriptions
     footOnCarpetString: 'foot rubbing on the rug',
-    footOffCarpetString: 'foot off the rug',s
+    footOffCarpetString: 'foot off the rug',
     
     // arm appendage position descriptions
     farthestFromDoorknobString: 'farthest from doorknob',
