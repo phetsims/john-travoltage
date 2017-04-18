@@ -355,6 +355,8 @@ define( function( require ) {
 
       this.setInputValue( position );
 
+      // if position is less than 0, add a unicode minus sign to it so that VoiceOver reads it
+      if ( position < 0 ) { position = '\u2212' + Math.abs( position ); }
       var valueText = StringUtils.format( JohnTravoltageA11yStrings.positionTemplateString, position, valueDescription );
       this.setAccessibleAttribute( 'aria-valuetext', valueText );
 
