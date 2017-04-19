@@ -208,10 +208,10 @@ define( function( require ) {
 
     // @private limit ranges of input for the leg
     this.keyboardMotion = {
-      min: appendage instanceof Leg ? -7 : -7, 
-      max: appendage instanceof Leg ? 7 : 7,
+      min: appendage instanceof Leg ? -7 : -15, 
+      max: appendage instanceof Leg ? 7 : 15,
       step: 1,
-      totalRange: appendage instanceof Leg ? 15 : 15
+      totalRange: appendage instanceof Leg ? 15 : 30
     };
 
     // angles for each of the appendages that determine limitations to rotation
@@ -225,7 +225,7 @@ define( function( require ) {
     // but it is more convenient to use these maps since the drag handler set position in range of -PI to PI.
     this.linearFunction = appendage instanceof Leg ?
                           new LinearFunction( angleMotion.min, angleMotion.max, this.keyboardMotion.min, this.keyboardMotion.max ) :
-                          new LinearFunction( angleMotion.min, angleMotion.max, this.keyboardMotion.max, this.keyboardMotion.min );
+                          new LinearFunction( angleMotion.min, angleMotion.max, this.keyboardMotion.min, this.keyboardMotion.max );
 
     // set the initial input range values
     var rangeValue = AppendageNode.angleToPosition( appendage.angleProperty.get(), this.linearFunction, this.keyboardMidPointOffset );
@@ -354,6 +354,9 @@ define( function( require ) {
       }
 
       this.setInputValue( position );
+
+      // TODO: just until #222 is sorted
+      valueDescription = '';
 
       // if position is less than 0, add a unicode minus sign to it so that VoiceOver reads it
       if ( position < 0 ) { position = '\u2212' + Math.abs( position ); }
