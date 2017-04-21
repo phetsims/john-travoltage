@@ -15,19 +15,19 @@ define( function( require ) {
   var JohnTravoltageA11yStrings = {
 
     // summary information
-    sceneDescriptionString: '{1}John\'s hand is {0}, and he is ready to swing his leg to rub his foot on the rug.',
+    sceneDescriptionString: '{1} John\'s hand is {0}, and he is ready to swing his leg to rub his foot on the rug.',
     electronsDescriptionSingleString: 'John has 1 charge on his body.',
     electronsDescriptionMultipleString: 'John has {0} charges on his body.',
     positionTemplateString: 'Position {0}: {1}',
     electronsTotalString: 'Electrons on body: {0}',
-    electronsTotalAfterDischargeString: 'Electrons on body: Discharge occurred. Electrons decreased from {1} to {0}',
+    electronsTotalAfterDischargeString: 'Electrons on body: Discharge occurred. Electrons decreased from {1} to {0}.',
 
     // keyboard help content strings
     orString: 'or',
     shiftKeyString: 'Shift',
     escKeyString: 'Esc',
     tabKeyString: 'Tab',
-    hotKeysAndHelpString: 'Hot Keys and Help',
+    hotKeysAndHelpString: 'Keyboard Shortcuts',
     arrowKeysMoveFootString: '<strong>Left or right arrow keys</strong> move the hand or foot.',
     tabKeyDescriptionString: '<strong>Tab key</strong> moves to the next item.',
     shiftTabKeyDescriptionString: '<strong>Shift plus Tab</strong> moves to the previous item.',
@@ -71,11 +71,11 @@ define( function( require ) {
     fartherAwayStillPatternString: 'farther away, still {0}',
 
     // landmark positions for the arm
-    handPointingAwayString: 'hand pointing away, farthest from doorknob',
-    handPointingStraightUpString: 'hand pointing straight up',
-    handPointingAtUpperDoorframeString: 'hand pointing at upper doorframe, not so close to doorknob',
-    handPointingAtLowerDoorFrameString: 'hand pointing at lower doorframe, not close to doorknob',
-    handPointingStraightDownString: 'hand pointing straight down',
+    handPointingAwayString: 'Hand pointing away from door, very far from doorknob.',
+    handPointingStraightUpString: 'Hand pointing straight up.',
+    handPointingAtUpperDoorframeString: 'Hand pointing at upper door frame, not so close to doorknob.',
+    handPointingAtLowerDoorFrameString: 'Hand pointing at lower door frame, not close to doorknob.',
+    handPointingStraightDownString: 'Hand pointing straight down.',
 
     // section labels
     controlPanelString: 'Control Panel',
