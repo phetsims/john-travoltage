@@ -17,10 +17,10 @@ define( function( require ) {
     // summary information
     sceneDescriptionString: '{1}John\'s hand is {0}, and he is ready to swing his leg to rub his foot on the rug.',
     electronsDescriptionSingleString: 'John has 1 charge on his body.',
-    electronsDescriptionMultipleString: 'John has {0} charges on his body.',
+    electronsDescriptionMultipleString: 'John has {0} charges on his body. ',
     positionTemplateString: 'Position {0}: {1}',
     electronsTotalString: 'Electrons on body: {0}',
-    electronsTotalAfterDischargeString: 'Electrons on body: Discharge occurred. Electrons decreased from {1} to {0}',
+    electronsTotalAfterDischargeString: 'Electrons on body: Discharge occurred. Electrons decreased from {1} to {0}.',
 
     // keyboard help content strings
     orString: 'or',
