@@ -27,7 +27,7 @@ define( function( require ) {
     shiftKeyString: 'Shift',
     escKeyString: 'Esc',
     tabKeyString: 'Tab',
-    hotKeysAndHelpString: 'Hot Keys and Help',
+    hotKeysAndHelpString: 'Keyboard Shortcuts',
     arrowKeysMoveFootString: '<strong>Left or right arrow keys</strong> move the hand or foot.',
     tabKeyDescriptionString: '<strong>Tab key</strong> moves to the next item.',
     shiftTabKeyDescriptionString: '<strong>Shift plus Tab</strong> moves to the previous item.',
