@@ -63,6 +63,9 @@ define( function( require ) {
     // directional change indicators
     towardsDoorknobString: 'towards doorknob',
     awayFromDoorknobString: 'away from doorknob',
+	
+    // directional indicator for emphasis when moving away above and below doorknob
+    fartherAwayVeryCloseString: 'farther away, very close to doorknob',
 
     // progress indicators
     closerToDoorknobString: 'closer to doorknob',
