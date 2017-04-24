@@ -20,6 +20,7 @@ define( function( require ) {
   };
 
   phetioInherit( TObject, 'TElectron', TElectron, {}, {
+    documentation: 'Electron in John\'s body',
 
     fromStateObject: function( stateObject ) {
       return stateObject;

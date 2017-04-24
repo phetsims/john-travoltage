@@ -20,6 +20,7 @@ define( function( require ) {
   };
 
   phetioInherit( TObject, 'TJohnTravoltageModel', TJohnTravoltageModel, {}, {
+    documentation: 'The model for John Travoltage',
     clearChildInstances: function( model ) {
       model.clearElectrons();
     },
