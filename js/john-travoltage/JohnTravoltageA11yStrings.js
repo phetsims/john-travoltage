@@ -20,7 +20,7 @@ define( function( require ) {
     electronsDescriptionMultipleString: 'John has {0} charges on his body.',
     positionTemplateString: 'Position {0}: {1}',
     electronsTotalString: 'Electrons on body: {0}',
-    electronsTotalAfterDischargeString: 'Electrons on body: Discharge occurred. Electrons decreased from {1} to {0}.',
+    electronsTotalAfterDischargeString: 'Discharge occurred. Electrons on body decreased from {1} to {0}.',
 
     // keyboard help content strings
     orString: 'or',
