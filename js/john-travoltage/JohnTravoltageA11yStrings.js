@@ -48,7 +48,6 @@ define( function( require ) {
     footOffRugString: 'foot off rug',
     footRubbingOnRugString: 'foot rubbing on rug',
     footOffRugStringPointingForward: 'foot off rug, pointing forward',
-    farthestFromDoorknobLastString: 'Farthest from doorknob. Last stop.',
     
     // arm appendage position descriptions
     farthestFromDoorknobString: 'farthest from doorknob',
@@ -77,9 +76,10 @@ define( function( require ) {
     // landmark positions for the arm
     handPointingAwayString: 'Hand pointing away from door, very far from doorknob.',
     handPointingStraightUpString: 'Hand pointing straight up.',
-    handPointingAtUpperDoorframeString: 'Hand pointing at upper door frame, not so close to doorknob.',
-    handPointingAtLowerDoorFrameString: 'Hand pointing at lower door frame, not close to doorknob.',
+    handPointingAtUpperDoorframeString: 'Hand pointing at upper door frame, close to doorknob.',
+    handPointingAtLowerDoorFrameString: 'Hand pointing at lower door frame, to doorknob.',
     handPointingStraightDownString: 'Hand pointing straight down.',
+    farthestFromDoorknobLastString: 'Farthest from doorknob. Last stop.',
 
     // section labels
     controlPanelString: 'Control Panel',
