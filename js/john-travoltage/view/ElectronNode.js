@@ -14,39 +14,19 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Circle = require( 'SCENERY/nodes/Circle' );
-  var RadialGradient = require( 'SCENERY/util/RadialGradient' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var DotRectangle = require( 'DOT/Rectangle' ); // eslint-disable-line require-statement-match
-  var Electron = require( 'JOHN_TRAVOLTAGE/john-travoltage/model/Electron' );
   var Image = require( 'SCENERY/nodes/Image' );
   var Vector2 = require( 'DOT/Vector2' );
   var johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
+  var ElectronChargeNode = require( 'SCENERY_PHET/ElectronChargeNode' );
 
   // constants
-  var radius = Electron.radius;
-
   // Scale up before rasterization so it won't be too pixelated/fuzzy
   var scale = 2;
 
   // single node for all electrons, making use of scenery's DAG feature
-  var minusChargeNode = new Node( {
-    children: [
-      new Circle( radius, {
-        fill: new RadialGradient( 2, -3, 2, 2, -3, 7 )
-          .addColorStop( 0, '#4fcfff' )
-          .addColorStop( 0.5, '#2cbef5' )
-          .addColorStop( 1, '#00a9e8' )
-      } ),
-
-      new Rectangle( 0, 0, 11, 2, {
-        fill: 'white',
-        centerX: 0,
-        centerY: 0
-      } )
-    ], scale: scale
-  } );
-  minusChargeNode.top = 0;
-  minusChargeNode.left = 0;
+  var minusChargeNode = new ElectronChargeNode( { scale: scale, top: 0, left: 0 } );
 
   var node = new Node();
   minusChargeNode.toImage( function( im ) {
