@@ -15,8 +15,7 @@ define( function( require ) {
 
   // strings - a11y strings should NOT be translatable yet
   // see https://github.com/phetsims/john-travoltage/issues/130
-  var footOnCarpetString = JohnTravoltageA11yStrings.footOnCarpetString;
-  var footOffCarpetString = JohnTravoltageA11yStrings.footOffCarpetString;
+  // var footRubbingOnRugString = JohnTravoltageA11yStrings.footRubbingOnRugString;
 
   var farthestFromDoorknobString = JohnTravoltageA11yStrings.farthestFromDoorknobString;
   var veryFarFromDoorknobString = JohnTravoltageA11yStrings.veryFarFromDoorknobString;
@@ -33,6 +32,7 @@ define( function( require ) {
   var handPointingAtUpperDoorframeString = JohnTravoltageA11yStrings.handPointingAtUpperDoorframeString;
   var handPointingAtLowerDoorFrameString = JohnTravoltageA11yStrings.handPointingAtLowerDoorFrameString;
   var handPointingStraightDownString = JohnTravoltageA11yStrings.handPointingStraightDownString;
+  var farthestFromDoorknobLastString = JohnTravoltageA11yStrings.farthestFromDoorknobLastString;
 
   var footOffRugPointingBackwardsString = JohnTravoltageA11yStrings.footOffRugPointingBackwardsString;
   var footOffRugString = JohnTravoltageA11yStrings.footOffRugString;
@@ -45,14 +45,14 @@ define( function( require ) {
     legMap: {
       regions: [
         {
-          range: new Range( -15, -10 ),
-          text: footOffCarpetString
+          range: new Range( -7, -5 ),
+          text: footOffRugString
         }, {
-          range: new Range( -9, 6 ),
-          text: footOnCarpetString
+          range: new Range( -4, 3 ),
+          text: footRubbingOnRugString
         }, {
-          range: new Range( 7, 15 ),
-          text: footOffCarpetString
+          range: new Range( 4, 7 ),
+          text: footOffRugString
         }
       ],
       landmarks: [
@@ -114,77 +114,69 @@ define( function( require ) {
     armMap: {
       regions: [
         {
-          range: new Range( -30, -30 ),
+          range: new Range( -15, -15 ),
           text: farthestFromDoorknobString
         }, {
-          range: new Range( -29, -24 ),
+          range: new Range( -14, -12 ),
           text: veryFarFromDoorknobString
         }, {
-          range: new Range( -23, -18 ),
+          range: new Range( -11, -9 ),
           text: farFromDoorknobString
         }, {
-          range: new Range( -17, -13 ),
+          range: new Range( -8, -6 ),
           text: notSoCloseToDoorknobString
         }, {
-          range: new Range( -12, -9 ),
+          range: new Range( -5, -3 ),
           text: closeToDoorknobString
         }, {
-          range: new Range( -8, -5 ),
+          range: new Range( -2, -2 ),
           text: veryClosetoDoorknobString
         }, {
-          range: new Range( -4, -1 ),
-          text: justBelowDoorknobString
+          range: new Range( -1, -1 ),
+          text: justAboveDoorknobString
         }, {
           range: new Range( 0, 0 ),
           text: atDoorknobString
         }, {
-          range: new Range( 1, 4 ),
-          text: justAboveDoorknobString
+          range: new Range( 1, 1 ),
+          text: justBelowDoorknobString
         }, {
-          range: new Range( 5, 8 ),
+          range: new Range( 2, 2 ),
           text: veryClosetoDoorknobString
         }, {
-          range: new Range( 9, 12 ),
+          range: new Range( 3, 5 ),
           text: closeToDoorknobString
         }, {
-          range: new Range( 13, 17 ),
+          range: new Range( 6, 8 ),
           text: notSoCloseToDoorknobString
         }, {
-          range: new Range( 18, 23 ),
+          range: new Range( 9, 11 ),
           text: farFromDoorknobString
         }, {
-          range: new Range( 24, 29 ),
+          range: new Range( 12, 14 ),
           text: veryFarFromDoorknobString
         }, {
-          range: new Range( 30, 30 ),
+          range: new Range( 15, 15 ),
           text: farthestFromDoorknobString
         }
       ],
 
       landmarks: [
         {
-          value: -7,
-          text: handPointingAwayString
+          value: -15,
+          text: farthestFromDoorknobLastString
         },
         {
-          value: -6,
-          text: veryFarFromDoorknobString
-        },
-        {
-          value: -5,
-          text: farFromDoorknobString
-        },
-        {
-          value: -4,
+          value: -8,
           text: handPointingStraightUpString
         },
         {
-          value: -3,
+          value: -5,
           text: handPointingAtUpperDoorframeString
         },
         {
           value: -2,
-          text: closeToDoorknobString
+          text: veryClosetoDoorknobString
         },
         {
           value: -1,
@@ -197,22 +189,19 @@ define( function( require ) {
           text: justBelowDoorknobString
         }, {
           value: 2,
-          text: closeToDoorknobString
-        }, {
-          value: 3,
-          text: handPointingAtLowerDoorFrameString
+          text: veryClosetoDoorknobString
         }, {
           value: 4,
+          text: handPointingAtLowerDoorFrameString
+        }, {
+          value: 8,
           text: handPointingStraightDownString
         }, {
-          value: 5,
-          text: farFromDoorknobString
-        }, {
-          value: 6,
-          text: veryFarFromDoorknobString
-        }, {
-          value: 7,
+          value: 13,
           text: handPointingAwayString
+        }, {
+          value: 15,
+          text: farthestFromDoorknobLastString
         }
       ]
     }

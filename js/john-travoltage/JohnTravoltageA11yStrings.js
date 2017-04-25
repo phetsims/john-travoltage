@@ -48,6 +48,7 @@ define( function( require ) {
     footOffRugString: 'foot off rug',
     footRubbingOnRugString: 'foot rubbing on rug',
     footOffRugStringPointingForward: 'foot off rug, pointing forward',
+    farthestFromDoorknobLastString: 'Farthest from doorknob. Last stop.',
     
     // arm appendage position descriptions
     farthestFromDoorknobString: 'farthest from doorknob',
