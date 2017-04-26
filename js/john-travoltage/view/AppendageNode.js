@@ -105,8 +105,7 @@ define( function( require ) {
     // when the model is reset, reset the flags that track previous interactions with the appendage and reset
     // descriptions, no need to dispose this listener since appendages exist for life of sim
     this.model.appendageResetEmitter.addListener( function() {
-      self.currentRegion = null;
-      self.updatePosition( self.model.angleProperty.get() );
+      self.initializePosition( self.model.angleProperty.get() );      
     } );
 
     // @private add the image
@@ -262,13 +261,18 @@ define( function( require ) {
       },
       blur: function( event ) {
         self.dragging = false;
+
+        // on blur, reset flags for another round of interaction and the only description should be the
+        // landmark or region
+        self.initializePosition( appendage.angleProperty.get() ); 
       }
     } );
 
     // Updates the accessibility content with changes in the model
-    appendage.angleProperty.link( function( angle, previousAngle ) {
+    appendage.angleProperty.lazyLink( function( angle, previousAngle ) {
       self.updatePosition( angle, previousAngle );
     } );
+    this.initializePosition( appendage.angleProperty.get() );
 
     // prevent user from manipulating with both keybaord and mouse at the same time
     // no need to dispose, listener AppendageNodes should exist for life of sim
@@ -350,6 +354,37 @@ define( function( require ) {
       // the public position description should always be the region description
       this.positionDescription = newRegion.text;
       this.valueText = valueText;
+
+      this.focusHighlight.center = this.imageNode.center;
+      this.currentRegion = newRegion;
+    },
+
+    /**
+     * On construction and reset, all we want is the region and the 
+     * @param  {[type]} angle [description]
+     * @return {[type]}       [description]
+     */
+    initializePosition: function( angle ) {
+      var position = AppendageNode.angleToPosition( angle, this.linearFunction, this.keyboardMidPointOffset );
+      var newRegion = AppendageNode.getRegion( position, this.rangeMap.regions );
+      var landmarkDescription = AppendageNode.getLandmarkDescription( position, this.rangeMap.landmarks );
+
+      this.setInputValue( position );
+
+      // if position is less than 0, add a unicode minus sign to it so that VoiceOver reads it
+      var valueDescription = landmarkDescription || newRegion.text;
+      if ( position < 0 ) { position = '\u2212' + Math.abs( position ); }
+      var valueText = StringUtils.format( JohnTravoltageA11yStrings.positionTemplateString, position, valueDescription );
+      this.setAccessibleAttribute( 'aria-valuetext', valueText );
+
+
+      // the public position description should always be the region description
+      this.positionDescription = newRegion.text;
+      this.valueText = valueText;      
+
+      // reset the movement direction so the next interaction will immediately get the direction
+      this.model.movementDirection = null;
+      this.currentRegion = null;
 
       this.focusHighlight.center = this.imageNode.center;
       this.currentRegion = newRegion;
