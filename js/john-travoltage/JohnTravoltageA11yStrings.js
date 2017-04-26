@@ -79,8 +79,8 @@ define( function( require ) {
     // landmark positions for the arm
     handPointingAwayString: 'Hand pointing away from door, very far from doorknob.',
     handPointingStraightUpString: 'Hand pointing straight up.',
-    handPointingAtUpperDoorframeString: 'Hand pointing at upper door frame, close to doorknob.',
-    handPointingAtLowerDoorFrameString: 'Hand pointing at lower door frame, to doorknob.',
+    handPointingAtUpperDoorString: 'Hand pointing at upper door, close to doorknob.',
+    handPointingAtLowerDoorString: 'Hand pointing at lower door, close to doorknob.',
     handPointingStraightDownString: 'Hand pointing straight down.',
     farthestFromDoorknobLastString: 'Farthest from doorknob. Last stop.',
 

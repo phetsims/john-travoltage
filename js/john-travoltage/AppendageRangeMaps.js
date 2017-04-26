@@ -29,8 +29,8 @@ define( function( require ) {
 
   var handPointingAwayString = JohnTravoltageA11yStrings.handPointingAwayString;
   var handPointingStraightUpString = JohnTravoltageA11yStrings.handPointingStraightUpString;
-  var handPointingAtUpperDoorframeString = JohnTravoltageA11yStrings.handPointingAtUpperDoorframeString;
-  var handPointingAtLowerDoorFrameString = JohnTravoltageA11yStrings.handPointingAtLowerDoorFrameString;
+  var handPointingAtUpperDoorString = JohnTravoltageA11yStrings.handPointingAtUpperDoorString;
+  var handPointingAtLowerDoorString = JohnTravoltageA11yStrings.handPointingAtLowerDoorString;
   var handPointingStraightDownString = JohnTravoltageA11yStrings.handPointingStraightDownString;
   var farthestFromDoorknobLastString = JohnTravoltageA11yStrings.farthestFromDoorknobLastString;
 
@@ -175,7 +175,7 @@ define( function( require ) {
         },
         {
           value: -4,
-          text: handPointingAtUpperDoorframeString
+          text: handPointingAtUpperDoorString
         },
         {
           value: -2,
@@ -195,7 +195,7 @@ define( function( require ) {
           text: veryCloseToDoorknobString
         }, {
           value: 4,
-          text: handPointingAtLowerDoorFrameString
+          text: handPointingAtLowerDoorString
         }, {
           value: 7,
           text: handPointingStraightDownString,
