@@ -38,11 +38,19 @@ define( function( require ) {
   var fartherAwayStillPatternString = JohnTravoltageA11yStrings.fartherAwayStillPatternString;
   var towardsDoorknobString = JohnTravoltageA11yStrings.towardsDoorknobString;
   var awayFromDoorknobString = JohnTravoltageA11yStrings.awayFromDoorknobString;
+  var towardsDoorknobPatternString = JohnTravoltageA11yStrings.towardsDoorknobPatternString;
+  var awayFromDoorknobPatternString = JohnTravoltageA11yStrings.awayFromDoorknobPatternString;
+  var fartherAwayPatternString = JohnTravoltageA11yStrings.fartherAwayPatternString;
 
   // constants
   var DIRECTION_DESCRIPTIONS = {
     CLOSER: towardsDoorknobString,
     FARTHER: awayFromDoorknobString
+  };
+
+  var DIRECTION_LANDMARK_PATTERN_DESCRIPTIONS = {
+    CLOSER: towardsDoorknobPatternString,
+    FARTHER: awayFromDoorknobPatternString
   };
 
   // audio
@@ -314,7 +322,7 @@ define( function( require ) {
       // generate descriptions that could be used depending on movement
       var newRegion = AppendageNode.getRegion( position, this.rangeMap.regions );
       var landmarkDescription = AppendageNode.getLandmarkDescription( position, this.rangeMap.landmarks );
-      var directionDescription = this.getDirectionDescription( position, previousPosition );
+      var directionDescription = this.getDirectionDescription( position, previousPosition, landmarkDescription, newRegion );
 
       if ( !isLeg && directionDescription ) {
 
@@ -353,13 +361,25 @@ define( function( require ) {
      * @param  {number} position
      * @param  {number} previousPosition
      */
-    getDirectionDescription: function( position, previousPosition ) {
+    getDirectionDescription: function( position, previousPosition, landmarkDescription, region ) {
       var deltaPosition = Math.abs( previousPosition ) - Math.abs( position );
       var newDirection = deltaPosition > 0 ? Appendage.MOVEMENT_DIRECTIONS.CLOSER : Appendage.MOVEMENT_DIRECTIONS.FARTHER;
 
       var description = '';
+      var stringPattern;
       if ( this.model.movementDirection !== newDirection ) {
-        description = DIRECTION_DESCRIPTIONS[ newDirection ];
+        if ( AppendageNode.getLandmarkIncludesDirection( position, this.rangeMap.landmarks ) ) {
+          assert && assert( landmarkDescription, 'there should be a landmark description in this case' );
+
+          stringPattern = DIRECTION_LANDMARK_PATTERN_DESCRIPTIONS[ newDirection ];
+          description = StringUtils.fillIn( stringPattern, { description: landmarkDescription } );
+        }
+        else if ( AppendageNode.getAddFurtherOnAway( position, this.rangeMap.regions ) && newDirection === Appendage.MOVEMENT_DIRECTIONS.FARTHER ) {
+          description = StringUtils.fillIn( fartherAwayPatternString, { description: region.text } );
+        }
+        else if ( region.range.getLength() > 0 ) {
+          description = DIRECTION_DESCRIPTIONS[ newDirection ];
+        }
       }
 
       this.model.movementDirection = newDirection;
@@ -477,6 +497,50 @@ define( function( require ) {
       } );
 
       return message;
+    },
+
+    /**
+     * Gets wheter or not the landmark description should include an indication of movement direction
+     * if the user lands on it after changing direction. Determined by a flag in AppendageRangeMaps.js,
+     * see that file for more information.
+     * 
+     * @param  {number} position   
+     * @param  {Object} landmarkMap
+     * @return {boolean}            
+     */
+    getLandmarkIncludesDirection: function( position, landmarkMap ) {
+      var includeDirection;
+
+      _.forEach( landmarkMap, function( landmark ) {
+        if ( position === landmark.value ) {
+          includeDirection = landmark.includeDirection;
+          return false;
+        }
+      } );
+
+      return includeDirection;
+    },
+
+    /**
+     * Get whether or not the region description should include an indication of movement direction
+     * when the user is moving away from the doorknob and lands in the region.  Determined by a flag in
+     * AppendageRangeMaps, see that file for more information.
+     * 
+     * @param  {position} position 
+     * @param  {Object} regionMap
+     * @return {boolean}          
+     */
+    getAddFurtherOnAway: function( position, regionMap ) {
+      var includeFartherAway = false;
+
+      _.forEach( regionMap, function( region ) {
+        if ( region.range.contains( position ) && region.addFartherAway ) {
+          includeFartherAway = region.addFartherAway;
+          return false;
+        }
+      } );
+
+      return includeFartherAway;
     },
 
     /**

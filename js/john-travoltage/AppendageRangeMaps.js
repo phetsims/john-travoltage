@@ -22,7 +22,7 @@ define( function( require ) {
   var farFromDoorknobString = JohnTravoltageA11yStrings.farFromDoorknobString;
   var notSoCloseToDoorknobString = JohnTravoltageA11yStrings.notSoCloseToDoorknobString;
   var closeToDoorknobString = JohnTravoltageA11yStrings.closeToDoorknobString;
-  var veryClosetoDoorknobString = JohnTravoltageA11yStrings.veryClosetoDoorknobString;
+  var veryCloseToDoorknobString = JohnTravoltageA11yStrings.veryCloseToDoorknobString;
   var justAboveDoorknobString = JohnTravoltageA11yStrings.justAboveDoorknobString;
   var atDoorknobString = JohnTravoltageA11yStrings.atDoorknobString;
   var justBelowDoorknobString = JohnTravoltageA11yStrings.justBelowDoorknobString;
@@ -130,7 +130,8 @@ define( function( require ) {
           text: closeToDoorknobString
         }, {
           range: new Range( -2, -2 ),
-          text: veryClosetoDoorknobString
+          text: veryCloseToDoorknobString,
+          addFartherAway: true
         }, {
           range: new Range( -1, -1 ),
           text: justAboveDoorknobString
@@ -142,7 +143,8 @@ define( function( require ) {
           text: justBelowDoorknobString
         }, {
           range: new Range( 2, 2 ),
-          text: veryClosetoDoorknobString
+          text: veryCloseToDoorknobString,
+          addFartherAway: true
         }, {
           range: new Range( 3, 5 ),
           text: closeToDoorknobString
@@ -168,7 +170,8 @@ define( function( require ) {
         },
         {
           value: -8,
-          text: handPointingStraightUpString
+          text: handPointingStraightUpString,
+          includeDirection: true
         },
         {
           value: -5,
@@ -176,7 +179,7 @@ define( function( require ) {
         },
         {
           value: -2,
-          text: veryClosetoDoorknobString
+          text: veryCloseToDoorknobString
         },
         {
           value: -1,
@@ -189,13 +192,14 @@ define( function( require ) {
           text: justBelowDoorknobString
         }, {
           value: 2,
-          text: veryClosetoDoorknobString
+          text: veryCloseToDoorknobString
         }, {
           value: 4,
           text: handPointingAtLowerDoorFrameString
         }, {
           value: 8,
-          text: handPointingStraightDownString
+          text: handPointingStraightDownString,
+          includeDirection: true
         }, {
           value: 13,
           text: handPointingAwayString
