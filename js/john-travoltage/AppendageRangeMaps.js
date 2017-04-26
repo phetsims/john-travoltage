@@ -174,7 +174,7 @@ define( function( require ) {
           includeDirection: true
         },
         {
-          value: -5,
+          value: -4,
           text: handPointingAtUpperDoorframeString
         },
         {
