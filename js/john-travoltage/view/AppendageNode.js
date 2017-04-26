@@ -29,6 +29,7 @@ define( function( require ) {
   var FocusOverlay = require( 'SCENERY/overlays/FocusOverlay' );
   var AriaHerald = require( 'SCENERY_PHET/accessibility/AriaHerald' );
   var Sound = require( 'VIBE/Sound' );
+  var Property = require( 'AXON/Property' );
   var TandemSimpleDragHandler = require( 'TANDEM/scenery/input/TandemSimpleDragHandler' );
 
   // strings
@@ -97,7 +98,7 @@ define( function( require ) {
     this.positionDescription = '';
 
     // @public (a11y, read-only) purely for debugging
-    this.valueText = '';
+    this.valueTextProperty = new Property( '' );
 
     // @private (a11y) - arm description will change depending on how the appendage moves through the regions
     this.currentRegion = null;
@@ -353,7 +354,7 @@ define( function( require ) {
 
       // the public position description should always be the region description
       this.positionDescription = newRegion.text;
-      this.valueText = valueText;
+      this.valueTextProperty.set( valueText );
 
       this.focusHighlight.center = this.imageNode.center;
       this.currentRegion = newRegion;
@@ -380,7 +381,7 @@ define( function( require ) {
 
       // the public position description should always be the region description
       this.positionDescription = newRegion.text;
-      this.valueText = valueText;      
+      this.valueTextProperty.set( valueText );
 
       // reset the movement direction so the next interaction will immediately get the direction
       this.model.movementDirection = null;
