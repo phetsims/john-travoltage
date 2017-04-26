@@ -316,21 +316,19 @@ define( function( require ) {
       var landmarkDescription = AppendageNode.getLandmarkDescription( position, this.rangeMap.landmarks );
       var directionDescription = this.getDirectionDescription( position, previousPosition );
 
-      if ( landmarkDescription ) {
+      if ( !isLeg && directionDescription ) {
+
+        // if we change directions of movement (relative to the doorknob or center of carpet, that gets next priority)
+        valueDescription = directionDescription;
+      }
+      else if ( landmarkDescription ) {
 
         // if we are ever on a critical landmark, that description should take priority
         valueDescription = landmarkDescription;
       }
-      else if ( !isLeg && directionDescription ) {
-
-        // if we change directions of movement (relative to the doorknob or center of carpet, that gets next priority)
-        valueDescription = directionDescription;
-        this.usedDirectionDescription = true;
-      }
       else if ( newRegion ) {
 
         // fall back to default region description
-        this.usedDirectionDescription = false;
         valueDescription = newRegion.text;
       }
 
