@@ -197,7 +197,7 @@ define( function( require ) {
           value: 4,
           text: handPointingAtLowerDoorFrameString
         }, {
-          value: 8,
+          value: 7,
           text: handPointingStraightDownString,
           includeDirection: true
         }, {
