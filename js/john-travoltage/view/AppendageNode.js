@@ -309,7 +309,6 @@ define( function( require ) {
     updatePosition:  function( angle, oldAngle ) {
       var valueDescription;
       var position = AppendageNode.angleToPosition( angle, this.linearFunction, this.keyboardMidPointOffset );
-      // var previousRegion = this.currentRegion;
       var previousPosition;
       var isLeg = this.model instanceof Leg;
 
@@ -320,7 +319,6 @@ define( function( require ) {
       // generate descriptions that could be used depending on movement
       var newRegion = AppendageNode.getRegion( position, this.rangeMap.regions );
       var landmarkDescription = AppendageNode.getLandmarkDescription( position, this.rangeMap.landmarks );
-      // var progressDescription = AppendageNode.getProgressDescription( position, previousPosition, newRegion );
       var directionDescription = this.getDirectionDescription( position, previousPosition );
 
       if ( !this.isFirstDescription ) {
@@ -339,13 +337,6 @@ define( function( require ) {
         valueDescription = directionDescription;
         this.usedDirectionDescription = true;
       }
-      // else if ( !isLeg && !this.usedDirectionDescription && previousRegion && newRegion.range.equals( previousRegion.range ) ) {
-
-      //   // if the previous description was not for direction and we are still in the same region, provide a short
-      //   // description that indicates we are still moving through the same regions
-      //   valueDescription = progressDescription;
-      //   this.usedDirectionDescription = false;
-      // }
       else if ( newRegion ) {
 
         // fall back to default region description
@@ -354,9 +345,6 @@ define( function( require ) {
       }
 
       this.setInputValue( position );
-
-      // TODO: just until #222 is sorted
-      // valueDescription = '';
 
       // if position is less than 0, add a unicode minus sign to it so that VoiceOver reads it
       if ( position < 0 ) { position = '\u2212' + Math.abs( position ); }
