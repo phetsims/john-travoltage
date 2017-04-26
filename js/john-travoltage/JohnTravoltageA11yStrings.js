@@ -72,9 +72,9 @@ define( function( require ) {
 
     // progress indicators
     closerToDoorknobString: 'closer to doorknob',
-    fartherAwayFromDoorknobString: 'farther away from doorknob',
-    closerStillPatternString: 'closer, still {0}',
-    fartherAwayStillPatternString: 'farther away, still {0}',
+    fartherAwayFromDoorknobString: 'Farther away from doorknob.',
+    closerStillPatternString: 'Closer, still {0}',
+    fartherAwayStillPatternString: 'Farther away, still {0}',
 
     // landmark positions for the arm
     handPointingAwayString: 'Hand pointing away from door, very far from doorknob.',
