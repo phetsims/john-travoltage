@@ -94,14 +94,10 @@ define( function( require ) {
     // @private (a11y) - arm description will change depending on how the appendage moves through the regions
     this.currentRegion = null;
 
-    // @private (a11y) - flag that is set to true after construction, initial description needs to be slightly different
-    this.isFirstDescription = false;
-
     // when the model is reset, reset the flags that track previous interactions with the appendage and reset
     // descriptions, no need to dispose this listener since appendages exist for life of sim
     this.model.appendageResetEmitter.addListener( function() {
       self.currentRegion = null;
-      self.isFirstDescription = false;
       self.updatePosition( self.model.angleProperty.get() );
     } );
 
@@ -264,7 +260,6 @@ define( function( require ) {
     // Updates the accessibility content with changes in the model
     appendage.angleProperty.link( function( angle, previousAngle ) {
       self.updatePosition( angle, previousAngle );
-      self.isFirstDescription = true;
     } );
 
     // prevent user from manipulating with both keybaord and mouse at the same time
@@ -321,12 +316,7 @@ define( function( require ) {
       var landmarkDescription = AppendageNode.getLandmarkDescription( position, this.rangeMap.landmarks );
       var directionDescription = this.getDirectionDescription( position, previousPosition );
 
-      if ( !this.isFirstDescription ) {
-
-        // on construction and reset, the description should be the default region text
-        valueDescription = newRegion.text;
-      }
-      else if ( landmarkDescription ) {
+      if ( landmarkDescription ) {
 
         // if we are ever on a critical landmark, that description should take priority
         valueDescription = landmarkDescription;
