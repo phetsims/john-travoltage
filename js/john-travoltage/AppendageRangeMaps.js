@@ -169,6 +169,10 @@ define( function( require ) {
           text: farthestFromDoorknobLastString
         },
         {
+          value: -13,
+          text: handPointingAwayString
+        },
+        {
           value: -8,
           text: handPointingStraightUpString,
           includeDirection: true
