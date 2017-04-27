@@ -53,7 +53,7 @@ define( function( require ) {
     farthestFromDoorknobString: 'farthest from doorknob',
     veryFarFromDoorknobString: 'very far from doorknob',
     farFromDoorknobString: 'far from doorknob',
-    notSoCloseToDoorknobString: 'not so close to doorknob',
+    notSoCloseToDoorknobString: 'Not so close to doorknob.',
     closeToDoorknobString: 'close to doorknob',
     veryCloseToDoorknobString: 'very close to doorknob',
     justAboveDoorknobString: 'just above doorknob',
@@ -65,7 +65,7 @@ define( function( require ) {
     awayFromDoorknobString: 'Away from doorknob.',
     towardsDoorknobPatternString: 'Towards doorknob, {{description}}',
     awayFromDoorknobPatternString: 'Away from doorknob, {{description}}',
-    fartherAwayPatternString: 'Farther away, {{description}}',
+    fartherAwayPatternString: 'Farther away, {{description}}.',
 	
     // directional indicator for emphasis when moving away above and below doorknob
     fartherAwayVeryCloseString: 'farther away, very close to doorknob',
