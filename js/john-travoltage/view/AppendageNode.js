@@ -352,8 +352,8 @@ define( function( require ) {
       var valueText = StringUtils.format( JohnTravoltageA11yStrings.positionTemplateString, position, valueDescription );
       this.setAccessibleAttribute( 'aria-valuetext', valueText );
 
-      // the public position description should always be the region description
-      this.positionDescription = newRegion.text;
+      // the scene summary will use a lower case version of the region descriptions
+      this.positionDescription = newRegion.text.toLowerCase();
       this.valueTextProperty.set( valueText );
 
       this.focusHighlight.center = this.imageNode.center;
@@ -380,7 +380,7 @@ define( function( require ) {
 
 
       // the public position description should always be the region description
-      this.positionDescription = newRegion.text;
+      this.positionDescription = newRegion.text.toLowerCase();
       this.valueTextProperty.set( valueText );
 
       // reset the movement direction so the next interaction will immediately get the direction
@@ -408,10 +408,10 @@ define( function( require ) {
           assert && assert( landmarkDescription, 'there should be a landmark description in this case' );
 
           stringPattern = DIRECTION_LANDMARK_PATTERN_DESCRIPTIONS[ newDirection ];
-          description = StringUtils.fillIn( stringPattern, { description: landmarkDescription } );
+          description = StringUtils.fillIn( stringPattern, { description: landmarkDescription.toLowerCase() } );
         }
         else if ( AppendageNode.getAddFurtherOnAway( position, this.rangeMap.regions ) && newDirection === Appendage.MOVEMENT_DIRECTIONS.FARTHER ) {
-          description = StringUtils.fillIn( fartherAwayPatternString, { description: region.text } );
+          description = StringUtils.fillIn( fartherAwayPatternString, { description: region.text.toLowerCase() } );
         }
         else if ( region.range.getLength() > 0 ) {
           description = DIRECTION_DESCRIPTIONS[ newDirection ];
