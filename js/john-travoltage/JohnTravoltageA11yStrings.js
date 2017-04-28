@@ -17,12 +17,11 @@ define( function( require ) {
     // summary information
     sceneSummaryJohnPatternString: 'John\'s hand is {{position}}, and he is ready to swing his leg to rub his foot on the rug.',
     sceneSummaryWithChargePatternString: '{{charge}} {{johnDescription}}',
-    // sceneDescriptionString: '{{charge}} John\'s hand is {{position}}, and he is ready to swing his leg to rub his foot on the rug.',
     electronsDescriptionSingleString: 'John has 1 charge on his body.',
     electronsDescriptionMultipleString: 'John has {{value}} charges on his body.',
     positionTemplateString: 'Position {{value}}: {{description}}.',
-    electronsTotalString: 'Electrons on body: {value}.',
-    electronsTotalAfterDischargeString: 'Discharge occurred. Electrons on body decreased from {{oldValue}} to {{newValue}}.',
+    electronsTotalString: 'Electrons on body: {{value}}.',
+    electronsTotalAfterDischargeString: 'Discharge occurred. Electrons on body decreased from {{oldValue}} to {{newValue}} with hand at position {{position}}, {{region}}.',
 
     // keyboard help content strings
     orString: 'or',

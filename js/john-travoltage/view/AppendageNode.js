@@ -50,6 +50,8 @@ define( function( require ) {
     FARTHER: awayFromDoorknobPatternString
   };
 
+  var UNICODE_MINUS = '\u2212';
+
   // audio
   var limitBonkAudio = require( 'audio!JOHN_TRAVOLTAGE/limit-bonk' );
 
@@ -96,7 +98,7 @@ define( function( require ) {
     // @public (a11y, read-only) purely for debugging
     this.valueTextProperty = new Property( '' );
 
-    // @private (a11y) - arm description will change depending on how the appendage moves through the regions
+    // @public (a11y, read-only) - arm description will change depending on how the appendage moves through the regions
     this.currentRegion = null;
 
     // when the model is reset, reset the flags that track previous interactions with the appendage and reset
@@ -341,16 +343,7 @@ define( function( require ) {
         valueDescription = newRegion.text;
       }
 
-      this.setInputValue( position );
-
-      // if position is less than 0, add a unicode minus sign to it so that VoiceOver reads it
-      if ( position < 0 ) { position = '\u2212' + Math.abs( position ); }
-      var valueText = StringUtils.fillIn( JohnTravoltageA11yStrings.positionTemplateString, { value: position, description: valueDescription } );
-      this.setAccessibleAttribute( 'aria-valuetext', valueText );
-
-      // the scene summary will use a lower case version of the region descriptions
-      this.positionDescription = newRegion.text.toLowerCase();
-      this.valueTextProperty.set( valueText );
+      this.setValueAndText( position, valueDescription, newRegion );
 
       this.focusHighlight.center = this.imageNode.center;
       this.currentRegion = newRegion;
@@ -368,18 +361,8 @@ define( function( require ) {
       var newRegion = AppendageNode.getRegion( position, this.rangeMap.regions );
       var landmarkDescription = AppendageNode.getLandmarkDescription( position, this.rangeMap.landmarks );
 
-      this.setInputValue( position );
-
-      // if position is less than 0, add a unicode minus sign to it so that VoiceOver reads it
       var valueDescription = landmarkDescription || newRegion.text;
-      if ( position < 0 ) { position = '\u2212' + Math.abs( position ); }
-      var valueText = StringUtils.fillIn( JohnTravoltageA11yStrings.positionTemplateString, { value: position, description: valueDescription } );
-      this.setAccessibleAttribute( 'aria-valuetext', valueText );
-
-
-      // the public position description should always be the region description
-      this.positionDescription = newRegion.text.toLowerCase();
-      this.valueTextProperty.set( valueText );
+      this.setValueAndText( position, valueDescription, newRegion );
 
       // reset the movement direction so the next interaction will immediately get the direction
       this.model.movementDirection = null;
@@ -387,6 +370,48 @@ define( function( require ) {
 
       this.focusHighlight.center = this.imageNode.center;
       this.currentRegion = newRegion;
+    },
+
+    /**
+     * Sets the accessible input value and associated description for this node's accessible content.
+     * 
+     * @private
+     * @param {number}
+     * @param {string}
+     * @param {Object}
+     */
+    setValueAndText: function( position, description, region ) {
+
+      // get unicode version of value with minus sign so VoiceOver reads it correctly
+      var unicodePosition = this.getUnicodeAccessibleValue( position );      
+      var valueText = StringUtils.fillIn( JohnTravoltageA11yStrings.positionTemplateString, {
+        value: unicodePosition,
+        description: description
+      } );
+
+      this.setInputValue( position );
+      this.setAccessibleAttribute( 'aria-valuetext', valueText );
+
+      // the public position description should always be the region description
+      this.positionDescription = region.text.toLowerCase();
+      this.valueTextProperty.set( valueText );
+    },
+
+    /**
+     * If the position is negative, return a version of the value with unicode minus sign.  This is required for VoiceOver to read
+     * the value correctly.
+     *
+     * @public
+     * @param {number} position - the accesssible input value for this node's accessible contenet
+     * @return {string}
+     */
+    getUnicodeAccessibleValue: function( position ) {
+      var returnValue = position;
+      if ( returnValue < 0 ) {
+        returnValue = UNICODE_MINUS + Math.abs( returnValue );
+      }
+
+      return returnValue;
     },
 
     /**

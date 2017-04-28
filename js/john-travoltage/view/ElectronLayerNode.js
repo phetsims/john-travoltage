@@ -26,11 +26,12 @@ define( function( require ) {
 
   /**
    * @param {JohnTravoltageModel} model
+   * @param {AppendageNode} armNode
    * @param {number} maxElectrons
    * @param {Tandem} tandem
    * @constructor
    */
-  function ElectronLayerNode( model, maxElectrons, tandem ) {
+  function ElectronLayerNode( model, armNode, maxElectrons, tandem ) {
     var self = this;
 
     Node.call( this );
@@ -46,7 +47,16 @@ define( function( require ) {
         alertString = StringUtils.fillIn( electronsTotalString, { value: currentCharge } );
       }
       else {
-        alertString = StringUtils.fillIn( electronsTotalAfterDischargeString, { oldValue: priorCharge, newValue: currentCharge } );
+
+        var position = armNode.inputValue;
+        var regionText = armNode.currentRegion.text.toLowerCase();
+
+        alertString = StringUtils.fillIn( electronsTotalAfterDischargeString, {
+          oldValue: priorCharge,
+          newValue: currentCharge,
+          position: position,
+          region: regionText
+        } );
       }
       
       AriaHerald.announcePoliteWithStatus( alertString );

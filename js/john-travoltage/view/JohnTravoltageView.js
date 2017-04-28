@@ -165,7 +165,7 @@ define( function( require ) {
     //Use a layer for electrons so it has only one pickable flag, perhaps may improve performance compared to iterating
     //over all electrons to see if they are pickable?
     //Split layers before particle layer for performance
-    var electronLayer = new ElectronLayerNode( model, JohnTravoltageModel.MAX_ELECTRONS, tandem.createTandem( 'electronLayer' ), {
+    var electronLayer = new ElectronLayerNode( model, this.arm, JohnTravoltageModel.MAX_ELECTRONS, tandem.createTandem( 'electronLayer' ), {
       layerSplit: true,
       pickable: false
     } );
