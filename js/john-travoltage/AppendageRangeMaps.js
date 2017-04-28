@@ -13,10 +13,6 @@ define( function( require ) {
   var JohnTravoltageA11yStrings = require( 'JOHN_TRAVOLTAGE/john-travoltage/JohnTravoltageA11yStrings' );
   var Range = require( 'DOT/Range' );
 
-  // strings - a11y strings should NOT be translatable yet
-  // see https://github.com/phetsims/john-travoltage/issues/130
-  // var footRubbingOnRugString = JohnTravoltageA11yStrings.footRubbingOnRugString;
-
   var farthestFromDoorknobString = JohnTravoltageA11yStrings.farthestFromDoorknobString;
   var veryFarFromDoorknobString = JohnTravoltageA11yStrings.veryFarFromDoorknobString;
   var farFromDoorknobString = JohnTravoltageA11yStrings.farFromDoorknobString;

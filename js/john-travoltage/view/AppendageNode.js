@@ -316,9 +316,9 @@ define( function( require ) {
      */
     updatePosition:  function( angle, oldAngle ) {
       var valueDescription;
-      var position = AppendageNode.angleToPosition( angle, this.linearFunction, this.keyboardMidPointOffset );
       var previousPosition;
-      var isLeg = this.model instanceof Leg;
+      var isLeg = this.model instanceof Leg;      
+      var position = AppendageNode.angleToPosition( angle, this.linearFunction, this.keyboardMidPointOffset );
 
       if ( oldAngle ) {
         previousPosition = AppendageNode.angleToPosition( oldAngle, this.linearFunction, this.keyboardMidPointOffset );
@@ -349,7 +349,7 @@ define( function( require ) {
 
       // if position is less than 0, add a unicode minus sign to it so that VoiceOver reads it
       if ( position < 0 ) { position = '\u2212' + Math.abs( position ); }
-      var valueText = StringUtils.format( JohnTravoltageA11yStrings.positionTemplateString, position, valueDescription );
+      var valueText = StringUtils.fillIn( JohnTravoltageA11yStrings.positionTemplateString, { value: position, description: valueDescription } );
       this.setAccessibleAttribute( 'aria-valuetext', valueText );
 
       // the scene summary will use a lower case version of the region descriptions
@@ -366,7 +366,9 @@ define( function( require ) {
      * @return {[type]}       [description]
      */
     initializePosition: function( angle ) {
-      var position = AppendageNode.angleToPosition( angle, this.linearFunction, this.keyboardMidPointOffset );
+
+      // convert the angle to a position that can be used in description content
+      var position = AppendageNode.angleToPosition( angle, this.linearFunction, this.keyboardMidPointOffset );      
       var newRegion = AppendageNode.getRegion( position, this.rangeMap.regions );
       var landmarkDescription = AppendageNode.getLandmarkDescription( position, this.rangeMap.landmarks );
 
@@ -375,7 +377,7 @@ define( function( require ) {
       // if position is less than 0, add a unicode minus sign to it so that VoiceOver reads it
       var valueDescription = landmarkDescription || newRegion.text;
       if ( position < 0 ) { position = '\u2212' + Math.abs( position ); }
-      var valueText = StringUtils.format( JohnTravoltageA11yStrings.positionTemplateString, position, valueDescription );
+      var valueText = StringUtils.fillIn( JohnTravoltageA11yStrings.positionTemplateString, { value: position, description: valueDescription } );
       this.setAccessibleAttribute( 'aria-valuetext', valueText );
 
 
@@ -577,44 +579,6 @@ define( function( require ) {
       } );
 
       return includeFartherAway;
-    },
-
-    /**
-     * Get a description of the appendage as it moves through the same region.
-     * @param  {number} position
-     * @param  {number} previousPosition
-     * @param  {Object} currentRegion {range, text}
-     * @return {string}
-     */
-    getProgressDescription: function( position, previousPosition, currentRegion ) {
-      var description = '';
-      var regionRange = currentRegion.range;
-
-      // getting closer to the doorknob (0)
-      if ( ( Math.abs( previousPosition ) - Math.abs( position ) ) > 0 ) {
-        if ( ( regionRange.min === position && position > 0 ) || ( regionRange.max === position && position < 0 )  ){
-
-          // at the last position in the region, say 'closer, still [old region]'
-          description = StringUtils.format( closerStillPatternString, currentRegion.text );
-        }
-        else {
-          description = closerToDoorknobString;
-        }
-      }
-      else {
-
-        // getting farther from the doorknob
-        if ( ( regionRange.min === position && position < 0 ) || ( regionRange.max === position ) && position > 0 ) {
-
-          // at the last position in the region, say 'farther, still [old region]'
-          description = StringUtils.format( fartherAwayStillPatternString, currentRegion.text );          
-        }
-        else {
-          description = fartherAwayFromDoorknobString;
-        }
-      }
-
-      return description;
     }
   } );
 } );

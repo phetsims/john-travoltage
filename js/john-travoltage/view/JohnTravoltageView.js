@@ -174,10 +174,35 @@ define( function( require ) {
     // after travolta picks up electrons the first time, this flag will modify descriptions slightly
     var hadElectrons = false;
     var updateDescription = function() {
-      var chargeDescriptor = model.electrons.length === 1 ? JohnTravoltageA11yStrings.electronsDescriptionSingleString : JohnTravoltageA11yStrings.electronsDescriptionMultipleString;
-      var chargeMessage = hadElectrons ? StringUtils.format( chargeDescriptor, model.electrons.length ) : '';
+      var chargeDescription;
+      var chargeMessage;
+      var sceneDescription;
 
-      self.accessibleDescription = StringUtils.format( JohnTravoltageA11yStrings.sceneDescriptionString, self.arm.positionDescription, chargeMessage );
+      // description for John - this will always be in the scene summary
+      var positionDescription = self.arm.positionDescription;
+      var johnDescription = StringUtils.fillIn( JohnTravoltageA11yStrings.sceneSummaryJohnPatternString, { position: positionDescription } );
+
+      // if there are any charges, a description of the charge will be prepended to the summary
+      if ( hadElectrons ) {
+        if ( model.electrons.length === 1 ) {
+          chargeDescription = JohnTravoltageA11yStrings.electronsDescriptionSingleString;
+        }
+        else {
+          chargeDescription = StringUtils.fillIn( JohnTravoltageA11yStrings.electronsDescriptionMultipleString, {
+            value: model.electrons.length
+          } );
+        }
+
+        sceneDescription = StringUtils.fillIn( JohnTravoltageA11yStrings.sceneSummaryWithChargePatternString, {
+          charge: chargeDescription,
+          johnDescription: johnDescription
+        } );
+      }
+      else {
+        sceneDescription = johnDescription;
+      }
+
+      self.accessibleDescription = sceneDescription;
     };
 
     // electrons observable array exists for the lifetime of the sim, so there is no need to remove these

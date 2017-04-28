@@ -20,6 +20,10 @@ define( function( require ) {
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   var AriaHerald = require( 'SCENERY_PHET/accessibility/AriaHerald' );
 
+  // strings
+  var electronsTotalString = JohnTravoltageA11yStrings.electronsTotalString;
+  var electronsTotalAfterDischargeString = JohnTravoltageA11yStrings.electronsTotalAfterDischargeString;
+
   /**
    * @param {JohnTravoltageModel} model
    * @param {number} maxElectrons
@@ -35,10 +39,17 @@ define( function( require ) {
 
     // a11y - when electrons enter or leave the body, announce this change with a status update to assistive technology
     var setElectronStatus = function() {
+      var alertString;
       var currentCharge = model.electrons.length;
-      var chargeText = currentCharge >= priorCharge ? JohnTravoltageA11yStrings.electronsTotalString : JohnTravoltageA11yStrings.electronsTotalAfterDischargeString;
 
-      AriaHerald.announcePoliteWithStatus( StringUtils.format( chargeText, currentCharge, priorCharge ), true );
+      if ( currentCharge >= priorCharge ) {
+        alertString = StringUtils.fillIn( electronsTotalString, { value: currentCharge } );
+      }
+      else {
+        alertString = StringUtils.fillIn( electronsTotalAfterDischargeString, { oldValue: priorCharge, newValue: currentCharge } );
+      }
+      
+      AriaHerald.announcePoliteWithStatus( alertString );
       priorCharge = currentCharge;
     };
 
