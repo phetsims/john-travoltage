@@ -175,7 +175,6 @@ define( function( require ) {
     var hadElectrons = false;
     var updateDescription = function() {
       var chargeDescription;
-      var chargeMessage;
       var sceneDescription;
 
       // description for John - this will always be in the scene summary

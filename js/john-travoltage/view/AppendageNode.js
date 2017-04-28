@@ -33,10 +33,6 @@ define( function( require ) {
   var TandemSimpleDragHandler = require( 'TANDEM/scenery/input/TandemSimpleDragHandler' );
 
   // strings
-  var closerToDoorknobString = JohnTravoltageA11yStrings.closerToDoorknobString;
-  var fartherAwayFromDoorknobString = JohnTravoltageA11yStrings.fartherAwayFromDoorknobString;
-  var closerStillPatternString = JohnTravoltageA11yStrings.closerStillPatternString;
-  var fartherAwayStillPatternString = JohnTravoltageA11yStrings.fartherAwayStillPatternString;
   var towardsDoorknobString = JohnTravoltageA11yStrings.towardsDoorknobString;
   var awayFromDoorknobString = JohnTravoltageA11yStrings.awayFromDoorknobString;
   var towardsDoorknobPatternString = JohnTravoltageA11yStrings.towardsDoorknobPatternString;
