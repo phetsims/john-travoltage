@@ -426,15 +426,18 @@ define( function( require ) {
 
       var description = '';
       var stringPattern;
-      if ( this.model.movementDirection !== newDirection ) {
+
+      if ( AppendageNode.getAddFurtherOnAway( position, this.rangeMap.regions ) && newDirection === Appendage.MOVEMENT_DIRECTIONS.FARTHER ) {
+
+        // regardless if the direction changes, some regions need to add "Further away..." when moving away
+        description = StringUtils.fillIn( fartherAwayPatternString, { description: region.text.toLowerCase() } );
+      }
+      else if ( this.model.movementDirection !== newDirection ) {
         if ( AppendageNode.getLandmarkIncludesDirection( position, this.rangeMap.landmarks ) ) {
           assert && assert( landmarkDescription, 'there should be a landmark description in this case' );
 
           stringPattern = DIRECTION_LANDMARK_PATTERN_DESCRIPTIONS[ newDirection ];
           description = StringUtils.fillIn( stringPattern, { description: landmarkDescription.toLowerCase() } );
-        }
-        else if ( AppendageNode.getAddFurtherOnAway( position, this.rangeMap.regions ) && newDirection === Appendage.MOVEMENT_DIRECTIONS.FARTHER ) {
-          description = StringUtils.fillIn( fartherAwayPatternString, { description: region.text.toLowerCase() } );
         }
         else if ( region.range.getLength() > 0 ) {
           description = DIRECTION_DESCRIPTIONS[ newDirection ];
