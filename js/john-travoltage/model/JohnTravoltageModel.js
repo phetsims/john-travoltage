@@ -126,6 +126,7 @@ define( function( require ) {
       phetioArgumentTypes: []
     } );
 
+    // @public (a11y) - emits an event when the discharge starts
     this.dischargeStartedEmitter = new TandemEmitter( {
       tandem: tandem.createTandem( 'dischargeStartedEmitter' ),
       phetioArgumentTypes: []

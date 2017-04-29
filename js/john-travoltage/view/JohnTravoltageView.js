@@ -126,6 +126,12 @@ define( function( require ) {
       }
     } );
 
+    // store the region when the discharge starts
+    model.dischargeStartedEmitter.addListener( function() {
+      self.arm.regionAtDischarge = self.arm.currentRegion;
+      self.arm.positionAtDischarge = self.arm.inputValue;
+    } );
+
     // spark
     playAreaNode.addChild( new SparkNode(
       model,
