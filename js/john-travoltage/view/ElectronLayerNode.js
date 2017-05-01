@@ -46,15 +46,6 @@ define( function( require ) {
       if ( currentCharge >= priorCharge ) {
         alertString = StringUtils.fillIn( electronsTotalString, { value: currentCharge } );
 
-        // every 5 charges, make alert assertive so that we guarantee that the user hears the charge alert sometimes,
-        // and as a workaround for the way VoiceOver handles accessible content for the arm and leg, see
-        // https://github.com/phetsims/john-travoltage/issues/237
-        if ( currentCharge % 5 === 0 ) {
-          AriaHerald.announceAssertive( alertString );
-        }
-        else {
-          AriaHerald.announcePoliteWithStatus( alertString );
-        }
       }
       else {
 
@@ -67,10 +58,9 @@ define( function( require ) {
           position: position,
           region: regionText
         } );
-
-        AriaHerald.announcePoliteWithStatus( alertString );
       }
-      
+
+      AriaHerald.announcePolite( alertString );
       priorCharge = currentCharge;
     };
 
