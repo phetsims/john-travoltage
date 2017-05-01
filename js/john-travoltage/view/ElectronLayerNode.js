@@ -59,7 +59,7 @@ define( function( require ) {
         } );
       }
       
-      AriaHerald.announcePoliteWithStatus( alertString );
+      AriaHerald.announcePolite( alertString );
       priorCharge = currentCharge;
     };
 
