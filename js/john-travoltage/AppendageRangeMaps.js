@@ -66,7 +66,7 @@ define( function( require ) {
         },
         {
           value: -4,
-          text: footRubbingOnRugString
+          text: footOffRugString
         },
         {
           value: -3,
@@ -90,7 +90,7 @@ define( function( require ) {
           text: footRubbingOnRugString
         }, {
           value: 3,
-          text: footRubbingOnRugString
+          text: footOffRugString
         }, {
           value: 4,
           text: footOffRugString
