@@ -29,7 +29,7 @@ define( function( require ) {
     //        leg range limit reached - bonk
     //        max electrons reached - longer pitch matching last electron added sound
     // jostle -
-    //        arm proximity to doorknob - constant picth tone with LFO changing
+    //        arm proximity to doorknob - constant pitch tone with LFO changing
     //        charge level - looped 'jostling' sound (more charges -> louder sound)
     //        electron added/removed - mild 'pop' sound when electron is added or removed
     //        leg range limit reached - bonk

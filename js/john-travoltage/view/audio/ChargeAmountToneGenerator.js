@@ -19,7 +19,7 @@ define( function( require ) {
   var Timer = require( 'PHET_CORE/Timer' );
 
   // audio
-  var ir = require( 'audio!JOHN_TRAVOLTAGE/koli_summer_site1_1way_mono.ogg' );
+  var ir = require( 'audio!JOHN_TRAVOLTAGE/jb-living-room-impulse.ogg' );
 
   // constants
   var DEFAULT_FREQUENCY = 60; // Hz

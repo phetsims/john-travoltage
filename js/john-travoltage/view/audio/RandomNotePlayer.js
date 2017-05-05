@@ -14,7 +14,7 @@ define( function( require ) {
   var Timer = require( 'PHET_CORE/Timer' );
 
   // audio
-  var ir = require( 'audio!JOHN_TRAVOLTAGE/koli_summer_site1_1way_mono.ogg' );
+  var ir = require( 'audio!JOHN_TRAVOLTAGE/jb-living-room-impulse.ogg' );
   var piano_c4 = require( 'audio!JOHN_TRAVOLTAGE/piano-c4' );
   var piano_c5 = require( 'audio!JOHN_TRAVOLTAGE/piano-c5' );
   var piano_c6 = require( 'audio!JOHN_TRAVOLTAGE/piano-c6' );

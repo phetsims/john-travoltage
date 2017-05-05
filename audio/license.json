@@ -207,13 +207,12 @@
     "license": "contact phethelp@colorado.edu",
     "notes": "created by John Blanco"
   },
-  "koli_summer_site1_1way_mono.ogg": {
+  "jb-living-room-impulse.ogg": {
     "text": [
       "from Openair"
     ],
-    "projectURL": "http://www.openairlib.net/",
-    "license": "Attribution Share Alike Creative Commons license",
-    "notes": "obtained by John Blanco",
-    "exception": "This does NOT meet the license requirements for PhET, the use is temporary until something new is created"
+    "projectURL": "http://phet.colorado.edu",
+    "license": "contact phethelp@colorado.edu",
+    "notes": "created by John Blanco"
   }
 }
