@@ -38,6 +38,7 @@ define( function( require ) {
   var towardsDoorknobPatternString = JohnTravoltageA11yStrings.towardsDoorknobPatternString;
   var awayFromDoorknobPatternString = JohnTravoltageA11yStrings.awayFromDoorknobPatternString;
   var fartherAwayPatternString = JohnTravoltageA11yStrings.fartherAwayPatternString;
+  var negativePatternString = JohnTravoltageA11yStrings.negativePatternString;
 
   // constants
   var DIRECTION_DESCRIPTIONS = {
@@ -49,8 +50,6 @@ define( function( require ) {
     CLOSER: towardsDoorknobPatternString,
     FARTHER: awayFromDoorknobPatternString
   };
-
-  var UNICODE_MINUS = '\u2212';
 
   // audio
   var limitBonkAudio = require( 'audio!JOHN_TRAVOLTAGE/limit-bonk' );
@@ -389,10 +388,10 @@ define( function( require ) {
      */
     setValueAndText: function( position, description, region ) {
 
-      // get unicode version of value with minus sign so VoiceOver reads it correctly
-      var unicodePosition = this.getUnicodeAccessibleValue( position );      
+      // get value with 'negative' so VoiceOver reads it correctly
+      var positionWithNegative = this.getValueWithNegativeString( position );      
       var valueText = StringUtils.fillIn( JohnTravoltageA11yStrings.positionTemplateString, {
-        value: unicodePosition,
+        value: positionWithNegative,
         description: description
       } );
 
@@ -405,17 +404,17 @@ define( function( require ) {
     },
 
     /**
-     * If the position is negative, return a version of the value with unicode minus sign.  This is required for VoiceOver to read
-     * the value correctly.
+     * If the position is negative, return a version of the value with 'negative' string added.  This is required for VoiceOver
+     * to read the value correctly, see https://github.com/phetsims/john-travoltage/issues/238
      *
      * @public
      * @param {number} position - the accesssible input value for this node's accessible contenet
      * @return {string}
      */
-    getUnicodeAccessibleValue: function( position ) {
+    getValueWithNegativeString: function( position ) {
       var returnValue = position;
       if ( returnValue < 0 ) {
-        returnValue = UNICODE_MINUS + Math.abs( returnValue );
+        returnValue = StringUtils.fillIn( negativePatternString, { value: Math.abs( returnValue ) } );
       }
 
       return returnValue;
