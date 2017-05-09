@@ -33,6 +33,7 @@ define( function( require ) {
   var ICON_VERTICAL_SPACING = 8;
   var TEXT_KEY_WIDTH = 42;
   var DESCRIPTION_FONT = new PhetFont( 14 );
+  var TEXT_MAX_WIDTH = 300;
 
   /**
    * Constructor.
@@ -51,7 +52,8 @@ define( function( require ) {
     } );
     var orText = new Text( JohnTravoltageA11yStrings.orString, {
       font: new PhetFont( 12 ),
-      tandem: tandem.createTandem( 'orText' )
+      tandem: tandem.createTandem( 'orText' ),
+      maxWidth: TEXT_MAX_WIDTH / 4
     } );
     var arrowKeysIconHBox = new HBox( {
       children: [ leftArrowKeyNode, orText, rightArrowKeyNode ],
@@ -100,19 +102,23 @@ define( function( require ) {
     };
     var arrowKeyDescription = new RichText( JohnTravoltageA11yStrings.arrowKeysMoveFootString, _.extend( {
       tandem: tandem.createTandem( 'arrowKeyDescription' ),
-      accessibleLabel: JohnTravoltageA11yStrings.arrowKeysMoveFootString
+      accessibleLabel: JohnTravoltageA11yStrings.arrowKeysMoveFootString,
+      maxWidth: TEXT_MAX_WIDTH
     }, descriptionOptions ) );
     var tabKeyDescription = new RichText( JohnTravoltageA11yStrings.tabKeyDescriptionString, _.extend( {
       tandem: tandem.createTandem( 'tabKeyDescription' ),
-      accessibleLabel: JohnTravoltageA11yStrings.tabKeyDescriptionString
+      accessibleLabel: JohnTravoltageA11yStrings.tabKeyDescriptionString,
+      maxWidth: TEXT_MAX_WIDTH
     }, descriptionOptions ) );
     var shiftPlusTabDescription = new RichText( JohnTravoltageA11yStrings.shiftTabKeyDescriptionString, _.extend( {
       tandem: tandem.createTandem( 'shiftPlusTabDescription' ),
-      accessibleLabel: JohnTravoltageA11yStrings.shiftTabKeyDescriptionString
+      accessibleLabel: JohnTravoltageA11yStrings.shiftTabKeyDescriptionString,
+      maxWidth: TEXT_MAX_WIDTH
     }, descriptionOptions ) );
     var escapeKeyDescription = new RichText( JohnTravoltageA11yStrings.escapeKeyDescriptionString, _.extend( {
       tandem: tandem.createTandem( 'escapeKeyDescription' ),
-      accessibleLabel: JohnTravoltageA11yStrings.escapeKeyDescriptionString
+      accessibleLabel: JohnTravoltageA11yStrings.escapeKeyDescriptionString,
+      maxWidth: TEXT_MAX_WIDTH
     }, descriptionOptions ) );
 
     /**
@@ -162,7 +168,7 @@ define( function( require ) {
     var contentHBox = new HBox( {
       children: [ iconVBox, descriptionVBox ],
       spacing: 15,
-      tandem: tandem.createTandem( 'contentHBox' )
+      tandem: tandem.createTandem( 'contentHBox' ),
     } );
 
     Panel.call( this, contentHBox, {
@@ -181,6 +187,9 @@ define( function( require ) {
     contentHBox.addChild( new Spacer( spacerWidth, 0, {
       tandem: tandem.createTandem( 'spacer' )
     } ) );
+
+    console.log( this.width );
+
   }
 
   johnTravoltage.register( 'JohnTravoltageKeyboardHelpContent', JohnTravoltageKeyboardHelpContent );

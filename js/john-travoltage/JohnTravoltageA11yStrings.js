@@ -12,6 +12,17 @@ define( function( require ) {
 
   var johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
 
+  // i18n strings
+  var orString = require( 'string!JOHN_TRAVOLTAGE/or' );
+  var shiftKeyString = require( 'string!JOHN_TRAVOLTAGE/shiftKey' );
+  var escKeyString = require( 'string!JOHN_TRAVOLTAGE/escKey' );
+  var tabKeyString = require( 'string!JOHN_TRAVOLTAGE/tabKey' );
+  var hotKeysAndHelpString = require( 'string!JOHN_TRAVOLTAGE/hotKeysAndHelp' );
+  var arrowKeysMoveFootString = require( 'string!JOHN_TRAVOLTAGE/arrowKeysMoveFoot' );
+  var tabKeyDescriptionString = require( 'string!JOHN_TRAVOLTAGE/tabKeyDescription' );
+  var shiftTabKeyDescriptionString = require( 'string!JOHN_TRAVOLTAGE/shiftTabKeyDescription' );
+  var escapeKeyDescriptionString = require( 'string!JOHN_TRAVOLTAGE/escapeKeyDescription' );
+
   var JohnTravoltageA11yStrings = {
 
     // summary information
@@ -24,15 +35,15 @@ define( function( require ) {
     electronsTotalAfterDischargeString: 'Discharge occurred. Electrons on body decreased from {{oldValue}} to {{newValue}} with hand at position {{position}}, {{region}}.',
 
     // keyboard help content strings
-    orString: 'or',
-    shiftKeyString: 'Shift',
-    escKeyString: 'Esc',
-    tabKeyString: 'Tab',
-    hotKeysAndHelpString: 'Keyboard Shortcuts',
-    arrowKeysMoveFootString: '<strong>Left or right arrow keys</strong> move the hand or foot.',
-    tabKeyDescriptionString: '<strong>Tab key</strong> moves to the next item.',
-    shiftTabKeyDescriptionString: '<strong>Shift plus Tab</strong> moves to the previous item.',
-    escapeKeyDescriptionString: '<strong>Escape key</strong> closes a dialog, like this one.',
+    orString: orString,
+    shiftKeyString: shiftKeyString,
+    escKeyString: escKeyString,
+    tabKeyString: tabKeyString,
+    hotKeysAndHelpString: hotKeysAndHelpString,
+    arrowKeysMoveFootString: arrowKeysMoveFootString,
+    tabKeyDescriptionString: tabKeyDescriptionString,
+    shiftTabKeyDescriptionString: shiftTabKeyDescriptionString,
+    escapeKeyDescriptionString: escapeKeyDescriptionString,
 
     // appendage labels
     armSliderLabelString: 'Hand position',
