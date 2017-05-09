@@ -15,6 +15,7 @@ define( function( require ) {
   var JohnTravoltageScreen = require( 'JOHN_TRAVOLTAGE/john-travoltage/JohnTravoltageScreen' );
   var Tandem = require( 'TANDEM/Tandem' );
   var JohnTravoltageKeyboardHelpContent = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/JohnTravoltageKeyboardHelpContent' );
+  var platform = require( 'PHET_CORE/platform' );
 
   // strings
   var johnTravoltageTitleString = require( 'string!JOHN_TRAVOLTAGE/john-travoltage.title' );
@@ -42,7 +43,7 @@ define( function( require ) {
       thanks: 'Thanks to Mobile Learner Labs for working with the PhET development team\n' +
               'to convert this simulation to HTML5.'
     },
-    accessibility: true,
+    accessibility: !platform.mobileSafari, // disable accessibility on mobile Safari until accessibility works on that platform
     keyboardHelpNode: keyboardHelpContent
   };
 
