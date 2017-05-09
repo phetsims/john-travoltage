@@ -80,8 +80,11 @@ define( function( require ) {
     this.addChild( new Node( { layerSplit: true, pickable: false } ) );
 
     //add an form element to contain all controls
+    // the parent container is given role "none" so screen readers don't read contents of the play area when focus moves
+    // out of the navigation bar - JAWS is very confusing in its summary of this content
     var playAreaNode = new Node( {
       parentContainerTagName: 'section',
+      parentContainerAriaRole: 'none',
       tagName: 'div',
       labelTagName: 'h2',
       accessibleLabel: JohnTravoltageA11yStrings.playAreaString,
@@ -92,6 +95,7 @@ define( function( require ) {
     var controlPanelNode = new Node( {
       parentContainerTagName: 'section',
       tagName: 'div',
+      ariaRole: 'none',
       labelTagName: 'h2',
       accessibleLabel: JohnTravoltageA11yStrings.controlPanelString,
       prependLabels: true
