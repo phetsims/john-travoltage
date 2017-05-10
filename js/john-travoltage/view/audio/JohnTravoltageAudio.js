@@ -63,10 +63,17 @@ define( function( require ) {
       resetInProgressProperty.set( false );
     } );
 
+    // create a property the tracks whether this sim is visible
+    var simVisibleProperty = new BooleanProperty( true );
+    // TODO: The following should probably be integrated into the Screen.activeProperty in joist
+    document.addEventListener( 'visibilitychange', function() {
+      simVisibleProperty.set( document.visibilityState === 'visible' );
+    }, false );
+
     // create a derived property for enabling/disabling sonification
     var sonificationEnabled = new DerivedProperty(
-      [ model.soundEnabledProperty, resetInProgressProperty ],
-      function( soundEnabled, resetInProgress ) { return soundEnabled && !resetInProgress }
+      [ model.soundEnabledProperty, simVisibleProperty, resetInProgressProperty ],
+      function( soundEnabled, simVisible, resetInProgress ) { return soundEnabled && simVisible && !resetInProgress; }
     );
 
     // track previous arm position and time, used to decide if arm is currently moving

@@ -32,6 +32,9 @@ define( function( require ) {
         tandem: tandem
       }
     );
+    this.activeProperty.link( function( active ) {
+      console.log( 'active = ' + active );
+    } )
   }
 
   johnTravoltage.register( 'JohnTravoltageScreen', JohnTravoltageScreen );
