@@ -103,7 +103,7 @@ define( function( require ) {
     this.addChild( controlPanelNode );
 
     // @public (read-only) arm and leg - only interactive elements
-    this.leg = new AppendageNode( model.leg, leg, 25, 28, Math.PI / 2 * 0.7, model.soundProperty, AppendageRangeMaps.legMap,
+    this.leg = new AppendageNode( model.leg, leg, 25, 28, Math.PI / 2 * 0.7, model.soundEnabledProperty, AppendageRangeMaps.legMap,
       tandem.createTandem( 'legNode' ), {
         labelTagName: 'label',
         accessibleLabel: JohnTravoltageA11yStrings.legSliderLabelString
@@ -112,7 +112,7 @@ define( function( require ) {
 
     // @public (read-only) the keyboardMidPointOffset was manually calculated as a radian offset that will trigger a discharge with the
     // minimum charge level.
-    this.arm = new AppendageNode( model.arm, arm, 4, 45, -0.1, model.soundProperty, AppendageRangeMaps.armMap,
+    this.arm = new AppendageNode( model.arm, arm, 4, 45, -0.1, model.soundEnabledProperty, AppendageRangeMaps.armMap,
       tandem.createTandem( 'armNode' ), {
         keyboardMidPointOffset: 0.41,
         labelTagName: 'label',
@@ -144,7 +144,7 @@ define( function( require ) {
     ) );
 
     // Sound button and reset all button
-    var soundToggleButton = new SoundToggleButton( model.soundProperty, {
+    var soundToggleButton = new SoundToggleButton( model.soundEnabledProperty, {
       tandem: tandem.createTandem( 'soundToggleButton' )
     } );
 
@@ -169,7 +169,7 @@ define( function( require ) {
 
     //add sonification if enabled
     if ( SONIFICATION_CONTROL !== 'none' ) {
-      this.audioView = new JohnTravoltageAudio( model, this.arm, SONIFICATION_CONTROL );
+      this.audioView = new JohnTravoltageAudio( model, this.arm, resetAllButton, SONIFICATION_CONTROL );
     }
 
     //Use a layer for electrons so it has only one pickable flag, perhaps may improve performance compared to iterating
@@ -274,7 +274,7 @@ define( function( require ) {
     ];
 
     model.sparkVisibleProperty.link( function( sparkVisible ) {
-      if ( sparkVisible && model.soundProperty.get() ) {
+      if ( sparkVisible && model.soundEnabledProperty.get() ) {
         self.sounds[ Math.floor( phet.joist.random.nextDouble() * 2 ) ].play();
       }
     } );

@@ -11,8 +11,10 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var BooleanProperty = require( 'AXON/BooleanProperty' );
   var ChargeAmountSoundGenerator = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/audio/ChargeAmountSoundGenerator' );
   var ChargeAmountToneGenerator = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/audio/ChargeAmountToneGenerator' );
+  var DerivedProperty = require( 'AXON/DerivedProperty' );
   var inherit = require( 'PHET_CORE/inherit' );
   var johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
   var JohnTravoltageModel = require( 'JOHN_TRAVOLTAGE/john-travoltage/model/JohnTravoltageModel' );
@@ -23,6 +25,7 @@ define( function( require ) {
   var ToneGenerator = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/audio/ToneGenerator' );
 
   // audio
+  var resetAudio = require( 'audio!JOHN_TRAVOLTAGE/reset' );
   var shoeDraggingForwardOnCarpetAudio = require( 'audio!JOHN_TRAVOLTAGE/shoe-dragging-forward-on-carpet' );
   var shoeDraggingBackwardOnCarpetAudio = require( 'audio!JOHN_TRAVOLTAGE/shoe-dragging-backward-on-carpet' );
 
@@ -35,27 +38,50 @@ define( function( require ) {
    * @param {JohnTravoltageModel} model
    * TODO: The arm view is needed because the model doesn't track if user is dragging it, consider changing this and using model instead
    * @param {AppendageNode} armView - view of arm, needed to determine whether arm is in motion
+   * @param {ResetAllButton} resetAllButton - reset all button from view, monitored so that the appropriate sounds can
+   * be played and muted during a reset
    * @param {string} sonificationControl - ['none'|'piano'|'pitch'|'jostle'|'transformer'], see JohnTravoltageQueryParameters
    * @constructor
    */
-  function JohnTravoltageAudio( model, armView, sonificationControl ) {
+  function JohnTravoltageAudio( model, armView, resetAllButton, sonificationControl ) {
+
+    // @private
     this.model = model;
     this.armView = armView;
     this.sonificationControl = sonificationControl;
+
+    // sound that will be played when a reset is initiated by the user
+    var resetAllSound = new Sound( resetAudio );
+
+    // create a property that will track when a reset is in progress
+    var resetInProgressProperty = new BooleanProperty( false );
+    resetAllButton.startedCallbacksForResetEmitter.addListener( function() {
+      resetInProgressProperty.set( true );
+      resetAllSound.play();
+    } );
+    resetAllButton.endedCallbacksForResetEmitter.addListener( function() {
+      resetInProgressProperty.set( false );
+    } );
+
+    // create a derived property for enabling/disabling sonification
+    var sonificationEnabled = new DerivedProperty(
+      [ model.soundEnabledProperty, resetInProgressProperty ],
+      function( soundEnabled, resetInProgress ) { return soundEnabled && !resetInProgress }
+    );
 
     // track previous arm position and time, used to decide if arm is currently moving
     this.previousFingerPosition = this.model.arm.getFingerPosition();
     this.timeAtCurrentFingerPosition = Number.POSITIVE_INFINITY;
 
     // add the object that will be used to create 'pitched pop' sounds when an electron is added or removed
-    var pitchedPopGenerator = new PitchedPopGenerator( model.soundProperty );
+    var pitchedPopGenerator = new PitchedPopGenerator( sonificationEnabled );
 
     // hook up sound generator for charge level, different types depending on control setting
     if ( sonificationControl === 'piano' ) {
 
       // create a random note player that will play notes more frequently as the number of charges increases
       this.randomNotePlayer = new RandomNotePlayer(
-        model.soundProperty,
+        sonificationEnabled,
         model.electrons.lengthProperty,
         model.sparkVisibleProperty,
         0,
@@ -66,7 +92,7 @@ define( function( require ) {
 
       // create a tone generator that will indicate the presence of charge with a tone with a changing output filter
       this.chargeToneGenerator = new ChargeAmountToneGenerator(
-        model.soundProperty,
+        sonificationEnabled,
         model.electrons.lengthProperty,
         0,
         JohnTravoltageModel.MAX_ELECTRONS,
@@ -77,7 +103,7 @@ define( function( require ) {
 
       // create a sound generator that will be used to create a jostling sound that represent the presence of charge
       this.jostlingChargesSoundGenerator = new ChargeAmountSoundGenerator(
-        model.soundProperty,
+        sonificationEnabled,
         model.electrons.lengthProperty,
         0,
         JohnTravoltageModel.MAX_ELECTRONS
@@ -87,7 +113,7 @@ define( function( require ) {
 
       // create a tone generator that will indicate the present of charge with a filtered buzzing sound
       this.chargeToneGenerator = new ChargeAmountToneGenerator(
-        model.soundProperty,
+        sonificationEnabled,
         model.electrons.lengthProperty,
         0,
         JohnTravoltageModel.MAX_ELECTRONS,
@@ -108,7 +134,7 @@ define( function( require ) {
     function playElectronAddedOrRemovedSound() {
       pitchedPopGenerator.createPop(
         model.electrons.length / MAX_ELECTRONS,
-        model.electrons.length < JohnTravoltageModel.MAX_ELECTRONS ? 0.02 : 1.75 // longer pitch for last electron
+        model.electrons.length < JohnTravoltageModel.MAX_ELECTRONS ? 0.02 : 1.0 // longer pitch for last electron
       );
     }
 
