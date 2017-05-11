@@ -34,7 +34,7 @@ define( function( require ) {
     );
     this.activeProperty.link( function( active ) {
       console.log( 'active = ' + active );
-    } )
+    } );
   }
 
   johnTravoltage.register( 'JohnTravoltageScreen', JohnTravoltageScreen );
