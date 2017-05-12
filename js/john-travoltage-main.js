@@ -41,7 +41,7 @@ define( function( require ) {
       team: 'Wendy Adams, Jesse Greenberg, Trish Loeblein, Emily Moore, Ariel Paul, Kathy Perkins, Taliesin Smith',
       contributors: 'Jonathan Hung, Justin Obara (Inclusive Design Research Centre)',
       qualityAssurance: 'Steele Dalton, Bryce Griebenow, Ben Roberts, Oliver Orejola',
-      graphicArts: 'Sharon Siman-Tov',
+      graphicArts: 'Mariah Hermsmeyer, Sharon Siman-Tov',
       thanks: 'Thanks to Mobile Learner Labs for working with the PhET development team\n' +
               'to convert this simulation to HTML5.'
     },
