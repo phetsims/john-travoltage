@@ -38,7 +38,7 @@ define( function( require ) {
     credits: {
       leadDesign: 'Noah Podolefsky, Carl Wieman, Sam Reid',
       softwareDevelopment: 'Sam Reid',
-      team: 'Wendy Adams, Trish Loeblein, Ariel Paul, Kathy Perkins',
+      team: 'Wendy Adams, Jesse Greenberg, Trish Loeblein, Emily Moore, Ariel Paul, Kathy Perkins, Taliesin Smith',
       contributors: 'Jonathan Hung, Justin Obara (Inclusive Design Research Centre)',
       qualityAssurance: 'Steele Dalton, Bryce Griebenow, Ben Roberts, Oliver Orejola',
       graphicArts: 'Sharon Siman-Tov',
