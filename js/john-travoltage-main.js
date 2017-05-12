@@ -39,6 +39,7 @@ define( function( require ) {
       leadDesign: 'Noah Podolefsky, Carl Wieman, Sam Reid',
       softwareDevelopment: 'Sam Reid',
       team: 'Wendy Adams, Trish Loeblein, Ariel Paul, Kathy Perkins',
+      contributors: 'Jonathan Hung, Justin Obara (Inclusive Design Research Centre)',
       qualityAssurance: 'Steele Dalton, Bryce Griebenow, Ben Roberts, Oliver Orejola',
       graphicArts: 'Sharon Siman-Tov',
       thanks: 'Thanks to Mobile Learner Labs for working with the PhET development team\n' +
