@@ -141,6 +141,13 @@ define( function( require ) {
         self.dragging = true;
       },
       drag: function( event ) {
+
+        // in full screen mode, the borders will sometimes not be made invisible in IE11 from 
+        // the start handler, so make sure it goes away here
+        if ( appendage.borderVisibleProperty.get() ) {
+          appendage.borderVisibleProperty.set( false );
+        }
+
         lastAngle = currentAngle;
         var globalPoint = self.imageNode.globalToParentPoint( event.pointer.point );
         angle = globalPoint.minus( new Vector2( appendage.position.x, appendage.position.y ) ).angle();
