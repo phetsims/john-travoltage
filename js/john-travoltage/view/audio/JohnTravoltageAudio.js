@@ -55,24 +55,17 @@ define( function( require ) {
 
     // create a property that will track when a reset is in progress
     var resetInProgressProperty = new BooleanProperty( false );
-    resetAllButton.startedCallbacksForResetEmitter.addListener( function() {
+    resetAllButton.buttonModel.startedCallbacksForFiredEmitter.addListener( function() {
       resetInProgressProperty.set( true );
       resetAllSound.play();
     } );
-    resetAllButton.endedCallbacksForResetEmitter.addListener( function() {
+    resetAllButton.buttonModel.endedCallbacksForFiredEmitter.addListener( function() {
       resetInProgressProperty.set( false );
     } );
 
-    // create a property the tracks whether this sim is visible
-    var simVisibleProperty = new BooleanProperty( true );
-    // TODO: The following should probably be integrated into the Screen.activeProperty in joist
-    document.addEventListener( 'visibilitychange', function() {
-      simVisibleProperty.set( document.visibilityState === 'visible' );
-    }, false );
-
     // create a derived property for enabling/disabling sonification
     var sonificationEnabled = new DerivedProperty(
-      [ model.soundEnabledProperty, simVisibleProperty, resetInProgressProperty ],
+      [ model.soundEnabledProperty, window.phet.joist.sim.browserTabVisibleProperty, resetInProgressProperty ],
       function( soundEnabled, simVisible, resetInProgress ) { return soundEnabled && simVisible && !resetInProgress; }
     );
 
