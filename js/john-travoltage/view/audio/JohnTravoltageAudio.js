@@ -65,7 +65,7 @@ define( function( require ) {
 
     // create a derived property for enabling/disabling sonification
     var sonificationEnabled = new DerivedProperty(
-      [ model.soundEnabledProperty, window.phet.joist.sim.browserTabVisibleProperty, resetInProgressProperty ],
+      [ model.soundEnabledProperty, phet.joist.sim.browserTabVisibleProperty, resetInProgressProperty ],
       function( soundEnabled, simVisible, resetInProgress ) { return soundEnabled && simVisible && !resetInProgress; }
     );
 
