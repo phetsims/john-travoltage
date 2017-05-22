@@ -1,4 +1,5 @@
 {
+  "_comment": "this branch, 1.4-phetio, was pulled with the same shas as JT version 1.3, on 5/22/17",
   "name": "john-travoltage",
   "version": "1.3.0",
   "license": "GPL-3.0",
