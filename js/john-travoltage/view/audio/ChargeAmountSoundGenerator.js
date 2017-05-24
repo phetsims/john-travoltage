@@ -91,9 +91,7 @@ define( function( require ) {
     } );
 
     soundEnabledProperty.link( function( soundEnabled ) {
-      if ( !soundEnabled ) {
-        masterGainControl.gain.value = 0;
-      }
+      masterGainControl.gain.value = soundEnabled ? mapNumItemsToGain( numItemsProperty.get() ) : 0;
     } );
   }
 

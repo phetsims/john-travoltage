@@ -102,8 +102,8 @@ define( function( require ) {
       tandem: tandem.createTandem( 'shoeOnCarpetProperty' )
     } );
 
-    this.soundProperty = new BooleanProperty( true, {
-      tandem: tandem.createTandem( 'soundProperty' )
+    this.soundEnabledProperty = new BooleanProperty( true, {
+      tandem: tandem.createTandem( 'soundEnabledProperty' )
     } );
 
     this.electrons = new ObservableArray( { tandem: tandem.createTandem( 'electrons' ), phetioValueType: TElectron } );
@@ -190,7 +190,7 @@ define( function( require ) {
       // Properties of the model.  All user settings belong in the model, whether or not they are part of the physical model
       this.sparkVisibleProperty.reset();
       this.shoeOnCarpetProperty.reset();
-      this.soundProperty.reset();
+      this.soundEnabledProperty.reset();
       this.arm.reset();
       this.leg.reset();
       while ( this.electrons.length > 0 ) {

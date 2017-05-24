@@ -143,6 +143,22 @@
     "license": "contact phethelp@colorado.edu",
     "notes": ""
   },
+  "reset.mp3": {
+    "text": [
+      "Copyright 2002-2017 University of Colorado Boulder"
+    ],
+    "projectURL": "http://phet.colorado.edu",
+    "license": "contact phethelp@colorado.edu",
+    "notes": "created by J Blanco"
+  },
+  "reset.ogg": {
+    "text": [
+      "Copyright 2002-2017 University of Colorado Boulder"
+    ],
+    "projectURL": "http://phet.colorado.edu",
+    "license": "contact phethelp@colorado.edu",
+    "notes": "created by J Blanco"
+  },
   "shock.mp3": {
     "text": [
       "Copyright 2002-2016 University of Colorado Boulder"

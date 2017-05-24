@@ -14,8 +14,8 @@ define( function( require ) {
   // constants
   var MIN_FREQUENCY = 261.626; // Hz
   var MAX_FREQUENCY = 783.991; // Hz
-  //var MIN_INTER_NOTE_TIME = 0.01; // seconds
   var MAX_GAIN = 1.0;
+  var AUDIO_CHANGE_TIME_CONSTANT = 0.015; // this can be adjusted to make attack of the sound more or less gradual
 
   /**
    * @constructor
@@ -23,26 +23,39 @@ define( function( require ) {
    */
   function PitchedPopGenerator( soundEnabledProperty ) {
 
+    var self = this;
+
+    // @private
     this.soundEnabledProperty = soundEnabledProperty;
 
     // queue for storing sounds to be played if they are coming too quickly
     this.pitchQueue = [];
 
     // create the audio context
-    // TODO: Is this if clause still needed, or is window.AudioContext now widely supported?
-    this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
+    // TODO: Is this trickery still needed, or is window.AudioContext now widely supported?
+    var audioContext = new ( window.AudioContext || window.webkitAudioContext )();
 
-    this.oscillator1 = this.audioContext.createOscillator(); // Create sound source
+    this.oscillator1 = audioContext.createOscillator(); // Create sound source
     this.oscillator1.type = 'sine';
     this.oscillator1.frequency.value = MIN_FREQUENCY;
-    this.gainControl = this.audioContext.createGain();
+    this.gainControl = audioContext.createGain();
     this.gainControl.gain.value = 0;
     this.oscillator1.connect( this.gainControl );
     this.oscillator1.start( 0 );
-    this.gainControl.connect( this.audioContext.destination );
+    this.gainControl.connect( audioContext.destination );
 
     // timer for controlling the length of the sounds
     this.noteTimer = null;
+
+    // when sound enabled goes false, set the gain immediately to zero to stop any in-progress sound generation
+    soundEnabledProperty.link( function( soundEnabled ) {
+      if ( !soundEnabled ) {
+        self.gainControl.gain.setTargetAtTime( 0, audioContext.currentTime, AUDIO_CHANGE_TIME_CONSTANT );
+      }
+    } );
+
+    // make audio context available to methods
+    this.audioContext = audioContext;
   }
 
   johnTravoltage.register( 'PitchedPopGenerator', PitchedPopGenerator );
@@ -57,17 +70,23 @@ define( function( require ) {
 
       assert && assert( relativePitch >= 0 && relativePitch <= 1, 'relativePitch must be between 0 and 1' );
 
-      this.pitchQueue.push( {
-        pitch: MIN_FREQUENCY + relativePitch * ( MAX_FREQUENCY - MIN_FREQUENCY ),
-        duration: duration
-      } );
+      // only queue sounds when enabled
+      if ( this.soundEnabledProperty.get() ) {
 
-      if ( !this.noteTimer ) {
-        // the timer isn't running, so play the pitch immediately
-        this.playNextPitchFromQueue();
+        // queue the sound
+        this.pitchQueue.push( {
+          pitch: MIN_FREQUENCY + relativePitch * ( MAX_FREQUENCY - MIN_FREQUENCY ),
+          duration: duration
+        } );
+
+        // if the timer isn't running, play the pitch immediately
+        if ( !this.noteTimer ) {
+          this.playNextPitchFromQueue();
+        }
       }
     },
 
+    // @private
     playNextPitchFromQueue: function() {
 
       var self = this;
@@ -87,6 +106,7 @@ define( function( require ) {
       }
     },
 
+    // @private
     pitchOn: function( pitch, duration ) {
 
       // set the frequency of the sound to be played
@@ -95,8 +115,8 @@ define( function( require ) {
       // turn on the sound, but only if simulation sound is enabled
       if ( this.soundEnabledProperty.value ) {
         var now = this.audioContext.currentTime;
-        this.gainControl.gain.setTargetAtTime( MAX_GAIN, now, 0.015 );
-        this.gainControl.gain.setTargetAtTime( 0, now + duration, 0.015 );
+        this.gainControl.gain.setTargetAtTime( MAX_GAIN, now, AUDIO_CHANGE_TIME_CONSTANT );
+        this.gainControl.gain.setTargetAtTime( 0, now + duration, AUDIO_CHANGE_TIME_CONSTANT );
       }
     }
   } );
