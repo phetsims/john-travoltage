@@ -1,5 +1,5 @@
 {
-  "comment": "# john-travoltage 1.4.0-phetiorc.1 Tue May 23 2017 21:19:40 GMT-0600 (Mountain Daylight Time)",
+  "comment": "# john-travoltage 1.4.0-phetiorc.1 Tue May 23 2017 21:42:00 GMT-0600 (Mountain Daylight Time)",
   "assert": {
     "sha": "5c3f92048a9c2ffd6df8ede54fd64f1f7a7e4ef2",
     "branch": "master"
@@ -21,7 +21,7 @@
     "branch": "master"
   },
   "john-travoltage": {
-    "sha": "da48c8b935c005d53a966b2d89c97a544d96fbab",
+    "sha": "d6a9245216f04285d5e64939fecfc6c02929f6f2",
     "branch": "1.4-phetio"
   },
   "joist": {
@@ -57,7 +57,7 @@
     "branch": "master"
   },
   "phet-io-wrappers": {
-    "sha": "b9ac8db3e73566cb32e5fdd72eb1f75a7c124a88",
+    "sha": "ba4d9e72cbf6178fb215b2d08087640ccbb99919",
     "branch": "master"
   },
   "phetcommon": {
