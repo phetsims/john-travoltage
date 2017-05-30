@@ -24,7 +24,7 @@ define( function( require ) {
     // position determined empirically with DebugUtils
     var pivotPoint = new Vector2( 423.6179673321235, 229.84969476984 );
 
-    Appendage.call( this, pivotPoint, tandem );
+    Appendage.call( this, pivotPoint, tandem.createSupertypeTandem() );
 
     // Exact finger location sampled using DebugUtils.js
     var finger = new Vector2( 534.3076703633706, 206.63766358806117 );
