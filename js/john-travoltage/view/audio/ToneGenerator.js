@@ -55,7 +55,7 @@ define( function( require ) {
     this.oscillator2 = this.audioContext.createOscillator(); // Create sound source
     this.oscillator2.type = 'triangle';
     this.oscillator2.frequency.value = INITIAL_FREQUENCY;
-    this.oscillator1.detune.value = -7;
+    this.oscillator2.detune.value = -7;
     this.oscillator2.start( 0 );
 
     // create a filter for oscillator 2
