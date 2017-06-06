@@ -154,7 +154,7 @@ define( function( require ) {
 
     // reset angle counting variables when the sim is reset - does not need to be disposed
     this.resetEmitter.addListener( function() {
-      lastAngle = self.leg.angleProperty.get();
+      lastAngle = self.leg.angleProperty.initialValue;
       accumulatedAngle = 0;
     } );
 
@@ -188,6 +188,7 @@ define( function( require ) {
     reset: function() {
 
       // Properties of the model.  All user settings belong in the model, whether or not they are part of the physical model
+      this.resetEmitter.emit();
       this.sparkVisibleProperty.reset();
       this.shoeOnCarpetProperty.reset();
       this.soundEnabledProperty.reset();
@@ -196,7 +197,6 @@ define( function( require ) {
       while ( this.electrons.length > 0 ) {
         this.removeElectron( this.electrons.get( 0 ) );
       }
-      this.resetEmitter.emit();
     },
 
     /**
