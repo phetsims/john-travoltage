@@ -48,9 +48,12 @@ define( function( require ) {
 
       }
       else {
+        var position = armNode.positionAtDischarge || '';
 
-        var position = armNode.positionAtDischarge;
-        var regionText = armNode.regionAtDischarge.text.toLowerCase();
+        var regionText = '';
+        if( armNode.regionAtDischarge && armNode.regionAtDischarge.text){
+          armNode.regionAtDischarge.text.toLowerCase();
+        }
 
         alertString = StringUtils.fillIn( electronsTotalAfterDischargeString, {
           oldValue: priorCharge,
