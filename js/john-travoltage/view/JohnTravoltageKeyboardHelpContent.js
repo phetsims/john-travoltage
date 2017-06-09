@@ -187,9 +187,6 @@ define( function( require ) {
     contentHBox.addChild( new Spacer( spacerWidth, 0, {
       tandem: tandem.createTandem( 'spacer' )
     } ) );
-
-    console.log( this.width );
-
   }
 
   johnTravoltage.register( 'JohnTravoltageKeyboardHelpContent', JohnTravoltageKeyboardHelpContent );

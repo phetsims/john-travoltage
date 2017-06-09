@@ -32,6 +32,7 @@ define( function( require ) {
   var Circle = require( 'SCENERY/nodes/Circle' );
   var platform = require( 'PHET_CORE/platform' );
   var HBox = require( 'SCENERY/nodes/HBox' );
+  var AccessiblePeer = require( 'SCENERY/accessibility/AccessiblePeer' );
   var JohnTravoltageA11yStrings = require( 'JOHN_TRAVOLTAGE/john-travoltage/JohnTravoltageA11yStrings' );
   var JohnTravoltageQueryParameters = require( 'JOHN_TRAVOLTAGE/john-travoltage/JohnTravoltageQueryParameters' );
   var JohnTravoltageAudio = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/audio/JohnTravoltageAudio' );
@@ -232,7 +233,8 @@ define( function( require ) {
     this.leg.model.angleProperty.link( updateDescription );
 
     // the play area is described by the description through aria-describedby
-    playAreaNode.setAriaDescribedByElement( this.descriptionElement );
+    this.setAriaDescribesNode( playAreaNode, AccessiblePeer.DESCRIPTION );
+    // playAreaNode.setAriaDescribedByElement( this.descriptionElement );
 
     // debug lines, body and forceline
     // borders are approximately 8px = radius of particle from physical body,
