@@ -51,8 +51,8 @@ define( function( require ) {
         var position = armNode.positionAtDischarge || '';
 
         var regionText = '';
-        if( armNode.regionAtDischarge && armNode.regionAtDischarge.text){
-          armNode.regionAtDischarge.text.toLowerCase();
+        if ( armNode.regionAtDischarge && armNode.regionAtDischarge.text ) {
+          regionText = armNode.regionAtDischarge.text.toLowerCase();
         }
 
         alertString = StringUtils.fillIn( electronsTotalAfterDischargeString, {
@@ -87,6 +87,7 @@ define( function( require ) {
       };
       model.electrons.addItemRemovedListener( itemRemovedListener );
     }
+
     model.electrons.addItemAddedListener( electronAddedListener );
     model.electrons.forEach( electronAddedListener );
 
