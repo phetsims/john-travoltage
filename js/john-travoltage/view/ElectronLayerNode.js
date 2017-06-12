@@ -52,7 +52,7 @@ define( function( require ) {
 
         var regionText = '';
         if( armNode.regionAtDischarge && armNode.regionAtDischarge.text){
-          armNode.regionAtDischarge.text.toLowerCase();
+          regionText = armNode.regionAtDischarge.text.toLowerCase();
         }
 
         alertString = StringUtils.fillIn( electronsTotalAfterDischargeString, {
