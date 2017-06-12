@@ -1,5 +1,5 @@
 {
-  "comment": "# john-travoltage 1.4.0-phetiorc.2 Sat Jun 10 2017 13:47:18 GMT-0800 (Alaskan Daylight Time)",
+  "comment": "# john-travoltage 1.4.0-phetio Mon Jun 12 2017 10:47:31 GMT-0800 (Alaskan Daylight Time)",
   "assert": {
     "sha": "5c3f92048a9c2ffd6df8ede54fd64f1f7a7e4ef2",
     "branch": "HEAD"
@@ -21,12 +21,12 @@
     "branch": "HEAD"
   },
   "john-travoltage": {
-    "sha": "1a12612380ceca67561faec92a95acc4c2260e19",
+    "sha": "00c31ff1dbc5a4774f8573e8e634a81577af040c",
     "branch": "1.4-phetio"
   },
   "joist": {
     "sha": "2036ccc1067f6d02f3ead8972cdfef32116172bd",
-    "branch": "john-travoltage-1.4-phetio"
+    "branch": "HEAD"
   },
   "kite": {
     "sha": "7d2df183bd47abec3c3f7da477eb9172556f04e8",
@@ -38,7 +38,7 @@
   },
   "phet-io": {
     "sha": "34f5bd51696868a12f7aaae99cbbda291182d0e4",
-    "branch": "john-travoltage-1.4-phetio"
+    "branch": "HEAD"
   },
   "phet-io-website": {
     "sha": "c36910eab70224d4c6d352b702a9da6eb57dce18",
@@ -74,7 +74,7 @@
   },
   "scenery-phet": {
     "sha": "c5a453d382d2cb1f11c554b1b459816f5b921a32",
-    "branch": "john-travoltage-1.4-phetio"
+    "branch": "HEAD"
   },
   "sherpa": {
     "sha": "0e326d542b93f5cf3eea2b175d195c18b9bdfb6e",
