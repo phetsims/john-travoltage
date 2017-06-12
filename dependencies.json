@@ -13,15 +13,15 @@
     "branch": "HEAD"
   },
   "chipper": {
-    "sha": "83292e7cba3af8a801fe81bfdeed1035e7442a16",
-    "branch": "HEAD"
+    "sha": "1521711d6534bd99ae44ba695c5380b51c3f9c97",
+    "branch": "john-travoltage-1.4-phetio"
   },
   "dot": {
     "sha": "6b4ec39c10d667cd64543e59184f0a2fff4fad6e",
     "branch": "HEAD"
   },
   "john-travoltage": {
-    "sha": "00c31ff1dbc5a4774f8573e8e634a81577af040c",
+    "sha": "4b64280f47723e452b74e82b2cf99a269711b18c",
     "branch": "1.4-phetio"
   },
   "joist": {
