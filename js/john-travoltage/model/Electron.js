@@ -245,7 +245,7 @@ define( function( require ) {
       else {
 
         // Notify observers anyways so the electron will redraw at the right leg angle
-        this.positionProperty.notifyObserversStatic();
+        this.positionProperty.notifyListenersStatic();
       }
     }
   } );
