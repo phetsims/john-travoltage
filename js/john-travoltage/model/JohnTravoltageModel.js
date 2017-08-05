@@ -20,7 +20,6 @@ define( function( require ) {
   var Util = require( 'DOT/Util' );
   var johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
   var Emitter = require( 'AXON/Emitter' );
-  var TandemEmitter = require( 'TANDEM/axon/TandemEmitter' );
   var BooleanProperty = require( 'AXON/BooleanProperty' );
 
   // phet-io modules
@@ -115,19 +114,19 @@ define( function( require ) {
     this.stepEmitter = new Emitter();
 
     // @public - emitter called when the reset all button is pressed
-    this.resetEmitter = new TandemEmitter( {
+    this.resetEmitter = new Emitter( {
       tandem: tandem.createTandem( 'resetEmitter' ),
       phetioArgumentTypes: []
     } );
 
     // @public (a11y) - emitter for when an electron discharge finishes or is canceled
-    this.dischargeEndedEmitter = new TandemEmitter( {
+    this.dischargeEndedEmitter = new Emitter( {
       tandem: tandem.createTandem( 'dischargeEndedEmitter' ),
       phetioArgumentTypes: []
     } );
 
     // @public (a11y) - emits an event when the discharge starts
-    this.dischargeStartedEmitter = new TandemEmitter( {
+    this.dischargeStartedEmitter = new Emitter( {
       tandem: tandem.createTandem( 'dischargeStartedEmitter' ),
       phetioArgumentTypes: []
     } );
