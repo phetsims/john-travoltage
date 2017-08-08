@@ -30,7 +30,7 @@ define( function( require ) {
   var AriaHerald = require( 'SCENERY_PHET/accessibility/AriaHerald' );
   var Sound = require( 'VIBE/Sound' );
   var Property = require( 'AXON/Property' );
-  var TandemSimpleDragHandler = require( 'TANDEM/scenery/input/TandemSimpleDragHandler' );
+  var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
 
   // strings
   var towardsDoorknobString = JohnTravoltageA11yStrings.towardsDoorknobString;
@@ -126,7 +126,7 @@ define( function( require ) {
 
     // no need for dispose - exists for life of sim
     var angle = 0;
-    this.imageNode.addInputListener( new TandemSimpleDragHandler( {
+    this.imageNode.addInputListener( new SimpleDragHandler( {
       tandem: tandem.createTandem( 'dragHandler' ),
       allowTouchSnag: true,
       start: function( event ) {
