@@ -11,7 +11,7 @@ define( function( require ) {
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var Text = require( 'SCENERY/nodes/Text' );
-  var RichText = require( 'SCENERY_PHET/RichText' );
+  var RichText = require( 'SCENERY/nodes/RichText' );
   var JohnTravoltageA11yStrings = require( 'JOHN_TRAVOLTAGE/john-travoltage/JohnTravoltageA11yStrings' );
   var johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
   var Panel = require( 'SUN/Panel' );
