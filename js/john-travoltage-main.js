@@ -42,7 +42,7 @@ define( function( require ) {
       contributors: 'Jonathan Hung, Justin Obara (Inclusive Design Research Centre)',
       qualityAssurance: 'Steele Dalton, Bryce Griebenow, Ben Roberts, Oliver Orejola',
       graphicArts: 'Mariah Hermsmeyer, Sharon Siman-Tov',
-      thanks: 'Thanks to Mobile Learner Labs for working with the PhET development team\n' +
+      thanks: 'Thanks to Mobile Learner Labs for working with the PhET development team ' +
               'to convert this simulation to HTML5.'
     },
     accessibility: !platform.mobileSafari, // disable accessibility on mobile Safari until accessibility works on that platform
