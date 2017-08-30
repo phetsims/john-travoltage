@@ -132,7 +132,7 @@ define( function( require ) {
       start: function( event ) {
 
         // if the appendage has focus, blur when it is picked up
-        self.focussed && self.blur();
+        self.focused && self.blur();
 
         // if the appendage is picked up with the mouse, it should not be keyboard focusable until dropped
         self.focusable = false;
