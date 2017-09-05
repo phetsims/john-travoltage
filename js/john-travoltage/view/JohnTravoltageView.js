@@ -232,9 +232,9 @@ define( function( require ) {
     this.arm.model.angleProperty.link( updateDescription );
     this.leg.model.angleProperty.link( updateDescription );
 
-    // the play area is described by the description through aria-describedby
-    this.setAriaDescribesNode( playAreaNode, AccessiblePeer.DESCRIPTION );
-    // playAreaNode.setAriaDescribedByElement( this.descriptionElement );
+    // the play area is described by the screen view description through aria-describedby
+    this.ariaDescriptionContent = AccessiblePeer.DESCRIPTION;
+    playAreaNode.setAriaDescribedByNode( this );
 
     // debug lines, body and forceline
     // borders are approximately 8px = radius of particle from physical body,
