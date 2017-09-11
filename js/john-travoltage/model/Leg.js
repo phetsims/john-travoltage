@@ -17,9 +17,6 @@ define( function( require ) {
   var johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
   var Appendage = require( 'JOHN_TRAVOLTAGE/john-travoltage/model/Appendage' );
 
-  // phet-io modules
-  var TNumber = require( 'ifphetio!PHET_IO/types/TNumber' );
-
   /**
    * @param {Tandem} tandem
    * @constructor
@@ -38,7 +35,7 @@ define( function( require ) {
     this.angularVelocityProperty = new NumberProperty( 0, {
       phetioInstanceDocumentation: 'Values are set internally by simulation and cannot be controlled by the PhET-IO interface.',
       tandem: tandem.createTandem( 'angularVelocityProperty' ),
-      phetioValueType: TNumber( { units: 'radians/second' } )
+      units: 'radians/second'
     } );
   }
 

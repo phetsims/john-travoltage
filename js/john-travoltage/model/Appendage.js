@@ -23,9 +23,6 @@ define( function( require ) {
     FARTHER: 'FARTHER'
   };
 
-  // phet-io modules
-  var TNumber = require( 'ifphetio!PHET_IO/types/TNumber' );
-
   /**
    * @constructor
    * @param {Vector2} pivotPoint
@@ -48,7 +45,8 @@ define( function( require ) {
     // @public
     this.angleProperty = new NumberProperty( this.initialAngle, {
       tandem: tandem.createTandem( 'angleProperty' ),
-      phetioValueType: TNumber( { units: 'radians', range: options.range } )
+      units: 'radians',
+      range: options.range
     } );
 
     // @public
