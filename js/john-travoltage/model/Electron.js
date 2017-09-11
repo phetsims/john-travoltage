@@ -10,14 +10,14 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var inherit = require( 'PHET_CORE/inherit' );
-  var Property = require( 'AXON/Property' );
-  var Vector2 = require( 'DOT/Vector2' );
-  var Util = require( 'DOT/Util' );
-  var johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
   var Emitter = require( 'AXON/Emitter' );
-  var TVector2 = require( 'DOT/TVector2' );
+  var inherit = require( 'PHET_CORE/inherit' );
+  var johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
+  var Property = require( 'AXON/Property' );
   var TElectron = require( 'JOHN_TRAVOLTAGE/john-travoltage/model/TElectron' );
+  var TVector2 = require( 'DOT/TVector2' );
+  var Util = require( 'DOT/Util' );
+  var Vector2 = require( 'DOT/Vector2' );
 
   //If this value is 1.0, there is no friction.  The value is what the velocity is multiplied by at every step.
   var frictionFactor = 0.98;

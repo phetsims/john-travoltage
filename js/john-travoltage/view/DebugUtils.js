@@ -17,8 +17,8 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var Shape = require( 'KITE/Shape' );
   var johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
+  var Shape = require( 'KITE/Shape' );
 
   var DebugUtils = {
 

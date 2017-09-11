@@ -9,23 +9,23 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var inherit = require( 'PHET_CORE/inherit' );
-  var Text = require( 'SCENERY/nodes/Text' );
-  var RichText = require( 'SCENERY/nodes/RichText' );
-  var JohnTravoltageA11yStrings = require( 'JOHN_TRAVOLTAGE/john-travoltage/JohnTravoltageA11yStrings' );
-  var johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
-  var Panel = require( 'SUN/Panel' );
-  var ArrowKeyNode = require( 'SCENERY_PHET/keyboard/ArrowKeyNode' );
-  var TabKeyNode = require( 'SCENERY_PHET/keyboard/TabKeyNode' );
-  var ShiftKeyNode = require( 'SCENERY_PHET/keyboard/ShiftKeyNode' );
-  var EscapeKeyNode = require( 'SCENERY_PHET/keyboard/EscapeKeyNode' );
-  var PhetFont = require( 'SCENERY_PHET/PhetFont' );
-  var Dimension2 = require( 'DOT/Dimension2' );
-  var PlusNode = require( 'SCENERY_PHET/PlusNode' );
-  var HBox = require( 'SCENERY/nodes/HBox' );
-  var VBox = require( 'SCENERY/nodes/VBox' );
-  var Spacer = require( 'SCENERY/nodes/Spacer' );
   var AlignGroup = require( 'SCENERY/nodes/AlignGroup' );
+  var ArrowKeyNode = require( 'SCENERY_PHET/keyboard/ArrowKeyNode' );
+  var Dimension2 = require( 'DOT/Dimension2' );
+  var EscapeKeyNode = require( 'SCENERY_PHET/keyboard/EscapeKeyNode' );
+  var HBox = require( 'SCENERY/nodes/HBox' );
+  var inherit = require( 'PHET_CORE/inherit' );
+  var johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
+  var JohnTravoltageA11yStrings = require( 'JOHN_TRAVOLTAGE/john-travoltage/JohnTravoltageA11yStrings' );
+  var Panel = require( 'SUN/Panel' );
+  var PhetFont = require( 'SCENERY_PHET/PhetFont' );
+  var PlusNode = require( 'SCENERY_PHET/PlusNode' );
+  var RichText = require( 'SCENERY/nodes/RichText' );
+  var ShiftKeyNode = require( 'SCENERY_PHET/keyboard/ShiftKeyNode' );
+  var Spacer = require( 'SCENERY/nodes/Spacer' );
+  var TabKeyNode = require( 'SCENERY_PHET/keyboard/TabKeyNode' );
+  var Text = require( 'SCENERY/nodes/Text' );
+  var VBox = require( 'SCENERY/nodes/VBox' );
 
   // constants
   var LAYOUT_SPACING = 10;

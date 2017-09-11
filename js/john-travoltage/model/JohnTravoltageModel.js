@@ -11,20 +11,20 @@ define( function( require ) {
 
   // modules
   var Arm = require( 'JOHN_TRAVOLTAGE/john-travoltage/model/Arm' );
-  var Leg = require( 'JOHN_TRAVOLTAGE/john-travoltage/model/Leg' );
+  var BooleanProperty = require( 'AXON/BooleanProperty' );
   var Electron = require( 'JOHN_TRAVOLTAGE/john-travoltage/model/Electron' );
+  var Emitter = require( 'AXON/Emitter' );
+  var inherit = require( 'PHET_CORE/inherit' );
+  var johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
+  var Leg = require( 'JOHN_TRAVOLTAGE/john-travoltage/model/Leg' );
   var LineSegment = require( 'JOHN_TRAVOLTAGE/john-travoltage/model/LineSegment' );
   var ObservableArray = require( 'AXON/ObservableArray' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var Vector2 = require( 'DOT/Vector2' );
   var Util = require( 'DOT/Util' );
-  var johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
-  var Emitter = require( 'AXON/Emitter' );
-  var BooleanProperty = require( 'AXON/BooleanProperty' );
+  var Vector2 = require( 'DOT/Vector2' );
 
   // phet-io modules
-  var TJohnTravoltageModel = require( 'JOHN_TRAVOLTAGE/john-travoltage/model/TJohnTravoltageModel' );
   var TElectron = require( 'JOHN_TRAVOLTAGE/john-travoltage/model/TElectron' );
+  var TJohnTravoltageModel = require( 'JOHN_TRAVOLTAGE/john-travoltage/model/TJohnTravoltageModel' );
 
   // constants
   var MAX_ELECTRONS = 100;

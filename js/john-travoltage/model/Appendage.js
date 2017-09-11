@@ -11,12 +11,12 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var BooleanProperty = require( 'AXON/BooleanProperty' );
+  var Emitter = require( 'AXON/Emitter' );
   var inherit = require( 'PHET_CORE/inherit' );
   var johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
   var NumberProperty = require( 'AXON/NumberProperty' );
   var Range = require( 'DOT/Range' );
-  var Emitter = require( 'AXON/Emitter' );
-  var BooleanProperty = require( 'AXON/BooleanProperty' );
 
   var MOVEMENT_DIRECTIONS = {
     CLOSER: 'CLOSER',

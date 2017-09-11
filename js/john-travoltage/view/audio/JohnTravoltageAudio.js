@@ -26,8 +26,8 @@ define( function( require ) {
 
   // audio
   var resetAudio = require( 'audio!JOHN_TRAVOLTAGE/reset' );
-  var shoeDraggingForwardOnCarpetAudio = require( 'audio!JOHN_TRAVOLTAGE/shoe-dragging-forward-on-carpet' );
   var shoeDraggingBackwardOnCarpetAudio = require( 'audio!JOHN_TRAVOLTAGE/shoe-dragging-backward-on-carpet' );
+  var shoeDraggingForwardOnCarpetAudio = require( 'audio!JOHN_TRAVOLTAGE/shoe-dragging-forward-on-carpet' );
 
   // constants
   var MAX_ELECTRONS = JohnTravoltageModel.MAX_ELECTRONS;

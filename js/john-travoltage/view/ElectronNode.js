@@ -11,15 +11,15 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var inherit = require( 'PHET_CORE/inherit' );
-  var Node = require( 'SCENERY/nodes/Node' );
   var Circle = require( 'SCENERY/nodes/Circle' );
-  var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var DotRectangle = require( 'DOT/Rectangle' ); // eslint-disable-line require-statement-match
-  var Image = require( 'SCENERY/nodes/Image' );
-  var Vector2 = require( 'DOT/Vector2' );
-  var johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
   var ElectronChargeNode = require( 'SCENERY_PHET/ElectronChargeNode' );
+  var Image = require( 'SCENERY/nodes/Image' );
+  var inherit = require( 'PHET_CORE/inherit' );
+  var johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
+  var Node = require( 'SCENERY/nodes/Node' );
+  var Rectangle = require( 'SCENERY/nodes/Rectangle' );
+  var Vector2 = require( 'DOT/Vector2' );
 
   // constants
   // Scale up before rasterization so it won't be too pixelated/fuzzy

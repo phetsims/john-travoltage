@@ -12,25 +12,25 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var inherit = require( 'PHET_CORE/inherit' );
-  var Node = require( 'SCENERY/nodes/Node' );
-  var LinearFunction = require( 'DOT/LinearFunction' );
-  var Image = require( 'SCENERY/nodes/Image' );
-  var Vector2 = require( 'DOT/Vector2' );
-  var Rectangle = require( 'SCENERY/nodes/Rectangle' );
-  var Circle = require( 'SCENERY/nodes/Circle' );
-  var Util = require( 'DOT/Util' );
-  var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
-  var Leg = require( 'JOHN_TRAVOLTAGE/john-travoltage/model/Leg' );
   var Appendage = require( 'JOHN_TRAVOLTAGE/john-travoltage/model/Appendage' );
-  var johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
-  var JohnTravoltageQueryParameters = require( 'JOHN_TRAVOLTAGE/john-travoltage/JohnTravoltageQueryParameters' );
-  var JohnTravoltageA11yStrings = require( 'JOHN_TRAVOLTAGE/john-travoltage/JohnTravoltageA11yStrings' );
-  var FocusOverlay = require( 'SCENERY/overlays/FocusOverlay' );
   var AriaHerald = require( 'SCENERY_PHET/accessibility/AriaHerald' );
-  var Sound = require( 'VIBE/Sound' );
+  var Circle = require( 'SCENERY/nodes/Circle' );
+  var FocusOverlay = require( 'SCENERY/overlays/FocusOverlay' );
+  var Image = require( 'SCENERY/nodes/Image' );
+  var inherit = require( 'PHET_CORE/inherit' );
+  var johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
+  var JohnTravoltageA11yStrings = require( 'JOHN_TRAVOLTAGE/john-travoltage/JohnTravoltageA11yStrings' );
+  var JohnTravoltageQueryParameters = require( 'JOHN_TRAVOLTAGE/john-travoltage/JohnTravoltageQueryParameters' );
+  var Leg = require( 'JOHN_TRAVOLTAGE/john-travoltage/model/Leg' );
+  var LinearFunction = require( 'DOT/LinearFunction' );
+  var Node = require( 'SCENERY/nodes/Node' );
   var Property = require( 'AXON/Property' );
+  var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
+  var Sound = require( 'VIBE/Sound' );
+  var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
+  var Util = require( 'DOT/Util' );
+  var Vector2 = require( 'DOT/Vector2' );
 
   // strings
   var towardsDoorknobString = JohnTravoltageA11yStrings.towardsDoorknobString;

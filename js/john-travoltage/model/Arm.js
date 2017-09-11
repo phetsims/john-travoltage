@@ -10,10 +10,10 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var Vector2 = require( 'DOT/Vector2' );
+  var Appendage = require( 'JOHN_TRAVOLTAGE/john-travoltage/model/Appendage' );
   var inherit = require( 'PHET_CORE/inherit' );
   var johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
-  var Appendage = require( 'JOHN_TRAVOLTAGE/john-travoltage/model/Appendage' );
+  var Vector2 = require( 'DOT/Vector2' );
 
   /**
    * @param {Tandem} tandem

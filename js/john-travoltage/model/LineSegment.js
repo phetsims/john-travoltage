@@ -11,9 +11,9 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var Vector2 = require( 'DOT/Vector2' );
   var inherit = require( 'PHET_CORE/inherit' );
   var johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
+  var Vector2 = require( 'DOT/Vector2' );
 
   /**
    * Create a LineSegment from Number,Number,Number,Number

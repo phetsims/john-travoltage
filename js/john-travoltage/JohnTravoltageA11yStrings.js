@@ -13,15 +13,15 @@ define( function( require ) {
   var johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
 
   // i18n strings
+  var arrowKeysMoveFootString = require( 'string!JOHN_TRAVOLTAGE/arrowKeysMoveFoot' );
+  var escapeKeyDescriptionString = require( 'string!JOHN_TRAVOLTAGE/escapeKeyDescription' );
+  var escKeyString = require( 'string!JOHN_TRAVOLTAGE/escKey' );
+  var hotKeysAndHelpString = require( 'string!JOHN_TRAVOLTAGE/hotKeysAndHelp' );
   var orString = require( 'string!JOHN_TRAVOLTAGE/or' );
   var shiftKeyString = require( 'string!JOHN_TRAVOLTAGE/shiftKey' );
-  var escKeyString = require( 'string!JOHN_TRAVOLTAGE/escKey' );
-  var tabKeyString = require( 'string!JOHN_TRAVOLTAGE/tabKey' );
-  var hotKeysAndHelpString = require( 'string!JOHN_TRAVOLTAGE/hotKeysAndHelp' );
-  var arrowKeysMoveFootString = require( 'string!JOHN_TRAVOLTAGE/arrowKeysMoveFoot' );
-  var tabKeyDescriptionString = require( 'string!JOHN_TRAVOLTAGE/tabKeyDescription' );
   var shiftTabKeyDescriptionString = require( 'string!JOHN_TRAVOLTAGE/shiftTabKeyDescription' );
-  var escapeKeyDescriptionString = require( 'string!JOHN_TRAVOLTAGE/escapeKeyDescription' );
+  var tabKeyDescriptionString = require( 'string!JOHN_TRAVOLTAGE/tabKeyDescription' );
+  var tabKeyString = require( 'string!JOHN_TRAVOLTAGE/tabKey' );
 
   var JohnTravoltageA11yStrings = {
 
