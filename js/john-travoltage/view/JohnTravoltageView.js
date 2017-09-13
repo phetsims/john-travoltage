@@ -69,6 +69,7 @@ define( function( require ) {
     ScreenView.call( this, {
       renderer: platform.firefox ? 'canvas' : null,
       layoutBounds: new Bounds2( 0, 0, 768, 504 ),
+      tandem: tandem,
 
       // a11y
       accessibleLabel: johnTravoltageTitleString
