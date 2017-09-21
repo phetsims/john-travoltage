@@ -1,4 +1,4 @@
-// Copyright 2016, University of Colorado Boulder
+// Copyright 2016-2017, University of Colorado Boulder
 
 /**
  * This file contains the sonic equivalent of the view, meaning that attempts to represent the things that occur in the

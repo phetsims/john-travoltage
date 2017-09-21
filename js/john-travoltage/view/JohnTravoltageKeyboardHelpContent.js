@@ -1,4 +1,4 @@
-// Copyright 2016, University of Colorado Boulder
+// Copyright 2016-2017, University of Colorado Boulder
 
 /**
  * Content for the "Hot Keys and Help" dialog that can be brought up from the sim navigation bar.
