@@ -12,6 +12,7 @@ define( function( require ) {
 
   // modules
   var AccessiblePeer = require( 'SCENERY/accessibility/AccessiblePeer' );
+  var AccessibleSectionNode = require( 'SCENERY_PHET/accessibility/AccessibleSectionNode' );
   var AppendageNode = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/AppendageNode' );
   var AppendageRangeMaps = require( 'JOHN_TRAVOLTAGE/john-travoltage/AppendageRangeMaps' );
   var AriaHerald = require( 'SCENERY_PHET/accessibility/AriaHerald' );
@@ -80,6 +81,9 @@ define( function( require ) {
 
     //Split layers after background for performance
     this.addChild( new Node( { layerSplit: true, pickable: false } ) );
+
+    var sceneSummaryNode = new AccessibleSectionNode( JohnTravoltageA11yStrings.sceneSummaryString);
+    this.addChild( sceneSummaryNode );
 
     //add an form element to contain all controls
     // the parent container is given role "none" so screen readers don't read contents of the play area when focus moves
@@ -169,14 +173,14 @@ define( function( require ) {
       bottom: this.layoutBounds.maxY - 7
     } ) );
 
-    //add sonification if enabled
+    // add sonification if enabled
     if ( SONIFICATION_CONTROL !== 'none' ) {
       this.audioView = new JohnTravoltageAudio( model, this.arm, resetAllButton, SONIFICATION_CONTROL );
     }
 
-    //Use a layer for electrons so it has only one pickable flag, perhaps may improve performance compared to iterating
-    //over all electrons to see if they are pickable?
-    //Split layers before particle layer for performance
+    // Use a layer for electrons so it has only one pickable flag, perhaps may improve performance compared to iterating
+    // over all electrons to see if they are pickable?
+    // Split layers before particle layer for performance
     var electronLayer = new ElectronLayerNode( model, this.arm, JohnTravoltageModel.MAX_ELECTRONS, tandem.createTandem( 'electronLayer' ), {
       layerSplit: true,
       pickable: false
@@ -213,7 +217,7 @@ define( function( require ) {
         sceneDescription = johnDescription;
       }
 
-      self.accessibleDescription = sceneDescription;
+      sceneSummaryNode.accessibleDescription = sceneDescription;
     };
 
     // electrons observable array exists for the lifetime of the sim, so there is no need to remove these

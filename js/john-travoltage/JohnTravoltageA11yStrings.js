@@ -94,6 +94,7 @@ define( function( require ) {
     // section labels
     controlPanelString: 'Control Panel',
     playAreaString: 'Play Area',
+    sceneSummaryString: 'Scene Summary',
 
     // what should be read for negative values - VoiceOver will frequently ignore the unicode minus signs and dashes
     // when reading the value, see https://github.com/phetsims/john-travoltage/issues/238
