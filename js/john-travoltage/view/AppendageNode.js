@@ -13,7 +13,6 @@ define( function( require ) {
 
   // modules
   var Appendage = require( 'JOHN_TRAVOLTAGE/john-travoltage/model/Appendage' );
-  var AriaHerald = require( 'SCENERY_PHET/accessibility/AriaHerald' );
   var Circle = require( 'SCENERY/nodes/Circle' );
   var FocusOverlay = require( 'SCENERY/overlays/FocusOverlay' );
   var Image = require( 'SCENERY/nodes/Image' );
