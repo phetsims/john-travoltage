@@ -249,10 +249,6 @@ define( function( require ) {
     this.setAccessibleAttribute( 'max', this.keyboardMotion.max );
     this.setAccessibleAttribute( 'step', this.keyboardMotion.step );
 
-    // set up a relationship between the appendage and the 'status' alert so that JAWS users can quickly navigate
-    // to the status element after interacting with the appendage
-    this.setAccessibleAttribute( 'aria-controls', AriaHerald.POLITE_STATUS_ELEMENT_ID );
-
     // Due to the variability of input and changes event firing across browsers, it is necessary to track if the input
     // event was fired and if not, to handle the change event instead. If both events fire, the input event will fire
     // first. AppendageNodes exist for life of sim, no need to dispose.
