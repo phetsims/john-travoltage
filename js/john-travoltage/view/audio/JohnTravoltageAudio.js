@@ -11,7 +11,6 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var BooleanProperty = require( 'AXON/BooleanProperty' );
   var ChargeAmountSoundGenerator = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/audio/ChargeAmountSoundGenerator' );
   var ChargeAmountToneGenerator = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/audio/ChargeAmountToneGenerator' );
   var DerivedProperty = require( 'AXON/DerivedProperty' );
@@ -50,22 +49,16 @@ define( function( require ) {
     this.armView = armView;
     this.sonificationControl = sonificationControl;
 
-    // sound that will be played when a reset is initiated by the user
+    // Sound that will be played when a reset is initiated by the user
     var resetAllSound = new Sound( resetAudio );
 
-    // create a property that will track when a reset is in progress
-    var resetInProgressProperty = new BooleanProperty( false );
-    resetAllButton.buttonModel.startedCallbacksForFiredEmitter.addListener( function() {
-      resetInProgressProperty.set( true );
-      resetAllSound.play();
-    } );
-    resetAllButton.buttonModel.endedCallbacksForFiredEmitter.addListener( function() {
-      resetInProgressProperty.set( false );
+    resetAllButton.buttonModel.isFiringProperty.link( function( isFiring ) {
+      isFiring && resetAllSound.play();
     } );
 
     // create a derived property for enabling/disabling sonification
     var sonificationEnabled = new DerivedProperty(
-      [ model.soundEnabledProperty, phet.joist.sim.browserTabVisibleProperty, resetInProgressProperty ],
+      [ model.soundEnabledProperty, phet.joist.sim.browserTabVisibleProperty, resetAllButton.buttonModel.isFiringProperty ],
       function( soundEnabled, simVisible, resetInProgress ) { return soundEnabled && simVisible && !resetInProgress; }
     );
 
