@@ -13,8 +13,7 @@ define( function( require ) {
 
   // modules
   var Appendage = require( 'JOHN_TRAVOLTAGE/john-travoltage/model/Appendage' );
-  var Circle = require( 'SCENERY/nodes/Circle' );
-  var FocusOverlay = require( 'SCENERY/overlays/FocusOverlay' );
+  var FocusHighlightPath = require( 'SCENERY/accessibility/FocusHighlightPath' );
   var Image = require( 'SCENERY/nodes/Image' );
   var inherit = require( 'PHET_CORE/inherit' );
   var johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
@@ -25,6 +24,7 @@ define( function( require ) {
   var Node = require( 'SCENERY/nodes/Node' );
   var Property = require( 'AXON/Property' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
+  var Shape = require( 'KITE/Shape' );
   var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
   var Sound = require( 'VIBE/Sound' );
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
@@ -213,9 +213,7 @@ define( function( require ) {
     appendage.borderVisibleProperty.linkAttribute( this.border, 'visible' );
 
     // a11y
-    this.focusHighlight = new Circle( this.imageNode.width / 2, {
-      stroke: FocusOverlay.innerFocusColor,
-      lineWidth: 5,
+    this.focusHighlight = new FocusHighlightPath( Shape.circle( 0, 0, this.imageNode.width / 2 ), {
       tandem: tandem.createTandem( 'focusCircle' )
     } );
 
