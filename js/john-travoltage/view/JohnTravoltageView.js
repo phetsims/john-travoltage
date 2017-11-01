@@ -15,7 +15,6 @@ define( function( require ) {
   var AccessibleSectionNode = require( 'SCENERY_PHET/accessibility/AccessibleSectionNode' );
   var AppendageNode = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/AppendageNode' );
   var AppendageRangeMaps = require( 'JOHN_TRAVOLTAGE/john-travoltage/AppendageRangeMaps' );
-  var AriaHerald = require( 'SCENERY_PHET/accessibility/AriaHerald' );
   var BackgroundNode = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/BackgroundNode' );
   var Bounds2 = require( 'DOT/Bounds2' );
   var Circle = require( 'SCENERY/nodes/Circle' );
@@ -41,6 +40,7 @@ define( function( require ) {
   var SparkNode = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/SparkNode' );
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   var Text = require( 'SCENERY/nodes/Text' );
+  var UtteranceQueue = require( 'SCENERY_PHET/accessibility/UtteranceQueue' );
 
   // audio
   var shockAudio = require( 'audio!JOHN_TRAVOLTAGE/shock' );
@@ -157,10 +157,9 @@ define( function( require ) {
     var resetAllButton = new ResetAllButton( {
       listener: function() {
         model.reset();
-        // model.reset.bind( model )
 
-        // clear status content
-        AriaHerald.clearPoliteWithStatus();
+        // clear alert content
+        UtteranceQueue.clear();
       },
       scale: 1.32,
       tandem: tandem.createTandem( 'resetAllButton' )
