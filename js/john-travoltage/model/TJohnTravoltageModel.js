@@ -21,7 +21,7 @@ define( function( require ) {
    * @constructor
    */
   function TJohnTravoltageModel( instance, phetioID ) {
-    assertInstanceOf( instance, phet.johnTravoltage.JohnTravoltageModel );
+    assert && assertInstanceOf( instance, phet.johnTravoltage.JohnTravoltageModel );
     TObject.call( this, instance, phetioID );
   }
 

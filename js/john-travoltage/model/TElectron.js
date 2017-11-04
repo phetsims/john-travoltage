@@ -21,7 +21,7 @@ define( function( require ) {
    * @constructor
    */
   function TElectron( instance, phetioID ) {
-    assertInstanceOf( instance, phet.johnTravoltage.Electron );
+    assert && assertInstanceOf( instance, phet.johnTravoltage.Electron );
     TObject.call( this, instance, phetioID );
   }
 
