@@ -33,7 +33,7 @@ define( function( require ) {
 
     // @public (sonification) - speed of leg determines volume of some audio
     this.angularVelocityProperty = new NumberProperty( 0, {
-      phetioInstanceDocumentation: 'Values are set internally by simulation and cannot be controlled by the PhET-IO interface.',
+      phetioReadOnly: true,
       tandem: tandem.createTandem( 'angularVelocityProperty' ),
       units: 'radians/second'
     } );
