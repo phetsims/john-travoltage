@@ -168,7 +168,8 @@ define( function( require ) {
     array.push( lineSegment );
     this.lineSegments = array;
 
-    this.electronGroupTandem = tandem.createGroupTandem( 'electron' ); // @private
+    // @private
+    this.electronGroupTandem = tandem.createGroupTandem( 'electron' );
 
     tandem.addInstance( this, TJohnTravoltageModel );
   }
