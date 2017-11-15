@@ -19,6 +19,7 @@ define( function( require ) {
   var Leg = require( 'JOHN_TRAVOLTAGE/john-travoltage/model/Leg' );
   var LineSegment = require( 'JOHN_TRAVOLTAGE/john-travoltage/model/LineSegment' );
   var ObservableArray = require( 'AXON/ObservableArray' );
+  var TObservableArray = require( 'AXON/TObservableArray' );
   var Util = require( 'DOT/Util' );
   var Vector2 = require( 'DOT/Vector2' );
 
@@ -105,7 +106,10 @@ define( function( require ) {
       tandem: tandem.createTandem( 'soundEnabledProperty' )
     } );
 
-    this.electrons = new ObservableArray( { tandem: tandem.createTandem( 'electrons' ), phetioValueType: TElectron } );
+    this.electrons = new ObservableArray( {
+      tandem: tandem.createTandem( 'electrons' ),
+      phetioType: TObservableArray( TElectron )
+    } );
     this.arm = new Arm( tandem.createTandem( 'arm' ) );
     this.leg = new Leg( tandem.createTandem( 'leg' ) );
     this.legAngleAtPreviousStep = this.leg.angleProperty.get();
@@ -171,7 +175,7 @@ define( function( require ) {
     // @private
     this.electronGroupTandem = tandem.createGroupTandem( 'electron' );
 
-    tandem.addInstance( this, TJohnTravoltageModel );
+    tandem.addInstance( this, { phetioType: TJohnTravoltageModel } );
   }
 
   //Function to determine if electrons are exiting.

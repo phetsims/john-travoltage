@@ -24,14 +24,13 @@ define( function( require ) {
     // position determined empirically with DebugUtils
     var pivotPoint = new Vector2( 423.6179673321235, 229.84969476984 );
 
-    Appendage.call( this, pivotPoint, tandem.createSupertypeTandem() );
+    Appendage.call( this, pivotPoint, tandem );
 
     // Exact finger location sampled using DebugUtils.js
     var finger = new Vector2( 534.3076703633706, 206.63766358806117 );
 
     // @public (read-only) - vector from pivot point to the finger
     this.fingerVector = finger.minus( this.position );
-
   }
 
   johnTravoltage.register( 'Arm', Arm );

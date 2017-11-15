@@ -15,6 +15,7 @@ define( function( require ) {
   var johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
   var Property = require( 'AXON/Property' );
   var TElectron = require( 'JOHN_TRAVOLTAGE/john-travoltage/model/TElectron' );
+  var TProperty = require( 'AXON/TProperty' );
   var TVector2 = require( 'DOT/TVector2' );
   var Util = require( 'DOT/Util' );
   var Vector2 = require( 'DOT/Vector2' );
@@ -40,7 +41,7 @@ define( function( require ) {
     this.id = electronCount;
     this.positionProperty = new Property( new Vector2( x, y ), {
       tandem: tandem.createTandem( 'positionProperty' ),
-      phetioValueType: TVector2
+      phetioType: TProperty( TVector2 )
     } );
 
     //The velocity an electron has when it comes from the carpet into the leg.
@@ -55,7 +56,7 @@ define( function( require ) {
     this.maxSpeed = 500;
     this.maxForceSquared = 100000000;
 
-    tandem.addInstance( this, TElectron );
+    tandem.addInstance( this, { phetioType: TElectron } );
 
     // @public (read-only) called when the Electron is disposed so listeners may clean themselves up
     this.disposeEmitter = new Emitter();
