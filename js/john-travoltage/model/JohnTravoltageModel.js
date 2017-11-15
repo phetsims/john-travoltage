@@ -19,7 +19,7 @@ define( function( require ) {
   var Leg = require( 'JOHN_TRAVOLTAGE/john-travoltage/model/Leg' );
   var LineSegment = require( 'JOHN_TRAVOLTAGE/john-travoltage/model/LineSegment' );
   var ObservableArray = require( 'AXON/ObservableArray' );
-  var TObservableArray = require( 'AXON/TObservableArray' );
+  var ObservableArrayIO = require( 'AXON/ObservableArrayIO' );
   var Util = require( 'DOT/Util' );
   var Vector2 = require( 'DOT/Vector2' );
 
@@ -108,7 +108,7 @@ define( function( require ) {
 
     this.electrons = new ObservableArray( {
       tandem: tandem.createTandem( 'electrons' ),
-      phetioType: TObservableArray( TElectron )
+      phetioType: ObservableArrayIO( TElectron )
     } );
     this.arm = new Arm( tandem.createTandem( 'arm' ) );
     this.leg = new Leg( tandem.createTandem( 'leg' ) );
