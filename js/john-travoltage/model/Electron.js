@@ -16,7 +16,7 @@ define( function( require ) {
   var Property = require( 'AXON/Property' );
   var TElectron = require( 'JOHN_TRAVOLTAGE/john-travoltage/model/TElectron' );
   var PropertyIO = require( 'AXON/PropertyIO' );
-  var TVector2 = require( 'DOT/TVector2' );
+  var Vector2IO = require( 'DOT/Vector2IO' );
   var Util = require( 'DOT/Util' );
   var Vector2 = require( 'DOT/Vector2' );
 
@@ -41,7 +41,7 @@ define( function( require ) {
     this.id = electronCount;
     this.positionProperty = new Property( new Vector2( x, y ), {
       tandem: tandem.createTandem( 'positionProperty' ),
-      phetioType: PropertyIO( TVector2 )
+      phetioType: PropertyIO( Vector2IO )
     } );
 
     //The velocity an electron has when it comes from the carpet into the leg.
