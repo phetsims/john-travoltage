@@ -20,12 +20,12 @@ define( function( require ) {
    * @param phetioID
    * @constructor
    */
-  function TElectron( instance, phetioID ) {
+  function ElectronIO( instance, phetioID ) {
     assert && assertInstanceOf( instance, phet.johnTravoltage.Electron );
     ObjectIO.call( this, instance, phetioID );
   }
 
-  phetioInherit( ObjectIO, 'TElectron', TElectron, {}, {
+  phetioInherit( ObjectIO, 'ElectronIO', ElectronIO, {}, {
     documentation: 'Electron in John\'s body',
 
     fromStateObject: function( stateObject ) {
@@ -51,7 +51,7 @@ define( function( require ) {
     }
   } );
 
-  johnTravoltage.register( 'TElectron', TElectron );
+  johnTravoltage.register( 'ElectronIO', ElectronIO );
 
-  return TElectron;
+  return ElectronIO;
 } );

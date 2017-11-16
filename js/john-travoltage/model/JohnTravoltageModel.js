@@ -24,8 +24,8 @@ define( function( require ) {
   var Vector2 = require( 'DOT/Vector2' );
 
   // phet-io modules
-  var TElectron = require( 'JOHN_TRAVOLTAGE/john-travoltage/model/TElectron' );
-  var TJohnTravoltageModel = require( 'JOHN_TRAVOLTAGE/john-travoltage/model/TJohnTravoltageModel' );
+  var ElectronIO = require( 'JOHN_TRAVOLTAGE/john-travoltage/model/ElectronIO' );
+  var JohnTravoltageModelIO = require( 'JOHN_TRAVOLTAGE/john-travoltage/model/JohnTravoltageModelIO' );
 
   // constants
   var MAX_ELECTRONS = 100;
@@ -108,7 +108,7 @@ define( function( require ) {
 
     this.electrons = new ObservableArray( {
       tandem: tandem.createTandem( 'electrons' ),
-      phetioType: ObservableArrayIO( TElectron )
+      phetioType: ObservableArrayIO( ElectronIO )
     } );
     this.arm = new Arm( tandem.createTandem( 'arm' ) );
     this.leg = new Leg( tandem.createTandem( 'leg' ) );
@@ -175,7 +175,7 @@ define( function( require ) {
     // @private
     this.electronGroupTandem = tandem.createGroupTandem( 'electron' );
 
-    tandem.addInstance( this, { phetioType: TJohnTravoltageModel } );
+    tandem.addInstance( this, { phetioType: JohnTravoltageModelIO } );
   }
 
   //Function to determine if electrons are exiting.

@@ -20,12 +20,12 @@ define( function( require ) {
    * @param phetioID
    * @constructor
    */
-  function TJohnTravoltageModel( instance, phetioID ) {
+  function JohnTravoltageModelIO( instance, phetioID ) {
     assert && assertInstanceOf( instance, phet.johnTravoltage.JohnTravoltageModel );
     ObjectIO.call( this, instance, phetioID );
   }
 
-  phetioInherit( ObjectIO, 'TJohnTravoltageModel', TJohnTravoltageModel, {}, {
+  phetioInherit( ObjectIO, 'JohnTravoltageModelIO', JohnTravoltageModelIO, {}, {
     documentation: 'The model for John Travoltage',
     clearChildInstances: function( model ) {
       model.clearElectrons();
@@ -42,8 +42,8 @@ define( function( require ) {
     }
   } );
 
-  johnTravoltage.register( 'TJohnTravoltageModel', TJohnTravoltageModel );
+  johnTravoltage.register( 'JohnTravoltageModelIO', JohnTravoltageModelIO );
 
-  return TJohnTravoltageModel;
+  return JohnTravoltageModelIO;
 } );
 

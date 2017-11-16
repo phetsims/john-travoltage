@@ -14,7 +14,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
   var Property = require( 'AXON/Property' );
-  var TElectron = require( 'JOHN_TRAVOLTAGE/john-travoltage/model/TElectron' );
+  var ElectronIO = require( 'JOHN_TRAVOLTAGE/john-travoltage/model/ElectronIO' );
   var PropertyIO = require( 'AXON/PropertyIO' );
   var Vector2IO = require( 'DOT/Vector2IO' );
   var Util = require( 'DOT/Util' );
@@ -56,7 +56,7 @@ define( function( require ) {
     this.maxSpeed = 500;
     this.maxForceSquared = 100000000;
 
-    tandem.addInstance( this, { phetioType: TElectron } );
+    tandem.addInstance( this, { phetioType: ElectronIO } );
 
     // @public (read-only) called when the Electron is disposed so listeners may clean themselves up
     this.disposeEmitter = new Emitter();
