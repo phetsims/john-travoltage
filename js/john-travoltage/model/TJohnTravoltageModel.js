@@ -12,7 +12,7 @@ define( function( require ) {
   var assertInstanceOf = require( 'ifphetio!PHET_IO/assertInstanceOf' );
   var johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
   var phetioInherit = require( 'ifphetio!PHET_IO/phetioInherit' );
-  var TObject = require( 'ifphetio!PHET_IO/types/TObject' );
+  var ObjectIO = require( 'ifphetio!PHET_IO/types/ObjectIO' );
 
   /**
    *
@@ -22,10 +22,10 @@ define( function( require ) {
    */
   function TJohnTravoltageModel( instance, phetioID ) {
     assert && assertInstanceOf( instance, phet.johnTravoltage.JohnTravoltageModel );
-    TObject.call( this, instance, phetioID );
+    ObjectIO.call( this, instance, phetioID );
   }
 
-  phetioInherit( TObject, 'TJohnTravoltageModel', TJohnTravoltageModel, {}, {
+  phetioInherit( ObjectIO, 'TJohnTravoltageModel', TJohnTravoltageModel, {}, {
     documentation: 'The model for John Travoltage',
     clearChildInstances: function( model ) {
       model.clearElectrons();
