@@ -16,13 +16,13 @@ define( function( require ) {
 
   /**
    *
-   * @param instance
+   * @param electron
    * @param phetioID
    * @constructor
    */
-  function ElectronIO( instance, phetioID ) {
-    assert && assertInstanceOf( instance, phet.johnTravoltage.Electron );
-    ObjectIO.call( this, instance, phetioID );
+  function ElectronIO( electron, phetioID ) {
+    assert && assertInstanceOf( electron, phet.johnTravoltage.Electron );
+    ObjectIO.call( this, electron, phetioID );
   }
 
   phetioInherit( ObjectIO, 'ElectronIO', ElectronIO, {}, {
@@ -32,22 +32,24 @@ define( function( require ) {
       return stateObject;
     },
 
-    toStateObject: function( value ) {
+    toStateObject: function( electron ) {
+      assert && assertInstanceOf( electron, phet.johnTravoltage.Electron );
       return {
-        history: value.history,
-        velocityX: value.velocity.x,
-        velocityY: value.velocity.y
+        history: electron.history,
+        velocityX: electron.velocity.x,
+        velocityY: electron.velocity.y
       };
     },
 
-    setValue: function( instance, value ) {
+    setValue: function( electron, value ) {
+      assert && assertInstanceOf( electron, phet.johnTravoltage.Electron );
       assert && assert( value.history, 'value should have history' );
-      instance.history = value.history;
-      instance.velocity.x = value.velocityX;
-      instance.velocity.y = value.velocityY;
+      electron.history = value.history;
+      electron.velocity.x = value.velocityX;
+      electron.velocity.y = value.velocityY;
 
       // Trigger a computation of screen position
-      instance.historyChangedEmitter.emit();
+      electron.historyChangedEmitter.emit();
     }
   } );
 

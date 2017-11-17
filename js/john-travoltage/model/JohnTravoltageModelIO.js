@@ -16,29 +16,31 @@ define( function( require ) {
 
   /**
    *
-   * @param instance
+   * @param johnTravoltageModel
    * @param phetioID
    * @constructor
    */
-  function JohnTravoltageModelIO( instance, phetioID ) {
-    assert && assertInstanceOf( instance, phet.johnTravoltage.JohnTravoltageModel );
-    ObjectIO.call( this, instance, phetioID );
+  function JohnTravoltageModelIO( johnTravoltageModel, phetioID ) {
+    assert && assertInstanceOf( johnTravoltageModel, phet.johnTravoltage.JohnTravoltageModel );
+    ObjectIO.call( this, johnTravoltageModel, phetioID );
   }
 
   phetioInherit( ObjectIO, 'JohnTravoltageModelIO', JohnTravoltageModelIO, {}, {
     documentation: 'The model for John Travoltage',
-    clearChildInstances: function( model ) {
-      model.clearElectrons();
+    clearChildInstances: function( johnTravoltageModel ) {
+      assert && assertInstanceOf( johnTravoltageModel, phet.johnTravoltage.JohnTravoltageModel );
+      johnTravoltageModel.clearElectrons();
     },
 
     /**
      * Adds an Electron as specified by the phetioID and state.
-     * @param {Object} model
+     * @param {Object} johnTravoltageModel
      * @param {Tandem} tandem
      * @param {Object} electronStateObject
      */
-    addChildInstance: function( model, tandem, electronStateObject ) {
-      model.addElectron( tandem );
+    addChildInstance: function( johnTravoltageModel, tandem, electronStateObject ) {
+      assert && assertInstanceOf( johnTravoltageModel, phet.johnTravoltage.JohnTravoltageModel );
+      johnTravoltageModel.addElectron( tandem );
     }
   } );
 
