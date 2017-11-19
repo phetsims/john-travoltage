@@ -29,10 +29,10 @@ define( function( require ) {
   newChild.setAttribute( 'aria-hidden', true );
   newChild.tabIndex = -1;
 
-  var tandem = Tandem.createRootTandem();
+  var tandem = Tandem.rootTandem;
 
   // help content to describe keyboard interactions
-  var keyboardHelpContent = new JohnTravoltageKeyboardHelpContent( Tandem.createStaticTandem( 'keyboardHelpContent' ) );
+  var keyboardHelpContent = new JohnTravoltageKeyboardHelpContent( Tandem.rootTandem.createTandem( 'keyboardHelpContent' ) );
 
   var simOptions = {
     credits: {
