@@ -32,7 +32,7 @@ define( function( require ) {
   var tandem = Tandem.rootTandem;
 
   // help content to describe keyboard interactions
-  var keyboardHelpContent = new JohnTravoltageKeyboardHelpContent( Tandem.rootTandem.createTandem( 'keyboardHelpContent' ) );
+  var keyboardHelpContent = new JohnTravoltageKeyboardHelpContent();
 
   var simOptions = {
     credits: {
