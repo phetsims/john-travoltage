@@ -14,8 +14,10 @@ define( function( require ) {
   var Emitter = require( 'AXON/Emitter' );
   var inherit = require( 'PHET_CORE/inherit' );
   var johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
+  var PhetioObject = require( 'TANDEM/PhetioObject' );
   var Property = require( 'AXON/Property' );
   var PropertyIO = require( 'AXON/PropertyIO' );
+  var Tandem = require( 'TANDEM/Tandem' );
   var Util = require( 'DOT/Util' );
   var Vector2 = require( 'DOT/Vector2' );
   var Vector2IO = require( 'DOT/Vector2IO' );
@@ -32,10 +34,17 @@ define( function( require ) {
    * @param {number} x
    * @param {number} y
    * @param {JohnTravoltageModel} model
-   * @param {Tandem} tandem
+   * @param {Object} options - required for tandem
    * @constructor
    */
-  function Electron( x, y, model, tandem ) {
+  function Electron( x, y, model, options ) {
+
+    options = _.extend( {
+      tandem: Tandem.required,
+      phetioType: ElectronIO
+    }, options );
+    PhetioObject.call( this, options );
+    var tandem = options.tandem;
     var self = this;
     electronCount++;
     this.id = electronCount;
@@ -56,8 +65,6 @@ define( function( require ) {
     this.maxSpeed = 500;
     this.maxForceSquared = 100000000;
 
-    tandem.addInstance( this, { phetioType: ElectronIO } );
-
     // @public (read-only) called when the Electron is disposed so listeners may clean themselves up
     this.disposeEmitter = new Emitter();
 
@@ -73,18 +80,14 @@ define( function( require ) {
     }
 
     this.disposeElectron = function() {
-      tandem.removeInstance( self );
       self.disposeEmitter.emit();
       self.positionProperty.dispose();
     };
-
-    // @public (read-only)
-    this.electronTandem = tandem;
   }
 
   johnTravoltage.register( 'Electron', Electron );
 
-  return inherit( Object, Electron, {
+  return inherit( PhetioObject, Electron, {
 
     /**
      * Step function for when the electron is exiting the body (discharging).  Electrons leave the body through
@@ -121,7 +124,7 @@ define( function( require ) {
 
         //Send toward the end point on the segment, but with some randomness to make it look more realistic.
         //If the electron moves outside the body, it will be corrected in JohnTravoltageModel.moveElectronInsideBody
-        this.velocity.set( Vector2.createPolar( 200, delta.angle() + ( phet.joist.random.nextDouble() - 0.5) ) );
+        this.velocity.set( Vector2.createPolar( 200, delta.angle() + ( phet.joist.random.nextDouble() - 0.5 ) ) );
         this.positionProperty.set( this.velocity.timesScalar( dt ).plus( this.positionProperty.get() ) );
       }
     },
@@ -146,6 +149,7 @@ define( function( require ) {
      */
     dispose: function() {
       this.disposeElectron();
+      PhetioObject.prototype.dispose.call( this );
     },
 
     /**

@@ -328,7 +328,7 @@ define( function( require ) {
 
       var point = segment.p0.plus( v.normalized().times( rand ) );
 
-      var electron = new Electron( point.x, point.y, this, tandem );
+      var electron = new Electron( point.x, point.y, this, { tandem: tandem } );
       this.electrons.add( electron );
       return electron;
     },

@@ -51,7 +51,7 @@ define( function( require ) {
         var position = armNode.positionAtDischarge || '';
 
         var regionText = '';
-        if( armNode.regionAtDischarge && armNode.regionAtDischarge.text){
+        if ( armNode.regionAtDischarge && armNode.regionAtDischarge.text ) {
           regionText = armNode.regionAtDischarge.text.toLowerCase();
         }
 
@@ -71,7 +71,7 @@ define( function( require ) {
     function electronAddedListener( added ) {
 
       // and the visual representation of the electron
-      var newElectron = new ElectronNode( added, model.leg, model.arm, tandem.createTandem( added.electronTandem.tail ) );
+      var newElectron = new ElectronNode( added, model.leg, model.arm, tandem.createTandem( added.phetioObjectTandem.tail ) );
       self.addChild( newElectron );
 
       // a11y - anounce the state of charges with a status update
@@ -87,6 +87,7 @@ define( function( require ) {
       };
       model.electrons.addItemRemovedListener( itemRemovedListener );
     }
+
     model.electrons.addItemAddedListener( electronAddedListener );
     model.electrons.forEach( electronAddedListener );
 
