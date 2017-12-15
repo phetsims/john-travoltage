@@ -119,20 +119,17 @@ define( function( require ) {
 
     // @public - emitter called when the reset all button is pressed
     this.resetEmitter = new Emitter( {
-      tandem: tandem.createTandem( 'resetEmitter' ),
-      phetioArgumentTypes: []
+      tandem: tandem.createTandem( 'resetEmitter' )
     } );
 
     // @public (a11y) - emitter for when an electron discharge finishes or is canceled
     this.dischargeEndedEmitter = new Emitter( {
-      tandem: tandem.createTandem( 'dischargeEndedEmitter' ),
-      phetioArgumentTypes: []
+      tandem: tandem.createTandem( 'dischargeEndedEmitter' )
     } );
 
     // @public (a11y) - emits an event when the discharge starts
     this.dischargeStartedEmitter = new Emitter( {
-      tandem: tandem.createTandem( 'dischargeStartedEmitter' ),
-      phetioArgumentTypes: []
+      tandem: tandem.createTandem( 'dischargeStartedEmitter' )
     } );
 
     //If leg dragged across carpet, add electron.  Lazy link so that it won't add an electron when the sim starts up.
