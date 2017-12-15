@@ -20,6 +20,7 @@ define( function( require ) {
   var LineSegment = require( 'JOHN_TRAVOLTAGE/john-travoltage/model/LineSegment' );
   var ObservableArray = require( 'AXON/ObservableArray' );
   var ObservableArrayIO = require( 'AXON/ObservableArrayIO' );
+  var PhetioObject = require( 'TANDEM/PhetioObject' );
   var Util = require( 'DOT/Util' );
   var Vector2 = require( 'DOT/Vector2' );
 
@@ -171,8 +172,10 @@ define( function( require ) {
 
     // @private
     this.electronGroupTandem = tandem.createGroupTandem( 'electron' );
-
-    tandem.addInstance( this, { phetioType: JohnTravoltageModelIO } );
+    PhetioObject.call( this, {
+      phetioType: JohnTravoltageModelIO,
+      tandem: tandem
+    } );
   }
 
   //Function to determine if electrons are exiting.
@@ -180,7 +183,7 @@ define( function( require ) {
 
   johnTravoltage.register( 'JohnTravoltageModel', JohnTravoltageModel );
 
-  return inherit( Object, JohnTravoltageModel, {
+  return inherit( PhetioObject, JohnTravoltageModel, {
 
     /**
      * Reset the model when "Reset All" is pressed.
@@ -291,7 +294,7 @@ define( function( require ) {
 
       this.leg.angularVelocityProperty.set( ( this.leg.angleProperty.get() - this.legAngleAtPreviousStep ) / dt );
       this.legAngleAtPreviousStep = this.leg.angleProperty.get();
-      this.shoeOnCarpetProperty.set( ( this.leg.angleProperty.get() > FOOT_ON_CARPET_MIN_ANGLE && this.leg.angleProperty.get() < FOOT_ON_CARPET_MAX_ANGLE  ) );
+      this.shoeOnCarpetProperty.set( ( this.leg.angleProperty.get() > FOOT_ON_CARPET_MIN_ANGLE && this.leg.angleProperty.get() < FOOT_ON_CARPET_MAX_ANGLE ) );
 
       this.stepEmitter.emit();
     },
