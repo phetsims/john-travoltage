@@ -17,7 +17,7 @@ define( function( require ) {
   var Node = require( 'SCENERY/nodes/Node' );
   var Path = require( 'SCENERY/nodes/Path' );
   var Shape = require( 'KITE/Shape' );
-  var UtteranceQueue = require( 'SCENERY_PHET/accessibility/UtteranceQueue' );
+  var utteranceQueue = require( 'SCENERY_PHET/accessibility/utteranceQueue' );
 
   /**
    * Constructor for the SparkNode, which shows the animated spark from the finger to the doorknob when electrons are flowing out.
@@ -41,7 +41,7 @@ define( function( require ) {
     // a11y - whenever a discharge starts, announce as an alert
     // spark node is created once, no need to dispose
     model.dischargeStartedEmitter.addListener( function() {
-      UtteranceQueue.addToBack( JohnTravoltageA11yStrings.electronsDischargedString );
+      utteranceQueue.addToBack( JohnTravoltageA11yStrings.electronsDischargedString );
     } );
 
     // clear all alert content so that it cannot be found with the virtual cursor when discharge is finished

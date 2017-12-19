@@ -40,7 +40,7 @@ define( function( require ) {
   var SparkNode = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/SparkNode' );
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   var Text = require( 'SCENERY/nodes/Text' );
-  var UtteranceQueue = require( 'SCENERY_PHET/accessibility/UtteranceQueue' );
+  var utteranceQueue = require( 'SCENERY_PHET/accessibility/utteranceQueue' );
 
   // audio
   var shockAudio = require( 'audio!JOHN_TRAVOLTAGE/shock' );
@@ -159,7 +159,7 @@ define( function( require ) {
         model.reset();
 
         // clear alert content
-        UtteranceQueue.clear();
+        utteranceQueue.clear();
       },
       scale: 1.32,
       tandem: tandem.createTandem( 'resetAllButton' )
