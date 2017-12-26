@@ -16,8 +16,8 @@ define( function( require ) {
 
   /**
    *
-   * @param electron
-   * @param phetioID
+   * @param {Electron} electron
+   * @param {string} phetioID
    * @constructor
    */
   function ElectronIO( electron, phetioID ) {

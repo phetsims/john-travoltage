@@ -16,8 +16,8 @@ define( function( require ) {
 
   /**
    *
-   * @param johnTravoltageModel
-   * @param phetioID
+   * @param {JohnTravoltageModel} johnTravoltageModel
+   * @param {string} phetioID
    * @constructor
    */
   function JohnTravoltageModelIO( johnTravoltageModel, phetioID ) {
