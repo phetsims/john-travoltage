@@ -15,7 +15,6 @@ define( function( require ) {
   var phetioInherit = require( 'ifphetio!PHET_IO/phetioInherit' );
 
   /**
-   *
    * @param {Electron} electron
    * @param {string} phetioID
    * @constructor
