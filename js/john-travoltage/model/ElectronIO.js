@@ -41,12 +41,12 @@ define( function( require ) {
       };
     },
 
-    setValue: function( electron, value ) {
+    setValue: function( electron, fromStateObject ) {
       assert && assertInstanceOf( electron, phet.johnTravoltage.Electron );
-      assert && assert( value.history, 'value should have history' );
-      electron.history = value.history;
-      electron.velocity.x = value.velocityX;
-      electron.velocity.y = value.velocityY;
+      assert && assert( fromStateObject.history, 'value should have history' );
+      electron.history = fromStateObject.history;
+      electron.velocity.x = fromStateObject.velocityX;
+      electron.velocity.y = fromStateObject.velocityY;
 
       // Trigger a computation of screen position
       electron.historyChangedEmitter.emit();
