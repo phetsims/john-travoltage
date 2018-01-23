@@ -174,7 +174,8 @@ define( function( require ) {
     this.electronGroupTandem = tandem.createGroupTandem( 'electron' );
     PhetioObject.call( this, {
       phetioType: JohnTravoltageModelIO,
-      tandem: tandem
+      tandem: tandem,
+      phetioState: false // JohnTravoltageModelIO provides addChildInstance but does not contribute state itself
     } );
   }
 
