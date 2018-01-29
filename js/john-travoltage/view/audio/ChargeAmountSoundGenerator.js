@@ -40,13 +40,13 @@ define( function( require ) {
 
     // create a gain stage, makes the sound louder as the amount of charge increases
     var masterGainControl = audioContext.createGain();
-    masterGainControl.gain.value = 0;
+    masterGainControl.gain.setValueAtTime( 0, audioContext.currentTime );
     masterGainControl.connect( audioContext.destination );
 
     // create a filter stage, lets more high frequencies through as the amount of change increases
     var filter = audioContext.createBiquadFilter();
     filter.type = 'lowpass';
-    filter.frequency.value = MIN_FILTER_CUTOFF;
+    filter.frequency.setValueAtTime( MIN_FILTER_CUTOFF, audioContext.currentTime );
     filter.connect( masterGainControl );
 
     // create a function to map the amount of charge to output gain
