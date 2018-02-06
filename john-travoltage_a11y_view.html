@@ -66,6 +66,7 @@
       background: #e5c45b;
       border-radius: 1em;
       padding: 1em;
+      min-height: 10em;
     }
 
     p.alert_copy {
@@ -110,7 +111,7 @@
         <h3>Interactive alerts</h3>
         <div id=alert-copy-container class=alert_copy_container>
           <div id='polite-element-container'>
-            <p class='alert_copy' id="polite-element-copy"></p>
+            <ul class='alert_copy' id='alert-list'></ul>
           </div>
         </div>
       </div>
@@ -122,7 +123,7 @@
     <div id="intro">
       <h1>John Travoltage A11y View: Visual and Described content side by side</h1>
       <p>
-        The accessible version of John Travoltage is embedded in the iframe below. As you interact with the visual
+        The accessible version of John Travoltage is embedded in the iframe. As you interact with the visual
         sim
         in the
         iframe with either a keyboard or mouse, the descriptions for the sim automatically update on the right in a
@@ -160,7 +161,11 @@
 
   noPostMessage && ( simulationQueryString += 'postMessageOnLoad&postMessageOnError&' );
   noAccessibility && ( simulationQueryString += 'accessibility' );
-  document.getElementById( 'iframe' ).setAttribute( 'src', 'john-travoltage_en.html' + simulationQueryString );
+
+
+  // add brand name for dev deploys
+  var brandSuffix = window.location.hostname === 'www.colorado.edu' ? '_phet' : '';
+  document.getElementById( 'iframe' ).setAttribute( 'src', 'john-travoltage_en' + brandSuffix + '.html' + simulationQueryString );
 </script>
 
 <script type="application/javascript">
@@ -207,11 +212,11 @@
       var politeElement = innerDoc.getElementById( 'polite' );
 
       // get the alert dom elements from the pDOM copy
-      var politeElementCopy = document.getElementById( 'polite-element-copy' );
+      var alertList = document.getElementById( 'alert-list' );
 
       // strip the styling from the copied DOM elements
       pDOMCopy.removeAttribute( 'style' );
-      politeElementCopy.removeAttribute( 'style' );
+      alertList.removeAttribute( 'style' );
 
       // strip style from all elements in the DOM
       getAllDOMElementsAsLinear( pDOMCopy ).forEach( function( element ) {
@@ -264,18 +269,23 @@
       // whenever an element in the parallel DOM changes, we need to update its copied element as well
       var domObserver = new MutationObserver( function( mutations ) {
 
-        // This is extremely ineficient - every time the document changes, make a new copy, remove
-        // the visual dom, and add a new one
-        // TODO: Work on refining this, and only modifying the elements that change in the PDOM
-        copyContainer.removeChild( pDOMCopy );
-        pDOMCopy = pDOM.cloneNode( true );
-        pDOMCopy.removeAttribute( 'style' );
-        copyContainer.appendChild( pDOMCopy );
+        // update the PDOM copy after a delay to fix a FF/Safari bug where cloneNode prevents hidden DOM elements
+        // in the iframe from staying hidden - see https://github.com/phetsims/chipper/issues/648
+        setTimeout( function() {
 
-        addAriaLabelsToHTML( pDOMCopy );
+          // This is extremely ineficient - every time the document changes, make a new copy, remove
+          // the visual dom, and add a new one
+          // TODO: Work on refining this, and only modifying the elements that change in the PDOM
+          copyContainer.removeChild( pDOMCopy );
+          pDOMCopy = pDOM.cloneNode( true );
+          pDOMCopy.removeAttribute( 'style' );
+          copyContainer.appendChild( pDOMCopy );
 
-        // make sure that the copied html is completely out of navigation
-        removeTabIndex( pDOMCopy );
+          addAriaLabelsToHTML( pDOMCopy );
+
+          // make sure that the copied html is completely out of navigation
+          removeTabIndex( pDOMCopy );
+        }, 10 );
       } );
 
       // configuration of the dom observer:
@@ -285,24 +295,50 @@
       domObserver.observe( pDOM, config );
 
       // add mutation observers to each of the aria-live elements
-      function addLiveObserver( container, originalElement, copiedElement ) {
+      function addLiveObserver( originalElement, listElement ) {
         var liveObserver = new MutationObserver( function( mutations ) {
           mutations.forEach( function( mutation ) {
+            var alertText = mutation.target.textContent
 
-            // remove all other aria-live content
-            politeElementCopy.textContent = '';
+            // update the text content of the copied element to match the element in the iframe document
+            // create a list item to add to the alert list
+            if ( alertText.length > 0 ) {
+              var listItem = document.createElement( 'li' );
+              listItem.style.opacity = 1.0;
+              listItem.textContent = alertText;
+              listElement.insertBefore( listItem, listElement.children[ 0 ] );
 
+              // items fade out as they get older
+              for ( var j = 0; j < listElement.children.length; j++ ) {
+                listElement.children[ j ].style.opacity = 1.0 / ( j + 1 ) + 0.25;
+              }
 
-            // update the text content of the copied element to match the element in
-            // the iframe document
-            copiedElement.textContent = mutation.target.textContent;
+              // if the list is too large, remove the last items from the list
+              var childrenArray = Array.prototype.slice.call( listElement.children );
+              var fadeArray = childrenArray.slice( 5, childrenArray.length );
+
+              for ( var i = 0; i < fadeArray.length; i++ ) {
+                var firstChild = fadeArray[ 0 ];
+
+                var fadeout = function() {
+                  firstChild.style.opacity = firstChild.style.opacity * 0.95;
+
+                  // stop animating and remove child
+                  if( listElement.contains( firstChild ) && firstChild.style.opacity < 0.1 ) {
+                    window.clearInterval( intervalId );
+                    listElement.removeChild( firstChild );
+                  }
+                };
+                intervalId = window.setInterval( fadeout, 20 );
+              }
+            }
           } );
         } );
 
         liveObserver.observe( originalElement, config )
       }
 
-      addLiveObserver( politeElementContainer, politeElement, politeElementCopy );
+      addLiveObserver( politeElement, alertList );
 
       // set focus to the loaded ifram
       document.getElementById( 'iframe' ).focus();
