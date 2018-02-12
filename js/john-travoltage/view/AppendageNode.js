@@ -237,6 +237,8 @@ define( function( require ) {
                           new LinearFunction( angleMotion.min, angleMotion.max, this.keyboardMotion.min, this.keyboardMotion.max ) :
                           new LinearFunction( angleMotion.min, angleMotion.max, this.keyboardMotion.min, this.keyboardMotion.max );
 
+    // circular_slider TODO: create a rangeProperty to pass to the a11y slider
+    //  also, we'll need to take the linear function into account
     // set the initial input range values
     var rangeValue = AppendageNode.angleToPosition( appendage.angleProperty.get(), this.linearFunction, this.keyboardMidPointOffset );
     this.setInputValue( rangeValue );
@@ -262,13 +264,6 @@ define( function( require ) {
         }
         keyboardEventHandled = false;
         self.dragging = true;
-      },
-      blur: function( event ) {
-        self.dragging = false;
-
-        // on blur, reset flags for another round of interaction and the only description should be the
-        // landmark or region
-        self.initializePosition( appendage.angleProperty.get() ); 
       }
     } );
 
@@ -286,6 +281,11 @@ define( function( require ) {
       },
       blur: function( event ) {
         self.pickable = true;
+        self.dragging = false;
+
+        // on blur, reset flags for another round of interaction and the only description should be the
+        // landmark or region
+        self.initializePosition( appendage.angleProperty.get() ); 
       }
     } );
   }

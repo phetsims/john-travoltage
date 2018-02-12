@@ -16,7 +16,10 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
   var NumberProperty = require( 'AXON/NumberProperty' );
+  var Property = require( 'AXON/Property' );
+  var PropertyIO = require( 'AXON/PropertyIO' );
   var Range = require( 'DOT/Range' );
+  var RangeIO = require( 'DOT/RangeIO' );
 
   var MOVEMENT_DIRECTIONS = {
     CLOSER: 'CLOSER',
@@ -63,6 +66,13 @@ define( function( require ) {
     // @public - emits an event when the appendage is reset
     this.appendageResetEmitter = new Emitter();
 
+    // a11y circular_slider: TODO: add enabledRange property to pass to a11y slider in AppendageNode
+    
+    // a11y
+    this.enabledRangeProperty = new Property( options.range, {
+      tandem: tandem.createTandem( 'enabledRangeProperty' ),
+      phetioType: PropertyIO( RangeIO )
+    } );
   }
 
   johnTravoltage.register( 'Appendage', Appendage );
