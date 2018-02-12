@@ -68,7 +68,7 @@ define( function( require ) {
 
     // a11y circular_slider: TODO: add enabledRange property to pass to a11y slider in AppendageNode
     
-    // a11y
+    // a11y - required for AccessibleSlider implementation
     this.enabledRangeProperty = new Property( options.range, {
       tandem: tandem.createTandem( 'enabledRangeProperty' ),
       phetioType: PropertyIO( RangeIO )

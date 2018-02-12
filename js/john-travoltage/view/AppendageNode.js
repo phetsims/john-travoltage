@@ -225,6 +225,7 @@ define( function( require ) {
     };
 
     // angles for each of the appendages that determine limitations to rotation
+    // 
     var angleMotion = {
       min: appendage instanceof Leg ? Math.PI : -Math.PI,
       max: appendage instanceof Leg ? 0 : Math.PI
@@ -233,12 +234,11 @@ define( function( require ) {
     // @private - linear function that will map appendage angle to input value for accessibility, rotation of the arm
     // is inversely mapped to the range of the keyboard input.  The arm has an offset that does not fit in this mapping,
     // but it is more convenient to use these maps since the drag handler set position in range of -PI to PI.
-    this.linearFunction = appendage instanceof Leg ?
-                          new LinearFunction( angleMotion.min, angleMotion.max, this.keyboardMotion.min, this.keyboardMotion.max ) :
-                          new LinearFunction( angleMotion.min, angleMotion.max, this.keyboardMotion.min, this.keyboardMotion.max );
+    this.linearFunction = new LinearFunction( angleMotion.min, angleMotion.max, this.keyboardMotion.min, this.keyboardMotion.max );
 
     // circular_slider TODO: create a rangeProperty to pass to the a11y slider
     //  also, we'll need to take the linear function into account
+    
     // set the initial input range values
     var rangeValue = AppendageNode.angleToPosition( appendage.angleProperty.get(), this.linearFunction, this.keyboardMidPointOffset );
     this.setInputValue( rangeValue );
