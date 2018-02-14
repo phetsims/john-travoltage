@@ -12,6 +12,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var AccessibleSlider = require( 'SUN/accessibility/AccessibleSlider' );
   var Appendage = require( 'JOHN_TRAVOLTAGE/john-travoltage/model/Appendage' );
   var FocusHighlightPath = require( 'SCENERY/accessibility/FocusHighlightPath' );
   var Image = require( 'SCENERY/nodes/Image' );
@@ -22,7 +23,11 @@ define( function( require ) {
   var Leg = require( 'JOHN_TRAVOLTAGE/john-travoltage/model/Leg' );
   var LinearFunction = require( 'DOT/LinearFunction' );
   var Node = require( 'SCENERY/nodes/Node' );
+  var NumberProperty = require( 'AXON/NumberProperty' );
   var Property = require( 'AXON/Property' );
+  var PropertyIO = require( 'AXON/PropertyIO' );
+  var Range = require( 'DOT/Range' );
+  var RangeIO = require( 'DOT/RangeIO' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Shape = require( 'KITE/Shape' );
   var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
@@ -223,9 +228,17 @@ define( function( require ) {
       step: 1,
       totalRange: appendage instanceof Leg ? 15 : 30
     };
+    
+    // a11y - required for AccessibleSlider implementation
+    this.accessibleInputRangeProperty = new Property(
+      new Range( this.keyboardMotion.min, this.keyboardMotion.max ),
+      {
+        tandem: tandem.createTandem( 'accessibleInputRangeProperty' ),
+        phetioType: PropertyIO( RangeIO )
+      }
+    );
 
     // angles for each of the appendages that determine limitations to rotation
-    // 
     var angleMotion = {
       min: appendage instanceof Leg ? Math.PI : -Math.PI,
       max: appendage instanceof Leg ? 0 : Math.PI
@@ -234,38 +247,50 @@ define( function( require ) {
     // @private - linear function that will map appendage angle to input value for accessibility, rotation of the arm
     // is inversely mapped to the range of the keyboard input.  The arm has an offset that does not fit in this mapping,
     // but it is more convenient to use these maps since the drag handler set position in range of -PI to PI.
-    this.linearFunction = new LinearFunction( angleMotion.min, angleMotion.max, this.keyboardMotion.min, this.keyboardMotion.max );
-
-    // circular_slider TODO: create a rangeProperty to pass to the a11y slider
-    //  also, we'll need to take the linear function into account
+    this.linearFunction = new LinearFunction(
+      angleMotion.min,
+      angleMotion.max,
+      this.keyboardMotion.min
+      this.keyboardMotion.max
+    );
     
     // set the initial input range values
     var rangeValue = AppendageNode.angleToPosition( appendage.angleProperty.get(), this.linearFunction, this.keyboardMidPointOffset );
-    this.setInputValue( rangeValue );
 
-    this.setAccessibleAttribute( 'min', this.keyboardMotion.min );
-    this.setAccessibleAttribute( 'max', this.keyboardMotion.max );
-    this.setAccessibleAttribute( 'step', this.keyboardMotion.step );
+    this.accessibleInputValueProperty = new NumberProperty( rangeValue, { 
+      valueType: 'Integer',
+      tandem: tandem.createTandem( 'accessibleInputValueProperty' )
+    } );
+
+    this.accessibleInputValueProperty.link( function( value ) {
+      self.rotateAppendage();
+    } );
+
+    // this.setInputValue( rangeValue );
+
+    // this.setAccessibleAttribute( 'min', this.keyboardMotion.min );
+    // this.setAccessibleAttribute( 'max', this.keyboardMotion.max );
+    // this.setAccessibleAttribute( 'step', this.keyboardMotion.step );
 
     // Due to the variability of input and changes event firing across browsers, it is necessary to track if the input
     // event was fired and if not, to handle the change event instead. If both events fire, the input event will fire
     // first. AppendageNodes exist for life of sim, no need to dispose.
     // see: https://wiki.fluidproject.org/pages/viewpage.action?pageId=61767683
-    var keyboardEventHandled = false;
-    this.addAccessibleInputListener( {
-      input: function( event ) {
-        self.rotateAppendage();
-        keyboardEventHandled = true;
-        self.dragging = true;
-      },
-      change: function( event ) {
-        if ( !keyboardEventHandled ) {
-          self.rotateAppendage();
-        }
-        keyboardEventHandled = false;
-        self.dragging = true;
-      }
-    } );
+    // var keyboardEventHandled = false;
+    // this.addAccessibleInputListener( {
+    //   input: function( event ) {
+    //     self.rotateAppendage();
+    //     keyboardEventHandled = true;
+    //     self.dragging = true;
+    //   },
+    //   change: function( event ) {
+    //     if ( !keyboardEventHandled ) {
+    //       self.rotateAppendage();
+    //     }
+    //     keyboardEventHandled = false;
+    //     self.dragging = true;
+    //   }
+    // } );
 
     // Updates the accessibility content with changes in the model
     appendage.angleProperty.lazyLink( function( angle, previousAngle ) {
@@ -276,23 +301,34 @@ define( function( require ) {
     // prevent user from manipulating with both keybaord and mouse at the same time
     // no need to dispose, listener AppendageNodes should exist for life of sim
     this.addAccessibleInputListener( {
-      focus: function( event ) {
-        self.pickable = false;
-      },
+      // focus: function( event ) {
+      //   self.pickable = false;
+      // },
       blur: function( event ) {
-        self.pickable = true;
-        self.dragging = false;
+        // self.pickable = true;
+        // self.dragging = false;
 
         // on blur, reset flags for another round of interaction and the only description should be the
         // landmark or region
         self.initializePosition( appendage.angleProperty.get() ); 
       }
     } );
+    
+    var a11ySliderOptions = {
+
+    };
+
+    this.initializeAccessibleSlider(
+      this.accessibleInputValueProperty,
+      this.accessibleInputRangeProperty,
+      new BooleanProperty( true ), // always enabled 
+      a11ySliderOptions
+    );
   }
 
   johnTravoltage.register( 'AppendageNode', AppendageNode );
 
-  return inherit( Node, AppendageNode, {
+  inherit( Node, AppendageNode, {
 
     /**
      * Keyboard interaction treats the appendages like a linear range slider.  This function maps the slider range value
@@ -610,4 +646,8 @@ define( function( require ) {
       return includeFartherAway;
     }
   } );
+
+  AccessibleSlider.mixInto( AppendageNode );
+
+  return AppendageNode;
 } );
