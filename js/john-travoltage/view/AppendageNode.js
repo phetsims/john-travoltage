@@ -15,6 +15,7 @@ define( function( require ) {
   var AccessibleSlider = require( 'SUN/accessibility/AccessibleSlider' );
   var Appendage = require( 'JOHN_TRAVOLTAGE/john-travoltage/model/Appendage' );
   var FocusHighlightPath = require( 'SCENERY/accessibility/FocusHighlightPath' );
+  var BooleanProperty = require( 'AXON/BooleanProperty' );
   var Image = require( 'SCENERY/nodes/Image' );
   var inherit = require( 'PHET_CORE/inherit' );
   var johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
@@ -250,7 +251,7 @@ define( function( require ) {
     this.linearFunction = new LinearFunction(
       angleMotion.min,
       angleMotion.max,
-      this.keyboardMotion.min
+      this.keyboardMotion.min,
       this.keyboardMotion.max
     );
     
@@ -315,7 +316,9 @@ define( function( require ) {
     } );
     
     var a11ySliderOptions = {
-
+      keyboardStep: 2,
+      shiftKeyboardStep: 1,
+      pageKeyboardStep: 5
     };
 
     this.initializeAccessibleSlider(

@@ -16,10 +16,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
   var NumberProperty = require( 'AXON/NumberProperty' );
-  var Property = require( 'AXON/Property' );
-  var PropertyIO = require( 'AXON/PropertyIO' );
   var Range = require( 'DOT/Range' );
-  var RangeIO = require( 'DOT/RangeIO' );
 
   var MOVEMENT_DIRECTIONS = {
     CLOSER: 'CLOSER',
