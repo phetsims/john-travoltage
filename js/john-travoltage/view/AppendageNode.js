@@ -263,10 +263,6 @@ define( function( require ) {
       tandem: tandem.createTandem( 'accessibleInputValueProperty' )
     } );
 
-    this.accessibleInputValueProperty.link( function( value ) {
-      self.rotateAppendage();
-    } );
-
     // this.setInputValue( rangeValue );
 
     // this.setAccessibleAttribute( 'min', this.keyboardMotion.min );
@@ -327,6 +323,10 @@ define( function( require ) {
       new BooleanProperty( true ), // always enabled 
       a11ySliderOptions
     );
+
+    this.accessibleInputValueProperty.link( function( value ) {
+      self.rotateAppendage();
+    } );
   }
 
   johnTravoltage.register( 'AppendageNode', AppendageNode );
