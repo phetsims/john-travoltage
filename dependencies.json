@@ -1,5 +1,5 @@
 {
-  "comment": "# john-travoltage 1.4.3 Tue Feb 27 2018 14:01:21 GMT-0700 (MST)",
+  "comment": "# john-travoltage 1.4.3-phetio Tue Feb 27 2018 20:59:22 GMT-0700 (MST)",
   "assert": {
     "sha": "5c3f92048a9c2ffd6df8ede54fd64f1f7a7e4ef2",
     "branch": "HEAD"
@@ -21,12 +21,12 @@
     "branch": "HEAD"
   },
   "john-travoltage": {
-    "sha": "01aad8feb3f2d339f9f1cd9d131a2beee4571264",
+    "sha": "d5c9840b42b911096f7860b0bec9bc32fcec93ad",
     "branch": "1.4-phetio"
   },
   "joist": {
     "sha": "3323c1fdd42b6d9b2ba76a336a4087d94274780b",
-    "branch": "john-travoltage-1.4-phetio"
+    "branch": "HEAD"
   },
   "kite": {
     "sha": "7d2df183bd47abec3c3f7da477eb9172556f04e8",
