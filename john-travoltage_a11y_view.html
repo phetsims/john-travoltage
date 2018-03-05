@@ -254,6 +254,15 @@
               element.innerHTML = element.getAttribute( 'aria-label' ) + element.innerHTML;
             }
           }
+          if ( element.hasAttribute( 'aria-valuetext' ) ) {
+            console.log(  element.getAttribute( 'aria-valuetext' ) );
+            var valueTextElement = document.createElement( 'p' );
+            valueTextElement.style.opacity = 0.55;
+
+            valueTextElement.textContent = '<aria-valuetext: ' + element.getAttribute( 'aria-valuetext' ) + '>';
+            element.parentNode.appendChild( valueTextElement );
+            // var element = document.getElementById( '')
+          }
         }
       }
 
