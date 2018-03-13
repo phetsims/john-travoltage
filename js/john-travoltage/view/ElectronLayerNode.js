@@ -21,8 +21,8 @@ define( function( require ) {
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
 
   // strings
-  var electronsTotalString = JohnTravoltageA11yStrings.electronsTotalString;
-  var electronsTotalAfterDischargeString = JohnTravoltageA11yStrings.electronsTotalAfterDischargeString;
+  var electronsTotalString = JohnTravoltageA11yStrings.electronsTotalString.value;
+  var electronsTotalAfterDischargeString = JohnTravoltageA11yStrings.electronsTotalAfterDischargeString.value;
 
   /**
    * @param {JohnTravoltageModel} model

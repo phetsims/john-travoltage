@@ -35,6 +35,13 @@ define( function( require ) {
   var DESCRIPTION_FONT = new PhetFont( 14 );
   var TEXT_MAX_WIDTH = 300;
 
+  // a11y strings
+  var orString = JohnTravoltageA11yStrings.orString.value;
+  var arrowKeysMoveFootString = JohnTravoltageA11yStrings.arrowKeysMoveFootString.value;
+  var tabKeyDescriptionString = JohnTravoltageA11yStrings.tabKeyDescriptionString.value;
+  var shiftTabKeyDescriptionString = JohnTravoltageA11yStrings.shiftTabKeyDescriptionString.value;
+  var escapeKeyDescriptionString = JohnTravoltageA11yStrings.escapeKeyDescriptionString.value;
+
   /**
    * Constructor.
    * @constructor
@@ -45,7 +52,7 @@ define( function( require ) {
     // arrow keys, separated by 'or' text
     var leftArrowKeyNode = new ArrowKeyNode( 'left' );
     var rightArrowKeyNode = new ArrowKeyNode( 'right' );
-    var orText = new Text( JohnTravoltageA11yStrings.orString, {
+    var orText = new Text( orString, {
       font: new PhetFont( 12 ),
       maxWidth: TEXT_MAX_WIDTH / 4
     } );
@@ -87,20 +94,20 @@ define( function( require ) {
       tagName: 'p',
       parentContainerTagName: 'li'
     };
-    var arrowKeyDescription = new RichText( JohnTravoltageA11yStrings.arrowKeysMoveFootString, _.extend( {
-      accessibleLabel: JohnTravoltageA11yStrings.arrowKeysMoveFootString,
+    var arrowKeyDescription = new RichText( arrowKeysMoveFootString, _.extend( {
+      accessibleLabel: arrowKeysMoveFootString,
       maxWidth: TEXT_MAX_WIDTH
     }, descriptionOptions ) );
-    var tabKeyDescription = new RichText( JohnTravoltageA11yStrings.tabKeyDescriptionString, _.extend( {
-      accessibleLabel: JohnTravoltageA11yStrings.tabKeyDescriptionString,
+    var tabKeyDescription = new RichText( tabKeyDescriptionString, _.extend( {
+      accessibleLabel: tabKeyDescriptionString,
       maxWidth: TEXT_MAX_WIDTH
     }, descriptionOptions ) );
-    var shiftPlusTabDescription = new RichText( JohnTravoltageA11yStrings.shiftTabKeyDescriptionString, _.extend( {
-      accessibleLabel: JohnTravoltageA11yStrings.shiftTabKeyDescriptionString,
+    var shiftPlusTabDescription = new RichText( shiftTabKeyDescriptionString, _.extend( {
+      accessibleLabel: shiftTabKeyDescriptionString,
       maxWidth: TEXT_MAX_WIDTH
     }, descriptionOptions ) );
-    var escapeKeyDescription = new RichText( JohnTravoltageA11yStrings.escapeKeyDescriptionString, _.extend( {
-      accessibleLabel: JohnTravoltageA11yStrings.escapeKeyDescriptionString,
+    var escapeKeyDescription = new RichText( escapeKeyDescriptionString, _.extend( {
+      accessibleLabel: escapeKeyDescriptionString,
       maxWidth: TEXT_MAX_WIDTH
     }, descriptionOptions ) );
 

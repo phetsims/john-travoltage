@@ -56,6 +56,17 @@ define( function( require ) {
   // strings
   var johnTravoltageTitleString = require( 'string!JOHN_TRAVOLTAGE/john-travoltage.title' );
 
+  // a11y strings
+  var sceneSummaryString = JohnTravoltageA11yStrings.sceneSummaryString.value;
+  var playAreaString = JohnTravoltageA11yStrings.playAreaString.value;
+  var controlPanelString = JohnTravoltageA11yStrings.controlPanelString.value;
+  var legSliderLabelString = JohnTravoltageA11yStrings.legSliderLabelString.value;
+  var armSliderLabelString = JohnTravoltageA11yStrings.armSliderLabelString.value;
+  var sceneSummaryJohnPatternString = JohnTravoltageA11yStrings.sceneSummaryJohnPatternString.value;
+  var electronsDescriptionSingleString = JohnTravoltageA11yStrings.electronsDescriptionSingleString.value;
+  var electronsDescriptionMultipleString = JohnTravoltageA11yStrings.electronsDescriptionMultipleString.value;
+  var sceneSummaryWithChargePatternString = JohnTravoltageA11yStrings.sceneSummaryWithChargePatternString.value;
+
   /**
    * @param {JohnTravoltageModel} model
    * @param {Tandem} tandem
@@ -82,7 +93,7 @@ define( function( require ) {
     //Split layers after background for performance
     this.addChild( new Node( { layerSplit: true, pickable: false } ) );
 
-    var sceneSummaryNode = new AccessibleSectionNode( JohnTravoltageA11yStrings.sceneSummaryString);
+    var sceneSummaryNode = new AccessibleSectionNode( sceneSummaryString );
     this.addChild( sceneSummaryNode );
 
     //add an form element to contain all controls
@@ -93,7 +104,7 @@ define( function( require ) {
       parentContainerAriaRole: 'none',
       tagName: 'div',
       labelTagName: 'h2',
-      accessibleLabel: JohnTravoltageA11yStrings.playAreaString,
+      accessibleLabel: playAreaString,
       prependLabels: true
     } );
     this.addChild( playAreaNode );
@@ -103,7 +114,7 @@ define( function( require ) {
       tagName: 'div',
       ariaRole: 'none',
       labelTagName: 'h2',
-      accessibleLabel: JohnTravoltageA11yStrings.controlPanelString,
+      accessibleLabel: controlPanelString,
       prependLabels: true
     } );
     this.addChild( controlPanelNode );
@@ -112,7 +123,7 @@ define( function( require ) {
     this.leg = new AppendageNode( model.leg, leg, 25, 28, Math.PI / 2 * 0.7, model.soundEnabledProperty, AppendageRangeMaps.legMap,
       tandem.createTandem( 'legNode' ), {
         labelTagName: 'label',
-        accessibleLabel: JohnTravoltageA11yStrings.legSliderLabelString
+        accessibleLabel: legSliderLabelString
       } );
     playAreaNode.addChild( this.leg );
 
@@ -122,7 +133,7 @@ define( function( require ) {
       tandem.createTandem( 'armNode' ), {
         keyboardMidPointOffset: 0.41,
         labelTagName: 'label',
-        accessibleLabel: JohnTravoltageA11yStrings.armSliderLabelString
+        accessibleLabel: armSliderLabelString
       } );
     playAreaNode.addChild( this.arm );
 
@@ -194,20 +205,20 @@ define( function( require ) {
 
       // description for John - this will always be in the scene summary
       var positionDescription = self.arm.positionDescription;
-      var johnDescription = StringUtils.fillIn( JohnTravoltageA11yStrings.sceneSummaryJohnPatternString, { position: positionDescription } );
+      var johnDescription = StringUtils.fillIn( sceneSummaryJohnPatternString, { position: positionDescription } );
 
       // if there are any charges, a description of the charge will be prepended to the summary
       if ( hadElectrons ) {
         if ( model.electrons.length === 1 ) {
-          chargeDescription = JohnTravoltageA11yStrings.electronsDescriptionSingleString;
+          chargeDescription = electronsDescriptionSingleString;
         }
         else {
-          chargeDescription = StringUtils.fillIn( JohnTravoltageA11yStrings.electronsDescriptionMultipleString, {
+          chargeDescription = StringUtils.fillIn( electronsDescriptionMultipleString, {
             value: model.electrons.length
           } );
         }
 
-        sceneDescription = StringUtils.fillIn( JohnTravoltageA11yStrings.sceneSummaryWithChargePatternString, {
+        sceneDescription = StringUtils.fillIn( sceneSummaryWithChargePatternString, {
           charge: chargeDescription,
           johnDescription: johnDescription
         } );

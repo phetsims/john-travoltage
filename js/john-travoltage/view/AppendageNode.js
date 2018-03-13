@@ -32,12 +32,13 @@ define( function( require ) {
   var Vector2 = require( 'DOT/Vector2' );
 
   // strings
-  var towardsDoorknobString = JohnTravoltageA11yStrings.towardsDoorknobString;
-  var awayFromDoorknobString = JohnTravoltageA11yStrings.awayFromDoorknobString;
-  var towardsDoorknobPatternString = JohnTravoltageA11yStrings.towardsDoorknobPatternString;
-  var awayFromDoorknobPatternString = JohnTravoltageA11yStrings.awayFromDoorknobPatternString;
-  var fartherAwayPatternString = JohnTravoltageA11yStrings.fartherAwayPatternString;
-  var negativePatternString = JohnTravoltageA11yStrings.negativePatternString;
+  var towardsDoorknobString = JohnTravoltageA11yStrings.towardsDoorknobString.value;
+  var awayFromDoorknobString = JohnTravoltageA11yStrings.awayFromDoorknobString.value;
+  var towardsDoorknobPatternString = JohnTravoltageA11yStrings.towardsDoorknobPatternString.value;
+  var awayFromDoorknobPatternString = JohnTravoltageA11yStrings.awayFromDoorknobPatternString.value;
+  var fartherAwayPatternString = JohnTravoltageA11yStrings.fartherAwayPatternString.value;
+  var negativePatternString = JohnTravoltageA11yStrings.negativePatternString.value;
+  var positionTemplateString = JohnTravoltageA11yStrings.positionTemplateString.value;
 
   // constants
   var DIRECTION_DESCRIPTIONS = {
@@ -389,7 +390,7 @@ define( function( require ) {
 
       // get value with 'negative' so VoiceOver reads it correctly
       var positionWithNegative = this.getValueWithNegativeString( position );      
-      var valueText = StringUtils.fillIn( JohnTravoltageA11yStrings.positionTemplateString, {
+      var valueText = StringUtils.fillIn( positionTemplateString, {
         value: positionWithNegative,
         description: description
       } );
