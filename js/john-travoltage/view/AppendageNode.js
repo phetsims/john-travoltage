@@ -31,7 +31,7 @@ define( function( require ) {
   var Util = require( 'DOT/Util' );
   var Vector2 = require( 'DOT/Vector2' );
 
-  // strings
+  // a11y strings
   var towardsDoorknobString = JohnTravoltageA11yStrings.towardsDoorknobString.value;
   var awayFromDoorknobString = JohnTravoltageA11yStrings.awayFromDoorknobString.value;
   var towardsDoorknobPatternString = JohnTravoltageA11yStrings.towardsDoorknobPatternString.value;

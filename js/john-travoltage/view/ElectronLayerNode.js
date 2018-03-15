@@ -20,7 +20,7 @@ define( function( require ) {
   var Node = require( 'SCENERY/nodes/Node' );
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
 
-  // strings
+  // a11y strings
   var electronsTotalString = JohnTravoltageA11yStrings.electronsTotalString.value;
   var electronsTotalAfterDischargeString = JohnTravoltageA11yStrings.electronsTotalAfterDischargeString.value;
 

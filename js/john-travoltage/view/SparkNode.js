@@ -19,7 +19,7 @@ define( function( require ) {
   var Shape = require( 'KITE/Shape' );
   var utteranceQueue = require( 'SCENERY_PHET/accessibility/utteranceQueue' );
 
-  // strings
+  // a11y strings
   var electronsDischargedString = JohnTravoltageA11yStrings.electronsDischargedString.value;
 
   /**

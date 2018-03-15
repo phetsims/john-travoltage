@@ -9,10 +9,12 @@
 define( function( require ) {
   'use strict';
 
+  // modules
   var johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
   var JohnTravoltageA11yStrings = require( 'JOHN_TRAVOLTAGE/john-travoltage/JohnTravoltageA11yStrings' );
   var Range = require( 'DOT/Range' );
 
+  // a11y strings
   var farthestFromDoorknobString = JohnTravoltageA11yStrings.farthestFromDoorknobString.value;
   var veryFarFromDoorknobString = JohnTravoltageA11yStrings.veryFarFromDoorknobString.value;
   var farFromDoorknobString = JohnTravoltageA11yStrings.farFromDoorknobString.value;
