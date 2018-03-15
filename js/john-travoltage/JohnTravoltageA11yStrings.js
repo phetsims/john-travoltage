@@ -42,10 +42,10 @@ define( function( require ) {
       value: 'Position {{value}}: {{description}}.'
     },
     electronsTotalString: {
-      value: 'Electrons on body: { value: {{value}}.'
+      value: 'Electrons on body: {{value}}.'
     },
     electronsTotalAfterDischargeString: {
-      value: 'Discharge occurred. Electrons on body decreased from {{oldValue}} to {{newValue}} with hand at position {{position}, {{region}}.'
+      value: 'Discharge occurred. Electrons on body decreased from {{oldValue}} to {{newValue}} with hand at position {{position}}, {{region}}.'
     },
 
     // keyboard help content strings
