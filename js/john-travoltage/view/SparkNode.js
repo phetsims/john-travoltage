@@ -10,7 +10,6 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var AriaHerald = require( 'SCENERY_PHET/accessibility/AriaHerald' );
   var inherit = require( 'PHET_CORE/inherit' );
   var johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
   var Node = require( 'SCENERY/nodes/Node' );
@@ -35,12 +34,6 @@ define( function( require ) {
     var bluePath = new Path( null, { stroke: 'blue', lineWidth: 1 } );
     this.addChild( whitePath );
     this.addChild( bluePath );
-
-    // clear all alert content so that it cannot be found with the virtual cursor when discharge is finished
-    // spark node is created once, no need to dispose
-    model.dischargeEndedEmitter.addListener( function() {
-      AriaHerald.clearAll();
-    } );
 
     var numSegments = 10;
     addStepListener( function() {
