@@ -85,11 +85,6 @@ define( function( require ) {
       value: 'Leg swing'
     },
 
-    // used in status updates
-    electronsDischargedString: {
-      value: 'electrons discharged'
-    },
-
     // leg appendage position descriptions
     footOnCarpetString: {
       value: 'Foot rubbing on the rug'
