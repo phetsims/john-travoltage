@@ -24,9 +24,9 @@ define( function( require ) {
   var ToneGenerator = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/audio/ToneGenerator' );
 
   // audio
-  var resetAudio = require( 'audio!JOHN_TRAVOLTAGE/reset' );
-  var shoeDraggingBackwardOnCarpetAudio = require( 'audio!JOHN_TRAVOLTAGE/shoe-dragging-backward-on-carpet' );
-  var shoeDraggingForwardOnCarpetAudio = require( 'audio!JOHN_TRAVOLTAGE/shoe-dragging-forward-on-carpet' );
+  var resetAudio = require( 'audio!JOHN_TRAVOLTAGE/reset.mp3' );
+  var shoeDraggingBackwardOnCarpetAudio = require( 'audio!JOHN_TRAVOLTAGE/shoe-dragging-backward-on-carpet.mp3' );
+  var shoeDraggingForwardOnCarpetAudio = require( 'audio!JOHN_TRAVOLTAGE/shoe-dragging-forward-on-carpet.mp3' );
 
   // constants
   var MAX_ELECTRONS = JohnTravoltageModel.MAX_ELECTRONS;

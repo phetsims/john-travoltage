@@ -15,7 +15,7 @@ define( function( require ) {
   var Sound = require( 'VIBE/Sound' );
 
   // audio
-  var jostlingSound = require( 'audio!JOHN_TRAVOLTAGE/jostling-03' );
+  var jostlingSound = require( 'audio!JOHN_TRAVOLTAGE/jostling-03.mp3' );
 
   // constants
   var MIN_GAIN = 0.2;

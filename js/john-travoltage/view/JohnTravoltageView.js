@@ -43,8 +43,8 @@ define( function( require ) {
   var utteranceQueue = require( 'SCENERY_PHET/accessibility/utteranceQueue' );
 
   // audio
-  var shockAudio = require( 'audio!JOHN_TRAVOLTAGE/shock' );
-  var shockOuchAudio = require( 'audio!JOHN_TRAVOLTAGE/shock-ouch' );
+  var shockAudio = require( 'audio!JOHN_TRAVOLTAGE/shock.mp3' );
+  var shockOuchAudio = require( 'audio!JOHN_TRAVOLTAGE/shock-ouch.mp3' );
 
   // images
   var arm = require( 'image!JOHN_TRAVOLTAGE/arm.png' );

@@ -1,29 +1,21 @@
 {
+  "jb-living-room-impulse.mp3": {
+    "text": [
+      "Copyright 2002-2016 University of Colorado Boulder"
+    ],
+    "projectURL": "http://phet.colorado.edu",
+    "license": "contact phethelp@colorado.edu",
+    "notes": "created by John Blanco (PhET Interactive Simulations)"
+  },
   "jostling-03.mp3": {
     "text": [
       "Copyright 2002-2016 University of Colorado Boulder"
     ],
     "projectURL": "http://phet.colorado.edu",
     "license": "contact phethelp@colorado.edu",
-    "notes": ""
-  },
-  "jostling-03.ogg": {
-    "text": [
-      "Copyright 2002-2016 University of Colorado Boulder"
-    ],
-    "projectURL": "http://phet.colorado.edu",
-    "license": "contact phethelp@colorado.edu",
-    "notes": ""
+    "notes": "created by John Blanco (PhET Interactive Simulations)"
   },
   "limit-bonk.mp3": {
-    "text": [
-      "Copyright 2002-2016 University of Colorado Boulder"
-    ],
-    "projectURL": "http://phet.colorado.edu",
-    "license": "contact phethelp@colorado.edu",
-    "notes": ""
-  },
-  "limit-bonk.ogg": {
     "text": [
       "Copyright 2002-2016 University of Colorado Boulder"
     ],
@@ -37,15 +29,7 @@
     ],
     "projectURL": "http://phet.colorado.edu",
     "license": "contact phethelp@colorado.edu",
-    "notes": ""
-  },
-  "piano-c4.ogg": {
-    "text": [
-      "Copyright 2002-2016 University of Colorado Boulder"
-    ],
-    "projectURL": "http://phet.colorado.edu",
-    "license": "contact phethelp@colorado.edu",
-    "notes": ""
+    "notes": "created by John Blanco (PhET Interactive Simulations)"
   },
   "piano-c5.mp3": {
     "text": [
@@ -53,15 +37,7 @@
     ],
     "projectURL": "http://phet.colorado.edu",
     "license": "contact phethelp@colorado.edu",
-    "notes": ""
-  },
-  "piano-c5.ogg": {
-    "text": [
-      "Copyright 2002-2016 University of Colorado Boulder"
-    ],
-    "projectURL": "http://phet.colorado.edu",
-    "license": "contact phethelp@colorado.edu",
-    "notes": ""
+    "notes": "created by John Blanco (PhET Interactive Simulations)"
   },
   "piano-c6.mp3": {
     "text": [
@@ -69,15 +45,7 @@
     ],
     "projectURL": "http://phet.colorado.edu",
     "license": "contact phethelp@colorado.edu",
-    "notes": ""
-  },
-  "piano-c6.ogg": {
-    "text": [
-      "Copyright 2002-2016 University of Colorado Boulder"
-    ],
-    "projectURL": "http://phet.colorado.edu",
-    "license": "contact phethelp@colorado.edu",
-    "notes": ""
+    "notes": "created by John Blanco (PhET Interactive Simulations)"
   },
   "piano-f4.mp3": {
     "text": [
@@ -85,15 +53,7 @@
     ],
     "projectURL": "http://phet.colorado.edu",
     "license": "contact phethelp@colorado.edu",
-    "notes": ""
-  },
-  "piano-f4.ogg": {
-    "text": [
-      "Copyright 2002-2016 University of Colorado Boulder"
-    ],
-    "projectURL": "http://phet.colorado.edu",
-    "license": "contact phethelp@colorado.edu",
-    "notes": ""
+    "notes": "created by John Blanco (PhET Interactive Simulations)"
   },
   "piano-f5.mp3": {
     "text": [
@@ -101,15 +61,7 @@
     ],
     "projectURL": "http://phet.colorado.edu",
     "license": "contact phethelp@colorado.edu",
-    "notes": ""
-  },
-  "piano-f5.ogg": {
-    "text": [
-      "Copyright 2002-2016 University of Colorado Boulder"
-    ],
-    "projectURL": "http://phet.colorado.edu",
-    "license": "contact phethelp@colorado.edu",
-    "notes": ""
+    "notes": "created by John Blanco (PhET Interactive Simulations)"
   },
   "piano-g4.mp3": {
     "text": [
@@ -117,15 +69,7 @@
     ],
     "projectURL": "http://phet.colorado.edu",
     "license": "contact phethelp@colorado.edu",
-    "notes": ""
-  },
-  "piano-g4.ogg": {
-    "text": [
-      "Copyright 2002-2016 University of Colorado Boulder"
-    ],
-    "projectURL": "http://phet.colorado.edu",
-    "license": "contact phethelp@colorado.edu",
-    "notes": ""
+    "notes": "created by John Blanco (PhET Interactive Simulations)"
   },
   "piano-g5.mp3": {
     "text": [
@@ -133,15 +77,7 @@
     ],
     "projectURL": "http://phet.colorado.edu",
     "license": "contact phethelp@colorado.edu",
-    "notes": ""
-  },
-  "piano-g5.ogg": {
-    "text": [
-      "Copyright 2002-2016 University of Colorado Boulder"
-    ],
-    "projectURL": "http://phet.colorado.edu",
-    "license": "contact phethelp@colorado.edu",
-    "notes": ""
+    "notes": "created by John Blanco (PhET Interactive Simulations)"
   },
   "reset.mp3": {
     "text": [
@@ -149,25 +85,9 @@
     ],
     "projectURL": "http://phet.colorado.edu",
     "license": "contact phethelp@colorado.edu",
-    "notes": "created by J Blanco"
-  },
-  "reset.ogg": {
-    "text": [
-      "Copyright 2002-2017 University of Colorado Boulder"
-    ],
-    "projectURL": "http://phet.colorado.edu",
-    "license": "contact phethelp@colorado.edu",
-    "notes": "created by J Blanco"
+    "notes": "created by John Blanco (PhET Interactive Simulations)"
   },
   "shock.mp3": {
-    "text": [
-      "Copyright 2002-2016 University of Colorado Boulder"
-    ],
-    "projectURL": "http://phet.colorado.edu",
-    "license": "contact phethelp@colorado.edu",
-    "notes": "created by Sam Reid"
-  },
-  "shock.ogg": {
     "text": [
       "Copyright 2002-2016 University of Colorado Boulder"
     ],
@@ -183,29 +103,13 @@
     "license": "contact phethelp@colorado.edu",
     "notes": "created by Sam Reid"
   },
-  "shock-ouch.ogg": {
-    "text": [
-      "Copyright 2002-2016 University of Colorado Boulder"
-    ],
-    "projectURL": "http://phet.colorado.edu",
-    "license": "contact phethelp@colorado.edu",
-    "notes": "created by Sam Reid"
-  },
   "shoe-dragging-backward-on-carpet.mp3": {
     "text": [
       "Copyright 2002-2016 University of Colorado Boulder"
     ],
     "projectURL": "http://phet.colorado.edu",
     "license": "contact phethelp@colorado.edu",
-    "notes": "created by John Blanco"
-  },
-  "shoe-dragging-backward-on-carpet.ogg": {
-    "text": [
-      "Copyright 2002-2016 University of Colorado Boulder"
-    ],
-    "projectURL": "http://phet.colorado.edu",
-    "license": "contact phethelp@colorado.edu",
-    "notes": "created by John Blanco"
+    "notes": "created by John Blanco (PhET Interactive Simulations)"
   },
   "shoe-dragging-forward-on-carpet.mp3": {
     "text": [
@@ -213,22 +117,6 @@
     ],
     "projectURL": "http://phet.colorado.edu",
     "license": "contact phethelp@colorado.edu",
-    "notes": "created by John Blanco"
-  },
-  "shoe-dragging-forward-on-carpet.ogg": {
-    "text": [
-      "Copyright 2002-2016 University of Colorado Boulder"
-    ],
-    "projectURL": "http://phet.colorado.edu",
-    "license": "contact phethelp@colorado.edu",
-    "notes": "created by John Blanco"
-  },
-  "jb-living-room-impulse.ogg": {
-    "text": [
-      "from Openair"
-    ],
-    "projectURL": "http://phet.colorado.edu",
-    "license": "contact phethelp@colorado.edu",
-    "notes": "created by John Blanco"
+    "notes": "created by John Blanco (PhET Interactive Simulations)"
   }
 }

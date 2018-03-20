@@ -14,14 +14,14 @@ define( function( require ) {
   var Timer = require( 'PHET_CORE/Timer' );
 
   // audio
-  var ir = require( 'audio!JOHN_TRAVOLTAGE/jb-living-room-impulse.ogg' );
-  var piano_c4 = require( 'audio!JOHN_TRAVOLTAGE/piano-c4' );
-  var piano_c5 = require( 'audio!JOHN_TRAVOLTAGE/piano-c5' );
-  var piano_c6 = require( 'audio!JOHN_TRAVOLTAGE/piano-c6' );
-  var piano_f4 = require( 'audio!JOHN_TRAVOLTAGE/piano-f4' );
-  var piano_f5 = require( 'audio!JOHN_TRAVOLTAGE/piano-f5' );
-  var piano_g4 = require( 'audio!JOHN_TRAVOLTAGE/piano-g4' );
-  var piano_g5 = require( 'audio!JOHN_TRAVOLTAGE/piano-g5' );
+  var ir = require( 'audio!JOHN_TRAVOLTAGE/jb-living-room-impulse.mp3' );
+  var piano_c4 = require( 'audio!JOHN_TRAVOLTAGE/piano-c4.mp3' );
+  var piano_c5 = require( 'audio!JOHN_TRAVOLTAGE/piano-c5.mp3' );
+  var piano_c6 = require( 'audio!JOHN_TRAVOLTAGE/piano-c6.mp3' );
+  var piano_f4 = require( 'audio!JOHN_TRAVOLTAGE/piano-f4.mp3' );
+  var piano_f5 = require( 'audio!JOHN_TRAVOLTAGE/piano-f5.mp3' );
+  var piano_g4 = require( 'audio!JOHN_TRAVOLTAGE/piano-g4.mp3' );
+  var piano_g5 = require( 'audio!JOHN_TRAVOLTAGE/piano-g5.mp3' );
 
   // constants
   var MIN_INTER_NOTE_TIME = 0.1;

@@ -52,7 +52,7 @@ define( function( require ) {
   };
 
   // audio
-  var limitBonkAudio = require( 'audio!JOHN_TRAVOLTAGE/limit-bonk' );
+  var limitBonkAudio = require( 'audio!JOHN_TRAVOLTAGE/limit-bonk.mp3' );
 
   /**
    * @param {Appendage} appendage the body part to display
