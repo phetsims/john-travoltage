@@ -259,7 +259,6 @@ define( function( require ) {
     var rangeValue = AppendageNode.angleToPosition( appendage.angleProperty.get(), this.linearFunction, this.keyboardMidPointOffset );
 
     this.accessibleInputValueProperty = new NumberProperty( rangeValue, { 
-      valueType: 'Integer',
       tandem: tandem.createTandem( 'accessibleInputValueProperty' )
     } );
 
@@ -314,7 +313,16 @@ define( function( require ) {
     var a11ySliderOptions = {
       keyboardStep: 2,
       shiftKeyboardStep: 1,
-      pageKeyboardStep: 5
+      pageKeyboardStep: 5,
+      constrainValue: function( newInputValue ) {
+        var range = self.accessibleInputRangeProperty.get();
+
+        // allow circular motion for only the arm
+        if ( !(appendage instanceof Leg)  && ( newInputValue === range.min || newInputValue === range.max ) ) {
+          newInputValue *= -1;
+        }
+        return newInputValue;
+      }
     };
 
     this.initializeAccessibleSlider(
