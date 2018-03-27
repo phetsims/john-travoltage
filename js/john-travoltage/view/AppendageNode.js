@@ -78,7 +78,7 @@ define( function( require ) {
       inputType: 'range',
       ariaRole: 'slider',
       focusable: true,
-      parentContainerTagName: 'div',
+      containerTagName: 'div',
       keyboardMidPointOffset: 0 // adjust center position of accessible slider, to align important locations at center
     }, options );
 

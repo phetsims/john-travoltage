@@ -92,7 +92,7 @@ define( function( require ) {
 
       // a11y options
       tagName: 'p',
-      parentContainerTagName: 'li'
+      containerTagName: 'li'
     };
     var arrowKeyDescription = new RichText( arrowKeysMoveFootString, _.extend( {
       accessibleLabel: arrowKeysMoveFootString,

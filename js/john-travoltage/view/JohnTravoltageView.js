@@ -100,7 +100,7 @@ define( function( require ) {
     // the parent container is given role "none" so screen readers don't read contents of the play area when focus moves
     // out of the navigation bar - JAWS is very confusing in its summary of this content
     var playAreaNode = new Node( {
-      parentContainerTagName: 'section',
+      containerTagName: 'section',
       parentContainerAriaRole: 'none',
       tagName: 'div',
       labelTagName: 'h2',
@@ -110,7 +110,7 @@ define( function( require ) {
     this.addChild( playAreaNode );
 
     var controlPanelNode = new Node( {
-      parentContainerTagName: 'section',
+      containerTagName: 'section',
       tagName: 'div',
       ariaRole: 'none',
       labelTagName: 'h2',
