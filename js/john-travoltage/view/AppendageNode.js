@@ -37,13 +37,14 @@ define( function( require ) {
   var Util = require( 'DOT/Util' );
   var Vector2 = require( 'DOT/Vector2' );
 
-  // strings
-  var towardsDoorknobString = JohnTravoltageA11yStrings.towardsDoorknobString;
-  var awayFromDoorknobString = JohnTravoltageA11yStrings.awayFromDoorknobString;
-  var towardsDoorknobPatternString = JohnTravoltageA11yStrings.towardsDoorknobPatternString;
-  var awayFromDoorknobPatternString = JohnTravoltageA11yStrings.awayFromDoorknobPatternString;
-  var fartherAwayPatternString = JohnTravoltageA11yStrings.fartherAwayPatternString;
-  var negativePatternString = JohnTravoltageA11yStrings.negativePatternString;
+  // a11y strings
+  var towardsDoorknobString = JohnTravoltageA11yStrings.towardsDoorknobString.value;
+  var awayFromDoorknobString = JohnTravoltageA11yStrings.awayFromDoorknobString.value;
+  var towardsDoorknobPatternString = JohnTravoltageA11yStrings.towardsDoorknobPatternString.value;
+  var awayFromDoorknobPatternString = JohnTravoltageA11yStrings.awayFromDoorknobPatternString.value;
+  var fartherAwayPatternString = JohnTravoltageA11yStrings.fartherAwayPatternString.value;
+  var negativePatternString = JohnTravoltageA11yStrings.negativePatternString.value;
+  var positionTemplateString = JohnTravoltageA11yStrings.positionTemplateString.value;
 
   // constants
   var DIRECTION_DESCRIPTIONS = {
@@ -57,7 +58,7 @@ define( function( require ) {
   };
 
   // audio
-  var limitBonkAudio = require( 'audio!JOHN_TRAVOLTAGE/limit-bonk' );
+  var limitBonkAudio = require( 'audio!JOHN_TRAVOLTAGE/limit-bonk.mp3' );
 
   /**
    * @param {Appendage} appendage the body part to display
@@ -83,7 +84,7 @@ define( function( require ) {
       inputType: 'range',
       ariaRole: 'slider',
       focusable: true,
-      parentContainerTagName: 'div',
+      containerTagName: 'div',
       keyboardMidPointOffset: 0 // adjust center position of accessible slider, to align important locations at center
     }, options );
 
@@ -436,7 +437,7 @@ define( function( require ) {
 
       // get value with 'negative' so VoiceOver reads it correctly
       var positionWithNegative = this.getValueWithNegativeString( position );      
-      var valueText = StringUtils.fillIn( JohnTravoltageA11yStrings.positionTemplateString, {
+      var valueText = StringUtils.fillIn( positionTemplateString, {
         value: positionWithNegative,
         description: description
       } );

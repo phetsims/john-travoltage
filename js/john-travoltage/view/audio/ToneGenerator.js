@@ -14,7 +14,7 @@ define( function( require ) {
   var Sound = require( 'VIBE/Sound' );
 
   // audio
-  var ir = require( 'audio!JOHN_TRAVOLTAGE/jb-living-room-impulse.ogg' );
+  var ir = require( 'audio!JOHN_TRAVOLTAGE/jb-living-room-impulse.mp3' );
 
   // constants
   var INITIAL_FREQUENCY = 261.626; // Hz

@@ -10,14 +10,11 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var AriaHerald = require( 'SCENERY_PHET/accessibility/AriaHerald' );
   var inherit = require( 'PHET_CORE/inherit' );
   var johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
-  var JohnTravoltageA11yStrings = require( 'JOHN_TRAVOLTAGE/john-travoltage/JohnTravoltageA11yStrings' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Path = require( 'SCENERY/nodes/Path' );
   var Shape = require( 'KITE/Shape' );
-  var utteranceQueue = require( 'SCENERY_PHET/accessibility/utteranceQueue' );
 
   /**
    * Constructor for the SparkNode, which shows the animated spark from the finger to the doorknob when electrons are flowing out.
@@ -37,18 +34,6 @@ define( function( require ) {
     var bluePath = new Path( null, { stroke: 'blue', lineWidth: 1 } );
     this.addChild( whitePath );
     this.addChild( bluePath );
-
-    // a11y - whenever a discharge starts, announce as an alert
-    // spark node is created once, no need to dispose
-    model.dischargeStartedEmitter.addListener( function() {
-      utteranceQueue.addToBack( JohnTravoltageA11yStrings.electronsDischargedString );
-    } );
-
-    // clear all alert content so that it cannot be found with the virtual cursor when discharge is finished
-    // spark node is created once, no need to dispose
-    model.dischargeEndedEmitter.addListener( function() {
-      AriaHerald.clearAll();
-    } );
 
     var numSegments = 10;
     addStepListener( function() {
