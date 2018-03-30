@@ -84,7 +84,7 @@ define( function( require ) {
       tandem: tandem,
 
       // a11y
-      accessibleLabel: johnTravoltageTitleString
+      labelContent: johnTravoltageTitleString
     } );
 
     //add background elements
@@ -104,7 +104,7 @@ define( function( require ) {
       parentContainerAriaRole: 'none',
       tagName: 'div',
       labelTagName: 'h2',
-      accessibleLabel: playAreaString,
+      labelContent: playAreaString,
       prependLabels: true
     } );
     this.addChild( playAreaNode );
@@ -114,7 +114,7 @@ define( function( require ) {
       tagName: 'div',
       ariaRole: 'none',
       labelTagName: 'h2',
-      accessibleLabel: controlPanelString,
+      labelContent: controlPanelString,
       prependLabels: true
     } );
     this.addChild( controlPanelNode );
@@ -122,7 +122,7 @@ define( function( require ) {
     // @public (read-only) arm and leg - only interactive elements
     this.leg = new AppendageNode( model.leg, leg, 25, 28, Math.PI / 2 * 0.7, model.soundEnabledProperty, AppendageRangeMaps.legMap,
       tandem.createTandem( 'legNode' ), {
-        accessibleLabel: legSliderLabelString
+        labelContent: legSliderLabelString
       } );
     playAreaNode.addChild( this.leg );
 
@@ -131,7 +131,7 @@ define( function( require ) {
     this.arm = new AppendageNode( model.arm, arm, 4, 45, -0.1, model.soundEnabledProperty, AppendageRangeMaps.armMap,
       tandem.createTandem( 'armNode' ), {
         keyboardMidPointOffset: 0.41,
-        accessibleLabel: armSliderLabelString
+        labelContent: armSliderLabelString
       } );
     playAreaNode.addChild( this.arm );
 
