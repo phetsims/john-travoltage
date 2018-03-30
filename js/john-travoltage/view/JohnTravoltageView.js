@@ -122,7 +122,6 @@ define( function( require ) {
     // @public (read-only) arm and leg - only interactive elements
     this.leg = new AppendageNode( model.leg, leg, 25, 28, Math.PI / 2 * 0.7, model.soundEnabledProperty, AppendageRangeMaps.legMap,
       tandem.createTandem( 'legNode' ), {
-        labelTagName: 'label',
         accessibleLabel: legSliderLabelString
       } );
     playAreaNode.addChild( this.leg );
@@ -132,7 +131,6 @@ define( function( require ) {
     this.arm = new AppendageNode( model.arm, arm, 4, 45, -0.1, model.soundEnabledProperty, AppendageRangeMaps.armMap,
       tandem.createTandem( 'armNode' ), {
         keyboardMidPointOffset: 0.41,
-        labelTagName: 'label',
         accessibleLabel: armSliderLabelString
       } );
     playAreaNode.addChild( this.arm );
