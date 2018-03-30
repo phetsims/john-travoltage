@@ -95,19 +95,19 @@ define( function( require ) {
       containerTagName: 'li'
     };
     var arrowKeyDescription = new RichText( arrowKeysMoveFootString, _.extend( {
-      accessibleLabel: arrowKeysMoveFootString,
+      innerContent: arrowKeysMoveFootString,
       maxWidth: TEXT_MAX_WIDTH
     }, descriptionOptions ) );
     var tabKeyDescription = new RichText( tabKeyDescriptionString, _.extend( {
-      accessibleLabel: tabKeyDescriptionString,
+      innerContent: tabKeyDescriptionString,
       maxWidth: TEXT_MAX_WIDTH
     }, descriptionOptions ) );
     var shiftPlusTabDescription = new RichText( shiftTabKeyDescriptionString, _.extend( {
-      accessibleLabel: shiftTabKeyDescriptionString,
+      innerContent: shiftTabKeyDescriptionString,
       maxWidth: TEXT_MAX_WIDTH
     }, descriptionOptions ) );
     var escapeKeyDescription = new RichText( escapeKeyDescriptionString, _.extend( {
-      accessibleLabel: escapeKeyDescriptionString,
+      innerContent: escapeKeyDescriptionString,
       maxWidth: TEXT_MAX_WIDTH
     }, descriptionOptions ) );
 
