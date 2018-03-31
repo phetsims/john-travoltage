@@ -225,7 +225,7 @@ define( function( require ) {
         sceneDescription = johnDescription;
       }
 
-      sceneSummaryNode.accessibleDescription = sceneDescription;
+      sceneSummaryNode.descriptionContent = sceneDescription;
     };
 
     // electrons observable array exists for the lifetime of the sim, so there is no need to remove these
