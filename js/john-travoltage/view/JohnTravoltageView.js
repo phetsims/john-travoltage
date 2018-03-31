@@ -97,7 +97,7 @@ define( function( require ) {
     this.addChild( sceneSummaryNode );
 
     //add an form element to contain all controls
-    // the parent container is given role "none" so screen readers don't read contents of the play area when focus moves
+    // the container parent is given role "none" so screen readers don't read contents of the play area when focus moves
     // out of the navigation bar - JAWS is very confusing in its summary of this content
     var playAreaNode = new Node( {
       containerTagName: 'section',
