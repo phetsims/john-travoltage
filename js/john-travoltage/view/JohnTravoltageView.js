@@ -101,7 +101,7 @@ define( function( require ) {
     // out of the navigation bar - JAWS is very confusing in its summary of this content
     var playAreaNode = new Node( {
       containerTagName: 'section',
-      parentContainerAriaRole: 'none',
+      containerAriaRole: 'none',
       tagName: 'div',
       labelTagName: 'h2',
       labelContent: playAreaString,
