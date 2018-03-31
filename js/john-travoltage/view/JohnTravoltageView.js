@@ -246,7 +246,7 @@ define( function( require ) {
     this.leg.model.angleProperty.link( updateDescription );
 
     // the play area is described by the screen view description through aria-describedby
-    this.ariaDescriptionContent = AccessiblePeer.DESCRIPTION;
+    this.ariaDescriptionContent = AccessiblePeer.DESCRIPTION_SIBLING;
     playAreaNode.setAriaDescribedByNode( this );
 
     // debug lines, body and forceline
