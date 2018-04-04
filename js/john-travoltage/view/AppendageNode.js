@@ -349,7 +349,7 @@ define( function( require ) {
      * @a11y
      */
     rotateAppendage: function() {
-      this.model.angleProperty.set( AppendageNode.positionToAngle( this.inputValue, this.linearFunction, this.keyboardMidPointOffset ) );
+      this.model.angleProperty.set( AppendageNode.positionToAngle( Number( this.inputValue ), this.linearFunction, this.keyboardMidPointOffset ) );
       this.model.borderVisibleProperty.set( false );
     },
 
