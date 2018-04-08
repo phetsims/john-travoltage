@@ -104,8 +104,7 @@ define( function( require ) {
       containerAriaRole: 'none',
       tagName: 'div',
       labelTagName: 'h2',
-      labelContent: playAreaString,
-      prependLabels: true
+      labelContent: playAreaString
     } );
     this.addChild( playAreaNode );
 
@@ -114,8 +113,7 @@ define( function( require ) {
       tagName: 'div',
       ariaRole: 'none',
       labelTagName: 'h2',
-      labelContent: controlPanelString,
-      prependLabels: true
+      labelContent: controlPanelString
     } );
     this.addChild( controlPanelNode );
 
