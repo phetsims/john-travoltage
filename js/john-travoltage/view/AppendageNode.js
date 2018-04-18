@@ -254,11 +254,18 @@ define( function( require ) {
     var keyboardEventHandled = false;
     this.addAccessibleInputListener( {
       input: function( event ) {
+
+        // update the input value from the DOM element
+        // TODO: This can be removed once https://github.com/phetsims/john-travoltage/issues/271 is done
+        self.inputValue = event.target.value;
         self.rotateAppendage();
         keyboardEventHandled = true;
         self.dragging = true;
       },
       change: function( event ) {
+        
+        // TODO: This can be removed once https://github.com/phetsims/john-travoltage/issues/271 is done
+        self.inputValue = event.target.value;
         if ( !keyboardEventHandled ) {
           self.rotateAppendage();
         }
