@@ -1,5 +1,5 @@
 {
-  "comment": "# john-travoltage 1.4.0-dev.5 Wed Apr 18 2018 14:27:53 GMT-0600 (Mountain Daylight Time)",
+  "comment": "# john-travoltage 1.4.0-dev.7 Sun Apr 22 2018 14:16:22 GMT-0600 (Mountain Daylight Time)",
   "assert": {
     "sha": "928741cfc8fe804334d5b35292140314511f8678",
     "branch": "master"
@@ -21,11 +21,11 @@
     "branch": "master"
   },
   "john-travoltage": {
-    "sha": "6ec73c6d3667c8bf5c652c214fe1680a46d693c5",
+    "sha": "0a558353720db26d2eb65d408b86f793a96c0e79",
     "branch": "master"
   },
   "joist": {
-    "sha": "e37b198137398fa0a15487d07a6b7a868a81dc0d",
+    "sha": "14d927c6b39c8a45335836ed1d736624e5a165d4",
     "branch": "master"
   },
   "kite": {
@@ -37,7 +37,7 @@
     "branch": "master"
   },
   "phet-io": {
-    "sha": "589508bea1878844363242a77d9b38fb784a1d29",
+    "sha": "3a9c8ba87a85d5605c63c406454a45322eb145fb",
     "branch": "master"
   },
   "phet-io-wrapper-classroom-activity": {
@@ -65,7 +65,7 @@
     "branch": "master"
   },
   "scenery-phet": {
-    "sha": "15399c9edd4162fd1b9bbddf4ab37629d9345650",
+    "sha": "f1ace1bbbe9f759b4415ca9bacd28d3d3e76a782",
     "branch": "master"
   },
   "sherpa": {
@@ -73,7 +73,7 @@
     "branch": "master"
   },
   "sun": {
-    "sha": "bf5149db57777c6a938045912aae03cac74bcebe",
+    "sha": "769bcdfbdcb75f0f603d12d1788cc28a4803de42",
     "branch": "master"
   },
   "tandem": {
