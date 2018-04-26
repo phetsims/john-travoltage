@@ -153,27 +153,23 @@ define( function( require ) {
 
     // the two boxes are aligned horizontally, vertical spacing is guaranteed
     // to be corrected by the AlignGroup
-    var contentHBox = new HBox( {
-      children: [ iconVBox, descriptionVBox ],
-      spacing: 15
-    } );
 
-    Panel.call( this, contentHBox, {
-      stroke: null,
-      fill: 'rgb( 214, 237, 249 )',
+    HBox.call( this, {
+      children: [ iconVBox, descriptionVBox ],
+      spacing: 15,
 
       // a11y
       tagName: 'div'
     } );
 
     // the content should be centered in the dialog relative to the description text
-    var oldCenter = contentHBox.centerX;
+    var oldCenter = this.centerX;
     var newCenter = descriptionVBox.centerX;
     var spacerWidth = newCenter - oldCenter + 2 * DIALOG_MARGIN;
-    contentHBox.addChild( new Spacer( spacerWidth, 0 ) );
+    this.addChild( new Spacer( spacerWidth, 0 ) );
   }
 
   johnTravoltage.register( 'JohnTravoltageKeyboardHelpContent', JohnTravoltageKeyboardHelpContent );
 
-  return inherit( Panel, JohnTravoltageKeyboardHelpContent );
+  return inherit( HBox, JohnTravoltageKeyboardHelpContent );
 } );
