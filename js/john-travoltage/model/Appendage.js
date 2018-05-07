@@ -62,7 +62,6 @@ define( function( require ) {
 
     // @public - emits an event when the appendage is reset
     this.appendageResetEmitter = new Emitter();
-
   }
 
   johnTravoltage.register( 'Appendage', Appendage );
