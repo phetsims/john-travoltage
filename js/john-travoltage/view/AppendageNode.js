@@ -83,6 +83,7 @@ define( function( require ) {
       tagName: 'input',
       inputType: 'range',
       ariaRole: 'slider',
+      labelTagName: 'label',
       focusable: true,
       appendLabel: true,
       containerTagName: 'div',

@@ -121,7 +121,6 @@ define( function( require ) {
     this.leg = new AppendageNode( model.leg, leg, 25, 28, Math.PI / 2 * 0.7, model.soundEnabledProperty, AppendageRangeMaps.legMap,
       tandem.createTandem( 'legNode' ), {
         labelContent: legSliderLabelString,
-        labelTagName: 'label'
       } );
     playAreaNode.addChild( this.leg );
 
