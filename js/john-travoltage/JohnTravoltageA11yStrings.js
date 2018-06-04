@@ -177,7 +177,7 @@ define( function( require ) {
       value: 'Hand pointing straight down'
     },
     farthestFromDoorknobLastString: {
-      value: 'Farthest from doorknob. Last stop'
+      value: 'Farthest from doorknob.'
     },
 
     // section labels
