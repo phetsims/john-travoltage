@@ -24,7 +24,7 @@ define( function( require ) {
   var Util = require( 'DOT/Util' );
   var Vector2 = require( 'DOT/Vector2' );
 
-  // phet-io modules
+  // ifphetio
   var ElectronIO = require( 'JOHN_TRAVOLTAGE/john-travoltage/model/ElectronIO' );
   var JohnTravoltageModelIO = require( 'JOHN_TRAVOLTAGE/john-travoltage/model/JohnTravoltageModelIO' );
 
