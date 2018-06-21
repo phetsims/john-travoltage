@@ -22,6 +22,7 @@ define( function( require ) {
   var JohnTravoltageA11yStrings = require( 'JOHN_TRAVOLTAGE/john-travoltage/JohnTravoltageA11yStrings' );
   var JohnTravoltageQueryParameters = require( 'JOHN_TRAVOLTAGE/john-travoltage/JohnTravoltageQueryParameters' );
   var Leg = require( 'JOHN_TRAVOLTAGE/john-travoltage/model/Leg' );
+  var Arm = require( 'JOHN_TRAVOLTAGE/john-travoltage/model/Arm' );
   var LinearFunction = require( 'DOT/LinearFunction' );
   var Node = require( 'SCENERY/nodes/Node' );
   var NumberProperty = require( 'AXON/NumberProperty' );
@@ -116,14 +117,60 @@ define( function( require ) {
     // when the model is reset, reset the flags that track previous interactions with the appendage and reset
     // descriptions, no need to dispose this listener since appendages exist for life of sim
     this.model.appendageResetEmitter.addListener( function() {
-      self.initializePosition( self.model.angleProperty.get() );      
+      self.initializePosition( self.model.angleProperty.get() );
     } );
 
     // @private add the image
     this.imageNode = new Image( image, {
       tandem: tandem.createTandem( 'imageNode' )
     } );
+    
     this.addChild( this.imageNode );
+
+    // a11y
+    this.focusHighlight = new FocusHighlightPath( Shape.circle( 0, 0, this.imageNode.width / 2 ), {
+      tandem: tandem.createTandem( 'focusCircle' )
+    } );
+
+    // @private limit ranges of input for the leg
+    this.keyboardMotion = {
+      min: appendage instanceof Leg ? -7 : -15,
+      max: appendage instanceof Leg ? 7 : 15,
+      step: 1,
+      totalRange: appendage instanceof Leg ? 15 : 30
+    };
+
+    // a11y - required for AccessibleSlider implementation
+    this.accessibleInputRangeProperty = new Property(
+      new Range( this.keyboardMotion.min, this.keyboardMotion.max ),
+      {
+        tandem: tandem.createTandem( 'accessibleInputRangeProperty' ),
+        phetioType: PropertyIO( RangeIO )
+      }
+    );
+
+    // angles for each of the appendages that determine limitations to rotation
+    var angleMotion = {
+      min: appendage instanceof Leg ? Math.PI : -Math.PI,
+      max: appendage instanceof Leg ? 0 : Math.PI
+    };
+
+    // @private - linear function that will map appendage angle to input value for accessibility, rotation of the arm
+    // is inversely mapped to the range of the keyboard input.  The arm has an offset that does not fit in this mapping,
+    // but it is more convenient to use these maps since the drag handler set position in range of -PI to PI.
+    this.linearFunction = new LinearFunction(
+      angleMotion.min,
+      angleMotion.max,
+      this.keyboardMotion.min,
+      this.keyboardMotion.max
+    );
+
+    // set the initial input range values
+    var rangeValue = AppendageNode.angleToPosition( appendage.angleProperty.get(), this.linearFunction, this.keyboardMidPointOffset );
+
+    this.accessibleInputValueProperty = new NumberProperty( rangeValue, {
+      tandem: tandem.createTandem( 'accessibleInputValueProperty' )
+    } );
 
     // create the sound that will be played when the motion range is reached
     var limitBonkSound = new Sound( limitBonkAudio );
@@ -149,7 +196,7 @@ define( function( require ) {
       },
       drag: function( event ) {
 
-        // in full screen mode, the borders will sometimes not be made invisible in IE11 from 
+        // in full screen mode, the borders will sometimes not be made invisible in IE11 from
         // the start handler, so make sure it goes away here
         if ( appendage.borderVisibleProperty.get() ) {
           appendage.borderVisibleProperty.set( false );
@@ -171,6 +218,19 @@ define( function( require ) {
               limitBonkSound.play();
             }
           }
+        } else if ( appendage instanceof Arm ){
+          /**
+          var diff = 0;
+          var max = appendage.angleProperty.range.max;
+          var min = appendage.angleProperty.range.min;
+          if ( angle > max ) {
+            diff = angle - max;
+            angle = min + diff;
+          } else if ( angle < min ) {
+            diff = Math.abs(angle - min);
+            angle = max - diff;
+          }
+          */
         }
 
         // if clamped at one of the upper angles, only allow the right direction of movement to change the angle, so it won't skip halfway around
@@ -189,6 +249,9 @@ define( function( require ) {
         }
         else {
           appendage.angleProperty.set( angle );
+          self.accessibleInputValueProperty.set(
+            AppendageNode.angleToPosition( angle, self.linearFunction, self.keyboardMidPointOffset )
+          );
         }
 
       },
@@ -220,103 +283,28 @@ define( function( require ) {
     // link node visibility to Property - no need to dispose
     appendage.borderVisibleProperty.linkAttribute( this.border, 'visible' );
 
-    // a11y
-    this.focusHighlight = new FocusHighlightPath( Shape.circle( 0, 0, this.imageNode.width / 2 ), {
-      tandem: tandem.createTandem( 'focusCircle' )
-    } );
-
-    // @private limit ranges of input for the leg
-    this.keyboardMotion = {
-      min: appendage instanceof Leg ? -7 : -15, 
-      max: appendage instanceof Leg ? 7 : 15,
-      step: 1,
-      totalRange: appendage instanceof Leg ? 15 : 30
-    };
-    
-    // a11y - required for AccessibleSlider implementation
-    this.accessibleInputRangeProperty = new Property(
-      new Range( this.keyboardMotion.min, this.keyboardMotion.max ),
-      {
-        tandem: tandem.createTandem( 'accessibleInputRangeProperty' ),
-        phetioType: PropertyIO( RangeIO )
-      }
-    );
-
-    // angles for each of the appendages that determine limitations to rotation
-    var angleMotion = {
-      min: appendage instanceof Leg ? Math.PI : -Math.PI,
-      max: appendage instanceof Leg ? 0 : Math.PI
-    };
-
-    // @private - linear function that will map appendage angle to input value for accessibility, rotation of the arm
-    // is inversely mapped to the range of the keyboard input.  The arm has an offset that does not fit in this mapping,
-    // but it is more convenient to use these maps since the drag handler set position in range of -PI to PI.
-    this.linearFunction = new LinearFunction(
-      angleMotion.min,
-      angleMotion.max,
-      this.keyboardMotion.min,
-      this.keyboardMotion.max
-    );
-    
-    // set the initial input range values
-    var rangeValue = AppendageNode.angleToPosition( appendage.angleProperty.get(), this.linearFunction, this.keyboardMidPointOffset );
-
-    this.accessibleInputValueProperty = new NumberProperty( rangeValue, { 
-      tandem: tandem.createTandem( 'accessibleInputValueProperty' )
-    } );
-
-    // this.setInputValue( rangeValue );
-
-    // this.setAccessibleAttribute( 'min', this.keyboardMotion.min );
-    // this.setAccessibleAttribute( 'max', this.keyboardMotion.max );
-    // this.setAccessibleAttribute( 'step', this.keyboardMotion.step );
-
-    // Due to the variability of input and changes event firing across browsers, it is necessary to track if the input
-    // event was fired and if not, to handle the change event instead. If both events fire, the input event will fire
-    // first. AppendageNodes exist for life of sim, no need to dispose.
-    // see: https://wiki.fluidproject.org/pages/viewpage.action?pageId=61767683
-    // var keyboardEventHandled = false;
-    // this.addAccessibleInputListener( {
-    //   input: function( event ) {
-    //     self.rotateAppendage();
-    //     keyboardEventHandled = true;
-    //     self.dragging = true;
-    //   },
-    //   change: function( event ) {
-    //     if ( !keyboardEventHandled ) {
-    //       self.rotateAppendage();
-    //     }
-    //     keyboardEventHandled = false;
-    //     self.dragging = true;
-    //   }
-    // } );
-
     // Updates the accessibility content with changes in the model
     appendage.angleProperty.lazyLink( function( angle, previousAngle ) {
       self.updatePosition( angle, previousAngle );
     } );
+
+
     this.initializePosition( appendage.angleProperty.get() );
 
     // prevent user from manipulating with both keybaord and mouse at the same time
     // no need to dispose, listener AppendageNodes should exist for life of sim
     this.addAccessibleInputListener( {
-      // focus: function( event ) {
-      //   self.pickable = false;
-      // },
       blur: function( event ) {
-        // self.pickable = true;
-        // self.dragging = false;
-
         // on blur, reset flags for another round of interaction and the only description should be the
         // landmark or region
-        self.initializePosition( appendage.angleProperty.get() ); 
+        self.initializePosition( appendage.angleProperty.get() );
       }
     } );
-    
+
     var a11ySliderOptions = {
-      keyboardStep: 2,
+      keyboardStep: 1,
       shiftKeyboardStep: 1,
-      pageKeyboardStep: 5,
+      pageKeyboardStep: 2,
       constrainValue: function( newInputValue ) {
         var range = self.accessibleInputRangeProperty.get();
 
@@ -331,7 +319,7 @@ define( function( require ) {
     this.initializeAccessibleSlider(
       this.accessibleInputValueProperty,
       this.accessibleInputRangeProperty,
-      new BooleanProperty( true ), // always enabled 
+      new BooleanProperty( true ), // always enabled
       a11ySliderOptions
     );
 
@@ -370,7 +358,8 @@ define( function( require ) {
     updatePosition:  function( angle, oldAngle ) {
       var valueDescription;
       var previousPosition;
-      var isLeg = this.model instanceof Leg;      
+      var isLeg = this.model instanceof Leg;
+
       var position = AppendageNode.angleToPosition( angle, this.linearFunction, this.keyboardMidPointOffset );
 
       if ( oldAngle ) {
@@ -405,14 +394,14 @@ define( function( require ) {
     },
 
     /**
-     * On construction and reset, all we want is the region and the 
+     * On construction and reset, all we want is the region and the
      * @param  {[type]} angle [description]
      * @return {[type]}       [description]
      */
     initializePosition: function( angle ) {
 
       // convert the angle to a position that can be used in description content
-      var position = AppendageNode.angleToPosition( angle, this.linearFunction, this.keyboardMidPointOffset );      
+      var position = AppendageNode.angleToPosition( angle, this.linearFunction, this.keyboardMidPointOffset );
       var newRegion = AppendageNode.getRegion( position, this.rangeMap.regions );
       var landmarkDescription = AppendageNode.getLandmarkDescription( position, this.rangeMap.landmarks );
 
@@ -429,7 +418,7 @@ define( function( require ) {
 
     /**
      * Sets the accessible input value and associated description for this node's accessible content.
-     * 
+     *
      * @private
      * @param {number}
      * @param {string}
@@ -438,7 +427,7 @@ define( function( require ) {
     setValueAndText: function( position, description, region ) {
 
       // get value with 'negative' so VoiceOver reads it correctly
-      var positionWithNegative = this.getValueWithNegativeString( position );      
+      var positionWithNegative = this.getValueWithNegativeString( position );
       var valueText = StringUtils.fillIn( positionTemplateString, {
         value: positionWithNegative,
         description: description
@@ -471,13 +460,16 @@ define( function( require ) {
 
     /**
      * Get a description of the movement direction, if the appendage changes directions during movement. Direction
-     * 
+     *
      * @param  {number} position
      * @param  {number} previousPosition
      */
     getDirectionDescription: function( position, previousPosition, landmarkDescription, region ) {
       var deltaPosition = Math.abs( previousPosition ) - Math.abs( position );
-      var newDirection = deltaPosition > 0 ? Appendage.MOVEMENT_DIRECTIONS.CLOSER : Appendage.MOVEMENT_DIRECTIONS.FARTHER;
+      var newDirection = null;
+      if ( deltaPosition ) {
+        newDirection = deltaPosition > 0 ? Appendage.MOVEMENT_DIRECTIONS.CLOSER : Appendage.MOVEMENT_DIRECTIONS.FARTHER;
+      }
 
       var description = '';
       var stringPattern;
@@ -545,7 +537,7 @@ define( function( require ) {
      */
     angleToPosition: function( appendageAngle, linearFunction, angleOffset ) {
       var angleWithOffset = appendageAngle - angleOffset;
-      
+
       // the drag handler is mapped from PI to -PI. If we wrap around PI, apply the offset
       if ( angleWithOffset < - Math.PI ) {
         angleWithOffset = angleWithOffset + 2 * Math.PI;
@@ -559,11 +551,11 @@ define( function( require ) {
      * @private
      * @static
      * @a11y
-     * 
+     *
      * @param  {number} position - input value, value of the accessible input
      * @param  {LinearFunction} linearFunction - linear function that maps angle to accessible input value
      * @param  {number} angleOffset - angle of offset for the mapping, in radians
-     * @return {number} in radians                
+     * @return {number} in radians
      */
     positionToAngle: function( position, linearFunction, angleOffset ) {
       return linearFunction.inverse( position ) + angleOffset;
@@ -598,10 +590,10 @@ define( function( require ) {
      * @static
      * @private
      * @a11y
-     * 
+     *
      * @param  {number} position
      * @param  {Object} landmarkMap {value, text}
-     * @return {string}             
+     * @return {string}
      */
     getLandmarkDescription: function( position, landmarkMap ) {
       var message = '';
@@ -620,10 +612,10 @@ define( function( require ) {
      * Gets wheter or not the landmark description should include an indication of movement direction
      * if the user lands on it after changing direction. Determined by a flag in AppendageRangeMaps.js,
      * see that file for more information.
-     * 
-     * @param  {number} position   
+     *
+     * @param  {number} position
      * @param  {Object} landmarkMap
-     * @return {boolean}            
+     * @return {boolean}
      */
     getLandmarkIncludesDirection: function( position, landmarkMap ) {
       var includeDirection;
@@ -642,10 +634,10 @@ define( function( require ) {
      * Get whether or not the region description should include an indication of movement direction
      * when the user is moving away from the doorknob and lands in the region.  Determined by a flag in
      * AppendageRangeMaps, see that file for more information.
-     * 
-     * @param  {position} position 
+     *
+     * @param  {position} position
      * @param  {Object} regionMap
-     * @return {boolean}          
+     * @return {boolean}
      */
     getAddFurtherOnAway: function( position, regionMap ) {
       var includeFartherAway = false;
