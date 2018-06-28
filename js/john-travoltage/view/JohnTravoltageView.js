@@ -243,9 +243,12 @@ define( function( require ) {
     this.arm.model.angleProperty.link( updateDescription );
     this.leg.model.angleProperty.link( updateDescription );
 
-    // the play area is described by the screen view description through aria-describedby
-    this.ariaDescriptionContent = AccessiblePeer.DESCRIPTION_SIBLING;
-    playAreaNode.setAriaDescribedByNode( this );
+    // the play area is described by the screen view's description sibling through aria-describedby
+    playAreaNode.addAriaDescribedbyAssociation( {
+      thisElementName: AccessiblePeer.PRIMARY_SIBLING,
+      otherNode: this,
+      otherElementName: AccessiblePeer.DESCRIPTION_SIBLING
+    } );
 
     // debug lines, body and forceline
     // borders are approximately 8px = radius of particle from physical body,
