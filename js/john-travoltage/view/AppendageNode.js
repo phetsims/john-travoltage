@@ -54,6 +54,8 @@ define( function( require ) {
     FARTHER: awayFromDoorknobPatternString
   };
 
+  var CONSTRAINED_PI = Util.toFixedNumber( Math.PI, 7 );
+
   // audio
   var limitBonkAudio = require( 'audio!JOHN_TRAVOLTAGE/limit-bonk.mp3' );
 
@@ -138,16 +140,16 @@ define( function( require ) {
 
     // angles for each of the appendages that determine limitations to rotation
     var angleMotion = {
-      min: appendage instanceof Leg ? Math.PI : -Math.PI,
-      max: appendage instanceof Leg ? 0 : Math.PI
+      min: appendage instanceof Leg ? CONSTRAINED_PI : -CONSTRAINED_PI,
+      max: appendage instanceof Leg ? 0 : CONSTRAINED_PI
     };
 
     // @private - linear function that will map appendage angle to input value for accessibility, rotation of the arm
     // is inversely mapped to the range of the keyboard input.  The arm has an offset that does not fit in this mapping,
     // but it is more convenient to use these maps since the drag handler set position in range of -PI to PI.
     this.linearFunction = new LinearFunction(
-      angleMotion.min,
-      angleMotion.max,
+      Util.toFixedNumber(angleMotion.min, 7),
+      Util.toFixedNumber(angleMotion.max, 7),
       this.keyboardMotion.min,
       this.keyboardMotion.max
     );
@@ -194,7 +196,7 @@ define( function( require ) {
           if ( JohnTravoltageQueryParameters.sonification !== 'none' && soundEnabledProperty.value ) {
             // play a sound when the range of motion is reached
             if ( ( angle === 0 && lastAngle > 0 ) ||
-                 ( angle === Math.PI && lastAngle > 0 && lastAngle < Math.PI ) ) {
+                 ( angle === CONSTRAINED_PI && lastAngle > 0 && lastAngle < CONSTRAINED_PI ) ) {
               limitBonkSound.play();
             }
           }
@@ -218,13 +220,13 @@ define( function( require ) {
         // Inline the vector creations and dot product for performance
         var z = Math.cos( currentAngle ) * Math.sin( lastAngle ) - Math.sin( currentAngle ) * Math.cos( lastAngle );
 
-        if ( appendage.angleProperty.get() === Math.PI && z < 0 ) {
+        if ( appendage.angleProperty.get() === CONSTRAINED_PI && z < 0 ) {
           // noop, at the left side
         }
         else if ( appendage.angleProperty.get() === 0 && z > 0 ) {
           // noop, at the right side
         }
-        else if ( AppendageNode.distanceBetweenAngles( appendage.angleProperty.get(), angle ) > Math.PI / 3 && ( appendage.angleProperty.get() === 0 || appendage.angleProperty.get() === Math.PI ) ) {
+        else if ( AppendageNode.distanceBetweenAngles( appendage.angleProperty.get(), angle ) > CONSTRAINED_PI / 3 && ( appendage.angleProperty.get() === 0 || appendage.angleProperty.get() === CONSTRAINED_PI ) ) {
           //noop, too big a leap, may correspond to the user reversing direction after a leg is stuck against threshold
         }
         else {
@@ -501,10 +503,10 @@ define( function( require ) {
      * @returns {nuber} angle - radians
      */
     limitLegRotation: function( angle ) {
-      if ( angle < -Math.PI / 2 ) {
-        angle = Math.PI;
+      if ( angle < -CONSTRAINED_PI / 2 ) {
+        angle = CONSTRAINED_PI;
       }
-      else if ( angle > -Math.PI / 2 && angle < 0 ) {
+      else if ( angle > -CONSTRAINED_PI / 2 && angle < 0 ) {
         angle = 0;
       }
       return angle;
@@ -518,8 +520,8 @@ define( function( require ) {
      * @static
      */
     distanceBetweenAngles: function( a, b ) {
-      var diff = Math.abs( a - b ) % ( Math.PI * 2 );
-      return Math.min( Math.abs( diff - Math.PI * 2 ), diff );
+      var diff = Math.abs( a - b ) % ( CONSTRAINED_PI * 2 );
+      return Math.min( Math.abs( diff - CONSTRAINED_PI * 2 ), diff );
     },
 
     /**
@@ -534,11 +536,11 @@ define( function( require ) {
      * @param {number} angleOffset - offset angle from mapping, in radians
      */
     angleToPosition: function( appendageAngle, linearFunction, angleOffset ) {
-      var angleWithOffset = appendageAngle - angleOffset;
+      var angleWithOffset = Util.toFixedNumber( appendageAngle - angleOffset, 7 );
 
       // the drag handler is mapped from PI to -PI. If we wrap around PI, apply the offset
-      if ( angleWithOffset < - Math.PI ) {
-        angleWithOffset = angleWithOffset + 2 * Math.PI;
+      if ( angleWithOffset < - CONSTRAINED_PI ) {
+        angleWithOffset = angleWithOffset + 2 * CONSTRAINED_PI;
       }
 
       return Util.roundSymmetric( linearFunction( angleWithOffset ) );
