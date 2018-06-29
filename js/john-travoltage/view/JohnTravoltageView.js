@@ -53,9 +53,6 @@ define( function( require ) {
   // constants
   var SONIFICATION_CONTROL = JohnTravoltageQueryParameters.sonification;
 
-  // strings
-  var johnTravoltageTitleString = require( 'string!JOHN_TRAVOLTAGE/john-travoltage.title' );
-
   // a11y strings
   var sceneSummaryString = JohnTravoltageA11yStrings.sceneSummaryString.value;
   var playAreaString = JohnTravoltageA11yStrings.playAreaString.value;
@@ -81,10 +78,7 @@ define( function( require ) {
     ScreenView.call( this, {
       renderer: platform.firefox ? 'canvas' : null,
       layoutBounds: new Bounds2( 0, 0, 768, 504 ),
-      tandem: tandem,
-
-      // a11y
-      labelContent: johnTravoltageTitleString
+      tandem: tandem
     } );
 
     //add background elements
