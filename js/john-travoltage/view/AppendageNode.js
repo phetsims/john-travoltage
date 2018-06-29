@@ -25,11 +25,7 @@ define( function( require ) {
   var Arm = require( 'JOHN_TRAVOLTAGE/john-travoltage/model/Arm' );
   var LinearFunction = require( 'DOT/LinearFunction' );
   var Node = require( 'SCENERY/nodes/Node' );
-  var NumberProperty = require( 'AXON/NumberProperty' );
   var Property = require( 'AXON/Property' );
-  var PropertyIO = require( 'AXON/PropertyIO' );
-  var Range = require( 'DOT/Range' );
-  var RangeIO = require( 'DOT/RangeIO' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Shape = require( 'KITE/Shape' );
   var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
@@ -140,15 +136,6 @@ define( function( require ) {
       totalRange: appendage instanceof Leg ? 15 : 30
     };
 
-    // a11y - required for AccessibleSlider implementation
-    this.accessibleInputRangeProperty = new Property(
-      new Range( this.keyboardMotion.min, this.keyboardMotion.max ),
-      {
-        tandem: tandem.createTandem( 'accessibleInputRangeProperty' ),
-        phetioType: PropertyIO( RangeIO )
-      }
-    );
-
     // angles for each of the appendages that determine limitations to rotation
     var angleMotion = {
       min: appendage instanceof Leg ? Math.PI : -Math.PI,
@@ -164,13 +151,6 @@ define( function( require ) {
       this.keyboardMotion.min,
       this.keyboardMotion.max
     );
-
-    // set the initial input range values
-    var rangeValue = AppendageNode.angleToPosition( appendage.angleProperty.get(), this.linearFunction, this.keyboardMidPointOffset );
-
-    this.accessibleInputValueProperty = new NumberProperty( rangeValue, {
-      tandem: tandem.createTandem( 'accessibleInputValueProperty' )
-    } );
 
     // create the sound that will be played when the motion range is reached
     var limitBonkSound = new Sound( limitBonkAudio );
@@ -248,10 +228,17 @@ define( function( require ) {
           //noop, too big a leap, may correspond to the user reversing direction after a leg is stuck against threshold
         }
         else {
-          appendage.angleProperty.set( angle );
-          self.accessibleInputValueProperty.set(
-            AppendageNode.angleToPosition( angle, self.linearFunction, self.keyboardMidPointOffset )
-          );
+          if ( !appendage.angleProperty.range.contains( angle ) ) {
+            var max = appendage.angleProperty.range.max;
+            var min = appendage.angleProperty.range.min;
+
+            if ( angle < min ) {
+              angle = max - Math.abs( min - angle );
+            } else if ( angle > max ) {
+              angle = min + Math.abs( max - angle );
+            }
+          }
+          appendage.angleProperty.set( Util.toFixedNumber( angle, 7 ) );
         }
 
       },
@@ -301,47 +288,59 @@ define( function( require ) {
       }
     } );
 
-    var a11ySliderOptions = {
-      keyboardStep: 1,
-      shiftKeyboardStep: 1,
-      pageKeyboardStep: 2,
-      constrainValue: function( newInputValue ) {
-        var range = self.accessibleInputRangeProperty.get();
+    var appendageAngleRangeDelta = appendage.angleProperty.range.max - appendage.angleProperty.range.min;
+    var defaultAndShiftKeyboardStep = Util.toFixedNumber( appendageAngleRangeDelta / this.keyboardMotion.totalRange, 7 );
 
-        // allow circular motion for only the arm
-        if ( !(appendage instanceof Leg)  && ( newInputValue === range.min || newInputValue === range.max ) ) {
-          newInputValue *= -1;
+    // var oldA11yAngle = 0;
+    var a11ySliderOptions = {
+      keyboardStep: defaultAndShiftKeyboardStep,
+      shiftKeyboardStep: defaultAndShiftKeyboardStep,
+      pageKeyboardStep: Util.toFixedNumber( defaultAndShiftKeyboardStep / 2, 7 ),
+      startDrag: function() {
+        var currentAngle = self.model.angleProperty.get();
+        var range = self.model.angleProperty.range;
+        // oldA11yAngle = currentAngle;
+        if ( !( appendage instanceof Leg ) ) {
+          if ( currentAngle === range.max ) {
+            self.model.angleProperty.set( range.min );
+          } else if ( currentAngle === range.min ) {
+            self.model.angleProperty.set( range.max );
+          } 
         }
-        return newInputValue;
+      },
+      // createAriaValueText: function ( pattern, angle ) {
+
+      //   return self.updatePosition( angle, oldA11yAngle );
+      // },
+      constrainValue: function ( newInputValue ) {
+        var range = self.model.angleProperty.range;
+
+        if ( !( appendage instanceof Leg ) ) {
+          if ( newInputValue > range.max ) {
+            newInputValue = range.min;
+          } else if ( newInputValue < range.min ) {
+            newInputValue = range.max;
+          }
+        }
+
+        return Util.toFixedNumber( newInputValue, 7 );
+      },
+      accessibleMapValue: function ( value ) {
+        return AppendageNode.angleToPosition( value, self.linearFunction, self.keyboardMidPointOffset );
       }
     };
 
     this.initializeAccessibleSlider(
-      this.accessibleInputValueProperty,
-      this.accessibleInputRangeProperty,
+      self.model.angleProperty,
+      new Property( self.model.angleProperty.range ),
       new BooleanProperty( true ), // always enabled
       a11ySliderOptions
     );
-
-    this.accessibleInputValueProperty.link( function( value ) {
-      self.rotateAppendage();
-    } );
   }
 
   johnTravoltage.register( 'AppendageNode', AppendageNode );
 
   inherit( Node, AppendageNode, {
-
-    /**
-     * Keyboard interaction treats the appendages like a linear range slider.  This function maps the slider range value
-     * to the correct rotation
-     * @private
-     * @a11y
-     */
-    rotateAppendage: function() {
-      this.model.angleProperty.set( AppendageNode.positionToAngle( Number( this.inputValue ), this.linearFunction, this.keyboardMidPointOffset ) );
-      this.model.borderVisibleProperty.set( false );
-    },
 
     /**
      * When the angle changes, update the value of the accessible range slider which represents this node for
@@ -387,10 +386,9 @@ define( function( require ) {
         valueDescription = newRegion.text;
       }
 
-      this.setValueAndText( position, valueDescription, newRegion );
-
       this.focusHighlight.center = this.imageNode.center;
       this.currentRegion = newRegion;
+      return this.setValueAndText( position, valueDescription, newRegion );
     },
 
     /**
@@ -399,14 +397,12 @@ define( function( require ) {
      * @return {[type]}       [description]
      */
     initializePosition: function( angle ) {
-
       // convert the angle to a position that can be used in description content
       var position = AppendageNode.angleToPosition( angle, this.linearFunction, this.keyboardMidPointOffset );
       var newRegion = AppendageNode.getRegion( position, this.rangeMap.regions );
       var landmarkDescription = AppendageNode.getLandmarkDescription( position, this.rangeMap.landmarks );
 
       var valueDescription = landmarkDescription || newRegion.text;
-      this.setValueAndText( position, valueDescription, newRegion );
 
       // reset the movement direction so the next interaction will immediately get the direction
       this.model.movementDirection = null;
@@ -414,6 +410,7 @@ define( function( require ) {
 
       this.focusHighlight.center = this.imageNode.center;
       this.currentRegion = newRegion;
+      return this.setValueAndText( position, valueDescription, newRegion );
     },
 
     /**
@@ -433,12 +430,13 @@ define( function( require ) {
         description: description
       } );
 
-      this.setInputValue( position );
-      this.setAccessibleAttribute( 'aria-valuetext', valueText );
+      // this.setInputValue( position );
+      // this.setAccessibleAttribute( 'aria-valuetext', valueText );
 
       // the public position description should always be the region description
       this.positionDescription = region.text.toLowerCase();
       this.valueTextProperty.set( valueText );
+      return valueText;
     },
 
     /**
@@ -479,7 +477,7 @@ define( function( require ) {
         // regardless if the direction changes, some regions need to add "Further away..." when moving away
         description = StringUtils.fillIn( fartherAwayPatternString, { description: region.text.toLowerCase() } );
       }
-      else if ( this.model.movementDirection !== newDirection ) {
+      else if ( newDirection && ( this.model.movementDirection !== newDirection ) ) {
         if ( AppendageNode.getLandmarkIncludesDirection( position, this.rangeMap.landmarks ) ) {
           assert && assert( landmarkDescription, 'there should be a landmark description in this case' );
 
