@@ -28,7 +28,8 @@ define( function( require ) {
 
     Appendage.call( this, pivotPoint, tandem, {
       initialAngle: 1.3175443221852239, // determined empirically with DebutUtils
-      range: new Range( 0, Math.PI )
+      range: new Range( 0, Math.PI ),
+      precision: 7
     } );
 
     // @public (sonification) - speed of leg determines volume of some audio
