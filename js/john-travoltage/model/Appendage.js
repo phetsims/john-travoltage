@@ -3,7 +3,7 @@
 /**
  * A base type for appedages in this sim. Extended by Arm.js and Leg.js.  Appendages have a pivot point, and an
  * observable angle which is used for dragging.
- * 
+ *
  * @author Jesse Greenberg
  */
 
@@ -35,7 +35,7 @@ define( function( require ) {
     options = _.extend( {
       initialAngle: -0.5, // radians
       range: new Range( -Math.PI, Math.PI ),
-      precision: 5
+      precision: 7
     }, options );
 
     var roundedMin = Util.toFixedNumber( options.range.min, options.precision );

@@ -30,12 +30,13 @@ define( function( require ) {
       // with mouse interaction, arm rotates from -pi to pi. With the keyboard, there are specific locations where
       // '0' is at the doorknob, and so the value goes from -pi + 0.41 to pi + 0.41. So this includes the full
       // range, see https://github.com/phetsims/john-travoltage/issues/268
-      range: new Range( -Math.PI + 0.41, Math.PI + 0.41 ),
-      precision: 7
+      range: new Range( -Math.PI + 0.41, Math.PI + 0.41 )
+      // precision: 7
     } );
 
     // Exact finger location sampled using DebugUtils.js
-    var finger = new Vector2( 534.3076703633706, 206.63766358806117 );
+    // var finger = new Vector2( 534.3076703633706, 206.63766358806117 );
+    var finger = new Vector2( 534.3076704, 206.6376636 );
 
     // @public (read-only) - vector from pivot point to the finger
     this.fingerVector = finger.minus( this.position );

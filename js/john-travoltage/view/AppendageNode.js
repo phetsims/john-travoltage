@@ -22,10 +22,10 @@ define( function( require ) {
   var JohnTravoltageA11yStrings = require( 'JOHN_TRAVOLTAGE/john-travoltage/JohnTravoltageA11yStrings' );
   var JohnTravoltageQueryParameters = require( 'JOHN_TRAVOLTAGE/john-travoltage/JohnTravoltageQueryParameters' );
   var Leg = require( 'JOHN_TRAVOLTAGE/john-travoltage/model/Leg' );
-  var Arm = require( 'JOHN_TRAVOLTAGE/john-travoltage/model/Arm' );
   var LinearFunction = require( 'DOT/LinearFunction' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Property = require( 'AXON/Property' );
+  var Range = require( 'DOT/Range' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Shape = require( 'KITE/Shape' );
   var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
@@ -53,8 +53,6 @@ define( function( require ) {
     CLOSER: towardsDoorknobPatternString,
     FARTHER: awayFromDoorknobPatternString
   };
-
-  var CONSTRAINED_PI = Util.toFixedNumber( Math.PI, 7 );
 
   // audio
   var limitBonkAudio = require( 'audio!JOHN_TRAVOLTAGE/limit-bonk.mp3' );
@@ -115,44 +113,15 @@ define( function( require ) {
     // when the model is reset, reset the flags that track previous interactions with the appendage and reset
     // descriptions, no need to dispose this listener since appendages exist for life of sim
     this.model.appendageResetEmitter.addListener( function() {
-      self.initializePosition( self.model.angleProperty.get() );
+      // self.initializePosition( self.model.angleProperty.get() );
     } );
 
     // @private add the image
     this.imageNode = new Image( image, {
       tandem: tandem.createTandem( 'imageNode' )
     } );
-    
+
     this.addChild( this.imageNode );
-
-    // a11y
-    this.focusHighlight = new FocusHighlightPath( Shape.circle( 0, 0, this.imageNode.width / 2 ), {
-      tandem: tandem.createTandem( 'focusCircle' )
-    } );
-
-    // @private limit ranges of input for the leg
-    this.keyboardMotion = {
-      min: appendage instanceof Leg ? -7 : -15,
-      max: appendage instanceof Leg ? 7 : 15,
-      step: 1,
-      totalRange: appendage instanceof Leg ? 15 : 30
-    };
-
-    // angles for each of the appendages that determine limitations to rotation
-    var angleMotion = {
-      min: appendage instanceof Leg ? CONSTRAINED_PI : -CONSTRAINED_PI,
-      max: appendage instanceof Leg ? 0 : CONSTRAINED_PI
-    };
-
-    // @private - linear function that will map appendage angle to input value for accessibility, rotation of the arm
-    // is inversely mapped to the range of the keyboard input.  The arm has an offset that does not fit in this mapping,
-    // but it is more convenient to use these maps since the drag handler set position in range of -PI to PI.
-    this.linearFunction = new LinearFunction(
-      Util.toFixedNumber(angleMotion.min, 7),
-      Util.toFixedNumber(angleMotion.max, 7),
-      this.keyboardMotion.min,
-      this.keyboardMotion.max
-    );
 
     // create the sound that will be played when the motion range is reached
     var limitBonkSound = new Sound( limitBonkAudio );
@@ -196,23 +165,10 @@ define( function( require ) {
           if ( JohnTravoltageQueryParameters.sonification !== 'none' && soundEnabledProperty.value ) {
             // play a sound when the range of motion is reached
             if ( ( angle === 0 && lastAngle > 0 ) ||
-                 ( angle === CONSTRAINED_PI && lastAngle > 0 && lastAngle < CONSTRAINED_PI ) ) {
+                 ( angle === Math.PI && lastAngle > 0 && lastAngle < Math.PI ) ) {
               limitBonkSound.play();
             }
           }
-        } else if ( appendage instanceof Arm ){
-          /**
-          var diff = 0;
-          var max = appendage.angleProperty.range.max;
-          var min = appendage.angleProperty.range.min;
-          if ( angle > max ) {
-            diff = angle - max;
-            angle = min + diff;
-          } else if ( angle < min ) {
-            diff = Math.abs(angle - min);
-            angle = max - diff;
-          }
-          */
         }
 
         // if clamped at one of the upper angles, only allow the right direction of movement to change the angle, so it won't skip halfway around
@@ -220,13 +176,13 @@ define( function( require ) {
         // Inline the vector creations and dot product for performance
         var z = Math.cos( currentAngle ) * Math.sin( lastAngle ) - Math.sin( currentAngle ) * Math.cos( lastAngle );
 
-        if ( appendage.angleProperty.get() === CONSTRAINED_PI && z < 0 ) {
+        if ( appendage.angleProperty.get() === Math.PI && z < 0 ) {
           // noop, at the left side
         }
         else if ( appendage.angleProperty.get() === 0 && z > 0 ) {
           // noop, at the right side
         }
-        else if ( AppendageNode.distanceBetweenAngles( appendage.angleProperty.get(), angle ) > CONSTRAINED_PI / 3 && ( appendage.angleProperty.get() === 0 || appendage.angleProperty.get() === CONSTRAINED_PI ) ) {
+        else if ( AppendageNode.distanceBetweenAngles( appendage.angleProperty.get(), angle ) > Math.PI / 3 && ( appendage.angleProperty.get() === 0 || appendage.angleProperty.get() === Math.PI ) ) {
           //noop, too big a leap, may correspond to the user reversing direction after a leg is stuck against threshold
         }
         else {
@@ -272,13 +228,53 @@ define( function( require ) {
     // link node visibility to Property - no need to dispose
     appendage.borderVisibleProperty.linkAttribute( this.border, 'visible' );
 
-    // Updates the accessibility content with changes in the model
-    appendage.angleProperty.lazyLink( function( angle, previousAngle ) {
-      self.updatePosition( angle, previousAngle );
+    // @private limit ranges of input for the leg
+    this.keyboardMotion = {
+      min: appendage instanceof Leg ? -7 : -15,
+      max: appendage instanceof Leg ? 7 : 15,
+      step: 1,
+      totalRange: appendage instanceof Leg ? 15 : 30
+    };
+
+    // angles for each of the appendages that determine limitations to rotation
+    // to allow for clean incrementation around the beginning/end of the range, the arm's 2PI rotation is divided into
+    // 31 segments.
+    var armIncrement = 2 * Math.PI  / 31;
+    var armLimitMin = appendage.angleProperty.range.min + ( armIncrement / 2 );
+    var armLimitMax = appendage.angleProperty.range.max - ( armIncrement / 2 );
+
+    this.angleMotion = {
+      min: Util.toFixedNumber( appendage instanceof Leg ? Math.PI : armLimitMin, 7 ),
+      max: Util.toFixedNumber( appendage instanceof Leg ? 0 : armLimitMax, 7 )
+    };
+
+    // @private - linear function that will map appendage angle to input value for accessibility, rotation of the arm
+    // is inversely mapped to the range of the keyboard input.  The arm has an offset that does not fit in this mapping,
+    // but it is more convenient to use these maps since the drag handler set position in range of -PI to PI.
+    this.linearFunction = new LinearFunction(
+      this.angleMotion.min,
+      this.angleMotion.max,
+      this.keyboardMotion.min,
+      this.keyboardMotion.max
+    );
+
+    // var mapAngleToInputValue = function( angle ) {
+    //   if ( !( appendage instanceof Leg ) ) {
+    //     if ( angle > self.angleMotion.max ) {
+    //       return self.keyboardMotion.max;
+    //     } else if ( angle < self.angleMotion.min ) {
+    //       return self.keyboardMotion.min;
+    //     }
+    //   }
+    //   return Util.roundSymmetric( self.linearFunction( angle ) );
+    // };
+
+    // a11y
+    this.focusHighlight = new FocusHighlightPath( Shape.circle( 0, 0, this.imageNode.width / 2 ), {
+      tandem: tandem.createTandem( 'focusCircle' )
     } );
 
-
-    this.initializePosition( appendage.angleProperty.get() );
+    // this.initializePosition( appendage.angleProperty.get() );
 
     // prevent user from manipulating with both keybaord and mouse at the same time
     // no need to dispose, listener AppendageNodes should exist for life of sim
@@ -290,54 +286,70 @@ define( function( require ) {
       }
     } );
 
-    var appendageAngleRangeDelta = appendage.angleProperty.range.max - appendage.angleProperty.range.min;
-    var defaultAndShiftKeyboardStep = Util.toFixedNumber( appendageAngleRangeDelta / this.keyboardMotion.totalRange, 7 );
+    var defaultAndShiftKeyboardStep = Util.toFixedNumber( armIncrement, 7 );
 
     // var oldA11yAngle = 0;
     var a11ySliderOptions = {
       keyboardStep: defaultAndShiftKeyboardStep,
       shiftKeyboardStep: defaultAndShiftKeyboardStep,
       pageKeyboardStep: Util.toFixedNumber( defaultAndShiftKeyboardStep / 2, 7 ),
-      startDrag: function() {
-        var currentAngle = self.model.angleProperty.get();
-        var range = self.model.angleProperty.range;
-        // oldA11yAngle = currentAngle;
-        if ( !( appendage instanceof Leg ) ) {
-          if ( currentAngle === range.max ) {
-            self.model.angleProperty.set( range.min );
-          } else if ( currentAngle === range.min ) {
-            self.model.angleProperty.set( range.max );
-          } 
-        }
-      },
-      // createAriaValueText: function ( pattern, angle ) {
-
-      //   return self.updatePosition( angle, oldA11yAngle );
+      // startDrag: function() {
+      //   lastAngle = currentAngle;
+      //   var range = self.model.angleProperty.range;
+      //   // oldA11yAngle = currentAngle;
+      //   if ( !( appendage instanceof Leg ) ) {
+      //     if ( currentAngle === range.max ) {
+      //       self.model.angleProperty.set( range.min );
+      //     } else if ( currentAngle === range.min ) {
+      //       self.model.angleProperty.set( range.max );
+      //     }
+      //   }
       // },
-      constrainValue: function ( newInputValue ) {
-        var range = self.model.angleProperty.range;
+      constrainValue: function( newAngle ) {
+        lastAngle = currentAngle;
+        var range = new Range( self.angleMotion.min, self.angleMotion.max );
+
+        assert && assert( range.contains( lastAngle ), 'keybaord interaction should constrain the range to: ' + range );
 
         if ( !( appendage instanceof Leg ) ) {
-          if ( newInputValue > range.max ) {
-            newInputValue = range.min;
-          } else if ( newInputValue < range.min ) {
-            newInputValue = range.max;
+          if ( lastAngle < range.max && lastAngle > range.min ) {
+            // clamp new angle to the range
+            newAngle = Util.clamp( newAngle, range.min, range.max );
+          } else {
+            // lastAngle is min or max
+            if ( newAngle > range.max || newAngle < range.min ) {
+              newAngle = lastAngle === range.min ? range.max : range.min;
+            }
           }
         }
-
-        return Util.toFixedNumber( newInputValue, 7 );
+        newAngle = Util.toFixedNumber( newAngle, 7 );
+        console.log( newAngle );
+        currentAngle = newAngle;
+        return newAngle;
       },
-      accessibleMapValue: function ( value ) {
-        return AppendageNode.angleToPosition( value, self.linearFunction, self.keyboardMidPointOffset );
-      }
+      endDrag: function () {
+        currentAngle = appendage.angleProperty.get();
+      },
+      createAriaValueText: function ( formattedAngle ) {
+        console.log( formattedAngle );
+        return self.valueTextProperty.get();
+        // return self.updatePosition( formattedAngle );
+      },
+      accessibleMapValue: this.angleToPosition
     };
 
     this.initializeAccessibleSlider(
-      self.model.angleProperty,
-      new Property( self.model.angleProperty.range ),
+      appendage.angleProperty,
+      new Property( appendage.angleProperty.range ),
       new BooleanProperty( true ), // always enabled
       a11ySliderOptions
     );
+
+    // Updates the accessibility content with changes in the model
+    appendage.angleProperty.link( function( angle, previousAngle ) {
+      self.updatePosition( angle, previousAngle );
+    } );
+    // this.initializePosition();
   }
 
   johnTravoltage.register( 'AppendageNode', AppendageNode );
@@ -361,10 +373,10 @@ define( function( require ) {
       var previousPosition;
       var isLeg = this.model instanceof Leg;
 
-      var position = AppendageNode.angleToPosition( angle, this.linearFunction, this.keyboardMidPointOffset );
+      var position = this.mappedValue;
 
       if ( oldAngle ) {
-        previousPosition = AppendageNode.angleToPosition( oldAngle, this.linearFunction, this.keyboardMidPointOffset );
+        previousPosition = this.angleToPosition( oldAngle );
       }
 
       // generate descriptions that could be used depending on movement
@@ -390,7 +402,7 @@ define( function( require ) {
 
       this.focusHighlight.center = this.imageNode.center;
       this.currentRegion = newRegion;
-      return this.setValueAndText( position, valueDescription, newRegion );
+      this.setValueAndText( position, valueDescription, newRegion );
     },
 
     /**
@@ -398,9 +410,9 @@ define( function( require ) {
      * @param  {[type]} angle [description]
      * @return {[type]}       [description]
      */
-    initializePosition: function( angle ) {
+    initializePosition: function() {
       // convert the angle to a position that can be used in description content
-      var position = AppendageNode.angleToPosition( angle, this.linearFunction, this.keyboardMidPointOffset );
+      var position = this.mappedValue;
       var newRegion = AppendageNode.getRegion( position, this.rangeMap.regions );
       var landmarkDescription = AppendageNode.getLandmarkDescription( position, this.rangeMap.landmarks );
 
@@ -412,7 +424,7 @@ define( function( require ) {
 
       this.focusHighlight.center = this.imageNode.center;
       this.currentRegion = newRegion;
-      return this.setValueAndText( position, valueDescription, newRegion );
+      this.setValueAndText( position, valueDescription, newRegion );
     },
 
     /**
@@ -424,7 +436,6 @@ define( function( require ) {
      * @param {Object}
      */
     setValueAndText: function( position, description, region ) {
-
       // get value with 'negative' so VoiceOver reads it correctly
       var positionWithNegative = this.getValueWithNegativeString( position );
       var valueText = StringUtils.fillIn( positionTemplateString, {
@@ -438,7 +449,7 @@ define( function( require ) {
       // the public position description should always be the region description
       this.positionDescription = region.text.toLowerCase();
       this.valueTextProperty.set( valueText );
-      return valueText;
+      // return valueText;
     },
 
     /**
@@ -494,6 +505,27 @@ define( function( require ) {
       this.model.movementDirection = newDirection;
 
       return description;
+    },
+
+    /**
+     * Calculates the position of an appendage based on its angle. Useful for setting the position of the accessible
+     * input value.  An angle offset can be applied which is convenient here because the drag handler will always
+     * restrict angles from -PI to PI.  This function lets us wrap around the negative values.
+     * @accessibility
+     * @private
+     *
+     * @param {number} appendageAngle - in radians
+     * @return {number}
+     */
+    angleToPosition: function( appendageAngle ) {
+      if ( !( this.model instanceof Leg ) ) {
+        if ( appendageAngle > this.angleMotion.max ) {
+          return this.keyboardMotion.max;
+        } else if ( appendageAngle < this.angleMotion.min ) {
+          return this.keyboardMotion.min;
+        }
+      }
+      return Util.roundSymmetric( this.linearFunction( appendageAngle ) );
     }
   }, {
 
@@ -503,10 +535,10 @@ define( function( require ) {
      * @returns {nuber} angle - radians
      */
     limitLegRotation: function( angle ) {
-      if ( angle < -CONSTRAINED_PI / 2 ) {
-        angle = CONSTRAINED_PI;
+      if ( angle < -Math.PI / 2 ) {
+        angle = Math.PI;
       }
-      else if ( angle > -CONSTRAINED_PI / 2 && angle < 0 ) {
+      else if ( angle > -Math.PI / 2 && angle < 0 ) {
         angle = 0;
       }
       return angle;
@@ -520,30 +552,8 @@ define( function( require ) {
      * @static
      */
     distanceBetweenAngles: function( a, b ) {
-      var diff = Math.abs( a - b ) % ( CONSTRAINED_PI * 2 );
-      return Math.min( Math.abs( diff - CONSTRAINED_PI * 2 ), diff );
-    },
-
-    /**
-     * Calculates the position of an appendage based on its angle. Useful for setting the position of the accessible
-     * input value.  An angle offset can be applied which is convenient here because the drag handler will always
-     * restrict angles from -PI to PI.  This function lets us wrap around the negative values.
-     * @accessibility
-     * @private
-     *
-     * @param {number} appendageAngle - in radians
-     * @param {LinearFunction} linearFunction - linear function that maps from angle to input value
-     * @param {number} angleOffset - offset angle from mapping, in radians
-     */
-    angleToPosition: function( appendageAngle, linearFunction, angleOffset ) {
-      var angleWithOffset = Util.toFixedNumber( appendageAngle - angleOffset, 7 );
-
-      // the drag handler is mapped from PI to -PI. If we wrap around PI, apply the offset
-      if ( angleWithOffset < - CONSTRAINED_PI ) {
-        angleWithOffset = angleWithOffset + 2 * CONSTRAINED_PI;
-      }
-
-      return Util.roundSymmetric( linearFunction( angleWithOffset ) );
+      var diff = Math.abs( a - b ) % ( Math.PI * 2 );
+      return Math.min( Math.abs( diff - Math.PI * 2 ), diff );
     },
 
     /**
