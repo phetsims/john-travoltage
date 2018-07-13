@@ -243,6 +243,7 @@ define( function( require ) {
     var armLimitMin = appendage.angleProperty.range.min + ( armIncrement / 2 );
     var armLimitMax = appendage.angleProperty.range.max - ( armIncrement / 2 );
 
+    // @private - angles for each of the appendages that determine limitations to rotation
     this.angleMotion = {
       min: Util.toFixedNumber( appendage instanceof Leg ? Math.PI : armLimitMin, 7 ),
       max: Util.toFixedNumber( appendage instanceof Leg ? 0 : armLimitMax, 7 )
