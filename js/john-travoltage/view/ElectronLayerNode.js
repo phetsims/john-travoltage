@@ -12,13 +12,13 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var AriaHerald = require( 'SCENERY_PHET/accessibility/AriaHerald' );
   var ElectronNode = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/ElectronNode' );
   var inherit = require( 'PHET_CORE/inherit' );
   var johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
   var JohnTravoltageA11yStrings = require( 'JOHN_TRAVOLTAGE/john-travoltage/JohnTravoltageA11yStrings' );
   var Node = require( 'SCENERY/nodes/Node' );
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
+  var utteranceQueue = require( 'SCENERY_PHET/accessibility/utteranceQueue' );
 
   // a11y strings
   var electronsTotalString = JohnTravoltageA11yStrings.electronsTotalString.value;
@@ -63,7 +63,7 @@ define( function( require ) {
         } );
       }
 
-      AriaHerald.announcePolite( alertString );
+      utteranceQueue.addToBack( alertString );
       priorCharge = currentCharge;
     };
 
