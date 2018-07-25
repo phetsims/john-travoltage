@@ -1,5 +1,5 @@
 {
-  "comment": "# john-travoltage 1.4.5-phetiorc.1 Wed Jul 25 2018 01:27:00 GMT-0600 (MDT)",
+  "comment": "# john-travoltage 1.4.5-phetiorc.2 Wed Jul 25 2018 04:32:33 GMT-0600 (MDT)",
   "assert": {
     "sha": "5c3f92048a9c2ffd6df8ede54fd64f1f7a7e4ef2",
     "branch": "HEAD"
@@ -14,14 +14,14 @@
   },
   "chipper": {
     "sha": "70212e4f025576d7bdab001489d8c6eb98bb0339",
-    "branch": "john-travoltage-1.4-phetio"
+    "branch": "HEAD"
   },
   "dot": {
     "sha": "6b4ec39c10d667cd64543e59184f0a2fff4fad6e",
     "branch": "HEAD"
   },
   "john-travoltage": {
-    "sha": "043649e68ff2e4ff50a159bc6b96e5d3da2df7ba",
+    "sha": "3b72210119d669ca572c7809f5c6187909ad7bd4",
     "branch": "1.4-phetio"
   },
   "joist": {
