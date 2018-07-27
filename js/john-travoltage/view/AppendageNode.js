@@ -156,7 +156,6 @@ define( function( require ) {
         lastAngle = currentAngle;
         var globalPoint = self.imageNode.globalToParentPoint( event.pointer.point );
         angle = globalPoint.minus( new Vector2( appendage.position.x, appendage.position.y ) ).angle();
-        currentAngle = angle;
 
         //Limit leg to approximately "half circle" so it cannot spin around, see #63
         if ( appendage instanceof Leg ) {
@@ -196,6 +195,7 @@ define( function( require ) {
               angle = min + Math.abs( max - angle );
             }
           }
+          currentAngle = angle;
           appendage.angleProperty.set( Util.toFixedNumber( angle, 7 ) );
         }
 
@@ -288,7 +288,9 @@ define( function( require ) {
     } );
 
     var defaultAndShiftKeyboardStep = Util.toFixedNumber( armIncrement, 7 );
-
+    var testMin = appendage instanceof Leg ? this.angleMotion.max : this.angleMotion.min;
+    var testMax = appendage instanceof Leg ? this.angleMotion.min : this.angleMotion.max;
+    var testRange = new Range( testMin, testMax );
     // var oldA11yAngle = 0;
     var a11ySliderOptions = {
       keyboardStep: defaultAndShiftKeyboardStep,
@@ -308,18 +310,17 @@ define( function( require ) {
       // },
       constrainValue: function( newAngle ) {
         lastAngle = currentAngle;
-        var range = new Range( self.angleMotion.min, self.angleMotion.max );
 
-        assert && assert( range.contains( lastAngle ), 'keybaord interaction should constrain the range to: ' + range );
+        assert && assert( testRange.contains( Util.toFixedNumber(lastAngle, 7) ), 'keybaord interaction should constrain the range to: ' + testRange );
 
         if ( !( appendage instanceof Leg ) ) {
-          if ( lastAngle < range.max && lastAngle > range.min ) {
+          if ( lastAngle < testRange.max && lastAngle > testRange.min ) {
             // clamp new angle to the range
-            newAngle = Util.clamp( newAngle, range.min, range.max );
+            newAngle = Util.clamp( newAngle, testRange.min, testRange.max );
           } else {
             // lastAngle is min or max
-            if ( newAngle > range.max || newAngle < range.min ) {
-              newAngle = lastAngle === range.min ? range.max : range.min;
+            if ( newAngle > testRange.max || newAngle < testRange.min ) {
+              newAngle = lastAngle === testRange.min ? testRange.max : testRange.min;
             }
           }
         }
