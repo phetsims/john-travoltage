@@ -1,5 +1,5 @@
 {
-  "comment": "# john-travoltage 1.4.5-phetio Wed Aug 08 2018 15:33:25 GMT-0600 (MDT)",
+  "comment": "# john-travoltage 1.4.5-phetio Thu Aug 09 2018 23:39:50 GMT-0600 (MDT)",
   "assert": {
     "sha": "5c3f92048a9c2ffd6df8ede54fd64f1f7a7e4ef2",
     "branch": "HEAD"
@@ -13,15 +13,15 @@
     "branch": "HEAD"
   },
   "chipper": {
-    "sha": "70212e4f025576d7bdab001489d8c6eb98bb0339",
-    "branch": "HEAD"
+    "sha": "f229399e4384f803aa5bbdc92ee523859af8c267",
+    "branch": "john-travoltage-1.4-phetio"
   },
   "dot": {
     "sha": "6b4ec39c10d667cd64543e59184f0a2fff4fad6e",
     "branch": "HEAD"
   },
   "john-travoltage": {
-    "sha": "0951a72460e7ab7511994abbd3c0952c530ae28a",
+    "sha": "f515ee493f6ffd87f39cc79fbdbf1f60ee677dc0",
     "branch": "1.4-phetio"
   },
   "joist": {
@@ -61,8 +61,8 @@
     "branch": "HEAD"
   },
   "phetcommon": {
-    "sha": "29164892095a5d8f47687c3ed57dab5c3fe2d82b",
-    "branch": "HEAD"
+    "sha": "55ce3d00288efb7c2972f8372c63f0ab2841b77e",
+    "branch": "john-travoltage-1.4-phetio"
   },
   "query-string-machine": {
     "sha": "c74e454ec68033a9546b8181d4d962eb8ceef81f",
