@@ -17,7 +17,6 @@ define( function( require ) {
   var johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
   var NumberProperty = require( 'AXON/NumberProperty' );
   var Range = require( 'DOT/Range' );
-  var Util = require( 'DOT/Util' );
 
   var MOVEMENT_DIRECTIONS = {
     CLOSER: 'CLOSER',
@@ -38,9 +37,6 @@ define( function( require ) {
       precision: 7
     }, options );
 
-    var roundedMin = Util.toFixedNumber( options.range.min, options.precision );
-    var roundedMax = Util.toFixedNumber( options.range.max, options.precision );
-
     // @private
     this.initialAngle = options.initialAngle;
 
@@ -51,7 +47,7 @@ define( function( require ) {
     this.angleProperty = new NumberProperty( this.initialAngle, {
       tandem: tandem.createTandem( 'angleProperty' ),
       units: 'radians',
-      range: new Range( roundedMin, roundedMax )
+      range: options.range
     } );
 
     // @public

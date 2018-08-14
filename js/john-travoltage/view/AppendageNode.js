@@ -25,6 +25,7 @@ define( function( require ) {
   var LinearFunction = require( 'DOT/LinearFunction' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Property = require( 'AXON/Property' );
+  var NumberProperty = require( 'AXON/NumberProperty' );
   var Range = require( 'DOT/Range' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Shape = require( 'KITE/Shape' );
@@ -91,7 +92,7 @@ define( function( require ) {
 
     // @private
     this.model = appendage;
-    this.dragging = false;
+    this.mouseDragging = false;
     this.keyboardMidPointOffset = options.keyboardMidPointOffset;
     this.rangeMap = rangeMap;
 
@@ -143,7 +144,7 @@ define( function( require ) {
         self.focusable = false;
 
         appendage.borderVisibleProperty.set( false );
-        self.dragging = true;
+        self.mouseDragging = true;
       },
       drag: function( event ) {
 
@@ -196,12 +197,13 @@ define( function( require ) {
             }
           }
           currentAngle = angle;
-          appendage.angleProperty.set( Util.toFixedNumber( angle, 7 ) );
+          // appendage.angleProperty.set( Util.toFixedNumber( angle, 7 ) );
+          appendage.angleProperty.set( angle );
         }
 
       },
       end: function() {
-        self.dragging = false;
+        self.mouseDragging = false;
 
         // when we are done dragging with the mouse, place back in tab order
         self.focusable = true;
@@ -236,17 +238,10 @@ define( function( require ) {
       totalRange: appendage instanceof Leg ? 15 : 30
     };
 
-    // angles for each of the appendages that determine limitations to rotation
-    // to allow for clean incrementation around the beginning/end of the range, the arm's 2PI rotation is divided into
-    // 31 segments.
-    var armIncrement = 2 * Math.PI  / 31;
-    var armLimitMin = appendage.angleProperty.range.min + ( armIncrement / 2 );
-    var armLimitMax = appendage.angleProperty.range.max - ( armIncrement / 2 );
-
     // @private - angles for each of the appendages that determine limitations to rotation
     this.angleMotion = {
-      min: Util.toFixedNumber( appendage instanceof Leg ? Math.PI : armLimitMin, 7 ),
-      max: Util.toFixedNumber( appendage instanceof Leg ? 0 : armLimitMax, 7 )
+      min: appendage instanceof Leg ? Math.PI : appendage.angleProperty.range.min,
+      max: appendage instanceof Leg ? 0 : appendage.angleProperty.range.max
     };
 
     // @private - linear function that will map appendage angle to input value for accessibility, rotation of the arm
@@ -287,15 +282,12 @@ define( function( require ) {
       }
     } );
 
-    var defaultAndShiftKeyboardStep = Util.toFixedNumber( armIncrement, 7 );
-    var testMin = appendage instanceof Leg ? this.angleMotion.max : this.angleMotion.min;
-    var testMax = appendage instanceof Leg ? this.angleMotion.min : this.angleMotion.max;
-    var testRange = new Range( testMin, testMax );
-    // var oldA11yAngle = 0;
     var a11ySliderOptions = {
-      keyboardStep: defaultAndShiftKeyboardStep,
-      shiftKeyboardStep: defaultAndShiftKeyboardStep,
-      pageKeyboardStep: Util.toFixedNumber( defaultAndShiftKeyboardStep / 2, 7 ),
+      keyboardStep: this.keyboardMotion.step,
+      shiftKeyboardStep: this.keyboardMotion.step,
+      // pageKeyboardStep: Util.toFixedNumber( defaultAndShiftKeyboardStep / 2, 7 ),
+      pageKeyboardStep: 2 ,
+      
       // startDrag: function() {
       //   lastAngle = currentAngle;
       //   var range = self.model.angleProperty.range;
@@ -311,38 +303,47 @@ define( function( require ) {
       constrainValue: function( newAngle ) {
         lastAngle = currentAngle;
 
-        assert && assert( testRange.contains( Util.toFixedNumber(lastAngle, 7) ), 'keybaord interaction should constrain the range to: ' + testRange );
+        // assert && assert( testRange.contains( Util.toFixedNumber(lastAngle, 7) ), 'keybaord interaction should constrain the range to: ' + testRange );
 
-        if ( !( appendage instanceof Leg ) ) {
-          if ( lastAngle < testRange.max && lastAngle > testRange.min ) {
-            // clamp new angle to the range
-            newAngle = Util.clamp( newAngle, testRange.min, testRange.max );
-          } else {
-            // lastAngle is min or max
-            if ( newAngle > testRange.max || newAngle < testRange.min ) {
-              newAngle = lastAngle === testRange.min ? testRange.max : testRange.min;
-            }
-          }
-        }
-        newAngle = Util.toFixedNumber( newAngle, 7 );
-        console.log( newAngle );
+        // NOTE: This experimental code will wrap the slider so it behaves like a "circular slider". But we don't
+        // want this to be the bahvior in master until we explore its usage more fully
+        // if ( !( appendage instanceof Leg ) ) {
+        //   if ( lastAngle < testRange.max && lastAngle > testRange.min ) {
+        //     // clamp new angle to the range
+        //     newAngle = Util.clamp( newAngle, testRange.min, testRange.max );
+        //   } else {
+        //     // lastAngle is min or max
+        //     if ( newAngle > testRange.max || newAngle < testRange.min ) {
+        //       newAngle = lastAngle === testRange.min ? testRange.max : testRange.min;
+        //     }
+        //   }
+        // }
+        // newAngle = Util.toFixedNumber( newAngle, 7 );
+        // console.log( newAngle );
         currentAngle = newAngle;
         return newAngle;
       },
-      endDrag: function () {
-        currentAngle = appendage.angleProperty.get();
+      startDrag: function() {
+        appendage.borderVisibleProperty.set( false );
       },
-      createAriaValueText: function ( formattedAngle ) {
-        console.log( formattedAngle );
+      endDrag: function () {
+
+        // shouldn't need this, handled by constrainValue
+        // currentAngle = appendage.angleProperty.get();
+      },
+      createAriaValueText: function ( sliderValue ) {
+
+        // return self.linearFunction( formattedAngle );
+        // console.log( sliderValue );
         return self.valueTextProperty.get();
         // return self.updatePosition( formattedAngle );
-      },
-      accessibleMapValue: this.angleToPosition
+      }
     };
 
+    var intermediateProperty = new NumberProperty( 0 );
     this.initializeAccessibleSlider(
-      appendage.angleProperty,
-      new Property( appendage.angleProperty.range ),
+      intermediateProperty,
+      new Property( new Range( this.keyboardMotion.min, this.keyboardMotion.max ) ),
       new BooleanProperty( true ), // always enabled
       a11ySliderOptions
     );
@@ -350,8 +351,17 @@ define( function( require ) {
     // Updates the accessibility content with changes in the model
     appendage.angleProperty.link( function( angle, previousAngle ) {
       self.updatePosition( angle, previousAngle );
+      intermediateProperty.set( Util.roundSymmetric( self.linearFunction( angle ) ) );
     } );
-    // this.initializePosition();
+
+    intermediateProperty.lazyLink( function( value ) {
+
+      // if we are dragging with a mouse, don't update the model angle Property right away
+      if ( !self.mouseDragging ) {
+        appendage.angleProperty.set( self.linearFunction.inverse( value ) );
+      }
+    } );
+    this.initializePosition();
   }
 
   johnTravoltage.register( 'AppendageNode', AppendageNode );
@@ -375,7 +385,7 @@ define( function( require ) {
       var previousPosition;
       var isLeg = this.model instanceof Leg;
 
-      var position = this.mappedValue;
+      var position = this.angleToPosition( angle );
 
       if ( oldAngle ) {
         previousPosition = this.angleToPosition( oldAngle );
@@ -438,6 +448,7 @@ define( function( require ) {
      * @param {Object}
      */
     setValueAndText: function( position, description, region ) {
+
       // get value with 'negative' so VoiceOver reads it correctly
       var positionWithNegative = this.getValueWithNegativeString( position );
       var valueText = StringUtils.fillIn( positionTemplateString, {
@@ -451,6 +462,8 @@ define( function( require ) {
       // the public position description should always be the region description
       this.positionDescription = region.text.toLowerCase();
       this.valueTextProperty.set( valueText );
+      
+      // console.log( valueText );
       // return valueText;
     },
 
@@ -520,13 +533,6 @@ define( function( require ) {
      * @return {number}
      */
     angleToPosition: function( appendageAngle ) {
-      if ( !( this.model instanceof Leg ) ) {
-        if ( appendageAngle > this.angleMotion.max ) {
-          return this.keyboardMotion.max;
-        } else if ( appendageAngle < this.angleMotion.min ) {
-          return this.keyboardMotion.min;
-        }
-      }
       return Util.roundSymmetric( this.linearFunction( appendageAngle ) );
     }
   }, {
