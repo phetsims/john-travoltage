@@ -35,11 +35,11 @@ define( function( require ) {
   var TEXT_MAX_WIDTH = 300;
 
   // a11y strings
-  var orString = JohnTravoltageA11yStrings.orString.value;
-  var arrowKeysMoveFootString = JohnTravoltageA11yStrings.arrowKeysMoveFootString.value;
-  var tabKeyDescriptionString = JohnTravoltageA11yStrings.tabKeyDescriptionString.value;
-  var shiftTabKeyDescriptionString = JohnTravoltageA11yStrings.shiftTabKeyDescriptionString.value;
-  var escapeKeyDescriptionString = JohnTravoltageA11yStrings.escapeKeyDescriptionString.value;
+  var orString = JohnTravoltageA11yStrings.or.value;
+  var arrowKeysMoveFootString = JohnTravoltageA11yStrings.arrowKeysMoveFoot.value;
+  var tabKeyDescriptionString = JohnTravoltageA11yStrings.tabKeyDescription.value;
+  var shiftTabKeyDescriptionString = JohnTravoltageA11yStrings.shiftTabKeyDescription.value;
+  var escapeKeyDescriptionString = JohnTravoltageA11yStrings.escapeKeyDescription.value;
 
   /**
    * Constructor.

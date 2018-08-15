@@ -26,171 +26,171 @@ define( function( require ) {
   var JohnTravoltageA11yStrings = {
 
     // summary information
-    screenSummaryJohnPatternString: {
+    screenSummaryJohnPattern: {
       value: 'John\'s hand is {{position}}, and he is ready to swing his leg to rub his foot on the rug.'
     },
-    screenSummaryWithChargePatternString: {
+    screenSummaryWithChargePattern: {
       value: '{{charge}} {{johnDescription}}'
     },
-    electronsDescriptionSingleString: {
+    electronsDescriptionSingle: {
       value: 'John has 1 charge on his body.'
     },
-    electronsDescriptionMultipleString: {
+    electronsDescriptionMultiple: {
       value: 'John has {{value}} charges on his body.'
     },
-    positionTemplateString: {
+    positionTemplate: {
       value: 'Position {{value}}: {{description}}.'
     },
-    electronsTotalString: {
+    electronsTotal: {
       value: 'Electrons on body: {{value}}.'
     },
-    electronsTotalAfterDischargeString: {
+    electronsTotalAfterDischarge: {
       value: 'Discharge occurred. Electrons on body decreased from {{oldValue}} to {{newValue}} with hand at position {{position}}, {{region}}.'
     },
 
     // keyboard help content strings
-    orString: {
+    or: {
       value: orString
     },
-    shiftKeyString: {
+    shiftKey: {
       value: shiftKeyString
     },
-    escKeyString: {
+    escKey: {
       value: escKeyString
     },
-    tabKeyString: {
+    tabKey: {
       value: tabKeyString
     },
-    hotKeysAndHelpString: {
+    hotKeysAndHelp: {
       value: hotKeysAndHelpString
     },
-    arrowKeysMoveFootString: {
+    arrowKeysMoveFoot: {
       value: arrowKeysMoveFootString
     },
-    tabKeyDescriptionString: {
+    tabKeyDescription: {
       value: tabKeyDescriptionString
     },
-    shiftTabKeyDescriptionString: {
+    shiftTabKeyDescription: {
       value: shiftTabKeyDescriptionString
     },
-    escapeKeyDescriptionString: {
+    escapeKeyDescription: {
       value: escapeKeyDescriptionString
     },
 
     // appendage labels
-    armSliderLabelString: {
+    armSliderLabel: {
       value: 'Hand position'
     },
-    legSliderLabelString: {
+    legSliderLabel: {
       value: 'Leg swing'
     },
 
     // leg appendage position descriptions
-    footOnCarpetString: {
+    footOnCarpet: {
       value: 'Foot rubbing on the rug'
     },
-    footOffCarpetString: {
+    footOffCarpet: {
       value: 'Foot off the rug'
     },
 
-    footOffRugPointingBackwardsString: {
+    footOffRugPointingBackwards: {
       value: 'Foot off rug, pointing backward'
     },
-    footOffRugString: {
+    footOffRug: {
       value: 'Foot off rug'
     },
-    footRubbingOnRugString: {
+    footRubbingOnRug: {
       value: 'Foot rubbing on rug'
     },
-    footOffRugPointingForwardString: {
+    footOffRugPointingForward: {
       value: 'Foot off rug, pointing forward'
     },
     
     // arm appendage position descriptions
-    farthestFromDoorknobString: {
+    farthestFromDoorknob: {
       value: 'Farthest from doorknob'
     },
-    veryFarFromDoorknobString: {
+    veryFarFromDoorknob: {
       value: 'Very far from doorknob'
     },
-    farFromDoorknobString: {
+    farFromDoorknob: {
       value: 'Far from doorknob'
     },
-    notSoCloseToDoorknobString: {
+    notSoCloseToDoorknob: {
       value: 'Not so close to doorknob'
     },
-    closeToDoorknobString: {
+    closeToDoorknob: {
       value: 'Close to doorknob'
     },
-    veryCloseToDoorknobString: {
+    veryCloseToDoorknob: {
       value: 'Very close to doorknob'
     },
-    justAboveDoorknobString: {
+    justAboveDoorknob: {
       value: 'Just above doorknob'
     },
-    atDoorknobString: {
+    atDoorknob: {
       value: 'At doorknob'
     },
-    justBelowDoorknobString: {
+    justBelowDoorknob: {
       value: 'Just below doorknob'
     },
 
     // directional change indicators
-    towardsDoorknobString: {
+    towardsDoorknob: {
       value: 'Towards doorknob'
     },
-    awayFromDoorknobString: {
+    awayFromDoorknob: {
       value: 'Away from doorknob'
     },
-    towardsDoorknobPatternString: {
+    towardsDoorknobPattern: {
       value: 'Towards doorknob, {{description}}'
     },
-    awayFromDoorknobPatternString: {
+    awayFromDoorknobPattern: {
       value: 'Away from doorknob, {{description}}'
     },
-    fartherAwayPatternString: {
+    fartherAwayPattern: {
       value: 'Farther away, {{description}}'
     },
 	
     // progress indicators
-    closerToDoorknobString: {
+    closerToDoorknob: {
       value: 'Closer to doorknob'
     },
-    fartherAwayFromDoorknobString: {
+    fartherAwayFromDoorknob: {
       value: 'Farther away from doorknob'
     },
 
     // landmark positions for the arm
-    handPointingAwayString: {
+    handPointingAway: {
       value: 'Hand pointing away from door, very far from doorknob'
     },
-    handPointingStraightUpString: {
+    handPointingStraightUp: {
       value: 'Hand pointing straight up'
     },
-    handPointingAtUpperDoorString: {
+    handPointingAtUpperDoor: {
       value: 'Hand pointing at upper door, close to doorknob'
     },
-    handPointingAtLowerDoorString: {
+    handPointingAtLowerDoor: {
       value: 'Hand pointing at lower door, close to doorknob'
     },
-    handPointingStraightDownString: {
+    handPointingStraightDown: {
       value: 'Hand pointing straight down'
     },
-    farthestFromDoorknobLastString: {
+    farthestFromDoorknobLast: {
       value: 'Farthest from doorknob.'
     },
 
     // section labels
-    controlPanelString: {
+    controlPanel: {
       value: 'Control Panel'
     },
-    playAreaString: {
+    playArea: {
       value: 'Play Area'
     },
 
     // what should be read for negative values - VoiceOver will frequently ignore the unicode minus signs and dashes
     // when reading the value, see https://github.com/phetsims/john-travoltage/issues/238
-    negativePatternString: {
+    negativePattern: {
       value: 'negative {{value}}'
     }
 

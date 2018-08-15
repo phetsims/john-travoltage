@@ -36,13 +36,13 @@ define( function( require ) {
   var Vector2 = require( 'DOT/Vector2' );
 
   // a11y strings
-  var towardsDoorknobString = JohnTravoltageA11yStrings.towardsDoorknobString.value;
-  var awayFromDoorknobString = JohnTravoltageA11yStrings.awayFromDoorknobString.value;
-  var towardsDoorknobPatternString = JohnTravoltageA11yStrings.towardsDoorknobPatternString.value;
-  var awayFromDoorknobPatternString = JohnTravoltageA11yStrings.awayFromDoorknobPatternString.value;
-  var fartherAwayPatternString = JohnTravoltageA11yStrings.fartherAwayPatternString.value;
-  var negativePatternString = JohnTravoltageA11yStrings.negativePatternString.value;
-  var positionTemplateString = JohnTravoltageA11yStrings.positionTemplateString.value;
+  var towardsDoorknobString = JohnTravoltageA11yStrings.towardsDoorknob.value;
+  var awayFromDoorknobString = JohnTravoltageA11yStrings.awayFromDoorknob.value;
+  var towardsDoorknobPatternString = JohnTravoltageA11yStrings.towardsDoorknobPattern.value;
+  var awayFromDoorknobPatternString = JohnTravoltageA11yStrings.awayFromDoorknobPattern.value;
+  var fartherAwayPatternString = JohnTravoltageA11yStrings.fartherAwayPattern.value;
+  var negativePatternString = JohnTravoltageA11yStrings.negativePattern.value;
+  var positionTemplateString = JohnTravoltageA11yStrings.positionTemplate.value;
 
   // constants
   var DIRECTION_DESCRIPTIONS = {

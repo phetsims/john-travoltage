@@ -21,8 +21,8 @@ define( function( require ) {
   var utteranceQueue = require( 'SCENERY_PHET/accessibility/utteranceQueue' );
 
   // a11y strings
-  var electronsTotalString = JohnTravoltageA11yStrings.electronsTotalString.value;
-  var electronsTotalAfterDischargeString = JohnTravoltageA11yStrings.electronsTotalAfterDischargeString.value;
+  var electronsTotalString = JohnTravoltageA11yStrings.electronsTotal.value;
+  var electronsTotalAfterDischargeString = JohnTravoltageA11yStrings.electronsTotalAfterDischarge.value;
 
   /**
    * @param {JohnTravoltageModel} model

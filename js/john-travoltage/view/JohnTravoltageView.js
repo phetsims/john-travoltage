@@ -53,14 +53,14 @@ define( function( require ) {
   var SONIFICATION_CONTROL = JohnTravoltageQueryParameters.sonification;
 
   // a11y strings
-  var playAreaString = JohnTravoltageA11yStrings.playAreaString.value;
-  var controlPanelString = JohnTravoltageA11yStrings.controlPanelString.value;
-  var legSliderLabelString = JohnTravoltageA11yStrings.legSliderLabelString.value;
-  var armSliderLabelString = JohnTravoltageA11yStrings.armSliderLabelString.value;
-  var screenSummaryJohnPatternString = JohnTravoltageA11yStrings.screenSummaryJohnPatternString.value;
-  var electronsDescriptionSingleString = JohnTravoltageA11yStrings.electronsDescriptionSingleString.value;
-  var electronsDescriptionMultipleString = JohnTravoltageA11yStrings.electronsDescriptionMultipleString.value;
-  var screenSummaryWithChargePatternString = JohnTravoltageA11yStrings.screenSummaryWithChargePatternString.value;
+  var playAreaString = JohnTravoltageA11yStrings.playArea.value;
+  var controlPanelString = JohnTravoltageA11yStrings.controlPanel.value;
+  var legSliderLabelString = JohnTravoltageA11yStrings.legSliderLabel.value;
+  var armSliderLabelString = JohnTravoltageA11yStrings.armSliderLabel.value;
+  var screenSummaryJohnPatternString = JohnTravoltageA11yStrings.screenSummaryJohnPattern.value;
+  var electronsDescriptionSingleString = JohnTravoltageA11yStrings.electronsDescriptionSingle.value;
+  var electronsDescriptionMultipleString = JohnTravoltageA11yStrings.electronsDescriptionMultiple.value;
+  var screenSummaryWithChargePatternString = JohnTravoltageA11yStrings.screenSummaryWithChargePattern.value;
 
   /**
    * @param {JohnTravoltageModel} model
