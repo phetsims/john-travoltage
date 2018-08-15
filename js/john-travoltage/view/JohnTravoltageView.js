@@ -270,15 +270,15 @@ define( function( require ) {
       DebugUtils.debugLineSegments( this );
     }
 
-    // if ( JohnTravoltageQueryParameters.valueText ) {
-    //   var armText = new Text( this.arm.valueTextProperty.get(), { x: 15, y: 20, font: new PhetFont( 16 ) } );
-    //   var legText = new Text( this.leg.valueTextProperty.get(), { x: 15, y: 40, font: new PhetFont( 16 ) } );
-    //   this.addChild( armText );
-    //   this.addChild( legText );
-    //
-    //   this.arm.valueTextProperty.link( function( text ) { armText.text = text; } );
-    //   this.leg.valueTextProperty.link( function( text ) { legText.text = text; } );
-    // }
+    if ( JohnTravoltageQueryParameters.valueText ) {
+      var armText = new Text( this.arm.valueTextProperty.get(), { x: 15, y: 20, font: new PhetFont( 16 ) } );
+      var legText = new Text( this.leg.valueTextProperty.get(), { x: 15, y: 40, font: new PhetFont( 16 ) } );
+      this.addChild( armText );
+      this.addChild( legText );
+
+      this.arm.valueTextProperty.link( function( text ) { armText.text = text; } );
+      this.leg.valueTextProperty.link( function( text ) { legText.text = text; } );
+    }
 
     this.sounds = [
       new Sound( shockOuchAudio ),

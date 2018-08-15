@@ -330,6 +330,7 @@ define( function( require ) {
       if ( !self.mouseDragging ) {
         appendage.angleProperty.set( self.linearFunction.inverse( value ) );
       }
+      self.valueTextProperty.set( self.getTextFromPosition( value, oldValue ) );
     } );
     this.initializePosition();
   }
