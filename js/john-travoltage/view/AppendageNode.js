@@ -283,7 +283,7 @@ define( function( require ) {
         lastAngle = currentAngle;
 
         // NOTE: This experimental code will wrap the slider so it behaves like a "circular slider". But we don't
-        // want this to be the bahvior in master until we explore its usage more fully
+        // want this to be the bahvior in master until we explore its usage more fully. See #267
         // if ( !( appendage instanceof Leg ) ) {
         //   if ( lastAngle < testRange.max && lastAngle > testRange.min ) {
         //     // clamp new angle to the range
