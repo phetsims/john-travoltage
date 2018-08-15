@@ -40,9 +40,6 @@ define( function( require ) {
     // @private
     this.initialAngle = options.initialAngle;
 
-    // @public (a11y) - public indication of whether the appendage is moving closer or farther from its central position
-    this.movementDirection = null;
-
     // @public
     this.angleProperty = new NumberProperty( this.initialAngle, {
       tandem: tandem.createTandem( 'angleProperty' ),
@@ -74,7 +71,6 @@ define( function( require ) {
      * @public
      */
     reset: function() {
-      this.movementDirection = null;
       this.angleProperty.reset();
       this.appendageResetEmitter.emit();
     }
