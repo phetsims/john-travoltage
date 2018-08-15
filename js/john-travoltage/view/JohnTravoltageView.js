@@ -12,7 +12,6 @@ define( function( require ) {
 
   // modules
   var AccessiblePeer = require( 'SCENERY/accessibility/AccessiblePeer' );
-  var AccessibleSectionNode = require( 'SCENERY_PHET/accessibility/AccessibleSectionNode' );
   var AppendageNode = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/AppendageNode' );
   var AppendageRangeMaps = require( 'JOHN_TRAVOLTAGE/john-travoltage/AppendageRangeMaps' );
   var BackgroundNode = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/BackgroundNode' );
@@ -54,15 +53,14 @@ define( function( require ) {
   var SONIFICATION_CONTROL = JohnTravoltageQueryParameters.sonification;
 
   // a11y strings
-  var sceneSummaryString = JohnTravoltageA11yStrings.sceneSummaryString.value;
   var playAreaString = JohnTravoltageA11yStrings.playAreaString.value;
   var controlPanelString = JohnTravoltageA11yStrings.controlPanelString.value;
   var legSliderLabelString = JohnTravoltageA11yStrings.legSliderLabelString.value;
   var armSliderLabelString = JohnTravoltageA11yStrings.armSliderLabelString.value;
-  var sceneSummaryJohnPatternString = JohnTravoltageA11yStrings.sceneSummaryJohnPatternString.value;
+  var screenSummaryJohnPatternString = JohnTravoltageA11yStrings.screenSummaryJohnPatternString.value;
   var electronsDescriptionSingleString = JohnTravoltageA11yStrings.electronsDescriptionSingleString.value;
   var electronsDescriptionMultipleString = JohnTravoltageA11yStrings.electronsDescriptionMultipleString.value;
-  var sceneSummaryWithChargePatternString = JohnTravoltageA11yStrings.sceneSummaryWithChargePatternString.value;
+  var screenSummaryWithChargePatternString = JohnTravoltageA11yStrings.screenSummaryWithChargePatternString.value;
 
   /**
    * @param {JohnTravoltageModel} model
@@ -78,7 +76,11 @@ define( function( require ) {
     ScreenView.call( this, {
       renderer: platform.firefox ? 'canvas' : null,
       layoutBounds: new Bounds2( 0, 0, 768, 504 ),
-      tandem: tandem
+      tandem: tandem,
+
+      // a11y - temporary option, should be fully removed once https://github.com/phetsims/scenery-phet/issues/393 is
+      // complete
+      addScreenSummaryNode: true
     } );
 
     //add background elements
@@ -87,8 +89,8 @@ define( function( require ) {
     //Split layers after background for performance
     this.addChild( new Node( { layerSplit: true, pickable: false } ) );
 
-    var sceneSummaryNode = new AccessibleSectionNode( sceneSummaryString );
-    this.addChild( sceneSummaryNode );
+    var summaryNode = new Node( { tagName: 'p' } );
+    this.screenSummaryNode.addChild( summaryNode );
 
     //add an form element to contain all controls
     // the container parent is given role "none" so screen readers don't read contents of the play area when focus moves
@@ -193,9 +195,9 @@ define( function( require ) {
       var chargeDescription;
       var sceneDescription;
 
-      // description for John - this will always be in the scene summary
+      // description for John - this will always be in the screen summary
       var positionDescription = self.arm.positionDescription;
-      var johnDescription = StringUtils.fillIn( sceneSummaryJohnPatternString, { position: positionDescription } );
+      var johnDescription = StringUtils.fillIn( screenSummaryJohnPatternString, { position: positionDescription } );
 
       // if there are any charges, a description of the charge will be prepended to the summary
       if ( hadElectrons ) {
@@ -208,7 +210,7 @@ define( function( require ) {
           } );
         }
 
-        sceneDescription = StringUtils.fillIn( sceneSummaryWithChargePatternString, {
+        sceneDescription = StringUtils.fillIn( screenSummaryWithChargePatternString, {
           charge: chargeDescription,
           johnDescription: johnDescription
         } );
@@ -217,7 +219,7 @@ define( function( require ) {
         sceneDescription = johnDescription;
       }
 
-      sceneSummaryNode.descriptionContent = sceneDescription;
+      summaryNode.descriptionContent = sceneDescription;
     };
 
     // electrons observable array exists for the lifetime of the sim, so there is no need to remove these

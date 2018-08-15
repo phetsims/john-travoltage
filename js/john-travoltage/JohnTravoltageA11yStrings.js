@@ -26,10 +26,10 @@ define( function( require ) {
   var JohnTravoltageA11yStrings = {
 
     // summary information
-    sceneSummaryJohnPatternString: {
+    screenSummaryJohnPatternString: {
       value: 'John\'s hand is {{position}}, and he is ready to swing his leg to rub his foot on the rug.'
     },
-    sceneSummaryWithChargePatternString: {
+    screenSummaryWithChargePatternString: {
       value: '{{charge}} {{johnDescription}}'
     },
     electronsDescriptionSingleString: {
@@ -186,9 +186,6 @@ define( function( require ) {
     },
     playAreaString: {
       value: 'Play Area'
-    },
-    sceneSummaryString: {
-      value: 'Scene Summary'
     },
 
     // what should be read for negative values - VoiceOver will frequently ignore the unicode minus signs and dashes
