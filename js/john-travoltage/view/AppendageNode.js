@@ -195,7 +195,8 @@ define( function( require ) {
 
             if ( angle < min ) {
               angle = max - Math.abs( min - angle );
-            } else if ( angle > max ) {
+            }
+            else if ( angle > max ) {
               angle = min + Math.abs( max - angle );
             }
           }
@@ -302,12 +303,14 @@ define( function( require ) {
       startDrag: function() {
         appendage.borderVisibleProperty.set( false );
       },
-      createAriaValueText: function ( sliderValue ) {
+      createAriaValueText: function( sliderValue ) {
         return self.getTextFromPosition( sliderValue, oldSliderValue );
       }
     };
 
-    var intermediateProperty = new NumberProperty( 0 );
+    var intermediateProperty = new NumberProperty( 0, {
+      reentrant: true
+    } );
     this.initializeAccessibleSlider(
       intermediateProperty,
       new Property( new Range( this.keyboardMotion.min, this.keyboardMotion.max ) ),
