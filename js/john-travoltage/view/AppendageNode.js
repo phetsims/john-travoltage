@@ -313,7 +313,7 @@ define( function( require ) {
 
     // Updates the accessibility content with changes in the model
     appendage.angleProperty.link( function( angle ) {
-      intermediateProperty.set( Util.roundSymmetric( self.linearFunction( angle ) ) );
+      intermediateProperty.set( self.a11yAngleToPosition( angle ) );
       self.focusHighlight.center = self.imageNode.center;
     } );
 
@@ -377,6 +377,14 @@ define( function( require ) {
         value: positionWithNegative,
         description: valueDescription
       } );
+    },
+
+    /**
+     * Get the mapped a11y position from the current model Property tracking the angle. 
+     * @return {number} - integer value
+     */
+    a11yAngleToPosition: function( angle ) {
+      return Util.roundSymmetric( this.linearFunction( angle ) );
     },
 
     /**

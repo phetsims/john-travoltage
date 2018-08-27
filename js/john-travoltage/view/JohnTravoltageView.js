@@ -139,7 +139,10 @@ define( function( require ) {
 
     // store the region when the discharge starts
     model.dischargeStartedEmitter.addListener( function() {
-      self.arm.regionAtDischarge = self.arm.currentRegion;
+      var position = self.arm.a11yAngleToPosition( model.arm.angleProperty.get() );
+      var newRegion = AppendageNode.getRegion( position, AppendageRangeMaps.armMap.regions );
+
+      self.arm.regionAtDischarge = newRegion;
       self.arm.positionAtDischarge = self.arm.inputValue;
     } );
 
@@ -194,7 +197,7 @@ define( function( require ) {
       var sceneDescription;
 
       // description for John - this will always be in the screen summary
-      var positionDescription = AppendageNode.getPositionDescription( self.arm.linearFunction( model.arm.angleProperty.get() ), AppendageRangeMaps.armMap.regions );
+      var positionDescription = AppendageNode.getPositionDescription( self.arm.a11yAngleToPosition( model.arm.angleProperty.get() ), AppendageRangeMaps.armMap.regions );
       var johnDescription = StringUtils.fillIn( screenSummaryJohnPatternString, { position: positionDescription } );
 
       // if there are any charges, a description of the charge will be prepended to the summary
