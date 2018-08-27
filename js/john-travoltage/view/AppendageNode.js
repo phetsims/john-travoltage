@@ -325,7 +325,6 @@ define( function( require ) {
 
   inherit( Node, AppendageNode, {
 
-    // TODO: factor out side effect changes to separate function(s)
     /**
      * Retrieve the accurate text for a11y display based on the intermediate property values.
      *
