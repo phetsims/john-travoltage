@@ -20,8 +20,8 @@ define( function( require ) {
   // This content is being updated, once we like the look the visible strings should be moved to john-travoltage-a11y
   // strings, but keeping them here for now to avoid confusion with changes to the strings.json file
   var armAndLegString = 'Arm and Leg';
-  var moveArmAndLegString = 'Move arm and Leg';
-  var moveArmAndLegHelpString = 'Move arm and leg with Up, Left, Down, and Right arrow keys.';
+  var moveArmAndLegString = 'Move Arm or Leg';
+  var moveArmAndLegHelpString = 'Move Arm or Leg with arrow Keys.';
 
   /**
    * Constructor.
