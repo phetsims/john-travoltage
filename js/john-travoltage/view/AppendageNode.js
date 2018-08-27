@@ -271,7 +271,6 @@ define( function( require ) {
       }
     } );
 
-    var oldSliderValue = Util.roundSymmetric( this.linearFunction( appendage.angleProperty.get() ) );
     var a11ySliderOptions = {
       keyboardStep: this.keyboardMotion.step,
       shiftKeyboardStep: this.keyboardMotion.step,
@@ -300,7 +299,7 @@ define( function( require ) {
       startDrag: function() {
         appendage.borderVisibleProperty.set( false );
       },
-      createAriaValueText: function( sliderValue ) {
+      createAriaValueText: function( sliderValue, oldSliderValue ) {
         return self.getTextFromPosition( sliderValue, oldSliderValue );
       }
     };
@@ -316,16 +315,12 @@ define( function( require ) {
     );
 
     // Updates the accessibility content with changes in the model
-    appendage.angleProperty.link( function( angle, previousAngle ) {
-      if ( previousAngle ) {
-        oldSliderValue = Util.roundSymmetric( self.linearFunction( previousAngle ) );
-      }
+    appendage.angleProperty.link( function( angle ) {
       intermediateProperty.set( Util.roundSymmetric( self.linearFunction( angle ) ) );
       self.focusHighlight.center = self.imageNode.center;
     } );
 
     intermediateProperty.lazyLink( function( value, oldValue ) {
-      oldSliderValue = oldValue;
       // if we are dragging with a mouse, don't update the model angle Property right away
       if ( !self.mouseDragging ) {
         appendage.angleProperty.set( self.linearFunction.inverse( value ) );
@@ -354,7 +349,11 @@ define( function( require ) {
       // generate descriptions that could be used depending on movement
       var newRegion = AppendageNode.getRegion( position, this.rangeMap.regions );
       var landmarkDescription = AppendageNode.getLandmarkDescription( position, this.rangeMap.landmarks );
-      var directionDescription = this.getDirectionDescription( position, previousPosition, landmarkDescription, newRegion );
+
+      var directionDescription = null;
+      if ( previousPosition ) {
+        directionDescription = this.getDirectionDescription( position, previousPosition, landmarkDescription, newRegion );
+      }
 
       if ( !isLeg && directionDescription ) {
 
