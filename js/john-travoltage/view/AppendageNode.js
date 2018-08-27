@@ -16,6 +16,7 @@ define( function( require ) {
   var Appendage = require( 'JOHN_TRAVOLTAGE/john-travoltage/model/Appendage' );
   var FocusHighlightPath = require( 'SCENERY/accessibility/FocusHighlightPath' );
   var BooleanProperty = require( 'AXON/BooleanProperty' );
+  var DynamicProperty = require( 'AXON/DynamicProperty' );
   var Image = require( 'SCENERY/nodes/Image' );
   var inherit = require( 'PHET_CORE/inherit' );
   var johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
@@ -24,7 +25,6 @@ define( function( require ) {
   var LinearFunction = require( 'DOT/LinearFunction' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Property = require( 'AXON/Property' );
-  var NumberProperty = require( 'AXON/NumberProperty' );
   var Range = require( 'DOT/Range' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Shape = require( 'KITE/Shape' );
@@ -73,11 +73,7 @@ define( function( require ) {
       cursor: 'pointer',
 
       // a11y
-      tagName: 'input',
-      inputType: 'range',
-      ariaRole: 'slider',
       labelTagName: 'label',
-      focusable: true,
       appendLabel: true,
       containerTagName: 'div',
       keyboardMidPointOffset: 0 // adjust center position of accessible slider, to align important locations at center
@@ -269,10 +265,11 @@ define( function( require ) {
         //   }
         // }
 
-        currentAngle = Util.roundSymmetric( self.linearFunction.inverse( newValue ) );
+        currentAngle = self.a11yPositionToAngle( newValue );
         return newValue;
       },
       startDrag: function() {
+
         appendage.borderVisibleProperty.set( false );
       },
       createAriaValueText: function( sliderValue, oldSliderValue ) {
@@ -280,28 +277,36 @@ define( function( require ) {
       }
     };
 
-    var intermediateProperty = new NumberProperty( 0, {
-      reentrant: true
+    // set up a bidirectional Property to handle updates to angle and slider position
+    var sliderProperty = new DynamicProperty( new Property( appendage.angleProperty ), {
+      bidirectional: true,
+      map: function( angle ) {
+        return self.a11yAngleToPosition( angle );
+      },
+      inverseMap: function( position ) {
+
+        // only update angle if we are not mouse dragging to avoid reentrance
+        if ( !self.mouseDragging ) {
+          return self.a11yPositionToAngle( position );
+        }
+        else {
+          return appendage.angleProperty.value;
+        }
+      }
     } );
+
     this.initializeAccessibleSlider(
-      intermediateProperty,
+      sliderProperty,
       new Property( new Range( this.keyboardMotion.min, this.keyboardMotion.max ) ),
       new BooleanProperty( true ), // always enabled
       a11ySliderOptions
     );
 
-    // Updates the accessibility content with changes in the model
+    // update the center of the focus highlight when 
     appendage.angleProperty.link( function( angle ) {
-      intermediateProperty.set( self.a11yAngleToPosition( angle ) );
       self.focusHighlight.center = self.imageNode.center;
     } );
 
-    intermediateProperty.lazyLink( function( value, oldValue ) {
-      // if we are dragging with a mouse, don't update the model angle Property right away
-      if ( !self.mouseDragging ) {
-        appendage.angleProperty.set( self.linearFunction.inverse( value ) );
-      }
-    } );
     this.initializePosition();
   }
 
@@ -310,7 +315,7 @@ define( function( require ) {
   inherit( Node, AppendageNode, {
 
     /**
-     * Retrieve the accurate text for a11y display based on the intermediate property values.
+     * Retrieve the accurate text for a11y display based on the slider property values.
      *
      * @public (a11y)
      * @param  {Number} position         the new slider input value
@@ -361,6 +366,14 @@ define( function( require ) {
      */
     a11yAngleToPosition: function( angle ) {
       return Util.roundSymmetric( this.linearFunction( angle ) );
+    },
+
+    /**
+     * Get the angle from the a11y position of the slider, converting the integer to some floating angle
+     * @return {number}
+     */
+    a11yPositionToAngle: function( position ) {
+      return this.linearFunction.inverse( position );
     },
 
     /**
