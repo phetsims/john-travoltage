@@ -25,7 +25,7 @@ define( function( require ) {
 
   // constants
   var NUM_SOUND_POSITIONS = 32;
-  var MAX_SOUNDS_PER_ITERATIONS = 3; // empirically determined
+  var MAX_SOUNDS_PER_ITERATION = 3; // empirically determined
   var ANGLE_OF_HIGHEST_PITCH = 0.45; // this is when the finger is closest to the door knob
 
   /**
@@ -69,6 +69,7 @@ define( function( require ) {
     _.times( NUM_SOUND_POSITIONS, function( index ) {
       soundPositions.push( -Math.PI + index / NUM_SOUND_POSITIONS * Math.PI * 2 );
     } );
+    var binSize = 2 * Math.PI / NUM_SOUND_POSITIONS;
 
     // monitor the arm property, adjusting and playing sounds as appropriate
     var previousAngle = null;
@@ -77,22 +78,12 @@ define( function( require ) {
       var numClickSoundsToPlay = 0;
 
       // determine if the new angle crossed over one or more 'sound points' since the last angle
-      console.log( 'angle = ' + angle );
       if ( previousAngle !== null ) {
-        if ( ( ( previousAngle > 0 && angle < 0 ) || ( previousAngle < 0 && angle > 0 ) ) &&
-             Math.abs( previousAngle - angle ) > Math.PI ) {
-
-          // wraparound of the angle value has occurred - just play one click
-          numClickSoundsToPlay = 1;
-        }
-        else {
-          soundPositions.forEach( function( soundPosition ) {
-              if ( ( previousAngle > soundPosition && angle < soundPosition ) ||
-                   ( previousAngle < soundPosition && angle > soundPosition ) ) {
-                numClickSoundsToPlay++;
-              }
-            }
-          );
+        numClickSoundsToPlay = Math.abs( Math.floor( previousAngle / binSize ) -
+                                         Math.floor( angle / binSize ) );
+        // TODO: This is a temporary workaround for an issue where the angle seems to switch from + to - at an odd place
+        if ( numClickSoundsToPlay > NUM_SOUND_POSITIONS / 2 ) {
+          numClickSoundsToPlay = 0;
         }
       }
 
@@ -102,7 +93,7 @@ define( function( require ) {
         angularDistanceFromKnob = Math.PI - angularDistanceFromKnob % Math.PI;
       }
       var playbackRate = 0.75 + 0.75 * ( 1 - angularDistanceFromKnob / Math.PI );
-      _.times( Math.min( numClickSoundsToPlay, MAX_SOUNDS_PER_ITERATIONS ), function() {
+      _.times( Math.min( numClickSoundsToPlay, MAX_SOUNDS_PER_ITERATION ), function() {
         playRandomRatchetSound( playbackRate );
       } );
 
