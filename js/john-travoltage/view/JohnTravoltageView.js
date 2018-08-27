@@ -25,6 +25,7 @@ define( function( require ) {
   var JohnTravoltageModel = require( 'JOHN_TRAVOLTAGE/john-travoltage/model/JohnTravoltageModel' );
   var JohnTravoltageQueryParameters = require( 'JOHN_TRAVOLTAGE/john-travoltage/JohnTravoltageQueryParameters' );
   var Line = require( 'SCENERY/nodes/Line' );
+  var LoopingSoundClip = require( 'TAMBO/sound-generators/LoopingSoundClip' );
   var Node = require( 'SCENERY/nodes/Node' );
   var OneShotSoundClip = require( 'TAMBO/sound-generators/OneShotSoundClip' );
   var Path = require( 'SCENERY/nodes/Path' );
@@ -38,7 +39,8 @@ define( function( require ) {
   var utteranceQueue = require( 'SCENERY_PHET/accessibility/utteranceQueue' );
 
   // audio
-  var electricDischangeAudio = require( 'audio!JOHN_TRAVOLTAGE/Electricity_AM_v2.mp3' );
+  var chargesInBodyAudio = require( 'audio!JOHN_TRAVOLTAGE/charges-in-the-body.mp3' );
+  var electricDischargeAudio = require( 'audio!JOHN_TRAVOLTAGE/Electricity_AM_v2.mp3' );
   var gazouchAudio = require( 'audio!JOHN_TRAVOLTAGE/gazouch.mp3' );
   var ouchAudio = require( 'audio!JOHN_TRAVOLTAGE/ouch.mp3' );
   var resetAllAudio = require( 'audio!TAMBO/reset-all.mp3' );
@@ -57,7 +59,8 @@ define( function( require ) {
   var screenSummaryWithChargePatternString = JohnTravoltageA11yStrings.screenSummaryWithChargePattern.value;
 
   // constants
-  var OUCH_EXCLMATION_DELAY = 0.5; // in seconds
+  var OUCH_EXCLAMATION_DELAY = 0.5; // in seconds
+  var CHARGES_SOUND_GAIN_FACTOR = 0.3; // multiplier for charges-in-the-body sound, empicially determined
 
   /**
    * @param {JohnTravoltageModel} model
@@ -256,8 +259,12 @@ define( function( require ) {
     soundManager.addSoundGenerator( ouchAudioPlayer );
     var gazouchAudioPlayer = new OneShotSoundClip( gazouchAudio );
     soundManager.addSoundGenerator( gazouchAudioPlayer );
-    var electricDischargeAudioPlayer = new OneShotSoundClip( electricDischangeAudio );
+    var electricDischargeAudioPlayer = new OneShotSoundClip( electricDischargeAudio );
     soundManager.addSoundGenerator( electricDischargeAudioPlayer );
+    var chargesInBodyAudioPlayer = new LoopingSoundClip( chargesInBodyAudio, {
+      loopStart: 0.03
+    } );
+    soundManager.addSoundGenerator( chargesInBodyAudioPlayer );
 
     model.sparkVisibleProperty.link( function( sparkVisible ) {
 
@@ -269,16 +276,37 @@ define( function( require ) {
         // play the appropriate "ouch" sound based on the level of charge (plays nothing for low charge level)
         var numElectronsInBody = model.electrons.length;
         if ( numElectronsInBody > 80 ) {
-          gazouchAudioPlayer.play( OUCH_EXCLMATION_DELAY );
+          gazouchAudioPlayer.play( OUCH_EXCLAMATION_DELAY );
         }
         else if ( numElectronsInBody > 25 ) {
-          ouchAudioPlayer.play( OUCH_EXCLMATION_DELAY );
+          ouchAudioPlayer.play( OUCH_EXCLAMATION_DELAY );
         }
       }
       else {
 
         // stop the electric discharge sound (if playing)
         electricDischargeAudioPlayer.stop();
+      }
+    } );
+
+    // play a sound indicating that charges are present in JT's body
+    model.electrons.lengthProperty.link( function( numElectrons ) {
+      if ( numElectrons === 0 ) {
+        if ( chargesInBodyAudioPlayer.isPlaying ) {
+          chargesInBodyAudioPlayer.stop();
+        }
+      }
+      else {
+
+        // set the gain based on the number of electrons, this equation was empirically determined
+        chargesInBodyAudioPlayer.setOutputLevel(
+          0.01 + 0.99 * ( numElectrons / JohnTravoltageModel.MAX_ELECTRONS ) * CHARGES_SOUND_GAIN_FACTOR
+        );
+
+        // start loop if necessary
+        if ( !chargesInBodyAudioPlayer.isPlaying ) {
+          chargesInBodyAudioPlayer.start();
+        }
       }
     } );
   }

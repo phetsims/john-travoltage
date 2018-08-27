@@ -1,11 +1,19 @@
 {
+  "charges-in-the-body.mp3": {
+    "text": [
+      "Copyright 2018 University of Colorado Boulder"
+    ],
+    "projectURL": "http://phet.colorado.edu",
+    "license": "contact phethelp@colorado.edu",
+    "notes": "created by Ashton Morris for use by PhET"
+  },
   "Electricity_AM_v2.mp3": {
     "text": [
       "Copyright 2018 University of Colorado Boulder"
     ],
     "projectURL": "http://phet.colorado.edu",
     "license": "contact phethelp@colorado.edu",
-    "notes": "created by Ashton Morris for PhET"
+    "notes": "created by Ashton Morris for use by PhET"
   },
   "gazouch.mp3": {
     "text": [
