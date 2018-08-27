@@ -27,12 +27,13 @@ define( function( require ) {
   var JohnTravoltageQueryParameters = require( 'JOHN_TRAVOLTAGE/john-travoltage/JohnTravoltageQueryParameters' );
   var Line = require( 'SCENERY/nodes/Line' );
   var Node = require( 'SCENERY/nodes/Node' );
+  var OneShotSoundClip = require( 'TAMBO/sound-generators/OneShotSoundClip' );
   var Path = require( 'SCENERY/nodes/Path' );
   var platform = require( 'PHET_CORE/platform' );
   var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
   var ScreenView = require( 'JOIST/ScreenView' );
   var Shape = require( 'KITE/Shape' );
-  var Sound = require( 'VIBE/Sound' );
+  var soundManager = require( 'TAMBO/soundManager' );
   var SoundToggleButton = require( 'SCENERY_PHET/buttons/SoundToggleButton' );
   var SparkNode = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/SparkNode' );
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
@@ -149,7 +150,7 @@ define( function( require ) {
       tandem.createTandem( 'sparkNode' )
     ) );
 
-    // Sound button and reset all button
+    // OneShotSoundClip button and reset all button
     var soundToggleButton = new SoundToggleButton( model.soundEnabledProperty, {
       tandem: tandem.createTandem( 'soundToggleButton' )
     } );
@@ -262,10 +263,14 @@ define( function( require ) {
       DebugUtils.debugLineSegments( this );
     }
 
+    // create and register the sound generators used in this view
     this.sounds = [
-      new Sound( shockOuchAudio ),
-      new Sound( shockAudio )
+      new OneShotSoundClip( shockOuchAudio ),
+      new OneShotSoundClip( shockAudio )
     ];
+    this.sounds.forEach( function( sound ) {
+      soundManager.addSoundGenerator( sound );
+    } );
 
     model.sparkVisibleProperty.link( function( sparkVisible ) {
       if ( sparkVisible && model.soundEnabledProperty.get() ) {
