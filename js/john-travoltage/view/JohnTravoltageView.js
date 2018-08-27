@@ -23,7 +23,6 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
   var JohnTravoltageA11yStrings = require( 'JOHN_TRAVOLTAGE/john-travoltage/JohnTravoltageA11yStrings' );
-  var JohnTravoltageAudio = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/audio/JohnTravoltageAudio' );
   var JohnTravoltageModel = require( 'JOHN_TRAVOLTAGE/john-travoltage/model/JohnTravoltageModel' );
   var JohnTravoltageQueryParameters = require( 'JOHN_TRAVOLTAGE/john-travoltage/JohnTravoltageQueryParameters' );
   var Line = require( 'SCENERY/nodes/Line' );
@@ -48,9 +47,6 @@ define( function( require ) {
   // images
   var arm = require( 'image!JOHN_TRAVOLTAGE/arm.png' );
   var leg = require( 'image!JOHN_TRAVOLTAGE/leg.png' );
-
-  // constants
-  var SONIFICATION_CONTROL = JohnTravoltageQueryParameters.sonification;
 
   // a11y strings
   var playAreaString = JohnTravoltageA11yStrings.playArea.value;
@@ -175,11 +171,6 @@ define( function( require ) {
       bottom: this.layoutBounds.maxY - 7
     } ) );
 
-    // add sonification if enabled
-    if ( SONIFICATION_CONTROL !== 'none' ) {
-      this.audioView = new JohnTravoltageAudio( model, this.arm, resetAllButton, SONIFICATION_CONTROL );
-    }
-
     // Use a layer for electrons so it has only one pickable flag, perhaps may improve performance compared to iterating
     // over all electrons to see if they are pickable?
     // Split layers before particle layer for performance
@@ -295,17 +286,6 @@ define( function( require ) {
   johnTravoltage.register( 'JohnTravoltageView', JohnTravoltageView );
 
   return inherit( ScreenView, JohnTravoltageView, {
-
-    /**
-     * Step function for the view.
-     * @param  {number} dt - seconds
-     * @public
-     */
-    step: function( dt ) {
-
-      // step the sonification
-      this.audioView && this.audioView.step( dt );
-    },
 
     /**
      * Only used for debugging.  Show debug information for the body and charges, and visual information

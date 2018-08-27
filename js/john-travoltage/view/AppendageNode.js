@@ -20,7 +20,6 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
   var JohnTravoltageA11yStrings = require( 'JOHN_TRAVOLTAGE/john-travoltage/JohnTravoltageA11yStrings' );
-  var JohnTravoltageQueryParameters = require( 'JOHN_TRAVOLTAGE/john-travoltage/JohnTravoltageQueryParameters' );
   var Leg = require( 'JOHN_TRAVOLTAGE/john-travoltage/model/Leg' );
   var LinearFunction = require( 'DOT/LinearFunction' );
   var Node = require( 'SCENERY/nodes/Node' );
@@ -30,7 +29,6 @@ define( function( require ) {
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Shape = require( 'KITE/Shape' );
   var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
-  var Sound = require( 'VIBE/Sound' );
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   var Util = require( 'DOT/Util' );
   var Vector2 = require( 'DOT/Vector2' );
@@ -54,9 +52,6 @@ define( function( require ) {
     CLOSER: towardsDoorknobPatternString,
     FARTHER: awayFromDoorknobPatternString
   };
-
-  // audio
-  var limitBonkAudio = require( 'audio!JOHN_TRAVOLTAGE/limit-bonk.mp3' );
 
   /**
    * @param {Appendage} appendage the body part to display
@@ -127,9 +122,6 @@ define( function( require ) {
 
     this.addChild( this.imageNode );
 
-    // create the sound that will be played when the motion range is reached
-    var limitBonkSound = new Sound( limitBonkAudio );
-
     var lastAngle = appendage.angleProperty.get();
     var currentAngle = appendage.angleProperty.get();
 
@@ -164,14 +156,6 @@ define( function( require ) {
         //Limit leg to approximately "half circle" so it cannot spin around, see #63
         if ( appendage instanceof Leg ) {
           angle = AppendageNode.limitLegRotation( angle );
-
-          if ( JohnTravoltageQueryParameters.sonification !== 'none' && soundEnabledProperty.value ) {
-            // play a sound when the range of motion is reached
-            if ( ( angle === 0 && lastAngle > 0 ) ||
-                 ( angle === Math.PI && lastAngle > 0 && lastAngle < Math.PI ) ) {
-              limitBonkSound.play();
-            }
-          }
         }
 
         // if clamped at one of the upper angles, only allow the right direction of movement to change the angle, so it won't skip halfway around
