@@ -91,15 +91,6 @@ define( function( require ) {
     this.keyboardMidPointOffset = options.keyboardMidPointOffset;
     this.rangeMap = rangeMap;
 
-    // @public (a11y, read-only), description for this arm, publicly visible so that it can be used elsewhere
-    this.positionDescription = '';
-
-    // @public (a11y, read-only) purely for debugging
-    this.valueTextProperty = new Property( '' );
-
-    // @public (a11y, read-only) - arm description will change depending on how the appendage moves through the regions
-    this.currentRegion = null;
-
     // @public (a11y, read-only) - the current movement direciton of the appendage
     this.movementDirection = null;
 
@@ -246,8 +237,6 @@ define( function( require ) {
       tandem: tandem.createTandem( 'focusCircle' )
     } );
 
-    // this.initializePosition( appendage.angleProperty.get() );
-
     // prevent user from manipulating with both keybaord and mouse at the same time
     // no need to dispose, listener AppendageNodes should exist for life of sim
     this.addAccessibleInputListener( {
@@ -258,7 +247,6 @@ define( function( require ) {
       }
     } );
 
-    var oldSliderValue = Util.roundSymmetric( this.linearFunction( appendage.angleProperty.get() ) );
     var a11ySliderOptions = {
       keyboardStep: this.keyboardMotion.step,
       shiftKeyboardStep: this.keyboardMotion.step,
@@ -287,7 +275,7 @@ define( function( require ) {
       startDrag: function() {
         appendage.borderVisibleProperty.set( false );
       },
-      createAriaValueText: function( sliderValue ) {
+      createAriaValueText: function( sliderValue, oldSliderValue ) {
         return self.getTextFromPosition( sliderValue, oldSliderValue );
       }
     };
@@ -303,21 +291,16 @@ define( function( require ) {
     );
 
     // Updates the accessibility content with changes in the model
-    appendage.angleProperty.link( function( angle, previousAngle ) {
-      if ( previousAngle ) {
-        oldSliderValue = Util.roundSymmetric( self.linearFunction( previousAngle ) );
-      }
-      intermediateProperty.set( Util.roundSymmetric( self.linearFunction( angle ) ) );
+    appendage.angleProperty.link( function( angle ) {
+      intermediateProperty.set( self.a11yAngleToPosition( angle ) );
       self.focusHighlight.center = self.imageNode.center;
     } );
 
     intermediateProperty.lazyLink( function( value, oldValue ) {
-      oldSliderValue = oldValue;
       // if we are dragging with a mouse, don't update the model angle Property right away
       if ( !self.mouseDragging ) {
         appendage.angleProperty.set( self.linearFunction.inverse( value ) );
       }
-      self.valueTextProperty.set( self.getTextFromPosition( value, oldValue ) );
     } );
     this.initializePosition();
   }
@@ -326,7 +309,6 @@ define( function( require ) {
 
   inherit( Node, AppendageNode, {
 
-    // TODO: factor out side effect changes to separate function(s)
     /**
      * Retrieve the accurate text for a11y display based on the intermediate property values.
      *
@@ -342,7 +324,11 @@ define( function( require ) {
       // generate descriptions that could be used depending on movement
       var newRegion = AppendageNode.getRegion( position, this.rangeMap.regions );
       var landmarkDescription = AppendageNode.getLandmarkDescription( position, this.rangeMap.landmarks );
-      var directionDescription = this.getDirectionDescription( position, previousPosition, landmarkDescription, newRegion );
+
+      var directionDescription = null;
+      if ( previousPosition ) {
+        directionDescription = this.getDirectionDescription( position, previousPosition, landmarkDescription, newRegion );
+      }
 
       if ( !isLeg && directionDescription ) {
 
@@ -360,13 +346,8 @@ define( function( require ) {
         valueDescription = newRegion.text;
       }
 
-      this.currentRegion = newRegion;
-
       // get value with 'negative' so VoiceOver reads it correctly
       var positionWithNegative = this.getValueWithNegativeString( position );
-
-      // the public position description should always be the region description
-      this.positionDescription = newRegion.text.toLowerCase();
 
       return StringUtils.fillIn( positionTemplateString, {
         value: positionWithNegative,
@@ -375,20 +356,21 @@ define( function( require ) {
     },
 
     /**
-     * On construction and reset, all we want is the region and the
-     * @param  {[type]} angle [description]
-     * @return {[type]}       [description]
+     * Get the mapped a11y position from the current model Property tracking the angle. 
+     * @return {number} - integer value
+     */
+    a11yAngleToPosition: function( angle ) {
+      return Util.roundSymmetric( this.linearFunction( angle ) );
+    },
+
+    /**
+     * On construction and reset, reset flags that are used to calculate descriptions from interaction history.
+     * @private
      */
     initializePosition: function() {
-      // convert the angle to a position that can be used in description content
-      var position = this.mappedValue;  // getter from AccessibleSlider
-      var newRegion = AppendageNode.getRegion( position, this.rangeMap.regions );
 
       // reset the movement direction so the next interaction will immediately get the direction
       this.movementDirection = null;
-
-      this.currentRegion = newRegion;
-      this.positionDescription = newRegion.text.toLowerCase();
     },
 
     /**
@@ -427,7 +409,7 @@ define( function( require ) {
       if ( AppendageNode.getAddFurtherOnAway( position, this.rangeMap.regions ) && newDirection === Appendage.MOVEMENT_DIRECTIONS.FARTHER ) {
 
         // regardless if the direction changes, some regions need to add "Further away..." when moving away
-        description = StringUtils.fillIn( fartherAwayPatternString, { description: region.text.toLowerCase() } );
+        description = StringUtils.fillIn( fartherAwayPatternString, { description: AppendageNode.getPositionDescription( position, this.rangeMap.regions ) } );
       }
       else if ( newDirection && ( this.movementDirection !== newDirection ) ) {
         if ( AppendageNode.getLandmarkIncludesDirection( position, this.rangeMap.landmarks ) ) {
@@ -495,6 +477,24 @@ define( function( require ) {
       } );
 
       return region;
+    },
+
+    /**
+     * Get a description of the appendage that can be used in multiple places, something like
+     * "close to doorknob" or 
+     * "very far from doorknob"
+     * 
+     * @public
+     * @static
+     * @a11y
+     * 
+     * @param  {number} position - integer location of the appendage, mapped from angle, see AppendageNode.linearFunction
+     * @param  {Object} rangeMap - a map that will provide the correct description from the provided input value
+     * @return {string} - a lower case string, generally to be inserted into another context
+     */
+    getPositionDescription: function( position, rangeMap ) {
+      var newRegion = AppendageNode.getRegion( Util.roundSymmetric( position ), rangeMap );
+      return newRegion.text.toLowerCase();
     },
 
     /**
