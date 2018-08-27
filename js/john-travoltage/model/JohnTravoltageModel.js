@@ -103,10 +103,6 @@ define( function( require ) {
       tandem: tandem.createTandem( 'shoeOnCarpetProperty' )
     } );
 
-    this.soundEnabledProperty = new BooleanProperty( true, {
-      tandem: tandem.createTandem( 'soundEnabledProperty' )
-    } );
-
     this.electrons = new ObservableArray( {
       tandem: tandem.createTandem( 'electrons' ),
       phetioType: ObservableArrayIO( ElectronIO )
@@ -196,7 +192,6 @@ define( function( require ) {
       this.resetEmitter.emit();
       this.sparkVisibleProperty.reset();
       this.shoeOnCarpetProperty.reset();
-      this.soundEnabledProperty.reset();
       this.arm.reset();
       this.leg.reset();
       while ( this.electrons.length > 0 ) {

@@ -19,7 +19,6 @@ define( function( require ) {
   var Circle = require( 'SCENERY/nodes/Circle' );
   var DebugUtils = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/DebugUtils' );
   var ElectronLayerNode = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/ElectronLayerNode' );
-  var HBox = require( 'SCENERY/nodes/HBox' );
   var inherit = require( 'PHET_CORE/inherit' );
   var johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
   var JohnTravoltageA11yStrings = require( 'JOHN_TRAVOLTAGE/john-travoltage/JohnTravoltageA11yStrings' );
@@ -34,7 +33,6 @@ define( function( require ) {
   var ScreenView = require( 'JOIST/ScreenView' );
   var Shape = require( 'KITE/Shape' );
   var soundManager = require( 'TAMBO/soundManager' );
-  var SoundToggleButton = require( 'SCENERY_PHET/buttons/SoundToggleButton' );
   var SparkNode = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/SparkNode' );
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   var utteranceQueue = require( 'SCENERY_PHET/accessibility/utteranceQueue' );
@@ -50,7 +48,6 @@ define( function( require ) {
 
   // a11y strings
   var playAreaString = JohnTravoltageA11yStrings.playArea.value;
-  var controlPanelString = JohnTravoltageA11yStrings.controlPanel.value;
   var legSliderLabelString = JohnTravoltageA11yStrings.legSliderLabel.value;
   var armSliderLabelString = JohnTravoltageA11yStrings.armSliderLabel.value;
   var screenSummaryJohnPatternString = JohnTravoltageA11yStrings.screenSummaryJohnPattern.value;
@@ -103,17 +100,8 @@ define( function( require ) {
     } );
     this.addChild( playAreaNode );
 
-    var controlPanelNode = new Node( {
-      containerTagName: 'section',
-      tagName: 'div',
-      ariaRole: 'none',
-      labelTagName: 'h2',
-      labelContent: controlPanelString
-    } );
-    this.addChild( controlPanelNode );
-
     // @public (read-only) arm and leg - only interactive elements
-    this.leg = new AppendageNode( model.leg, leg, 25, 28, Math.PI / 2 * 0.7, model.soundEnabledProperty, AppendageRangeMaps.legMap,
+    this.leg = new AppendageNode( model.leg, leg, 25, 28, Math.PI / 2 * 0.7, AppendageRangeMaps.legMap,
       tandem.createTandem( 'legNode' ), {
         labelContent: legSliderLabelString
       } );
@@ -121,7 +109,7 @@ define( function( require ) {
 
     // @public (read-only) the keyboardMidPointOffset was manually calculated as a radian offset that will trigger a discharge with the
     // minimum charge level.
-    this.arm = new AppendageNode( model.arm, arm, 4, 45, -0.1, model.soundEnabledProperty, AppendageRangeMaps.armMap,
+    this.arm = new AppendageNode( model.arm, arm, 4, 45, -0.1, AppendageRangeMaps.armMap,
       tandem.createTandem( 'armNode' ), {
         keyboardMidPointOffset: 0.41,
         labelContent: armSliderLabelString
@@ -154,28 +142,20 @@ define( function( require ) {
       tandem.createTandem( 'sparkNode' )
     ) );
 
-    // OneShotSoundClip button and reset all button
-    var soundToggleButton = new SoundToggleButton( model.soundEnabledProperty, {
-      tandem: tandem.createTandem( 'soundToggleButton' )
-    } );
-
+    // reset all button
     var resetAllButton = new ResetAllButton( {
+      radius: 23,
+      right: this.layoutBounds.maxX - 8,
+      bottom: this.layoutBounds.maxY - 8,
       listener: function() {
         model.reset();
 
         // clear alert content
         utteranceQueue.clear();
       },
-      scale: 1.32,
       tandem: tandem.createTandem( 'resetAllButton' )
     } );
-    resetAllButton.scale( soundToggleButton.height / resetAllButton.height );
-    controlPanelNode.addChild( new HBox( {
-      spacing: 10,
-      children: [ soundToggleButton, resetAllButton ],
-      right: this.layoutBounds.maxX - 7,
-      bottom: this.layoutBounds.maxY - 7
-    } ) );
+    this.addChild( resetAllButton );
 
     // Use a layer for electrons so it has only one pickable flag, perhaps may improve performance compared to iterating
     // over all electrons to see if they are pickable?
