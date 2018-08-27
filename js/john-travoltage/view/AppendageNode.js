@@ -96,9 +96,6 @@ define( function( require ) {
     this.keyboardMidPointOffset = options.keyboardMidPointOffset;
     this.rangeMap = rangeMap;
 
-    // @public (a11y, read-only) - arm description will change depending on how the appendage moves through the regions
-    this.currentRegion = null;
-
     // @public (a11y, read-only) - the current movement direciton of the appendage
     this.movementDirection = null;
 
@@ -256,8 +253,6 @@ define( function( require ) {
       tandem: tandem.createTandem( 'focusCircle' )
     } );
 
-    // this.initializePosition( appendage.angleProperty.get() );
-
     // prevent user from manipulating with both keybaord and mouse at the same time
     // no need to dispose, listener AppendageNodes should exist for life of sim
     this.addAccessibleInputListener( {
@@ -368,8 +363,6 @@ define( function( require ) {
         valueDescription = newRegion.text;
       }
 
-      this.currentRegion = newRegion;
-
       // get value with 'negative' so VoiceOver reads it correctly
       var positionWithNegative = this.getValueWithNegativeString( position );
 
@@ -388,19 +381,13 @@ define( function( require ) {
     },
 
     /**
-     * On construction and reset, all we want is the region and the
-     * @param  {[type]} angle [description]
-     * @return {[type]}       [description]
+     * On construction and reset, reset flags that are used to calculate descriptions from interaction history.
+     * @private
      */
     initializePosition: function() {
-      // convert the angle to a position that can be used in description content
-      var position = this.mappedValue;  // getter from AccessibleSlider
-      var newRegion = AppendageNode.getRegion( position, this.rangeMap.regions );
 
       // reset the movement direction so the next interaction will immediately get the direction
       this.movementDirection = null;
-
-      this.currentRegion = newRegion;
     },
 
     /**
