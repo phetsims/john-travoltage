@@ -14,6 +14,7 @@ define( function( require ) {
   var AccessiblePeer = require( 'SCENERY/accessibility/AccessiblePeer' );
   var AppendageNode = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/AppendageNode' );
   var AppendageRangeMaps = require( 'JOHN_TRAVOLTAGE/john-travoltage/AppendageRangeMaps' );
+  var ArmPositionSoundGenerator = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/ArmPositionSoundGenerator' );
   var BackgroundNode = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/BackgroundNode' );
   var Bounds2 = require( 'DOT/Bounds2' );
   var Circle = require( 'SCENERY/nodes/Circle' );
@@ -265,6 +266,7 @@ define( function( require ) {
       loopStart: 0.03
     } );
     soundManager.addSoundGenerator( chargesInBodyAudioPlayer );
+    soundManager.addSoundGenerator( new ArmPositionSoundGenerator( this.arm.model.angleProperty ) );
 
     model.sparkVisibleProperty.link( function( sparkVisible ) {
 
