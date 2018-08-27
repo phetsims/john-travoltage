@@ -21,7 +21,7 @@ define( function( require ) {
   // strings, but keeping them here for now to avoid confusion with changes to the strings.json file
   var armAndLegString = 'Arm and Leg';
   var moveArmAndLegString = 'Move Arm or Leg';
-  var moveArmAndLegHelpString = 'Move Arm or Leg with arrow Keys.';
+  var moveArmAndLegHelpString = 'Move Arm or Leg with arrow keys.';
 
   /**
    * Constructor.
