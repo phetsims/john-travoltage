@@ -41,6 +41,7 @@ define( function( require ) {
   var electricDischangeAudio = require( 'audio!JOHN_TRAVOLTAGE/Electricity_AM_v2.mp3' );
   var gazouchAudio = require( 'audio!JOHN_TRAVOLTAGE/gazouch.mp3' );
   var ouchAudio = require( 'audio!JOHN_TRAVOLTAGE/ouch.mp3' );
+  var resetAllAudio = require( 'audio!TAMBO/reset-all.mp3' );
 
   // images
   var arm = require( 'image!JOHN_TRAVOLTAGE/arm.png' );
@@ -143,11 +144,14 @@ define( function( require ) {
     ) );
 
     // reset all button
+    var resetAllAudioPlayer = new OneShotSoundClip( resetAllAudio );
+    soundManager.addSoundGenerator( resetAllAudioPlayer );
     var resetAllButton = new ResetAllButton( {
       radius: 23,
       right: this.layoutBounds.maxX - 8,
       bottom: this.layoutBounds.maxY - 8,
       listener: function() {
+        resetAllAudioPlayer.play();
         model.reset();
 
         // clear alert content
