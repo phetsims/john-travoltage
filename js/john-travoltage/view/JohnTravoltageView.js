@@ -29,7 +29,6 @@ define( function( require ) {
   var Line = require( 'SCENERY/nodes/Line' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Path = require( 'SCENERY/nodes/Path' );
-  var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var platform = require( 'PHET_CORE/platform' );
   var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
   var ScreenView = require( 'JOIST/ScreenView' );
@@ -38,7 +37,6 @@ define( function( require ) {
   var SoundToggleButton = require( 'SCENERY_PHET/buttons/SoundToggleButton' );
   var SparkNode = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/SparkNode' );
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
-  var Text = require( 'SCENERY/nodes/Text' );
   var utteranceQueue = require( 'SCENERY_PHET/accessibility/utteranceQueue' );
 
   // audio
@@ -268,16 +266,6 @@ define( function( require ) {
       playAreaNode.addChild( fingerCircle );
 
       DebugUtils.debugLineSegments( this );
-    }
-
-    if ( JohnTravoltageQueryParameters.valueText ) {
-      var armText = new Text( this.arm.valueTextProperty.get(), { x: 15, y: 20, font: new PhetFont( 16 ) } );
-      var legText = new Text( this.leg.valueTextProperty.get(), { x: 15, y: 40, font: new PhetFont( 16 ) } );
-      this.addChild( armText );
-      this.addChild( legText );
-
-      this.arm.valueTextProperty.link( function( text ) { armText.text = text; } );
-      this.leg.valueTextProperty.link( function( text ) { legText.text = text; } );
     }
 
     this.sounds = [

@@ -99,9 +99,6 @@ define( function( require ) {
     // @public (a11y, read-only), description for this arm, publicly visible so that it can be used elsewhere
     this.positionDescription = '';
 
-    // @public (a11y, read-only) purely for debugging
-    this.valueTextProperty = new Property( '' );
-
     // @public (a11y, read-only) - arm description will change depending on how the appendage moves through the regions
     this.currentRegion = null;
 
@@ -333,7 +330,6 @@ define( function( require ) {
       if ( !self.mouseDragging ) {
         appendage.angleProperty.set( self.linearFunction.inverse( value ) );
       }
-      self.valueTextProperty.set( self.getTextFromPosition( value, oldValue ) );
     } );
     this.initializePosition();
   }

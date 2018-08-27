@@ -48,11 +48,7 @@ define( function( require ) {
 
     // shows debug lines which represent the body, and force lines which restrict the charges
     // to stay inside of the body
-    showDebugInfo: { type: 'flag' },
-
-    // shows the accessible value text associated with the appendages on the screen view for easy reading
-    // and debugging
-    valueText: { type: 'flag' }
+    showDebugInfo: { type: 'flag' }
   } );
 
   johnTravoltage.register( 'JohnTravoltageQueryParameters', JohnTravoltageQueryParameters );
