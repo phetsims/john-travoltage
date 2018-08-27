@@ -1,18 +1,26 @@
 {
-  "shock.mp3": {
+  "Electricity_AM_v2.mp3": {
     "text": [
-      "Copyright 2002-2016 University of Colorado Boulder"
+      "Copyright 2018 University of Colorado Boulder"
     ],
     "projectURL": "http://phet.colorado.edu",
     "license": "contact phethelp@colorado.edu",
-    "notes": "created by Sam Reid"
+    "notes": "created by Ashton Morris for PhET"
   },
-  "shock-ouch.mp3": {
+  "gazouch.mp3": {
+    "text": [
+      "Copyright 2018 University of Colorado Boulder"
+    ],
+    "projectURL": "http://phet.colorado.edu",
+    "license": "contact phethelp@colorado.edu",
+    "notes": "created by Sam Reid, edited by John Blanco"
+  },
+  "ouch.mp3": {
     "text": [
       "Copyright 2002-2016 University of Colorado Boulder"
     ],
     "projectURL": "http://phet.colorado.edu",
     "license": "contact phethelp@colorado.edu",
-    "notes": "created by Sam Reid"
+    "notes": "created by Sam Reid, edited by John Blanco"
   }
 }

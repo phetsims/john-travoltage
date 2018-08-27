@@ -40,8 +40,9 @@ define( function( require ) {
   var utteranceQueue = require( 'SCENERY_PHET/accessibility/utteranceQueue' );
 
   // audio
-  var shockAudio = require( 'audio!JOHN_TRAVOLTAGE/shock.mp3' );
-  var shockOuchAudio = require( 'audio!JOHN_TRAVOLTAGE/shock-ouch.mp3' );
+  var electricDischangeAudio = require( 'audio!JOHN_TRAVOLTAGE/Electricity_AM_v2.mp3' );
+  var gazouchAudio = require( 'audio!JOHN_TRAVOLTAGE/gazouch.mp3' );
+  var ouchAudio = require( 'audio!JOHN_TRAVOLTAGE/ouch.mp3' );
 
   // images
   var arm = require( 'image!JOHN_TRAVOLTAGE/arm.png' );
@@ -56,6 +57,9 @@ define( function( require ) {
   var electronsDescriptionSingleString = JohnTravoltageA11yStrings.electronsDescriptionSingle.value;
   var electronsDescriptionMultipleString = JohnTravoltageA11yStrings.electronsDescriptionMultiple.value;
   var screenSummaryWithChargePatternString = JohnTravoltageA11yStrings.screenSummaryWithChargePattern.value;
+
+  // constants
+  var OUCH_EXCLMATION_DELAY = 0.5; // in seconds
 
   /**
    * @param {JohnTravoltageModel} model
@@ -264,17 +268,33 @@ define( function( require ) {
     }
 
     // create and register the sound generators used in this view
-    this.sounds = [
-      new OneShotSoundClip( shockOuchAudio ),
-      new OneShotSoundClip( shockAudio )
-    ];
-    this.sounds.forEach( function( sound ) {
-      soundManager.addSoundGenerator( sound );
-    } );
+    var ouchAudioPlayer = new OneShotSoundClip( ouchAudio );
+    soundManager.addSoundGenerator( ouchAudioPlayer );
+    var gazouchAudioPlayer = new OneShotSoundClip( gazouchAudio );
+    soundManager.addSoundGenerator( gazouchAudioPlayer );
+    var electricDischargeAudioPlayer = new OneShotSoundClip( electricDischangeAudio );
+    soundManager.addSoundGenerator( electricDischargeAudioPlayer );
 
     model.sparkVisibleProperty.link( function( sparkVisible ) {
-      if ( sparkVisible && model.soundEnabledProperty.get() ) {
-        self.sounds[ Math.floor( phet.joist.random.nextDouble() * 2 ) ].play();
+
+      if ( sparkVisible ) {
+
+        // start the electric discharge sound
+        electricDischargeAudioPlayer.play();
+
+        // play the appropriate "ouch" sound based on the level of charge (plays nothing for low charge level)
+        var numElectronsInBody = model.electrons.length;
+        if ( numElectronsInBody > 80 ) {
+          gazouchAudioPlayer.play( OUCH_EXCLMATION_DELAY );
+        }
+        else if ( numElectronsInBody > 25 ) {
+          ouchAudioPlayer.play( OUCH_EXCLMATION_DELAY );
+        }
+      }
+      else {
+
+        // stop the electric discharge sound (if playing)
+        electricDischargeAudioPlayer.stop();
       }
     } );
   }
