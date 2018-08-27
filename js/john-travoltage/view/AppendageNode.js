@@ -96,9 +96,6 @@ define( function( require ) {
     this.keyboardMidPointOffset = options.keyboardMidPointOffset;
     this.rangeMap = rangeMap;
 
-    // @public (a11y, read-only), description for this arm, publicly visible so that it can be used elsewhere
-    this.positionDescription = '';
-
     // @public (a11y, read-only) - arm description will change depending on how the appendage moves through the regions
     this.currentRegion = null;
 
@@ -376,9 +373,6 @@ define( function( require ) {
       // get value with 'negative' so VoiceOver reads it correctly
       var positionWithNegative = this.getValueWithNegativeString( position );
 
-      // the public position description should always be the region description
-      this.positionDescription = newRegion.text.toLowerCase();
-
       return StringUtils.fillIn( positionTemplateString, {
         value: positionWithNegative,
         description: valueDescription
@@ -399,7 +393,6 @@ define( function( require ) {
       this.movementDirection = null;
 
       this.currentRegion = newRegion;
-      this.positionDescription = newRegion.text.toLowerCase();
     },
 
     /**
@@ -438,7 +431,7 @@ define( function( require ) {
       if ( AppendageNode.getAddFurtherOnAway( position, this.rangeMap.regions ) && newDirection === Appendage.MOVEMENT_DIRECTIONS.FARTHER ) {
 
         // regardless if the direction changes, some regions need to add "Further away..." when moving away
-        description = StringUtils.fillIn( fartherAwayPatternString, { description: region.text.toLowerCase() } );
+        description = StringUtils.fillIn( fartherAwayPatternString, { description: AppendageNode.getPositionDescription( position, this.rangeMap.regions ) } );
       }
       else if ( newDirection && ( this.movementDirection !== newDirection ) ) {
         if ( AppendageNode.getLandmarkIncludesDirection( position, this.rangeMap.landmarks ) ) {
@@ -506,6 +499,24 @@ define( function( require ) {
       } );
 
       return region;
+    },
+
+    /**
+     * Get a description of the appendage that can be used in multiple places, something like
+     * "close to doorknob" or 
+     * "very far from doorknob"
+     * 
+     * @public
+     * @static
+     * @a11y
+     * 
+     * @param  {number} position - integer location of the appendage, mapped from angle, see AppendageNode.linearFunction
+     * @param  {Object} rangeMap - a map that will provide the correct description from the provided input value
+     * @return {string} - a lower case string, generally to be inserted into another context
+     */
+    getPositionDescription: function( position, rangeMap ) {
+      var newRegion = AppendageNode.getRegion( Util.roundSymmetric( position ), rangeMap );
+      return newRegion.text.toLowerCase();
     },
 
     /**

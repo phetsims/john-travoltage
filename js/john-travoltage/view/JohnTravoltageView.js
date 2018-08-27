@@ -194,7 +194,7 @@ define( function( require ) {
       var sceneDescription;
 
       // description for John - this will always be in the screen summary
-      var positionDescription = self.arm.positionDescription;
+      var positionDescription = AppendageNode.getPositionDescription( self.arm.linearFunction( model.arm.angleProperty.get() ), AppendageRangeMaps.armMap.regions );
       var johnDescription = StringUtils.fillIn( screenSummaryJohnPatternString, { position: positionDescription } );
 
       // if there are any charges, a description of the charge will be prepended to the summary
