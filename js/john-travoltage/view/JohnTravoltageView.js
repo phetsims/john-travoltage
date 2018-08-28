@@ -274,10 +274,10 @@ define( function( require ) {
       loopStart: 0.03
     } );
     soundManager.addSoundGenerator( chargesInBodyAudioPlayer );
-    soundManager.addSoundGenerator( new ArmPositionSoundGenerator( this.arm.model.angleProperty, {
+    soundManager.addSoundGenerator( new ArmPositionSoundGenerator( model.arm.angleProperty, {
       enableControlProperties: [ resetNotInProgressProperty ]
     } ) );
-    this.footDragSoundGenerator = new FootDragSoundGenerator( this.leg.model.angleProperty, {
+    this.footDragSoundGenerator = new FootDragSoundGenerator( model.leg.angleProperty, {
       enableControlProperties: [ resetNotInProgressProperty ],
       initialOutputLevel: 0.6
     } );
