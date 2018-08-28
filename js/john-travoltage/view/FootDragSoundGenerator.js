@@ -57,7 +57,12 @@ define( function( require ) {
 
       // update the angular velocity of the leg and determine the motion state
       var newMotionState = 'still';
-      if ( self.legAngleUpdateTime !== null ) {
+      if ( newLegAngle === legAngleProperty.initialValue && !self.fullyEnabledProperty.get() ) {
+
+        // this case indicates that a reset caused the leg motion, so set the leg velocity to zero
+        self.legAngularVelocity = 0;
+      }
+      else if ( self.legAngleUpdateTime !== null ) {
         self.legAngularVelocity = ( newLegAngle - legAngle ) / ( now - self.legAngleUpdateTime );
 
         // We can sometimes get updates very close together in time, leading to very high or even infinite angular

@@ -19,6 +19,7 @@ define( function( require ) {
   var Bounds2 = require( 'DOT/Bounds2' );
   var Circle = require( 'SCENERY/nodes/Circle' );
   var DebugUtils = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/DebugUtils' );
+  var DerivedProperty = require( 'AXON/DerivedProperty' );
   var ElectronLayerNode = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/ElectronLayerNode' );
   var FootDragSoundGenerator = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/FootDragSoundGenerator' );
   var inherit = require( 'PHET_CORE/inherit' );
@@ -256,6 +257,11 @@ define( function( require ) {
       DebugUtils.debugLineSegments( this );
     }
 
+    // inverse of the resetInProgressProperty, used for muting sounds during reset
+    var resetNotInProgressProperty = new DerivedProperty( [ model.resetInProgressProperty ], function( resetInProgress ) {
+      return !resetInProgress;
+    } );
+
     // create and register the sound generators used in this view
     var ouchAudioPlayer = new OneShotSoundClip( ouchAudio );
     soundManager.addSoundGenerator( ouchAudioPlayer );
@@ -268,7 +274,9 @@ define( function( require ) {
     } );
     soundManager.addSoundGenerator( chargesInBodyAudioPlayer );
     soundManager.addSoundGenerator( new ArmPositionSoundGenerator( this.arm.model.angleProperty ) );
-    this.footDragSoundGenerator = new FootDragSoundGenerator( this.leg.model.angleProperty );
+    this.footDragSoundGenerator = new FootDragSoundGenerator( this.leg.model.angleProperty, {
+      enableControlProperties: [ resetNotInProgressProperty ]
+    } );
     soundManager.addSoundGenerator( this.footDragSoundGenerator );
 
     model.sparkVisibleProperty.link( function( sparkVisible ) {

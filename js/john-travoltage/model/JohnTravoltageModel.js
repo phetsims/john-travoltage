@@ -103,6 +103,11 @@ define( function( require ) {
       tandem: tandem.createTandem( 'shoeOnCarpetProperty' )
     } );
 
+    // true when a reset is in progress
+    this.resetInProgressProperty = new BooleanProperty( false, {
+      tandem: tandem.createTandem( 'resetInProgressProperty' )
+    } );
+
     this.electrons = new ObservableArray( {
       tandem: tandem.createTandem( 'electrons' ),
       phetioType: ObservableArrayIO( ElectronIO )
@@ -189,6 +194,7 @@ define( function( require ) {
     reset: function() {
 
       // Properties of the model.  All user settings belong in the model, whether or not they are part of the physical model
+      this.resetInProgressProperty.set( true );
       this.resetEmitter.emit();
       this.sparkVisibleProperty.reset();
       this.shoeOnCarpetProperty.reset();
@@ -197,6 +203,7 @@ define( function( require ) {
       while ( this.electrons.length > 0 ) {
         this.removeElectron( this.electrons.get( 0 ) );
       }
+      this.resetInProgressProperty.set( false );
     },
 
     /**
