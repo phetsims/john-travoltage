@@ -278,7 +278,8 @@ define( function( require ) {
       enableControlProperties: [ resetNotInProgressProperty ]
     } ) );
     this.footDragSoundGenerator = new FootDragSoundGenerator( this.leg.model.angleProperty, {
-      enableControlProperties: [ resetNotInProgressProperty ]
+      enableControlProperties: [ resetNotInProgressProperty ],
+      initialOutputLevel: 0.6
     } );
     soundManager.addSoundGenerator( this.footDragSoundGenerator );
     var popSoundGenerator = new PitchedPopGenerator( { enableControlProperties: [ resetNotInProgressProperty ] } );
