@@ -78,7 +78,7 @@ define( function( require ) {
       var numClickSoundsToPlay = 0;
 
       // determine if the new angle crossed over one or more 'sound points' since the last angle
-      if ( previousAngle !== null ) {
+      if ( self.fullyEnabledProperty.get() && previousAngle !== null ) {
         numClickSoundsToPlay = Math.abs( Math.floor( previousAngle / binSize ) -
                                          Math.floor( angle / binSize ) );
         // TODO: This is a temporary workaround for an issue where the angle seems to switch from + to - at an odd place
