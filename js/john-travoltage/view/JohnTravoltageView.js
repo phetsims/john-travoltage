@@ -31,6 +31,7 @@ define( function( require ) {
   var LoopingSoundClip = require( 'TAMBO/sound-generators/LoopingSoundClip' );
   var Node = require( 'SCENERY/nodes/Node' );
   var OneShotSoundClip = require( 'TAMBO/sound-generators/OneShotSoundClip' );
+  var PitchedPopGenerator = require( 'TAMBO/sound-generators/PitchedPopGenerator' );
   var Path = require( 'SCENERY/nodes/Path' );
   var platform = require( 'PHET_CORE/platform' );
   var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
@@ -278,6 +279,8 @@ define( function( require ) {
       enableControlProperties: [ resetNotInProgressProperty ]
     } );
     soundManager.addSoundGenerator( this.footDragSoundGenerator );
+    var popSoundGenerator = new PitchedPopGenerator();
+    soundManager.addSoundGenerator( popSoundGenerator );
 
     model.sparkVisibleProperty.link( function( sparkVisible ) {
 
@@ -302,8 +305,10 @@ define( function( require ) {
       }
     } );
 
-    // play a sound indicating that charges are present in JT's body
-    model.electrons.lengthProperty.link( function( numElectrons ) {
+    // update the sound related to the number of electrons in JT's body
+    model.electrons.lengthProperty.lazyLink( function( numElectrons ) {
+
+      // update the sound that indicates the amount of charge in the body
       if ( numElectrons === 0 ) {
         if ( chargesInBodyAudioPlayer.isPlaying ) {
           chargesInBodyAudioPlayer.stop();
@@ -321,6 +326,9 @@ define( function( require ) {
           chargesInBodyAudioPlayer.start();
         }
       }
+
+      // play a pop each time the number of electrons changes
+      popSoundGenerator.playPop( numElectrons / JohnTravoltageModel.MAX_ELECTRONS );
     } );
   }
 
