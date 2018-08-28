@@ -20,6 +20,7 @@ define( function( require ) {
   var Circle = require( 'SCENERY/nodes/Circle' );
   var DebugUtils = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/DebugUtils' );
   var ElectronLayerNode = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/ElectronLayerNode' );
+  var FootDragSoundGenerator = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/FootDragSoundGenerator' );
   var inherit = require( 'PHET_CORE/inherit' );
   var johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
   var JohnTravoltageA11yStrings = require( 'JOHN_TRAVOLTAGE/john-travoltage/JohnTravoltageA11yStrings' );
@@ -267,6 +268,8 @@ define( function( require ) {
     } );
     soundManager.addSoundGenerator( chargesInBodyAudioPlayer );
     soundManager.addSoundGenerator( new ArmPositionSoundGenerator( this.arm.model.angleProperty ) );
+    this.footDragSoundGenerator = new FootDragSoundGenerator( this.leg.model.angleProperty );
+    soundManager.addSoundGenerator( this.footDragSoundGenerator );
 
     model.sparkVisibleProperty.link( function( sparkVisible ) {
 
@@ -316,6 +319,15 @@ define( function( require ) {
   johnTravoltage.register( 'JohnTravoltageView', JohnTravoltageView );
 
   return inherit( ScreenView, JohnTravoltageView, {
+
+    /**
+     * step the view forward in time
+     * @param {number} dt
+     * @public
+     */
+    step: function( dt ) {
+      this.footDragSoundGenerator.step( dt );
+    },
 
     /**
      * Only used for debugging.  Show debug information for the body and charges, and visual information
