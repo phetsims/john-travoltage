@@ -210,8 +210,7 @@ define( function( require ) {
       summaryNode.descriptionContent = sceneDescription;
     };
 
-    // electrons observable array exists for the lifetime of the sim, so there is no need to remove these
-    // listeners
+    // electrons observable array exists for the lifetime of the sim, so there is no need to remove these listeners
     model.electrons.addItemAddedListener( function() {
       updateDescription();
       hadElectrons = true;
