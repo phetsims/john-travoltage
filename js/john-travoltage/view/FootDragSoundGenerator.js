@@ -16,10 +16,10 @@ define( function( require ) {
   // constants
   var MIN_CONTACT_ANGLE = 1.15; // in radians, angle below which the foot is not in contact with the carpet
   var MAX_CONTACT_ANGLE = 2.25; // in radians, angle above which the foot is not in contact with the carpet
-  var MAX_DRAG_SOUND_VOLUME = 4; // can be greater than 1 because filtering tends to reduce output a lot
+  var MAX_DRAG_SOUND_VOLUME = 1; // can be greater than 1 because filtering tends to reduce output a lot
   var VELOCITY_REDUCTION_RATE = 50; // amount per second, empirically determined for best sound
   var STILLNESS_TIME = 0.064; // in seconds, if there are no angle updates for this long, the leg is considered still
-  var NOISE_CENTER_FREQUENCY = 900; // Hz
+  var NOISE_CENTER_FREQUENCY = 1500; // Hz
   var DIRECTION_FREQ_DELTA = 75; // difference from center frequency for forward versus backward movement
   var MAX_LEG_ANGULAR_VELOCITY = 10; // in radians/sec, see explanatory note where this is used
   var MIN_SOUND_GAP = 0.05; // in seconds
@@ -36,7 +36,7 @@ define( function( require ) {
     NoiseGenerator.call( this, _.extend( {
       noiseType: 'pink',
       centerFrequency: NOISE_CENTER_FREQUENCY,
-      Q: 3,
+      Q: 2,
       initialOutputLevel: 0
     }, options ) );
 
