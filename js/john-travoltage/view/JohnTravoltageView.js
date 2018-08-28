@@ -273,14 +273,16 @@ define( function( require ) {
     var chargesInBodyAudioPlayer = new LoopingSoundClip( chargesInBodyAudio, {
       loopStart: 0.03
     } );
-    soundManager.addSoundGenerator( chargesInBodyAudioPlayer );
-    soundManager.addSoundGenerator( new ArmPositionSoundGenerator( this.arm.model.angleProperty ) );
+    soundManager.addSoundGenerator( chargesInBodyAudioPlayer, { sonificationLevel: 'enhanced' } );
+    soundManager.addSoundGenerator( new ArmPositionSoundGenerator( this.arm.model.angleProperty, {
+      enableControlProperties: [ resetNotInProgressProperty ]
+    } ) );
     this.footDragSoundGenerator = new FootDragSoundGenerator( this.leg.model.angleProperty, {
       enableControlProperties: [ resetNotInProgressProperty ]
     } );
     soundManager.addSoundGenerator( this.footDragSoundGenerator );
-    var popSoundGenerator = new PitchedPopGenerator();
-    soundManager.addSoundGenerator( popSoundGenerator );
+    var popSoundGenerator = new PitchedPopGenerator( { enableControlProperties: [ resetNotInProgressProperty ] } );
+    soundManager.addSoundGenerator( popSoundGenerator, { sonificationLevel: 'enhanced' } );
 
     model.sparkVisibleProperty.link( function( sparkVisible ) {
 
