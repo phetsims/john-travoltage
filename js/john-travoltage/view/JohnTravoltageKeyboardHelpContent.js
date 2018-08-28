@@ -19,9 +19,9 @@ define( function( require ) {
   // strings
   // This content is being updated, once we like the look the visible strings should be moved to john-travoltage-a11y
   // strings, but keeping them here for now to avoid confusion with changes to the strings.json file
-  var armAndLegString = 'Arm and Leg';
-  var moveArmAndLegString = 'Move Arm or Leg';
-  var moveArmAndLegHelpString = 'Move Arm or Leg with arrow keys.';
+  var handOrFootString = 'Hand or Foot';
+  var moveHandOrFootString = 'Move hand or foot';
+  var moveHandOrFootHelpString = 'Move hand or foot with left and right arrow keys.';
 
   /**
    * Constructor.
@@ -31,15 +31,15 @@ define( function( require ) {
   function JohnTravoltageKeyboardHelpContent() {
 
     // help content specific to john-travoltage, moving the arm and leg
-    var appendageHelpContent = new HelpContent( armAndLegString, [
+    var appendageHelpContent = new HelpContent( handOrFootString, [
       {
-        label: new Text( moveArmAndLegString, {
+        label: new Text( moveHandOrFootString, {
           font: HelpContent.DEFAULT_LABEL_FONT,
           maxWidth: HelpContent.DEFAULT_TEXT_MAX_WIDTH
         } ),
-        icon: HelpContent.arrowKeysRowIcon( {
+        icon: HelpContent.leftRightArrowKeysRowIcon( {
           tagName: 'p',
-          innerContent: moveArmAndLegHelpString
+          innerContent: moveHandOrFootHelpString
         } )
       }
     ], { a11yContentTagName: null } ); // only one entry in this help content, don't wrap in the default ul
