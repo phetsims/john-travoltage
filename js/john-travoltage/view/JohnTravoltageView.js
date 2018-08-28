@@ -273,7 +273,7 @@ define( function( require ) {
     var chargesInBodyAudioPlayer = new LoopingSoundClip( chargesInBodyAudio, {
       loopStart: 0.03
     } );
-    soundManager.addSoundGenerator( chargesInBodyAudioPlayer, { sonificationLevel: 'enhanced' } );
+    soundManager.addSoundGenerator( chargesInBodyAudioPlayer );
     soundManager.addSoundGenerator( new ArmPositionSoundGenerator( this.arm.model.angleProperty, {
       enableControlProperties: [ resetNotInProgressProperty ]
     } ) );
