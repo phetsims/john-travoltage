@@ -180,11 +180,6 @@ define( function( require ) {
       value: 'Farthest from doorknob.'
     },
 
-    // section labels
-    playArea: {
-      value: 'Play Area'
-    },
-
     // what should be read for negative values - VoiceOver will frequently ignore the unicode minus signs and dashes
     // when reading the value, see https://github.com/phetsims/john-travoltage/issues/238
     negativePattern: {
