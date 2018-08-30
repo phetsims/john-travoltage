@@ -43,8 +43,8 @@ define( function( require ) {
   var utteranceQueue = require( 'SCENERY_PHET/accessibility/utteranceQueue' );
 
   // audio
-  var chargesInBodyAudio = require( 'audio!JOHN_TRAVOLTAGE/charges-in-the-body.mp3' );
-  var electricDischargeAudio = require( 'audio!JOHN_TRAVOLTAGE/Electricity_AM_v2.mp3' );
+  var chargesInBodyAudio = require( 'audio!JOHN_TRAVOLTAGE/charges-in-body.mp3' );
+  var electricDischargeAudio = require( 'audio!JOHN_TRAVOLTAGE/electric-discharge.mp3' );
   var gazouchAudio = require( 'audio!JOHN_TRAVOLTAGE/gazouch.mp3' );
   var ouchAudio = require( 'audio!JOHN_TRAVOLTAGE/ouch.mp3' );
   var resetAllAudio = require( 'audio!TAMBO/reset-all.mp3' );
@@ -296,7 +296,7 @@ define( function( require ) {
         if ( numElectronsInBody > 80 ) {
           gazouchAudioPlayer.play( OUCH_EXCLAMATION_DELAY );
         }
-        else if ( numElectronsInBody > 25 ) {
+        else if ( numElectronsInBody > 30 ) {
           ouchAudioPlayer.play( OUCH_EXCLAMATION_DELAY );
         }
       }

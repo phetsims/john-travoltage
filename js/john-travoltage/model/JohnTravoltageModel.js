@@ -147,7 +147,9 @@ define( function( require ) {
         accumulatedAngle += Math.abs( angle - lastAngle );
 
         while ( accumulatedAngle > accumulatedAngleThreshold ) {
-          self.addElectron( self.electronGroupTandem.createNextTandem() );
+          if ( self.electrons.length < MAX_ELECTRONS ) {
+            self.addElectron( self.electronGroupTandem.createNextTandem() );
+          }
           accumulatedAngle -= accumulatedAngleThreshold;
         }
         lastAngle = angle;

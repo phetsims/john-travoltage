@@ -16,12 +16,12 @@ define( function( require ) {
   var SoundGenerator = require( 'TAMBO/sound-generators/SoundGenerator' );
 
   // audio
-  var armPosition01Audio = require( 'audio!JOHN_TRAVOLTAGE/arm-position-01.mp3' );
-  var armPosition02Audio = require( 'audio!JOHN_TRAVOLTAGE/arm-position-01.mp3' );
-  var armPosition03Audio = require( 'audio!JOHN_TRAVOLTAGE/arm-position-01.mp3' );
-  var armPosition04Audio = require( 'audio!JOHN_TRAVOLTAGE/arm-position-01.mp3' );
-  var armPosition05Audio = require( 'audio!JOHN_TRAVOLTAGE/arm-position-01.mp3' );
-  var armPosition06Audio = require( 'audio!JOHN_TRAVOLTAGE/arm-position-01.mp3' );
+  var armPosition01Audio = require( 'audio!JOHN_TRAVOLTAGE/arm-position-001.mp3' );
+  var armPosition02Audio = require( 'audio!JOHN_TRAVOLTAGE/arm-position-002.mp3' );
+  var armPosition03Audio = require( 'audio!JOHN_TRAVOLTAGE/arm-position-003.mp3' );
+  var armPosition04Audio = require( 'audio!JOHN_TRAVOLTAGE/arm-position-004.mp3' );
+  var armPosition05Audio = require( 'audio!JOHN_TRAVOLTAGE/arm-position-005.mp3' );
+  var armPosition06Audio = require( 'audio!JOHN_TRAVOLTAGE/arm-position-006.mp3' );
 
   // constants
   var NUM_SOUND_POSITIONS = 32;
