@@ -18,6 +18,7 @@ define( function( require ) {
   var BackgroundNode = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/BackgroundNode' );
   var Bounds2 = require( 'DOT/Bounds2' );
   var Circle = require( 'SCENERY/nodes/Circle' );
+  var ControlAreaNode = require( 'SCENERY_PHET/accessibility/nodes/ControlAreaNode' );
   var DebugUtils = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/DebugUtils' );
   var DerivedProperty = require( 'AXON/DerivedProperty' );
   var ElectronLayerNode = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/ElectronLayerNode' );
@@ -34,6 +35,7 @@ define( function( require ) {
   var PitchedPopGenerator = require( 'TAMBO/sound-generators/PitchedPopGenerator' );
   var Path = require( 'SCENERY/nodes/Path' );
   var platform = require( 'PHET_CORE/platform' );
+  var PlayAreaNode = require( 'SCENERY_PHET/accessibility/nodes/PlayAreaNode' );
   var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
   var ScreenView = require( 'JOIST/ScreenView' );
   var Shape = require( 'KITE/Shape' );
@@ -54,7 +56,6 @@ define( function( require ) {
   var leg = require( 'image!JOHN_TRAVOLTAGE/leg.png' );
 
   // a11y strings
-  var playAreaString = JohnTravoltageA11yStrings.playArea.value;
   var legSliderLabelString = JohnTravoltageA11yStrings.legSliderLabel.value;
   var armSliderLabelString = JohnTravoltageA11yStrings.armSliderLabel.value;
   var screenSummaryJohnPatternString = JohnTravoltageA11yStrings.screenSummaryJohnPattern.value;
@@ -96,16 +97,8 @@ define( function( require ) {
     var summaryNode = new Node( { tagName: 'p' } );
     this.screenSummaryNode.addChild( summaryNode );
 
-    //add an form element to contain all controls
-    // the container parent is given role "none" so screen readers don't read contents of the play area when focus moves
-    // out of the navigation bar - JAWS is very confusing in its summary of this content
-    var playAreaNode = new Node( {
-      containerTagName: 'section',
-      containerAriaRole: 'none',
-      tagName: 'div',
-      labelTagName: 'h2',
-      labelContent: playAreaString
-    } );
+    // everything except the ResetAllButton is contained in this node
+    var playAreaNode = new PlayAreaNode();
     this.addChild( playAreaNode );
 
     // @public (read-only) arm and leg - only interactive elements
@@ -166,7 +159,11 @@ define( function( require ) {
       },
       tandem: tandem.createTandem( 'resetAllButton' )
     } );
-    this.addChild( resetAllButton );
+
+    // a11y - the ResetAllButton is alone in a control panel in this sim
+    var controlAreaNode = new ControlAreaNode();
+    controlAreaNode.addChild( resetAllButton );
+    this.addChild( controlAreaNode );
 
     // Use a layer for electrons so it has only one pickable flag, perhaps may improve performance compared to iterating
     // over all electrons to see if they are pickable?
