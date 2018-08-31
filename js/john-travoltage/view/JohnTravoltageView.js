@@ -260,25 +260,31 @@ define( function( require ) {
     } );
 
     // create and register the sound generators used in this view
-    var ouchAudioPlayer = new OneShotSoundClip( ouchAudio );
+    // TODO: Ashton - here are the sounds
+    var ouchAudioPlayer = new OneShotSoundClip( ouchAudio, { initialOutputLevel: 1 } );
     soundManager.addSoundGenerator( ouchAudioPlayer );
-    var gazouchAudioPlayer = new OneShotSoundClip( gazouchAudio );
+    var gazouchAudioPlayer = new OneShotSoundClip( gazouchAudio, { initialOutputLevel: 1 } );
     soundManager.addSoundGenerator( gazouchAudioPlayer );
-    var electricDischargeAudioPlayer = new OneShotSoundClip( electricDischargeAudio );
+    var electricDischargeAudioPlayer = new OneShotSoundClip( electricDischargeAudio, { initialOutputLevel: 1 } );
     soundManager.addSoundGenerator( electricDischargeAudioPlayer );
     var chargesInBodyAudioPlayer = new LoopingSoundClip( chargesInBodyAudio, {
-      autoDetectLoopBounds: true
+      autoDetectLoopBounds: true,
+      initialOutputLevel: 1
     } );
     soundManager.addSoundGenerator( chargesInBodyAudioPlayer );
     soundManager.addSoundGenerator( new ArmPositionSoundGenerator( model.arm.angleProperty, {
-      enableControlProperties: [ resetNotInProgressProperty ]
+      enableControlProperties: [ resetNotInProgressProperty ],
+      initialOutputLevel: 1
     } ) );
     this.footDragSoundGenerator = new FootDragSoundGenerator( model.leg.angleProperty, {
       enableControlProperties: [ resetNotInProgressProperty ],
-      initialOutputLevel: 0.6
+      initialOutputLevel: 0.8
     } );
     soundManager.addSoundGenerator( this.footDragSoundGenerator );
-    var popSoundGenerator = new PitchedPopGenerator( { enableControlProperties: [ resetNotInProgressProperty ] } );
+    var popSoundGenerator = new PitchedPopGenerator( {
+      enableControlProperties: [ resetNotInProgressProperty ],
+      initialOutputLevel: 0.8
+    } );
     soundManager.addSoundGenerator( popSoundGenerator, { sonificationLevel: 'enhanced' } );
 
     model.sparkVisibleProperty.link( function( sparkVisible ) {
