@@ -267,7 +267,7 @@ define( function( require ) {
     var electricDischargeAudioPlayer = new OneShotSoundClip( electricDischargeAudio );
     soundManager.addSoundGenerator( electricDischargeAudioPlayer );
     var chargesInBodyAudioPlayer = new LoopingSoundClip( chargesInBodyAudio, {
-      loopStart: 0.03
+      autoDetectLoopBounds: true
     } );
     soundManager.addSoundGenerator( chargesInBodyAudioPlayer );
     soundManager.addSoundGenerator( new ArmPositionSoundGenerator( model.arm.angleProperty, {
