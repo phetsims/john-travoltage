@@ -1,11 +1,11 @@
 {
-  "comment": "# john-travoltage 1.4.0-dev.9 Mon Aug 27 2018 22:08:34 GMT-0600 (Mountain Daylight Time)",
+  "comment": "# john-travoltage 1.5.0-dev.1 Fri Aug 31 2018 12:42:41 GMT-0600 (Mountain Daylight Time)",
   "assert": {
     "sha": "928741cfc8fe804334d5b35292140314511f8678",
     "branch": "master"
   },
   "axon": {
-    "sha": "41b1cf6b588dc0a1f654ffca64ddd71464801450",
+    "sha": "6b03af80bee1636faf8e414c593ef6db37da5aa0",
     "branch": "master"
   },
   "brand": {
@@ -13,19 +13,19 @@
     "branch": "master"
   },
   "chipper": {
-    "sha": "6a2a900cd2c5581759588f5369e9c2be45312c56",
+    "sha": "34923a2672f09d714b9ac142aa5ecec289a06e49",
     "branch": "master"
   },
   "dot": {
-    "sha": "e9a91d9156c5c3a7726783f0cca1fa7fbacbf633",
+    "sha": "0d5fdc955170fa0a8be6dc0d5206a24231368f29",
     "branch": "master"
   },
   "john-travoltage": {
-    "sha": "7e26eb8e2eba8b459256b2120813863413eb71e1",
+    "sha": "1cedaf84ea51f6a48becb040acc4950b3d7f5064",
     "branch": "master"
   },
   "joist": {
-    "sha": "6e519eb1fb917ab3dbd45ad57d405524306f2c5f",
+    "sha": "a5b98f73e8e83d45abe581357260f310e4b95270",
     "branch": "master"
   },
   "kite": {
@@ -37,7 +37,7 @@
     "branch": "master"
   },
   "phet-io": {
-    "sha": "a7247a10484fa7ef09104e7138741ef221f244ce",
+    "sha": "56c45a4440c57b1433036428f3a6c1e892345317",
     "branch": "master"
   },
   "phet-io-wrapper-classroom-activity": {
@@ -45,15 +45,15 @@
     "branch": "master"
   },
   "phet-io-wrapper-hookes-law-energy": {
-    "sha": "39a153bdf4d84d054a8decf81347573f50a7bcc0",
+    "sha": "429886e7c198bfdb1fed973f7678b575e3bfc183",
     "branch": "master"
   },
   "phet-io-wrapper-lab-book": {
-    "sha": "868e17c89689d38106be87b2ce9f9605ded895f2",
+    "sha": "ef0b0b0ce2f9342a8753283e068025505c0b4f80",
     "branch": "master"
   },
   "phet-io-wrappers": {
-    "sha": "0c7cb1afdb352b8096405f6b2fb7738bbb47157a",
+    "sha": "f9ea04c7936304d758d9de3a270847e5c224b2e7",
     "branch": "master"
   },
   "phetcommon": {
@@ -65,27 +65,27 @@
     "branch": "master"
   },
   "scenery": {
-    "sha": "3fc13a6fc247aef932fb971ee81e61a6ea1dc769",
+    "sha": "349a3dcf85704a8eb492c90e8c9334deb0977abb",
     "branch": "master"
   },
   "scenery-phet": {
-    "sha": "6027f56de3ccd3da036003b08df55d135f7bbe74",
+    "sha": "61c967799206390cd98c4aaff469cbbc51c5ad92",
     "branch": "master"
   },
   "sherpa": {
-    "sha": "16fe1a7e29d4b666c6e412fc840304ea2d04a3d3",
+    "sha": "2542182011966593abf2984481d34f0db66d80b9",
     "branch": "master"
   },
   "sun": {
-    "sha": "a0e674f87a81ad420bbdd58d6f5077f0a8b0a841",
+    "sha": "b619e5ac8e40015563560098f0020bf3fa1ee9f1",
     "branch": "master"
   },
   "tambo": {
-    "sha": "cbad3db7deb68cd7c1b94ac3d5ca5b40aff014f2",
+    "sha": "598b6ba8e9149e2447961aa0d61a7bd02f2621e9",
     "branch": "master"
   },
   "tandem": {
-    "sha": "ce09b1a742820a30c1eccd147caea89492606092",
+    "sha": "4e9f6c2bf5ec7399cd7cdffd5db810f7cb8b6cf2",
     "branch": "master"
   },
   "vibe": {
