@@ -21,7 +21,7 @@ define( function( require ) {
   var VELOCITY_REDUCTION_RATE = 50; // amount per second, empirically determined for best sound
   var STILLNESS_TIME = 0.064; // in seconds, if there are no angle updates for this long, the leg is considered still
   var NOISE_CENTER_FREQUENCY = 1500; // Hz
-  var DIRECTION_FREQ_DELTA = 75; // difference from center frequency for forward versus backward movement
+  var DIRECTION_FREQUENCY_DELTA = NOISE_CENTER_FREQUENCY / 4; // max difference for forward vs backward motion of foot
   var MAX_LEG_ANGULAR_VELOCITY = 10; // in radians/sec, see explanatory note where this is used
   var MIN_SOUND_GAP = 0.05; // in seconds
   var NOISE_START_TIME_CONSTANT = 0.2;
@@ -107,10 +107,15 @@ define( function( require ) {
 
       // set the filter value that controls whether the forward or backward dragging sound is heard
       if ( self.motionState !== newMotionState ) {
-        var frequencyDelta = newMotionState === 'forward' ? DIRECTION_FREQ_DELTA : -DIRECTION_FREQ_DELTA;
+
+        // sat the frequency based on the direction
+        var frequencyDelta = newMotionState === 'forward' ? DIRECTION_FREQUENCY_DELTA : -DIRECTION_FREQUENCY_DELTA;
+
+        // add some randomization to the frequency delta so that back-and-forth motion sounds less repetitive
+        frequencyDelta = frequencyDelta * ( 1 - phet.joist.random.nextDouble() / 2 );
 
         // set the filter value that controls whether the forward or backward dragging sound is heard
-        self.noiseGenerator.setBandpassFilterCenterFrequency( NOISE_CENTER_FREQUENCY + frequencyDelta, 1E-10 );
+        self.noiseGenerator.setBandpassFilterCenterFrequency( NOISE_CENTER_FREQUENCY + frequencyDelta, 0.1 );
       }
 
       // update state variable for the timer to use and for next time through this method
