@@ -326,6 +326,9 @@ define( function( require ) {
           0.01 + 0.99 * ( numElectrons / JohnTravoltageModel.MAX_ELECTRONS ) * CHARGES_SOUND_GAIN_FACTOR
         );
 
+        // set the playback speed based on the number of electrons, equation empirically determined
+        chargesInBodyAudioPlayer.setPlaybackRate( 1 + 0.25 * ( numElectrons / JohnTravoltageModel.MAX_ELECTRONS ) );
+
         // start loop if necessary
         if ( !chargesInBodyAudioPlayer.isPlaying ) {
           chargesInBodyAudioPlayer.start();
