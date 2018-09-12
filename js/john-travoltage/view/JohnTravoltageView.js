@@ -65,7 +65,7 @@ define( function( require ) {
 
   // constants
   var OUCH_EXCLAMATION_DELAY = 0.5; // in seconds
-  var CHARGES_SOUND_GAIN_FACTOR = 0.3; // multiplier for charges-in-the-body sound, empicially determined
+  var CHARGES_SOUND_GAIN_FACTOR = 0.1; // multiplier for charges-in-the-body sound, empirically determined
 
   /**
    * @param {JohnTravoltageModel} model
@@ -144,7 +144,7 @@ define( function( require ) {
     ) );
 
     // reset all button
-    var resetAllAudioPlayer = new OneShotSoundClip( resetAllAudio );
+    var resetAllAudioPlayer = new OneShotSoundClip( resetAllAudio, { initialOutputLevel: 0.7 } );
     soundManager.addSoundGenerator( resetAllAudioPlayer );
     var resetAllButton = new ResetAllButton( {
       radius: 23,
@@ -260,30 +260,29 @@ define( function( require ) {
     } );
 
     // create and register the sound generators used in this view
-    // TODO: Ashton - here are the sounds
-    var ouchAudioPlayer = new OneShotSoundClip( ouchAudio, { initialOutputLevel: 1 } );
+    var ouchAudioPlayer = new OneShotSoundClip( ouchAudio, { initialOutputLevel: 0.7 } );
     soundManager.addSoundGenerator( ouchAudioPlayer );
-    var gazouchAudioPlayer = new OneShotSoundClip( gazouchAudio, { initialOutputLevel: 1 } );
+    var gazouchAudioPlayer = new OneShotSoundClip( gazouchAudio, { initialOutputLevel: 0.8 } );
     soundManager.addSoundGenerator( gazouchAudioPlayer );
-    var electricDischargeAudioPlayer = new OneShotSoundClip( electricDischargeAudio, { initialOutputLevel: 1 } );
+    var electricDischargeAudioPlayer = new OneShotSoundClip( electricDischargeAudio, { initialOutputLevel: 0.75 } );
     soundManager.addSoundGenerator( electricDischargeAudioPlayer );
     var chargesInBodyAudioPlayer = new LoopingSoundClip( chargesInBodyAudio, {
       autoDetectLoopBounds: true,
-      initialOutputLevel: 1
+      initialOutputLevel: 0.1
     } );
     soundManager.addSoundGenerator( chargesInBodyAudioPlayer );
     soundManager.addSoundGenerator( new ArmPositionSoundGenerator( model.arm.angleProperty, {
       enableControlProperties: [ resetNotInProgressProperty ],
-      initialOutputLevel: 1
+      initialOutputLevel: 0.2
     } ) );
     this.footDragSoundGenerator = new FootDragSoundGenerator( model.leg.angleProperty, {
       enableControlProperties: [ resetNotInProgressProperty ],
-      initialOutputLevel: 0.8
+      initialOutputLevel: 0.7
     } );
     soundManager.addSoundGenerator( this.footDragSoundGenerator );
     var popSoundGenerator = new PitchedPopGenerator( {
       enableControlProperties: [ resetNotInProgressProperty ],
-      initialOutputLevel: 0.8
+      initialOutputLevel: 1
     } );
     soundManager.addSoundGenerator( popSoundGenerator, { sonificationLevel: 'enhanced' } );
 
