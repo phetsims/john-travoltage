@@ -35,6 +35,7 @@ define( function( require ) {
   var platform = require( 'PHET_CORE/platform' );
   var PlayAreaNode = require( 'SCENERY_PHET/accessibility/nodes/PlayAreaNode' );
   var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
+  var ResetAllSoundGenerator = require( 'TAMBO/sound-generators/ResetAllSoundGenerator' );
   var ScreenView = require( 'JOIST/ScreenView' );
   var Shape = require( 'KITE/Shape' );
   var SoundClip = require( 'TAMBO/sound-generators/SoundClip' );
@@ -48,7 +49,6 @@ define( function( require ) {
   var electricDischargeAudio = require( 'audio!JOHN_TRAVOLTAGE/electric-discharge.mp3' );
   var gazouchAudio = require( 'audio!JOHN_TRAVOLTAGE/gazouch.mp3' );
   var ouchAudio = require( 'audio!JOHN_TRAVOLTAGE/ouch.mp3' );
-  var resetAllAudio = require( 'audio!TAMBO/reset-all.mp3' );
 
   // images
   var arm = require( 'image!JOHN_TRAVOLTAGE/arm.png' );
@@ -143,14 +143,11 @@ define( function( require ) {
     ) );
 
     // reset all button
-    var resetAllAudioPlayer = new SoundClip( resetAllAudio, { initialOutputLevel: 0.7 } );
-    soundManager.addSoundGenerator( resetAllAudioPlayer );
     var resetAllButton = new ResetAllButton( {
       radius: 23,
       right: this.layoutBounds.maxX - 8,
       bottom: this.layoutBounds.maxY - 8,
       listener: function() {
-        resetAllAudioPlayer.play();
         model.reset();
 
         // clear alert content
@@ -158,6 +155,7 @@ define( function( require ) {
       },
       tandem: tandem.createTandem( 'resetAllButton' )
     } );
+    soundManager.addSoundGenerator( new ResetAllSoundGenerator( model.resetInProgressProperty ) );
 
     // a11y - the ResetAllButton is alone in a control panel in this sim
     var controlAreaNode = new ControlAreaNode();
