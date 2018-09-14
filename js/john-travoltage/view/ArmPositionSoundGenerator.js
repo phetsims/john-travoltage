@@ -12,7 +12,7 @@ define( function( require ) {
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
-  var OneShotSoundClip = require( 'TAMBO/sound-generators/OneShotSoundClip' );
+  var SoundClip = require( 'TAMBO/sound-generators/SoundClip' );
   var SoundGenerator = require( 'TAMBO/sound-generators/SoundGenerator' );
 
   // audio
@@ -39,12 +39,12 @@ define( function( require ) {
     SoundGenerator.call( this, options );
 
     var ratchetSounds = [
-      new OneShotSoundClip( armPosition01Audio ),
-      new OneShotSoundClip( armPosition02Audio ),
-      new OneShotSoundClip( armPosition03Audio ),
-      new OneShotSoundClip( armPosition04Audio ),
-      new OneShotSoundClip( armPosition05Audio ),
-      new OneShotSoundClip( armPosition06Audio )
+      new SoundClip( armPosition01Audio ),
+      new SoundClip( armPosition02Audio ),
+      new SoundClip( armPosition03Audio ),
+      new SoundClip( armPosition04Audio ),
+      new SoundClip( armPosition05Audio ),
+      new SoundClip( armPosition06Audio )
     ];
 
     // define a helper function to play a random ratchet sound

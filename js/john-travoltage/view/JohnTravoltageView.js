@@ -29,9 +29,7 @@ define( function( require ) {
   var JohnTravoltageModel = require( 'JOHN_TRAVOLTAGE/john-travoltage/model/JohnTravoltageModel' );
   var JohnTravoltageQueryParameters = require( 'JOHN_TRAVOLTAGE/john-travoltage/JohnTravoltageQueryParameters' );
   var Line = require( 'SCENERY/nodes/Line' );
-  var LoopingSoundClip = require( 'TAMBO/sound-generators/LoopingSoundClip' );
   var Node = require( 'SCENERY/nodes/Node' );
-  var OneShotSoundClip = require( 'TAMBO/sound-generators/OneShotSoundClip' );
   var PitchedPopGenerator = require( 'TAMBO/sound-generators/PitchedPopGenerator' );
   var Path = require( 'SCENERY/nodes/Path' );
   var platform = require( 'PHET_CORE/platform' );
@@ -39,6 +37,7 @@ define( function( require ) {
   var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
   var ScreenView = require( 'JOIST/ScreenView' );
   var Shape = require( 'KITE/Shape' );
+  var SoundClip = require( 'TAMBO/sound-generators/SoundClip' );
   var soundManager = require( 'TAMBO/soundManager' );
   var SparkNode = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/SparkNode' );
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
@@ -144,7 +143,7 @@ define( function( require ) {
     ) );
 
     // reset all button
-    var resetAllAudioPlayer = new OneShotSoundClip( resetAllAudio, { initialOutputLevel: 0.7 } );
+    var resetAllAudioPlayer = new SoundClip( resetAllAudio, { initialOutputLevel: 0.7 } );
     soundManager.addSoundGenerator( resetAllAudioPlayer );
     var resetAllButton = new ResetAllButton( {
       radius: 23,
@@ -260,14 +259,15 @@ define( function( require ) {
     } );
 
     // create and register the sound generators used in this view
-    var ouchAudioPlayer = new OneShotSoundClip( ouchAudio, { initialOutputLevel: 0.7 } );
+    var ouchAudioPlayer = new SoundClip( ouchAudio, { initialOutputLevel: 0.7 } );
     soundManager.addSoundGenerator( ouchAudioPlayer );
-    var gazouchAudioPlayer = new OneShotSoundClip( gazouchAudio, { initialOutputLevel: 0.8 } );
+    var gazouchAudioPlayer = new SoundClip( gazouchAudio, { initialOutputLevel: 0.8 } );
     soundManager.addSoundGenerator( gazouchAudioPlayer );
-    var electricDischargeAudioPlayer = new OneShotSoundClip( electricDischargeAudio, { initialOutputLevel: 0.75 } );
+    var electricDischargeAudioPlayer = new SoundClip( electricDischargeAudio, { initialOutputLevel: 0.75 } );
     soundManager.addSoundGenerator( electricDischargeAudioPlayer );
-    var chargesInBodyAudioPlayer = new LoopingSoundClip( chargesInBodyAudio, {
-      autoDetectLoopBounds: true,
+    var chargesInBodyAudioPlayer = new SoundClip( chargesInBodyAudio, {
+      loop: true,
+      trimSilence: true,
       initialOutputLevel: 0.1
     } );
     soundManager.addSoundGenerator( chargesInBodyAudioPlayer );
@@ -295,7 +295,7 @@ define( function( require ) {
 
         // play the appropriate "ouch" sound based on the level of charge (plays nothing for low charge level)
         var numElectronsInBody = model.electrons.length;
-        if ( numElectronsInBody > 80 ) {
+        if ( numElectronsInBody > 85 ) {
           gazouchAudioPlayer.play( OUCH_EXCLAMATION_DELAY );
         }
         else if ( numElectronsInBody > 30 ) {
@@ -330,7 +330,7 @@ define( function( require ) {
 
         // start loop if necessary
         if ( !chargesInBodyAudioPlayer.isPlaying ) {
-          chargesInBodyAudioPlayer.start();
+          chargesInBodyAudioPlayer.play();
         }
       }
 
