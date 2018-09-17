@@ -45,10 +45,10 @@ define( function( require ) {
   var utteranceQueue = require( 'SCENERY_PHET/accessibility/utteranceQueue' );
 
   // audio
-  var chargesInBodyAudio = require( 'audio!JOHN_TRAVOLTAGE/charges-in-body.mp3' );
-  var electricDischargeAudio = require( 'audio!JOHN_TRAVOLTAGE/electric-discharge.mp3' );
-  var gazouchAudio = require( 'audio!JOHN_TRAVOLTAGE/gazouch.mp3' );
-  var ouchAudio = require( 'audio!JOHN_TRAVOLTAGE/ouch.mp3' );
+  var chargesInBodyAudio = require( 'sound!JOHN_TRAVOLTAGE/charges-in-body.mp3' );
+  var electricDischargeAudio = require( 'sound!JOHN_TRAVOLTAGE/electric-discharge.mp3' );
+  var gazouchAudio = require( 'sound!JOHN_TRAVOLTAGE/gazouch.mp3' );
+  var ouchAudio = require( 'sound!JOHN_TRAVOLTAGE/ouch.mp3' );
 
   // images
   var arm = require( 'image!JOHN_TRAVOLTAGE/arm.png' );
