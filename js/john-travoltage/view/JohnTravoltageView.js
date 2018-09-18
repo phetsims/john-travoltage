@@ -45,10 +45,10 @@ define( function( require ) {
   var utteranceQueue = require( 'SCENERY_PHET/accessibility/utteranceQueue' );
 
   // sounds
-  var chargesInBodyAudio = require( 'sound!JOHN_TRAVOLTAGE/charges-in-body.mp3' );
-  var electricDischargeAudio = require( 'sound!JOHN_TRAVOLTAGE/electric-discharge.mp3' );
-  var gazouchAudio = require( 'sound!JOHN_TRAVOLTAGE/gazouch.mp3' );
-  var ouchAudio = require( 'sound!JOHN_TRAVOLTAGE/ouch.mp3' );
+  var chargesInBodySound = require( 'sound!JOHN_TRAVOLTAGE/charges-in-body.mp3' );
+  var electricDischargeSound = require( 'sound!JOHN_TRAVOLTAGE/electric-discharge.mp3' );
+  var gazouchSound = require( 'sound!JOHN_TRAVOLTAGE/gazouch.mp3' );
+  var ouchSound = require( 'sound!JOHN_TRAVOLTAGE/ouch.mp3' );
 
   // images
   var arm = require( 'image!JOHN_TRAVOLTAGE/arm.png' );
@@ -257,18 +257,18 @@ define( function( require ) {
     } );
 
     // create and register the sound generators used in this view
-    var ouchAudioPlayer = new SoundClip( ouchAudio, { initialOutputLevel: 0.7 } );
-    soundManager.addSoundGenerator( ouchAudioPlayer );
-    var gazouchAudioPlayer = new SoundClip( gazouchAudio, { initialOutputLevel: 0.8 } );
-    soundManager.addSoundGenerator( gazouchAudioPlayer );
-    var electricDischargeAudioPlayer = new SoundClip( electricDischargeAudio, { initialOutputLevel: 0.75 } );
-    soundManager.addSoundGenerator( electricDischargeAudioPlayer );
-    var chargesInBodyAudioPlayer = new SoundClip( chargesInBodyAudio, {
+    var ouchSoundClip = new SoundClip( ouchSound, { initialOutputLevel: 0.7 } );
+    soundManager.addSoundGenerator( ouchSoundClip );
+    var gazouchSoundClip = new SoundClip( gazouchSound, { initialOutputLevel: 0.8 } );
+    soundManager.addSoundGenerator( gazouchSoundClip );
+    var electricDischargeSoundClip = new SoundClip( electricDischargeSound, { initialOutputLevel: 0.75 } );
+    soundManager.addSoundGenerator( electricDischargeSoundClip );
+    var chargesInBodySoundClip = new SoundClip( chargesInBodySound, {
       loop: true,
       trimSilence: true,
       initialOutputLevel: 0.1
     } );
-    soundManager.addSoundGenerator( chargesInBodyAudioPlayer );
+    soundManager.addSoundGenerator( chargesInBodySoundClip );
     soundManager.addSoundGenerator( new ArmPositionSoundGenerator( model.arm.angleProperty, {
       enableControlProperties: [ resetNotInProgressProperty ],
       initialOutputLevel: 0.2
@@ -289,21 +289,21 @@ define( function( require ) {
       if ( sparkVisible ) {
 
         // start the electric discharge sound
-        electricDischargeAudioPlayer.play();
+        electricDischargeSoundClip.play();
 
         // play the appropriate "ouch" sound based on the level of charge (plays nothing for low charge level)
         var numElectronsInBody = model.electrons.length;
         if ( numElectronsInBody > 85 ) {
-          gazouchAudioPlayer.play( OUCH_EXCLAMATION_DELAY );
+          gazouchSoundClip.play( OUCH_EXCLAMATION_DELAY );
         }
         else if ( numElectronsInBody > 30 ) {
-          ouchAudioPlayer.play( OUCH_EXCLAMATION_DELAY );
+          ouchSoundClip.play( OUCH_EXCLAMATION_DELAY );
         }
       }
       else {
 
         // stop the electric discharge sound (if playing)
-        electricDischargeAudioPlayer.stop();
+        electricDischargeSoundClip.stop();
       }
     } );
 
@@ -312,23 +312,23 @@ define( function( require ) {
 
       // update the sound that indicates the amount of charge in the body
       if ( numElectrons === 0 ) {
-        if ( chargesInBodyAudioPlayer.isPlaying ) {
-          chargesInBodyAudioPlayer.stop();
+        if ( chargesInBodySoundClip.isPlaying ) {
+          chargesInBodySoundClip.stop();
         }
       }
       else {
 
         // set the gain based on the number of electrons, this equation was empirically determined
-        chargesInBodyAudioPlayer.setOutputLevel(
+        chargesInBodySoundClip.setOutputLevel(
           0.01 + 0.99 * ( numElectrons / JohnTravoltageModel.MAX_ELECTRONS ) * CHARGES_SOUND_GAIN_FACTOR
         );
 
         // set the playback speed based on the number of electrons, equation empirically determined
-        chargesInBodyAudioPlayer.setPlaybackRate( 1 + 0.25 * ( numElectrons / JohnTravoltageModel.MAX_ELECTRONS ) );
+        chargesInBodySoundClip.setPlaybackRate( 1 + 0.25 * ( numElectrons / JohnTravoltageModel.MAX_ELECTRONS ) );
 
         // start loop if necessary
-        if ( !chargesInBodyAudioPlayer.isPlaying ) {
-          chargesInBodyAudioPlayer.play();
+        if ( !chargesInBodySoundClip.isPlaying ) {
+          chargesInBodySoundClip.play();
         }
       }
 
