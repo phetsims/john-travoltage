@@ -44,7 +44,7 @@ define( function( require ) {
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   var utteranceQueue = require( 'SCENERY_PHET/accessibility/utteranceQueue' );
 
-  // audio
+  // sounds
   var chargesInBodyAudio = require( 'sound!JOHN_TRAVOLTAGE/charges-in-body.mp3' );
   var electricDischargeAudio = require( 'sound!JOHN_TRAVOLTAGE/electric-discharge.mp3' );
   var gazouchAudio = require( 'sound!JOHN_TRAVOLTAGE/gazouch.mp3' );

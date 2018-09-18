@@ -15,7 +15,7 @@ define( function( require ) {
   var SoundClip = require( 'TAMBO/sound-generators/SoundClip' );
   var SoundGenerator = require( 'TAMBO/sound-generators/SoundGenerator' );
 
-  // audio
+  // sounds
   var armPosition01Audio = require( 'sound!JOHN_TRAVOLTAGE/arm-position-001.mp3' );
   var armPosition02Audio = require( 'sound!JOHN_TRAVOLTAGE/arm-position-002.mp3' );
   var armPosition03Audio = require( 'sound!JOHN_TRAVOLTAGE/arm-position-003.mp3' );
