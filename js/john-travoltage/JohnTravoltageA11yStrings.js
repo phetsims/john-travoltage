@@ -177,7 +177,7 @@ define( function( require ) {
       value: 'Hand pointing straight down'
     },
     farthestFromDoorknobLast: {
-      value: 'Farthest from doorknob.'
+      value: 'Farthest from doorknob. Last Stop.'
     },
 
     // what should be read for negative values - VoiceOver will frequently ignore the unicode minus signs and dashes
