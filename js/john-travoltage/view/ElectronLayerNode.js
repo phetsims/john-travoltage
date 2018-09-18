@@ -19,10 +19,14 @@ define( function( require ) {
   var Node = require( 'SCENERY/nodes/Node' );
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   var utteranceQueue = require( 'SCENERY_PHET/accessibility/utteranceQueue' );
+  var Utterance = require( 'SCENERY_PHET/accessibility/Utterance' );
 
   // a11y strings
   var electronsTotalString = JohnTravoltageA11yStrings.electronsTotal.value;
   var electronsTotalAfterDischargeString = JohnTravoltageA11yStrings.electronsTotalAfterDischarge.value;
+
+  // constants
+  var ELECTRON_ALERT_ID = 'ELECTRON_ALERT_ID';
 
   /**
    * @param {JohnTravoltageModel} model
@@ -63,7 +67,9 @@ define( function( require ) {
         } );
       }
 
-      utteranceQueue.addToBack( alertString );
+      // Only provide the electron count at the frequency of this Utterance type, to the user isn't overwhelmed with
+      // alerts
+      utteranceQueue.addToBack( new Utterance( alertString, { typeId: ELECTRON_ALERT_ID } ) );
       priorCharge = currentCharge;
     };
 
