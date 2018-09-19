@@ -6,6 +6,7 @@
  * @author Sam Reid
  * @author Vasily Shakhov (Mlearner)
  * @author Justin Obara
+ * @author John Blanco
  */
 define( function( require ) {
   'use strict';
@@ -39,6 +40,7 @@ define( function( require ) {
   var ScreenView = require( 'JOIST/ScreenView' );
   var Shape = require( 'KITE/Shape' );
   var SoundClip = require( 'TAMBO/sound-generators/SoundClip' );
+  var SoundLevelEnum = require( 'TAMBO/SoundLevelEnum' );
   var soundManager = require( 'TAMBO/soundManager' );
   var SparkNode = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/SparkNode' );
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
@@ -282,7 +284,7 @@ define( function( require ) {
       enableControlProperties: [ resetNotInProgressProperty ],
       initialOutputLevel: 1
     } );
-    soundManager.addSoundGenerator( popSoundGenerator, { sonificationLevel: 'enhanced' } );
+    soundManager.addSoundGenerator( popSoundGenerator, { sonificationLevel: SoundLevelEnum.ENHANCED } );
 
     model.sparkVisibleProperty.link( function( sparkVisible ) {
 
