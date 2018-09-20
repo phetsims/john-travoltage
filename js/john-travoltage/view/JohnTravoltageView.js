@@ -263,7 +263,11 @@ define( function( require ) {
     soundManager.addSoundGenerator( ouchSoundClip );
     var gazouchSoundClip = new SoundClip( gazouchSound, { initialOutputLevel: 0.8 } );
     soundManager.addSoundGenerator( gazouchSoundClip );
-    var electricDischargeSoundClip = new SoundClip( electricDischargeSound, { initialOutputLevel: 0.75 } );
+    var electricDischargeSoundClip = new SoundClip( electricDischargeSound, {
+      loop: true,
+      trimSilence: true,
+      initialOutputLevel: 0.75
+    } );
     soundManager.addSoundGenerator( electricDischargeSoundClip );
     var chargesInBodySoundClip = new SoundClip( chargesInBodySound, {
       loop: true,
