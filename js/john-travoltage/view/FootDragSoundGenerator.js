@@ -42,7 +42,7 @@ define( function( require ) {
     this.noiseGenerator = new NoiseGenerator( {
       noiseType: 'pink',
       centerFrequency: NOISE_CENTER_FREQUENCY,
-      Q: 2,
+      qFactor: 2,
       initialOutputLevel: 0
     } );
 
