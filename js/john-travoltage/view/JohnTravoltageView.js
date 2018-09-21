@@ -288,7 +288,7 @@ define( function( require ) {
     soundManager.addSoundGenerator( this.footDragSoundGenerator );
     var popSoundGenerator = new PitchedPopGenerator( {
       enableControlProperties: [ resetNotInProgressProperty ],
-      initialOutputLevel: 1
+      initialOutputLevel: 0.4
     } );
     soundManager.addSoundGenerator( popSoundGenerator, { sonificationLevel: SoundLevelEnum.ENHANCED } );
 
