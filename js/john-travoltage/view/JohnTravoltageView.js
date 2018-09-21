@@ -157,7 +157,9 @@ define( function( require ) {
       },
       tandem: tandem.createTandem( 'resetAllButton' )
     } );
-    soundManager.addSoundGenerator( new ResetAllSoundGenerator( model.resetInProgressProperty ) );
+    soundManager.addSoundGenerator( new ResetAllSoundGenerator( model.resetInProgressProperty, {
+      initialOutputLevel: 0.7
+    } ) );
 
     // a11y - the ResetAllButton is alone in a control panel in this sim
     var controlAreaNode = new ControlAreaNode();
