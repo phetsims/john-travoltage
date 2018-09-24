@@ -12,7 +12,6 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
   var NoiseGenerator = require( 'TAMBO/sound-generators/NoiseGenerator' );
-  var SoundGenerator = require( 'TAMBO/sound-generators/SoundGenerator' );
 
   // constants
   var MIN_CONTACT_ANGLE = 1.15; // in radians, angle below which the foot is not in contact with the carpet
@@ -36,18 +35,17 @@ define( function( require ) {
   function FootDragSoundGenerator( legAngleProperty, options ) {
 
     var self = this;
-    SoundGenerator.call( this, options );
 
-    // @private {NoiseGenerator} - the noise generator that will serve as the source of the basic dragging sound
-    this.noiseGenerator = new NoiseGenerator( {
-      noiseType: 'pink',
-      centerFrequency: NOISE_CENTER_FREQUENCY,
-      qFactor: 2,
-      initialOutputLevel: 0
-    } );
+    options = _.extend( {
+        noiseType: 'pink',
+        centerFrequency: NOISE_CENTER_FREQUENCY,
+        qFactor: 2,
+        initialOutputLevel: 0
+      },
+      options
+    );
 
-    // connect the noise generator to the output path
-    this.noiseGenerator.connect( this.masterGainNode );
+    NoiseGenerator.call( this, options );
 
     // @private - state variables for keeping track of what the foot is doing
     this.legAngleUpdateTime = null;
@@ -88,20 +86,20 @@ define( function( require ) {
         if ( newMotionState !== self.motionState && self.motionState !== 'still' ) {
 
           // the leg switched directions without stopping in between, so set a timer that will create a gap in the sound
-          self.noiseGenerator.setOutputLevel( 0, NOISE_STOP_TIME_CONSTANT );
+          self.setOutputLevel( 0, NOISE_STOP_TIME_CONSTANT );
           self.soundStartCountdown = MIN_SOUND_GAP;
         }
         else {
           if ( !self.isPlaying ) {
-            self.noiseGenerator.start();
+            self.start();
           }
-          self.noiseGenerator.setOutputLevel( mapVelocityToOutputLevel( self.legAngularVelocity ), NOISE_START_TIME_CONSTANT );
+          self.setOutputLevel( mapVelocityToOutputLevel( self.legAngularVelocity ), NOISE_START_TIME_CONSTANT );
         }
       }
       else {
-        if ( self.noiseGenerator.isPlaying ) {
-          self.noiseGenerator.stop( now + NOISE_OFF_TIME );
-          self.noiseGenerator.setOutputLevel( 0, NOISE_STOP_TIME_CONSTANT );
+        if ( self.isPlaying ) {
+          self.stop( now + NOISE_OFF_TIME );
+          self.setOutputLevel( 0, NOISE_STOP_TIME_CONSTANT );
         }
       }
 
@@ -115,7 +113,7 @@ define( function( require ) {
         frequencyDelta = frequencyDelta * ( 1 - phet.joist.random.nextDouble() / 2 );
 
         // set the filter value that controls whether the forward or backward dragging sound is heard
-        self.noiseGenerator.setBandpassFilterCenterFrequency( NOISE_CENTER_FREQUENCY + frequencyDelta, 0.1 );
+        self.setBandpassFilterCenterFrequency( NOISE_CENTER_FREQUENCY + frequencyDelta, 0.1 );
       }
 
       // update state variable for the timer to use and for next time through this method
@@ -133,7 +131,7 @@ define( function( require ) {
 
   johnTravoltage.register( 'FootDragSoundGenerator', FootDragSoundGenerator );
 
-  return inherit( SoundGenerator, FootDragSoundGenerator, {
+  return inherit( NoiseGenerator, FootDragSoundGenerator, {
 
     /**
      * step function that mostly detects when the leg stops moving and helps create the silence intervals when the foot
@@ -146,7 +144,7 @@ define( function( require ) {
       if ( this.soundStartCountdown > 0 ) {
         this.soundStartCountdown = Math.max( this.soundStartCountdown - dt, 0 );
         if ( this.soundStartCountdown === 0 && this.motionState !== 'still' ) {
-          this.noiseGenerator.setOutputLevel( mapVelocityToOutputLevel( this.legAngularVelocity ), NOISE_START_TIME_CONSTANT );
+          this.setOutputLevel( mapVelocityToOutputLevel( this.legAngularVelocity ), NOISE_START_TIME_CONSTANT );
         }
       }
       else if ( this.audioContext.currentTime - this.legAngleUpdateTime > STILLNESS_TIME &&
@@ -159,11 +157,11 @@ define( function( require ) {
         this.legAngularVelocity = this.legAngularVelocity + angularVelocityChange;
         if ( this.legAngularVelocity === 0 ) {
           this.motionState = 'still';
-          this.noiseGenerator.stop( this.audioContext.currentTime + NOISE_OFF_TIME );
-          this.noiseGenerator.setOutputLevel( 0, NOISE_STOP_TIME_CONSTANT );
+          this.stop( this.audioContext.currentTime + NOISE_OFF_TIME );
+          this.setOutputLevel( 0, NOISE_STOP_TIME_CONSTANT );
         }
         else {
-          this.noiseGenerator.setOutputLevel( mapVelocityToOutputLevel( this.legAngularVelocity ), NOISE_START_TIME_CONSTANT );
+          this.setOutputLevel( mapVelocityToOutputLevel( this.legAngularVelocity ), NOISE_START_TIME_CONSTANT );
         }
       }
     }
