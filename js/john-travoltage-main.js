@@ -46,7 +46,9 @@ define( function( require ) {
               'to convert this simulation to HTML5.'
     },
     accessibility: !platform.mobileSafari, // disable accessibility on mobile Safari until accessibility works on that platform
-    keyboardHelpNode: keyboardHelpContent
+    keyboardHelpNode: keyboardHelpContent,
+    supportsEnhancedSound: true,
+    supportsSound: true
   };
 
   //Create and start the sim
