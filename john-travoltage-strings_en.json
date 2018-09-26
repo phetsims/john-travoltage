@@ -15,6 +15,12 @@
   "tabKey": {
     "value": "Tab"
   },
+  "handOrFoot": {
+    "value": "Hand or Foot"
+  },
+  "moveHandOrFoot": {
+    "value": "Move hand or foot"
+  },
   "hotKeysAndHelp": {
     "value": "Keyboard Shortcuts"
   },

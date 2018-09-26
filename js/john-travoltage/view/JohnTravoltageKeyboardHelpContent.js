@@ -14,14 +14,15 @@ define( function( require ) {
   var HelpContent = require( 'SCENERY_PHET/keyboard/help/HelpContent' );
   var inherit = require( 'PHET_CORE/inherit' );
   var johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
+  var JohnTravoltageA11yStrings = require( 'JOHN_TRAVOLTAGE/john-travoltage/JohnTravoltageA11yStrings' );
   var Text = require( 'SCENERY/nodes/Text' );
 
   // strings
-  // This content is being updated, once we like the look the visible strings should be moved to john-travoltage-a11y
-  // strings, but keeping them here for now to avoid confusion with changes to the strings.json file
-  var handOrFootString = 'Hand or Foot';
-  var moveHandOrFootString = 'Move hand or foot';
-  var moveHandOrFootHelpString = 'Move hand or foot with left and right arrow keys.';
+  var handOrFootString = require( 'string!JOHN_TRAVOLTAGE/handOrFoot' );
+  var moveHandOrFootString = require( 'string!JOHN_TRAVOLTAGE/moveHandOrFoot' );
+
+  // a11y strings, not translatable
+  var moveHandOrFootDescriptionString = JohnTravoltageA11yStrings.moveHandOrFootDescription.value;
 
   /**
    * Constructor.
@@ -39,7 +40,7 @@ define( function( require ) {
         } ),
         icon: HelpContent.leftRightArrowKeysRowIcon( {
           tagName: 'p',
-          innerContent: moveHandOrFootHelpString
+          innerContent: moveHandOrFootDescriptionString
         } )
       }
     ], { a11yContentTagName: null } ); // only one entry in this help content, don't wrap in the default ul
