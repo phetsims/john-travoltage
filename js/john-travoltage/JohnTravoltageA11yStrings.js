@@ -76,6 +76,9 @@ define( function( require ) {
     escapeKeyDescription: {
       value: escapeKeyDescriptionString
     },
+    moveHandOrFootDescription: {
+      value: 'Move hand or foot with left and right arrow keys.'
+    },
 
     // appendage labels
     armSliderLabel: {
