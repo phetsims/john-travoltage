@@ -82,7 +82,7 @@ define( function( require ) {
 
     // @private
     this.model = appendage;
-    this.mouseDragging = false;
+    this.keyboardDragging = false;
     this.keyboardMidPointOffset = options.keyboardMidPointOffset;
     this.rangeMap = rangeMap;
 
@@ -125,7 +125,6 @@ define( function( require ) {
         self.focusable = false;
 
         appendage.borderVisibleProperty.set( false );
-        self.mouseDragging = true;
       },
       drag: function( event ) {
 
@@ -176,7 +175,6 @@ define( function( require ) {
 
       },
       end: function() {
-        self.mouseDragging = false;
 
         // when we are done dragging with the mouse, place back in tab order
         self.focusable = true;
@@ -269,7 +267,11 @@ define( function( require ) {
       },
       startDrag: function() {
 
+        self.keyboardDragging = true;
         appendage.borderVisibleProperty.set( false );
+      },
+      endDrag: function() {
+        self.keyboardDragging = false;
       },
       createAriaValueText: function( sliderValue, oldSliderValue ) {
         return self.getTextFromPosition( sliderValue, oldSliderValue );
@@ -284,8 +286,8 @@ define( function( require ) {
       },
       inverseMap: function( position ) {
 
-        // only update angle if we are not mouse dragging to avoid reentrance
-        if ( !self.mouseDragging ) {
+        // only update angle if we are keyboard dragging to avoid reentrance
+        if ( self.keyboardDragging ) {
           return self.a11yPositionToAngle( position );
         }
         else {
