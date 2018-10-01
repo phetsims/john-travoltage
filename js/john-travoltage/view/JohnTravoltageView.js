@@ -281,10 +281,15 @@ define( function( require ) {
       enableControlProperties: [ resetNotInProgressProperty ],
       initialOutputLevel: 0.2
     } ) );
-    this.footDragSoundGenerator = new FootDragSoundGenerator( model.leg.angleProperty, {
-      enableControlProperties: [ resetNotInProgressProperty ],
-      initialOutputLevel: 0.7
-    } );
+    this.footDragSoundGenerator = new FootDragSoundGenerator(
+      model.leg.angleProperty,
+      JohnTravoltageModel.FOOT_ON_CARPET_MIN_ANGLE,
+      JohnTravoltageModel.FOOT_ON_CARPET_MAX_ANGLE,
+      {
+        enableControlProperties: [ resetNotInProgressProperty ],
+        initialOutputLevel: 0.7
+      }
+    );
     soundManager.addSoundGenerator( this.footDragSoundGenerator );
     var popSoundGenerator = new PitchedPopGenerator( {
       enableControlProperties: [ resetNotInProgressProperty ],

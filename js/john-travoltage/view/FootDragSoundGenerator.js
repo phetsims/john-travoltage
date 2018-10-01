@@ -14,8 +14,6 @@ define( function( require ) {
   var NoiseGenerator = require( 'TAMBO/sound-generators/NoiseGenerator' );
 
   // constants
-  var MIN_CONTACT_ANGLE = 1.15; // in radians, angle below which the foot is not in contact with the carpet
-  var MAX_CONTACT_ANGLE = 2.25; // in radians, angle above which the foot is not in contact with the carpet
   var MAX_DRAG_SOUND_VOLUME = 4; // can be greater than 1 because filtering tends to reduce output a lot
   var VELOCITY_REDUCTION_RATE = 50; // amount per second, empirically determined for best sound
   var STILLNESS_TIME = 0.064; // in seconds, if there are no angle updates for this long, the leg is considered still
@@ -30,9 +28,11 @@ define( function( require ) {
   /**
    * @constructor
    * {Property.<number>} legAngleProperty - angle of leg in radians
+   * {Number} minContactAngle - min angle at which foot motion starts to make sound, in radians
+   * {Number} maxContactAngle - max angle at which foot motion makes sound, in radians
    * {Object} [options]
    */
-  function FootDragSoundGenerator( legAngleProperty, options ) {
+  function FootDragSoundGenerator( legAngleProperty, minContactAngle, maxContactAngle, options ) {
 
     var self = this;
 
@@ -60,7 +60,7 @@ define( function( require ) {
       var now = self.audioContext.currentTime;
 
       // determine whether the foot is on the carpet
-      var footOnCarpet = newLegAngle > MIN_CONTACT_ANGLE && newLegAngle < MAX_CONTACT_ANGLE;
+      var footOnCarpet = newLegAngle > minContactAngle && newLegAngle < maxContactAngle;
 
       // update the angular velocity of the leg and determine the motion state
       var newMotionState = 'still';
@@ -90,6 +90,8 @@ define( function( require ) {
           self.soundStartCountdown = MIN_SOUND_GAP;
         }
         else {
+
+          // the foot is dragging on the carpet, make sure sound is playing
           if ( !self.isPlaying ) {
             self.start();
           }
