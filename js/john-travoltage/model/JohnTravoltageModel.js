@@ -152,8 +152,8 @@ define( function( require ) {
           }
           accumulatedAngle -= accumulatedAngleThreshold;
         }
-        lastAngle = angle;
       }
+      lastAngle = angle;
     } );
 
     // reset angle counting variables when the sim is reset - does not need to be disposed
@@ -361,7 +361,13 @@ define( function( require ) {
     }
   }, {
 
-    // static - max number of electrons that can be inside the body
-    MAX_ELECTRONS: MAX_ELECTRONS
+    // statics
+
+    // max number of electrons that can be inside the body
+    MAX_ELECTRONS: MAX_ELECTRONS,
+
+    // min and max angle where foot is on carpet, in radians
+    FOOT_ON_CARPET_MIN_ANGLE: FOOT_ON_CARPET_MIN_ANGLE,
+    FOOT_ON_CARPET_MAX_ANGLE: FOOT_ON_CARPET_MAX_ANGLE
   } );
 } );
