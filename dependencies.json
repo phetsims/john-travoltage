@@ -1,5 +1,5 @@
 {
-  "comment": "# john-travoltage 1.5.0-rc.1 Tue Sep 25 2018 14:35:18 GMT-0600 (Mountain Daylight Time)",
+  "comment": "# john-travoltage 1.5.0-rc.2 Tue Oct 02 2018 17:39:36 GMT-0600 (Mountain Daylight Time)",
   "assert": {
     "sha": "928741cfc8fe804334d5b35292140314511f8678",
     "branch": "HEAD"
@@ -21,7 +21,7 @@
     "branch": "HEAD"
   },
   "john-travoltage": {
-    "sha": "81c3b843e31e38197b9957e3265755e662a6109e",
+    "sha": "96fd9e33cc48a629cc0c4cbe6fe13f96ff60b32a",
     "branch": "1.5"
   },
   "joist": {
