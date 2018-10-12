@@ -71,7 +71,11 @@ define( function( require ) {
       // alerts. Add a delay time to the utterance so that the assistive technology can finish speaking updates
       // from the aria-valuetext of the AppendageNode. Note that if the delay is too long, there is too much silence
       // between the change in charges and the alert.
-      utteranceQueue.addToBack( new Utterance( alertString, { uniqueGroupId: ELECTRON_ALERT_ID, delayTime: 1000 } ) );
+      utteranceQueue.addToBack( new Utterance( {
+        alert: alertString,
+        uniqueGroupId: ELECTRON_ALERT_ID,
+        delayTime: 1000
+      } ) );
       priorCharge = currentCharge;
     };
 
