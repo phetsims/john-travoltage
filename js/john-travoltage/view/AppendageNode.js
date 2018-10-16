@@ -275,7 +275,8 @@ define( function( require ) {
       },
       createAriaValueText: function( sliderValue, oldSliderValue ) {
         return self.getTextFromPosition( sliderValue, oldSliderValue );
-      }
+      },
+      roundToStepSize: true
     };
 
     // set up a bidirectional Property to handle updates to angle and slider position
@@ -303,7 +304,7 @@ define( function( require ) {
       a11ySliderOptions
     );
 
-    // update the center of the focus highlight when 
+    // update the center of the focus highlight when
     appendage.angleProperty.link( function( angle ) {
       self.focusHighlight.center = self.imageNode.center;
     } );
@@ -362,7 +363,7 @@ define( function( require ) {
     },
 
     /**
-     * Get the mapped a11y position from the current model Property tracking the angle. 
+     * Get the mapped a11y position from the current model Property tracking the angle.
      * @return {number} - integer value
      */
     a11yAngleToPosition: function( angle ) {
@@ -495,13 +496,13 @@ define( function( require ) {
 
     /**
      * Get a description of the appendage that can be used in multiple places, something like
-     * "close to doorknob" or 
+     * "close to doorknob" or
      * "very far from doorknob"
-     * 
+     *
      * @public
      * @static
      * @a11y
-     * 
+     *
      * @param  {number} position - integer location of the appendage, mapped from angle, see AppendageNode.linearFunction
      * @param  {Object} rangeMap - a map that will provide the correct description from the provided input value
      * @return {string} - a lower case string, generally to be inserted into another context

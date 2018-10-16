@@ -30,6 +30,11 @@ define( function( require ) {
   phetioInherit( ObjectIO, 'ElectronIO', ElectronIO, {}, {
     documentation: 'Electron in John\'s body',
 
+    /**
+     * @param {Electron} electron
+     * @returns {Object}
+     * @override
+     */
     toStateObject: function( electron ) {
       assert && assertInstanceOf( electron, phet.johnTravoltage.Electron );
       return {
@@ -39,6 +44,11 @@ define( function( require ) {
       };
     },
 
+    /**
+     * @param {Object} stateObject
+     * @returns {Object}
+     * @override
+     */
     fromStateObject: function( stateObject ) {
       return stateObject;
     },

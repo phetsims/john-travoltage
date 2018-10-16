@@ -69,8 +69,13 @@ define( function( require ) {
 
       // Only provide the electron count at the frequency of this Utterance type, to the user isn't overwhelmed with
       // alerts. Add a delay time to the utterance so that the assistive technology can finish speaking updates
-      // from the aria-valuetext of the AppendageNode
-      utteranceQueue.addToBack( new Utterance( alertString, { typeId: ELECTRON_ALERT_ID, delayTime: 2000 } ) );
+      // from the aria-valuetext of the AppendageNode. Note that if the delay is too long, there is too much silence
+      // between the change in charges and the alert.
+      utteranceQueue.addToBack( new Utterance( {
+        alert: alertString,
+        uniqueGroupId: ELECTRON_ALERT_ID,
+        delayTime: 1000
+      } ) );
       priorCharge = currentCharge;
     };
 
