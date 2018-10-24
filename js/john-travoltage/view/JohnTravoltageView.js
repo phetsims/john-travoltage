@@ -44,7 +44,6 @@ define( function( require ) {
   var soundManager = require( 'TAMBO/soundManager' );
   var SparkNode = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/SparkNode' );
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
-  var utteranceQueue = require( 'SCENERY_PHET/accessibility/utteranceQueue' );
 
   // sounds
   var chargesInBodySound = require( 'sound!JOHN_TRAVOLTAGE/charges-in-body.mp3' );
@@ -151,9 +150,6 @@ define( function( require ) {
       bottom: this.layoutBounds.maxY - 8,
       listener: function() {
         model.reset();
-
-        // clear alert content
-        utteranceQueue.clear();
       },
       tandem: tandem.createTandem( 'resetAllButton' )
     } );
