@@ -12,10 +12,10 @@ define( function( require ) {
   // modules
   var johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
   var ObjectIO = require( 'TANDEM/types/ObjectIO' );
+  var phetioInherit = require( 'TANDEM/phetioInherit' );
 
   // ifphetio
   var assertInstanceOf = require( 'ifphetio!PHET_IO/assertInstanceOf' );
-  var phetioInherit = require( 'ifphetio!PHET_IO/phetioInherit' );
 
   /**
    * @param {JohnTravoltageModel} johnTravoltageModel
