@@ -210,10 +210,10 @@ define( function( require ) {
     };
 
     // @private - angles for each of the appendages that determine limitations to rotation
-    this.angleMotion = {
-      min: appendage instanceof Leg ? Math.PI : appendage.angleProperty.range.min,
-      max: appendage instanceof Leg ? 0 : appendage.angleProperty.range.max
-    };
+    this.angleMotion = new Range(
+      appendage instanceof Leg ? Math.PI : appendage.angleProperty.range.min,
+      appendage instanceof Leg ? 0 : appendage.angleProperty.range.max
+    );
 
     // @private - linear function that will map appendage angle to input value for accessibility, rotation of the arm
     // is inversely mapped to the range of the keyboard input.  The arm has an offset that does not fit in this mapping,
