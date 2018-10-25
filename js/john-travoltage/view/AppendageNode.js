@@ -14,9 +14,9 @@ define( function( require ) {
   // modules
   var AccessibleSlider = require( 'SUN/accessibility/AccessibleSlider' );
   var Appendage = require( 'JOHN_TRAVOLTAGE/john-travoltage/model/Appendage' );
-  var FocusHighlightPath = require( 'SCENERY/accessibility/FocusHighlightPath' );
   var BooleanProperty = require( 'AXON/BooleanProperty' );
   var DynamicProperty = require( 'AXON/DynamicProperty' );
+  var FocusHighlightPath = require( 'SCENERY/accessibility/FocusHighlightPath' );
   var Image = require( 'SCENERY/nodes/Image' );
   var inherit = require( 'PHET_CORE/inherit' );
   var johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );

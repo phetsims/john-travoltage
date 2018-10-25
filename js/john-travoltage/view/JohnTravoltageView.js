@@ -31,8 +31,8 @@ define( function( require ) {
   var JohnTravoltageQueryParameters = require( 'JOHN_TRAVOLTAGE/john-travoltage/JohnTravoltageQueryParameters' );
   var Line = require( 'SCENERY/nodes/Line' );
   var Node = require( 'SCENERY/nodes/Node' );
-  var PitchedPopGenerator = require( 'TAMBO/sound-generators/PitchedPopGenerator' );
   var Path = require( 'SCENERY/nodes/Path' );
+  var PitchedPopGenerator = require( 'TAMBO/sound-generators/PitchedPopGenerator' );
   var platform = require( 'PHET_CORE/platform' );
   var PlayAreaNode = require( 'SCENERY_PHET/accessibility/nodes/PlayAreaNode' );
   var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );

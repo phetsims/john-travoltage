@@ -13,9 +13,11 @@ define( function( require ) {
   var Arm = require( 'JOHN_TRAVOLTAGE/john-travoltage/model/Arm' );
   var BooleanProperty = require( 'AXON/BooleanProperty' );
   var Electron = require( 'JOHN_TRAVOLTAGE/john-travoltage/model/Electron' );
+  var ElectronIO = require( 'JOHN_TRAVOLTAGE/john-travoltage/model/ElectronIO' );
   var Emitter = require( 'AXON/Emitter' );
   var inherit = require( 'PHET_CORE/inherit' );
   var johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
+  var JohnTravoltageModelIO = require( 'JOHN_TRAVOLTAGE/john-travoltage/model/JohnTravoltageModelIO' );
   var Leg = require( 'JOHN_TRAVOLTAGE/john-travoltage/model/Leg' );
   var LineSegment = require( 'JOHN_TRAVOLTAGE/john-travoltage/model/LineSegment' );
   var ObservableArray = require( 'AXON/ObservableArray' );
@@ -23,8 +25,6 @@ define( function( require ) {
   var PhetioObject = require( 'TANDEM/PhetioObject' );
   var Util = require( 'DOT/Util' );
   var Vector2 = require( 'DOT/Vector2' );
-  var ElectronIO = require( 'JOHN_TRAVOLTAGE/john-travoltage/model/ElectronIO' );
-  var JohnTravoltageModelIO = require( 'JOHN_TRAVOLTAGE/john-travoltage/model/JohnTravoltageModelIO' );
 
   // constants
   var MAX_ELECTRONS = 100;
