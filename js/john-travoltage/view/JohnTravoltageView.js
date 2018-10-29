@@ -117,6 +117,9 @@ define( function( require ) {
       } );
     playAreaNode.addChild( this.arm );
 
+    // (a11y) after travolta picks up electrons the first time, this flag will modify descriptions slightly
+    var includeElectronInfo = false;
+
     // Show the dotted lines again when the sim is reset
     model.resetEmitter.addListener( function() {
       if ( !self.leg.dragging ) {
@@ -125,6 +128,8 @@ define( function( require ) {
       if ( !self.arm.dragging ) {
         model.arm.borderVisibleProperty.set( true );
       }
+      
+      includeElectronInfo = false;
     } );
 
     // store the region when the discharge starts
@@ -171,8 +176,6 @@ define( function( require ) {
     } );
     playAreaNode.addChild( electronLayer );
 
-    // after travolta picks up electrons the first time, this flag will modify descriptions slightly
-    var hadElectrons = false;
     var updateDescription = function() {
       var chargeDescription;
       var sceneDescription;
@@ -182,7 +185,7 @@ define( function( require ) {
       var johnDescription = StringUtils.fillIn( screenSummaryJohnPatternString, { position: positionDescription } );
 
       // if there are any charges, a description of the charge will be prepended to the summary
-      if ( hadElectrons ) {
+      if ( includeElectronInfo ) {
         if ( model.electrons.length === 1 ) {
           chargeDescription = electronsDescriptionSingleString;
         }
@@ -207,7 +210,7 @@ define( function( require ) {
     // electrons observable array exists for the lifetime of the sim, so there is no need to remove these listeners
     model.electrons.addItemAddedListener( function() {
       updateDescription();
-      hadElectrons = true;
+      includeElectronInfo = true;
     } );
 
     model.electrons.addItemRemovedListener( function() {
