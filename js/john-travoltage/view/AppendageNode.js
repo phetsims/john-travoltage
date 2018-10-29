@@ -99,6 +99,9 @@ define( function( require ) {
     // descriptions, no need to dispose this listener since appendages exist for life of sim
     this.model.appendageResetEmitter.addListener( function() {
       self.initializePosition( self.model.angleProperty.get() );
+
+      // now reset aria-valuetext (not including change in direction)
+      self.resetAriaValueText();
     } );
 
     // @private add the image
@@ -234,9 +237,13 @@ define( function( require ) {
     // no need to dispose, listener AppendageNodes should exist for life of sim
     this.addAccessibleInputListener( {
       blur: function( event ) {
+
         // on blur, reset flags for another round of interaction and the only description should be the
         // landmark or region
         self.initializePosition( appendage.angleProperty.get() );
+
+        // now reset aria-valuetext (not including change in direction)
+        self.resetAriaValueText();
       }
     } );
 
@@ -322,11 +329,15 @@ define( function( require ) {
      * @public (a11y)
      * @param  {Number} position         the new slider input value
      * @param  {Number} previousPosition the old slider input value
+     * @param  {boolean} [includeDirection] - override about whether or not to include direction information
      * @return {String}                  the generated text for the slider
      */
-    getTextFromPosition: function( position, previousPosition ) {
+    getTextFromPosition: function( position, previousPosition, includeDirection ) {
       var valueDescription;
       var isLeg = this.model instanceof Leg;
+
+      // default, always include direction information
+      includeDirection = includeDirection || true;
 
       // generate descriptions that could be used depending on movement
       var newRegion = AppendageNode.getRegion( position, this.rangeMap.regions );
@@ -337,7 +348,7 @@ define( function( require ) {
         directionDescription = this.getDirectionDescription( position, previousPosition, landmarkDescription, newRegion );
       }
 
-      if ( !isLeg && directionDescription ) {
+      if ( !isLeg && directionDescription && includeDirection ) {
 
         // if we change directions of movement (relative to the doorknob or center of carpet, that gets next priority)
         valueDescription = directionDescription;
@@ -386,6 +397,18 @@ define( function( require ) {
 
       // reset the movement direction so the next interaction will immediately get the direction
       this.movementDirection = null;
+    },
+
+    /**
+     * Reset the aria-valuetext independently of the changing value - useful when setting the value text on blur
+     * or reset. If the AccessibleSlider Property changes after calling this, beware that it will override what is
+     * set here.
+     * 
+     * @private
+     */
+    resetAriaValueText: function() {
+      var sliderValue = this.a11yAngleToPosition( this.model.angleProperty.get() );
+      this.ariaValueText = this.getTextFromPosition( sliderValue, sliderValue );
     },
 
     /**
