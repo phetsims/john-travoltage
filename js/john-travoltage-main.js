@@ -37,12 +37,12 @@ define( function( require ) {
   var simOptions = {
     credits: {
       leadDesign: 'Noah Podolefsky, Carl Wieman, Sam Reid',
-      softwareDevelopment: 'John Blanco, Sam Reid',
-      team: 'Wendy Adams, Jesse Greenberg, Trish Loeblein, Emily Moore, Ashton Morris, Ariel Paul,' +
-            '<br>Kathy Perkins, Taliesin Smith',
-      contributors: 'Jonathan Hung, Justin Obara (Inclusive Design Research Centre)',
+      softwareDevelopment: 'Sam Reid, John Blanco',
+      team: 'Wendy Adams, Jesse Greenberg, Trish Loeblein, Emily Moore, Ariel Paul, Kathy Perkins,<br>Taliesin Smith',
       qualityAssurance: 'Steele Dalton, Bryce Griebenow, Ben Roberts, Oliver Orejola, Katie Woessner',
       graphicArts: 'Mariah Hermsmeyer, Sharon Siman-Tov',
+      soundDesign: 'Ashton Morris, Mike Winters',
+      contributors: 'Jonathan Hung, Justin Obara (Inclusive Design Research Centre)',
       thanks: 'Thanks to Mobile Learner Labs for working with the PhET development team ' +
               'to convert this simulation to HTML5.'
     },
