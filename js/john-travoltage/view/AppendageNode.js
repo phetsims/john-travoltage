@@ -250,24 +250,9 @@ define( function( require ) {
     var a11ySliderOptions = {
       keyboardStep: this.keyboardMotion.step,
       shiftKeyboardStep: this.keyboardMotion.step,
-      // pageKeyboardStep: Util.toFixedNumber( defaultAndShiftKeyboardStep / 2, 7 ),
       pageKeyboardStep: 2,
       constrainValue: function( newValue ) {
         lastAngle = currentAngle;
-
-        // NOTE: This experimental code will wrap the slider so it behaves like a "circular slider". But we don't
-        // want this to be the bahvior in master until we explore its usage more fully. See #267
-        // if ( !( appendage instanceof Leg ) ) {
-        //   if ( lastAngle < testRange.max && lastAngle > testRange.min ) {
-        //     // clamp new angle to the range
-        //     newAngle = Util.clamp( newAngle, testRange.min, testRange.max );
-        //   } else {
-        //     // lastAngle is min or max
-        //     if ( newAngle > testRange.max || newAngle < testRange.min ) {
-        //       newAngle = lastAngle === testRange.min ? testRange.max : testRange.min;
-        //     }
-        //   }
-        // }
 
         currentAngle = self.a11yPositionToAngle( newValue );
         return newValue;
