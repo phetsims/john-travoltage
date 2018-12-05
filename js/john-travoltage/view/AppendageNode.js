@@ -235,7 +235,7 @@ define( function( require ) {
 
     // prevent user from manipulating with both keybaord and mouse at the same time
     // no need to dispose, listener AppendageNodes should exist for life of sim
-    this.addAccessibleInputListener( {
+    this.addInputListener( {
       blur: function( event ) {
 
         // on blur, reset flags for another round of interaction and the only description should be the
