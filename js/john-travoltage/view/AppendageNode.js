@@ -315,7 +315,7 @@ define( function( require ) {
      * @param  {Number} position         the new slider input value
      * @param  {Number} previousPosition the old slider input value
      * @param  {boolean} [includeDirection] - override about whether or not to include direction information
-     * @return {String}                  the generated text for the slider
+     * @returns {String}                  the generated text for the slider
      */
     getTextFromPosition: function( position, previousPosition, includeDirection ) {
       var valueDescription;
@@ -360,7 +360,7 @@ define( function( require ) {
 
     /**
      * Get the mapped a11y position from the current model Property tracking the angle.
-     * @return {number} - integer value
+     * @returns {number} - integer value
      */
     a11yAngleToPosition: function( angle ) {
       return Util.roundSymmetric( this.linearFunction( angle ) );
@@ -368,7 +368,7 @@ define( function( require ) {
 
     /**
      * Get the angle from the a11y position of the slider, converting the integer to some floating angle
-     * @return {number}
+     * @returns {number}
      */
     a11yPositionToAngle: function( position ) {
       return this.linearFunction.inverse( position );
@@ -402,7 +402,7 @@ define( function( require ) {
      *
      * @public
      * @param {number} position - the accesssible input value for this node's accessible contenet
-     * @return {string}
+     * @returns {string}
      */
     getValueWithNegativeString: function( position ) {
       var returnValue = position;
@@ -513,7 +513,7 @@ define( function( require ) {
      *
      * @param  {number} position - integer location of the appendage, mapped from angle, see AppendageNode.linearFunction
      * @param  {Object} rangeMap - a map that will provide the correct description from the provided input value
-     * @return {string} - a lower case string, generally to be inserted into another context
+     * @returns {string} - a lower case string, generally to be inserted into another context
      */
     getPositionDescription: function( position, rangeMap ) {
       var newRegion = AppendageNode.getRegion( Util.roundSymmetric( position ), rangeMap );
@@ -529,7 +529,7 @@ define( function( require ) {
      *
      * @param  {number} position
      * @param  {Object} landmarkMap {value, text}
-     * @return {string}
+     * @returns {string}
      */
     getLandmarkDescription: function( position, landmarkMap ) {
       var message = '';
@@ -551,7 +551,7 @@ define( function( require ) {
      *
      * @param  {number} position
      * @param  {Object} landmarkMap
-     * @return {boolean}
+     * @returns {boolean}
      */
     getLandmarkIncludesDirection: function( position, landmarkMap ) {
       var includeDirection;
@@ -573,7 +573,7 @@ define( function( require ) {
      *
      * @param  {position} position
      * @param  {Object} regionMap
-     * @return {boolean}
+     * @returns {boolean}
      */
     getAddFurtherOnAway: function( position, regionMap ) {
       var includeFartherAway = false;
