@@ -52,7 +52,7 @@ define( function( require ) {
 
     function playRandomRatchetSound( playbackRate ) {
       do {
-        var ratchetSoundIndex = Math.floor( Math.random() * ratchetSounds.length );
+        var ratchetSoundIndex = Math.floor( phet.joist.random.nextDouble() * ratchetSounds.length );
       } while ( ratchetSoundIndex === previousRatchetSoundIndex );
       ratchetSounds[ ratchetSoundIndex ].setPlaybackRate( playbackRate, 1E-30 );
       ratchetSounds[ ratchetSoundIndex ].play();
