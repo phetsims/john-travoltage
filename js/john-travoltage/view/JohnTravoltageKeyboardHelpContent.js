@@ -15,7 +15,6 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
   var JohnTravoltageA11yStrings = require( 'JOHN_TRAVOLTAGE/john-travoltage/JohnTravoltageA11yStrings' );
-  var Text = require( 'SCENERY/nodes/Text' );
 
   // strings
   var handOrFootString = require( 'string!JOHN_TRAVOLTAGE/handOrFoot' );
@@ -33,9 +32,7 @@ define( function( require ) {
 
     // help content specific to john-travoltage, moving the arm and leg
     var appendageHelpContent = new HelpContent( handOrFootString, [
-      HelpContent.labelWithIcon( new Text( moveHandOrFootString, {
-          font: HelpContent.DEFAULT_LABEL_FONT
-        } ),
+      HelpContent.labelWithIcon( moveHandOrFootString,
         HelpContent.leftRightArrowKeysRowIcon( {
           tagName: 'p',
           innerContent: moveHandOrFootDescriptionString
