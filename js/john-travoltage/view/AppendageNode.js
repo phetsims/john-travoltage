@@ -63,6 +63,7 @@ define( function( require ) {
    *                           is used to map a position value to text to use for the valueText of the related slider.
    * @param {Tandem} tandem
    * @param {Object} options
+   * @mixes AccessibleSlider
    * @constructor
    */
   function AppendageNode( appendage, image, dx, dy, angleOffset, rangeMap, tandem, options ) {
