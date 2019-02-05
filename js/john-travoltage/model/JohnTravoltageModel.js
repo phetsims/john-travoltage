@@ -11,7 +11,10 @@ define( function( require ) {
 
   // modules
   var Arm = require( 'JOHN_TRAVOLTAGE/john-travoltage/model/Arm' );
+  var BooleanIO = require( 'TANDEM/types/BooleanIO' );
   var BooleanProperty = require( 'AXON/BooleanProperty' );
+  var DerivedProperty = require( 'AXON/DerivedProperty' );
+  var DerivedPropertyIO = require( 'AXON/DerivedPropertyIO' );
   var Electron = require( 'JOHN_TRAVOLTAGE/john-travoltage/model/Electron' );
   var ElectronIO = require( 'JOHN_TRAVOLTAGE/john-travoltage/model/ElectronIO' );
   var Emitter = require( 'AXON/Emitter' );
@@ -96,11 +99,6 @@ define( function( require ) {
       tandem: tandem.createTandem( 'sparkVisibleProperty' )
     } );
 
-    // true when the foot is being dragged and is in contact with the carpet
-    this.shoeOnCarpetProperty = new BooleanProperty( false, {
-      tandem: tandem.createTandem( 'shoeOnCarpetProperty' )
-    } );
-
     // true when a reset is in progress
     this.resetInProgressProperty = new BooleanProperty( false, {
       tandem: tandem.createTandem( 'resetInProgressProperty' )
@@ -113,6 +111,13 @@ define( function( require ) {
     this.arm = new Arm( tandem.createTandem( 'arm' ) );
     this.leg = new Leg( tandem.createTandem( 'leg' ) );
     this.legAngleAtPreviousStep = this.leg.angleProperty.get();
+
+    // true when the foot is in contact with the carpet
+    this.shoeOnCarpetProperty = new DerivedProperty( [ this.leg.angleProperty ],
+      angle => angle > FOOT_ON_CARPET_MIN_ANGLE && angle < FOOT_ON_CARPET_MAX_ANGLE, {
+        phetioType: DerivedPropertyIO( BooleanIO ),
+        tandem: tandem.createTandem( 'shoeOnCarpetProperty' )
+      } );
 
     // @public - emitters for reset and step events
     this.stepEmitter = new Emitter();
@@ -197,7 +202,6 @@ define( function( require ) {
       this.resetInProgressProperty.set( true );
       this.resetEmitter.emit();
       this.sparkVisibleProperty.reset();
-      this.shoeOnCarpetProperty.reset();
       this.arm.reset();
       this.leg.reset();
       while ( this.electrons.length > 0 ) {
@@ -297,7 +301,6 @@ define( function( require ) {
 
       this.leg.angularVelocityProperty.set( ( this.leg.angleProperty.get() - this.legAngleAtPreviousStep ) / dt );
       this.legAngleAtPreviousStep = this.leg.angleProperty.get();
-      this.shoeOnCarpetProperty.set( ( this.leg.angleProperty.get() > FOOT_ON_CARPET_MIN_ANGLE && this.leg.angleProperty.get() < FOOT_ON_CARPET_MAX_ANGLE ) );
 
       this.stepEmitter.emit();
     },
