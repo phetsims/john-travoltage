@@ -140,7 +140,7 @@ define( function( require ) {
 
         lastAngle = currentAngle;
         var globalPoint = self.imageNode.globalToParentPoint( event.pointer.point );
-        angle = globalPoint.minus( new Vector2( appendage.position.x, appendage.position.y ) ).angle();
+        angle = globalPoint.minus( new Vector2( appendage.position.x, appendage.position.y ) ).angle;
 
         //Limit leg to approximately "half circle" so it cannot spin around, see #63
         if ( appendage instanceof Leg ) {

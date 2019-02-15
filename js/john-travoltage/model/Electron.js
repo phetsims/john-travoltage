@@ -124,7 +124,7 @@ define( function( require ) {
 
         //Send toward the end point on the segment, but with some randomness to make it look more realistic.
         //If the electron moves outside the body, it will be corrected in JohnTravoltageModel.moveElectronInsideBody
-        this.velocity.set( Vector2.createPolar( 200, delta.angle() + ( phet.joist.random.nextDouble() - 0.5 ) ) );
+        this.velocity.set( Vector2.createPolar( 200, delta.angle + ( phet.joist.random.nextDouble() - 0.5 ) ) );
         this.positionProperty.set( this.velocity.timesScalar( dt ).plus( this.positionProperty.get() ) );
       }
     },
