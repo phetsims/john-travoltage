@@ -44,9 +44,9 @@ define( function( require ) {
   armBounds = new DotRectangle( topLeft.x, topLeft.y, bottomRight.x - topLeft.x, bottomRight.y - topLeft.y );
 
   //Precompute and reuse to avoid allocations
-  var a = new Vector2();
-  var b = new Vector2();
-  var dr = new Vector2();
+  var a = new Vector2( 0, 0 );
+  var b = new Vector2( 0, 0 );
+  var dr = new Vector2( 0, 0 );
 
   var debugPosition = false;
 
