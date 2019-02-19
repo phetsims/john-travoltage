@@ -116,7 +116,7 @@ define( function( require ) {
       var delta = target.minus( current );
 
       //Arrived at destination, go to the next segment
-      if ( delta.magnitude() <= 100 * dt ) {
+      if ( delta.magnitude <= 100 * dt ) {
         this.lastSegment = this.segment;
         this.segment = null;
       }

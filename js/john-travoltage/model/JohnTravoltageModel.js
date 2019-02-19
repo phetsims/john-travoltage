@@ -333,7 +333,7 @@ define( function( require ) {
 
       var segment = new LineSegment( 424.0642054574639, 452.28892455858755, 433.3097913322633, 445.5088282504014 );
       var v = segment.vector;
-      var rand = phet.joist.random.nextDouble() * v.magnitude();
+      var rand = phet.joist.random.nextDouble() * v.magnitude;
 
       var point = segment.p0.plus( v.normalized().times( rand ) );
 
