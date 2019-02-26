@@ -13,9 +13,7 @@ define( function( require ) {
   var johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
   var ObjectIO = require( 'TANDEM/types/ObjectIO' );
   var phetioInherit = require( 'TANDEM/phetioInherit' );
-
-  // ifphetio
-  var assertInstanceOf = require( 'ifphetio!PHET_IO/assertInstanceOf' );
+  var validate = require( 'AXON/validate' );
 
   /**
    * @param {Electron} electron
@@ -23,11 +21,11 @@ define( function( require ) {
    * @constructor
    */
   function ElectronIO( electron, phetioID ) {
-    assert && assertInstanceOf( electron, phet.johnTravoltage.Electron );
     ObjectIO.call( this, electron, phetioID );
   }
 
   phetioInherit( ObjectIO, 'ElectronIO', ElectronIO, {}, {
+    validator: { isValidValue: v => v instanceof phet.johnTravoltage.Electron },
     documentation: 'Electron in John\'s body',
 
     /**
@@ -36,7 +34,7 @@ define( function( require ) {
      * @override
      */
     toStateObject: function( electron ) {
-      assert && assertInstanceOf( electron, phet.johnTravoltage.Electron );
+      validate( electron, this.validator );
       return {
         history: electron.history,
         velocityX: electron.velocity.x,
@@ -54,7 +52,7 @@ define( function( require ) {
     },
 
     setValue: function( electron, fromStateObject ) {
-      assert && assertInstanceOf( electron, phet.johnTravoltage.Electron );
+      validate( electron, this.validator );
       assert && assert( fromStateObject.history, 'value should have history' );
       electron.history = fromStateObject.history;
       electron.velocity.x = fromStateObject.velocityX;

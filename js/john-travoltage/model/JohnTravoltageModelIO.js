@@ -13,9 +13,7 @@ define( function( require ) {
   var johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
   var ObjectIO = require( 'TANDEM/types/ObjectIO' );
   var phetioInherit = require( 'TANDEM/phetioInherit' );
-
-  // ifphetio
-  var assertInstanceOf = require( 'ifphetio!PHET_IO/assertInstanceOf' );
+  var validate = require( 'AXON/validate' );
 
   /**
    * @param {JohnTravoltageModel} johnTravoltageModel
@@ -23,14 +21,14 @@ define( function( require ) {
    * @constructor
    */
   function JohnTravoltageModelIO( johnTravoltageModel, phetioID ) {
-    assert && assertInstanceOf( johnTravoltageModel, phet.johnTravoltage.JohnTravoltageModel );
     ObjectIO.call( this, johnTravoltageModel, phetioID );
   }
 
   phetioInherit( ObjectIO, 'JohnTravoltageModelIO', JohnTravoltageModelIO, {}, {
     documentation: 'The model for John Travoltage',
+    validator: { isValidValue: v => v instanceof phet.johnTravoltage.JohnTravoltageModel },
     clearChildInstances: function( johnTravoltageModel ) {
-      assert && assertInstanceOf( johnTravoltageModel, phet.johnTravoltage.JohnTravoltageModel );
+      validate( johnTravoltageModel, this.validator );
       johnTravoltageModel.clearElectrons();
     },
 
@@ -41,7 +39,7 @@ define( function( require ) {
      * @param {Object} electronStateObject
      */
     addChildInstance: function( johnTravoltageModel, tandem, electronStateObject ) {
-      assert && assertInstanceOf( johnTravoltageModel, phet.johnTravoltage.JohnTravoltageModel );
+      validate( johnTravoltageModel, this.validator );
       johnTravoltageModel.addElectron( tandem );
     }
   } );
