@@ -33,7 +33,7 @@ define( function( require ) {
     this.y2 = y2;
 
     // @public (read-only)
-    this.normalVector = new Vector2( this.x2 - this.x1, this.y2 - this.y1 ).perpendicular().normalized();
+    this.normalVector = new Vector2( this.x2 - this.x1, this.y2 - this.y1 ).perpendicular.normalized();
     this.vector = new Vector2( this.x2 - this.x1, this.y2 - this.y1 );
     this.p0 = new Vector2( this.x1, this.y1 );
     this.p1 = new Vector2( this.x2, this.y2 );
@@ -60,6 +60,6 @@ define( function( require ) {
      * 
      * @returns {Vector2}
      */
-    get normal() { return new Vector2( this.x2 - this.x1, this.y2 - this.y1 ).normalized().perpendicular();}
+    get normal() { return new Vector2( this.x2 - this.x1, this.y2 - this.y1 ).normalized().perpendicular; }
   } );
 } );
