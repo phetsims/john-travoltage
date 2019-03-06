@@ -15,12 +15,10 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
   var PhetioObject = require( 'TANDEM/PhetioObject' );
-  var Property = require( 'AXON/Property' );
-  var PropertyIO = require( 'AXON/PropertyIO' );
   var Tandem = require( 'TANDEM/Tandem' );
   var Util = require( 'DOT/Util' );
   var Vector2 = require( 'DOT/Vector2' );
-  var Vector2IO = require( 'DOT/Vector2IO' );
+  var Vector2Property = require( 'DOT/Vector2Property' );
 
   //If this value is 1.0, there is no friction.  The value is what the velocity is multiplied by at every step.
   var frictionFactor = 0.98;
@@ -48,9 +46,8 @@ define( function( require ) {
     var self = this;
     electronCount++;
     this.id = electronCount;
-    this.positionProperty = new Property( new Vector2( x, y ), {
-      tandem: tandem.createTandem( 'positionProperty' ),
-      phetioType: PropertyIO( Vector2IO )
+    this.positionProperty = new Vector2Property( new Vector2( x, y ), {
+      tandem: tandem.createTandem( 'positionProperty' )
     } );
 
     //The velocity an electron has when it comes from the carpet into the leg.
