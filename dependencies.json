@@ -1,5 +1,5 @@
 {
-  "comment": "# john-travoltage 1.4.7-phetio Tue Nov 06 2018 14:05:49 GMT-0700 (MST)",
+  "comment": "# john-travoltage 1.4.7-phetio Fri Mar 08 2019 13:39:30 GMT-0500 (EST)",
   "assert": {
     "sha": "5c3f92048a9c2ffd6df8ede54fd64f1f7a7e4ef2",
     "branch": "HEAD"
@@ -9,8 +9,8 @@
     "branch": "HEAD"
   },
   "brand": {
-    "sha": "c904b097800ac66bee43a37b4d36169a85990b34",
-    "branch": "HEAD"
+    "sha": "8b8589cea89a71c428313bf69d6074740eec5be6",
+    "branch": "john-travoltage-1.4-phetio"
   },
   "chipper": {
     "sha": "f229399e4384f803aa5bbdc92ee523859af8c267",
@@ -21,12 +21,12 @@
     "branch": "HEAD"
   },
   "john-travoltage": {
-    "sha": "79afa7944998a5148c0fe6024d8bbff1a5df1ebd",
+    "sha": "8d85d23596bdc743953393d66710f58535c9ed31",
     "branch": "1.4-phetio"
   },
   "joist": {
-    "sha": "9de68533afa6d52e1efe5d522c70d1c6129cd816",
-    "branch": "HEAD"
+    "sha": "12f6dbace6511e89fe1c6acb7bb764f4f0d7f703",
+    "branch": "john-travoltage-1.4-phetio"
   },
   "kite": {
     "sha": "7d2df183bd47abec3c3f7da477eb9172556f04e8",
