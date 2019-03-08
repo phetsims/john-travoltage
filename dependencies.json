@@ -1,5 +1,5 @@
 {
-  "comment": "# john-travoltage 1.5.2 Tue Jan 22 2019 11:59:42 GMT-0500 (Eastern Standard Time)",
+  "comment": "# john-travoltage 1.5.2 Fri Mar 08 2019 13:40:38 GMT-0500 (EST)",
   "assert": {
     "sha": "928741cfc8fe804334d5b35292140314511f8678",
     "branch": "HEAD"
@@ -9,8 +9,8 @@
     "branch": "HEAD"
   },
   "brand": {
-    "sha": "89d28f6309a83eb51b6c1fc0130e76ad7935f09e",
-    "branch": "HEAD"
+    "sha": "3f5ec50e04484577f3ffdc9868bd4fe3a9985160",
+    "branch": "john-travoltage-1.5"
   },
   "chipper": {
     "sha": "ed169ed354d4dbc2b39ae105c146562b2bb7d97d",
@@ -21,12 +21,12 @@
     "branch": "HEAD"
   },
   "john-travoltage": {
-    "sha": "17a40776d010704e5c42ceb4df0540f2ffec4ec7",
+    "sha": "a7ccdbd3842c15a401e5855fb694b0da2e2ab124",
     "branch": "1.5"
   },
   "joist": {
-    "sha": "3f718cd15934d6e30b0b93204759e7d9579ef5ca",
-    "branch": "HEAD"
+    "sha": "a3f02df0727a975da2fc1c6cde6b64a1e4d854e5",
+    "branch": "john-travoltage-1.5"
   },
   "kite": {
     "sha": "a1257832086a0c271c355d3e9881734ff5c0ef59",
