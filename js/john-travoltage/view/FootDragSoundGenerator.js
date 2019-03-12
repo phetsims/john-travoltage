@@ -17,11 +17,11 @@ define( function( require ) {
   var MAX_DRAG_SOUND_VOLUME = 4; // can be greater than 1 because filtering tends to reduce output a lot
   var VELOCITY_REDUCTION_RATE = 50; // amount per second, empirically determined for best sound
   var STILLNESS_TIME = 0.064; // in seconds, if there are no angle updates for this long, the leg is considered still
-  var NOISE_CENTER_FREQUENCY = 1500; // Hz
-  var DIRECTION_FREQUENCY_DELTA = NOISE_CENTER_FREQUENCY / 4; // max difference for forward vs backward motion of foot
+  var NOISE_CENTER_FREQUENCY = 1300; // Hz
+  var DIRECTION_FREQUENCY_DELTA = NOISE_CENTER_FREQUENCY / 12; // max difference for forward vs backward motion of foot
   var MAX_LEG_ANGULAR_VELOCITY = 10; // in radians/sec, see explanatory note where this is used
   var MIN_SOUND_GAP = 0.05; // in seconds
-  var NOISE_START_RAMP_TIME = 0.2; // in seconds
+  var NOISE_START_RAMP_TIME = 0.05; // in seconds
   var NOISE_STOP_RAMP_TIME = 0.02;
   var NOISE_LEVEL_CHANGE_TIME_CONSTANT = 0.1;
   var NOISE_OFF_TIME = 0.05; // in seconds
@@ -38,7 +38,7 @@ define( function( require ) {
     var self = this;
 
     options = _.extend( {
-        noiseType: 'pink',
+        noiseType: 'brown',
         centerFrequency: NOISE_CENTER_FREQUENCY,
         qFactor: 2,
         initialOutputLevel: 0
