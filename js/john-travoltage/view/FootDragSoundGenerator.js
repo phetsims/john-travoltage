@@ -23,7 +23,7 @@ define( function( require ) {
   var MIN_SOUND_GAP = 0.05; // in seconds
   var NOISE_START_TIME_CONSTANT = 0.2;
   var NOISE_STOP_TIME_CONSTANT = 0.02;
-  var NOISE_OFF_TIME = 0.5; // in seconds
+  var NOISE_OFF_TIME = 0.05; // in seconds
 
   /**
    * @constructor
@@ -50,7 +50,6 @@ define( function( require ) {
     // @private - state variables for keeping track of what the foot is doing
     this.legAngleUpdateTime = null;
     this.legAngularVelocity = 0;
-    this.previousStepTime = 0;
     this.soundStartCountdown = 0;
     this.motionState = 'still'; // valid values are 'still', 'forward', and 'backward'
     var legAngle = null;
@@ -85,7 +84,7 @@ define( function( require ) {
 
         if ( newMotionState !== self.motionState && self.motionState !== 'still' ) {
 
-          // the leg switched directions without stopping in between, so set a timer that will create a gap in the sound
+          // the leg switched directions without stopping in between, so set a countdown that will create a sound gap
           self.setOutputLevel( 0, NOISE_STOP_TIME_CONSTANT );
           self.soundStartCountdown = MIN_SOUND_GAP;
         }
@@ -143,6 +142,7 @@ define( function( require ) {
      */
     step: function( dt ) {
 
+      // check if the countdown used to keep sounds from running together is going
       if ( this.soundStartCountdown > 0 ) {
         this.soundStartCountdown = Math.max( this.soundStartCountdown - dt, 0 );
         if ( this.soundStartCountdown === 0 && this.motionState !== 'still' ) {
