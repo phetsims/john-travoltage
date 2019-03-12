@@ -21,8 +21,9 @@ define( function( require ) {
   var DIRECTION_FREQUENCY_DELTA = NOISE_CENTER_FREQUENCY / 4; // max difference for forward vs backward motion of foot
   var MAX_LEG_ANGULAR_VELOCITY = 10; // in radians/sec, see explanatory note where this is used
   var MIN_SOUND_GAP = 0.05; // in seconds
-  var NOISE_START_TIME_CONSTANT = 0.2;
-  var NOISE_STOP_TIME_CONSTANT = 0.02;
+  var NOISE_START_RAMP_TIME = 0.2; // in seconds
+  var NOISE_STOP_RAMP_TIME = 0.02;
+  var NOISE_LEVEL_CHANGE_TIME_CONSTANT = 0.1;
   var NOISE_OFF_TIME = 0.05; // in seconds
 
   /**
@@ -85,7 +86,7 @@ define( function( require ) {
         if ( newMotionState !== self.motionState && self.motionState !== 'still' ) {
 
           // the leg switched directions without stopping in between, so set a countdown that will create a sound gap
-          self.setOutputLevel( 0, NOISE_STOP_TIME_CONSTANT );
+          self.setOutputLevel( 0, NOISE_STOP_RAMP_TIME );
           self.soundStartCountdown = MIN_SOUND_GAP;
         }
         else {
@@ -94,13 +95,13 @@ define( function( require ) {
           if ( !self.isPlaying ) {
             self.start();
           }
-          self.setOutputLevel( mapVelocityToOutputLevel( self.legAngularVelocity ), NOISE_START_TIME_CONSTANT );
+          self.adjustOutputLevel( mapVelocityToOutputLevel( self.legAngularVelocity ), NOISE_LEVEL_CHANGE_TIME_CONSTANT );
         }
       }
       else {
         if ( self.isPlaying ) {
           self.stop( now + NOISE_OFF_TIME );
-          self.setOutputLevel( 0, NOISE_STOP_TIME_CONSTANT );
+          self.setOutputLevel( 0, NOISE_STOP_RAMP_TIME );
         }
       }
 
@@ -146,7 +147,7 @@ define( function( require ) {
       if ( this.soundStartCountdown > 0 ) {
         this.soundStartCountdown = Math.max( this.soundStartCountdown - dt, 0 );
         if ( this.soundStartCountdown === 0 && this.motionState !== 'still' ) {
-          this.setOutputLevel( mapVelocityToOutputLevel( this.legAngularVelocity ), NOISE_START_TIME_CONSTANT );
+          this.setOutputLevel( mapVelocityToOutputLevel( this.legAngularVelocity ), NOISE_START_RAMP_TIME );
         }
       }
       else if ( this.audioContext.currentTime - this.legAngleUpdateTime > STILLNESS_TIME &&
@@ -160,10 +161,10 @@ define( function( require ) {
         if ( this.legAngularVelocity === 0 ) {
           this.motionState = 'still';
           this.stop( this.audioContext.currentTime + NOISE_OFF_TIME );
-          this.setOutputLevel( 0, NOISE_STOP_TIME_CONSTANT );
+          this.setOutputLevel( 0, NOISE_STOP_RAMP_TIME );
         }
         else {
-          this.setOutputLevel( mapVelocityToOutputLevel( this.legAngularVelocity ), NOISE_START_TIME_CONSTANT );
+          this.setOutputLevel( mapVelocityToOutputLevel( this.legAngularVelocity ), NOISE_START_RAMP_TIME );
         }
       }
     }
