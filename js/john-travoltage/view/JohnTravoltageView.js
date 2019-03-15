@@ -286,7 +286,7 @@ define( function( require ) {
       JohnTravoltageModel.FOOT_ON_CARPET_MAX_ANGLE,
       {
         enableControlProperties: [ resetNotInProgressProperty ],
-        initialOutputLevel: 0.7
+        initialOutputLevel: 0.35
       }
     );
     soundManager.addSoundGenerator( this.footDragSoundGenerator );

@@ -14,7 +14,7 @@ define( function( require ) {
   var NoiseGenerator = require( 'TAMBO/sound-generators/NoiseGenerator' );
 
   // constants
-  var MAX_DRAG_SOUND_VOLUME = 4; // can be greater than 1 because filtering tends to reduce output a lot
+  var MAX_DRAG_SOUND_VOLUME = 2; // can be greater than 1 because filtering tends to reduce output a lot
   var VELOCITY_REDUCTION_RATE = 50; // amount per second, empirically determined for best sound
   var STILLNESS_TIME = 0.064; // in seconds, if there are no angle updates for this long, the leg is considered still
   var NOISE_CENTER_FREQUENCY = 1300; // Hz
