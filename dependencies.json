@@ -1,5 +1,5 @@
 {
-  "comment": "# john-travoltage 1.5.2 Fri Mar 08 2019 13:40:38 GMT-0500 (EST)",
+  "comment": "# john-travoltage 1.5.2 Tue Mar 19 2019 16:55:51 GMT-0400 (EDT)",
   "assert": {
     "sha": "928741cfc8fe804334d5b35292140314511f8678",
     "branch": "HEAD"
@@ -10,23 +10,23 @@
   },
   "brand": {
     "sha": "3f5ec50e04484577f3ffdc9868bd4fe3a9985160",
-    "branch": "john-travoltage-1.5"
+    "branch": "HEAD"
   },
   "chipper": {
-    "sha": "ed169ed354d4dbc2b39ae105c146562b2bb7d97d",
-    "branch": "HEAD"
+    "sha": "8039b1760cc4e869c7edbe086f4e5a44fa8542ae",
+    "branch": "john-travoltage-1.5"
   },
   "dot": {
     "sha": "a6af50817f502d02ca21307926b0567f72c7ce9c",
     "branch": "HEAD"
   },
   "john-travoltage": {
-    "sha": "a7ccdbd3842c15a401e5855fb694b0da2e2ab124",
+    "sha": "b435af9f8c5b9086bb66c2ee06b30de3af729c79",
     "branch": "1.5"
   },
   "joist": {
     "sha": "a3f02df0727a975da2fc1c6cde6b64a1e4d854e5",
-    "branch": "john-travoltage-1.5"
+    "branch": "HEAD"
   },
   "kite": {
     "sha": "a1257832086a0c271c355d3e9881734ff5c0ef59",
@@ -60,6 +60,10 @@
     "sha": "33aef589f2f8a6049772398d1387e19b797e3dce",
     "branch": "HEAD"
   },
+  "phetmarks": {
+    "sha": "feff5e5540d3ececff062b2f3e768de5614d1f44",
+    "branch": "HEAD"
+  },
   "query-string-machine": {
     "sha": "9ae63aab514937ff2119f5844c1da37db0ba49d5",
     "branch": "HEAD"
@@ -91,9 +95,5 @@
   "vibe": {
     "sha": "82f7679d331a73c076ccd7eaa2bf1442fcad89aa",
     "branch": "HEAD"
-  },
-  "phetmarks": {
-    "branch": "master",
-    "sha": "feff5e5540d3ececff062b2f3e768de5614d1f44"
   }
 }
