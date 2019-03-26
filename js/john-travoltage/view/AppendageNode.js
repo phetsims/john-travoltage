@@ -311,7 +311,6 @@ define( function( require ) {
 
     /**
      * Retrieve the accurate text for a11y display based on the slider property values.
-     * TODO: position is not a number!!! It is a formatted string, https://github.com/phetsims/scenery/issues/951
      *
      * @public (a11y)
      * @param  {Number} position         the new slider input value
