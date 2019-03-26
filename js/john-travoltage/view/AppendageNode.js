@@ -266,7 +266,7 @@ define( function( require ) {
       endDrag: function() {
         self.keyboardDragging = false;
       },
-      createAriaValueText: function( sliderValue, oldSliderValue ) {
+      a11yCreateAriaValueText: function( formattedValue, sliderValue, oldSliderValue ) {
         return self.getTextFromPosition( sliderValue, oldSliderValue );
       },
       roundToStepSize: true
