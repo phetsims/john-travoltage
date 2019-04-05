@@ -11,7 +11,7 @@ define( function( require ) {
   // modules
   var GeneralNavigationHelpContent = require( 'SCENERY_PHET/keyboard/help/GeneralNavigationHelpContent' );
   var HBox = require( 'SCENERY/nodes/HBox' );
-  var HelpContent = require( 'SCENERY_PHET/keyboard/help/HelpContent' );
+  var KeyboardHelpSection = require( 'SCENERY_PHET/keyboard/help/KeyboardHelpSection' );
   var inherit = require( 'PHET_CORE/inherit' );
   var johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
   var JohnTravoltageA11yStrings = require( 'JOHN_TRAVOLTAGE/john-travoltage/JohnTravoltageA11yStrings' );
@@ -31,9 +31,9 @@ define( function( require ) {
   function JohnTravoltageKeyboardHelpContent() {
 
     // help content specific to john-travoltage, moving the arm and leg
-    var appendageHelpContent = new HelpContent( handOrFootString, [
-      HelpContent.labelWithIcon( moveHandOrFootString,
-        HelpContent.leftRightArrowKeysRowIcon( {
+    var appendageHelpContent = new KeyboardHelpSection( handOrFootString, [
+      KeyboardHelpSection.labelWithIcon( moveHandOrFootString,
+        KeyboardHelpSection.leftRightArrowKeysRowIcon( {
           tagName: 'p',
           innerContent: moveHandOrFootDescriptionString
         } ) )
