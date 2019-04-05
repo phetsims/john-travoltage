@@ -9,7 +9,7 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var GeneralNavigationHelpContent = require( 'SCENERY_PHET/keyboard/help/GeneralNavigationHelpContent' );
+  var GeneralKeyboardHelpSection = require( 'SCENERY_PHET/keyboard/help/GeneralKeyboardHelpSection' );
   var HBox = require( 'SCENERY/nodes/HBox' );
   var KeyboardHelpSection = require( 'SCENERY_PHET/keyboard/help/KeyboardHelpSection' );
   var inherit = require( 'PHET_CORE/inherit' );
@@ -38,7 +38,7 @@ define( function( require ) {
           innerContent: moveHandOrFootDescriptionString
         } ) )
     ], { a11yContentTagName: null } ); // only one entry in this help content, don't wrap in the default ul
-    var generalNavigationHelpContent = new GeneralNavigationHelpContent();
+    var generalNavigationHelpContent = new GeneralKeyboardHelpSection();
 
     HBox.call( this, {
       children: [ appendageHelpContent, generalNavigationHelpContent ],
