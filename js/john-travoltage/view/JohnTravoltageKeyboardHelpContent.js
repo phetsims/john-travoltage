@@ -30,18 +30,18 @@ define( function( require ) {
    */
   function JohnTravoltageKeyboardHelpContent() {
 
-    // help content specific to john-travoltage, moving the arm and leg
-    var appendageHelpContent = new KeyboardHelpSection( handOrFootString, [
+    // help sections specific to john-travoltage, moving the arm and leg
+    var appendageHelpSection = new KeyboardHelpSection( handOrFootString, [
       KeyboardHelpSection.labelWithIcon( moveHandOrFootString,
         KeyboardHelpSection.leftRightArrowKeysRowIcon( {
           tagName: 'p',
           innerContent: moveHandOrFootDescriptionString
         } ) )
     ], { a11yContentTagName: null } ); // only one entry in this help content, don't wrap in the default ul
-    var generalNavigationHelpContent = new GeneralKeyboardHelpSection();
+    var generalNavigationHelpSection = new GeneralKeyboardHelpSection();
 
     HBox.call( this, {
-      children: [ appendageHelpContent, generalNavigationHelpContent ],
+      children: [ appendageHelpSection, generalNavigationHelpSection ],
       align: 'top',
       spacing: 35
     } );
