@@ -10,10 +10,10 @@ define( require => {
 
   // modules
   const GeneralKeyboardHelpSection = require( 'SCENERY_PHET/keyboard/help/GeneralKeyboardHelpSection' );
-  const HBox = require( 'SCENERY/nodes/HBox' );
   const KeyboardHelpSection = require( 'SCENERY_PHET/keyboard/help/KeyboardHelpSection' );
   const johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
   const JohnTravoltageA11yStrings = require( 'JOHN_TRAVOLTAGE/john-travoltage/JohnTravoltageA11yStrings' );
+  const TwoColumnKeyboardHelpContent = require( 'SCENERY_PHET/keyboard/help/TwoColumnKeyboardHelpContent' );
 
   // strings
   const handOrFootString = require( 'string!JOHN_TRAVOLTAGE/handOrFoot' );
@@ -22,7 +22,7 @@ define( require => {
   // a11y strings, not translatable
   const moveHandOrFootDescriptionString = JohnTravoltageA11yStrings.moveHandOrFootDescription.value;
 
-  class JohnTravoltageKeyboardHelpContent extends HBox {
+  class JohnTravoltageKeyboardHelpContent extends TwoColumnKeyboardHelpContent {
     constructor() {
 
       // help sections specific to john-travoltage, moving the arm and leg
@@ -35,11 +35,7 @@ define( require => {
       ], { a11yContentTagName: null } ); // only one entry in this help content, don't wrap in the default ul
       const generalNavigationHelpSection = new GeneralKeyboardHelpSection();
 
-      super(  {
-        children: [ appendageHelpSection, generalNavigationHelpSection ],
-        align: 'top',
-        spacing: 35
-      } );
+      super( appendageHelpSection, generalNavigationHelpSection );
     }
   }
 
