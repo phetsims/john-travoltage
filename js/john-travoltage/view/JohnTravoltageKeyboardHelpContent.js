@@ -5,49 +5,43 @@
  *
  * @author Jesse Greenberg (PhET Interactive Simulations)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var GeneralKeyboardHelpSection = require( 'SCENERY_PHET/keyboard/help/GeneralKeyboardHelpSection' );
-  var HBox = require( 'SCENERY/nodes/HBox' );
-  var KeyboardHelpSection = require( 'SCENERY_PHET/keyboard/help/KeyboardHelpSection' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
-  var JohnTravoltageA11yStrings = require( 'JOHN_TRAVOLTAGE/john-travoltage/JohnTravoltageA11yStrings' );
+  const GeneralKeyboardHelpSection = require( 'SCENERY_PHET/keyboard/help/GeneralKeyboardHelpSection' );
+  const HBox = require( 'SCENERY/nodes/HBox' );
+  const KeyboardHelpSection = require( 'SCENERY_PHET/keyboard/help/KeyboardHelpSection' );
+  const johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
+  const JohnTravoltageA11yStrings = require( 'JOHN_TRAVOLTAGE/john-travoltage/JohnTravoltageA11yStrings' );
 
   // strings
-  var handOrFootString = require( 'string!JOHN_TRAVOLTAGE/handOrFoot' );
-  var moveHandOrFootString = require( 'string!JOHN_TRAVOLTAGE/moveHandOrFoot' );
+  const handOrFootString = require( 'string!JOHN_TRAVOLTAGE/handOrFoot' );
+  const moveHandOrFootString = require( 'string!JOHN_TRAVOLTAGE/moveHandOrFoot' );
 
   // a11y strings, not translatable
-  var moveHandOrFootDescriptionString = JohnTravoltageA11yStrings.moveHandOrFootDescription.value;
+  const moveHandOrFootDescriptionString = JohnTravoltageA11yStrings.moveHandOrFootDescription.value;
 
-  /**
-   * Constructor.
-   *
-   * @constructor
-   */
-  function JohnTravoltageKeyboardHelpContent() {
+  class JohnTravoltageKeyboardHelpContent extends HBox {
+    constructor() {
 
-    // help sections specific to john-travoltage, moving the arm and leg
-    var appendageHelpSection = new KeyboardHelpSection( handOrFootString, [
-      KeyboardHelpSection.labelWithIcon( moveHandOrFootString,
-        KeyboardHelpSection.leftRightArrowKeysRowIcon( {
-          tagName: 'p',
-          innerContent: moveHandOrFootDescriptionString
-        } ) )
-    ], { a11yContentTagName: null } ); // only one entry in this help content, don't wrap in the default ul
-    var generalNavigationHelpSection = new GeneralKeyboardHelpSection();
+      // help sections specific to john-travoltage, moving the arm and leg
+      const appendageHelpSection = new KeyboardHelpSection( handOrFootString, [
+        KeyboardHelpSection.labelWithIcon( moveHandOrFootString,
+          KeyboardHelpSection.leftRightArrowKeysRowIcon( {
+            tagName: 'p',
+            innerContent: moveHandOrFootDescriptionString
+          } ) )
+      ], { a11yContentTagName: null } ); // only one entry in this help content, don't wrap in the default ul
+      const generalNavigationHelpSection = new GeneralKeyboardHelpSection();
 
-    HBox.call( this, {
-      children: [ appendageHelpSection, generalNavigationHelpSection ],
-      align: 'top',
-      spacing: 35
-    } );
+      super(  {
+        children: [ appendageHelpSection, generalNavigationHelpSection ],
+        align: 'top',
+        spacing: 35
+      } );
+    }
   }
 
-  johnTravoltage.register( 'JohnTravoltageKeyboardHelpContent', JohnTravoltageKeyboardHelpContent );
-
-  return inherit( HBox, JohnTravoltageKeyboardHelpContent );
+  return johnTravoltage.register( 'JohnTravoltageKeyboardHelpContent', JohnTravoltageKeyboardHelpContent );
 } );
