@@ -25,9 +25,6 @@ define( function( require ) {
   var electronsTotalString = JohnTravoltageA11yStrings.electronsTotal.value;
   var electronsTotalAfterDischargeString = JohnTravoltageA11yStrings.electronsTotalAfterDischarge.value;
 
-  // constants
-  var ELECTRON_ALERT_ID = 'ELECTRON_ALERT_ID';
-
   /**
    * @param {JohnTravoltageModel} model
    * @param {AppendageNode} armNode
@@ -39,6 +36,13 @@ define( function( require ) {
     var self = this;
 
     Node.call( this );
+
+    // Add larger delay time is used so that the assistive technology can finish speaking updates
+    // from the aria-valuetext of the AppendageNode. Note that if the delay is too long, there is too much silence
+    // between the change in charges and the alert.
+    const electronUtterance = new Utterance( {
+      alertStableDelay: 1000
+    } );
 
     var priorCharge = 0;
 
@@ -67,15 +71,9 @@ define( function( require ) {
         } );
       }
 
-      // Only provide the electron count at the frequency of this Utterance type, to the user isn't overwhelmed with
-      // alerts. Add a delay time to the utterance so that the assistive technology can finish speaking updates
-      // from the aria-valuetext of the AppendageNode. Note that if the delay is too long, there is too much silence
-      // between the change in charges and the alert.
-      utteranceQueue.addToBack( new Utterance( {
-        alert: alertString,
-        uniqueGroupId: ELECTRON_ALERT_ID,
-        delayTime: 1000
-      } ) );
+      electronUtterance.alert = alertString;
+      utteranceQueue.addToBack( electronUtterance );
+      
       priorCharge = currentCharge;
     };
 
