@@ -279,14 +279,7 @@ define( function( require ) {
         return self.a11yAngleToPosition( angle );
       },
       inverseMap: function( position ) {
-
-        // only update angle if we are keyboard dragging to avoid reentrance
-        if ( self.keyboardDragging ) {
-          return self.a11yPositionToAngle( position );
-        }
-        else {
-          return appendage.angleProperty.value;
-        }
+        return self.a11yPositionToAngle( position );
       }
     } );
 
