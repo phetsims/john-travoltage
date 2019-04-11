@@ -44,8 +44,7 @@ define( function( require ) {
     this.angleProperty = new NumberProperty( this.initialAngle, {
       tandem: tandem.createTandem( 'angleProperty' ),
       units: 'radians',
-      range: options.range,
-      reentrant: true
+      range: options.range
     } );
 
     // @public
