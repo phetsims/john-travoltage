@@ -12,18 +12,19 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
   var NoiseGenerator = require( 'TAMBO/sound-generators/NoiseGenerator' );
+  var Util = require( 'DOT/Util' );
 
   // constants
   var MAX_DRAG_SOUND_VOLUME = 2; // can be greater than 1 because filtering tends to reduce output a lot
   var VELOCITY_REDUCTION_RATE = 50; // amount per second, empirically determined for best sound
   var STILLNESS_TIME = 0.064; // in seconds, if there are no angle updates for this long, the leg is considered still
   var NOISE_CENTER_FREQUENCY = 1300; // Hz
-  var DIRECTION_FREQUENCY_DELTA = NOISE_CENTER_FREQUENCY / 6; // max difference for forward vs backward motion of foot
-  var MAX_LEG_ANGULAR_VELOCITY = 10; // in radians/sec, see explanatory note where this is used
+  var DIRECTION_FREQUENCY_DELTA = NOISE_CENTER_FREQUENCY / 8; // max difference for forward vs backward motion of foot
+  var MAX_LEG_ANGULAR_VELOCITY = 3 * Math.PI; // in radians/sec, see explanatory note where this is used
   var MIN_SOUND_GAP = 0.05; // in seconds
   var NOISE_START_TIME_CONSTANT = 0.01;
-  var NOISE_STOP_TIME_CONSTANT = 0.05;
-  var NOISE_LEVEL_CHANGE_TIME_CONSTANT = 0.02;
+  var NOISE_STOP_TIME_CONSTANT = 0.02;
+  var NOISE_LEVEL_CHANGE_TIME_CONSTANT = 0.1;
   var NOISE_OFF_TIME = 0.05; // in seconds
 
   /**
@@ -70,13 +71,15 @@ define( function( require ) {
         self.legAngularVelocity = 0;
       }
       else if ( self.legAngleUpdateTime !== null ) {
-        self.legAngularVelocity = ( newLegAngle - legAngle ) / ( now - self.legAngleUpdateTime );
 
-        // We can sometimes get updates very close together in time, leading to very high or even infinite angular
-        // velocity values for the leg, so we limit it to an empirically determined max.
-        if ( Math.abs( self.legAngularVelocity ) > MAX_LEG_ANGULAR_VELOCITY ) {
-          self.legAngularVelocity = ( self.legAngularVelocity > 0 ? 1 : -1 ) * MAX_LEG_ANGULAR_VELOCITY;
-        }
+        // set the angular velocity of the leg, but keep it limited to the max allowed value
+        self.legAngularVelocity = Util.clamp(
+          ( newLegAngle - legAngle ) / ( now - self.legAngleUpdateTime ),
+          -MAX_LEG_ANGULAR_VELOCITY,
+          MAX_LEG_ANGULAR_VELOCITY
+        );
+
+        // update the motion state
         newMotionState = self.legAngularVelocity > 0 ? 'backward' : 'forward';
       }
 
@@ -96,19 +99,21 @@ define( function( require ) {
             self.start();
           }
           self.setOutputLevel( mapVelocityToOutputLevel( self.legAngularVelocity ), NOISE_LEVEL_CHANGE_TIME_CONSTANT );
+          var tempVal = mapVelocityToFilterFrequency( self.legAngularVelocity, newMotionState );
+          console.log( 'tempVal = ' + tempVal );
+          self.setBandpassFilterCenterFrequency( tempVal );
         }
       }
       else {
         if ( self.isPlaying ) {
           self.stop( now + NOISE_OFF_TIME );
-          self.setOutputLevel( 0, NOISE_STOP_TIME_CONSTANT );
         }
       }
 
       // set the filter value that controls whether the forward or backward dragging sound is heard
       if ( self.motionState !== newMotionState ) {
 
-        // sat the frequency based on the direction
+        // set the frequency based on the direction
         var frequencyDelta = newMotionState === 'forward' ? DIRECTION_FREQUENCY_DELTA : -DIRECTION_FREQUENCY_DELTA;
 
         // add some randomization to the frequency delta so that back-and-forth motion sounds less repetitive
@@ -129,6 +134,19 @@ define( function( require ) {
   function mapVelocityToOutputLevel( angularVelocityOfLeg ) {
     var multiplier = Math.min( Math.pow( Math.abs( angularVelocityOfLeg ) / MAX_LEG_ANGULAR_VELOCITY, 0.7 ), 1 );
     return MAX_DRAG_SOUND_VOLUME * multiplier;
+  }
+
+  // helper function to convert the angular velocity of the leg to a center frequency values for the noise filter
+  function mapVelocityToFilterFrequency( angularVelocityOfLeg, direction ) {
+    var minFrequency;
+    if ( direction === 'forward' ) {
+      minFrequency = NOISE_CENTER_FREQUENCY - DIRECTION_FREQUENCY_DELTA;
+    }
+    else {
+      minFrequency = NOISE_CENTER_FREQUENCY + DIRECTION_FREQUENCY_DELTA;
+    }
+    var multiplier = Math.abs( angularVelocityOfLeg ) / MAX_LEG_ANGULAR_VELOCITY;
+    return minFrequency + 500 * multiplier;
   }
 
   johnTravoltage.register( 'FootDragSoundGenerator', FootDragSoundGenerator );
