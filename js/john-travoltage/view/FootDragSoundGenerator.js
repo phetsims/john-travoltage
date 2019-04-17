@@ -94,14 +94,19 @@ define( function( require ) {
         }
         else {
 
+          // figure
+
           // the foot is dragging on the carpet, make sure sound is playing
           if ( !self.isPlaying ) {
             self.start();
+            self.setOutputLevel( mapVelocityToOutputLevel( self.legAngularVelocity ), NOISE_START_TIME_CONSTANT );
           }
-          self.setOutputLevel( mapVelocityToOutputLevel( self.legAngularVelocity ), NOISE_LEVEL_CHANGE_TIME_CONSTANT );
-          var tempVal = mapVelocityToFilterFrequency( self.legAngularVelocity, newMotionState );
-          console.log( 'tempVal = ' + tempVal );
-          self.setBandpassFilterCenterFrequency( tempVal );
+          else {
+            self.setOutputLevel( mapVelocityToOutputLevel( self.legAngularVelocity ), NOISE_LEVEL_CHANGE_TIME_CONSTANT );
+          }
+
+          // set the frequency of the drag sound
+          self.setBandpassFilterCenterFrequency( mapVelocityToFilterFrequency( self.legAngularVelocity, newMotionState ) );
         }
       }
       else {
