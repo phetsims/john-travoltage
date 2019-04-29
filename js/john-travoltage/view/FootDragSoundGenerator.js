@@ -124,8 +124,12 @@ define( function( require ) {
         // add some randomization to the frequency delta so that back-and-forth motion sounds less repetitive
         frequencyDelta = frequencyDelta * ( 1 - phet.joist.random.nextDouble() / 2 );
 
+        console.log( '-------------' );
+        console.log( 'self.motionState = ' + self.motionState );
+        console.log( 'newMotionState = ' + newMotionState );
+
         // set the filter value that controls whether the forward or backward dragging sound is heard
-        self.setBandpassFilterCenterFrequency( NOISE_CENTER_FREQUENCY + frequencyDelta, 0.1 );
+        self.setBandpassFilterCenterFrequency( NOISE_CENTER_FREQUENCY + frequencyDelta, 0.01 );
       }
 
       // update state variable for the timer to use and for next time through this method
