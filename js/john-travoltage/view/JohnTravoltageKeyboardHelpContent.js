@@ -35,7 +35,7 @@ define( require => {
       ], { a11yContentTagName: null } ); // only one entry in this help content, don't wrap in the default ul
       const generalNavigationHelpSection = new GeneralKeyboardHelpSection();
 
-      super( appendageHelpSection, generalNavigationHelpSection );
+      super( [ appendageHelpSection ], [ generalNavigationHelpSection ] );
     }
   }
 
