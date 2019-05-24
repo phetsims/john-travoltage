@@ -1,5 +1,5 @@
 {
-  "comment": "# john-travoltage 1.4.9-phetio Wed Apr 24 2019 16:13:51 GMT-0800 (Alaskan Daylight Time)",
+  "comment": "# john-travoltage 1.4.9-phetio Fri May 24 2019 14:53:57 GMT-0600 (Mountain Daylight Time)",
   "assert": {
     "sha": "5c3f92048a9c2ffd6df8ede54fd64f1f7a7e4ef2",
     "branch": "HEAD"
@@ -13,15 +13,15 @@
     "branch": "HEAD"
   },
   "chipper": {
-    "sha": "fefd41e13c6bc018c945f60180d60cd513068900",
-    "branch": "HEAD"
+    "sha": "387cebc95e151b2cad7e42ae734c81dae6e35d52",
+    "branch": "john-travoltage-1.4-phetio"
   },
   "dot": {
     "sha": "6b4ec39c10d667cd64543e59184f0a2fff4fad6e",
     "branch": "HEAD"
   },
   "john-travoltage": {
-    "sha": "139fa7ac4186affbad114ec47ee4c0c0a2dc0f80",
+    "sha": "90df5b6b78da06cedda8a0d780917663cfc105c0",
     "branch": "1.4-phetio"
   },
   "joist": {
@@ -42,18 +42,6 @@
   },
   "phet-io-website": {
     "sha": "c36910eab70224d4c6d352b702a9da6eb57dce18",
-    "branch": "HEAD"
-  },
-  "phet-io-wrapper-classroom-activity": {
-    "sha": "0ea564c9e3729365b19635800259ca936cdd2a22",
-    "branch": "HEAD"
-  },
-  "phet-io-wrapper-lab-book": {
-    "sha": "e8c9f1d9ff94d67bf9e2682a8a591bbf19699f1d",
-    "branch": "HEAD"
-  },
-  "phet-io-wrapper-sonification": {
-    "sha": "91564c0d4fd00899f3f1431a7992b7ab469124bf",
     "branch": "HEAD"
   },
   "phet-io-wrappers": {
