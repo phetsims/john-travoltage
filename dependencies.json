@@ -1,5 +1,5 @@
 {
-  "comment": "# john-travoltage 1.5.4 Fri May 24 2019 14:55:04 GMT-0600 (Mountain Daylight Time)",
+  "comment": "# john-travoltage 1.5.5-rc.1 Tue May 28 2019 01:38:16 GMT-0600 (Mountain Daylight Time)",
   "assert": {
     "sha": "928741cfc8fe804334d5b35292140314511f8678",
     "branch": "HEAD"
@@ -14,14 +14,14 @@
   },
   "chipper": {
     "sha": "8537f333657fcf584de17654bb4cd2940d0c78c5",
-    "branch": "john-travoltage-1.5"
+    "branch": "HEAD"
   },
   "dot": {
     "sha": "a6af50817f502d02ca21307926b0567f72c7ce9c",
     "branch": "HEAD"
   },
   "john-travoltage": {
-    "sha": "f39739ee00e38dd76df8866cdecec582028de249",
+    "sha": "008dce97a40d383c93e52d203b04f1c338d66f96",
     "branch": "1.5"
   },
   "joist": {
