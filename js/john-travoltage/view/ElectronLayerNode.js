@@ -81,7 +81,7 @@ define( function( require ) {
     function electronAddedListener( added ) {
 
       // and the visual representation of the electron
-      var newElectron = new ElectronNode( added, model.leg, model.arm, tandem.createTandem( added.tandem.tail ) );
+      var newElectron = new ElectronNode( added, model.leg, model.arm, tandem.createTandem( added.tandem.name ) );
       self.addChild( newElectron );
 
       // a11y - anounce the state of charges with a status update
