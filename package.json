@@ -11,9 +11,6 @@
   },
   "phet": {
     "requirejsNamespace": "JOHN_TRAVOLTAGE",
-    "phetLibs": [
-      "vibe"
-    ],
     "runnable": true,
     "supportedBrands": [
       "phet",
