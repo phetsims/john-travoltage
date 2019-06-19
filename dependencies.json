@@ -1,5 +1,5 @@
 {
-  "comment": "# john-travoltage 1.5.5 Wed Jun 19 2019 17:44:22 GMT-0400 (Eastern Daylight Time)",
+  "comment": "# john-travoltage 1.5.6-rc.1 Wed Jun 19 2019 18:33:16 GMT-0400 (Eastern Daylight Time)",
   "assert": {
     "sha": "928741cfc8fe804334d5b35292140314511f8678",
     "branch": "HEAD"
@@ -21,7 +21,7 @@
     "branch": "HEAD"
   },
   "john-travoltage": {
-    "sha": "ce71da64a0786a8fe67a30b8255f16fb891061ef",
+    "sha": "62375d8d4ea87ed6450cc1280e3746f1ee23a301",
     "branch": "1.5"
   },
   "joist": {
@@ -58,7 +58,7 @@
   },
   "scenery": {
     "sha": "054337fed313b951a7b961ea37dd3763e075e7a9",
-    "branch": "john-travoltage-1.5"
+    "branch": "HEAD"
   },
   "scenery-phet": {
     "sha": "e14bfb5df5aca71b49335d845f9feddf99a07f4e",
