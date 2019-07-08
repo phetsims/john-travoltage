@@ -1,5 +1,5 @@
 {
-  "comment": "# john-travoltage 1.4.10-phetio Fri Jul 05 2019 15:47:01 GMT-0600 (Mountain Daylight Time)",
+  "comment": "# john-travoltage 1.4.11-phetiorc.1 Mon Jul 08 2019 14:35:37 GMT-0600 (Mountain Daylight Time)",
   "assert": {
     "sha": "5c3f92048a9c2ffd6df8ede54fd64f1f7a7e4ef2",
     "branch": "HEAD"
@@ -21,7 +21,7 @@
     "branch": "HEAD"
   },
   "john-travoltage": {
-    "sha": "502236539a94766ff88fa45514ea7c217f756118",
+    "sha": "f0ebeade7ef6f82cdc64c9793e2416907137f382",
     "branch": "1.4-phetio"
   },
   "joist": {
@@ -50,7 +50,7 @@
   },
   "phetcommon": {
     "sha": "98682fab96659a1a0076dabae32a48903c522e7d",
-    "branch": "john-travoltage-1.4-phetio"
+    "branch": "HEAD"
   },
   "phetmarks": {
     "sha": "4043203e455f544b1f0d4b7ce259c7c5f4e0582c",
