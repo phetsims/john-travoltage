@@ -5,158 +5,133 @@
  *
  * @author John Blanco
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var inherit = require( 'PHET_CORE/inherit' );
-  var johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
-  var NoiseGenerator = require( 'TAMBO/sound-generators/NoiseGenerator' );
-  var Util = require( 'DOT/Util' );
+  const johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
+  const NoiseGenerator = require( 'TAMBO/sound-generators/NoiseGenerator' );
+  const Util = require( 'DOT/Util' );
 
   // constants
-  var MAX_DRAG_SOUND_VOLUME = 2; // can be greater than 1 because filtering tends to reduce output a lot
-  var VELOCITY_REDUCTION_RATE = 50; // amount per second, empirically determined for best sound
-  var STILLNESS_TIME = 0.064; // in seconds, if there are no angle updates for this long, the leg is considered still
-  var NOISE_CENTER_FREQUENCY = 1300; // Hz
-  var DIRECTION_FREQUENCY_DELTA = NOISE_CENTER_FREQUENCY / 8; // max difference for forward vs backward motion of foot
-  var MAX_LEG_ANGULAR_VELOCITY = 3 * Math.PI; // in radians/sec, see explanatory note where this is used
-  var MIN_SOUND_GAP = 0.05; // in seconds
-  var NOISE_START_TIME_CONSTANT = 0.01;
-  var NOISE_STOP_TIME_CONSTANT = 0.02;
-  var NOISE_LEVEL_CHANGE_TIME_CONSTANT = 0.1;
-  var NOISE_OFF_TIME = 0.05; // in seconds
+  const MAX_DRAG_SOUND_VOLUME = 2; // can be greater than 1 because filtering tends to reduce output a lot
+  const VELOCITY_REDUCTION_RATE = 50; // amount per second, empirically determined for best sound
+  const STILLNESS_TIME = 0.064; // in seconds, if there are no angle updates for this long, the leg is considered still
+  const NOISE_CENTER_FREQUENCY = 1300; // Hz
+  const DIRECTION_FREQUENCY_DELTA = NOISE_CENTER_FREQUENCY / 8; // max difference for forward vs backward motion of foot
+  const MAX_LEG_ANGULAR_VELOCITY = 3 * Math.PI; // in radians/sec, see explanatory note where this is used
+  const MIN_SOUND_GAP = 0.05; // in seconds
+  const NOISE_START_TIME_CONSTANT = 0.01;
+  const NOISE_STOP_TIME_CONSTANT = 0.02;
+  const NOISE_LEVEL_CHANGE_TIME_CONSTANT = 0.1;
+  const NOISE_OFF_TIME = 0.05; // in seconds
 
-  /**
-   * @constructor
-   * {Property.<number>} legAngleProperty - angle of leg in radians
-   * {Number} minContactAngle - min angle at which foot motion starts to make sound, in radians
-   * {Number} maxContactAngle - max angle at which foot motion makes sound, in radians
-   * {Object} [options]
-   */
-  function FootDragSoundGenerator( legAngleProperty, minContactAngle, maxContactAngle, options ) {
+  class FootDragSoundGenerator extends NoiseGenerator {
 
-    var self = this;
+    /**
+     * @constructor
+     * {Property.<number>} legAngleProperty - angle of leg in radians
+     * {Number} minContactAngle - min angle at which foot motion starts to make sound, in radians
+     * {Number} maxContactAngle - max angle at which foot motion makes sound, in radians
+     * {Object} [options]
+     */
+    constructor( legAngleProperty, minContactAngle, maxContactAngle, options ) {
+      options = _.extend( {
+          noiseType: 'brown',
+          centerFrequency: NOISE_CENTER_FREQUENCY,
+          qFactor: 2,
+          initialOutputLevel: 0
+        },
+        options
+      );
 
-    options = _.extend( {
-        noiseType: 'brown',
-        centerFrequency: NOISE_CENTER_FREQUENCY,
-        qFactor: 2,
-        initialOutputLevel: 0
-      },
-      options
-    );
+      super( options );
 
-    NoiseGenerator.call( this, options );
+      // @private - state variables for keeping track of what the foot is doing
+      this.legAngleUpdateTime = null;
+      this.legAngularVelocity = 0;
+      this.soundStartCountdown = 0;
+      this.motionState = 'still'; // valid values are 'still', 'forward', and 'backward'
+      let legAngle = null;
 
-    // @private - state variables for keeping track of what the foot is doing
-    this.legAngleUpdateTime = null;
-    this.legAngularVelocity = 0;
-    this.soundStartCountdown = 0;
-    this.motionState = 'still'; // valid values are 'still', 'forward', and 'backward'
-    var legAngle = null;
+      // monitor the leg angle and adjust the noise output accordingly
+      legAngleProperty.link( newLegAngle => {
+        const now = this.audioContext.currentTime;
 
-    // monitor the leg angle and adjust the noise output accordingly
-    legAngleProperty.link( function( newLegAngle ) {
-      var now = self.audioContext.currentTime;
+        // determine whether the foot is on the carpet
+        const footOnCarpet = newLegAngle > minContactAngle && newLegAngle < maxContactAngle;
 
-      // determine whether the foot is on the carpet
-      var footOnCarpet = newLegAngle > minContactAngle && newLegAngle < maxContactAngle;
+        // update the angular velocity of the leg and determine the motion state
+        let newMotionState = 'still';
+        if ( newLegAngle === legAngleProperty.initialValue && !this.fullyEnabledProperty.value ) {
 
-      // update the angular velocity of the leg and determine the motion state
-      var newMotionState = 'still';
-      if ( newLegAngle === legAngleProperty.initialValue && !self.fullyEnabledProperty.get() ) {
-
-        // this case indicates that a reset caused the leg motion, so set the leg velocity to zero
-        self.legAngularVelocity = 0;
-      }
-      else if ( self.legAngleUpdateTime !== null ) {
-
-        // set the angular velocity of the leg, but keep it limited to the max allowed value
-        self.legAngularVelocity = Util.clamp(
-          ( newLegAngle - legAngle ) / ( now - self.legAngleUpdateTime ),
-          -MAX_LEG_ANGULAR_VELOCITY,
-          MAX_LEG_ANGULAR_VELOCITY
-        );
-
-        // update the motion state
-        newMotionState = self.legAngularVelocity > 0 ? 'backward' : 'forward';
-      }
-
-      // update the state of sound generation (on or off)
-      if ( footOnCarpet && newMotionState !== 'still' ) {
-
-        if ( newMotionState !== self.motionState && self.motionState !== 'still' ) {
-
-          // the leg switched directions without stopping in between, so set a countdown that will create a sound gap
-          self.setOutputLevel( 0, NOISE_STOP_TIME_CONSTANT );
-          self.soundStartCountdown = MIN_SOUND_GAP;
+          // this case indicates that a reset caused the leg motion, so set the leg velocity to zero
+          this.legAngularVelocity = 0;
         }
-        else {
+        else if ( this.legAngleUpdateTime !== null ) {
 
-          // figure
+          // set the angular velocity of the leg, but keep it limited to the max allowed value
+          this.legAngularVelocity = Util.clamp(
+            ( newLegAngle - legAngle ) / ( now - this.legAngleUpdateTime ),
+            -MAX_LEG_ANGULAR_VELOCITY,
+            MAX_LEG_ANGULAR_VELOCITY
+          );
 
-          // the foot is dragging on the carpet, make sure sound is playing
-          if ( !self.isPlaying ) {
-            self.start();
-            self.setOutputLevel( mapVelocityToOutputLevel( self.legAngularVelocity ), NOISE_START_TIME_CONSTANT );
+          // update the motion state
+          newMotionState = this.legAngularVelocity > 0 ? 'backward' : 'forward';
+        }
+
+        // update the state of sound generation (on or off)
+        if ( footOnCarpet && newMotionState !== 'still' ) {
+
+          if ( newMotionState !== this.motionState && this.motionState !== 'still' ) {
+
+            // the leg switched directions without stopping in between, so set a countdown that will create a sound gap
+            this.setOutputLevel( 0, NOISE_STOP_TIME_CONSTANT );
+            this.soundStartCountdown = MIN_SOUND_GAP;
           }
           else {
-            self.setOutputLevel( mapVelocityToOutputLevel( self.legAngularVelocity ), NOISE_LEVEL_CHANGE_TIME_CONSTANT );
+
+            // figure
+
+            // the foot is dragging on the carpet, make sure sound is playing
+            if ( !this.isPlaying ) {
+              this.start();
+              this.setOutputLevel( mapVelocityToOutputLevel( this.legAngularVelocity ), NOISE_START_TIME_CONSTANT );
+            }
+            else {
+              this.setOutputLevel( mapVelocityToOutputLevel( this.legAngularVelocity ), NOISE_LEVEL_CHANGE_TIME_CONSTANT );
+            }
+
+            // set the frequency of the drag sound
+            this.setBandpassFilterCenterFrequency( mapVelocityToFilterFrequency( this.legAngularVelocity, newMotionState ) );
           }
-
-          // set the frequency of the drag sound
-          self.setBandpassFilterCenterFrequency( mapVelocityToFilterFrequency( self.legAngularVelocity, newMotionState ) );
         }
-      }
-      else {
-        if ( self.isPlaying ) {
-          self.stop( now + NOISE_OFF_TIME );
+        else {
+          if ( this.isPlaying ) {
+            this.stop( now + NOISE_OFF_TIME );
+          }
         }
-      }
-
-      // set the filter value that controls whether the forward or backward dragging sound is heard
-      if ( self.motionState !== newMotionState ) {
-
-        // set the frequency based on the direction
-        var frequencyDelta = newMotionState === 'forward' ? DIRECTION_FREQUENCY_DELTA : -DIRECTION_FREQUENCY_DELTA;
-
-        // add some randomization to the frequency delta so that back-and-forth motion sounds less repetitive
-        frequencyDelta = frequencyDelta * ( 1 - phet.joist.random.nextDouble() / 2 );
 
         // set the filter value that controls whether the forward or backward dragging sound is heard
-        self.setBandpassFilterCenterFrequency( NOISE_CENTER_FREQUENCY + frequencyDelta, 0.01 );
-      }
+        if ( this.motionState !== newMotionState ) {
 
-      // update state variable for the timer to use and for next time through this method
-      legAngle = newLegAngle;
-      self.legAngleUpdateTime = now;
-      self.motionState = newMotionState;
-    } );
-  }
+          // set the frequency based on the direction
+          let frequencyDelta = newMotionState === 'forward' ? DIRECTION_FREQUENCY_DELTA : -DIRECTION_FREQUENCY_DELTA;
 
-  // helper function to convert the angular velocity of the leg to an output level for the noise generator
-  function mapVelocityToOutputLevel( angularVelocityOfLeg ) {
-    var multiplier = Math.min( Math.pow( Math.abs( angularVelocityOfLeg ) / MAX_LEG_ANGULAR_VELOCITY, 0.7 ), 1 );
-    return MAX_DRAG_SOUND_VOLUME * multiplier;
-  }
+          // add some randomization to the frequency delta so that back-and-forth motion sounds less repetitive
+          frequencyDelta = frequencyDelta * ( 1 - phet.joist.random.nextDouble() / 2 );
 
-  // helper function to convert the angular velocity of the leg to a center frequency values for the noise filter
-  function mapVelocityToFilterFrequency( angularVelocityOfLeg, direction ) {
-    var minFrequency;
-    if ( direction === 'forward' ) {
-      minFrequency = NOISE_CENTER_FREQUENCY - DIRECTION_FREQUENCY_DELTA;
+          // set the filter value that controls whether the forward or backward dragging sound is heard
+          this.setBandpassFilterCenterFrequency( NOISE_CENTER_FREQUENCY + frequencyDelta, 0.01 );
+        }
+
+        // update state variable for the timer to use and for next time through this method
+        legAngle = newLegAngle;
+        this.legAngleUpdateTime = now;
+        this.motionState = newMotionState;
+      } );
     }
-    else {
-      minFrequency = NOISE_CENTER_FREQUENCY + DIRECTION_FREQUENCY_DELTA;
-    }
-    var multiplier = Math.abs( angularVelocityOfLeg ) / MAX_LEG_ANGULAR_VELOCITY;
-    return minFrequency + 500 * multiplier;
-  }
-
-  johnTravoltage.register( 'FootDragSoundGenerator', FootDragSoundGenerator );
-
-  return inherit( NoiseGenerator, FootDragSoundGenerator, {
 
     /**
      * step function that mostly detects when the leg stops moving and helps create the silence intervals when the foot
@@ -164,7 +139,7 @@ define( function( require ) {
      * @param {number} dt - amount of time step, in seconds
      * @public
      */
-    step: function( dt ) {
+    step( dt ) {
 
       // check if the countdown used to keep sounds from running together is going
       if ( this.soundStartCountdown > 0 ) {
@@ -178,7 +153,7 @@ define( function( require ) {
 
         // The leg angle hasn't changed for a bit, so start to reduce the angular velocity, but don't do it all at once
         // since that isn't realistic and tends to cause gaps in the sound.
-        var angularVelocityChange = ( this.legAngularVelocity > 0 ? -1 : 1 ) *
+        const angularVelocityChange = ( this.legAngularVelocity > 0 ? -1 : 1 ) *
                                     Math.min( dt * VELOCITY_REDUCTION_RATE, Math.abs( this.legAngularVelocity ) );
         this.legAngularVelocity = this.legAngularVelocity + angularVelocityChange;
         if ( this.legAngularVelocity === 0 ) {
@@ -192,5 +167,28 @@ define( function( require ) {
       }
     }
 
-  } );
+  }
+
+  // helper function to convert the angular velocity of the leg to an output level for the noise generator
+  function mapVelocityToOutputLevel( angularVelocityOfLeg ) {
+    const multiplier = Math.min( Math.pow( Math.abs( angularVelocityOfLeg ) / MAX_LEG_ANGULAR_VELOCITY, 0.7 ), 1 );
+    return MAX_DRAG_SOUND_VOLUME * multiplier;
+  }
+
+  // helper function to convert the angular velocity of the leg to a center frequency values for the noise filter
+  function mapVelocityToFilterFrequency( angularVelocityOfLeg, direction ) {
+    let minFrequency;
+    if ( direction === 'forward' ) {
+      minFrequency = NOISE_CENTER_FREQUENCY - DIRECTION_FREQUENCY_DELTA;
+    }
+    else {
+      minFrequency = NOISE_CENTER_FREQUENCY + DIRECTION_FREQUENCY_DELTA;
+    }
+    const multiplier = Math.abs( angularVelocityOfLeg ) / MAX_LEG_ANGULAR_VELOCITY;
+    return minFrequency + 500 * multiplier;
+  }
+
+  johnTravoltage.register( 'FootDragSoundGenerator', FootDragSoundGenerator );
+
+  return FootDragSoundGenerator;
 } );
