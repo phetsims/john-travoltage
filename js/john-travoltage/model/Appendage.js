@@ -1,4 +1,4 @@
-// Copyright 2017-2018, University of Colorado Boulder
+// Copyright 2017-2019, University of Colorado Boulder
 
 /**
  * A base type for appedages in this sim. Extended by Arm.js and Leg.js.  Appendages have a pivot point, and an
