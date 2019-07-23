@@ -76,16 +76,15 @@ define( function( require ) {
     var self = this;
     this.model = model;
 
+    var summaryNode = new Node( { tagName: 'p' } );
+
     //The sim works best in most browsers using svg.
     //But in firefox on Win8 it is very slow and buggy, so use canvas on firefox.
     ScreenView.call( this, {
       renderer: platform.firefox ? 'canvas' : null,
       layoutBounds: new Bounds2( 0, 0, 768, 504 ),
       tandem: tandem,
-
-      // a11y - temporary option, should be fully removed once https://github.com/phetsims/scenery-phet/issues/393 is
-      // complete
-      addScreenSummaryNode: true
+      screenSummaryContent: summaryNode
     } );
 
     //add background elements
@@ -93,9 +92,6 @@ define( function( require ) {
 
     //Split layers after background for performance
     this.addChild( new Node( { layerSplit: true, pickable: false } ) );
-
-    var summaryNode = new Node( { tagName: 'p' } );
-    this.screenSummaryNode.addChild( summaryNode );
 
     // everything except the ResetAllButton is contained in this node
     var playAreaNode = new PlayAreaNode();
@@ -128,7 +124,7 @@ define( function( require ) {
       if ( !self.arm.dragging ) {
         model.arm.borderVisibleProperty.set( true );
       }
-      
+
       includeElectronInfo = false;
     } );
 
@@ -255,7 +251,7 @@ define( function( require ) {
     }
 
     // inverse of the resetInProgressProperty, used for muting sounds during reset
-    var resetNotInProgressProperty = new DerivedProperty( [ model.resetInProgressProperty ], function( resetInProgress ) {
+    var resetNotInProgressProperty = new DerivedProperty( [model.resetInProgressProperty], function( resetInProgress ) {
       return !resetInProgress;
     } );
 
@@ -277,7 +273,7 @@ define( function( require ) {
     } );
     soundManager.addSoundGenerator( chargesInBodySoundClip );
     soundManager.addSoundGenerator( new ArmPositionSoundGenerator( model.arm.angleProperty, {
-      enableControlProperties: [ resetNotInProgressProperty ],
+      enableControlProperties: [resetNotInProgressProperty],
       initialOutputLevel: 0.2
     } ) );
     this.footDragSoundGenerator = new FootDragSoundGenerator(
@@ -285,13 +281,13 @@ define( function( require ) {
       JohnTravoltageModel.FOOT_ON_CARPET_MIN_ANGLE,
       JohnTravoltageModel.FOOT_ON_CARPET_MAX_ANGLE,
       {
-        enableControlProperties: [ resetNotInProgressProperty ],
+        enableControlProperties: [resetNotInProgressProperty],
         initialOutputLevel: 0.35
       }
     );
     soundManager.addSoundGenerator( this.footDragSoundGenerator );
     var popSoundGenerator = new PitchedPopGenerator( {
-      enableControlProperties: [ resetNotInProgressProperty ],
+      enableControlProperties: [resetNotInProgressProperty],
       initialOutputLevel: 0.3
     } );
     soundManager.addSoundGenerator( popSoundGenerator, { sonificationLevel: SoundLevelEnum.ENHANCED } );
