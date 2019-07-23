@@ -22,6 +22,7 @@ define( function( require ) {
   var ControlAreaNode = require( 'SCENERY_PHET/accessibility/nodes/ControlAreaNode' );
   var DebugUtils = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/DebugUtils' );
   var DerivedProperty = require( 'AXON/DerivedProperty' );
+  var Emitter = require( 'AXON/Emitter' );
   var ElectronLayerNode = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/ElectronLayerNode' );
   var FootDragSoundGenerator = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/FootDragSoundGenerator' );
   var inherit = require( 'PHET_CORE/inherit' );
@@ -75,6 +76,31 @@ define( function( require ) {
   function JohnTravoltageView( model, tandem ) {
     var self = this;
     this.model = model;
+
+    // Prototype emitters and listeners to assist in prototyping haptics - We need to know when a user is touching the
+    // sim for https://github.com/phetsims/phet-io-wrapper-haptics/issues/5, but these are not instremented for
+    // PhET-iO in scenery. These can be removed once they are instrumented and once prototyping is complete
+    // in john-travoltage.
+    this.touchStartEmitter = new Emitter( {
+      tandem: tandem.createTandem( 'touchStartEmitter' )
+    } );
+    this.touchEndEmitter = new Emitter( {
+      tandem: tandem.createTandem( 'touchEndEmitter' )
+    } );
+
+    this.touchMoveEmitter = new Emitter( {
+      tandem: tandem.createTandem( 'touchMoveEmitter' )
+    } );
+
+    window.addEventListener( 'touchstart', () => {
+      this.touchStartEmitter.emit();
+    } );
+    window.addEventListener( 'touchend', () => {
+      this.touchEndEmitter.emit();
+    } );
+    window.addEventListener( 'touchmove', () => {
+      this.touchMoveEmitter.emit();
+    } );
 
     var summaryNode = new Node( { tagName: 'p' } );
 
