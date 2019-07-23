@@ -1983,6 +1983,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     },
     "johnTravoltage.johnTravoltageScreen.view.touchEndEmitter": {
       "phetioDocumentation": "",
+      "phetioDynamicElement": false,
       "phetioEventType": "model",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -1994,6 +1995,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     },
     "johnTravoltage.johnTravoltageScreen.view.touchMoveEmitter": {
       "phetioDocumentation": "",
+      "phetioDynamicElement": false,
       "phetioEventType": "model",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -2005,6 +2007,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     },
     "johnTravoltage.johnTravoltageScreen.view.touchStartEmitter": {
       "phetioDocumentation": "",
+      "phetioDynamicElement": false,
       "phetioEventType": "model",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
