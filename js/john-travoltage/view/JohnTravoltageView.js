@@ -19,7 +19,6 @@ define( function( require ) {
   var BackgroundNode = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/BackgroundNode' );
   var Bounds2 = require( 'DOT/Bounds2' );
   var Circle = require( 'SCENERY/nodes/Circle' );
-  var ControlAreaNode = require( 'SCENERY_PHET/accessibility/nodes/ControlAreaNode' );
   var DebugUtils = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/DebugUtils' );
   var DerivedProperty = require( 'AXON/DerivedProperty' );
   var Emitter = require( 'AXON/Emitter' );
@@ -35,7 +34,6 @@ define( function( require ) {
   var Path = require( 'SCENERY/nodes/Path' );
   var PitchedPopGenerator = require( 'TAMBO/sound-generators/PitchedPopGenerator' );
   var platform = require( 'PHET_CORE/platform' );
-  var PlayAreaNode = require( 'SCENERY_PHET/accessibility/nodes/PlayAreaNode' );
   var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
   var ResetAllSoundGenerator = require( 'TAMBO/sound-generators/ResetAllSoundGenerator' );
   var ScreenView = require( 'JOIST/ScreenView' );
@@ -119,16 +117,12 @@ define( function( require ) {
     //Split layers after background for performance
     this.addChild( new Node( { layerSplit: true, pickable: false } ) );
 
-    // everything except the ResetAllButton is contained in this node
-    var playAreaNode = new PlayAreaNode();
-    this.addChild( playAreaNode );
-
     // @public (read-only) arm and leg - only interactive elements
     this.leg = new AppendageNode( model.leg, leg, 25, 28, Math.PI / 2 * 0.7, AppendageRangeMaps.legMap,
       tandem.createTandem( 'legNode' ), {
         labelContent: legSliderLabelString
       } );
-    playAreaNode.addChild( this.leg );
+    this.playAreaNode.addChild( this.leg );
 
     // @public (read-only) the keyboardMidPointOffset was manually calculated as a radian offset that will trigger a discharge with the
     // minimum charge level.
@@ -137,7 +131,7 @@ define( function( require ) {
         keyboardMidPointOffset: 0.41,
         labelContent: armSliderLabelString
       } );
-    playAreaNode.addChild( this.arm );
+    this.playAreaNode.addChild( this.arm );
 
     // (a11y) after travolta picks up electrons the first time, this flag will modify descriptions slightly
     var includeElectronInfo = false;
@@ -164,7 +158,7 @@ define( function( require ) {
     } );
 
     // spark
-    playAreaNode.addChild( new SparkNode(
+    this.playAreaNode.addChild( new SparkNode(
       model,
       function( listener ) { model.stepEmitter.addListener( listener ); },
       tandem.createTandem( 'sparkNode' )
@@ -185,9 +179,7 @@ define( function( require ) {
     } ) );
 
     // a11y - the ResetAllButton is alone in a control panel in this sim
-    var controlAreaNode = new ControlAreaNode();
-    controlAreaNode.addChild( resetAllButton );
-    this.addChild( controlAreaNode );
+    this.controlAreaNode.addChild( resetAllButton );
 
     // Use a layer for electrons so it has only one pickable flag, perhaps may improve performance compared to iterating
     // over all electrons to see if they are pickable?
@@ -196,7 +188,7 @@ define( function( require ) {
       layerSplit: true,
       pickable: false
     } );
-    playAreaNode.addChild( electronLayer );
+    this.playAreaNode.addChild( electronLayer );
 
     var updateDescription = function() {
       var chargeDescription;
@@ -246,7 +238,7 @@ define( function( require ) {
     this.leg.model.angleProperty.link( updateDescription );
 
     // the play area is described by the screen view's description sibling through aria-describedby
-    playAreaNode.addAriaDescribedbyAssociation( {
+    this.playAreaNode.addAriaDescribedbyAssociation( {
       thisElementName: AccessiblePeer.PRIMARY_SIBLING,
       otherNode: this,
       otherElementName: AccessiblePeer.DESCRIPTION_SIBLING
@@ -258,12 +250,12 @@ define( function( require ) {
     if ( JohnTravoltageQueryParameters.showDebugInfo ) {
       this.showBody();
 
-      playAreaNode.addChild( new Circle( 10, {
+      this.playAreaNode.addChild( new Circle( 10, {
         x: model.bodyVertices[ 0 ].x,
         y: model.bodyVertices[ 0 ].y,
         fill: 'blue'
       } ) );
-      playAreaNode.addChild( new Circle( 10, { x: 0, y: 0, fill: 'blue' } ) );
+      this.playAreaNode.addChild( new Circle( 10, { x: 0, y: 0, fill: 'blue' } ) );
 
       //Debugging for finger location
       var fingerCircle = new Circle( 10, { fill: 'red' } );
@@ -271,7 +263,7 @@ define( function( require ) {
         fingerCircle.x = model.arm.getFingerPosition().x;
         fingerCircle.y = model.arm.getFingerPosition().y;
       } );
-      playAreaNode.addChild( fingerCircle );
+      this.playAreaNode.addChild( fingerCircle );
 
       DebugUtils.debugLineSegments( this );
     }
