@@ -947,7 +947,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioReadOnly": false,
       "phetioState": true,
       "phetioStudioControl": true,
-      "phetioTypeName": "ObservableArrayIO"
+      "phetioTypeName": "ObservableArrayIO.<ElectronIO>"
     },
     "johnTravoltage.johnTravoltageScreen.model.electrons.lengthProperty": {
       "phetioDocumentation": "",
