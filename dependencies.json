@@ -1,5 +1,5 @@
 {
-  "comment": "# john-travoltage 1.4.12-phetio Mon Aug 19 2019 14:09:22 GMT-0600 (Mountain Daylight Time)",
+  "comment": "# john-travoltage 1.4.13-phetiorc.1 Mon Aug 19 2019 17:15:44 GMT-0600 (Mountain Daylight Time)",
   "assert": {
     "sha": "5c3f92048a9c2ffd6df8ede54fd64f1f7a7e4ef2",
     "branch": "HEAD"
@@ -21,12 +21,12 @@
     "branch": "HEAD"
   },
   "john-travoltage": {
-    "sha": "2828a51f3d2b3afcdf2c69f30a2419c0cf11494c",
+    "sha": "b1ff77b976fa9b75d770e9802359b0c3aa928ef2",
     "branch": "1.4-phetio"
   },
   "joist": {
     "sha": "14555df2a48b9a0335882b2a1b290e2c4daf2849",
-    "branch": "john-travoltage-1.4-phetio"
+    "branch": "HEAD"
   },
   "kite": {
     "sha": "7d2df183bd47abec3c3f7da477eb9172556f04e8",
@@ -66,7 +66,7 @@
   },
   "scenery-phet": {
     "sha": "c79d2376b58e3270c3092b30865f178002c0b25e",
-    "branch": "john-travoltage-1.4-phetio"
+    "branch": "HEAD"
   },
   "sherpa": {
     "sha": "0e326d542b93f5cf3eea2b175d195c18b9bdfb6e",
