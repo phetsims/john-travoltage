@@ -122,7 +122,7 @@ define( function( require ) {
       tandem.createTandem( 'legNode' ), {
         labelContent: legSliderLabelString
       } );
-    this.playAreaNode.addChild( this.leg );
+    this.addChild( this.leg );
 
     // @public (read-only) the keyboardMidPointOffset was manually calculated as a radian offset that will trigger a discharge with the
     // minimum charge level.
@@ -131,7 +131,7 @@ define( function( require ) {
         keyboardMidPointOffset: 0.41,
         labelContent: armSliderLabelString
       } );
-    this.playAreaNode.addChild( this.arm );
+    this.addChild( this.arm );
 
     // (a11y) after travolta picks up electrons the first time, this flag will modify descriptions slightly
     var includeElectronInfo = false;
@@ -158,11 +158,12 @@ define( function( require ) {
     } );
 
     // spark
-    this.playAreaNode.addChild( new SparkNode(
+    const sparkNode = new SparkNode(
       model,
       function( listener ) { model.stepEmitter.addListener( listener ); },
       tandem.createTandem( 'sparkNode' )
-    ) );
+    );
+    this.addChild( sparkNode );
 
     // reset all button
     var resetAllButton = new ResetAllButton( {
@@ -179,7 +180,7 @@ define( function( require ) {
     } ) );
 
     // a11y - the ResetAllButton is alone in a control panel in this sim
-    this.controlAreaNode.addChild( resetAllButton );
+    this.addChild( resetAllButton );
 
     // Use a layer for electrons so it has only one pickable flag, perhaps may improve performance compared to iterating
     // over all electrons to see if they are pickable?
@@ -188,7 +189,7 @@ define( function( require ) {
       layerSplit: true,
       pickable: false
     } );
-    this.playAreaNode.addChild( electronLayer );
+    this.addChild( electronLayer );
 
     var updateDescription = function() {
       var chargeDescription;
@@ -250,12 +251,12 @@ define( function( require ) {
     if ( JohnTravoltageQueryParameters.showDebugInfo ) {
       this.showBody();
 
-      this.playAreaNode.addChild( new Circle( 10, {
+      this.addChild( new Circle( 10, {
         x: model.bodyVertices[ 0 ].x,
         y: model.bodyVertices[ 0 ].y,
         fill: 'blue'
       } ) );
-      this.playAreaNode.addChild( new Circle( 10, { x: 0, y: 0, fill: 'blue' } ) );
+      this.addChild( new Circle( 10, { x: 0, y: 0, fill: 'blue' } ) );
 
       //Debugging for finger location
       var fingerCircle = new Circle( 10, { fill: 'red' } );
@@ -263,13 +264,13 @@ define( function( require ) {
         fingerCircle.x = model.arm.getFingerPosition().x;
         fingerCircle.y = model.arm.getFingerPosition().y;
       } );
-      this.playAreaNode.addChild( fingerCircle );
+      this.addChild( fingerCircle );
 
       DebugUtils.debugLineSegments( this );
     }
 
     // inverse of the resetInProgressProperty, used for muting sounds during reset
-    var resetNotInProgressProperty = new DerivedProperty( [model.resetInProgressProperty], function( resetInProgress ) {
+    var resetNotInProgressProperty = new DerivedProperty( [ model.resetInProgressProperty ], function( resetInProgress ) {
       return !resetInProgress;
     } );
 
@@ -291,7 +292,7 @@ define( function( require ) {
     } );
     soundManager.addSoundGenerator( chargesInBodySoundClip );
     soundManager.addSoundGenerator( new ArmPositionSoundGenerator( model.arm.angleProperty, {
-      enableControlProperties: [resetNotInProgressProperty],
+      enableControlProperties: [ resetNotInProgressProperty ],
       initialOutputLevel: 0.2
     } ) );
     this.footDragSoundGenerator = new FootDragSoundGenerator(
@@ -299,13 +300,13 @@ define( function( require ) {
       JohnTravoltageModel.FOOT_ON_CARPET_MIN_ANGLE,
       JohnTravoltageModel.FOOT_ON_CARPET_MAX_ANGLE,
       {
-        enableControlProperties: [resetNotInProgressProperty],
+        enableControlProperties: [ resetNotInProgressProperty ],
         initialOutputLevel: 0.35
       }
     );
     soundManager.addSoundGenerator( this.footDragSoundGenerator );
     var popSoundGenerator = new PitchedPopGenerator( {
-      enableControlProperties: [resetNotInProgressProperty],
+      enableControlProperties: [ resetNotInProgressProperty ],
       initialOutputLevel: 0.3
     } );
     soundManager.addSoundGenerator( popSoundGenerator, { sonificationLevel: SoundLevelEnum.ENHANCED } );
@@ -361,6 +362,17 @@ define( function( require ) {
       // play a pop each time the number of electrons changes
       popSoundGenerator.playPop( numElectrons / JohnTravoltageModel.MAX_ELECTRONS );
     } );
+
+    // accessibleOrder
+    this.playAreaNode.accessibleOrder = [
+      this.leg,
+      this.arm,
+      sparkNode,
+      electronLayer
+    ];
+    this.controlAreaNode.accessibleOrder = [
+      resetAllButton
+    ];
   }
 
   johnTravoltage.register( 'JohnTravoltageView', JohnTravoltageView );
