@@ -39,7 +39,8 @@ define( function( require ) {
 
     options = _.extend( {
       tandem: Tandem.required,
-      phetioType: ElectronIO
+      phetioType: ElectronIO,
+      phetioDynamicElement: true
     }, options );
     PhetioObject.call( this, options );
     var tandem = options.tandem;

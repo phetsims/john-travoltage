@@ -492,13 +492,64 @@ window.phet.phetio.phetioTypes = assert &&
       "supertype": "ParametricTypeImplIO.<StringIO, StringIO, VoidIO>",
       "typeName": "FunctionIO.(StringIO,StringIO)=>VoidIO"
     },
-    "JohnTravoltageModelIO": {
-      "documentation": "The model for John Travoltage",
+    "FunctionIO.(Vector2IO)=>VoidIO": {
+      "documentation": "Wrapper for the built-in JS function type.<br><strong>Arguments:</strong> Vector2IO<br><strong>Return Type:</strong> VoidIO",
       "events": [],
       "methodOrder": [],
       "methods": {},
-      "supertype": "ObjectIO",
-      "typeName": "JohnTravoltageModelIO"
+      "parameterTypes": [
+        "Vector2IO",
+        "VoidIO"
+      ],
+      "supertype": "ParametricTypeImplIO.<Vector2IO, VoidIO>",
+      "typeName": "FunctionIO.(Vector2IO)=>VoidIO"
+    },
+    "FunctionIO.(Vector2IO,NullableIO.<Vector2IO>)=>VoidIO": {
+      "documentation": "Wrapper for the built-in JS function type.<br><strong>Arguments:</strong> Vector2IO, NullableIO.<Vector2IO><br><strong>Return Type:</strong> VoidIO",
+      "events": [],
+      "methodOrder": [],
+      "methods": {},
+      "parameterTypes": [
+        "Vector2IO",
+        "NullableIO.<Vector2IO>",
+        "VoidIO"
+      ],
+      "supertype": "ParametricTypeImplIO.<Vector2IO, NullableIO.<Vector2IO>, VoidIO>",
+      "typeName": "FunctionIO.(Vector2IO,NullableIO.<Vector2IO>)=>VoidIO"
+    },
+    "GroupIO.<ElectronIO>": {
+      "documentation": "An array that sends notifications when its values have changed.",
+      "events": [
+        "itemAdded",
+        "itemRemoved"
+      ],
+      "methodOrder": [],
+      "methods": {
+        "addItemAddedListener": {
+          "documentation": "Add a listener that is called when an item is added to the observable array.",
+          "parameterTypes": [
+            "FunctionIO.(ElectronIO)=>VoidIO"
+          ],
+          "returnType": "VoidIO"
+        },
+        "addItemRemovedListener": {
+          "documentation": "Add a listener that is called when an item is removed from the observable array.",
+          "parameterTypes": [
+            "FunctionIO.(ElectronIO)=>VoidIO"
+          ],
+          "returnType": "VoidIO"
+        },
+        "getLength": {
+          "documentation": "Get the number of elements in the observable array",
+          "parameterTypes": [],
+          "returnType": "NumberIO"
+        }
+      },
+      "parameterTypes": [
+        "ElectronIO"
+      ],
+      "supertype": "ParametricTypeImplIO.<ElectronIO>",
+      "typeName": "GroupIO.<ElectronIO>"
     },
     "NodeIO": {
       "documentation": "The base type for graphical and potentially interactive objects.  NodeIO has nested PropertyIO values for visibility, pickability and opacity.<br><br>Pickable can take one of three values:<br><ul><li>null: pass-through behavior. Nodes with input listeners are pickable, but nodes without input listeners won't block events for nodes behind it.</li><li>false: The node cannot be interacted with, and it blocks events for nodes behind it.</li><li>true: The node can be interacted with (if it has an input listener).</li></ul>For more about Scenery node pickability, please see <a href=\"http://phetsims.github.io/scenery/doc/implementation-notes#pickability\">http://phetsims.github.io/scenery/doc/implementation-notes#pickability</a>",
@@ -585,6 +636,17 @@ window.phet.phetio.phetioTypes = assert &&
       "supertype": "ParametricTypeImplIO.<StringIO>",
       "typeName": "NullableIO.<StringIO>"
     },
+    "NullableIO.<Vector2IO>": {
+      "documentation": "A wrapper to wrap another IOType, adding support for null.",
+      "events": [],
+      "methodOrder": [],
+      "methods": {},
+      "parameterTypes": [
+        "Vector2IO"
+      ],
+      "supertype": "ParametricTypeImplIO.<Vector2IO>",
+      "typeName": "NullableIO.<Vector2IO>"
+    },
     "NumberIO": {
       "documentation": "Wrapper for the built-in JS number type (floating point, but also represents integers)",
       "events": [],
@@ -611,40 +673,6 @@ window.phet.phetio.phetioTypes = assert &&
       "methods": {},
       "supertype": null,
       "typeName": "ObjectIO"
-    },
-    "ObservableArrayIO.<ElectronIO>": {
-      "documentation": "An array that sends notifications when its values have changed.",
-      "events": [
-        "itemAdded",
-        "itemRemoved"
-      ],
-      "methodOrder": [],
-      "methods": {
-        "addItemAddedListener": {
-          "documentation": "Add a listener that is called when an item is added to the observable array.",
-          "parameterTypes": [
-            "FunctionIO.(ElectronIO)=>VoidIO"
-          ],
-          "returnType": "VoidIO"
-        },
-        "addItemRemovedListener": {
-          "documentation": "Add a listener that is called when an item is removed from the observable array.",
-          "parameterTypes": [
-            "FunctionIO.(ElectronIO)=>VoidIO"
-          ],
-          "returnType": "VoidIO"
-        },
-        "getLength": {
-          "documentation": "Get the number of elements in the observable array",
-          "parameterTypes": [],
-          "returnType": "NumberIO"
-        }
-      },
-      "parameterTypes": [
-        "ElectronIO"
-      ],
-      "supertype": "ParametricTypeImplIO.<ElectronIO>",
-      "typeName": "ObservableArrayIO.<ElectronIO>"
     },
     "ParametricTypeImplIO.<>": {
       "documentation": "A Type that has parameters",
@@ -977,6 +1005,31 @@ window.phet.phetio.phetioTypes = assert &&
       ],
       "supertype": "ObjectIO",
       "typeName": "ParametricTypeImplIO.<Vector2IO, DOMEventIO>"
+    },
+    "ParametricTypeImplIO.<Vector2IO, NullableIO.<Vector2IO>, VoidIO>": {
+      "documentation": "A Type that has parameters",
+      "events": [],
+      "methodOrder": [],
+      "methods": {},
+      "parameterTypes": [
+        "Vector2IO",
+        "NullableIO.<Vector2IO>",
+        "VoidIO"
+      ],
+      "supertype": "ObjectIO",
+      "typeName": "ParametricTypeImplIO.<Vector2IO, NullableIO.<Vector2IO>, VoidIO>"
+    },
+    "ParametricTypeImplIO.<Vector2IO, VoidIO>": {
+      "documentation": "A Type that has parameters",
+      "events": [],
+      "methodOrder": [],
+      "methods": {},
+      "parameterTypes": [
+        "Vector2IO",
+        "VoidIO"
+      ],
+      "supertype": "ObjectIO",
+      "typeName": "ParametricTypeImplIO.<Vector2IO, VoidIO>"
     },
     "ParametricTypeImplIO.<Vector2IO>": {
       "documentation": "A Type that has parameters",
@@ -1493,6 +1546,57 @@ window.phet.phetio.phetioTypes = assert &&
       ],
       "supertype": "ParametricTypeImplIO.<StringIO>",
       "typeName": "PropertyIO.<StringIO>"
+    },
+    "PropertyIO.<Vector2IO>": {
+      "documentation": "Observable values that send out notifications when the value changes. This differs from the traditional listener pattern in that added listeners also receive a callback with the current value when the listeners are registered. This is a widely-used pattern in PhET-iO simulations.",
+      "events": [
+        "changed"
+      ],
+      "methodOrder": [
+        "link",
+        "lazyLink"
+      ],
+      "methods": {
+        "getValue": {
+          "documentation": "Gets the current value.",
+          "parameterTypes": [],
+          "returnType": "Vector2IO"
+        },
+        "lazyLink": {
+          "documentation": "Adds a listener which will be called when the value changes. This method is like \"link\", but without the current-value callback on registration. The listener takes two arguments, the new value and the previous value.",
+          "parameterTypes": [
+            "FunctionIO.(Vector2IO,NullableIO.<Vector2IO>)=>VoidIO"
+          ],
+          "returnType": "VoidIO"
+        },
+        "link": {
+          "documentation": "Adds a listener which will be called when the value changes. On registration, the listener is also called with the current value. The listener takes two arguments, the new value and the previous value.",
+          "parameterTypes": [
+            "FunctionIO.(Vector2IO,NullableIO.<Vector2IO>)=>VoidIO"
+          ],
+          "returnType": "VoidIO"
+        },
+        "setValue": {
+          "documentation": "Sets the value of the property. If the value differs from the previous value, listeners are notified with the new value.",
+          "invocableForReadOnlyElements": false,
+          "parameterTypes": [
+            "Vector2IO"
+          ],
+          "returnType": "VoidIO"
+        },
+        "unlink": {
+          "documentation": "Removes a listener.",
+          "parameterTypes": [
+            "FunctionIO.(Vector2IO)=>VoidIO"
+          ],
+          "returnType": "VoidIO"
+        }
+      },
+      "parameterTypes": [
+        "Vector2IO"
+      ],
+      "supertype": "ParametricTypeImplIO.<Vector2IO>",
+      "typeName": "PropertyIO.<Vector2IO>"
     },
     "StringIO": {
       "documentation": "Wrapper for the built-in JS string type",

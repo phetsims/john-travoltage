@@ -73,7 +73,7 @@ define( function( require ) {
 
       electronUtterance.alert = alertString;
       utteranceQueue.addToBack( electronUtterance );
-      
+
       priorCharge = currentCharge;
     };
 
@@ -81,23 +81,13 @@ define( function( require ) {
     function electronAddedListener( added ) {
 
       // and the visual representation of the electron
-      var newElectron = new ElectronNode( added, model.leg, model.arm, tandem.createTandem( added.tandem.name ) );
-      self.addChild( newElectron );
+      self.addChild( new ElectronNode( added, model.leg, model.arm ) );
 
-      // a11y - anounce the state of charges with a status update
+      // a11y - announce the state of charges with a status update
       setElectronStatus();
-
-      // If GC issues are noticeable from creating this IIFE, consider a map that maps model elements to 
-      // corresponding view components, see https://github.com/phetsims/john-travoltage/issues/170
-      var itemRemovedListener = function( removed ) {
-        if ( removed === added ) {
-          self.removeChild( newElectron );
-          model.electrons.removeItemRemovedListener( itemRemovedListener );
-        }
-      };
-      model.electrons.addItemRemovedListener( itemRemovedListener );
     }
 
+    // The electron's view is removed when the electron is disposed, see ElectronNode.js
     model.electrons.addItemAddedListener( electronAddedListener );
     model.electrons.forEach( electronAddedListener );
 

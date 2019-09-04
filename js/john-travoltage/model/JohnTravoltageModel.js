@@ -18,14 +18,12 @@ define( function( require ) {
   var Electron = require( 'JOHN_TRAVOLTAGE/john-travoltage/model/Electron' );
   var ElectronIO = require( 'JOHN_TRAVOLTAGE/john-travoltage/model/ElectronIO' );
   var Emitter = require( 'AXON/Emitter' );
+  var Group = require( 'TANDEM/Group' );
+  var GroupIO = require( 'TANDEM/GroupIO' );
   var inherit = require( 'PHET_CORE/inherit' );
   var johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
-  var JohnTravoltageModelIO = require( 'JOHN_TRAVOLTAGE/john-travoltage/model/JohnTravoltageModelIO' );
   var Leg = require( 'JOHN_TRAVOLTAGE/john-travoltage/model/Leg' );
   var LineSegment = require( 'JOHN_TRAVOLTAGE/john-travoltage/model/LineSegment' );
-  var ObservableArray = require( 'AXON/ObservableArray' );
-  var ObservableArrayIO = require( 'AXON/ObservableArrayIO' );
-  var PhetioObject = require( 'TANDEM/PhetioObject' );
   var Util = require( 'DOT/Util' );
   var Vector2 = require( 'DOT/Vector2' );
 
@@ -104,10 +102,25 @@ define( function( require ) {
       tandem: tandem.createTandem( 'resetInProgressProperty' )
     } );
 
-    this.electrons = new ObservableArray( {
+    this.electrons = new Group( 'electron', {
+      prototype: {
+        create: tandem => {
+          var segment = new LineSegment( 424.0642054574639, 452.28892455858755, 433.3097913322633, 445.5088282504014 );
+          var v = segment.vector;
+          var rand = phet.joist.random.nextDouble() * v.magnitude;
+
+          var point = segment.p0.plus( v.normalized().times( rand ) );
+          return new Electron( point.x, point.y, this, { tandem: tandem } );
+        }
+      }
+    }, {
       tandem: tandem.createTandem( 'electrons' ),
-      phetioType: ObservableArrayIO( ElectronIO )
+      phetioType: GroupIO( ElectronIO )
     } );
+
+    // Anytime an electron is removed, we want to dispose it.
+    this.electrons.addItemRemovedListener( electron => electron.dispose() );
+
     this.arm = new Arm( tandem.createTandem( 'arm' ) );
     this.leg = new Leg( tandem.createTandem( 'leg' ) );
     this.legAngleAtPreviousStep = this.leg.angleProperty.get();
@@ -151,7 +164,7 @@ define( function( require ) {
 
         while ( accumulatedAngle > accumulatedAngleThreshold ) {
           if ( self.electrons.length < MAX_ELECTRONS ) {
-            self.addElectron( self.electronGroupTandem.createNextTandem() );
+            self.electrons.createNextGroupMember();
           }
           accumulatedAngle -= accumulatedAngleThreshold;
         }
@@ -175,14 +188,6 @@ define( function( require ) {
     var lineSegment = new LineSegment( this.bodyVertices[ this.bodyVertices.length - 1 ].x, this.bodyVertices[ this.bodyVertices.length - 1 ].y, this.bodyVertices[ 0 ].x, this.bodyVertices[ 0 ].y );
     array.push( lineSegment );
     this.lineSegments = array;
-
-    // @private
-    this.electronGroupTandem = tandem.createGroupTandem( 'electron' );
-    PhetioObject.call( this, {
-      phetioType: JohnTravoltageModelIO,
-      tandem: tandem,
-      phetioState: false // JohnTravoltageModelIO provides addChildInstance but does not contribute state itself
-    } );
   }
 
   //Function to determine if electrons are exiting.
@@ -190,7 +195,7 @@ define( function( require ) {
 
   johnTravoltage.register( 'JohnTravoltageModel', JohnTravoltageModel );
 
-  return inherit( PhetioObject, JohnTravoltageModel, {
+  return inherit( Object, JohnTravoltageModel, {
 
     /**
      * Reset the model when "Reset All" is pressed.
@@ -204,9 +209,7 @@ define( function( require ) {
       this.sparkVisibleProperty.reset();
       this.arm.reset();
       this.leg.reset();
-      while ( this.electrons.length > 0 ) {
-        this.removeElectron( this.electrons.get( 0 ) );
-      }
+      this.electrons.clear();
       this.resetInProgressProperty.set( false );
     },
 
@@ -285,7 +288,7 @@ define( function( require ) {
       }
 
       while ( this.electronsToRemove.length ) {
-        this.removeElectron( this.electronsToRemove.pop() );
+        this.electrons.remove( this.electronsToRemove.pop() );
       }
 
       if ( this.electrons.length === 0 || _.filter( this.electrons._array, exiting ).length === 0 ) {
@@ -303,43 +306,6 @@ define( function( require ) {
       this.legAngleAtPreviousStep = this.leg.angleProperty.get();
 
       this.stepEmitter.emit();
-    },
-
-    /**
-     * Remove an electron from this model's observable array of electrons.
-     * @param  {Electron} electron
-     * @public
-     */
-    removeElectron: function( electron ) {
-      this.electrons.remove( electron );
-      electron.dispose();
-    },
-
-    /**
-     * Removes all of the electrons.
-     * @public (phet-io)
-     */
-    clearElectrons: function() {
-      while ( this.electrons.length > 0 ) {
-        this.removeElectron( this.electrons.get( this.electrons.length - 1 ) );
-      }
-    },
-
-    /**
-     * Create and add an electron to the body and this model's observable array.
-     * @param {Tandem} tandem
-     */
-    addElectron: function( tandem ) {
-
-      var segment = new LineSegment( 424.0642054574639, 452.28892455858755, 433.3097913322633, 445.5088282504014 );
-      var v = segment.vector;
-      var rand = phet.joist.random.nextDouble() * v.magnitude;
-
-      var point = segment.p0.plus( v.normalized().times( rand ) );
-
-      var electron = new Electron( point.x, point.y, this, { tandem: tandem } );
-      this.electrons.add( electron );
-      return electron;
     },
 
     /**

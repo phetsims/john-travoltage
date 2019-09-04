@@ -877,18 +877,6 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO.<BooleanIO>"
     },
-    "johnTravoltage.johnTravoltageScreen.model": {
-      "phetioDocumentation": "",
-      "phetioDynamicElement": false,
-      "phetioEventType": "MODEL",
-      "phetioFeatured": false,
-      "phetioHighFrequency": false,
-      "phetioPlayback": false,
-      "phetioReadOnly": false,
-      "phetioState": false,
-      "phetioStudioControl": true,
-      "phetioTypeName": "JohnTravoltageModelIO"
-    },
     "johnTravoltage.johnTravoltageScreen.model.arm.angleProperty": {
       "phetioDocumentation": "",
       "phetioDynamicElement": false,
@@ -945,9 +933,9 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioHighFrequency": false,
       "phetioPlayback": false,
       "phetioReadOnly": false,
-      "phetioState": true,
+      "phetioState": false,
       "phetioStudioControl": true,
-      "phetioTypeName": "ObservableArrayIO.<ElectronIO>"
+      "phetioTypeName": "GroupIO.<ElectronIO>"
     },
     "johnTravoltage.johnTravoltageScreen.model.electrons.lengthProperty": {
       "phetioDocumentation": "",
@@ -960,6 +948,30 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioState": true,
       "phetioStudioControl": true,
       "phetioTypeName": "NumberPropertyIO"
+    },
+    "johnTravoltage.johnTravoltageScreen.model.electrons.prototype": {
+      "phetioDocumentation": "",
+      "phetioDynamicElement": true,
+      "phetioEventType": "MODEL",
+      "phetioFeatured": false,
+      "phetioHighFrequency": false,
+      "phetioPlayback": false,
+      "phetioReadOnly": false,
+      "phetioState": true,
+      "phetioStudioControl": true,
+      "phetioTypeName": "ElectronIO"
+    },
+    "johnTravoltage.johnTravoltageScreen.model.electrons.prototype.positionProperty": {
+      "phetioDocumentation": "",
+      "phetioDynamicElement": true,
+      "phetioEventType": "MODEL",
+      "phetioFeatured": false,
+      "phetioHighFrequency": false,
+      "phetioPlayback": false,
+      "phetioReadOnly": false,
+      "phetioState": true,
+      "phetioStudioControl": true,
+      "phetioTypeName": "PropertyIO.<Vector2IO>"
     },
     "johnTravoltage.johnTravoltageScreen.model.leg.angleProperty": {
       "phetioDocumentation": "",

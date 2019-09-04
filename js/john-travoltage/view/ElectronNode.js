@@ -50,10 +50,12 @@ define( function( require ) {
 
   var debugPosition = false;
 
-  function ElectronNode( electron, leg, arm, tandem ) {
+  function ElectronNode( electron, leg, arm ) {
     var self = this;
 
-    Node.call( this, { pickable: false, tandem: tandem } );
+    Node.call( this, {
+      pickable: false
+    } );
 
     this.addChild( node );
     node.centerX = 0;
