@@ -12,46 +12,35 @@ define( function( require ) {
   // modules
   var johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
   var ObjectIO = require( 'TANDEM/types/ObjectIO' );
-  var phetioInherit = require( 'TANDEM/phetioInherit' );
   var validate = require( 'AXON/validate' );
 
-  /**
-   * @param {Electron} electron
-   * @param {string} phetioID
-   * @constructor
-   */
-  function ElectronIO( electron, phetioID ) {
-    ObjectIO.call( this, electron, phetioID );
-  }
+  class ElectronIO extends ObjectIO {
 
-  phetioInherit( ObjectIO, 'ElectronIO', ElectronIO, {}, {
-    validator: { isValidValue: v => v instanceof phet.johnTravoltage.Electron },
-    documentation: 'Electron in John\'s body',
 
     /**
      * @param {Electron} electron
      * @returns {Object}
      * @override
      */
-    toStateObject: function( electron ) {
+    static toStateObject( electron ) {
       validate( electron, this.validator );
       return {
         history: electron.history,
         velocityX: electron.velocity.x,
         velocityY: electron.velocity.y
       };
-    },
+    }
 
     /**
      * @param {Object} stateObject
      * @returns {Object}
      * @override
      */
-    fromStateObject: function( stateObject ) {
+    static fromStateObject( stateObject ) {
       return stateObject;
-    },
+    }
 
-    setValue: function( electron, fromStateObject ) {
+    static setValue( electron, fromStateObject ) {
       validate( electron, this.validator );
       assert && assert( fromStateObject.history, 'value should have history' );
       electron.history = fromStateObject.history;
@@ -61,9 +50,12 @@ define( function( require ) {
       // Trigger a computation of screen position
       electron.historyChangedEmitter.emit();
     }
-  } );
+  }
 
-  johnTravoltage.register( 'ElectronIO', ElectronIO );
+  ElectronIO.validator = { isValidValue: v => v instanceof phet.johnTravoltage.Electron };
+  ElectronIO.documentation = 'Electron in John\'s body';
+  ElectronIO.typeName = 'ElectronIO';
+  ObjectIO.validateSubtype( ElectronIO );
 
-  return ElectronIO;
+  return johnTravoltage.register( 'ElectronIO', ElectronIO );
 } );
