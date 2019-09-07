@@ -17,7 +17,11 @@ define( function( require ) {
     showDebugInfo: { type: 'flag' },
 
     // shows the accessible value text associated with the appendages on the screen view for easy reading and debugging
-    valueText: { type: 'flag' }
+    valueText: { type: 'flag' },
+
+    vibrationIndicator: { type: 'flag' },
+
+    vibrationChart: { type: 'flag' }
   } );
 
   johnTravoltage.register( 'JohnTravoltageQueryParameters', JohnTravoltageQueryParameters );

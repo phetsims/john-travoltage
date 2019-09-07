@@ -16,6 +16,7 @@ define( function( require ) {
   var AppendageNode = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/AppendageNode' );
   var AppendageRangeMaps = require( 'JOHN_TRAVOLTAGE/john-travoltage/AppendageRangeMaps' );
   var ArmPositionSoundGenerator = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/ArmPositionSoundGenerator' );
+  const BooleanProperty = require( 'AXON/BooleanProperty' );
   var BackgroundNode = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/BackgroundNode' );
   var Bounds2 = require( 'DOT/Bounds2' );
   var Circle = require( 'SCENERY/nodes/Circle' );
@@ -43,6 +44,8 @@ define( function( require ) {
   var soundManager = require( 'TAMBO/soundManager' );
   var SparkNode = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/SparkNode' );
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
+  const VibrationChart = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/VibrationChart' );
+  const VibrationIndicator = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/VibrationIndicator' );
 
   // sounds
   var chargesInBodySound = require( 'sound!JOHN_TRAVOLTAGE/charges-in-body.mp3' );
@@ -363,6 +366,24 @@ define( function( require ) {
       popSoundGenerator.playPop( numElectrons / JohnTravoltageModel.MAX_ELECTRONS );
     } );
 
+    // @private -
+    this.vibratingProperty = new BooleanProperty( false, {
+      tandem: tandem.createTandem( 'vibratingProperty' )
+    } );
+
+    // Add visualizations for prototype haptic feedback, see
+    if ( JohnTravoltageQueryParameters.vibrationIndicator ) {
+      this.vibrationIndicator = new VibrationIndicator( this.vibratingProperty );
+      this.addChild( this.vibrationIndicator );
+      this.vibrationIndicator.setTranslation( 25, 25 );
+    }
+
+    if ( JohnTravoltageQueryParameters.vibrationChart ) {
+      this.vibrationChart = new VibrationChart( this.vibratingProperty, this.layoutBounds.width * 0.75, 75 );
+      this.addChild( this.vibrationChart );
+      this.vibrationChart.centerTop = this.layoutBounds.centerTop;
+    }
+
     // accessibleOrder
     this.playAreaNode.accessibleOrder = [
       this.leg,
@@ -386,6 +407,13 @@ define( function( require ) {
      */
     step: function( dt ) {
       this.footDragSoundGenerator.step( dt );
+
+      if ( this.vibrationIndicator ) {
+        this.vibrationIndicator.step( dt );
+      }
+      if ( this.vibrationChart ) {
+        this.vibrationChart.step( dt );
+      }
     },
 
     /**

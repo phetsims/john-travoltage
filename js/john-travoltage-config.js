@@ -29,6 +29,7 @@ require.config( {
     AXON: '../../axon/js',
     BRAND: '../../brand/' + phet.chipper.brand + '/js',
     DOT: '../../dot/js',
+    GRIDDLE: '../../griddle/js',
     JOHN_TRAVOLTAGE: '.',
     JOIST: '../../joist/js',
     KITE: '../../kite/js',

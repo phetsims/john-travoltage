@@ -11,6 +11,9 @@
   },
   "phet": {
     "requirejsNamespace": "JOHN_TRAVOLTAGE",
+    "phetLibs": [
+      "griddle"
+    ],
     "runnable": true,
     "supportedBrands": [
       "phet",
