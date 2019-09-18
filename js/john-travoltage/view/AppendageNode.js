@@ -382,7 +382,7 @@ define( function( require ) {
      * Reset the aria-valuetext independently of the changing value - useful when setting the value text on blur
      * or reset. If the AccessibleSlider Property changes after calling this, beware that it will override what is
      * set here.
-     * 
+     *
      * @private
      */
     resetAriaValueText: function() {

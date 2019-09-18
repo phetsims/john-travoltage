@@ -12,7 +12,8 @@
   "phet": {
     "requirejsNamespace": "JOHN_TRAVOLTAGE",
     "phetLibs": [
-      "griddle"
+      "griddle",
+      "tappi"
     ],
     "runnable": true,
     "supportedBrands": [
