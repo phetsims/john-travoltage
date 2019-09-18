@@ -15,6 +15,7 @@ define( function( require ) {
   var Sim = require( 'JOIST/Sim' );
   var SimLauncher = require( 'JOIST/SimLauncher' );
   var Tandem = require( 'TANDEM/Tandem' );
+  var vibrationManager = require( 'TAPPI/vibrationManager' );
 
   // strings
   var johnTravoltageTitleString = require( 'string!JOHN_TRAVOLTAGE/john-travoltage.title' );
@@ -48,7 +49,10 @@ define( function( require ) {
     accessibility: true,
     keyboardHelpNode: keyboardHelpContent,
     supportsEnhancedSound: true,
-    supportsSound: true
+    supportsSound: true,
+
+    // protoypal vibration feedback, see https://github.com/phetsims/john-travoltage/issues/337
+    vibrationManager: vibrationManager
   };
 
   //Create and start the sim
