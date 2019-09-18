@@ -21,11 +21,7 @@ define( function( require ) {
 
     // Add a visualization of vibration that looks like a phone. Doesn't work unless running in phet-io-wrapper-haptics,
     // see https://github.com/phetsims/john-travoltage/issues/336
-    vibrationIndicator: { type: 'flag' },
-
-    // Visualization for vibration that plots vibration against time. Doesn't work unless running in
-    // phet-io-wrapper-haptics, see https://github.com/phetsims/john-travoltage/issues/336
-    vibrationChart: { type: 'flag' }
+    vibrationIndicator: { type: 'flag' }
   } );
 
   johnTravoltage.register( 'JohnTravoltageQueryParameters', JohnTravoltageQueryParameters );
