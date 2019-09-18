@@ -46,7 +46,6 @@ define( function( require ) {
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   const VibrationChart = require( 'TAPPI/view/VibrationChart' );
   const PhetFont = require( 'SCENERY_PHET/PhetFont' );
-  const VibrationIndicator = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/VibrationIndicator' );
 
   // sounds
   var chargesInBodySound = require( 'sound!JOHN_TRAVOLTAGE/charges-in-body.mp3' );
@@ -370,13 +369,6 @@ define( function( require ) {
     this.vibratingProperty = new BooleanProperty( false, {
       tandem: tandem.createTandem( 'vibratingProperty' )
     } );
-
-    // Add visualizations for prototype haptic feedback, see
-    if ( JohnTravoltageQueryParameters.vibrationIndicator ) {
-      this.vibrationIndicator = new VibrationIndicator( this.vibratingProperty );
-      this.addChild( this.vibrationIndicator );
-      this.vibrationIndicator.setTranslation( 25, 25 );
-    }
 
     if ( JohnTravoltageQueryParameters.vibrationChart ) {
       this.vibrationChart = new VibrationChart( this.vibratingProperty, this.layoutBounds.width * 0.75, 75, {
