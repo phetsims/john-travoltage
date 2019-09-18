@@ -19,6 +19,7 @@ define( function( require ) {
   var ElectronIO = require( 'JOHN_TRAVOLTAGE/john-travoltage/model/ElectronIO' );
   var Emitter = require( 'AXON/Emitter' );
   var Group = require( 'TANDEM/Group' );
+  var Shape = require( 'KITE/Shape' );
   var GroupIO = require( 'TANDEM/GroupIO' );
   var inherit = require( 'PHET_CORE/inherit' );
   var johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
@@ -125,6 +126,14 @@ define( function( require ) {
     this.leg = new Leg( tandem.createTandem( 'leg' ) );
     this.legAngleAtPreviousStep = this.leg.angleProperty.get();
 
+    // @public (read-only) - closed shape for the body that contains electrons, from body vertices above
+    this.bodyShape = new Shape();
+    this.bodyShape.moveTo( this.bodyVertices[ 0 ].x, this.bodyVertices[ 0 ].y );
+    for ( var i = 0; i < this.bodyVertices.length; i++ ) {
+      this.bodyShape.lineTo( this.bodyVertices[ i ].x, this.bodyVertices[ i ].y );
+    }
+    this.bodyShape.close();
+
     // true when the foot is in contact with the carpet
     this.shoeOnCarpetProperty = new DerivedProperty( [ this.leg.angleProperty ],
       angle => angle > FOOT_ON_CARPET_MIN_ANGLE && angle < FOOT_ON_CARPET_MAX_ANGLE, {
@@ -149,6 +158,9 @@ define( function( require ) {
     this.dischargeStartedEmitter = new Emitter( {
       tandem: tandem.createTandem( 'dischargeStartedEmitter' )
     } );
+
+    // @public - true when a pointer is down over the body
+    this.touchingBodyProperty = new BooleanProperty( false );
 
     //If leg dragged across carpet, add electron.  Lazy link so that it won't add an electron when the sim starts up.
     //The number of electrons accumulated only depends on the total angle subtended
@@ -179,7 +191,7 @@ define( function( require ) {
     } );
 
     var array = [];
-    for ( var i = 0; i < this.bodyVertices.length - 1; i++ ) {
+    for ( let i = 0; i < this.bodyVertices.length - 1; i++ ) {
       var current = this.bodyVertices[ i ];
       var next = this.bodyVertices[ i + 1 ];
       array.push( new LineSegment( current.x, current.y, next.x, next.y ) );
@@ -325,6 +337,10 @@ define( function( require ) {
         //put it 1px inside the segment
         electron.positionProperty.set( closestSegment.center.plus( closestSegment.normal.times( -1 ) ) );
       }
+    },
+
+    bodyContainsPoint: function( point ) {
+      return this.bodyShape.containsPoint( point );
     }
   }, {
 

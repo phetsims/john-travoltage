@@ -26,23 +26,30 @@ define( require => {
     constructor() {}
 
     /**
-     * [initialize description]
-     * @param   {[type]} model [description]
-     * @returns {[type]}       [description]
+     * @param {JohnTravoltageModel} model
      */
     initialize( model ) {
       const paradigmChoice = phet.chipper.queryParameters.vibration;
 
       if ( paradigmChoice === 'objects' ) {
+
         // Important model objects give the user feedback while they are touching/interacting with them. This makes
         // objects seem distinct and "physical". Each object has a different pattern so it feels unique.
-
         model.leg.dragStartedEmitter.addListener( () => {
           vibrationManager.startTimedVibrate( 250, VibrationPatterns.HZ_10 );
         } );
 
         model.arm.dragStartedEmitter.addListener( () => {
           vibrationManager.startTimedVibrate( 250, VibrationPatterns.HZ_25 );
+        } );
+
+        model.touchingBodyProperty.link( ( touchingBody ) => {
+          if ( touchingBody ) {
+            vibrationManager.startVibrate( VibrationPatterns.HZ_5 );
+          }
+          else {
+            vibrationManager.stopVibrate();
+          }
         } );
       }
     }

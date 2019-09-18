@@ -21,6 +21,7 @@ define( function( require ) {
   var Bounds2 = require( 'DOT/Bounds2' );
   var Circle = require( 'SCENERY/nodes/Circle' );
   var DebugUtils = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/DebugUtils' );
+  var BodyShapeNode = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/BodyShapeNode' );
   var DerivedProperty = require( 'AXON/DerivedProperty' );
   var Emitter = require( 'AXON/Emitter' );
   var ElectronLayerNode = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/ElectronLayerNode' );
@@ -121,6 +122,9 @@ define( function( require ) {
 
     //Split layers after background for performance
     this.addChild( new Node( { layerSplit: true, pickable: false } ) );
+
+    this.bodyShapeNode = new BodyShapeNode( model );
+    this.addChild( this.bodyShapeNode );
 
     // @public (read-only) arm and leg - only interactive elements
     this.leg = new AppendageNode( model.leg, leg, 25, 28, Math.PI / 2 * 0.7, AppendageRangeMaps.legMap,
@@ -424,16 +428,18 @@ define( function( require ) {
      */
     showBody: function() {
       //vertices and body path
-      var customShape = new Shape();
-      var lineSegment = null;
-      for ( var i = 0; i < this.model.lineSegments.length; i++ ) {
-        lineSegment = this.model.lineSegments[ i ];
-        customShape.moveTo( lineSegment.x1, lineSegment.y1 );
-        customShape.lineTo( lineSegment.x2, lineSegment.y2 );
-      }
+      // var customShape = new Shape();
+      // var lineSegment = null;
+      // for ( var i = 0; i < this.model.lineSegments.length; i++ ) {
+      //   lineSegment = this.model.lineSegments[ i ];
+      //   customShape.moveTo( lineSegment.x1, lineSegment.y1 );
+      //   customShape.lineTo( lineSegment.x2, lineSegment.y2 );
+      // }
+      this.bodyShapeNode.showBody();
 
       //Show normals
-      for ( i = 0; i < this.model.lineSegments.length; i++ ) {
+      let lineSegment;
+      for ( let i = 0; i < this.model.lineSegments.length; i++ ) {
         lineSegment = this.model.lineSegments[ i ];
         var center = lineSegment.center;
         var normal = lineSegment.normal.times( 50 );
@@ -443,16 +449,18 @@ define( function( require ) {
         } ) );
       }
 
-      var path = new Path( customShape, {
-        stroke: 'green',
-        lineWidth: 1,
-        pickable: false
-      } );
-      this.addChild( path );
+      // var path = new Path( this.model.bodyShape, {
+      //   stroke: 'green',
+      //   lineWidth: 1,
+      //   pickable: false
+      // } );
+      // this.addChild( path );
 
       // forcelines, which attract particles
       var lines = this.model.forceLines;
-      for ( i = 0; i < lines.length; i++ ) {
+      let customShape;
+      let path;
+      for ( let i = 0; i < lines.length; i++ ) {
         customShape = new Shape();
         customShape.moveTo( lines[ i ].x1, lines[ i ].y1 );
         customShape.lineTo( lines[ i ].x2, lines[ i ].y2 );
