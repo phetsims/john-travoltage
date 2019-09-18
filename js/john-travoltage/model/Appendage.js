@@ -60,6 +60,9 @@ define( function( require ) {
 
     // @public - emits an event when the appendage is reset
     this.appendageResetEmitter = new Emitter();
+
+    // @public - emits an event when the appendage begins dragging
+    this.dragStartedEmitter = new Emitter();
   }
 
   johnTravoltage.register( 'Appendage', Appendage );

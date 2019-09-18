@@ -128,6 +128,8 @@ define( function( require ) {
         // if the appendage is picked up with the mouse, it should not be keyboard focusable until dropped
         self.focusable = false;
 
+        appendage.dragStartedEmitter.emit();
+
         appendage.borderVisibleProperty.set( false );
       },
       drag: function( event ) {
