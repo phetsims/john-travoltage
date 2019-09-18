@@ -44,7 +44,8 @@ define( function( require ) {
   var soundManager = require( 'TAMBO/soundManager' );
   var SparkNode = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/SparkNode' );
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
-  const VibrationChart = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/VibrationChart' );
+  const VibrationChart = require( 'TAPPI/view/VibrationChart' );
+  const PhetFont = require( 'SCENERY_PHET/PhetFont' );
   const VibrationIndicator = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/VibrationIndicator' );
 
   // sounds
@@ -365,7 +366,6 @@ define( function( require ) {
       // play a pop each time the number of electrons changes
       popSoundGenerator.playPop( numElectrons / JohnTravoltageModel.MAX_ELECTRONS );
     } );
-
     // @private -
     this.vibratingProperty = new BooleanProperty( false, {
       tandem: tandem.createTandem( 'vibratingProperty' )
@@ -379,7 +379,10 @@ define( function( require ) {
     }
 
     if ( JohnTravoltageQueryParameters.vibrationChart ) {
-      this.vibrationChart = new VibrationChart( this.vibratingProperty, this.layoutBounds.width * 0.75, 75 );
+      this.vibrationChart = new VibrationChart( this.vibratingProperty, this.layoutBounds.width * 0.75, 75, {
+        labelFont: new PhetFont( 14 )
+      } );
+
       this.addChild( this.vibrationChart );
       this.vibrationChart.centerTop = this.layoutBounds.centerTop;
     }
