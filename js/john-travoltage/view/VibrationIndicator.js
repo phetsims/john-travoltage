@@ -83,7 +83,7 @@ define( require => {
 
       this.addChild( panel );
 
-      this.vibratingProperty.link( ( vibrating ) => {
+      this.vibratingProperty.link( vibrating => {
         screen.fill = vibrating ? 'lightblue' : 'grey';
 
         this.leftVibrationPath.visible = vibrating;
