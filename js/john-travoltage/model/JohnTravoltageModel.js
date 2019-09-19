@@ -176,10 +176,14 @@ define( function( require ) {
     } );
 
     // @public - true when a pointer is down over the body
-    this.touchingBodyProperty = new BooleanProperty( false );
+    this.touchingBodyProperty = new BooleanProperty( false, {
+      tandem: tandem.createTandem( 'touchingBodyProperty' )
+    } );
 
     // @public - true when a pointer is down over the carpet
-    this.touchingCarpetProperty = new BooleanProperty( false );
+    this.touchingCarpetProperty = new BooleanProperty( false, {
+      tandem: tandem.createTandem( 'touchingCarpetProperty' )
+    } );
 
     //If leg dragged across carpet, add electron.  Lazy link so that it won't add an electron when the sim starts up.
     //The number of electrons accumulated only depends on the total angle subtended

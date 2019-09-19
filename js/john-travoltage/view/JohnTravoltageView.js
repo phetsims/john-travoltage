@@ -123,7 +123,7 @@ define( function( require ) {
     //Split layers after background for performance
     this.addChild( new Node( { layerSplit: true, pickable: false } ) );
 
-    this.shapeHitDetector = new ShapeHitDetector();
+    this.shapeHitDetector = new ShapeHitDetector( tandem.createTandem( 'shapeHitDetector' ) );
     this.shapeHitDetector.addShape( model.bodyShape, model.touchingBodyProperty );
     this.shapeHitDetector.addShape( model.carpetShape, model.touchingCarpetProperty );
     this.addChild( this.shapeHitDetector );

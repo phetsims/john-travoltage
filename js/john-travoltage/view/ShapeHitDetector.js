@@ -14,7 +14,11 @@ define( require => {
   const Path = require( 'SCENERY/nodes/Path' );
 
   class ShapeHitDetector extends Node {
-    constructor() {
+
+    /**
+     * @param {Tandem} tandem
+     */
+    constructor( tandem ) {
       super();
 
       this.paths = [];
@@ -46,7 +50,9 @@ define( require => {
           for ( let i = 0; i < this.paths.length; i++ ) {
             this.paths[ i ].property.set( false );
           }
-        }
+        },
+
+        tandem: tandem.createTandem( 'dragListener' )
       } ) );
     }
 
