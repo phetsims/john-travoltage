@@ -7,21 +7,21 @@
  *
  * @author Jesse Greenberg
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
-  var johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
+  const johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
 
   // i18n strings
-  var arrowKeysMoveFootString = require( 'string!JOHN_TRAVOLTAGE/arrowKeysMoveFoot' );
-  var escapeKeyDescriptionString = require( 'string!JOHN_TRAVOLTAGE/escapeKeyDescription' );
-  var escKeyString = require( 'string!JOHN_TRAVOLTAGE/escKey' );
-  var hotKeysAndHelpString = require( 'string!JOHN_TRAVOLTAGE/hotKeysAndHelp' );
-  var orString = require( 'string!JOHN_TRAVOLTAGE/or' );
-  var shiftKeyString = require( 'string!JOHN_TRAVOLTAGE/shiftKey' );
-  var shiftTabKeyDescriptionString = require( 'string!JOHN_TRAVOLTAGE/shiftTabKeyDescription' );
-  var tabKeyDescriptionString = require( 'string!JOHN_TRAVOLTAGE/tabKeyDescription' );
-  var tabKeyString = require( 'string!JOHN_TRAVOLTAGE/tabKey' );
+  const arrowKeysMoveFootString = require( 'string!JOHN_TRAVOLTAGE/arrowKeysMoveFoot' );
+  const escapeKeyDescriptionString = require( 'string!JOHN_TRAVOLTAGE/escapeKeyDescription' );
+  const escKeyString = require( 'string!JOHN_TRAVOLTAGE/escKey' );
+  const hotKeysAndHelpString = require( 'string!JOHN_TRAVOLTAGE/hotKeysAndHelp' );
+  const orString = require( 'string!JOHN_TRAVOLTAGE/or' );
+  const shiftKeyString = require( 'string!JOHN_TRAVOLTAGE/shiftKey' );
+  const shiftTabKeyDescriptionString = require( 'string!JOHN_TRAVOLTAGE/shiftTabKeyDescription' );
+  const tabKeyDescriptionString = require( 'string!JOHN_TRAVOLTAGE/tabKeyDescription' );
+  const tabKeyString = require( 'string!JOHN_TRAVOLTAGE/tabKey' );
 
   var JohnTravoltageA11yStrings = {
 

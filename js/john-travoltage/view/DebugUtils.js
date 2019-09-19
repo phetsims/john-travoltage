@@ -13,12 +13,12 @@
  * @author Sam Reid
  * @author Vasily Shakhov (Mlearner)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
-  var Shape = require( 'KITE/Shape' );
+  const johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
+  const Shape = require( 'KITE/Shape' );
 
   var DebugUtils = {
 

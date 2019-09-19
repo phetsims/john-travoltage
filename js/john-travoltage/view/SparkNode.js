@@ -6,15 +6,15 @@
  * @author Sam Reid
  * @author Vasily Shakhov (Mlearner)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var inherit = require( 'PHET_CORE/inherit' );
-  var johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
-  var Node = require( 'SCENERY/nodes/Node' );
-  var Path = require( 'SCENERY/nodes/Path' );
-  var Shape = require( 'KITE/Shape' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
+  const Node = require( 'SCENERY/nodes/Node' );
+  const Path = require( 'SCENERY/nodes/Path' );
+  const Shape = require( 'KITE/Shape' );
 
   /**
    * Constructor for the SparkNode, which shows the animated spark from the finger to the doorknob when electrons are flowing out.

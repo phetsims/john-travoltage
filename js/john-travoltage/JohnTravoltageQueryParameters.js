@@ -5,11 +5,11 @@
  *
  * @author John Blanco
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
+  const johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
 
   var JohnTravoltageQueryParameters = QueryStringMachine.getAll( {
 

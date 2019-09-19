@@ -6,27 +6,27 @@
  * @author Sam Reid
  * @author Vasily Shakhov (Mlearner.com)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var Arm = require( 'JOHN_TRAVOLTAGE/john-travoltage/model/Arm' );
-  var BooleanIO = require( 'TANDEM/types/BooleanIO' );
-  var BooleanProperty = require( 'AXON/BooleanProperty' );
-  var DerivedProperty = require( 'AXON/DerivedProperty' );
-  var DerivedPropertyIO = require( 'AXON/DerivedPropertyIO' );
-  var Electron = require( 'JOHN_TRAVOLTAGE/john-travoltage/model/Electron' );
-  var ElectronIO = require( 'JOHN_TRAVOLTAGE/john-travoltage/model/ElectronIO' );
-  var Emitter = require( 'AXON/Emitter' );
-  var Group = require( 'TANDEM/Group' );
-  var Shape = require( 'KITE/Shape' );
-  var GroupIO = require( 'TANDEM/GroupIO' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
-  var Leg = require( 'JOHN_TRAVOLTAGE/john-travoltage/model/Leg' );
-  var LineSegment = require( 'JOHN_TRAVOLTAGE/john-travoltage/model/LineSegment' );
-  var Util = require( 'DOT/Util' );
-  var Vector2 = require( 'DOT/Vector2' );
+  const Arm = require( 'JOHN_TRAVOLTAGE/john-travoltage/model/Arm' );
+  const BooleanIO = require( 'TANDEM/types/BooleanIO' );
+  const BooleanProperty = require( 'AXON/BooleanProperty' );
+  const DerivedProperty = require( 'AXON/DerivedProperty' );
+  const DerivedPropertyIO = require( 'AXON/DerivedPropertyIO' );
+  const Electron = require( 'JOHN_TRAVOLTAGE/john-travoltage/model/Electron' );
+  const ElectronIO = require( 'JOHN_TRAVOLTAGE/john-travoltage/model/ElectronIO' );
+  const Emitter = require( 'AXON/Emitter' );
+  const Group = require( 'TANDEM/Group' );
+  const Shape = require( 'KITE/Shape' );
+  const GroupIO = require( 'TANDEM/GroupIO' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
+  const Leg = require( 'JOHN_TRAVOLTAGE/john-travoltage/model/Leg' );
+  const LineSegment = require( 'JOHN_TRAVOLTAGE/john-travoltage/model/LineSegment' );
+  const Util = require( 'DOT/Util' );
+  const Vector2 = require( 'DOT/Vector2' );
 
   // constants
   var MAX_ELECTRONS = 100;

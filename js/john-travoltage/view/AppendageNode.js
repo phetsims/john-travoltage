@@ -8,30 +8,30 @@
  * @author Vasily Shakhov (Mlearner)
  * @author Justin Obara
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var AccessibleSlider = require( 'SUN/accessibility/AccessibleSlider' );
-  var Appendage = require( 'JOHN_TRAVOLTAGE/john-travoltage/model/Appendage' );
-  var BooleanProperty = require( 'AXON/BooleanProperty' );
-  var DynamicProperty = require( 'AXON/DynamicProperty' );
-  var FocusHighlightPath = require( 'SCENERY/accessibility/FocusHighlightPath' );
-  var Image = require( 'SCENERY/nodes/Image' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
-  var JohnTravoltageA11yStrings = require( 'JOHN_TRAVOLTAGE/john-travoltage/JohnTravoltageA11yStrings' );
-  var Leg = require( 'JOHN_TRAVOLTAGE/john-travoltage/model/Leg' );
-  var LinearFunction = require( 'DOT/LinearFunction' );
-  var Node = require( 'SCENERY/nodes/Node' );
-  var Property = require( 'AXON/Property' );
-  var Range = require( 'DOT/Range' );
-  var Rectangle = require( 'SCENERY/nodes/Rectangle' );
-  var Shape = require( 'KITE/Shape' );
-  var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
-  var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
-  var Util = require( 'DOT/Util' );
-  var Vector2 = require( 'DOT/Vector2' );
+  const AccessibleSlider = require( 'SUN/accessibility/AccessibleSlider' );
+  const Appendage = require( 'JOHN_TRAVOLTAGE/john-travoltage/model/Appendage' );
+  const BooleanProperty = require( 'AXON/BooleanProperty' );
+  const DynamicProperty = require( 'AXON/DynamicProperty' );
+  const FocusHighlightPath = require( 'SCENERY/accessibility/FocusHighlightPath' );
+  const Image = require( 'SCENERY/nodes/Image' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
+  const JohnTravoltageA11yStrings = require( 'JOHN_TRAVOLTAGE/john-travoltage/JohnTravoltageA11yStrings' );
+  const Leg = require( 'JOHN_TRAVOLTAGE/john-travoltage/model/Leg' );
+  const LinearFunction = require( 'DOT/LinearFunction' );
+  const Node = require( 'SCENERY/nodes/Node' );
+  const Property = require( 'AXON/Property' );
+  const Range = require( 'DOT/Range' );
+  const Rectangle = require( 'SCENERY/nodes/Rectangle' );
+  const Shape = require( 'KITE/Shape' );
+  const SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
+  const StringUtils = require( 'PHETCOMMON/util/StringUtils' );
+  const Util = require( 'DOT/Util' );
+  const Vector2 = require( 'DOT/Vector2' );
 
   // a11y strings
   var towardsDoorknobString = JohnTravoltageA11yStrings.towardsDoorknob.value;

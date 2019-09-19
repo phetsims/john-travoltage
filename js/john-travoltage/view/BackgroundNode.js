@@ -6,24 +6,24 @@
  * @author Sam Reid
  * @author Vasily Shakhov (Mlearner)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var Image = require( 'SCENERY/nodes/Image' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
-  var Node = require( 'SCENERY/nodes/Node' );
-  var Pattern = require( 'SCENERY/util/Pattern' );
-  var Rectangle = require( 'SCENERY/nodes/Rectangle' );
+  const Image = require( 'SCENERY/nodes/Image' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
+  const Node = require( 'SCENERY/nodes/Node' );
+  const Pattern = require( 'SCENERY/util/Pattern' );
+  const Rectangle = require( 'SCENERY/nodes/Rectangle' );
 
   // images
-  var body = require( 'image!JOHN_TRAVOLTAGE/body.png' );
-  var door = require( 'image!JOHN_TRAVOLTAGE/door.png' );
-  var floor = require( 'image!JOHN_TRAVOLTAGE/floor.png' );
-  var rug = require( 'image!JOHN_TRAVOLTAGE/rug.png' );
-  var wallpaper = require( 'image!JOHN_TRAVOLTAGE/wallpaper.png' );
-  var window = require( 'image!JOHN_TRAVOLTAGE/window.png' );
+  const body = require( 'image!JOHN_TRAVOLTAGE/body.png' );
+  const door = require( 'image!JOHN_TRAVOLTAGE/door.png' );
+  const floor = require( 'image!JOHN_TRAVOLTAGE/floor.png' );
+  const rug = require( 'image!JOHN_TRAVOLTAGE/rug.png' );
+  const wallpaper = require( 'image!JOHN_TRAVOLTAGE/wallpaper.png' );
+  const window = require( 'image!JOHN_TRAVOLTAGE/window.png' );
 
   /**
    * @param {Tandem} tandem

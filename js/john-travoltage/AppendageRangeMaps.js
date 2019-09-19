@@ -6,13 +6,13 @@
  *
  * @author Justin Obara
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
-  var JohnTravoltageA11yStrings = require( 'JOHN_TRAVOLTAGE/john-travoltage/JohnTravoltageA11yStrings' );
-  var Range = require( 'DOT/Range' );
+  const johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
+  const JohnTravoltageA11yStrings = require( 'JOHN_TRAVOLTAGE/john-travoltage/JohnTravoltageA11yStrings' );
+  const Range = require( 'DOT/Range' );
 
   // a11y strings
   var farthestFromDoorknobString = JohnTravoltageA11yStrings.farthestFromDoorknob.value;

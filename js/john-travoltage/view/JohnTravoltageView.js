@@ -8,57 +8,57 @@
  * @author Justin Obara
  * @author John Blanco
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var AccessiblePeer = require( 'SCENERY/accessibility/AccessiblePeer' );
-  var AppendageNode = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/AppendageNode' );
-  var AppendageRangeMaps = require( 'JOHN_TRAVOLTAGE/john-travoltage/AppendageRangeMaps' );
-  var ArmPositionSoundGenerator = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/ArmPositionSoundGenerator' );
+  const AccessiblePeer = require( 'SCENERY/accessibility/AccessiblePeer' );
+  const AppendageNode = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/AppendageNode' );
+  const AppendageRangeMaps = require( 'JOHN_TRAVOLTAGE/john-travoltage/AppendageRangeMaps' );
+  const ArmPositionSoundGenerator = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/ArmPositionSoundGenerator' );
   const BooleanProperty = require( 'AXON/BooleanProperty' );
-  var BackgroundNode = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/BackgroundNode' );
-  var Bounds2 = require( 'DOT/Bounds2' );
-  var Circle = require( 'SCENERY/nodes/Circle' );
-  var DebugUtils = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/DebugUtils' );
-  var ShapeHitDetector = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/ShapeHitDetector' );
-  var DerivedProperty = require( 'AXON/DerivedProperty' );
-  var Emitter = require( 'AXON/Emitter' );
-  var ElectronLayerNode = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/ElectronLayerNode' );
-  var FootDragSoundGenerator = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/FootDragSoundGenerator' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
-  var JohnTravoltageA11yStrings = require( 'JOHN_TRAVOLTAGE/john-travoltage/JohnTravoltageA11yStrings' );
-  var JohnTravoltageModel = require( 'JOHN_TRAVOLTAGE/john-travoltage/model/JohnTravoltageModel' );
-  var JohnTravoltageQueryParameters = require( 'JOHN_TRAVOLTAGE/john-travoltage/JohnTravoltageQueryParameters' );
-  var Line = require( 'SCENERY/nodes/Line' );
-  var Node = require( 'SCENERY/nodes/Node' );
-  var Path = require( 'SCENERY/nodes/Path' );
-  var PitchedPopGenerator = require( 'TAMBO/sound-generators/PitchedPopGenerator' );
-  var platform = require( 'PHET_CORE/platform' );
-  var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
-  var ResetAllSoundGenerator = require( 'TAMBO/sound-generators/ResetAllSoundGenerator' );
-  var ScreenView = require( 'JOIST/ScreenView' );
-  var Shape = require( 'KITE/Shape' );
-  var SoundClip = require( 'TAMBO/sound-generators/SoundClip' );
-  var SoundLevelEnum = require( 'TAMBO/SoundLevelEnum' );
-  var soundManager = require( 'TAMBO/soundManager' );
-  var SparkNode = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/SparkNode' );
-  var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
+  const BackgroundNode = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/BackgroundNode' );
+  const Bounds2 = require( 'DOT/Bounds2' );
+  const Circle = require( 'SCENERY/nodes/Circle' );
+  const DebugUtils = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/DebugUtils' );
+  const ShapeHitDetector = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/ShapeHitDetector' );
+  const DerivedProperty = require( 'AXON/DerivedProperty' );
+  const Emitter = require( 'AXON/Emitter' );
+  const ElectronLayerNode = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/ElectronLayerNode' );
+  const FootDragSoundGenerator = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/FootDragSoundGenerator' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
+  const JohnTravoltageA11yStrings = require( 'JOHN_TRAVOLTAGE/john-travoltage/JohnTravoltageA11yStrings' );
+  const JohnTravoltageModel = require( 'JOHN_TRAVOLTAGE/john-travoltage/model/JohnTravoltageModel' );
+  const JohnTravoltageQueryParameters = require( 'JOHN_TRAVOLTAGE/john-travoltage/JohnTravoltageQueryParameters' );
+  const Line = require( 'SCENERY/nodes/Line' );
+  const Node = require( 'SCENERY/nodes/Node' );
+  const Path = require( 'SCENERY/nodes/Path' );
+  const PitchedPopGenerator = require( 'TAMBO/sound-generators/PitchedPopGenerator' );
+  const platform = require( 'PHET_CORE/platform' );
+  const ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
+  const ResetAllSoundGenerator = require( 'TAMBO/sound-generators/ResetAllSoundGenerator' );
+  const ScreenView = require( 'JOIST/ScreenView' );
+  const Shape = require( 'KITE/Shape' );
+  const SoundClip = require( 'TAMBO/sound-generators/SoundClip' );
+  const SoundLevelEnum = require( 'TAMBO/SoundLevelEnum' );
+  const soundManager = require( 'TAMBO/soundManager' );
+  const SparkNode = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/SparkNode' );
+  const StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   const vibrationManager = require( 'TAPPI/vibrationManager' );
   const VibrationChart = require( 'TAPPI/view/VibrationChart' );
   const vibrationController = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/vibrationController' );
   const PhetFont = require( 'SCENERY_PHET/PhetFont' );
 
   // sounds
-  var chargesInBodySound = require( 'sound!JOHN_TRAVOLTAGE/charges-in-body.mp3' );
-  var electricDischargeSound = require( 'sound!JOHN_TRAVOLTAGE/electric-discharge.mp3' );
-  var gazouchSound = require( 'sound!JOHN_TRAVOLTAGE/gazouch.mp3' );
-  var ouchSound = require( 'sound!JOHN_TRAVOLTAGE/ouch.mp3' );
+  const chargesInBodySound = require( 'sound!JOHN_TRAVOLTAGE/charges-in-body.mp3' );
+  const electricDischargeSound = require( 'sound!JOHN_TRAVOLTAGE/electric-discharge.mp3' );
+  const gazouchSound = require( 'sound!JOHN_TRAVOLTAGE/gazouch.mp3' );
+  const ouchSound = require( 'sound!JOHN_TRAVOLTAGE/ouch.mp3' );
 
   // images
-  var arm = require( 'image!JOHN_TRAVOLTAGE/arm.png' );
-  var leg = require( 'image!JOHN_TRAVOLTAGE/leg.png' );
+  const arm = require( 'image!JOHN_TRAVOLTAGE/arm.png' );
+  const leg = require( 'image!JOHN_TRAVOLTAGE/leg.png' );
 
   // a11y strings
   var legSliderLabelString = JohnTravoltageA11yStrings.legSliderLabel.value;

@@ -6,15 +6,15 @@
  * @author Sam Reid
  * @author Vasily Shakhov (Mlearner)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var Appendage = require( 'JOHN_TRAVOLTAGE/john-travoltage/model/Appendage' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
-  var Range = require( 'DOT/Range' );
-  var Vector2 = require( 'DOT/Vector2' );
+  const Appendage = require( 'JOHN_TRAVOLTAGE/john-travoltage/model/Appendage' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
+  const Range = require( 'DOT/Range' );
+  const Vector2 = require( 'DOT/Vector2' );
 
   /**
    * @param {Tandem} tandem

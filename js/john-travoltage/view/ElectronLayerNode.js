@@ -8,18 +8,18 @@
  * @author Vasily Shakhov (Mlearner)
  * @author Justin Obara
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var ElectronNode = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/ElectronNode' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
-  var JohnTravoltageA11yStrings = require( 'JOHN_TRAVOLTAGE/john-travoltage/JohnTravoltageA11yStrings' );
-  var Node = require( 'SCENERY/nodes/Node' );
-  var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
-  var Utterance = require( 'SCENERY_PHET/accessibility/Utterance' );
-  var utteranceQueue = require( 'SCENERY_PHET/accessibility/utteranceQueue' );
+  const ElectronNode = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/ElectronNode' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
+  const JohnTravoltageA11yStrings = require( 'JOHN_TRAVOLTAGE/john-travoltage/JohnTravoltageA11yStrings' );
+  const Node = require( 'SCENERY/nodes/Node' );
+  const StringUtils = require( 'PHETCOMMON/util/StringUtils' );
+  const Utterance = require( 'SCENERY_PHET/accessibility/Utterance' );
+  const utteranceQueue = require( 'SCENERY_PHET/accessibility/utteranceQueue' );
 
   // a11y strings
   var electronsTotalString = JohnTravoltageA11yStrings.electronsTotal.value;
