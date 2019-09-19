@@ -3,7 +3,7 @@
 /**
  * A node that can be used to detect pointer interaction over a set of shapes. You can add a shape with addShape, which
  * takes a Shape and a Property. While the pointer is down over the shape, the associated Property will be set to true.
- * This is useful if you want a unique behavior per shape.
+ * This can be used to script unique behavior while the Property is over the given shape.
  *
  * @author Jesse Greenberg
  */
