@@ -23,12 +23,12 @@ define( require => {
 
   // constants
   // Scale up before rasterization so it won't be too pixelated/fuzzy
-  var scale = 2;
+  const scale = 2;
 
   // single node for all electrons, making use of scenery's DAG feature
-  var minusChargeNode = new ElectronChargeNode( { scale: scale, top: 0, left: 0 } );
+  const minusChargeNode = new ElectronChargeNode( { scale: scale, top: 0, left: 0 } );
 
-  var node = new Node();
+  const node = new Node();
   minusChargeNode.toImage( function( im ) {
 
     //Scale back down so the image will be the desired size
@@ -36,22 +36,22 @@ define( require => {
   }, 0, 0, minusChargeNode.width, minusChargeNode.height );
 
   //Bounds for the leg and arm regions sampled by clicking on the JohnTravoltageView coordinates
-  var legBounds = new DotRectangle( 368.70275791624107, 332.0122574055158, 600, 600 );
-  var armBounds = new DotRectangle( 427.41602634467614, 210.03732162458834, 70, 42 );
+  const legBounds = new DotRectangle( 368.70275791624107, 332.0122574055158, 600, 600 );
+  let armBounds = new DotRectangle( 427.41602634467614, 210.03732162458834, 70, 42 );
 
-  var topLeft = new Vector2( 427.83601359003404, 154.03488108720273 );
-  var bottomRight = new Vector2( 558.1263873159684, 294.67542468856175 );
+  const topLeft = new Vector2( 427.83601359003404, 154.03488108720273 );
+  const bottomRight = new Vector2( 558.1263873159684, 294.67542468856175 );
   armBounds = new DotRectangle( topLeft.x, topLeft.y, bottomRight.x - topLeft.x, bottomRight.y - topLeft.y );
 
   //Precompute and reuse to avoid allocations
-  var a = new Vector2( 0, 0 );
-  var b = new Vector2( 0, 0 );
-  var dr = new Vector2( 0, 0 );
+  const a = new Vector2( 0, 0 );
+  const b = new Vector2( 0, 0 );
+  let dr = new Vector2( 0, 0 );
 
-  var debugPosition = false;
+  const debugPosition = false;
 
   function ElectronNode( electron, leg, arm ) {
-    var self = this;
+    const self = this;
 
     Node.call( this, {
       pickable: false
@@ -61,7 +61,7 @@ define( require => {
     node.centerX = 0;
     node.centerY = 0;
     if ( debugPosition ) {
-      var circle = new Circle( 2, { fill: 'yellow' } );
+      const circle = new Circle( 2, { fill: 'yellow' } );
       circle.centerX = 0;
       circle.centerY = 0;
       this.addChild( circle );
@@ -72,12 +72,12 @@ define( require => {
     // For debugging, show the electron id
     // this.addChild( new Text( '' + electron.id, {fill: 'white'} ) );
 
-    var legText = 'leg';
-    var bodyText = 'body';
-    var armText = 'arm';
+    const legText = 'leg';
+    const bodyText = 'body';
+    const armText = 'arm';
 
     //Electrons fire a position changed every step whether their position changed or not, so that it will still be drawn in the proper place if the leg angle changed.
-    var updatePosition = function( position ) {
+    const updatePosition = function( position ) {
 
       electron.history.push( legBounds.containsPoint( position ) ? legText :
                              armBounds.containsPoint( position ) ? armText :
@@ -86,13 +86,13 @@ define( require => {
         electron.history.shift();
       }
 
-      var inLegCount = 0;
-      var inBodyCount = 0;
-      var inArmCount = 0;
-      var deltaAngle;
-      var c;
-      for ( var i = 0; i < electron.history.length; i++ ) {
-        var element = electron.history[ i ];
+      let inLegCount = 0;
+      let inBodyCount = 0;
+      let inArmCount = 0;
+      let deltaAngle;
+      let c;
+      for ( let i = 0; i < electron.history.length; i++ ) {
+        const element = electron.history[ i ];
         if ( element === legText ) {
           inLegCount++;
         }
@@ -112,7 +112,7 @@ define( require => {
       else if ( inLegCount >= inArmCount ) {
 
         // Interpolate for smoothness at intersection between leg/body
-        var legPoint = leg.position;
+        const legPoint = leg.position;
 
         dr.setXY( position.x - legPoint.x, position.y - legPoint.y );
 
@@ -135,7 +135,7 @@ define( require => {
       //This assumes that no electron will blend arm/leg positions, which is a fair assumption since it is difficult to get from the leg to the arm in only 10 history steps
       else {
 
-        var armPoint = arm.position;
+        const armPoint = arm.position;
 
         dr.setXY( position.x - armPoint.x, position.y - armPoint.y );
 
@@ -158,12 +158,12 @@ define( require => {
     };
     electron.positionProperty.link( updatePosition );
 
-    var updatePositionBound = function() {
+    const updatePositionBound = function() {
       updatePosition( electron.positionProperty.get() );
     };
     electron.historyChangedEmitter.addListener( updatePositionBound );
 
-    var disposeListener = function() {
+    const disposeListener = function() {
       self.dispose();
     };
     electron.disposeEmitter.addListener( disposeListener );

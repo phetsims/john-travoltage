@@ -25,26 +25,26 @@ define( require => {
    * @constructor
    */
   function SparkNode( model, addStepListener, tandem ) {
-    var self = this;
+    const self = this;
 
     Node.call( this, { pickable: false, tandem: tandem } );
 
     model.sparkVisibleProperty.linkAttribute( this, 'visible' );
-    var whitePath = new Path( null, { stroke: 'white', lineWidth: 4 } );
-    var bluePath = new Path( null, { stroke: 'blue', lineWidth: 1 } );
+    const whitePath = new Path( null, { stroke: 'white', lineWidth: 4 } );
+    const bluePath = new Path( null, { stroke: 'blue', lineWidth: 1 } );
     this.addChild( whitePath );
     this.addChild( bluePath );
 
-    var numSegments = 10;
+    const numSegments = 10;
     addStepListener( function() {
       if ( self.visible ) {
-        var shape = new Shape();
+        const shape = new Shape();
 
-        var point = model.arm.getFingerPosition();
+        let point = model.arm.getFingerPosition();
         shape.moveToPoint( point );
-        var distanceToTarget = model.doorknobPosition.distance( point );
-        var segmentLength = distanceToTarget / numSegments;
-        for ( var i = 0; i < numSegments; i++ ) {
+        const distanceToTarget = model.doorknobPosition.distance( point );
+        let segmentLength = distanceToTarget / numSegments;
+        for ( let i = 0; i < numSegments; i++ ) {
           if ( i === numSegments - 1 ) {
             segmentLength = distanceToTarget;
             point = model.doorknobPosition;
@@ -52,7 +52,7 @@ define( require => {
           else {
 
             // go 1/numSegments of the remaining distance to the target, in a direction roughly toward the target
-            var delta = model.doorknobPosition.minus( point ).normalized().timesScalar( segmentLength );
+            let delta = model.doorknobPosition.minus( point ).normalized().timesScalar( segmentLength );
             delta = delta.rotated( phet.joist.random.nextDouble() - 0.5 );
             point = point.plus( delta );
           }

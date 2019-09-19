@@ -11,7 +11,7 @@ define( require => {
   // modules
   const johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
 
-  var JohnTravoltageQueryParameters = QueryStringMachine.getAll( {
+  const JohnTravoltageQueryParameters = QueryStringMachine.getAll( {
 
     // shows debug lines which represent the body, and force lines which restrict the charges to stay inside of the body
     showDebugInfo: { type: 'flag' },

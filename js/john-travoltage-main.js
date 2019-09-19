@@ -21,7 +21,7 @@ define( require => {
   const johnTravoltageTitleString = require( 'string!JOHN_TRAVOLTAGE/john-travoltage.title' );
 
   //Workaround for #30
-  var newChild = document.createElement( 'audio' );
+  const newChild = document.createElement( 'audio' );
   newChild.style.display = 'none';
   document.body.appendChild( newChild );
 
@@ -29,12 +29,12 @@ define( require => {
   newChild.setAttribute( 'aria-hidden', true );
   newChild.tabIndex = -1;
 
-  var tandem = Tandem.rootTandem;
+  const tandem = Tandem.rootTandem;
 
   // help content to describe keyboard interactions
-  var keyboardHelpContent = new JohnTravoltageKeyboardHelpContent();
+  const keyboardHelpContent = new JohnTravoltageKeyboardHelpContent();
 
-  var simOptions = {
+  const simOptions = {
     credits: {
       leadDesign: 'Noah Podolefsky, Carl Wieman, Sam Reid',
       softwareDevelopment: 'Sam Reid, John Blanco',

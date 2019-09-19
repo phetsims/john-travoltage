@@ -24,7 +24,7 @@ define( require => {
   function Leg( tandem ) {
 
     // empirically determined by inspecting the view
-    var pivotPoint = new Vector2( 398, 335 );
+    const pivotPoint = new Vector2( 398, 335 );
 
     Appendage.call( this, pivotPoint, tandem, {
       initialAngle: 1.3175443221852239, // determined empirically with DebutUtils

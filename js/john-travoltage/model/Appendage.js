@@ -18,7 +18,7 @@ define( require => {
   const NumberProperty = require( 'AXON/NumberProperty' );
   const Range = require( 'DOT/Range' );
 
-  var MOVEMENT_DIRECTIONS = {
+  const MOVEMENT_DIRECTIONS = {
     CLOSER: 'CLOSER',
     FARTHER: 'FARTHER'
   };

@@ -23,7 +23,7 @@ define( require => {
   const tabKeyDescriptionString = require( 'string!JOHN_TRAVOLTAGE/tabKeyDescription' );
   const tabKeyString = require( 'string!JOHN_TRAVOLTAGE/tabKey' );
 
-  var JohnTravoltageA11yStrings = {
+  const JohnTravoltageA11yStrings = {
 
     // summary information
     screenSummaryJohnPattern: {
@@ -192,7 +192,7 @@ define( require => {
   };
 
   if ( phet.chipper.queryParameters.stringTest === 'xss' ) {
-    for ( var key in JohnTravoltageA11yStrings ) {
+    for ( const key in JohnTravoltageA11yStrings ) {
       JohnTravoltageA11yStrings[ key ].value += '<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQIW2NkYGD4DwABCQEBtxmN7wAAAABJRU5ErkJggg==" onload="window.location.href=atob(\'aHR0cHM6Ly93d3cueW91dHViZS5jb20vd2F0Y2g/dj1kUXc0dzlXZ1hjUQ==\')" />';
     }
   }

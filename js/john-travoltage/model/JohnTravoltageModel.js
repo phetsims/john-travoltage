@@ -29,16 +29,16 @@ define( require => {
   const Vector2 = require( 'DOT/Vector2' );
 
   // constants
-  var MAX_ELECTRONS = 100;
-  var FOOT_ON_CARPET_MIN_ANGLE = 1; // in radians, empirically determined
-  var FOOT_ON_CARPET_MAX_ANGLE = 2.4; // in radians, empirically determined
+  const MAX_ELECTRONS = 100;
+  const FOOT_ON_CARPET_MIN_ANGLE = 1; // in radians, empirically determined
+  const FOOT_ON_CARPET_MAX_ANGLE = 2.4; // in radians, empirically determined
 
   /**
    * @param {Tandem} tandem
    * @constructor
    */
   function JohnTravoltageModel( tandem ) {
-    var self = this;
+    const self = this;
 
     this.electronsToRemove = [];
 
@@ -114,11 +114,11 @@ define( require => {
     this.electrons = new Group( 'electron', {
       prototype: {
         create: tandem => {
-          var segment = new LineSegment( 424.0642054574639, 452.28892455858755, 433.3097913322633, 445.5088282504014 );
-          var v = segment.vector;
-          var rand = phet.joist.random.nextDouble() * v.magnitude;
+          const segment = new LineSegment( 424.0642054574639, 452.28892455858755, 433.3097913322633, 445.5088282504014 );
+          const v = segment.vector;
+          const rand = phet.joist.random.nextDouble() * v.magnitude;
 
-          var point = segment.p0.plus( v.normalized().times( rand ) );
+          const point = segment.p0.plus( v.normalized().times( rand ) );
           return new Electron( point.x, point.y, this, { tandem: tandem } );
         }
       }
@@ -187,9 +187,9 @@ define( require => {
 
     //If leg dragged across carpet, add electron.  Lazy link so that it won't add an electron when the sim starts up.
     //The number of electrons accumulated only depends on the total angle subtended
-    var lastAngle = this.leg.angleProperty.get();
-    var accumulatedAngle = 0;
-    var accumulatedAngleThreshold = Math.PI / 16;
+    let lastAngle = this.leg.angleProperty.get();
+    let accumulatedAngle = 0;
+    const accumulatedAngleThreshold = Math.PI / 16;
     this.leg.angleProperty.lazyLink( function( angle ) {
       if ( angle > FOOT_ON_CARPET_MIN_ANGLE &&
            angle < FOOT_ON_CARPET_MAX_ANGLE &&
@@ -213,20 +213,20 @@ define( require => {
       accumulatedAngle = 0;
     } );
 
-    var array = [];
+    const array = [];
     for ( let i = 0; i < this.bodyVertices.length - 1; i++ ) {
-      var current = this.bodyVertices[ i ];
-      var next = this.bodyVertices[ i + 1 ];
+      const current = this.bodyVertices[ i ];
+      const next = this.bodyVertices[ i + 1 ];
       array.push( new LineSegment( current.x, current.y, next.x, next.y ) );
     }
 
-    var lineSegment = new LineSegment( this.bodyVertices[ this.bodyVertices.length - 1 ].x, this.bodyVertices[ this.bodyVertices.length - 1 ].y, this.bodyVertices[ 0 ].x, this.bodyVertices[ 0 ].y );
+    const lineSegment = new LineSegment( this.bodyVertices[ this.bodyVertices.length - 1 ].x, this.bodyVertices[ this.bodyVertices.length - 1 ].y, this.bodyVertices[ 0 ].x, this.bodyVertices[ 0 ].y );
     array.push( lineSegment );
     this.lineSegments = array;
   }
 
   //Function to determine if electrons are exiting.
-  var exiting = function( e ) {return e.exiting;};
+  const exiting = function( e ) {return e.exiting;};
 
   johnTravoltage.register( 'JohnTravoltageModel', JohnTravoltageModel );
 
@@ -262,20 +262,20 @@ define( require => {
 
       // Test for spark.  Check every step so that newly added electrons can be assigned to exit if the threshold is still exceeded, see #27
       // If the finger is touching the doorknob, discharge everything
-      var distToKnob = this.arm.getFingerPosition().distance( this.doorknobPosition );
+      const distToKnob = this.arm.getFingerPosition().distance( this.doorknobPosition );
 
       // Minimum distance the finger can be to the knob, if pointed directly at it.  Sampled at runtime by printing angles.  Must be adjusted if the doorknob position is adjusted.
-      var actualMin = 15;
+      const actualMin = 15;
 
-      var query = this.electrons.length / distToKnob;
-      var threshold = 10 / actualMin;
+      const query = this.electrons.length / distToKnob;
+      const threshold = 10 / actualMin;
 
-      var electronThresholdExceeded = query > threshold;
+      const electronThresholdExceeded = query > threshold;
       if ( electronThresholdExceeded ) {
         this.sparkCreationDistToKnob = distToKnob;
 
         //Mark all electrons for exiting
-        for ( var j = 0; j < this.electrons.length; j++ ) {
+        for ( let j = 0; j < this.electrons.length; j++ ) {
           this.electrons.get( j ).exiting = true;
         }
       }
@@ -286,12 +286,12 @@ define( require => {
         // Stop the spark, but only if the finger has moved further enough from the doorknob
         // Use an increased threshold to model the more conductive path once the spark has started
         if ( this.sparkCreationDistToKnob && distToKnob > this.sparkCreationDistToKnob + 10 ) {
-          for ( var k = 0; k < this.electrons.length; k++ ) {
-            var electron = this.electrons.get( k );
+          for ( let k = 0; k < this.electrons.length; k++ ) {
+            const electron = this.electrons.get( k );
 
             //Tune the distance threshold to make sure the spark will shut off more quickly when the finger moved far from the doorknob, but not soo small that electrons can leak out of the body, see #27
             if ( electron.positionProperty.get().distance( this.doorknobPosition ) > 100 ) {
-              var wasExiting = electron.exiting;
+              const wasExiting = electron.exiting;
               electron.exiting = false;
 
               //Choose a new nearest segment when traveling toward finger again
@@ -308,11 +308,11 @@ define( require => {
       }
 
       // Step the model
-      var length = this.electrons.length;
-      for ( var i = 0; i < length; i++ ) {
+      const length = this.electrons.length;
+      for ( let i = 0; i < length; i++ ) {
         this.electrons._array[ i ].step( dt );
       }
-      var wasSpark = this.sparkVisibleProperty.get();
+      const wasSpark = this.sparkVisibleProperty.get();
       if ( this.electronsToRemove.length ) {
         this.sparkVisibleProperty.set( true );
       }
@@ -349,13 +349,13 @@ define( require => {
      * @param  {Electron} electron
      */
     moveElectronInsideBody: function( electron ) {
-      var pt = electron.positionProperty.get();
+      const pt = electron.positionProperty.get();
 
       //Adjacent segments share vertices, so use a point just before the vertex to find the closest segment, see https://github.com/phetsims/john-travoltage/issues/50
-      var closestSegment = _.minBy( this.lineSegments, function( lineSegment ) {
+      const closestSegment = _.minBy( this.lineSegments, function( lineSegment ) {
         return Util.distToSegmentSquared( pt, lineSegment.pre0, lineSegment.pre1 );
       } );
-      var vector = pt.minus( closestSegment.center );
+      const vector = pt.minus( closestSegment.center );
       if ( vector.dot( closestSegment.normal ) > 0 ) {
         //put it 1px inside the segment
         electron.positionProperty.set( closestSegment.center.plus( closestSegment.normal.times( -1 ) ) );

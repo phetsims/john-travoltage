@@ -61,16 +61,16 @@ define( require => {
   const leg = require( 'image!JOHN_TRAVOLTAGE/leg.png' );
 
   // a11y strings
-  var legSliderLabelString = JohnTravoltageA11yStrings.legSliderLabel.value;
-  var armSliderLabelString = JohnTravoltageA11yStrings.armSliderLabel.value;
-  var screenSummaryJohnPatternString = JohnTravoltageA11yStrings.screenSummaryJohnPattern.value;
-  var electronsDescriptionSingleString = JohnTravoltageA11yStrings.electronsDescriptionSingle.value;
-  var electronsDescriptionMultipleString = JohnTravoltageA11yStrings.electronsDescriptionMultiple.value;
-  var screenSummaryWithChargePatternString = JohnTravoltageA11yStrings.screenSummaryWithChargePattern.value;
+  const legSliderLabelString = JohnTravoltageA11yStrings.legSliderLabel.value;
+  const armSliderLabelString = JohnTravoltageA11yStrings.armSliderLabel.value;
+  const screenSummaryJohnPatternString = JohnTravoltageA11yStrings.screenSummaryJohnPattern.value;
+  const electronsDescriptionSingleString = JohnTravoltageA11yStrings.electronsDescriptionSingle.value;
+  const electronsDescriptionMultipleString = JohnTravoltageA11yStrings.electronsDescriptionMultiple.value;
+  const screenSummaryWithChargePatternString = JohnTravoltageA11yStrings.screenSummaryWithChargePattern.value;
 
   // constants
-  var OUCH_EXCLAMATION_DELAY = 0.5; // in seconds
-  var CHARGES_SOUND_GAIN_FACTOR = 0.1; // multiplier for charges-in-the-body sound, empirically determined
+  const OUCH_EXCLAMATION_DELAY = 0.5; // in seconds
+  const CHARGES_SOUND_GAIN_FACTOR = 0.1; // multiplier for charges-in-the-body sound, empirically determined
 
   /**
    * @param {JohnTravoltageModel} model
@@ -78,7 +78,7 @@ define( require => {
    * @constructor
    */
   function JohnTravoltageView( model, tandem ) {
-    var self = this;
+    const self = this;
     this.model = model;
 
     // Prototype emitters and listeners to assist in prototyping haptics - We need to know when a user is touching the
@@ -106,7 +106,7 @@ define( require => {
       this.touchMoveEmitter.emit();
     } );
 
-    var summaryNode = new Node( { tagName: 'p' } );
+    const summaryNode = new Node( { tagName: 'p' } );
 
     //The sim works best in most browsers using svg.
     //But in firefox on Win8 it is very slow and buggy, so use canvas on firefox.
@@ -145,7 +145,7 @@ define( require => {
     this.addChild( this.arm );
 
     // (a11y) after travolta picks up electrons the first time, this flag will modify descriptions slightly
-    var includeElectronInfo = false;
+    let includeElectronInfo = false;
 
     // Show the dotted lines again when the sim is reset
     model.resetEmitter.addListener( function() {
@@ -161,8 +161,8 @@ define( require => {
 
     // store the region when the discharge starts
     model.dischargeStartedEmitter.addListener( function() {
-      var position = self.arm.a11yAngleToPosition( model.arm.angleProperty.get() );
-      var newRegion = AppendageNode.getRegion( position, AppendageRangeMaps.armMap.regions );
+      const position = self.arm.a11yAngleToPosition( model.arm.angleProperty.get() );
+      const newRegion = AppendageNode.getRegion( position, AppendageRangeMaps.armMap.regions );
 
       self.arm.regionAtDischarge = newRegion;
       self.arm.positionAtDischarge = self.arm.inputValue;
@@ -177,7 +177,7 @@ define( require => {
     this.addChild( sparkNode );
 
     // reset all button
-    var resetAllButton = new ResetAllButton( {
+    const resetAllButton = new ResetAllButton( {
       radius: 23,
       right: this.layoutBounds.maxX - 8,
       bottom: this.layoutBounds.maxY - 8,
@@ -196,19 +196,19 @@ define( require => {
     // Use a layer for electrons so it has only one pickable flag, perhaps may improve performance compared to iterating
     // over all electrons to see if they are pickable?
     // Split layers before particle layer for performance
-    var electronLayer = new ElectronLayerNode( model, this.arm, JohnTravoltageModel.MAX_ELECTRONS, tandem.createTandem( 'electronLayer' ), {
+    const electronLayer = new ElectronLayerNode( model, this.arm, JohnTravoltageModel.MAX_ELECTRONS, tandem.createTandem( 'electronLayer' ), {
       layerSplit: true,
       pickable: false
     } );
     this.addChild( electronLayer );
 
-    var updateDescription = function() {
-      var chargeDescription;
-      var sceneDescription;
+    const updateDescription = function() {
+      let chargeDescription;
+      let sceneDescription;
 
       // description for John - this will always be in the screen summary
-      var positionDescription = AppendageNode.getPositionDescription( self.arm.a11yAngleToPosition( model.arm.angleProperty.get() ), AppendageRangeMaps.armMap.regions );
-      var johnDescription = StringUtils.fillIn( screenSummaryJohnPatternString, { position: positionDescription } );
+      const positionDescription = AppendageNode.getPositionDescription( self.arm.a11yAngleToPosition( model.arm.angleProperty.get() ), AppendageRangeMaps.armMap.regions );
+      const johnDescription = StringUtils.fillIn( screenSummaryJohnPatternString, { position: positionDescription } );
 
       // if there are any charges, a description of the charge will be prepended to the summary
       if ( includeElectronInfo ) {
@@ -270,7 +270,7 @@ define( require => {
       this.addChild( new Circle( 10, { x: 0, y: 0, fill: 'blue' } ) );
 
       //Debugging for finger location
-      var fingerCircle = new Circle( 10, { fill: 'red' } );
+      const fingerCircle = new Circle( 10, { fill: 'red' } );
       model.arm.angleProperty.link( function() {
         fingerCircle.x = model.arm.getFingerPosition().x;
         fingerCircle.y = model.arm.getFingerPosition().y;
@@ -281,22 +281,22 @@ define( require => {
     }
 
     // inverse of the resetInProgressProperty, used for muting sounds during reset
-    var resetNotInProgressProperty = new DerivedProperty( [ model.resetInProgressProperty ], function( resetInProgress ) {
+    const resetNotInProgressProperty = new DerivedProperty( [ model.resetInProgressProperty ], function( resetInProgress ) {
       return !resetInProgress;
     } );
 
     // create and register the sound generators used in this view
-    var ouchSoundClip = new SoundClip( ouchSound, { initialOutputLevel: 0.7 } );
+    const ouchSoundClip = new SoundClip( ouchSound, { initialOutputLevel: 0.7 } );
     soundManager.addSoundGenerator( ouchSoundClip );
-    var gazouchSoundClip = new SoundClip( gazouchSound, { initialOutputLevel: 0.8 } );
+    const gazouchSoundClip = new SoundClip( gazouchSound, { initialOutputLevel: 0.8 } );
     soundManager.addSoundGenerator( gazouchSoundClip );
-    var electricDischargeSoundClip = new SoundClip( electricDischargeSound, {
+    const electricDischargeSoundClip = new SoundClip( electricDischargeSound, {
       loop: true,
       trimSilence: true,
       initialOutputLevel: 0.75
     } );
     soundManager.addSoundGenerator( electricDischargeSoundClip );
-    var chargesInBodySoundClip = new SoundClip( chargesInBodySound, {
+    const chargesInBodySoundClip = new SoundClip( chargesInBodySound, {
       loop: true,
       trimSilence: true,
       initialOutputLevel: 0.1
@@ -316,7 +316,7 @@ define( require => {
       }
     );
     soundManager.addSoundGenerator( this.footDragSoundGenerator );
-    var popSoundGenerator = new PitchedPopGenerator( {
+    const popSoundGenerator = new PitchedPopGenerator( {
       enableControlProperties: [ resetNotInProgressProperty ],
       initialOutputLevel: 0.3
     } );
@@ -330,7 +330,7 @@ define( require => {
         electricDischargeSoundClip.play();
 
         // play the appropriate "ouch" sound based on the level of charge (plays nothing for low charge level)
-        var numElectronsInBody = model.electrons.length;
+        const numElectronsInBody = model.electrons.length;
         if ( numElectronsInBody > 85 ) {
           gazouchSoundClip.play( OUCH_EXCLAMATION_DELAY );
         }
@@ -443,8 +443,8 @@ define( require => {
       let lineSegment;
       for ( let i = 0; i < this.model.lineSegments.length; i++ ) {
         lineSegment = this.model.lineSegments[ i ];
-        var center = lineSegment.center;
-        var normal = lineSegment.normal.times( 50 );
+        const center = lineSegment.center;
+        const normal = lineSegment.normal.times( 50 );
         this.addChild( new Line( center.x, center.y, center.x + normal.x, center.y + normal.y, {
           lineWidth: 2,
           stroke: 'blue'
@@ -459,7 +459,7 @@ define( require => {
       // this.addChild( path );
 
       // forcelines, which attract particles
-      var lines = this.model.forceLines;
+      const lines = this.model.forceLines;
       let customShape;
       let path;
       for ( let i = 0; i < lines.length; i++ ) {

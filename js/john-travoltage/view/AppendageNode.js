@@ -34,21 +34,21 @@ define( require => {
   const Vector2 = require( 'DOT/Vector2' );
 
   // a11y strings
-  var towardsDoorknobString = JohnTravoltageA11yStrings.towardsDoorknob.value;
-  var awayFromDoorknobString = JohnTravoltageA11yStrings.awayFromDoorknob.value;
-  var towardsDoorknobPatternString = JohnTravoltageA11yStrings.towardsDoorknobPattern.value;
-  var awayFromDoorknobPatternString = JohnTravoltageA11yStrings.awayFromDoorknobPattern.value;
-  var fartherAwayPatternString = JohnTravoltageA11yStrings.fartherAwayPattern.value;
-  var negativePatternString = JohnTravoltageA11yStrings.negativePattern.value;
-  var positionTemplateString = JohnTravoltageA11yStrings.positionTemplate.value;
+  const towardsDoorknobString = JohnTravoltageA11yStrings.towardsDoorknob.value;
+  const awayFromDoorknobString = JohnTravoltageA11yStrings.awayFromDoorknob.value;
+  const towardsDoorknobPatternString = JohnTravoltageA11yStrings.towardsDoorknobPattern.value;
+  const awayFromDoorknobPatternString = JohnTravoltageA11yStrings.awayFromDoorknobPattern.value;
+  const fartherAwayPatternString = JohnTravoltageA11yStrings.fartherAwayPattern.value;
+  const negativePatternString = JohnTravoltageA11yStrings.negativePattern.value;
+  const positionTemplateString = JohnTravoltageA11yStrings.positionTemplate.value;
 
   // constants
-  var DIRECTION_DESCRIPTIONS = {
+  const DIRECTION_DESCRIPTIONS = {
     CLOSER: towardsDoorknobString,
     FARTHER: awayFromDoorknobString
   };
 
-  var DIRECTION_LANDMARK_PATTERN_DESCRIPTIONS = {
+  const DIRECTION_LANDMARK_PATTERN_DESCRIPTIONS = {
     CLOSER: towardsDoorknobPatternString,
     FARTHER: awayFromDoorknobPatternString
   };
@@ -67,7 +67,7 @@ define( require => {
    * @constructor
    */
   function AppendageNode( appendage, image, dx, dy, angleOffset, rangeMap, tandem, options ) {
-    var self = this;
+    const self = this;
 
     options = _.extend( {
       cursor: 'pointer',
@@ -112,11 +112,11 @@ define( require => {
 
     this.addChild( this.imageNode );
 
-    var lastAngle = appendage.angleProperty.get();
-    var currentAngle = appendage.angleProperty.get();
+    let lastAngle = appendage.angleProperty.get();
+    let currentAngle = appendage.angleProperty.get();
 
     // no need for dispose - exists for life of sim
-    var angle = 0;
+    let angle = 0;
     this.imageNode.addInputListener( new SimpleDragHandler( {
       tandem: tandem.createTandem( 'dragHandler' ),
       allowTouchSnag: true,
@@ -141,7 +141,7 @@ define( require => {
         }
 
         lastAngle = currentAngle;
-        var globalPoint = self.imageNode.globalToParentPoint( event.pointer.point );
+        const globalPoint = self.imageNode.globalToParentPoint( event.pointer.point );
         angle = globalPoint.minus( new Vector2( appendage.position.x, appendage.position.y ) ).angle;
 
         //Limit leg to approximately "half circle" so it cannot spin around, see #63
@@ -152,7 +152,7 @@ define( require => {
         // if clamped at one of the upper angles, only allow the right direction of movement to change the angle, so it won't skip halfway around
         // Use 3d cross products to compute direction
         // Inline the vector creations and dot product for performance
-        var z = Math.cos( currentAngle ) * Math.sin( lastAngle ) - Math.sin( currentAngle ) * Math.cos( lastAngle );
+        const z = Math.cos( currentAngle ) * Math.sin( lastAngle ) - Math.sin( currentAngle ) * Math.cos( lastAngle );
 
         if ( appendage.angleProperty.get() === Math.PI && z < 0 ) {
           // noop, at the left side
@@ -165,8 +165,8 @@ define( require => {
         }
         else {
           if ( !appendage.angleProperty.range.contains( angle ) ) {
-            var max = appendage.angleProperty.range.max;
-            var min = appendage.angleProperty.range.min;
+            const max = appendage.angleProperty.range.max;
+            const min = appendage.angleProperty.range.min;
 
             if ( angle < min ) {
               angle = max - Math.abs( min - angle );
@@ -250,7 +250,7 @@ define( require => {
       }
     } );
 
-    var a11ySliderOptions = {
+    const a11ySliderOptions = {
       keyboardStep: this.keyboardMotion.step,
       shiftKeyboardStep: this.keyboardMotion.step,
       pageKeyboardStep: 2,
@@ -275,7 +275,7 @@ define( require => {
     };
 
     // set up a bidirectional Property to handle updates to angle and slider position
-    var sliderProperty = new DynamicProperty( new Property( appendage.angleProperty ), {
+    const sliderProperty = new DynamicProperty( new Property( appendage.angleProperty ), {
       bidirectional: true,
       map: function( angle ) {
         return self.a11yAngleToPosition( angle );
@@ -314,17 +314,17 @@ define( require => {
      * @returns {String}                  the generated text for the slider
      */
     getTextFromPosition: function( position, previousPosition, includeDirection ) {
-      var valueDescription;
-      var isLeg = this.model instanceof Leg;
+      let valueDescription;
+      const isLeg = this.model instanceof Leg;
 
       // default, always include direction information
       includeDirection = includeDirection || true;
 
       // generate descriptions that could be used depending on movement
-      var newRegion = AppendageNode.getRegion( position, this.rangeMap.regions );
-      var landmarkDescription = AppendageNode.getLandmarkDescription( position, this.rangeMap.landmarks );
+      const newRegion = AppendageNode.getRegion( position, this.rangeMap.regions );
+      const landmarkDescription = AppendageNode.getLandmarkDescription( position, this.rangeMap.landmarks );
 
-      var directionDescription = null;
+      let directionDescription = null;
       if ( previousPosition ) {
         directionDescription = this.getDirectionDescription( position, previousPosition, landmarkDescription, newRegion );
       }
@@ -346,7 +346,7 @@ define( require => {
       }
 
       // get value with 'negative' so VoiceOver reads it correctly
-      var positionWithNegative = this.getValueWithNegativeString( position );
+      const positionWithNegative = this.getValueWithNegativeString( position );
 
       return StringUtils.fillIn( positionTemplateString, {
         value: positionWithNegative,
@@ -388,7 +388,7 @@ define( require => {
      * @private
      */
     resetAriaValueText: function() {
-      var sliderValue = this.a11yAngleToPosition( this.model.angleProperty.get() );
+      const sliderValue = this.a11yAngleToPosition( this.model.angleProperty.get() );
       this.ariaValueText = this.getTextFromPosition( sliderValue, sliderValue );
     },
 
@@ -401,7 +401,7 @@ define( require => {
      * @returns {string}
      */
     getValueWithNegativeString: function( position ) {
-      var returnValue = position;
+      let returnValue = position;
       if ( returnValue < 0 ) {
         returnValue = StringUtils.fillIn( negativePatternString, { value: Math.abs( returnValue ) } );
       }
@@ -416,14 +416,14 @@ define( require => {
      * @param  {number} previousPosition
      */
     getDirectionDescription: function( position, previousPosition, landmarkDescription, region ) {
-      var deltaPosition = Math.abs( previousPosition ) - Math.abs( position );
-      var newDirection = null;
+      const deltaPosition = Math.abs( previousPosition ) - Math.abs( position );
+      let newDirection = null;
       if ( deltaPosition ) {
         newDirection = deltaPosition > 0 ? Appendage.MOVEMENT_DIRECTIONS.CLOSER : Appendage.MOVEMENT_DIRECTIONS.FARTHER;
       }
 
-      var description = '';
-      var stringPattern;
+      let description = '';
+      let stringPattern;
 
       if ( AppendageNode.getAddFurtherOnAway( position, this.rangeMap.regions ) && newDirection === Appendage.MOVEMENT_DIRECTIONS.FARTHER ) {
 
@@ -471,7 +471,7 @@ define( require => {
      * @static
      */
     distanceBetweenAngles: function( a, b ) {
-      var diff = Math.abs( a - b ) % ( Math.PI * 2 );
+      const diff = Math.abs( a - b ) % ( Math.PI * 2 );
       return Math.min( Math.abs( diff - Math.PI * 2 ), diff );
     },
 
@@ -486,7 +486,7 @@ define( require => {
      * @returns {Object} region - {range, text}
      */
     getRegion: function( position, rangeMap ) {
-      var region;
+      let region;
 
       _.forEach( rangeMap, function( map ) {
         if ( position >= map.range.min && position <= map.range.max ) {
@@ -512,7 +512,7 @@ define( require => {
      * @returns {string} - a lower case string, generally to be inserted into another context
      */
     getPositionDescription: function( position, rangeMap ) {
-      var newRegion = AppendageNode.getRegion( Util.roundSymmetric( position ), rangeMap );
+      const newRegion = AppendageNode.getRegion( Util.roundSymmetric( position ), rangeMap );
       return newRegion.text.toLowerCase();
     },
 
@@ -528,7 +528,7 @@ define( require => {
      * @returns {string}
      */
     getLandmarkDescription: function( position, landmarkMap ) {
-      var message = '';
+      let message = '';
 
       _.forEach( landmarkMap, function( landmark ) {
         if ( position === landmark.value ) {
@@ -550,7 +550,7 @@ define( require => {
      * @returns {boolean}
      */
     getLandmarkIncludesDirection: function( position, landmarkMap ) {
-      var includeDirection;
+      let includeDirection;
 
       _.forEach( landmarkMap, function( landmark ) {
         if ( position === landmark.value ) {
@@ -572,7 +572,7 @@ define( require => {
      * @returns {boolean}
      */
     getAddFurtherOnAway: function( position, regionMap ) {
-      var includeFartherAway = false;
+      let includeFartherAway = false;
 
       _.forEach( regionMap, function( region ) {
         if ( region.range.contains( position ) && region.addFartherAway ) {

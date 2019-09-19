@@ -15,30 +15,30 @@ define( require => {
   const Range = require( 'DOT/Range' );
 
   // a11y strings
-  var farthestFromDoorknobString = JohnTravoltageA11yStrings.farthestFromDoorknob.value;
-  var veryFarFromDoorknobString = JohnTravoltageA11yStrings.veryFarFromDoorknob.value;
-  var farFromDoorknobString = JohnTravoltageA11yStrings.farFromDoorknob.value;
-  var notSoCloseToDoorknobString = JohnTravoltageA11yStrings.notSoCloseToDoorknob.value;
-  var closeToDoorknobString = JohnTravoltageA11yStrings.closeToDoorknob.value;
-  var veryCloseToDoorknobString = JohnTravoltageA11yStrings.veryCloseToDoorknob.value;
-  var justAboveDoorknobString = JohnTravoltageA11yStrings.justAboveDoorknob.value;
-  var atDoorknobString = JohnTravoltageA11yStrings.atDoorknob.value;
-  var justBelowDoorknobString = JohnTravoltageA11yStrings.justBelowDoorknob.value;
+  const farthestFromDoorknobString = JohnTravoltageA11yStrings.farthestFromDoorknob.value;
+  const veryFarFromDoorknobString = JohnTravoltageA11yStrings.veryFarFromDoorknob.value;
+  const farFromDoorknobString = JohnTravoltageA11yStrings.farFromDoorknob.value;
+  const notSoCloseToDoorknobString = JohnTravoltageA11yStrings.notSoCloseToDoorknob.value;
+  const closeToDoorknobString = JohnTravoltageA11yStrings.closeToDoorknob.value;
+  const veryCloseToDoorknobString = JohnTravoltageA11yStrings.veryCloseToDoorknob.value;
+  const justAboveDoorknobString = JohnTravoltageA11yStrings.justAboveDoorknob.value;
+  const atDoorknobString = JohnTravoltageA11yStrings.atDoorknob.value;
+  const justBelowDoorknobString = JohnTravoltageA11yStrings.justBelowDoorknob.value;
 
-  var handPointingAwayString = JohnTravoltageA11yStrings.handPointingAway.value;
-  var handPointingStraightUpString = JohnTravoltageA11yStrings.handPointingStraightUp.value;
-  var handPointingAtUpperDoorString = JohnTravoltageA11yStrings.handPointingAtUpperDoor.value;
-  var handPointingAtLowerDoorString = JohnTravoltageA11yStrings.handPointingAtLowerDoor.value;
-  var handPointingStraightDownString = JohnTravoltageA11yStrings.handPointingStraightDown.value;
-  var farthestFromDoorknobLastString = JohnTravoltageA11yStrings.farthestFromDoorknobLast.value;
+  const handPointingAwayString = JohnTravoltageA11yStrings.handPointingAway.value;
+  const handPointingStraightUpString = JohnTravoltageA11yStrings.handPointingStraightUp.value;
+  const handPointingAtUpperDoorString = JohnTravoltageA11yStrings.handPointingAtUpperDoor.value;
+  const handPointingAtLowerDoorString = JohnTravoltageA11yStrings.handPointingAtLowerDoor.value;
+  const handPointingStraightDownString = JohnTravoltageA11yStrings.handPointingStraightDown.value;
+  const farthestFromDoorknobLastString = JohnTravoltageA11yStrings.farthestFromDoorknobLast.value;
 
-  var footOffRugPointingBackwardsString = JohnTravoltageA11yStrings.footOffRugPointingBackwards.value;
-  var footOffRugString = JohnTravoltageA11yStrings.footOffRug.value;
-  var footRubbingOnRugString = JohnTravoltageA11yStrings.footRubbingOnRug.value;
-  var footOffRugPointingForwardString = JohnTravoltageA11yStrings.footOffRugPointingForward.value;
+  const footOffRugPointingBackwardsString = JohnTravoltageA11yStrings.footOffRugPointingBackwards.value;
+  const footOffRugString = JohnTravoltageA11yStrings.footOffRug.value;
+  const footRubbingOnRugString = JohnTravoltageA11yStrings.footRubbingOnRug.value;
+  const footOffRugPointingForwardString = JohnTravoltageA11yStrings.footOffRugPointingForward.value;
 
 
-  var AppendageRangeMaps = {
+  const AppendageRangeMaps = {
 
     legMap: {
       regions: [

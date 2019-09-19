@@ -21,9 +21,9 @@ define( require => {
   const Vector2Property = require( 'DOT/Vector2Property' );
 
   //If this value is 1.0, there is no friction.  The value is what the velocity is multiplied by at every step.
-  var frictionFactor = 0.98;
+  const frictionFactor = 0.98;
 
-  var electronCount = 0;
+  let electronCount = 0;
 
   //Radius of the electron
   Electron.radius = 8;
@@ -43,8 +43,8 @@ define( require => {
       phetioDynamicElement: true
     }, options );
     PhetioObject.call( this, options );
-    var tandem = options.tandem;
-    var self = this;
+    const tandem = options.tandem;
+    const self = this;
     electronCount++;
     this.id = electronCount;
     this.positionProperty = new Vector2Property( new Vector2( x, y ), {
@@ -73,7 +73,7 @@ define( require => {
     this.historyChangedEmitter = new Emitter();
 
     //Electrons start in the leg
-    for ( var i = 0; i < 10; i++ ) {
+    for ( let i = 0; i < 10; i++ ) {
       this.history.push( 'leg' );
     }
 
@@ -94,7 +94,7 @@ define( require => {
      * @param  {number} dt - in seconds
      */
     stepInSpark: function( dt ) {
-      var self = this;
+      const self = this;
       //move to closest line segment
       if ( !this.segment ) {
 
@@ -109,9 +109,9 @@ define( require => {
         }
       }
       //move at constant velocity toward the segment
-      var target = this.segment.p1;
-      var current = this.positionProperty.get();
-      var delta = target.minus( current );
+      const target = this.segment.p1;
+      const current = this.positionProperty.get();
+      const delta = target.minus( current );
 
       //Arrived at destination, go to the next segment
       if ( delta.magnitude <= 100 * dt ) {
@@ -159,30 +159,30 @@ define( require => {
     stepInBody: function( dt ) {
 
       //Performance is critical in this method, so avoid es5 which can be slower
-      var position = this.positionProperty.get();
+      const position = this.positionProperty.get();
 
-      var x1 = position.x;
-      var y1 = position.y;
+      const x1 = position.x;
+      const y1 = position.y;
 
-      var netForceX = 0;
-      var netForceY = 0;
+      let netForceX = 0;
+      let netForceY = 0;
 
       // Compute the net force on each electron from pairwise repulsion.  This stabilizes the motion and pushes
       // the electrons to the outer boundary of the bodies
       // This is an expensive O(n^2) inner loop, so highly optimized and uses Number instead of Vector2 in a number of locations
-      var length = this.model.electrons.length;
+      const length = this.model.electrons.length;
       for ( var i = 0; i < length; i++ ) {
-        var electron = this.model.electrons.get( i );
+        const electron = this.model.electrons.get( i );
 
         // Skipping some interactions speeds things up and also gives a good sense of more randomness
         if ( electron !== this && phet.joist.random.nextDouble() < 0.4 ) {
 
           //Using direct get method instead of ES5 getter to improve performance in this inner loop
           //ES5 getter shows up as expensive in this inner loop (7% out of 30%), so skip it and only get the position once
-          var electronPosition = electron.positionProperty.get();
+          const electronPosition = electron.positionProperty.get();
 
-          var deltaVectorX = electronPosition.x - position.x;
-          var deltaVectorY = electronPosition.y - position.y;
+          const deltaVectorX = electronPosition.x - position.x;
+          const deltaVectorY = electronPosition.y - position.y;
 
           //If the electrons are directly on top of one another (can be caused by moving them inside the body bounds when a spark is cancelled), then skip this computation
           if ( deltaVectorX && deltaVectorY ) {
@@ -190,10 +190,10 @@ define( require => {
             //Good luck tuning these magic numbers!
             //Tuning the power to a smaller number increases long range interactions.
             //Tuning the coefficient to a higher number increases the strength of interaction at any distance.
-            var scale = 12000 / Math.pow( electronPosition.distance( position ), 3 );
-            var fx = deltaVectorX * scale;
-            var fy = deltaVectorY * scale;
-            var forceMagnitudeSquared = fx * fx + fy * fy;
+            const scale = 12000 / Math.pow( electronPosition.distance( position ), 3 );
+            let fx = deltaVectorX * scale;
+            let fy = deltaVectorY * scale;
+            const forceMagnitudeSquared = fx * fx + fy * fy;
             if ( forceMagnitudeSquared > this.maxForceSquared ) {
               fx = fx / this.maxForceSquared;
               fy = fy / this.maxForceSquared;
@@ -204,10 +204,10 @@ define( require => {
         }
       }
 
-      var vx2 = this.velocity.x + netForceX * dt;
-      var vy2 = this.velocity.y + netForceY * dt;
+      let vx2 = this.velocity.x + netForceX * dt;
+      let vy2 = this.velocity.y + netForceY * dt;
 
-      var d = Math.sqrt( vx2 * vx2 + vy2 * vy2 );
+      const d = Math.sqrt( vx2 * vx2 + vy2 * vy2 );
 
       if ( d > this.maxSpeed ) {
         vx2 = vx2 / d * this.maxSpeed;
@@ -216,20 +216,20 @@ define( require => {
       vx2 = vx2 * frictionFactor;
       vy2 = vy2 * frictionFactor;
 
-      var x2 = x1 + vx2 * dt;
-      var y2 = y1 + vy2 * dt;
+      const x2 = x1 + vx2 * dt;
+      const y2 = y1 + vy2 * dt;
 
       // Skipping notifications here because nobody needs to observe the velocity values, and this is faster (no allocation)
       this.velocity.setXY( vx2, vy2 );
 
-      var segments = this.model.lineSegments;
-      var numSegments = segments.length;
-      var bounced = false;
+      const segments = this.model.lineSegments;
+      const numSegments = segments.length;
+      let bounced = false;
       for ( i = 0; i < numSegments; i++ ) {
-        var segment = segments[ i ];
+        const segment = segments[ i ];
         if ( Util.lineSegmentIntersection( x1, y1, x2, y2, segment.x1, segment.y1, segment.x2, segment.y2 ) ) {
 
-          var normal = segment.normalVector;
+          const normal = segment.normalVector;
 
           // reflect velocity, but lose some of the energy in the bounce to help keep the electrons near the walls and help them lose energy quicker
           // The Safari 6.0 heisenbug exhibits here if you use es5, so use property.get() instead

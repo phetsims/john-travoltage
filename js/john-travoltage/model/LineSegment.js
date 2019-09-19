@@ -38,7 +38,7 @@ define( require => {
     this.p0 = new Vector2( this.x1, this.y1 );
     this.p1 = new Vector2( this.x2, this.y2 );
 
-    var epsilon = 0.01;
+    const epsilon = 0.01;
 
     // @public (read-only)
     this.pre0 = this.p0.blend( this.p1, epsilon );

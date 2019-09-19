@@ -20,7 +20,7 @@ define( require => {
   const johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
   const Shape = require( 'KITE/Shape' );
 
-  var DebugUtils = {
+  const DebugUtils = {
 
     /**
      * Sample model points for bounds, see JohnTravoltageModel.bodyVertices
@@ -29,12 +29,12 @@ define( require => {
     debugPositions: function( johnTravoltageView ) {
       johnTravoltageView.touchArea = Shape.rectangle( 0, 0, 1000, 1000 );
       johnTravoltageView.mouseArea = Shape.rectangle( 0, 0, 1000, 1000 );
-      var string = '';
+      let string = '';
       johnTravoltageView.addInputListener( {
         down: function( event ) {
-          var pt = event.pointer.point;
-          var global = johnTravoltageView.globalToLocalPoint( pt );
-          var a = 'new Vector2(' + global.x + ',' + global.y + '),\n';
+          const pt = event.pointer.point;
+          const global = johnTravoltageView.globalToLocalPoint( pt );
+          const a = 'new Vector2(' + global.x + ',' + global.y + '),\n';
 
           string = string + a;
           console.log( string );
@@ -49,12 +49,12 @@ define( require => {
     debugLineSegments: function( johnTravoltageView ) {
       johnTravoltageView.touchArea = Shape.rectangle( 0, 0, 1000, 1000 );
       johnTravoltageView.mouseArea = Shape.rectangle( 0, 0, 1000, 1000 );
-      var string = '';
-      var p1 = null;
+      let string = '';
+      let p1 = null;
       johnTravoltageView.addInputListener( {
         down: function( event ) {
-          var pt = event.pointer.point;
-          var global = johnTravoltageView.globalToLocalPoint( pt );
+          const pt = event.pointer.point;
+          const global = johnTravoltageView.globalToLocalPoint( pt );
           if ( p1 ) {
             string = string + 'new LineSegment(' + p1.x + ',' + p1.y + ',' + global.x + ',' + global.y + '),\n';
             console.log( string );

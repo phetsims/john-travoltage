@@ -23,7 +23,7 @@ define( require => {
   function Arm( tandem ) {
 
     // position determined empirically with DebugUtils
-    var pivotPoint = new Vector2( 423.6179673321235, 229.84969476984 );
+    const pivotPoint = new Vector2( 423.6179673321235, 229.84969476984 );
 
     Appendage.call( this, pivotPoint, tandem, {
 
@@ -36,7 +36,7 @@ define( require => {
 
     // Exact finger location sampled using DebugUtils.js
     // var finger = new Vector2( 534.3076703633706, 206.63766358806117 );
-    var finger = new Vector2( 534.3076704, 206.6376636 );
+    const finger = new Vector2( 534.3076704, 206.6376636 );
 
     // @public (read-only) - vector from pivot point to the finger
     this.fingerVector = finger.minus( this.position );

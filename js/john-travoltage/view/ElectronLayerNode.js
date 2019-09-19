@@ -22,8 +22,8 @@ define( require => {
   const utteranceQueue = require( 'SCENERY_PHET/accessibility/utteranceQueue' );
 
   // a11y strings
-  var electronsTotalString = JohnTravoltageA11yStrings.electronsTotal.value;
-  var electronsTotalAfterDischargeString = JohnTravoltageA11yStrings.electronsTotalAfterDischarge.value;
+  const electronsTotalString = JohnTravoltageA11yStrings.electronsTotal.value;
+  const electronsTotalAfterDischargeString = JohnTravoltageA11yStrings.electronsTotalAfterDischarge.value;
 
   /**
    * @param {JohnTravoltageModel} model
@@ -33,7 +33,7 @@ define( require => {
    * @constructor
    */
   function ElectronLayerNode( model, armNode, maxElectrons, tandem ) {
-    var self = this;
+    const self = this;
 
     Node.call( this );
 
@@ -44,21 +44,21 @@ define( require => {
       alertStableDelay: 1000
     } );
 
-    var priorCharge = 0;
+    let priorCharge = 0;
 
     // a11y - when electrons enter or leave the body, announce this change with a status update to assistive technology
-    var setElectronStatus = function() {
-      var alertString;
-      var currentCharge = model.electrons.length;
+    const setElectronStatus = function() {
+      let alertString;
+      const currentCharge = model.electrons.length;
 
       if ( currentCharge >= priorCharge ) {
         alertString = StringUtils.fillIn( electronsTotalString, { value: currentCharge } );
 
       }
       else {
-        var position = armNode.positionAtDischarge || '';
+        const position = armNode.positionAtDischarge || '';
 
-        var regionText = '';
+        let regionText = '';
         if ( armNode.regionAtDischarge && armNode.regionAtDischarge.text ) {
           regionText = armNode.regionAtDischarge.text.toLowerCase();
         }
