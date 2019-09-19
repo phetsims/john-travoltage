@@ -27,6 +27,7 @@ git clone https://github.com/phetsims/babel.git
 git clone https://github.com/phetsims/brand.git
 git clone https://github.com/phetsims/chipper.git
 git clone https://github.com/phetsims/dot.git
+git clone https://github.com/phetsims/griddle.git
 git clone https://github.com/phetsims/john-travoltage.git
 git clone https://github.com/phetsims/joist.git
 git clone https://github.com/phetsims/kite.git
@@ -40,6 +41,7 @@ git clone https://github.com/phetsims/sherpa.git
 git clone https://github.com/phetsims/sun.git
 git clone https://github.com/phetsims/tambo.git
 git clone https://github.com/phetsims/tandem.git
+git clone https://github.com/phetsims/tappi.git
 ```
 (2) Start an http-server
 
