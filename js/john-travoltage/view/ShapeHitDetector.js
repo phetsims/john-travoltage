@@ -1,6 +1,9 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
+ * A node that can be used to detect pointer interaction over a set of shapes. You can add a shape with addShape, which
+ * takes a Shape and a Property. While the pointer is down over the shape, the associated Property will be set to true.
+ * This is useful if you want a unique behavior per shape.
  *
  * @author Jesse Greenberg
  */
@@ -70,7 +73,16 @@ define( require => {
     }
   }
 
+  /**
+   * The Node to receive input, collects the Property that indicates the pointer is down over the provided shape.
+   */
   class HittablePath extends Path {
+
+    /**
+     * @param {Shape} shape
+     * @param {BooleanProperty} property - true when the pointer is down over this shape
+     * @param {Objects} options
+     */
     constructor( shape, property, options ) {
       options = _.extend( {
 
@@ -87,14 +99,22 @@ define( require => {
       this.debugStroke = options.debugStroke;
     }
 
+    /**
+     * Returns true if the point is within the shape.
+     *
+     * @param {Vector2} point
+     * @returns {}
+     */
     shapeContainsPoint( point ) {
       return this.shape.containsPoint( point );
     }
 
+    /**
+     * Sets the property based on whether or not the point is within the shape.
+     *
+     * @param {Vector2} point - in the global coordinate frame
+     */
     detectHit( point ) {
-      if ( this.shape.containsPoint( point ) ) {
-        console.log( 'setting point' );
-      }
       this.property.set( this.shape.containsPoint( point ) );
     }
 
