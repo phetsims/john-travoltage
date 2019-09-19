@@ -57,7 +57,7 @@ define( function( require ) {
           var global = johnTravoltageView.globalToLocalPoint( pt );
           if ( p1 ) {
             string = string + 'new LineSegment(' + p1.x + ',' + p1.y + ',' + global.x + ',' + global.y + '),\n';
-            // console.log( string );
+            console.log( string );
             p1 = null;
           }
           else {

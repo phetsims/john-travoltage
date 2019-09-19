@@ -21,6 +21,7 @@ define( require => {
   const johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
   const vibrationManager = require( 'TAPPI/vibrationManager' );
   const VibrationPatterns = require( 'TAPPI/VibrationPatterns' );
+  const Property = require( 'AXON/Property' );
 
   class VibrationController {
     constructor() {}
@@ -43,9 +44,13 @@ define( require => {
           vibrationManager.startTimedVibrate( 250, VibrationPatterns.HZ_25 );
         } );
 
-        model.touchingBodyProperty.link( ( touchingBody ) => {
+        // in a multilink because vibration shouldn't stop if both change simultaneously
+        Property.multilink( [ model.touchingBodyProperty, model.touchingCarpetProperty ], ( touchingBody, touchingCarpet ) => {
           if ( touchingBody ) {
             vibrationManager.startVibrate( VibrationPatterns.HZ_5 );
+          }
+          else if ( touchingCarpet ) {
+            vibrationManager.startVibrate();
           }
           else {
             vibrationManager.stopVibrate();
