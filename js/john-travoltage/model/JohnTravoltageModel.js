@@ -91,6 +91,14 @@ define( function( require ) {
       new LineSegment( 317.3914691943128, 255.98483412322273, 355.9734597156398, 222.4985781990521 )
     ];
 
+    // vertices of the carpet shape in the background, determined with the listeners in DebugUtils
+    this.carpetVertices = [
+      new Vector2( 126.67410358565739, 492.91474103585665 ),
+      new Vector2( 233.76573705179285, 446.4063745019921),
+      new Vector2( 580.7426294820718, 447.01832669322715),
+      new Vector2( 520.1593625498009, 495.3625498007969)
+    ];
+
     this.doorknobPosition = new Vector2( 548.4318903113076, 257.5894162536105 );
 
     //Properties of the model.  All user settings belong in the model, whether or not they are part of the physical model
@@ -129,10 +137,18 @@ define( function( require ) {
     // @public (read-only) - closed shape for the body that contains electrons, from body vertices above
     this.bodyShape = new Shape();
     this.bodyShape.moveTo( this.bodyVertices[ 0 ].x, this.bodyVertices[ 0 ].y );
-    for ( var i = 0; i < this.bodyVertices.length; i++ ) {
+    for ( let i = 0; i < this.bodyVertices.length; i++ ) {
       this.bodyShape.lineTo( this.bodyVertices[ i ].x, this.bodyVertices[ i ].y );
     }
     this.bodyShape.close();
+
+    // @public (read-only) - closed shape for the carpet in this sim
+    this.carpetShape = new Shape();
+    this.carpetShape.moveTo( this.carpetVertices[ 0 ].x, this.carpetVertices[ 0 ].y );
+    for ( let i = 0; i < this.carpetVertices.length; i++ ) {
+      this.carpetShape.lineTo( this.carpetVertices[ i ].x, this.carpetVertices[ i ].y );
+    }
+    this.carpetShape.close();
 
     // true when the foot is in contact with the carpet
     this.shoeOnCarpetProperty = new DerivedProperty( [ this.leg.angleProperty ],
@@ -161,6 +177,9 @@ define( function( require ) {
 
     // @public - true when a pointer is down over the body
     this.touchingBodyProperty = new BooleanProperty( false );
+
+    // @public - true when a pointer is down over the carpet
+    this.touchingCarpetProperty = new BooleanProperty( false );
 
     //If leg dragged across carpet, add electron.  Lazy link so that it won't add an electron when the sim starts up.
     //The number of electrons accumulated only depends on the total angle subtended

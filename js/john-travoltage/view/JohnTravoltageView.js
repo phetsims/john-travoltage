@@ -21,7 +21,7 @@ define( function( require ) {
   var Bounds2 = require( 'DOT/Bounds2' );
   var Circle = require( 'SCENERY/nodes/Circle' );
   var DebugUtils = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/DebugUtils' );
-  var BodyShapeNode = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/BodyShapeNode' );
+  var ShapeHitDetector = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/ShapeHitDetector' );
   var DerivedProperty = require( 'AXON/DerivedProperty' );
   var Emitter = require( 'AXON/Emitter' );
   var ElectronLayerNode = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/ElectronLayerNode' );
@@ -123,8 +123,10 @@ define( function( require ) {
     //Split layers after background for performance
     this.addChild( new Node( { layerSplit: true, pickable: false } ) );
 
-    this.bodyShapeNode = new BodyShapeNode( model );
-    this.addChild( this.bodyShapeNode );
+    this.shapeHitDetector = new ShapeHitDetector();
+    this.shapeHitDetector.addShape( model.bodyShape, model.touchingBodyProperty );
+    this.shapeHitDetector.addShape( model.carpetShape, model.touchingCarpetProperty );
+    this.addChild( this.shapeHitDetector );
 
     // @public (read-only) arm and leg - only interactive elements
     this.leg = new AppendageNode( model.leg, leg, 25, 28, Math.PI / 2 * 0.7, AppendageRangeMaps.legMap,
@@ -435,7 +437,7 @@ define( function( require ) {
       //   customShape.moveTo( lineSegment.x1, lineSegment.y1 );
       //   customShape.lineTo( lineSegment.x2, lineSegment.y2 );
       // }
-      this.bodyShapeNode.showBody();
+      this.shapeHitDetector.showShapes();
 
       //Show normals
       let lineSegment;
