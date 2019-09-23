@@ -128,7 +128,6 @@ define( require => {
         // if the appendage is picked up with the mouse, it should not be keyboard focusable until dropped
         self.focusable = false;
 
-        appendage.dragStartedEmitter.emit();
         appendage.isDraggingProperty.set( true );
 
         appendage.borderVisibleProperty.set( false );
@@ -186,7 +185,6 @@ define( require => {
         // when we are done dragging with the mouse, place back in tab order
         self.focusable = true;
 
-        appendage.dragEndedEmitter.emit();
         appendage.isDraggingProperty.set( false );
       }
     } ) );
@@ -269,13 +267,11 @@ define( require => {
         self.keyboardDragging = true;
         appendage.borderVisibleProperty.set( false );
 
-        appendage.dragStartedEmitter.emit();
         appendage.isDraggingProperty.set( true );
       },
       endDrag: function() {
         self.keyboardDragging = false;
 
-        appendage.dragEndedEmitter.emit();
         appendage.isDraggingProperty.set( false );
       },
       a11yCreateValueChangeAriaValueText: function( formattedValue, sliderValue, oldSliderValue ) {
