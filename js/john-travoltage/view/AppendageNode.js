@@ -184,6 +184,8 @@ define( require => {
 
         // when we are done dragging with the mouse, place back in tab order
         self.focusable = true;
+
+        appendage.dragEndedEmitter.emit();
       }
     } ) );
 
@@ -264,9 +266,13 @@ define( require => {
 
         self.keyboardDragging = true;
         appendage.borderVisibleProperty.set( false );
+
+        appendage.dragStartedEmitter.emit();
       },
       endDrag: function() {
         self.keyboardDragging = false;
+
+        appendage.dragEndedEmitter.emit();
       },
       a11yCreateValueChangeAriaValueText: function( formattedValue, sliderValue, oldSliderValue ) {
         return self.getTextFromPosition( sliderValue, oldSliderValue );

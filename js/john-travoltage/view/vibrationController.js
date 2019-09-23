@@ -32,10 +32,10 @@ define( require => {
     initialize( model ) {
       const paradigmChoice = phet.chipper.queryParameters.vibration;
 
-      if ( paradigmChoice === 'objects' ) {
 
-        // Important model objects give the user feedback while they are touching/interacting with them. This makes
-        // objects seem distinct and "physical". Each object has a different pattern so it feels unique.
+      // Important model objects give the user feedback while they are touching/interacting with them. This makes
+      // objects seem distinct and "physical". Each object has a different pattern so it feels unique.
+      if ( paradigmChoice === 'objects' ) {
         model.leg.dragStartedEmitter.addListener( () => {
           vibrationManager.startTimedVibrate( 250, VibrationPatterns.HZ_10 );
         } );
@@ -56,6 +56,16 @@ define( require => {
             vibrationManager.stopVibrate();
           }
         } );
+      }
+
+      // Haptic feedback is used to convey movement of the arm and leg. Each component has a different pattern to
+      // indicate difference.
+      if ( paradigmChoice === 'interaction' ) {
+        model.leg.dragStartedEmitter.addListener( () => vibrationManager.startVibrate( VibrationPatterns.HZ_10 ) );
+        model.leg.dragEndedEmitter.addListener( () => vibrationManager.stopVibrate() );
+
+        model.arm.dragStartedEmitter.addListener( () => vibrationManager.startVibrate( VibrationPatterns.HZ_25 ) );
+        model.arm.dragEndedEmitter.addListener( () => vibrationManager.stopVibrate() );
       }
     }
   }

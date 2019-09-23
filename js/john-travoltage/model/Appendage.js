@@ -63,6 +63,9 @@ define( require => {
 
     // @public - emits an event when the appendage begins dragging
     this.dragStartedEmitter = new Emitter();
+
+    // @public - emits an event when the appendage dragging stops
+    this.dragEndedEmitter = new Emitter();
   }
 
   johnTravoltage.register( 'Appendage', Appendage );
