@@ -1,5 +1,5 @@
 {
-  "comment": "# john-travoltage 1.6.0-dev.10 Mon Sep 23 2019 16:15:56 GMT-0400 (Eastern Daylight Time)",
+  "comment": "# john-travoltage 1.6.0-dev.11 Mon Sep 23 2019 16:37:29 GMT-0400 (Eastern Daylight Time)",
   "assert": {
     "sha": "bd6e3ed0a8b6fea73a4a176d5364809666833e58",
     "branch": "master"
@@ -25,7 +25,7 @@
     "branch": "master"
   },
   "john-travoltage": {
-    "sha": "403022d4a75c717001f809660be5ba0960f6e7b8",
+    "sha": "92070597ff4907e54286a543e1099d91d0d24cfb",
     "branch": "master"
   },
   "joist": {
