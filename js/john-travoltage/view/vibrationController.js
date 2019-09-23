@@ -39,12 +39,15 @@ define( require => {
       // Important model objects give the user feedback while they are touching/interacting with them. This makes
       // objects seem distinct and "physical". Each object has a different pattern so it feels unique.
       if ( paradigmChoice === 'objects' ) {
-        model.leg.dragStartedEmitter.addListener( () => {
-          vibrationManager.startTimedVibrate( 250, VibrationPatterns.HZ_10 );
+        model.leg.isDraggingProperty.addListener( isDragging => {
+          if ( isDragging ) {
+            vibrationManager.startTimedVibrate( 250, VibrationPatterns.HZ_10 );
+          }
         } );
-
-        model.arm.dragStartedEmitter.addListener( () => {
-          vibrationManager.startTimedVibrate( 250, VibrationPatterns.HZ_25 );
+        model.arm.isDraggingProperty.link( isDragging => {
+          if ( isDragging ) {
+            vibrationManager.startTimedVibrate( 250, VibrationPatterns.HZ_25 );
+          }
         } );
 
         // in a multilink because vibration shouldn't stop if both change simultaneously
@@ -64,11 +67,23 @@ define( require => {
       // Haptic feedback is used to convey movement of the arm and leg. Each component has a different pattern to
       // indicate difference.
       if ( paradigmChoice === 'interaction' ) {
-        model.leg.dragStartedEmitter.addListener( () => vibrationManager.startVibrate( VibrationPatterns.HZ_10 ) );
-        model.leg.dragEndedEmitter.addListener( () => vibrationManager.stopVibrate() );
+        model.leg.isDraggingProperty.link( isDragging => {
+          if ( isDragging ) {
+            vibrationManager.startVibrate( VibrationPatterns.HZ_10 );
+          }
+          else {
+            vibrationManager.stopVibrate();
+          }
+        } );
 
-        model.arm.dragStartedEmitter.addListener( () => vibrationManager.startVibrate( VibrationPatterns.HZ_25 ) );
-        model.arm.dragEndedEmitter.addListener( () => vibrationManager.stopVibrate() );
+        model.arm.isDraggingProperty.link( isDragging => {
+          if ( isDragging ) {
+            vibrationManager.startVibrate( VibrationPatterns.HZ_25 );
+          }
+          else {
+            vibrationManager.stopVibrate();
+          }
+        } );
       }
 
       // Vibration feedback used to convey state of charges in this sim. Vibration feedback indicates when the body
@@ -88,14 +103,14 @@ define( require => {
             vibrationManager.stopVibrate();
           }
         } );
-      }
 
-      // for as long as there are charges in the body and a vibration is currently running, initiate vibration
-      model.stepEmitter.addListener( () => {
-        if ( !vibrationManager.isRunningPattern() && model.electrons.length > 0 ) {
-          vibrationManager.startVibrate( VibrationPatterns.HZ_5 );
-        }
-      } );
+        // for as long as there are charges in the body and a vibration is currently running, initiate vibration
+        model.stepEmitter.addListener( () => {
+          if ( !vibrationManager.isRunningPattern() && model.electrons.length > 0 ) {
+            vibrationManager.startVibrate( VibrationPatterns.HZ_5 );
+          }
+        } );
+      }
     }
   }
 
