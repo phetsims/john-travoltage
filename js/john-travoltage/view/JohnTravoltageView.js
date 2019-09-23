@@ -429,14 +429,6 @@ define( require => {
      * @private
      */
     showBody: function() {
-      //vertices and body path
-      // var customShape = new Shape();
-      // var lineSegment = null;
-      // for ( var i = 0; i < this.model.lineSegments.length; i++ ) {
-      //   lineSegment = this.model.lineSegments[ i ];
-      //   customShape.moveTo( lineSegment.x1, lineSegment.y1 );
-      //   customShape.lineTo( lineSegment.x2, lineSegment.y2 );
-      // }
       this.shapeHitDetector.showShapes();
 
       //Show normals
