@@ -39,7 +39,7 @@ define( require => {
       // Important model objects give the user feedback while they are touching/interacting with them. This makes
       // objects seem distinct and "physical". Each object has a different pattern so it feels unique.
       if ( paradigmChoice === 'objects' ) {
-        model.leg.isDraggingProperty.addListener( isDragging => {
+        model.leg.isDraggingProperty.link( isDragging => {
           if ( isDragging ) {
             vibrationManager.startTimedVibrate( 250, VibrationPatterns.HZ_10 );
           }

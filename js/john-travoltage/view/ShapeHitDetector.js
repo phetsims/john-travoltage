@@ -1,9 +1,16 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * A node that can be used to detect pointer interaction over a set of shapes. You can add a shape with addShape, which
- * takes a Shape and a Property. While the pointer is down over the shape, the associated Property will be set to true.
- * This can be used to script unique behavior while the Property is over the given shape.
+ * A listener that can be added to a Node or the Display to detect if a pointer is over a colleciton
+ * of shapes. You can add a shape with addShape, which takes a Shape and a Property. While the pointer is down over the
+ * shape, the associated Property will be set to true so that you can observe this behavior.
+ *
+ * NOTE: This is intended to be added to the display. At one point it extended DragListener. This worked well when
+ * added to a Node of the Display, but caused errors when added to the Display directly. If we use this more,
+ * figure out why.
+ *
+ * In the meantime, creating a custom listener. It doesn't support many things taht would come for free with
+ * DragListener (like interruption).
  *
  * @author Jesse Greenberg
  */
@@ -12,71 +19,110 @@ define( require => {
 
   // modules
   const johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
-  const DragListener = require( 'SCENERY/listeners/DragListener' );
-  const Node = require( 'SCENERY/nodes/Node' );
+  // const DragListener = require( 'SCENERY/listeners/DragListener' );
   const Path = require( 'SCENERY/nodes/Path' );
 
-  class ShapeHitDetector extends Node {
+  class ShapeHitListener {
 
     /**
      * @param {Tandem} tandem
      */
-    constructor( tandem ) {
-      super();
+    constructor( parent, tandem ) {
 
-      this.paths = [];
+      // @private {Hittable[]} - collection of shape/Property to be detected
+      this.hittables = [];
 
-      // determines if the pointer is within the body area - this is all about making it easier to understand
-      // the shape of the body, so we use DragListener for its touchSnag support so the body is discoverable
-      this.addInputListener( new DragListener( {
+      // @private {Node} - the parent node of this listener for reference frame transforms
+      this.parent = parent;
 
-        // just for vibration feedback, don't make the cursor look different
-        pressCursor: null,
+      // @private {boolean} - is a pointer down and using this listener?
+      this.isPressed = false;
 
-        press: ( event, listener ) => {
-          const parentPoint = this.globalToParentPoint( event.pointer.point );
-          for ( let i = 0; i < this.paths.length; i++ ) {
-            this.paths[ i ].detectHit( parentPoint );
+      // @private {Object} - attached to the pointer on `down` if the pointer isn't already attached and interacting
+      // with other things
+      this._pointerListener = {
+        move: event => {
+          if ( this.isPressed ) {
+            const parentPoint = this.parent.globalToLocalPoint( event.pointer.point );
+
+            // find which shape contains the parent point, set its associated Property
+            for ( let i = 0; i < this.hittables.length; i++ ) {
+              this.hittables[ i ].detectHit( parentPoint );
+            }
           }
         },
-        drag: ( event, listener ) => {
-          const parentPoint = this.globalToParentPoint( event.pointer.point );
-
-          // find which shape contains the parent point, set its associated Property
-          for ( let i = 0; i < this.paths.length; i++ ) {
-            this.paths[ i ].detectHit( parentPoint );
-          }
-        },
-        release: ( event, listener ) => {
-
+        up: event => {
           // no paths hit on release
-          for ( let i = 0; i < this.paths.length; i++ ) {
-            this.paths[ i ].property.set( false );
+          for ( let i = 0; i < this.hittables.length; i++ ) {
+            this.hittables[ i ].property.set( false );
           }
-        },
-
-        tandem: tandem.createTandem( 'dragListener' )
-      } ) );
+        }
+      };
     }
 
-    addShape( shape, property, options ) {
-      const hittablePath = new HittablePath( shape, property, options );
-      this.paths.push( hittablePath );
+    /**
+     * For the scenery listener API, detects any hits and attaches listener to the pointer for movement and eventually
+     * listener removal.
+     * @param {Event} event
+     */
+    down( event ) {
 
-      this.addChild( hittablePath );
-    }
+      // only begin dragging if pointer isn't already interacting with something
+      if ( !event.pointer.isAttached() ) {
+        this.isPressed = true;
 
-    showShapes() {
-      for ( let i = 0; i < this.paths.length; i++ ) {
-        this.paths[ i ].showShape();
+        const parentPoint = this.parent.globalToLocalPoint( event.pointer.point );
+        for ( let i = 0; i < this.hittables.length; i++ ) {
+          this.hittables[ i ].detectHit( parentPoint );
+        }
+
+        event.pointer.addInputListener( this._pointerListener, true );
       }
+    }
+
+    /**
+     * For the scenery listener API, removes the pointer listener when done.
+     *
+     * @param {Event} event
+     */
+    up( event ) {
+      if ( this.isPressed ) {
+
+        // warning - no multitouch support
+        this.isPressed = false;
+        event.pointer.removeInputListener( this._pointerListener );
+      }
+    }
+
+    /**
+     * Add a shape to the detectr, Property set true when pointer is down over shape.
+     *
+     * @param {Shape} shape
+     * @param {Property} property
+     */
+    addShape( shape, property, options ) {
+      const hittable = new Hittable( shape, property, options );
+      this.hittables.push( hittable );
+    }
+
+    /**
+     * For debugging. Show attached shapes visually.
+     * @returns {[type]} [description]
+     */
+    getDebugPaths() {
+      const paths = [];
+      for ( let i = 0; i < this.hittables.length; i++ ) {
+        paths.push( this.hittables[ i ].getDebugPath() );
+      }
+
+      return paths;
     }
   }
 
   /**
    * The Node to receive input, collects the Property that indicates the pointer is down over the provided shape.
    */
-  class HittablePath extends Path {
+  class Hittable {
 
     /**
      * @param {Shape} shape
@@ -90,7 +136,7 @@ define( require => {
         debugStroke: 'green'
       }, options );
 
-      super( shape );
+      this.shape = shape;
 
       // @public (read-only)
       this.property = property;
@@ -121,10 +167,13 @@ define( require => {
     /**
      * Make the object shape visible. This is purely for debugging purposes.
      */
-    showShape() {
-      this.stroke = this.debugStroke;
+    getDebugPath() {
+      return new Path( this.shape, {
+        stroke: this.debugStroke,
+        pickable: false
+      } );
     }
   }
 
-  return johnTravoltage.register( 'ShapeHitDetector', ShapeHitDetector );
+  return johnTravoltage.register( 'ShapeHitDetector', ShapeHitListener);
 } );

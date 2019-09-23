@@ -123,10 +123,15 @@ define( require => {
     //Split layers after background for performance
     this.addChild( new Node( { layerSplit: true, pickable: false } ) );
 
-    this.shapeHitDetector = new ShapeHitDetector( tandem.createTandem( 'shapeHitDetector' ) );
+    this.shapeHitDetector = new ShapeHitDetector( this, tandem.createTandem( 'shapeHitDetector' ) );
     this.shapeHitDetector.addShape( model.bodyShape, model.touchingBodyProperty );
     this.shapeHitDetector.addShape( model.carpetShape, model.touchingCarpetProperty );
-    this.addChild( this.shapeHitDetector );
+
+    // only attach the listener if we are testing haptic feedback, but create eagerly since its shapes are used by
+    // debugInfo query parameter
+    if ( phet.chipper.queryParameters.vibration !== null ) {
+      phet.joist.display.addInputListener( this.shapeHitDetector );
+    }
 
     // @public (read-only) arm and leg - only interactive elements
     this.leg = new AppendageNode( model.leg, leg, 25, 28, Math.PI / 2 * 0.7, AppendageRangeMaps.legMap,
@@ -429,7 +434,8 @@ define( require => {
      * @private
      */
     showBody: function() {
-      this.shapeHitDetector.showShapes();
+      const hitPaths = this.shapeHitDetector.getDebugPaths();
+      hitPaths.forEach( path => { this.addChild( path ); } );
 
       //Show normals
       let lineSegment;
