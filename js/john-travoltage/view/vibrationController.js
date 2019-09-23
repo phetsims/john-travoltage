@@ -104,6 +104,12 @@ define( require => {
           }
         } );
 
+        model.electrons.addItemRemovedListener( electron => {
+          if ( model.electrons.length === 0 ) {
+            vibrationManager.stopVibrate();
+          }
+        } );
+
         // for as long as there are charges in the body and a vibration is currently running, initiate vibration
         model.stepEmitter.addListener( () => {
           if ( !vibrationManager.isRunningPattern() && model.electrons.length > 0 ) {
