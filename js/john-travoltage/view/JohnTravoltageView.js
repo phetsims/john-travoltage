@@ -149,10 +149,10 @@ define( require => {
 
     // Show the dotted lines again when the sim is reset
     model.resetEmitter.addListener( function() {
-      if ( !self.leg.dragging ) {
+      if ( !model.leg.isDraggingProperty.get() ) {
         model.leg.borderVisibleProperty.set( true );
       }
-      if ( !self.arm.dragging ) {
+      if ( !model.arm.isDraggingProperty.get() ) {
         model.arm.borderVisibleProperty.set( true );
       }
 

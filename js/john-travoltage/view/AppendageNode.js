@@ -129,6 +129,7 @@ define( require => {
         self.focusable = false;
 
         appendage.dragStartedEmitter.emit();
+        appendage.isDraggingProperty.set( true );
 
         appendage.borderVisibleProperty.set( false );
       },
@@ -186,6 +187,7 @@ define( require => {
         self.focusable = true;
 
         appendage.dragEndedEmitter.emit();
+        appendage.isDraggingProperty.set( false );
       }
     } ) );
 
@@ -268,11 +270,13 @@ define( require => {
         appendage.borderVisibleProperty.set( false );
 
         appendage.dragStartedEmitter.emit();
+        appendage.isDraggingProperty.set( true );
       },
       endDrag: function() {
         self.keyboardDragging = false;
 
         appendage.dragEndedEmitter.emit();
+        appendage.isDraggingProperty.set( false );
       },
       a11yCreateValueChangeAriaValueText: function( formattedValue, sliderValue, oldSliderValue ) {
         return self.getTextFromPosition( sliderValue, oldSliderValue );

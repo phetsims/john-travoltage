@@ -55,8 +55,10 @@ define( require => {
     // @public (read-only)
     this.position = pivotPoint;
 
-    // @public - Keep track of dragging flag (non-observable) so that when the sim is reset, a border outline is not added if the leg is dragging
-    this.dragging = false;
+    // @public - Whether or not the appendage is currently being dragged
+    this.isDraggingProperty = new BooleanProperty( false, {
+      tandem: tandem.createTandem( 'draggingProperty' )
+    } );
 
     // @public - emits an event when the appendage is reset
     this.appendageResetEmitter = new Emitter();

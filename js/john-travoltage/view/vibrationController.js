@@ -23,6 +23,9 @@ define( require => {
   const VibrationPatterns = require( 'TAPPI/VibrationPatterns' );
   const Property = require( 'AXON/Property' );
 
+  // constants
+  const CHARGES_LEAVING_PATTERN = [ 200, 100 ];
+
   class VibrationController {
     constructor() {}
 
@@ -67,6 +70,32 @@ define( require => {
         model.arm.dragStartedEmitter.addListener( () => vibrationManager.startVibrate( VibrationPatterns.HZ_25 ) );
         model.arm.dragEndedEmitter.addListener( () => vibrationManager.stopVibrate() );
       }
+
+      // Vibration feedback used to convey state of charges in this sim. Vibration feedback indicates when the body
+      // has charge and when charges enter/leave the body.
+      if ( paradigmChoice === 'state' ) {
+
+        // whenever charges leave the body
+        model.dischargeStartedEmitter.addListener( () => vibrationManager.startVibrate( CHARGES_LEAVING_PATTERN ) );
+        model.dischargeEndedEmitter.addListener( () => vibrationManager.stopVibrate() );
+
+        // whenever the leg is dragged over the carpet and ready to pick up charge
+        Property.multilink( [ model.leg.isDraggingProperty, model.shoeOnCarpetProperty ], ( isDragging, shoeOnCarpet ) => {
+          if ( isDragging && shoeOnCarpet ) {
+            vibrationManager.startVibrate();
+          }
+          else {
+            vibrationManager.stopVibrate();
+          }
+        } );
+      }
+
+      // for as long as there are charges in the body and a vibration is currently running, initiate vibration
+      model.stepEmitter.addListener( () => {
+        if ( !vibrationManager.isRunningPattern() && model.electrons.length > 0 ) {
+          vibrationManager.startVibrate( VibrationPatterns.HZ_5 );
+        }
+      } );
     }
   }
 
