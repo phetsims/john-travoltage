@@ -21,6 +21,11 @@
       "phet-io",
       "adapted-from-phet"
     ],
+    "phet-io": {
+      "wrappers": [
+        "phet-io-wrapper-haptics"
+      ]
+    },
     "accessible": true,
     "simulation": true
   },
