@@ -123,16 +123,6 @@ define( require => {
     //Split layers after background for performance
     this.addChild( new Node( { layerSplit: true, pickable: false } ) );
 
-    this.shapeHitDetector = new ShapeHitDetector( this, tandem.createTandem( 'shapeHitDetector' ) );
-    this.shapeHitDetector.addShape( model.bodyShape, model.touchingBodyProperty );
-    this.shapeHitDetector.addShape( model.carpetShape, model.touchingCarpetProperty );
-
-    // only attach the listener if we are testing haptic feedback, but create eagerly since its shapes are used by
-    // debugInfo query parameter
-    if ( phet.chipper.queryParameters.vibration !== null ) {
-      phet.joist.display.addInputListener( this.shapeHitDetector );
-    }
-
     // @public (read-only) arm and leg - only interactive elements
     this.leg = new AppendageNode( model.leg, leg, 25, 28, Math.PI / 2 * 0.7, AppendageRangeMaps.legMap,
       tandem.createTandem( 'legNode' ), {
@@ -148,6 +138,18 @@ define( require => {
         labelContent: armSliderLabelString
       } );
     this.addChild( this.arm );
+
+    this.shapeHitDetector = new ShapeHitDetector( this, tandem.createTandem( 'shapeHitDetector' ) );
+    this.shapeHitDetector.addShape( model.touchableBodyShape, model.touchingBodyProperty );
+    this.shapeHitDetector.addShape( model.carpetShape, model.touchingCarpetProperty );
+    this.shapeHitDetector.addShape( Shape.bounds( this.arm.bounds ), model.touchingArmProperty );
+    this.shapeHitDetector.addShape( Shape.bounds( this.leg.bounds ), model.touchingLegProperty );
+
+    // only attach the listener if we are testing haptic feedback, but create eagerly since its shapes are used by
+    // debugInfo query parameter
+    if ( phet.chipper.queryParameters.vibration !== null ) {
+      phet.joist.display.addInputListener( this.shapeHitDetector );
+    }
 
     // (a11y) after travolta picks up electrons the first time, this flag will modify descriptions slightly
     let includeElectronInfo = false;
@@ -282,7 +284,8 @@ define( require => {
       } );
       this.addChild( fingerCircle );
 
-      DebugUtils.debugLineSegments( this );
+      // DebugUtils.debugLineSegments( this );
+      DebugUtils.debugPositions( this );
     }
 
     // inverse of the resetInProgressProperty, used for muting sounds during reset
@@ -449,17 +452,16 @@ define( require => {
         } ) );
       }
 
-      // var path = new Path( this.model.bodyShape, {
-      //   stroke: 'green',
-      //   lineWidth: 1,
-      //   pickable: false
-      // } );
-      // this.addChild( path );
+      let path = new Path( this.model.bodyShape, {
+        stroke: 'orange',
+        lineWidth: 2,
+        pickable: false
+      } );
+      this.addChild( path );
 
       // forcelines, which attract particles
       const lines = this.model.forceLines;
       let customShape;
-      let path;
       for ( let i = 0; i < lines.length; i++ ) {
         customShape = new Shape();
         customShape.moveTo( lines[ i ].x1, lines[ i ].y1 );

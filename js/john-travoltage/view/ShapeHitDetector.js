@@ -106,6 +106,22 @@ define( require => {
     }
 
     /**
+     * Set the shape on the hittable associated with the provided Property. Useful if your shape
+     * needs to move around.
+     *
+     * @param {Property} property - previously
+     */
+    updateShape( shape, property ) {
+
+      const hittable = _.find( this.hittables, entry => {
+        entry.property === property;
+      } );
+      assert && assert( hittable !== undefined, 'could not find hittable' );
+
+      hittable.shape = shape;
+    }
+
+    /**
      * For debugging. Show attached shapes visually.
      * @returns {[type]} [description]
      */

@@ -19,6 +19,7 @@ define( require => {
 
   // modules
   const johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
+  const speechController = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/speechController' );
   const vibrationManager = require( 'TAPPI/vibrationManager' );
   const VibrationPatterns = require( 'TAPPI/VibrationPatterns' );
   const Property = require( 'AXON/Property' );
@@ -62,6 +63,10 @@ define( require => {
             vibrationManager.stopVibrate();
           }
         } );
+
+        // this paradigm will not work while a screen reader is in use because the device intercepts
+        // pointer down gestures - instead we will use web speech to let the user know basic information about the sim
+        speechController.initialize( model );
       }
 
       // Haptic feedback is used to convey movement of the arm and leg. Each component has a different pattern to

@@ -24,6 +24,7 @@ define( require => {
   const inherit = require( 'PHET_CORE/inherit' );
   const johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
   const Leg = require( 'JOHN_TRAVOLTAGE/john-travoltage/model/Leg' );
+  const StringIO = require( 'TANDEM/types/StringIO' );
   const LineSegment = require( 'JOHN_TRAVOLTAGE/john-travoltage/model/LineSegment' );
   const Util = require( 'DOT/Util' );
   const Vector2 = require( 'DOT/Vector2' );
@@ -42,7 +43,8 @@ define( require => {
 
     this.electronsToRemove = [];
 
-    //vertices of path, border of body, sampled using a listener in DebugUtils
+    //vertices of path, border of body, sampled using a listener in DebugUtils - the charges in
+    //this sim are constrained to this shape
     this.bodyVertices = [ new Vector2( 422.21508828250404, 455.370786516854 ),
       new Vector2( 403.10754414125205, 424.5521669341895 ),
       new Vector2( 379.68539325842704, 328.3980738362762 ),
@@ -74,6 +76,35 @@ define( require => {
       new Vector2( 414.81861958266455, 404.2118780096309 ),
       new Vector2( 435.15890850722315, 433.18138041733556 ),
       new Vector2( 464.1284109149278, 433.79775280898883 ) ];
+
+    // outline of the entire image of johns body excluding the draggable arm and leg - used
+    // to determine if pointer is currently over the body shape for accessibility prototyping
+    this.touchableBodyVertices = [
+      new Vector2( 267.6994577846631, 311.2625871417506 ),
+      new Vector2( 267.1045701006972, 219.64988381099923 ),
+      new Vector2( 305.7722695584818, 136.96049573973664 ),
+      new Vector2( 340.2757552285051, 108.40588690937257 ),
+      new Vector2( 366.45081332300543, 99.48257164988381 ),
+      new Vector2( 379.53834237025563, 100.07745933384972 ),
+      new Vector2( 404.5236250968242, 63.78931061192873 ),
+      new Vector2( 443.7862122385748, 68.54841208365607 ),
+      new Vector2( 459.25329202168865, 80.44616576297443 ),
+      new Vector2( 452.11463981409764, 90.55925639039503 ),
+      new Vector2( 447.95042602633623, 123.2780790085205 ),
+      new Vector2( 433.6731216111542, 139.9349341595662 ),
+      new Vector2( 397.3849728892332, 141.12470952749806 ),
+      new Vector2( 395.60030983733543, 252.3687064291247 ),
+      new Vector2( 403.9287374128583, 287.4670797831139 ),
+      new Vector2( 338.4910921766073, 295.2006196746708 ),
+      new Vector2( 336.1115414407436, 423.6963594113091 ),
+      new Vector2( 316.4802478698684, 457.60495739736643 ),
+      new Vector2( 339.6808675445391, 476.04647560030986 ),
+      new Vector2( 333.73199070488, 492.10844306738966 ),
+      new Vector2( 271.2687838884586, 481.40046475600315 ),
+      new Vector2( 271.8636715724245, 448.08675445391174 ),
+      new Vector2( 309.9364833462433, 358.2587141750581 ),
+      new Vector2( 267.6994577846631, 310.6676994577847 )
+    ];
 
     //lines, to which electrons moves, when spark happened
     this.forceLines = [
@@ -150,6 +181,15 @@ define( require => {
     }
     this.carpetShape.close();
 
+    // @public - shape for the body, used to explore haptic feedback which is presented whenever
+    // a pointer interacts with this shape - has no impact on electron motion
+    this.touchableBodyShape = new Shape();
+    this.touchableBodyShape.moveTo( this.touchableBodyVertices[ 0 ].x, this.touchableBodyVertices[ 0 ].y );
+    for ( let i = 0; i < this.touchableBodyVertices.length; i++ ) {
+      this.touchableBodyShape.lineTo( this.touchableBodyVertices[ i ].x, this.touchableBodyVertices[ i ].y );
+    }
+    this.touchableBodyShape.close();
+
     // true when the foot is in contact with the carpet
     this.shoeOnCarpetProperty = new DerivedProperty( [ this.leg.angleProperty ],
       angle => angle > FOOT_ON_CARPET_MIN_ANGLE && angle < FOOT_ON_CARPET_MAX_ANGLE, {
@@ -175,6 +215,13 @@ define( require => {
       tandem: tandem.createTandem( 'dischargeStartedEmitter' )
     } );
 
+    //--------------------------------------------------------------------------
+    // The following Properties are being used to explore haptic feedback, they
+    // are to be used in prototypes and view representations are hidden behind
+    // query parameters
+    //--------------------------------------------------------------------------
+
+    // TODO: consider an encapsulation for these "touching" Properties
     // @public - true when a pointer is down over the body
     this.touchingBodyProperty = new BooleanProperty( false, {
       tandem: tandem.createTandem( 'touchingBodyProperty' )
@@ -183,6 +230,20 @@ define( require => {
     // @public - true when a pointer is down over the carpet
     this.touchingCarpetProperty = new BooleanProperty( false, {
       tandem: tandem.createTandem( 'touchingCarpetProperty' )
+    } );
+
+    this.touchingArmProperty = new BooleanProperty( false, {
+      tandem: tandem.createTandem( 'touchingArmProperty' )
+    } );
+
+    this.touchingLegProperty = new BooleanProperty( false, {
+      tandem: tandem.createTandem( 'touchingLegProperty' )
+    } );
+
+    // TODO: consider moving such an emitter to utteranceQueue if this is useful
+    this.utteranceAddedEmitter = new Emitter( {
+      parameters: [ { name: 'utterance', phetioType: StringIO } ],
+      tandem: tandem.createTandem( 'utterance' )
     } );
 
     //If leg dragged across carpet, add electron.  Lazy link so that it won't add an electron when the sim starts up.

@@ -74,6 +74,9 @@ define( require => {
       electronUtterance.alert = alertString;
       utteranceQueue.addToBack( electronUtterance );
 
+      // for haptic feedback, experimental
+      model.utteranceAddedEmitter.emit( alertString );
+
       priorCharge = currentCharge;
     };
 
