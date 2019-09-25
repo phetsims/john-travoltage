@@ -114,7 +114,7 @@ define( require => {
     updateShape( shape, property ) {
 
       const hittable = _.find( this.hittables, entry => {
-        entry.property === property;
+        return entry.property === property;
       } );
       assert && assert( hittable !== undefined, 'could not find hittable' );
 

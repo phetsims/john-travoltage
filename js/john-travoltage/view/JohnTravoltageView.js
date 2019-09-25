@@ -21,7 +21,7 @@ define( require => {
   const Bounds2 = require( 'DOT/Bounds2' );
   const Circle = require( 'SCENERY/nodes/Circle' );
   const DebugUtils = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/DebugUtils' );
-  const ShapeHitDetector = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/ShapeHitDetector' );
+  const BodyShapeHitDetector = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/BodyShapeHitDetector' );
   const DerivedProperty = require( 'AXON/DerivedProperty' );
   const Emitter = require( 'AXON/Emitter' );
   const ElectronLayerNode = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/ElectronLayerNode' );
@@ -139,11 +139,7 @@ define( require => {
       } );
     this.addChild( this.arm );
 
-    this.shapeHitDetector = new ShapeHitDetector( this, tandem.createTandem( 'shapeHitDetector' ) );
-    this.shapeHitDetector.addShape( model.touchableBodyShape, model.touchingBodyProperty );
-    this.shapeHitDetector.addShape( model.carpetShape, model.touchingCarpetProperty );
-    this.shapeHitDetector.addShape( Shape.bounds( this.arm.bounds ), model.touchingArmProperty );
-    this.shapeHitDetector.addShape( Shape.bounds( this.leg.bounds ), model.touchingLegProperty );
+    this.shapeHitDetector = new BodyShapeHitDetector( model, this, tandem.createTandem( 'shapeHitDetector' ) );
 
     // only attach the listener if we are testing haptic feedback, but create eagerly since its shapes are used by
     // debugInfo query parameter
