@@ -1,11 +1,11 @@
 {
-  "comment": "# john-travoltage 1.6.0-dev.11 Mon Sep 23 2019 16:37:29 GMT-0400 (Eastern Daylight Time)",
+  "comment": "# john-travoltage 1.6.0-dev.12 Wed Sep 25 2019 17:34:52 GMT-0400 (Eastern Daylight Time)",
   "assert": {
     "sha": "bd6e3ed0a8b6fea73a4a176d5364809666833e58",
     "branch": "master"
   },
   "axon": {
-    "sha": "2883203c765ab45925bb40640969d3226ba6c44a",
+    "sha": "3d343ff5c96a561f76385ae4e4638882698280bf",
     "branch": "master"
   },
   "brand": {
@@ -13,7 +13,7 @@
     "branch": "master"
   },
   "chipper": {
-    "sha": "ab147053ffc275116ab07d59a21161918b6ed548",
+    "sha": "784ca8209c3616fd2b14eacc14434d0392ee081f",
     "branch": "master"
   },
   "dot": {
@@ -25,7 +25,7 @@
     "branch": "master"
   },
   "john-travoltage": {
-    "sha": "92070597ff4907e54286a543e1099d91d0d24cfb",
+    "sha": "f64ab3e7ed5dbdaf23860c56c2cee4a0fd11e365",
     "branch": "master"
   },
   "joist": {
@@ -41,11 +41,15 @@
     "branch": "master"
   },
   "phet-io": {
-    "sha": "84b6a82bb536738e2119e4f612d9b6db39b49e6e",
+    "sha": "cb7742f35708fd225e7bda1e9256e413267a604e",
+    "branch": "master"
+  },
+  "phet-io-wrapper-haptics": {
+    "sha": "bda95249d33afa9d72421a369d02024543cb7aba",
     "branch": "master"
   },
   "phet-io-wrappers": {
-    "sha": "bdfcc3eab4fcba5378586f3519f3d3038d8a8adf",
+    "sha": "5caeddb0fa4bd0ab778827e641d9c5ab6f4434ca",
     "branch": "master"
   },
   "phetcommon": {
@@ -65,15 +69,15 @@
     "branch": "master"
   },
   "scenery-phet": {
-    "sha": "9b11bc210364533351f164e7b6ec2c32c98c0cc4",
+    "sha": "a7d30d0db84137823823fe8e7adabbd05fb90f55",
     "branch": "master"
   },
   "sherpa": {
-    "sha": "5e592b66eeac20011504381a90e221459debb48a",
+    "sha": "0e704c111cf89ff58c7a1b2bb1faf2bf23778f43",
     "branch": "master"
   },
   "sun": {
-    "sha": "553c3622983303c7510888a41c9df5ea6278d943",
+    "sha": "512a30a293438080c206cf9a789ebbe4d5a63ebc",
     "branch": "master"
   },
   "tambo": {
@@ -85,7 +89,7 @@
     "branch": "master"
   },
   "tappi": {
-    "sha": "436e5bf131c34d712bb0b1b414658de4906d1c32",
+    "sha": "127d51bf802d25f4580d422a50f0f612afb17ba1",
     "branch": "master"
   }
 }
