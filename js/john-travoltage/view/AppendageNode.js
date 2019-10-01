@@ -274,7 +274,7 @@ define( require => {
 
         appendage.isDraggingProperty.set( false );
       },
-      a11yCreateValueChangeAriaValueText: function( formattedValue, sliderValue, oldSliderValue ) {
+      a11yCreateAriaValueText: function( formattedValue, sliderValue, oldSliderValue ) {
         return self.getTextFromPosition( sliderValue, oldSliderValue );
       },
       roundToStepSize: true
