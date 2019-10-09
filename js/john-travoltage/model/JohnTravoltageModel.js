@@ -125,9 +125,9 @@ define( require => {
     // vertices of the carpet shape in the background, determined with the listeners in DebugUtils
     this.carpetVertices = [
       new Vector2( 126.67410358565739, 492.91474103585665 ),
-      new Vector2( 233.76573705179285, 446.4063745019921),
-      new Vector2( 580.7426294820718, 447.01832669322715),
-      new Vector2( 520.1593625498009, 495.3625498007969)
+      new Vector2( 233.76573705179285, 446.4063745019921 ),
+      new Vector2( 580.7426294820718, 447.01832669322715 ),
+      new Vector2( 520.1593625498009, 495.3625498007969 )
     ];
 
     this.doorknobPosition = new Vector2( 548.4318903113076, 257.5894162536105 );
@@ -157,9 +157,6 @@ define( require => {
       tandem: tandem.createTandem( 'electrons' ),
       phetioType: GroupIO( ElectronIO )
     } );
-
-    // Anytime an electron is removed, we want to dispose it.
-    this.electrons.addItemRemovedListener( electron => electron.dispose() );
 
     this.arm = new Arm( tandem.createTandem( 'arm' ) );
     this.leg = new Leg( tandem.createTandem( 'leg' ) );
@@ -337,7 +334,7 @@ define( require => {
 
         //Mark all electrons for exiting
         for ( let j = 0; j < this.electrons.length; j++ ) {
-          this.electrons.get( j ).exiting = true;
+          this.electrons.array[ j ].exiting = true;
         }
       }
 
@@ -348,7 +345,7 @@ define( require => {
         // Use an increased threshold to model the more conductive path once the spark has started
         if ( this.sparkCreationDistToKnob && distToKnob > this.sparkCreationDistToKnob + 10 ) {
           for ( let k = 0; k < this.electrons.length; k++ ) {
-            const electron = this.electrons.get( k );
+            const electron = this.electrons.array[ k ];
 
             //Tune the distance threshold to make sure the spark will shut off more quickly when the finger moved far from the doorknob, but not soo small that electrons can leak out of the body, see #27
             if ( electron.positionProperty.get().distance( this.doorknobPosition ) > 100 ) {
@@ -371,7 +368,7 @@ define( require => {
       // Step the model
       const length = this.electrons.length;
       for ( let i = 0; i < length; i++ ) {
-        this.electrons._array[ i ].step( dt );
+        this.electrons.array[ i ].step( dt );
       }
       const wasSpark = this.sparkVisibleProperty.get();
       if ( this.electronsToRemove.length ) {
@@ -384,10 +381,10 @@ define( require => {
       }
 
       while ( this.electronsToRemove.length ) {
-        this.electrons.remove( this.electronsToRemove.pop() );
+        this.electrons.disposeGroupMember( this.electronsToRemove.pop() );
       }
 
-      if ( this.electrons.length === 0 || _.filter( this.electrons._array, exiting ).length === 0 ) {
+      if ( this.electrons.length === 0 || _.filter( this.electrons.array, exiting ).length === 0 ) {
 
         // Make sure the spark shows at least one frame for a single electron exiting, see #55
         if ( wasSpark ) {

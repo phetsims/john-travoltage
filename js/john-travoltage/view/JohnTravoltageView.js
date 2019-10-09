@@ -237,12 +237,12 @@ define( require => {
     };
 
     // electrons observable array exists for the lifetime of the sim, so there is no need to remove these listeners
-    model.electrons.addItemAddedListener( function() {
+    model.electrons.groupMemberCreatedEmitter.addListener( () => {
       updateDescription();
       includeElectronInfo = true;
     } );
 
-    model.electrons.addItemRemovedListener( function() {
+    model.electrons.groupMemberDisposedEmitter.addListener( () => {
       if ( model.electrons.length === 0 ) {
         updateDescription();
       }
@@ -350,8 +350,8 @@ define( require => {
     } );
 
     // update the sound related to the number of electrons in JT's body
-    model.electrons.lengthProperty.lazyLink( function( numElectrons ) {
-
+    const lengthChangedListener = () => {
+      const numElectrons = model.electrons.length;
       // update the sound that indicates the amount of charge in the body
       if ( numElectrons === 0 ) {
         if ( chargesInBodySoundClip.isPlaying ) {
@@ -376,7 +376,10 @@ define( require => {
 
       // play a pop each time the number of electrons changes
       popSoundGenerator.playPop( numElectrons / JohnTravoltageModel.MAX_ELECTRONS );
-    } );
+    };
+
+    model.electrons.groupMemberCreatedEmitter.addListener( lengthChangedListener );
+    model.electrons.groupMemberDisposedEmitter.addListener( lengthChangedListener );
 
     // TODO: This can be removed now that we are transitioning to #337
     this.vibratingProperty = new BooleanProperty( false, {

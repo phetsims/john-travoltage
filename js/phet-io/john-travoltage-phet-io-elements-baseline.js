@@ -949,18 +949,6 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "GroupIO<ElectronIO>"
     },
-    "johnTravoltage.johnTravoltageScreen.model.electrons.lengthProperty": {
-      "phetioDocumentation": "",
-      "phetioDynamicElement": false,
-      "phetioEventType": "MODEL",
-      "phetioFeatured": false,
-      "phetioHighFrequency": false,
-      "phetioPlayback": false,
-      "phetioReadOnly": true,
-      "phetioState": true,
-      "phetioStudioControl": true,
-      "phetioTypeName": "NumberPropertyIO"
-    },
     "johnTravoltage.johnTravoltageScreen.model.electrons.prototype": {
       "phetioDocumentation": "",
       "phetioDynamicElement": true,
