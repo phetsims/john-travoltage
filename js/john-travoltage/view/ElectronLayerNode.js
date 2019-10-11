@@ -91,7 +91,7 @@ define( require => {
     }
 
     // The electron's view is removed when the electron is disposed, see ElectronNode.js
-    model.electrons.memberCreatedEmitter.addListener( electronAddedListener );
+    model.electrons.addMemberCreatedListener( electronAddedListener );
     model.electrons.array.forEach( electronAddedListener );
 
     // update status whenever an electron discharge has ended - disposal is not necessary
