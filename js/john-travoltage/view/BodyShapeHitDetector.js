@@ -1,17 +1,16 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * TODO: Type Documentation
+ * The ShapeHitDetector for objects in the john-travoltage simulation. Used for prototyping vibration feedback.
+ *
  * @author Jesse Greenberg
  */
-
 define( require => {
   'use strict';
 
   // modules
   const johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
-  const ShapeHitDetector = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/ShapeHitDetector' );
-  const Shape = require( 'KITE/Shape' );
+  const ShapeHitDetector = require( 'TAPPI/view/ShapeHitDetector' );
 
   // constants
 
@@ -22,15 +21,15 @@ define( require => {
 
       this.addShape( model.touchableBodyShape, model.touchingBodyProperty );
       this.addShape( model.carpetShape, model.touchingCarpetProperty );
-      this.addShape( Shape.bounds( view.arm.bounds ), model.touchingArmProperty );
-      this.addShape( Shape.bounds( view.leg.bounds ), model.touchingLegProperty );
+      this.addShape( view.arm.hitShape, model.touchingArmProperty );
+      this.addShape( view.leg.hitShape, model.touchingLegProperty );
 
       model.arm.angleProperty.link( angle => {
-        this.updateShape( Shape.bounds( view.arm.bounds ), model.touchingArmProperty );
+        this.updateShape( view.arm.hitShape, model.touchingArmProperty );
       } );
 
       model.leg.angleProperty.link( angle => {
-        this.updateShape( Shape.bounds( view.leg.bounds ), model.touchingLegProperty );
+        this.updateShape( view.leg.hitShape, model.touchingLegProperty );
       } );
     }
   }

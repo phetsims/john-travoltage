@@ -6,9 +6,13 @@
  *
  * Singleton class as one instance controls all vibration in the simulation.
  *
+ * 'objects', 'manipulation', 'interaction-changes', 'result'
+ *
  * 1) Objects - Haptic feedback is used to indicate to a user where objects are in the scene.
- * 2) Interaction - Haptic feedback is used to indicate successful user interaction.
- * 3) State - Haptic feedback is used to indicate current state of sim objects.
+ * 2) Manipulation - Haptic feedback is used to indicate successful interaction, while also indicating differences in
+*                    the objects.
+ * 3) Interaction Changes - Vibration conveys state changes in the sim while the user is interacting with it.
+ * 4) Result - Vibration conveys state of the simulation after interaction.
  *
  * Each implemented below, selected by query parameter.
  *
@@ -32,32 +36,25 @@ define( require => {
 
     /**
      * @param {JohnTravoltageModel} model
+     * @param {JohnTravoltageView} view
      */
-    initialize( model ) {
+    initialize( model, view ) {
       const paradigmChoice = phet.chipper.queryParameters.vibration;
 
-
-      // Important model objects give the user feedback while they are touching/interacting with them. This makes
-      // objects seem distinct and "physical". Each object has a different pattern so it feels unique.
       if ( paradigmChoice === 'objects' ) {
-        model.leg.isDraggingProperty.link( isDragging => {
-          if ( isDragging ) {
-            vibrationManager.startTimedVibrate( 250, VibrationPatterns.HZ_10 );
-          }
-        } );
-        model.arm.isDraggingProperty.link( isDragging => {
-          if ( isDragging ) {
-            vibrationManager.startTimedVibrate( 250, VibrationPatterns.HZ_25 );
-          }
-        } );
 
-        // in a multilink because vibration shouldn't stop if both change simultaneously
-        Property.multilink( [ model.touchingBodyProperty, model.touchingCarpetProperty ], ( touchingBody, touchingCarpet ) => {
-          if ( touchingBody ) {
-            vibrationManager.startVibrate( VibrationPatterns.HZ_5 );
-          }
-          else if ( touchingCarpet ) {
-            vibrationManager.startVibrate();
+        const patternMap = new Map();
+        patternMap.set( model.touchableBodyShape, VibrationPatterns.HZ_5 );
+        patternMap.set( model.carpetShape, VibrationPatterns.MOTOR_CALL );
+        patternMap.set( view.arm.hitShape, VibrationPatterns.HZ_25 );
+        patternMap.set( view.leg.hitShape, VibrationPatterns.HZ_10 );
+
+        // Whenever a pointer moves over a new shape (even if it already is over an existing shape) this emitter
+        // will emit an event. Get the right pattern and begin vibration for this case
+        view.shapeHitDetector.hitShapeEmitter.addListener( hitShape => {
+          console.log( hitShape );
+          if ( patternMap.has( hitShape ) ) {
+            vibrationManager.startVibrate( patternMap.get( hitShape ) );
           }
           else {
             vibrationManager.stopVibrate();
