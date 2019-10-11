@@ -6,8 +6,6 @@
  *
  * Singleton class as one instance controls all vibration in the simulation.
  *
- * 'objects', 'manipulation', 'interaction-changes', 'result'
- *
  * 1) Objects - Haptic feedback is used to indicate to a user where objects are in the scene.
  * 2) Manipulation - Haptic feedback is used to indicate successful interaction, while also indicating differences in
 *                    the objects.
@@ -81,21 +79,14 @@ define( require => {
         speechController.initialize( model );
       }
 
-      // Haptic feedback is used to convey movement of the arm and leg. Each component has a different pattern to
-      // indicate difference.
-      if ( paradigmChoice === 'interaction' ) {
-        model.leg.isDraggingProperty.link( isDragging => {
-          if ( isDragging ) {
-            vibrationManager.startVibrate( VibrationPatterns.HZ_10 );
-          }
-          else {
-            vibrationManager.stopVibrate();
-          }
-        } );
-
-        model.arm.isDraggingProperty.link( isDragging => {
-          if ( isDragging ) {
+      // Vibration indicates successful interaction with different components.
+      if ( paradigmChoice === 'manipulation' ) {
+        Property.multilink( [ model.arm.isDraggingProperty, model.leg.isDraggingProperty ], ( armDragging, legDragging ) => {
+          if ( armDragging ) {
             vibrationManager.startVibrate( VibrationPatterns.HZ_25 );
+          }
+          else if ( legDragging ) {
+            vibrationManager.startVibrate( VibrationPatterns.HZ_10 );
           }
           else {
             vibrationManager.stopVibrate();
@@ -103,15 +94,8 @@ define( require => {
         } );
       }
 
-      // Vibration feedback used to convey state of charges in this sim. Vibration feedback indicates when the body
-      // has charge and when charges enter/leave the body.
-      if ( paradigmChoice === 'state' ) {
-
-        // whenever charges leave the body
-        model.dischargeStartedEmitter.addListener( () => vibrationManager.startVibrate( CHARGES_LEAVING_PATTERN ) );
-        model.dischargeEndedEmitter.addListener( () => vibrationManager.stopVibrate() );
-
-        // whenever the leg is dragged over the carpet and ready to pick up charge
+      // Vibration indicates charge entering the body while dragging the leg
+      if ( paradigmChoice === 'interaction-changes' ) {
         Property.multilink( [ model.leg.isDraggingProperty, model.shoeOnCarpetProperty ], ( isDragging, shoeOnCarpet ) => {
           if ( isDragging && shoeOnCarpet ) {
             vibrationManager.startVibrate();
@@ -120,16 +104,21 @@ define( require => {
             vibrationManager.stopVibrate();
           }
         } );
+      }
 
-        // if charges are removed without discharge, stop vibration
-        model.electrons.addMemberCreatedListener( () => {
-          if ( model.electrons.length === 0 ) {
-            vibrationManager.stopVibrate();
-          }
+      // Vibration feedback to indicate changes in charge
+      if ( paradigmChoice === 'result' ) {
+        model.dischargeStartedEmitter.addListener( () => {
+          vibrationManager.startVibrate( CHARGES_LEAVING_PATTERN );
+        } );
+        model.dischargeEndedEmitter.addListener( () => {
+          vibrationManager.stopVibrate();
         } );
 
-        // for as long as there are charges in the body and a vibration is currently running, initiate vibration
+        // for as long as there are charges in the body, vibrate forever
         model.stepEmitter.addListener( () => {
+
+          // only initiate vibration if we haven't already initiated one
           if ( !vibrationManager.isRunningPattern() && model.electrons.length > 0 ) {
             vibrationManager.startVibrate( VibrationPatterns.HZ_5 );
           }
