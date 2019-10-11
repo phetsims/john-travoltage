@@ -63,6 +63,7 @@ define( require => {
 
         // this paradigm will not work while a screen reader is in use because the device intercepts
         // pointer down gestures - instead we will use web speech to let the user know basic information about the sim
+        // NOTE: I notice that this adds quite a performance penalty in Chrome
         speechController.initialize( model );
       }
 
