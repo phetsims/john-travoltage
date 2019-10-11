@@ -110,7 +110,7 @@ define( require => {
         } );
 
         // if charges are removed without discharge, stop vibration
-        model.electrons.groupMemberCreatedEmitter.addListener( () => {
+        model.electrons.memberCreatedEmitter.addListener( () => {
           if ( model.electrons.length === 0 ) {
             vibrationManager.stopVibrate();
           }
