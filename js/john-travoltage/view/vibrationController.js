@@ -43,18 +43,32 @@ define( require => {
 
       if ( paradigmChoice === 'objects' ) {
 
-        const patternMap = new Map();
-        patternMap.set( model.touchableBodyShape, VibrationPatterns.HZ_5 );
-        patternMap.set( model.carpetShape, VibrationPatterns.MOTOR_CALL );
-        patternMap.set( view.arm.hitShape, VibrationPatterns.HZ_25 );
-        patternMap.set( view.leg.hitShape, VibrationPatterns.HZ_10 );
-
         // Whenever a pointer moves over a new shape (even if it already is over an existing shape) this emitter
         // will emit an event. Get the right pattern and begin vibration for this case
         view.shapeHitDetector.hitShapeEmitter.addListener( hitShape => {
-          console.log( hitShape );
-          if ( patternMap.has( hitShape ) ) {
-            vibrationManager.startVibrate( patternMap.get( hitShape ) );
+          if ( hitShape === model.touchableBodyShape ) {
+            vibrationManager.startVibrate( VibrationPatterns.HZ_5 );
+          }
+          else if ( hitShape === model.carpetShape ) {
+            vibrationManager.startVibrate( VibrationPatterns.MOTOR_CALL );
+          }
+          else if ( hitShape === view.arm.hitShape ) {
+            vibrationManager.startVibrate( VibrationPatterns.HZ_25 );
+          }
+          else if ( hitShape === view.leg.hitShape ) {
+            vibrationManager.startVibrate( VibrationPatterns.HZ_10 );
+          }
+          else {
+            vibrationManager.stopVibrate();
+          }
+        } );
+
+        Property.multilink( [ model.arm.isDraggingProperty, model.leg.isDraggingProperty ], ( armDragging, legDragging ) => {
+          if ( armDragging ) {
+            vibrationManager.startVibrate( VibrationPatterns.HZ_25 );
+          }
+          else if ( legDragging ) {
+            vibrationManager.startVibrate( VibrationPatterns.HZ_10 );
           }
           else {
             vibrationManager.stopVibrate();
