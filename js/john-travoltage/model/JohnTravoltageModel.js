@@ -238,7 +238,7 @@ define( require => {
 
         while ( accumulatedAngle > accumulatedAngleThreshold ) {
           if ( self.electrons.length < MAX_ELECTRONS ) {
-            self.electrons.createNextGroupMember();
+            self.electrons.createNextMember();
           }
           accumulatedAngle -= accumulatedAngleThreshold;
         }
