@@ -947,7 +947,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioReadOnly": false,
       "phetioState": false,
       "phetioStudioControl": true,
-      "phetioTypeName": "GroupIO<ElectronIO>"
+      "phetioTypeName": "PhetioGroupIO<ElectronIO>"
     },
     "johnTravoltage.johnTravoltageScreen.model.electrons.prototype": {
       "phetioDocumentation": "",

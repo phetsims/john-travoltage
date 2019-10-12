@@ -18,9 +18,9 @@ define( require => {
   const Electron = require( 'JOHN_TRAVOLTAGE/john-travoltage/model/Electron' );
   const ElectronIO = require( 'JOHN_TRAVOLTAGE/john-travoltage/model/ElectronIO' );
   const Emitter = require( 'AXON/Emitter' );
-  const Group = require( 'TANDEM/Group' );
+  const PhetioGroup = require( 'TANDEM/PhetioGroup' );
   const Shape = require( 'KITE/Shape' );
-  const GroupIO = require( 'TANDEM/GroupIO' );
+  const PhetioGroupIO = require( 'TANDEM/PhetioGroupIO' );
   const inherit = require( 'PHET_CORE/inherit' );
   const johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
   const Leg = require( 'JOHN_TRAVOLTAGE/john-travoltage/model/Leg' );
@@ -142,7 +142,7 @@ define( require => {
       tandem: tandem.createTandem( 'resetInProgressProperty' )
     } );
 
-    this.electrons = new Group( 'electron', tandem => {
+    this.electrons = new PhetioGroup( 'electron', tandem => {
       const segment = new LineSegment( 424.0642054574639, 452.28892455858755, 433.3097913322633, 445.5088282504014 );
       const v = segment.vector;
       const rand = phet.joist.random.nextDouble() * v.magnitude;
@@ -151,7 +151,7 @@ define( require => {
       return new Electron( point.x, point.y, this, { tandem: tandem } );
     }, [], {
       tandem: tandem.createTandem( 'electrons' ),
-      phetioType: GroupIO( ElectronIO )
+      phetioType: PhetioGroupIO( ElectronIO )
     } );
 
     this.arm = new Arm( tandem.createTandem( 'arm' ) );
