@@ -142,18 +142,14 @@ define( require => {
       tandem: tandem.createTandem( 'resetInProgressProperty' )
     } );
 
-    this.electrons = new Group( 'electron', {
-      prototype: {
-        create: tandem => {
-          const segment = new LineSegment( 424.0642054574639, 452.28892455858755, 433.3097913322633, 445.5088282504014 );
-          const v = segment.vector;
-          const rand = phet.joist.random.nextDouble() * v.magnitude;
+    this.electrons = new Group( 'electron', tandem => {
+      const segment = new LineSegment( 424.0642054574639, 452.28892455858755, 433.3097913322633, 445.5088282504014 );
+      const v = segment.vector;
+      const rand = phet.joist.random.nextDouble() * v.magnitude;
 
-          const point = segment.p0.plus( v.normalized().times( rand ) );
-          return new Electron( point.x, point.y, this, { tandem: tandem } );
-        }
-      }
-    }, {
+      const point = segment.p0.plus( v.normalized().times( rand ) );
+      return new Electron( point.x, point.y, this, { tandem: tandem } );
+    }, [], {
       tandem: tandem.createTandem( 'electrons' ),
       phetioType: GroupIO( ElectronIO )
     } );
