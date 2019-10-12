@@ -7,8 +7,10 @@
  * Singleton class as one instance controls all vibration in the simulation.
  *
  * 1) Objects - Haptic feedback is used to indicate to a user where objects are in the scene.
- * 2) Interaction - Haptic feedback is used to indicate successful user interaction.
- * 3) State - Haptic feedback is used to indicate current state of sim objects.
+ * 2) Manipulation - Haptic feedback is used to indicate successful interaction, while also indicating differences in
+*                    the objects.
+ * 3) Interaction Changes - Vibration conveys state changes in the sim while the user is interacting with it.
+ * 4) Result - Vibration conveys state of the simulation after interaction.
  *
  * Each implemented below, selected by query parameter.
  *
@@ -32,32 +34,39 @@ define( require => {
 
     /**
      * @param {JohnTravoltageModel} model
+     * @param {JohnTravoltageView} view
      */
-    initialize( model ) {
+    initialize( model, view ) {
       const paradigmChoice = phet.chipper.queryParameters.vibration;
 
-
-      // Important model objects give the user feedback while they are touching/interacting with them. This makes
-      // objects seem distinct and "physical". Each object has a different pattern so it feels unique.
       if ( paradigmChoice === 'objects' ) {
-        model.leg.isDraggingProperty.link( isDragging => {
-          if ( isDragging ) {
-            vibrationManager.startTimedVibrate( 250, VibrationPatterns.HZ_10 );
-          }
-        } );
-        model.arm.isDraggingProperty.link( isDragging => {
-          if ( isDragging ) {
-            vibrationManager.startTimedVibrate( 250, VibrationPatterns.HZ_25 );
-          }
-        } );
 
-        // in a multilink because vibration shouldn't stop if both change simultaneously
-        Property.multilink( [ model.touchingBodyProperty, model.touchingCarpetProperty ], ( touchingBody, touchingCarpet ) => {
-          if ( touchingBody ) {
+        // Whenever a pointer moves over a new shape (even if it already is over an existing shape) this emitter
+        // will emit an event. Get the right pattern and begin vibration for this case
+        view.shapeHitDetector.hitShapeEmitter.addListener( hitShape => {
+          if ( hitShape === model.touchableBodyShape ) {
             vibrationManager.startVibrate( VibrationPatterns.HZ_5 );
           }
-          else if ( touchingCarpet ) {
-            vibrationManager.startVibrate();
+          else if ( hitShape === model.carpetShape ) {
+            vibrationManager.startVibrate( VibrationPatterns.MOTOR_CALL );
+          }
+          else if ( hitShape === view.arm.hitShape ) {
+            vibrationManager.startVibrate( VibrationPatterns.HZ_25 );
+          }
+          else if ( hitShape === view.leg.hitShape ) {
+            vibrationManager.startVibrate( VibrationPatterns.HZ_10 );
+          }
+          else {
+            vibrationManager.stopVibrate();
+          }
+        } );
+
+        Property.multilink( [ model.arm.isDraggingProperty, model.leg.isDraggingProperty ], ( armDragging, legDragging ) => {
+          if ( armDragging ) {
+            vibrationManager.startVibrate( VibrationPatterns.HZ_25 );
+          }
+          else if ( legDragging ) {
+            vibrationManager.startVibrate( VibrationPatterns.HZ_10 );
           }
           else {
             vibrationManager.stopVibrate();
@@ -66,40 +75,27 @@ define( require => {
 
         // this paradigm will not work while a screen reader is in use because the device intercepts
         // pointer down gestures - instead we will use web speech to let the user know basic information about the sim
+        // NOTE: I notice that this adds quite a performance penalty in Chrome
         speechController.initialize( model );
       }
 
-      // Haptic feedback is used to convey movement of the arm and leg. Each component has a different pattern to
-      // indicate difference.
-      if ( paradigmChoice === 'interaction' ) {
-        model.leg.isDraggingProperty.link( isDragging => {
-          if ( isDragging ) {
+      // Vibration indicates successful interaction with different components.
+      if ( paradigmChoice === 'manipulation' ) {
+        Property.multilink( [ model.arm.isDraggingProperty, model.leg.isDraggingProperty ], ( armDragging, legDragging ) => {
+          if ( armDragging ) {
+            vibrationManager.startVibrate( VibrationPatterns.HZ_25 );
+          }
+          else if ( legDragging ) {
             vibrationManager.startVibrate( VibrationPatterns.HZ_10 );
           }
           else {
             vibrationManager.stopVibrate();
           }
         } );
-
-        model.arm.isDraggingProperty.link( isDragging => {
-          if ( isDragging ) {
-            vibrationManager.startVibrate( VibrationPatterns.HZ_25 );
-          }
-          else {
-            vibrationManager.stopVibrate();
-          }
-        } );
       }
 
-      // Vibration feedback used to convey state of charges in this sim. Vibration feedback indicates when the body
-      // has charge and when charges enter/leave the body.
-      if ( paradigmChoice === 'state' ) {
-
-        // whenever charges leave the body
-        model.dischargeStartedEmitter.addListener( () => vibrationManager.startVibrate( CHARGES_LEAVING_PATTERN ) );
-        model.dischargeEndedEmitter.addListener( () => vibrationManager.stopVibrate() );
-
-        // whenever the leg is dragged over the carpet and ready to pick up charge
+      // Vibration indicates charge entering the body while dragging the leg
+      if ( paradigmChoice === 'interaction-changes' ) {
         Property.multilink( [ model.leg.isDraggingProperty, model.shoeOnCarpetProperty ], ( isDragging, shoeOnCarpet ) => {
           if ( isDragging && shoeOnCarpet ) {
             vibrationManager.startVibrate();
@@ -108,16 +104,21 @@ define( require => {
             vibrationManager.stopVibrate();
           }
         } );
+      }
 
-        // if charges are removed without discharge, stop vibration
-        model.electrons.addMemberCreatedListener( () => {
-          if ( model.electrons.length === 0 ) {
-            vibrationManager.stopVibrate();
-          }
+      // Vibration feedback to indicate changes in charge
+      if ( paradigmChoice === 'result' ) {
+        model.dischargeStartedEmitter.addListener( () => {
+          vibrationManager.startVibrate( CHARGES_LEAVING_PATTERN );
+        } );
+        model.dischargeEndedEmitter.addListener( () => {
+          vibrationManager.stopVibrate();
         } );
 
-        // for as long as there are charges in the body and a vibration is currently running, initiate vibration
+        // for as long as there are charges in the body, vibrate forever
         model.stepEmitter.addListener( () => {
+
+          // only initiate vibration if we haven't already initiated one
           if ( !vibrationManager.isRunningPattern() && model.electrons.length > 0 ) {
             vibrationManager.startVibrate( VibrationPatterns.HZ_5 );
           }

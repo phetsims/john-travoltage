@@ -159,29 +159,14 @@ define( require => {
     this.legAngleAtPreviousStep = this.leg.angleProperty.get();
 
     // @public (read-only) - closed shape for the body that contains electrons, from body vertices above
-    this.bodyShape = new Shape();
-    this.bodyShape.moveTo( this.bodyVertices[ 0 ].x, this.bodyVertices[ 0 ].y );
-    for ( let i = 0; i < this.bodyVertices.length; i++ ) {
-      this.bodyShape.lineTo( this.bodyVertices[ i ].x, this.bodyVertices[ i ].y );
-    }
-    this.bodyShape.close();
+    this.bodyShape = JohnTravoltageModel.createObjectShape( this.bodyVertices );
 
     // @public (read-only) - closed shape for the carpet in this sim
-    this.carpetShape = new Shape();
-    this.carpetShape.moveTo( this.carpetVertices[ 0 ].x, this.carpetVertices[ 0 ].y );
-    for ( let i = 0; i < this.carpetVertices.length; i++ ) {
-      this.carpetShape.lineTo( this.carpetVertices[ i ].x, this.carpetVertices[ i ].y );
-    }
-    this.carpetShape.close();
+    this.carpetShape = JohnTravoltageModel.createObjectShape( this.carpetVertices );
 
     // @public - shape for the body, used to explore haptic feedback which is presented whenever
     // a pointer interacts with this shape - has no impact on electron motion
-    this.touchableBodyShape = new Shape();
-    this.touchableBodyShape.moveTo( this.touchableBodyVertices[ 0 ].x, this.touchableBodyVertices[ 0 ].y );
-    for ( let i = 0; i < this.touchableBodyVertices.length; i++ ) {
-      this.touchableBodyShape.lineTo( this.touchableBodyVertices[ i ].x, this.touchableBodyVertices[ i ].y );
-    }
-    this.touchableBodyShape.close();
+    this.touchableBodyShape = JohnTravoltageModel.createObjectShape( this.touchableBodyVertices );
 
     // true when the foot is in contact with the carpet
     this.shoeOnCarpetProperty = new DerivedProperty( [ this.leg.angleProperty ],
@@ -422,6 +407,25 @@ define( require => {
   }, {
 
     // statics
+
+    /**
+     * Create a shape that defines an object. Vertices are provided and generally determined by inspection with the
+     * DebugUtils.debugPositions.
+     * @private
+     * @static
+     *
+     * @returns {Shape}
+     */
+    createObjectShape( vertices ) {
+      const objectShape = new Shape();
+      objectShape.moveTo( vertices[ 0 ].x, vertices[ 0 ].y );
+      for ( let i = 0; i < vertices.length; i++ ) {
+        objectShape.lineTo( vertices[ i ].x, vertices[ i ].y );
+      }
+      objectShape.close();
+
+      return objectShape;
+    },
 
     // max number of electrons that can be inside the body
     MAX_ELECTRONS: MAX_ELECTRONS,

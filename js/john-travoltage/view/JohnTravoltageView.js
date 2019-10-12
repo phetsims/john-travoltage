@@ -386,8 +386,10 @@ define( require => {
       tandem: tandem.createTandem( 'vibratingProperty' )
     } );
 
-    // implements all vibration feedback for this sim
-    vibrationController.initialize( model );
+    // (vibration, experimental) implements all vibration feedback for this sim
+    if ( phet.chipper.vibration !== null ) {
+      vibrationController.initialize( model, this );
+    }
 
     if ( JohnTravoltageQueryParameters.vibrationChart ) {
       this.vibrationChart = new VibrationChart( vibrationManager.vibratingProperty, this.layoutBounds.width * 0.75, 75, {

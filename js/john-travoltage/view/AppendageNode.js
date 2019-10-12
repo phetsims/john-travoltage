@@ -189,11 +189,15 @@ define( require => {
       }
     } ) );
 
+    // @public {Shape} (vibration) - Shape of the appendage used for hit testing)
+    this.hitShape = Shape.bounds( this.imageNode.bounds );
+
     // changes visual position
     appendage.angleProperty.link( function( angle ) {
       self.imageNode.resetTransform();
       self.imageNode.translate( appendage.position.x - dx, appendage.position.y - dy );
       self.imageNode.rotateAround( appendage.position.plus( new Vector2( 0, 0 ) ), angle - angleOffset );
+      self.hitShape = Shape.bounds( self.imageNode.bounds );
     } );
 
     // @public
