@@ -92,6 +92,20 @@ define( require => {
             vibrationManager.stopVibrate();
           }
         } );
+
+        // in response to a "change" event, begin a timed vibration (because TalkBack doesn't go through pointer
+        // events, and the isDraggingProperties will fire one after another immediately)
+        view.leg.addInputListener( {
+          input: event => {
+            vibrationManager.startTimedVibrate( 1000, VibrationPatterns.HZ_25 );
+          }
+        } );
+
+        view.arm.addInputListener( {
+          input: event => {
+            vibrationManager.startTimedVibrate( 1000, VibrationPatterns.HZ_10 );
+          }
+        } );
       }
 
       // Vibration indicates charge entering the body while dragging the leg
@@ -102,6 +116,16 @@ define( require => {
           }
           else {
             vibrationManager.stopVibrate();
+          }
+        } );
+
+        // in response to a "change" event, begin a timed vibration (because TalkBack doesn't go through pointer
+        // events, and the isDraggingProperties will fire one after another immediately)
+        view.leg.addInputListener( {
+          input: event => {
+            if ( model.shoeOnCarpetProperty.get() ) {
+              vibrationManager.startTimedVibrate( 1000, [ 1000 ] );
+            }
           }
         } );
       }
