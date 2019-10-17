@@ -10,6 +10,7 @@ define( require => {
 
   // modules
   const johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
+  const merge = require( 'PHET_CORE/merge' );
   const NoiseGenerator = require( 'TAMBO/sound-generators/NoiseGenerator' );
   const Util = require( 'DOT/Util' );
 
@@ -36,7 +37,7 @@ define( require => {
      * {Object} [options]
      */
     constructor( legAngleProperty, minContactAngle, maxContactAngle, options ) {
-      options = _.extend( {
+      options = merge( {
           noiseType: 'brown',
           centerFrequency: NOISE_CENTER_FREQUENCY,
           qFactor: 2,

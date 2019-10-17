@@ -23,6 +23,7 @@ define( require => {
   const JohnTravoltageA11yStrings = require( 'JOHN_TRAVOLTAGE/john-travoltage/JohnTravoltageA11yStrings' );
   const Leg = require( 'JOHN_TRAVOLTAGE/john-travoltage/model/Leg' );
   const LinearFunction = require( 'DOT/LinearFunction' );
+  const merge = require( 'PHET_CORE/merge' );
   const Node = require( 'SCENERY/nodes/Node' );
   const Property = require( 'AXON/Property' );
   const Range = require( 'DOT/Range' );
@@ -69,7 +70,7 @@ define( require => {
   function AppendageNode( appendage, image, dx, dy, angleOffset, rangeMap, tandem, options ) {
     const self = this;
 
-    options = _.extend( {
+    options = merge( {
       cursor: 'pointer',
 
       // a11y

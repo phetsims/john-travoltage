@@ -15,6 +15,7 @@ define( require => {
   const Emitter = require( 'AXON/Emitter' );
   const inherit = require( 'PHET_CORE/inherit' );
   const johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
+  const merge = require( 'PHET_CORE/merge' );
   const NumberProperty = require( 'AXON/NumberProperty' );
   const Range = require( 'DOT/Range' );
 
@@ -31,7 +32,7 @@ define( require => {
    */
   function Appendage( pivotPoint, tandem, options ) {
 
-    options = _.extend( {
+    options = merge( {
       initialAngle: -0.5, // radians
       range: new Range( -Math.PI, Math.PI ),
       precision: 7

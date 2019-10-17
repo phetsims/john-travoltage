@@ -18,8 +18,9 @@ define( require => {
   'use strict';
 
   // modules
-  const johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
   // const DragListener = require( 'SCENERY/listeners/DragListener' );
+  const johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
+  const merge = require( 'PHET_CORE/merge' );
   const Path = require( 'SCENERY/nodes/Path' );
 
   class ShapeHitListener {
@@ -146,7 +147,7 @@ define( require => {
      * @param {Objects} options
      */
     constructor( shape, property, options ) {
-      options = _.extend( {
+      options = merge( {
 
         // to make this shape visible during debugging
         debugStroke: 'green'

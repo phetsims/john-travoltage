@@ -14,6 +14,7 @@ define( require => {
   const Emitter = require( 'AXON/Emitter' );
   const inherit = require( 'PHET_CORE/inherit' );
   const johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
+  const merge = require( 'PHET_CORE/merge' );
   const PhetioObject = require( 'TANDEM/PhetioObject' );
   const Tandem = require( 'TANDEM/Tandem' );
   const Util = require( 'DOT/Util' );
@@ -37,7 +38,7 @@ define( require => {
    */
   function Electron( x, y, model, options ) {
 
-    options = _.extend( {
+    options = merge( {
       tandem: Tandem.required,
       phetioType: ElectronIO,
       phetioDynamicElement: true
