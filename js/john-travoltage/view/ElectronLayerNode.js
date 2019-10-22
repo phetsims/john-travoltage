@@ -18,8 +18,8 @@ define( require => {
   const JohnTravoltageA11yStrings = require( 'JOHN_TRAVOLTAGE/john-travoltage/JohnTravoltageA11yStrings' );
   const Node = require( 'SCENERY/nodes/Node' );
   const StringUtils = require( 'PHETCOMMON/util/StringUtils' );
-  const Utterance = require( 'SCENERY_PHET/accessibility/Utterance' );
-  const utteranceQueue = require( 'SCENERY_PHET/accessibility/utteranceQueue' );
+  const Utterance = require( 'UTTERANCE_QUEUE/Utterance' );
+  const utteranceQueue = require( 'UTTERANCE_QUEUE/utteranceQueue' );
 
   // a11y strings
   const electronsTotalString = JohnTravoltageA11yStrings.electronsTotal.value;
