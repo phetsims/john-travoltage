@@ -407,7 +407,7 @@ define( require => {
       sparkNode,
       electronLayer
     ];
-    this.controlAreaNode.accessibleOrder = [
+    this.pdomControlAreaNode.accessibleOrder = [
       resetAllButton
     ];
   }
