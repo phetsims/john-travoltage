@@ -253,7 +253,7 @@ define( require => {
     this.leg.model.angleProperty.link( updateDescription );
 
     // the play area is described by the screen view's description sibling through aria-describedby
-    this.playAreaNode.addAriaDescribedbyAssociation( {
+    this.pdomPlayAreaNode.addAriaDescribedbyAssociation( {
       thisElementName: AccessiblePeer.PRIMARY_SIBLING,
       otherNode: this,
       otherElementName: AccessiblePeer.DESCRIPTION_SIBLING
@@ -401,7 +401,7 @@ define( require => {
     }
 
     // accessibleOrder
-    this.playAreaNode.accessibleOrder = [
+    this.pdomPlayAreaNode.accessibleOrder = [
       this.leg,
       this.arm,
       sparkNode,
