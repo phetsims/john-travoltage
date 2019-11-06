@@ -19,9 +19,7 @@ define( require => {
   const Node = require( 'SCENERY/nodes/Node' );
   const StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   const Utterance = require( 'UTTERANCE_QUEUE/Utterance' );
-  const utteranceQueue = require( 'UTTERANCE_QUEUE/utteranceQueue' );
-
-  // a11y strings
+// a11y strings
   const electronsTotalString = JohnTravoltageA11yStrings.electronsTotal.value;
   const electronsTotalAfterDischargeString = JohnTravoltageA11yStrings.electronsTotalAfterDischarge.value;
 
@@ -72,7 +70,7 @@ define( require => {
       }
 
       electronUtterance.alert = alertString;
-      utteranceQueue.addToBack( electronUtterance );
+      phet.joist.sim.display.utteranceQueue.addToBack( electronUtterance );
 
       // for haptic feedback, experimental
       model.utteranceAddedEmitter.emit( alertString );
