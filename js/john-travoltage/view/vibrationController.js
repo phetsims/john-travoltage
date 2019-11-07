@@ -21,13 +21,11 @@ define( require => {
 
   // modules
   const johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
-  const speechController = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/speechController' );
   const vibrationManager = require( 'TAPPI/vibrationManager' );
   const VibrationPatterns = require( 'TAPPI/VibrationPatterns' );
   const Property = require( 'AXON/Property' );
 
   // constants
-  const CHARGES_LEAVING_PATTERN = [ 200, 100 ];
 
   class VibrationController {
     constructor() {}
@@ -37,117 +35,108 @@ define( require => {
      * @param {JohnTravoltageView} view
      */
     initialize( model, view ) {
-      const paradigmChoice = phet.chipper.queryParameters.vibration;
 
-      if ( paradigmChoice === 'objects' ) {
-
-        // Whenever a pointer moves over a new shape (even if it already is over an existing shape) this emitter
-        // will emit an event. Get the right pattern and begin vibration for this case
-        view.shapeHitDetector.hitShapeEmitter.addListener( hitShape => {
-          if ( hitShape === model.touchableBodyShape ) {
-            vibrationManager.startVibrate( VibrationPatterns.HZ_5 );
-          }
-          else if ( hitShape === model.carpetShape ) {
-            vibrationManager.startVibrate( VibrationPatterns.MOTOR_CALL );
-          }
-          else if ( hitShape === view.arm.hitShape ) {
-            vibrationManager.startVibrate( VibrationPatterns.HZ_25 );
-          }
-          else if ( hitShape === view.leg.hitShape ) {
-            vibrationManager.startVibrate( VibrationPatterns.HZ_10 );
-          }
-          else {
-            vibrationManager.stopVibrate();
-          }
-        } );
-
-        Property.multilink( [ model.arm.isDraggingProperty, model.leg.isDraggingProperty ], ( armDragging, legDragging ) => {
-          if ( armDragging ) {
-            vibrationManager.startVibrate( VibrationPatterns.HZ_25 );
-          }
-          else if ( legDragging ) {
-            vibrationManager.startVibrate( VibrationPatterns.HZ_10 );
-          }
-          else {
-            vibrationManager.stopVibrate();
-          }
-        } );
-
-        // this paradigm will not work while a screen reader is in use because the device intercepts
-        // pointer down gestures - instead we will use web speech to let the user know basic information about the sim
-        // NOTE: I notice that this adds quite a performance penalty in Chrome
-        speechController.initialize( model );
-      }
-
-      // Vibration indicates successful interaction with different components.
-      if ( paradigmChoice === 'manipulation' ) {
-        Property.multilink( [ model.arm.isDraggingProperty, model.leg.isDraggingProperty ], ( armDragging, legDragging ) => {
-          if ( armDragging ) {
-            vibrationManager.startVibrate( VibrationPatterns.HZ_25 );
-          }
-          else if ( legDragging ) {
-            vibrationManager.startVibrate( VibrationPatterns.HZ_10 );
-          }
-          else {
-            vibrationManager.stopVibrate();
-          }
-        } );
-
-        // in response to a "change" event, begin a timed vibration (because TalkBack doesn't go through pointer
-        // events, and the isDraggingProperties will fire one after another immediately)
-        view.leg.addInputListener( {
-          input: event => {
-            vibrationManager.startTimedVibrate( 1000, VibrationPatterns.HZ_25 );
-          }
-        } );
-
-        view.arm.addInputListener( {
-          input: event => {
-            vibrationManager.startTimedVibrate( 1000, VibrationPatterns.HZ_10 );
-          }
-        } );
-      }
-
-      // Vibration indicates charge entering the body while dragging the leg
-      if ( paradigmChoice === 'interaction-changes' ) {
-        Property.multilink( [ model.leg.isDraggingProperty, model.shoeOnCarpetProperty ], ( isDragging, shoeOnCarpet ) => {
-          if ( isDragging && shoeOnCarpet ) {
-            vibrationManager.startVibrate();
-          }
-          else {
-            vibrationManager.stopVibrate();
-          }
-        } );
-
-        // in response to a "change" event, begin a timed vibration (because TalkBack doesn't go through pointer
-        // events, and the isDraggingProperties will fire one after another immediately)
-        view.leg.addInputListener( {
-          input: event => {
-            if ( model.shoeOnCarpetProperty.get() ) {
-              vibrationManager.startTimedVibrate( 1000, [ 1000 ] );
-            }
-          }
-        } );
-      }
-
-      // Vibration feedback to indicate changes in charge
-      if ( paradigmChoice === 'result' ) {
-        model.dischargeStartedEmitter.addListener( () => {
-          vibrationManager.startVibrate( CHARGES_LEAVING_PATTERN );
-        } );
-        model.dischargeEndedEmitter.addListener( () => {
+      // Whenever a pointer moves over a new shape (even if it already is over an existing shape) this emitter
+      // will emit an event. Get the right pattern and begin vibration for this case
+      view.shapeHitDetector.hitShapeEmitter.addListener( hitShape => {
+        if ( hitShape === model.touchableBodyShape ) {
+          vibrationManager.startVibrate( VibrationPatterns.HZ_5 );
+        }
+        else if ( hitShape === model.carpetShape ) {
+          vibrationManager.startVibrate( VibrationPatterns.MOTOR_CALL );
+        }
+        else if ( hitShape === view.arm.hitShape ) {
+          vibrationManager.startVibrate( VibrationPatterns.HZ_25 );
+        }
+        else if ( hitShape === view.leg.hitShape ) {
+          vibrationManager.startVibrate( VibrationPatterns.HZ_10 );
+        }
+        else {
           vibrationManager.stopVibrate();
-        } );
+        }
+      } );
 
-        // for as long as there are charges in the body, vibrate forever
-        model.stepEmitter.addListener( () => {
+      Property.multilink( [ model.arm.isDraggingProperty, model.leg.isDraggingProperty ], ( armDragging, legDragging ) => {
+        if ( armDragging ) {
+          vibrationManager.startVibrate( VibrationPatterns.HZ_25 );
+        }
+        else if ( legDragging ) {
+          vibrationManager.startVibrate( VibrationPatterns.HZ_10 );
+        }
+        else {
+          vibrationManager.stopVibrate();
+        }
+      } );
 
-          // only initiate vibration if we haven't already initiated one
-          if ( !vibrationManager.isRunningPattern() && model.electrons.length > 0 ) {
-            vibrationManager.startVibrate( VibrationPatterns.HZ_5 );
-          }
-        } );
-      }
+      // // Vibration indicates successful interaction with different components.
+      // if ( paradigmChoice === 'manipulation' ) {
+      //   Property.multilink( [ model.arm.isDraggingProperty, model.leg.isDraggingProperty ], ( armDragging, legDragging ) => {
+      //     if ( armDragging ) {
+      //       vibrationManager.startVibrate( VibrationPatterns.HZ_25 );
+      //     }
+      //     else if ( legDragging ) {
+      //       vibrationManager.startVibrate( VibrationPatterns.HZ_10 );
+      //     }
+      //     else {
+      //       vibrationManager.stopVibrate();
+      //     }
+      //   } );
+
+      //   // in response to a "change" event, begin a timed vibration (because TalkBack doesn't go through pointer
+      //   // events, and the isDraggingProperties will fire one after another immediately)
+      //   view.leg.addInputListener( {
+      //     input: event => {
+      //       vibrationManager.startTimedVibrate( 1000, VibrationPatterns.HZ_25 );
+      //     }
+      //   } );
+
+      //   view.arm.addInputListener( {
+      //     input: event => {
+      //       vibrationManager.startTimedVibrate( 1000, VibrationPatterns.HZ_10 );
+      //     }
+      //   } );
+      // }
+
+      // // Vibration indicates charge entering the body while dragging the leg
+      // if ( paradigmChoice === 'interaction-changes' ) {
+      //   Property.multilink( [ model.leg.isDraggingProperty, model.shoeOnCarpetProperty ], ( isDragging, shoeOnCarpet ) => {
+      //     if ( isDragging && shoeOnCarpet ) {
+      //       vibrationManager.startVibrate();
+      //     }
+      //     else {
+      //       vibrationManager.stopVibrate();
+      //     }
+      //   } );
+
+      //   // in response to a "change" event, begin a timed vibration (because TalkBack doesn't go through pointer
+      //   // events, and the isDraggingProperties will fire one after another immediately)
+      //   view.leg.addInputListener( {
+      //     input: event => {
+      //       if ( model.shoeOnCarpetProperty.get() ) {
+      //         vibrationManager.startTimedVibrate( 1000, [ 1000 ] );
+      //       }
+      //     }
+      //   } );
+      // }
+
+      // // Vibration feedback to indicate changes in charge
+      // if ( paradigmChoice === 'result' ) {
+      //   model.dischargeStartedEmitter.addListener( () => {
+      //     vibrationManager.startVibrate( CHARGES_LEAVING_PATTERN );
+      //   } );
+      //   model.dischargeEndedEmitter.addListener( () => {
+      //     vibrationManager.stopVibrate();
+      //   } );
+
+      //   // for as long as there are charges in the body, vibrate forever
+      //   model.stepEmitter.addListener( () => {
+
+      //     // only initiate vibration if we haven't already initiated one
+      //     if ( !vibrationManager.isRunningPattern() && model.electrons.length > 0 ) {
+      //       vibrationManager.startVibrate( VibrationPatterns.HZ_5 );
+      //     }
+      //   } );
+      // }
     }
   }
 

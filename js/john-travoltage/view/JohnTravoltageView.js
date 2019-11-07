@@ -143,9 +143,7 @@ define( require => {
 
     // only attach the listener if we are testing haptic feedback, but create eagerly since its shapes are used by
     // debugInfo query parameter
-    if ( phet.chipper.queryParameters.vibration !== null ) {
-      phet.joist.display.addInputListener( this.shapeHitDetector );
-    }
+    phet.joist.display.addInputListener( this.shapeHitDetector );
 
     // (a11y) after travolta picks up electrons the first time, this flag will modify descriptions slightly
     let includeElectronInfo = false;
@@ -387,18 +385,14 @@ define( require => {
     } );
 
     // (vibration, experimental) implements all vibration feedback for this sim
-    if ( phet.chipper.vibration !== null ) {
-      vibrationController.initialize( model, this );
-    }
+    vibrationController.initialize( model, this );
 
-    if ( JohnTravoltageQueryParameters.vibrationChart ) {
-      this.vibrationChart = new VibrationChart( vibrationManager.vibratingProperty, this.layoutBounds.width * 0.75, 75, {
-        labelFont: new PhetFont( 14 )
-      } );
+    this.vibrationChart = new VibrationChart( vibrationManager.vibratingProperty, this.layoutBounds.width * 0.75, 75, {
+      labelFont: new PhetFont( 14 )
+    } );
 
-      this.addChild( this.vibrationChart );
-      this.vibrationChart.centerTop = this.layoutBounds.centerTop;
-    }
+    this.addChild( this.vibrationChart );
+    this.vibrationChart.centerTop = this.layoutBounds.centerTop;
 
     // accessibleOrder
     this.pdomPlayAreaNode.accessibleOrder = [
@@ -424,12 +418,7 @@ define( require => {
     step: function( dt ) {
       this.footDragSoundGenerator.step( dt );
 
-      if ( this.vibrationIndicator ) {
-        this.vibrationIndicator.step( dt );
-      }
-      if ( this.vibrationChart ) {
-        this.vibrationChart.step( dt );
-      }
+      this.vibrationChart.step( dt );
     },
 
     /**
