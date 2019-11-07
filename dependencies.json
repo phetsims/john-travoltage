@@ -1,5 +1,5 @@
 {
-  "comment": "# john-travoltage 1.6.0-testVibration.0 Thu Nov 07 2019 14:57:59 GMT-0500 (Eastern Standard Time)",
+  "comment": "# john-travoltage 1.6.0-testVibration.1 Thu Nov 07 2019 15:03:42 GMT-0500 (Eastern Standard Time)",
   "assert": {
     "sha": "a99a9ce9ee0774bf3ef509bf3e31ca7383f67478",
     "branch": "master"
@@ -25,7 +25,7 @@
     "branch": "master"
   },
   "john-travoltage": {
-    "sha": "e185f2e928e3eedf67e50d9d04d67c74a04a0d67",
+    "sha": "a0bd28d67e78ddabee1007c03d4b941ec79f957c",
     "branch": "testVibration"
   },
   "joist": {
