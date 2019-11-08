@@ -362,7 +362,7 @@ define( require => {
       }
 
       while ( this.electronsToRemove.length ) {
-        this.electrons.disposeGroupMember( this.electronsToRemove.pop() );
+        this.electrons.disposeMember( this.electronsToRemove.pop() );
       }
 
       if ( this.electrons.length === 0 || _.filter( this.electrons.array, exiting ).length === 0 ) {
