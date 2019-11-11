@@ -1379,7 +1379,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "EmitterIO<>"
     },
-    "johnTravoltage.johnTravoltageScreen.model.electrons": {
+    "johnTravoltage.johnTravoltageScreen.model.electronGroup": {
       "phetioDocumentation": "",
       "phetioDynamicElement": false,
       "phetioDynamicElementPrototype": false,
@@ -1392,7 +1392,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "PhetioGroupIO<ElectronIO>"
     },
-    "johnTravoltage.johnTravoltageScreen.model.electrons.prototype": {
+    "johnTravoltage.johnTravoltageScreen.model.electronGroup.prototype": {
       "phetioDocumentation": "",
       "phetioDynamicElement": false,
       "phetioDynamicElementPrototype": true,
@@ -1405,7 +1405,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "ElectronIO"
     },
-    "johnTravoltage.johnTravoltageScreen.model.electrons.prototype.positionProperty": {
+    "johnTravoltage.johnTravoltageScreen.model.electronGroup.prototype.positionProperty": {
       "phetioDocumentation": "",
       "phetioDynamicElement": false,
       "phetioDynamicElementPrototype": true,

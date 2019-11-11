@@ -150,7 +150,7 @@ define( require => {
       const point = segment.p0.plus( v.normalized().times( rand ) );
       return new Electron( point.x, point.y, this, { tandem: tandem } );
     }, [], {
-      tandem: tandem.createTandem( 'electrons' ),
+      tandem: tandem.createTandem( 'electronGroup' ),
       phetioType: PhetioGroupIO( ElectronIO )
     } );
 
