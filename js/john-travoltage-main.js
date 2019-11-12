@@ -48,8 +48,6 @@ define( require => {
     },
     accessibility: true,
     keyboardHelpNode: keyboardHelpContent,
-    supportsEnhancedSound: true,
-    supportsSound: true,
 
     // protoypal vibration feedback, see https://github.com/phetsims/john-travoltage/issues/337
     vibrationManager: vibrationManager
