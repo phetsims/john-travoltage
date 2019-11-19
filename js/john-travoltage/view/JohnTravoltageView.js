@@ -37,7 +37,6 @@ define( require => {
   const PitchedPopGenerator = require( 'TAMBO/sound-generators/PitchedPopGenerator' );
   const platform = require( 'PHET_CORE/platform' );
   const ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
-  const ResetAllSoundGenerator = require( 'TAMBO/sound-generators/ResetAllSoundGenerator' );
   const ScreenView = require( 'JOIST/ScreenView' );
   const Shape = require( 'KITE/Shape' );
   const SoundClip = require( 'TAMBO/sound-generators/SoundClip' );
@@ -189,9 +188,6 @@ define( require => {
       },
       tandem: tandem.createTandem( 'resetAllButton' )
     } );
-    soundManager.addSoundGenerator( new ResetAllSoundGenerator( model.resetInProgressProperty, {
-      initialOutputLevel: 0.7
-    } ) );
 
     // a11y - the ResetAllButton is alone in a control panel in this sim
     this.addChild( resetAllButton );
