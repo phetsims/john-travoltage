@@ -70,7 +70,7 @@ define( require => {
       }
 
       electronUtterance.alert = alertString;
-      phet.joist.sim.display.utteranceQueue.addToBack( electronUtterance );
+      phet.joist.sim.utteranceQueue.addToBack( electronUtterance );
 
       // for haptic feedback, experimental
       model.utteranceAddedEmitter.emit( alertString );
