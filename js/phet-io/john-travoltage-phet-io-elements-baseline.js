@@ -467,7 +467,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioReadOnly": false,
       "phetioState": false,
       "phetioStudioControl": true,
-      "phetioTypeName": "PhetioSingletonIO<DialogIO>"
+      "phetioTypeName": "PhetioCapsuleIO<DialogIO>"
     },
     "johnTravoltage.general.navigationBar.a11yButtonsHBox.keyboardHelpButton.keyboardHelpDialogSingleton.prototype": {
       "phetioDocumentation": "",
@@ -766,7 +766,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioReadOnly": false,
       "phetioState": false,
       "phetioStudioControl": true,
-      "phetioTypeName": "PhetioSingletonIO<DialogIO>"
+      "phetioTypeName": "PhetioCapsuleIO<DialogIO>"
     },
     "johnTravoltage.general.navigationBar.phetButton.phetMenu.aboutDialogSingleton.prototype": {
       "phetioDocumentation": "",
