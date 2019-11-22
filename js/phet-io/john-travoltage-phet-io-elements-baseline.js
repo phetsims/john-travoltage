@@ -4,7 +4,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.general.activeProperty": {
       "phetioDocumentation": "Determines whether the entire simulation is running and processing user input. Setting this property to false pauses the simulation, and prevents user interaction.",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": true,
       "phetioHighFrequency": false,
@@ -17,7 +17,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.general.barrierRectangle": {
       "phetioDocumentation": "Semi-transparent barrier used to block input events when a dialog is shown, also fades out the background",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "USER",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -30,7 +30,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.general.barrierRectangle.inputListener.firedEmitter": {
       "phetioDocumentation": "A function that executes. No arguments.",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "USER",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -43,7 +43,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.general.barrierRectangle.inputListener.pressAction": {
       "phetioDocumentation": "Executes whenever a press occurs. The first argument when executing can be used to convey info about the Event. The arguments are:<br/><ol><li>event: EventIO</li></ol>",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "USER",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -56,7 +56,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.general.barrierRectangle.inputListener.releaseAction": {
       "phetioDocumentation": "Executes whenever a release occurs. The arguments are:<br/><ol><li>event: NullableIO<EventIO></li></ol>",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "USER",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -69,7 +69,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.general.barrierRectangle.opacityProperty": {
       "phetioDocumentation": "Opacity of the parent NodeIO, between 0 (invisible) and 1 (fully visible)",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -82,7 +82,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.general.barrierRectangle.pickableProperty": {
       "phetioDocumentation": "Sets whether the node will be pickable (and hence interactive), see the NodeIO documentation for more details",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -95,7 +95,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.general.barrierRectangle.visibleProperty": {
       "phetioDocumentation": "Controls whether the Node will be visible (and interactive), see the NodeIO documentation for more details.",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -108,7 +108,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.general.browserTabVisibleProperty": {
       "phetioDocumentation": "Indicates whether the browser tab containing the simulation is currently visible",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -121,7 +121,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.general.controller.input.changeAction": {
       "phetioDocumentation": "Emits when the PDOM root gets the change DOM event. The arguments are:<br/><ol><li>event: DOMEventIO</li></ol>",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "USER",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -134,7 +134,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.general.controller.input.clickAction": {
       "phetioDocumentation": "Emits when the PDOM root gets the click DOM event. The arguments are:<br/><ol><li>event: DOMEventIO</li></ol>",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "USER",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -147,7 +147,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.general.controller.input.focusinAction": {
       "phetioDocumentation": "Emits when the PDOM root gets the focusin DOM event. The arguments are:<br/><ol><li>event: DOMEventIO</li></ol>",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "USER",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -160,7 +160,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.general.controller.input.focusoutAction": {
       "phetioDocumentation": "Emits when the PDOM root gets the focusout DOM event. The arguments are:<br/><ol><li>event: DOMEventIO</li></ol>",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "USER",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -173,7 +173,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.general.controller.input.inputAction": {
       "phetioDocumentation": "Emits when the PDOM root gets the input DOM event. The arguments are:<br/><ol><li>event: DOMEventIO</li></ol>",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "USER",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -186,7 +186,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.general.controller.input.keydownAction": {
       "phetioDocumentation": "Emits when the PDOM root gets the keydown DOM event. The arguments are:<br/><ol><li>event: DOMEventIO</li></ol>",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "USER",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -199,7 +199,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.general.controller.input.keyupAction": {
       "phetioDocumentation": "Emits when the PDOM root gets the keyup DOM event. The arguments are:<br/><ol><li>event: DOMEventIO</li></ol>",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "USER",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -212,7 +212,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.general.controller.input.mouseDownAction": {
       "phetioDocumentation": "Emits when a mouse button is pressed The arguments are:<br/><ol><li>point: Vector2IO</li><br/><li>event: DOMEventIO</li></ol>",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "USER",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -225,7 +225,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.general.controller.input.mouseMovedAction": {
       "phetioDocumentation": "Emits when the mouse is moved The arguments are:<br/><ol><li>point: Vector2IO</li><br/><li>event: DOMEventIO</li></ol>",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "USER",
       "phetioFeatured": false,
       "phetioHighFrequency": true,
@@ -238,7 +238,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.general.controller.input.mouseOutAction": {
       "phetioDocumentation": "Emits when the mouse moves out of the display The arguments are:<br/><ol><li>point: Vector2IO</li><br/><li>event: DOMEventIO</li></ol>",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "USER",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -251,7 +251,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.general.controller.input.mouseOverAction": {
       "phetioDocumentation": "Emits when the mouse is moved over a Node The arguments are:<br/><ol><li>point: Vector2IO</li><br/><li>event: DOMEventIO</li></ol>",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "USER",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -264,7 +264,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.general.controller.input.mouseUpAction": {
       "phetioDocumentation": "Emits when a mouse button is released The arguments are:<br/><ol><li>point: Vector2IO</li><br/><li>event: DOMEventIO</li></ol>",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "USER",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -277,7 +277,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.general.controller.input.penCancelAction": {
       "phetioDocumentation": "Emits when a pen is canceled The arguments are:<br/><ol><li>id: NumberIO</li><br/><li>point: Vector2IO</li><br/><li>event: DOMEventIO</li></ol>",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "USER",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -290,7 +290,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.general.controller.input.penEndAction": {
       "phetioDocumentation": "Emits when a pen is lifted The arguments are:<br/><ol><li>id: NumberIO</li><br/><li>point: Vector2IO</li><br/><li>event: DOMEventIO</li></ol>",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "USER",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -303,7 +303,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.general.controller.input.penMoveAction": {
       "phetioDocumentation": "Emits when a pen is moved The arguments are:<br/><ol><li>id: NumberIO</li><br/><li>point: Vector2IO</li><br/><li>event: DOMEventIO</li></ol>",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "USER",
       "phetioFeatured": false,
       "phetioHighFrequency": true,
@@ -316,7 +316,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.general.controller.input.penStartAction": {
       "phetioDocumentation": "Emits when a pen touches the screen The arguments are:<br/><ol><li>id: NumberIO</li><br/><li>point: Vector2IO</li><br/><li>event: DOMEventIO</li></ol>",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "USER",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -329,7 +329,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.general.controller.input.touchCancelAction": {
       "phetioDocumentation": "Emits when a touch is canceled The arguments are:<br/><ol><li>id: NumberIO</li><br/><li>point: Vector2IO</li><br/><li>event: DOMEventIO</li></ol>",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "USER",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -342,7 +342,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.general.controller.input.touchEndAction": {
       "phetioDocumentation": "Emits when a touch ends The arguments are:<br/><ol><li>id: NumberIO</li><br/><li>point: Vector2IO</li><br/><li>event: DOMEventIO</li></ol>",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "USER",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -355,7 +355,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.general.controller.input.touchMoveAction": {
       "phetioDocumentation": "Emits when a touch moves The arguments are:<br/><ol><li>id: NumberIO</li><br/><li>point: Vector2IO</li><br/><li>event: DOMEventIO</li></ol>",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "USER",
       "phetioFeatured": false,
       "phetioHighFrequency": true,
@@ -368,7 +368,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.general.controller.input.touchStartAction": {
       "phetioDocumentation": "Emits when a touch begins The arguments are:<br/><ol><li>id: NumberIO</li><br/><li>point: Vector2IO</li><br/><li>event: DOMEventIO</li></ol>",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "USER",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -381,7 +381,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.general.controller.input.validatePointersAction": {
       "phetioDocumentation": "A function that executes. No arguments.",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": true,
@@ -394,7 +394,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.general.controller.input.wheelScrollAction": {
       "phetioDocumentation": "Emits when the mouse wheel scrolls The arguments are:<br/><ol><li>event: DOMEventIO</li></ol>",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "USER",
       "phetioFeatured": false,
       "phetioHighFrequency": true,
@@ -407,7 +407,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.general.focusProperty": {
       "phetioDocumentation": "Stores the current focus for the simulation, null if there is not focus. This is not updated based on mouse or touch input, only keyboard and other alternative inputs.",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -420,7 +420,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.general.navigationBar.a11yButtonsHBox.keyboardHelpButton": {
       "phetioDocumentation": "",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -433,7 +433,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.general.navigationBar.a11yButtonsHBox.keyboardHelpButton.enabledProperty": {
       "phetioDocumentation": "When disabled, the button is grayed out and cannot be pressed",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": true,
       "phetioHighFrequency": false,
@@ -446,7 +446,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.general.navigationBar.a11yButtonsHBox.keyboardHelpButton.firedEmitter": {
       "phetioDocumentation": "Emits when the button is fired No arguments.",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "USER",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -459,7 +459,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.general.navigationBar.a11yButtonsHBox.keyboardHelpButton.keyboardHelpDialogCapsule": {
       "phetioDocumentation": "",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -469,10 +469,10 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "PhetioCapsuleIO<DialogIO>"
     },
-    "johnTravoltage.general.navigationBar.a11yButtonsHBox.keyboardHelpButton.keyboardHelpDialogCapsule.prototype": {
+    "johnTravoltage.general.navigationBar.a11yButtonsHBox.keyboardHelpButton.keyboardHelpDialogCapsule.archetype": {
       "phetioDocumentation": "",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": true,
+      "phetioDynamicElementArchetype": true,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -482,10 +482,10 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "DialogIO"
     },
-    "johnTravoltage.general.navigationBar.a11yButtonsHBox.keyboardHelpButton.keyboardHelpDialogCapsule.prototype.closeButton": {
+    "johnTravoltage.general.navigationBar.a11yButtonsHBox.keyboardHelpButton.keyboardHelpDialogCapsule.archetype.closeButton": {
       "phetioDocumentation": "",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": true,
+      "phetioDynamicElementArchetype": true,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -495,10 +495,10 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "NodeIO"
     },
-    "johnTravoltage.general.navigationBar.a11yButtonsHBox.keyboardHelpButton.keyboardHelpDialogCapsule.prototype.closeButton.enabledProperty": {
+    "johnTravoltage.general.navigationBar.a11yButtonsHBox.keyboardHelpButton.keyboardHelpDialogCapsule.archetype.closeButton.enabledProperty": {
       "phetioDocumentation": "When disabled, the button is grayed out and cannot be pressed",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": true,
+      "phetioDynamicElementArchetype": true,
       "phetioEventType": "MODEL",
       "phetioFeatured": true,
       "phetioHighFrequency": false,
@@ -508,10 +508,10 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
-    "johnTravoltage.general.navigationBar.a11yButtonsHBox.keyboardHelpButton.keyboardHelpDialogCapsule.prototype.closeButton.firedEmitter": {
+    "johnTravoltage.general.navigationBar.a11yButtonsHBox.keyboardHelpButton.keyboardHelpDialogCapsule.archetype.closeButton.firedEmitter": {
       "phetioDocumentation": "Emits when the button is fired No arguments.",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": true,
+      "phetioDynamicElementArchetype": true,
       "phetioEventType": "USER",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -521,10 +521,10 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "EmitterIO<>"
     },
-    "johnTravoltage.general.navigationBar.a11yButtonsHBox.keyboardHelpButton.keyboardHelpDialogCapsule.prototype.closeButton.opacityProperty": {
+    "johnTravoltage.general.navigationBar.a11yButtonsHBox.keyboardHelpButton.keyboardHelpDialogCapsule.archetype.closeButton.opacityProperty": {
       "phetioDocumentation": "Opacity of the parent NodeIO, between 0 (invisible) and 1 (fully visible)",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": true,
+      "phetioDynamicElementArchetype": true,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -534,10 +534,10 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "NumberPropertyIO"
     },
-    "johnTravoltage.general.navigationBar.a11yButtonsHBox.keyboardHelpButton.keyboardHelpDialogCapsule.prototype.closeButton.pickableProperty": {
+    "johnTravoltage.general.navigationBar.a11yButtonsHBox.keyboardHelpButton.keyboardHelpDialogCapsule.archetype.closeButton.pickableProperty": {
       "phetioDocumentation": "Sets whether the node will be pickable (and hence interactive), see the NodeIO documentation for more details",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": true,
+      "phetioDynamicElementArchetype": true,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -547,10 +547,10 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO<NullableIO<BooleanIO>>"
     },
-    "johnTravoltage.general.navigationBar.a11yButtonsHBox.keyboardHelpButton.keyboardHelpDialogCapsule.prototype.closeButton.pressListener.pressAction": {
+    "johnTravoltage.general.navigationBar.a11yButtonsHBox.keyboardHelpButton.keyboardHelpDialogCapsule.archetype.closeButton.pressListener.pressAction": {
       "phetioDocumentation": "Executes whenever a press occurs. The first argument when executing can be used to convey info about the Event. The arguments are:<br/><ol><li>event: EventIO</li></ol>",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": true,
+      "phetioDynamicElementArchetype": true,
       "phetioEventType": "USER",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -560,10 +560,10 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "ActionIO<EventIO>"
     },
-    "johnTravoltage.general.navigationBar.a11yButtonsHBox.keyboardHelpButton.keyboardHelpDialogCapsule.prototype.closeButton.pressListener.releaseAction": {
+    "johnTravoltage.general.navigationBar.a11yButtonsHBox.keyboardHelpButton.keyboardHelpDialogCapsule.archetype.closeButton.pressListener.releaseAction": {
       "phetioDocumentation": "Executes whenever a release occurs. The arguments are:<br/><ol><li>event: NullableIO<EventIO></li></ol>",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": true,
+      "phetioDynamicElementArchetype": true,
       "phetioEventType": "USER",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -573,10 +573,10 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "ActionIO<NullableIO<EventIO>>"
     },
-    "johnTravoltage.general.navigationBar.a11yButtonsHBox.keyboardHelpButton.keyboardHelpDialogCapsule.prototype.closeButton.visibleProperty": {
+    "johnTravoltage.general.navigationBar.a11yButtonsHBox.keyboardHelpButton.keyboardHelpDialogCapsule.archetype.closeButton.visibleProperty": {
       "phetioDocumentation": "Controls whether the Node will be visible (and interactive), see the NodeIO documentation for more details.",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": true,
+      "phetioDynamicElementArchetype": true,
       "phetioEventType": "MODEL",
       "phetioFeatured": true,
       "phetioHighFrequency": false,
@@ -586,10 +586,10 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
-    "johnTravoltage.general.navigationBar.a11yButtonsHBox.keyboardHelpButton.keyboardHelpDialogCapsule.prototype.isShowingProperty": {
+    "johnTravoltage.general.navigationBar.a11yButtonsHBox.keyboardHelpButton.keyboardHelpDialogCapsule.archetype.isShowingProperty": {
       "phetioDocumentation": "",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": true,
+      "phetioDynamicElementArchetype": true,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -599,10 +599,10 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
-    "johnTravoltage.general.navigationBar.a11yButtonsHBox.keyboardHelpButton.keyboardHelpDialogCapsule.prototype.opacityProperty": {
+    "johnTravoltage.general.navigationBar.a11yButtonsHBox.keyboardHelpButton.keyboardHelpDialogCapsule.archetype.opacityProperty": {
       "phetioDocumentation": "Opacity of the parent NodeIO, between 0 (invisible) and 1 (fully visible)",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": true,
+      "phetioDynamicElementArchetype": true,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -612,10 +612,10 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "NumberPropertyIO"
     },
-    "johnTravoltage.general.navigationBar.a11yButtonsHBox.keyboardHelpButton.keyboardHelpDialogCapsule.prototype.pickableProperty": {
+    "johnTravoltage.general.navigationBar.a11yButtonsHBox.keyboardHelpButton.keyboardHelpDialogCapsule.archetype.pickableProperty": {
       "phetioDocumentation": "Sets whether the node will be pickable (and hence interactive), see the NodeIO documentation for more details",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": true,
+      "phetioDynamicElementArchetype": true,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -625,10 +625,10 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO<NullableIO<BooleanIO>>"
     },
-    "johnTravoltage.general.navigationBar.a11yButtonsHBox.keyboardHelpButton.keyboardHelpDialogCapsule.prototype.visibleProperty": {
+    "johnTravoltage.general.navigationBar.a11yButtonsHBox.keyboardHelpButton.keyboardHelpDialogCapsule.archetype.visibleProperty": {
       "phetioDocumentation": "Controls whether the Node will be visible (and interactive), see the NodeIO documentation for more details.",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": true,
+      "phetioDynamicElementArchetype": true,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -641,7 +641,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.general.navigationBar.a11yButtonsHBox.keyboardHelpButton.opacityProperty": {
       "phetioDocumentation": "Opacity of the parent NodeIO, between 0 (invisible) and 1 (fully visible)",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -654,7 +654,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.general.navigationBar.a11yButtonsHBox.keyboardHelpButton.pickableProperty": {
       "phetioDocumentation": "Sets whether the node will be pickable (and hence interactive), see the NodeIO documentation for more details",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -667,7 +667,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.general.navigationBar.a11yButtonsHBox.keyboardHelpButton.pressListener.pressAction": {
       "phetioDocumentation": "Executes whenever a press occurs. The first argument when executing can be used to convey info about the Event. The arguments are:<br/><ol><li>event: EventIO</li></ol>",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "USER",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -680,7 +680,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.general.navigationBar.a11yButtonsHBox.keyboardHelpButton.pressListener.releaseAction": {
       "phetioDocumentation": "Executes whenever a release occurs. The arguments are:<br/><ol><li>event: NullableIO<EventIO></li></ol>",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "USER",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -693,7 +693,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.general.navigationBar.a11yButtonsHBox.keyboardHelpButton.visibleProperty": {
       "phetioDocumentation": "Controls whether the Node will be visible (and interactive), see the NodeIO documentation for more details.",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -706,7 +706,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.general.navigationBar.phetButton": {
       "phetioDocumentation": "The button that appears at the right side of the navigation bar, which shows a menu when pressed",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -719,7 +719,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.general.navigationBar.phetButton.enabledProperty": {
       "phetioDocumentation": "When disabled, the button is grayed out and cannot be pressed",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": true,
       "phetioHighFrequency": false,
@@ -732,7 +732,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.general.navigationBar.phetButton.firedEmitter": {
       "phetioDocumentation": "Emits when the button is fired No arguments.",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "USER",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -745,7 +745,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.general.navigationBar.phetButton.phetMenu": {
       "phetioDocumentation": "This menu is displayed when the PhET button is pressed.",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -758,7 +758,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.general.navigationBar.phetButton.phetMenu.aboutDialogCapsule": {
       "phetioDocumentation": "",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -768,10 +768,10 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "PhetioCapsuleIO<DialogIO>"
     },
-    "johnTravoltage.general.navigationBar.phetButton.phetMenu.aboutDialogCapsule.prototype": {
+    "johnTravoltage.general.navigationBar.phetButton.phetMenu.aboutDialogCapsule.archetype": {
       "phetioDocumentation": "",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": true,
+      "phetioDynamicElementArchetype": true,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -781,10 +781,10 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "DialogIO"
     },
-    "johnTravoltage.general.navigationBar.phetButton.phetMenu.aboutDialogCapsule.prototype.closeButton": {
+    "johnTravoltage.general.navigationBar.phetButton.phetMenu.aboutDialogCapsule.archetype.closeButton": {
       "phetioDocumentation": "",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": true,
+      "phetioDynamicElementArchetype": true,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -794,10 +794,10 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "NodeIO"
     },
-    "johnTravoltage.general.navigationBar.phetButton.phetMenu.aboutDialogCapsule.prototype.closeButton.enabledProperty": {
+    "johnTravoltage.general.navigationBar.phetButton.phetMenu.aboutDialogCapsule.archetype.closeButton.enabledProperty": {
       "phetioDocumentation": "When disabled, the button is grayed out and cannot be pressed",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": true,
+      "phetioDynamicElementArchetype": true,
       "phetioEventType": "MODEL",
       "phetioFeatured": true,
       "phetioHighFrequency": false,
@@ -807,10 +807,10 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
-    "johnTravoltage.general.navigationBar.phetButton.phetMenu.aboutDialogCapsule.prototype.closeButton.firedEmitter": {
+    "johnTravoltage.general.navigationBar.phetButton.phetMenu.aboutDialogCapsule.archetype.closeButton.firedEmitter": {
       "phetioDocumentation": "Emits when the button is fired No arguments.",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": true,
+      "phetioDynamicElementArchetype": true,
       "phetioEventType": "USER",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -820,10 +820,10 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "EmitterIO<>"
     },
-    "johnTravoltage.general.navigationBar.phetButton.phetMenu.aboutDialogCapsule.prototype.closeButton.opacityProperty": {
+    "johnTravoltage.general.navigationBar.phetButton.phetMenu.aboutDialogCapsule.archetype.closeButton.opacityProperty": {
       "phetioDocumentation": "Opacity of the parent NodeIO, between 0 (invisible) and 1 (fully visible)",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": true,
+      "phetioDynamicElementArchetype": true,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -833,10 +833,10 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "NumberPropertyIO"
     },
-    "johnTravoltage.general.navigationBar.phetButton.phetMenu.aboutDialogCapsule.prototype.closeButton.pickableProperty": {
+    "johnTravoltage.general.navigationBar.phetButton.phetMenu.aboutDialogCapsule.archetype.closeButton.pickableProperty": {
       "phetioDocumentation": "Sets whether the node will be pickable (and hence interactive), see the NodeIO documentation for more details",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": true,
+      "phetioDynamicElementArchetype": true,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -846,10 +846,10 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO<NullableIO<BooleanIO>>"
     },
-    "johnTravoltage.general.navigationBar.phetButton.phetMenu.aboutDialogCapsule.prototype.closeButton.pressListener.pressAction": {
+    "johnTravoltage.general.navigationBar.phetButton.phetMenu.aboutDialogCapsule.archetype.closeButton.pressListener.pressAction": {
       "phetioDocumentation": "Executes whenever a press occurs. The first argument when executing can be used to convey info about the Event. The arguments are:<br/><ol><li>event: EventIO</li></ol>",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": true,
+      "phetioDynamicElementArchetype": true,
       "phetioEventType": "USER",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -859,10 +859,10 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "ActionIO<EventIO>"
     },
-    "johnTravoltage.general.navigationBar.phetButton.phetMenu.aboutDialogCapsule.prototype.closeButton.pressListener.releaseAction": {
+    "johnTravoltage.general.navigationBar.phetButton.phetMenu.aboutDialogCapsule.archetype.closeButton.pressListener.releaseAction": {
       "phetioDocumentation": "Executes whenever a release occurs. The arguments are:<br/><ol><li>event: NullableIO<EventIO></li></ol>",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": true,
+      "phetioDynamicElementArchetype": true,
       "phetioEventType": "USER",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -872,10 +872,10 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "ActionIO<NullableIO<EventIO>>"
     },
-    "johnTravoltage.general.navigationBar.phetButton.phetMenu.aboutDialogCapsule.prototype.closeButton.visibleProperty": {
+    "johnTravoltage.general.navigationBar.phetButton.phetMenu.aboutDialogCapsule.archetype.closeButton.visibleProperty": {
       "phetioDocumentation": "Controls whether the Node will be visible (and interactive), see the NodeIO documentation for more details.",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": true,
+      "phetioDynamicElementArchetype": true,
       "phetioEventType": "MODEL",
       "phetioFeatured": true,
       "phetioHighFrequency": false,
@@ -885,10 +885,10 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
-    "johnTravoltage.general.navigationBar.phetButton.phetMenu.aboutDialogCapsule.prototype.isShowingProperty": {
+    "johnTravoltage.general.navigationBar.phetButton.phetMenu.aboutDialogCapsule.archetype.isShowingProperty": {
       "phetioDocumentation": "",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": true,
+      "phetioDynamicElementArchetype": true,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -898,10 +898,10 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
-    "johnTravoltage.general.navigationBar.phetButton.phetMenu.aboutDialogCapsule.prototype.opacityProperty": {
+    "johnTravoltage.general.navigationBar.phetButton.phetMenu.aboutDialogCapsule.archetype.opacityProperty": {
       "phetioDocumentation": "Opacity of the parent NodeIO, between 0 (invisible) and 1 (fully visible)",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": true,
+      "phetioDynamicElementArchetype": true,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -911,10 +911,10 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "NumberPropertyIO"
     },
-    "johnTravoltage.general.navigationBar.phetButton.phetMenu.aboutDialogCapsule.prototype.pickableProperty": {
+    "johnTravoltage.general.navigationBar.phetButton.phetMenu.aboutDialogCapsule.archetype.pickableProperty": {
       "phetioDocumentation": "Sets whether the node will be pickable (and hence interactive), see the NodeIO documentation for more details",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": true,
+      "phetioDynamicElementArchetype": true,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -924,10 +924,10 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO<NullableIO<BooleanIO>>"
     },
-    "johnTravoltage.general.navigationBar.phetButton.phetMenu.aboutDialogCapsule.prototype.termsPrivacyAndLicensingText": {
+    "johnTravoltage.general.navigationBar.phetButton.phetMenu.aboutDialogCapsule.archetype.termsPrivacyAndLicensingText": {
       "phetioDocumentation": "",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": true,
+      "phetioDynamicElementArchetype": true,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -937,10 +937,10 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "RichTextIO"
     },
-    "johnTravoltage.general.navigationBar.phetButton.phetMenu.aboutDialogCapsule.prototype.termsPrivacyAndLicensingText.opacityProperty": {
+    "johnTravoltage.general.navigationBar.phetButton.phetMenu.aboutDialogCapsule.archetype.termsPrivacyAndLicensingText.opacityProperty": {
       "phetioDocumentation": "Opacity of the parent NodeIO, between 0 (invisible) and 1 (fully visible)",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": true,
+      "phetioDynamicElementArchetype": true,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -950,10 +950,10 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "NumberPropertyIO"
     },
-    "johnTravoltage.general.navigationBar.phetButton.phetMenu.aboutDialogCapsule.prototype.termsPrivacyAndLicensingText.pickableProperty": {
+    "johnTravoltage.general.navigationBar.phetButton.phetMenu.aboutDialogCapsule.archetype.termsPrivacyAndLicensingText.pickableProperty": {
       "phetioDocumentation": "Sets whether the node will be pickable (and hence interactive), see the NodeIO documentation for more details",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": true,
+      "phetioDynamicElementArchetype": true,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -963,10 +963,10 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO<NullableIO<BooleanIO>>"
     },
-    "johnTravoltage.general.navigationBar.phetButton.phetMenu.aboutDialogCapsule.prototype.termsPrivacyAndLicensingText.textProperty": {
+    "johnTravoltage.general.navigationBar.phetButton.phetMenu.aboutDialogCapsule.archetype.termsPrivacyAndLicensingText.textProperty": {
       "phetioDocumentation": "Property for the displayed text",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": true,
+      "phetioDynamicElementArchetype": true,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -976,10 +976,10 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO<StringIO>"
     },
-    "johnTravoltage.general.navigationBar.phetButton.phetMenu.aboutDialogCapsule.prototype.termsPrivacyAndLicensingText.visibleProperty": {
+    "johnTravoltage.general.navigationBar.phetButton.phetMenu.aboutDialogCapsule.archetype.termsPrivacyAndLicensingText.visibleProperty": {
       "phetioDocumentation": "Controls whether the Node will be visible (and interactive), see the NodeIO documentation for more details.",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": true,
+      "phetioDynamicElementArchetype": true,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -989,10 +989,10 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
-    "johnTravoltage.general.navigationBar.phetButton.phetMenu.aboutDialogCapsule.prototype.thirdPartyCreditsLinkText": {
+    "johnTravoltage.general.navigationBar.phetButton.phetMenu.aboutDialogCapsule.archetype.thirdPartyCreditsLinkText": {
       "phetioDocumentation": "",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": true,
+      "phetioDynamicElementArchetype": true,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -1002,10 +1002,10 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "RichTextIO"
     },
-    "johnTravoltage.general.navigationBar.phetButton.phetMenu.aboutDialogCapsule.prototype.thirdPartyCreditsLinkText.opacityProperty": {
+    "johnTravoltage.general.navigationBar.phetButton.phetMenu.aboutDialogCapsule.archetype.thirdPartyCreditsLinkText.opacityProperty": {
       "phetioDocumentation": "Opacity of the parent NodeIO, between 0 (invisible) and 1 (fully visible)",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": true,
+      "phetioDynamicElementArchetype": true,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -1015,10 +1015,10 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "NumberPropertyIO"
     },
-    "johnTravoltage.general.navigationBar.phetButton.phetMenu.aboutDialogCapsule.prototype.thirdPartyCreditsLinkText.pickableProperty": {
+    "johnTravoltage.general.navigationBar.phetButton.phetMenu.aboutDialogCapsule.archetype.thirdPartyCreditsLinkText.pickableProperty": {
       "phetioDocumentation": "Sets whether the node will be pickable (and hence interactive), see the NodeIO documentation for more details",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": true,
+      "phetioDynamicElementArchetype": true,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -1028,10 +1028,10 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO<NullableIO<BooleanIO>>"
     },
-    "johnTravoltage.general.navigationBar.phetButton.phetMenu.aboutDialogCapsule.prototype.thirdPartyCreditsLinkText.textProperty": {
+    "johnTravoltage.general.navigationBar.phetButton.phetMenu.aboutDialogCapsule.archetype.thirdPartyCreditsLinkText.textProperty": {
       "phetioDocumentation": "Property for the displayed text",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": true,
+      "phetioDynamicElementArchetype": true,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -1041,10 +1041,10 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO<StringIO>"
     },
-    "johnTravoltage.general.navigationBar.phetButton.phetMenu.aboutDialogCapsule.prototype.thirdPartyCreditsLinkText.visibleProperty": {
+    "johnTravoltage.general.navigationBar.phetButton.phetMenu.aboutDialogCapsule.archetype.thirdPartyCreditsLinkText.visibleProperty": {
       "phetioDocumentation": "Controls whether the Node will be visible (and interactive), see the NodeIO documentation for more details.",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": true,
+      "phetioDynamicElementArchetype": true,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -1054,10 +1054,10 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
-    "johnTravoltage.general.navigationBar.phetButton.phetMenu.aboutDialogCapsule.prototype.translationCreditsLinkText": {
+    "johnTravoltage.general.navigationBar.phetButton.phetMenu.aboutDialogCapsule.archetype.translationCreditsLinkText": {
       "phetioDocumentation": "",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": true,
+      "phetioDynamicElementArchetype": true,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -1067,10 +1067,10 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "RichTextIO"
     },
-    "johnTravoltage.general.navigationBar.phetButton.phetMenu.aboutDialogCapsule.prototype.translationCreditsLinkText.opacityProperty": {
+    "johnTravoltage.general.navigationBar.phetButton.phetMenu.aboutDialogCapsule.archetype.translationCreditsLinkText.opacityProperty": {
       "phetioDocumentation": "Opacity of the parent NodeIO, between 0 (invisible) and 1 (fully visible)",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": true,
+      "phetioDynamicElementArchetype": true,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -1080,10 +1080,10 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "NumberPropertyIO"
     },
-    "johnTravoltage.general.navigationBar.phetButton.phetMenu.aboutDialogCapsule.prototype.translationCreditsLinkText.pickableProperty": {
+    "johnTravoltage.general.navigationBar.phetButton.phetMenu.aboutDialogCapsule.archetype.translationCreditsLinkText.pickableProperty": {
       "phetioDocumentation": "Sets whether the node will be pickable (and hence interactive), see the NodeIO documentation for more details",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": true,
+      "phetioDynamicElementArchetype": true,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -1093,10 +1093,10 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO<NullableIO<BooleanIO>>"
     },
-    "johnTravoltage.general.navigationBar.phetButton.phetMenu.aboutDialogCapsule.prototype.translationCreditsLinkText.textProperty": {
+    "johnTravoltage.general.navigationBar.phetButton.phetMenu.aboutDialogCapsule.archetype.translationCreditsLinkText.textProperty": {
       "phetioDocumentation": "Property for the displayed text",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": true,
+      "phetioDynamicElementArchetype": true,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -1106,10 +1106,10 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO<StringIO>"
     },
-    "johnTravoltage.general.navigationBar.phetButton.phetMenu.aboutDialogCapsule.prototype.translationCreditsLinkText.visibleProperty": {
+    "johnTravoltage.general.navigationBar.phetButton.phetMenu.aboutDialogCapsule.archetype.translationCreditsLinkText.visibleProperty": {
       "phetioDocumentation": "Controls whether the Node will be visible (and interactive), see the NodeIO documentation for more details.",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": true,
+      "phetioDynamicElementArchetype": true,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -1119,10 +1119,10 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
-    "johnTravoltage.general.navigationBar.phetButton.phetMenu.aboutDialogCapsule.prototype.visibleProperty": {
+    "johnTravoltage.general.navigationBar.phetButton.phetMenu.aboutDialogCapsule.archetype.visibleProperty": {
       "phetioDocumentation": "Controls whether the Node will be visible (and interactive), see the NodeIO documentation for more details.",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": true,
+      "phetioDynamicElementArchetype": true,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -1135,7 +1135,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.general.navigationBar.phetButton.phetMenu.aboutMenuItem": {
       "phetioDocumentation": "This menu item shows a dialog with information about the simulation.",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "USER",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -1148,7 +1148,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.general.navigationBar.phetButton.phetMenu.aboutMenuItem.inputListener.firedEmitter": {
       "phetioDocumentation": "A function that executes. No arguments.",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "USER",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -1161,7 +1161,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.general.navigationBar.phetButton.phetMenu.aboutMenuItem.inputListener.pressAction": {
       "phetioDocumentation": "Executes whenever a press occurs. The first argument when executing can be used to convey info about the Event. The arguments are:<br/><ol><li>event: EventIO</li></ol>",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "USER",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -1174,7 +1174,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.general.navigationBar.phetButton.phetMenu.aboutMenuItem.inputListener.releaseAction": {
       "phetioDocumentation": "Executes whenever a release occurs. The arguments are:<br/><ol><li>event: NullableIO<EventIO></li></ol>",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "USER",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -1187,7 +1187,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.general.navigationBar.phetButton.phetMenu.aboutMenuItem.opacityProperty": {
       "phetioDocumentation": "Opacity of the parent NodeIO, between 0 (invisible) and 1 (fully visible)",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -1200,7 +1200,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.general.navigationBar.phetButton.phetMenu.aboutMenuItem.pickableProperty": {
       "phetioDocumentation": "Sets whether the node will be pickable (and hence interactive), see the NodeIO documentation for more details",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": true,
       "phetioHighFrequency": false,
@@ -1213,7 +1213,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.general.navigationBar.phetButton.phetMenu.aboutMenuItem.visibleProperty": {
       "phetioDocumentation": "Controls whether the Node will be visible (and interactive), see the NodeIO documentation for more details.",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": true,
       "phetioHighFrequency": false,
@@ -1226,7 +1226,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.general.navigationBar.phetButton.phetMenu.screenshotMenuItem": {
       "phetioDocumentation": "This menu item captures a screenshot from the simulation and saves it to the file system.",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "USER",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -1239,7 +1239,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.general.navigationBar.phetButton.phetMenu.screenshotMenuItem.inputListener.firedEmitter": {
       "phetioDocumentation": "A function that executes. No arguments.",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "USER",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -1252,7 +1252,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.general.navigationBar.phetButton.phetMenu.screenshotMenuItem.inputListener.pressAction": {
       "phetioDocumentation": "Executes whenever a press occurs. The first argument when executing can be used to convey info about the Event. The arguments are:<br/><ol><li>event: EventIO</li></ol>",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "USER",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -1265,7 +1265,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.general.navigationBar.phetButton.phetMenu.screenshotMenuItem.inputListener.releaseAction": {
       "phetioDocumentation": "Executes whenever a release occurs. The arguments are:<br/><ol><li>event: NullableIO<EventIO></li></ol>",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "USER",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -1278,7 +1278,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.general.navigationBar.phetButton.phetMenu.screenshotMenuItem.opacityProperty": {
       "phetioDocumentation": "Opacity of the parent NodeIO, between 0 (invisible) and 1 (fully visible)",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -1291,7 +1291,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.general.navigationBar.phetButton.phetMenu.screenshotMenuItem.pickableProperty": {
       "phetioDocumentation": "Sets whether the node will be pickable (and hence interactive), see the NodeIO documentation for more details",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -1304,7 +1304,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.general.navigationBar.phetButton.phetMenu.screenshotMenuItem.visibleProperty": {
       "phetioDocumentation": "Controls whether the Node will be visible (and interactive), see the NodeIO documentation for more details.",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": true,
       "phetioHighFrequency": false,
@@ -1317,7 +1317,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.general.navigationBar.phetButton.pickableProperty": {
       "phetioDocumentation": "Set whether the phetButton will be pickable (and hence interactive), see the NodeIO documentation for more details",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -1330,7 +1330,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.general.navigationBar.phetButton.pressListener.pressAction": {
       "phetioDocumentation": "Executes whenever a press occurs. The first argument when executing can be used to convey info about the Event. The arguments are:<br/><ol><li>event: EventIO</li></ol>",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "USER",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -1343,7 +1343,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.general.navigationBar.phetButton.pressListener.releaseAction": {
       "phetioDocumentation": "Executes whenever a release occurs. The arguments are:<br/><ol><li>event: NullableIO<EventIO></li></ol>",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "USER",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -1356,7 +1356,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.general.navigationBar.titleTextNode": {
       "phetioDocumentation": "Displays the title of the simulation in the navigation bar (bottom left)",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -1369,7 +1369,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.general.navigationBar.titleTextNode.opacityProperty": {
       "phetioDocumentation": "Opacity of the parent NodeIO, between 0 (invisible) and 1 (fully visible)",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -1382,7 +1382,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.general.navigationBar.titleTextNode.pickableProperty": {
       "phetioDocumentation": "Sets whether the node will be pickable (and hence interactive), see the NodeIO documentation for more details",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -1395,7 +1395,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.general.navigationBar.titleTextNode.textProperty": {
       "phetioDocumentation": "Property for the displayed text",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -1408,7 +1408,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.general.navigationBar.titleTextNode.visibleProperty": {
       "phetioDocumentation": "Controls whether the Node will be visible (and interactive), see the NodeIO documentation for more details.",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -1421,7 +1421,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.general.phetioCommandProcessor": {
       "phetioDocumentation": "Processes messages from the wrapper frame and returns the results. This serves as the source of PhET-iO data stream messages when commands are invoked from the wrapper.",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -1434,7 +1434,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.general.resizeAction": {
       "phetioDocumentation": "Executes when the sim is resized The arguments are:<br/><ol><li>width: NumberIO</li><br/><li>height: NumberIO</li></ol>",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -1447,7 +1447,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.general.screenIndexProperty": {
       "phetioDocumentation": "Indicates which screen is selected (0-indexed)",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": true,
       "phetioHighFrequency": false,
@@ -1460,7 +1460,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.general.soundEnabledProperty": {
       "phetioDocumentation": "",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -1473,7 +1473,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.general.stepSimulationAction": {
       "phetioDocumentation": "A function that executes. The arguments are:<br/><ol><li>dt: NumberIO</li></ol>",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": true,
@@ -1486,7 +1486,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.general.utteranceQueue": {
       "phetioDocumentation": "",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -1499,7 +1499,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.johnTravoltageScreen.activeProperty": {
       "phetioDocumentation": "Indicates whether the screen is active.  For single-screen simulations, the screen is always active.",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -1512,7 +1512,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.johnTravoltageScreen.model.arm.angleProperty": {
       "phetioDocumentation": "",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -1525,7 +1525,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.johnTravoltageScreen.model.arm.borderVisibleProperty": {
       "phetioDocumentation": "",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -1538,7 +1538,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.johnTravoltageScreen.model.arm.draggingProperty": {
       "phetioDocumentation": "",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -1551,7 +1551,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.johnTravoltageScreen.model.dischargeEndedEmitter": {
       "phetioDocumentation": "A function that executes. No arguments.",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -1564,7 +1564,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.johnTravoltageScreen.model.dischargeStartedEmitter": {
       "phetioDocumentation": "A function that executes. No arguments.",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -1577,7 +1577,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.johnTravoltageScreen.model.electronGroup": {
       "phetioDocumentation": "",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -1587,10 +1587,10 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "PhetioGroupIO<ElectronIO>"
     },
-    "johnTravoltage.johnTravoltageScreen.model.electronGroup.prototype": {
+    "johnTravoltage.johnTravoltageScreen.model.electronGroup.archetype": {
       "phetioDocumentation": "",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": true,
+      "phetioDynamicElementArchetype": true,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -1600,10 +1600,10 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "ElectronIO"
     },
-    "johnTravoltage.johnTravoltageScreen.model.electronGroup.prototype.positionProperty": {
+    "johnTravoltage.johnTravoltageScreen.model.electronGroup.archetype.positionProperty": {
       "phetioDocumentation": "",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": true,
+      "phetioDynamicElementArchetype": true,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -1616,7 +1616,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.johnTravoltageScreen.model.leg.angleProperty": {
       "phetioDocumentation": "",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -1629,7 +1629,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.johnTravoltageScreen.model.leg.angularVelocityProperty": {
       "phetioDocumentation": "",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -1642,7 +1642,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.johnTravoltageScreen.model.leg.borderVisibleProperty": {
       "phetioDocumentation": "",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -1655,7 +1655,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.johnTravoltageScreen.model.leg.draggingProperty": {
       "phetioDocumentation": "",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -1668,7 +1668,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.johnTravoltageScreen.model.resetEmitter": {
       "phetioDocumentation": "A function that executes. No arguments.",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -1681,7 +1681,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.johnTravoltageScreen.model.resetInProgressProperty": {
       "phetioDocumentation": "",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -1694,7 +1694,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.johnTravoltageScreen.model.shoeOnCarpetProperty": {
       "phetioDocumentation": "",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -1707,7 +1707,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.johnTravoltageScreen.model.sparkVisibleProperty": {
       "phetioDocumentation": "",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -1720,7 +1720,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.johnTravoltageScreen.model.touchingArmProperty": {
       "phetioDocumentation": "",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -1733,7 +1733,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.johnTravoltageScreen.model.touchingBodyProperty": {
       "phetioDocumentation": "",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -1746,7 +1746,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.johnTravoltageScreen.model.touchingCarpetProperty": {
       "phetioDocumentation": "",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -1759,7 +1759,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.johnTravoltageScreen.model.touchingLegProperty": {
       "phetioDocumentation": "",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -1772,7 +1772,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.johnTravoltageScreen.model.utterance": {
       "phetioDocumentation": "A function that executes. The arguments are:<br/><ol><li>utterance: StringIO</li></ol>",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -1785,7 +1785,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.johnTravoltageScreen.view": {
       "phetioDocumentation": "",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -1798,7 +1798,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.johnTravoltageScreen.view.armNode.border": {
       "phetioDocumentation": "",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -1811,7 +1811,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.johnTravoltageScreen.view.armNode.border.opacityProperty": {
       "phetioDocumentation": "Opacity of the parent NodeIO, between 0 (invisible) and 1 (fully visible)",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -1824,7 +1824,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.johnTravoltageScreen.view.armNode.border.pickableProperty": {
       "phetioDocumentation": "Sets whether the node will be pickable (and hence interactive), see the NodeIO documentation for more details",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -1837,7 +1837,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.johnTravoltageScreen.view.armNode.border.visibleProperty": {
       "phetioDocumentation": "Controls whether the Node will be visible (and interactive), see the NodeIO documentation for more details.",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -1850,7 +1850,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.johnTravoltageScreen.view.armNode.dragHandler": {
       "phetioDocumentation": "",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "USER",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -1863,7 +1863,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.johnTravoltageScreen.view.armNode.dragHandler.dragAction": {
       "phetioDocumentation": "A function that executes. The arguments are:<br/><ol><li>point: Vector2IO. the position of the drag in view coordinates</li></ol>",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": true,
@@ -1876,7 +1876,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.johnTravoltageScreen.view.armNode.dragHandler.dragEndAction": {
       "phetioDocumentation": "A function that executes. The arguments are:<br/><ol><li>point: Vector2IO. the position of the drag end in view coordinates</li></ol>",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -1889,7 +1889,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.johnTravoltageScreen.view.armNode.dragHandler.dragStartAction": {
       "phetioDocumentation": "A function that executes. The arguments are:<br/><ol><li>point: Vector2IO. the position of the drag start in view coordinates</li></ol>",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -1902,7 +1902,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.johnTravoltageScreen.view.armNode.dragHandler.isDraggingProperty": {
       "phetioDocumentation": "Indicates whether the object is dragging",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -1915,7 +1915,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.johnTravoltageScreen.view.armNode.focusCircle": {
       "phetioDocumentation": "",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -1928,7 +1928,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.johnTravoltageScreen.view.armNode.focusCircle.opacityProperty": {
       "phetioDocumentation": "Opacity of the parent NodeIO, between 0 (invisible) and 1 (fully visible)",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -1941,7 +1941,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.johnTravoltageScreen.view.armNode.focusCircle.pickableProperty": {
       "phetioDocumentation": "Sets whether the node will be pickable (and hence interactive), see the NodeIO documentation for more details",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -1954,7 +1954,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.johnTravoltageScreen.view.armNode.focusCircle.visibleProperty": {
       "phetioDocumentation": "Controls whether the Node will be visible (and interactive), see the NodeIO documentation for more details.",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -1967,7 +1967,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.johnTravoltageScreen.view.armNode.imageNode": {
       "phetioDocumentation": "",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -1980,7 +1980,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.johnTravoltageScreen.view.armNode.imageNode.opacityProperty": {
       "phetioDocumentation": "Opacity of the parent NodeIO, between 0 (invisible) and 1 (fully visible)",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -1993,7 +1993,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.johnTravoltageScreen.view.armNode.imageNode.pickableProperty": {
       "phetioDocumentation": "Sets whether the node will be pickable (and hence interactive), see the NodeIO documentation for more details",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -2006,7 +2006,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.johnTravoltageScreen.view.armNode.imageNode.visibleProperty": {
       "phetioDocumentation": "Controls whether the Node will be visible (and interactive), see the NodeIO documentation for more details.",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -2019,7 +2019,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.johnTravoltageScreen.view.backgroundNode": {
       "phetioDocumentation": "",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -2032,7 +2032,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.johnTravoltageScreen.view.backgroundNode.body": {
       "phetioDocumentation": "",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -2045,7 +2045,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.johnTravoltageScreen.view.backgroundNode.body.opacityProperty": {
       "phetioDocumentation": "Opacity of the parent NodeIO, between 0 (invisible) and 1 (fully visible)",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -2058,7 +2058,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.johnTravoltageScreen.view.backgroundNode.body.pickableProperty": {
       "phetioDocumentation": "Sets whether the node will be pickable (and hence interactive), see the NodeIO documentation for more details",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -2071,7 +2071,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.johnTravoltageScreen.view.backgroundNode.body.visibleProperty": {
       "phetioDocumentation": "Controls whether the Node will be visible (and interactive), see the NodeIO documentation for more details.",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -2084,7 +2084,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.johnTravoltageScreen.view.backgroundNode.door": {
       "phetioDocumentation": "",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -2097,7 +2097,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.johnTravoltageScreen.view.backgroundNode.door.opacityProperty": {
       "phetioDocumentation": "Opacity of the parent NodeIO, between 0 (invisible) and 1 (fully visible)",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -2110,7 +2110,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.johnTravoltageScreen.view.backgroundNode.door.pickableProperty": {
       "phetioDocumentation": "Sets whether the node will be pickable (and hence interactive), see the NodeIO documentation for more details",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -2123,7 +2123,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.johnTravoltageScreen.view.backgroundNode.door.visibleProperty": {
       "phetioDocumentation": "Controls whether the Node will be visible (and interactive), see the NodeIO documentation for more details.",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -2136,7 +2136,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.johnTravoltageScreen.view.backgroundNode.floor": {
       "phetioDocumentation": "",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -2149,7 +2149,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.johnTravoltageScreen.view.backgroundNode.floor.opacityProperty": {
       "phetioDocumentation": "Opacity of the parent NodeIO, between 0 (invisible) and 1 (fully visible)",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -2162,7 +2162,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.johnTravoltageScreen.view.backgroundNode.floor.pickableProperty": {
       "phetioDocumentation": "Sets whether the node will be pickable (and hence interactive), see the NodeIO documentation for more details",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -2175,7 +2175,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.johnTravoltageScreen.view.backgroundNode.floor.visibleProperty": {
       "phetioDocumentation": "Controls whether the Node will be visible (and interactive), see the NodeIO documentation for more details.",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -2188,7 +2188,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.johnTravoltageScreen.view.backgroundNode.opacityProperty": {
       "phetioDocumentation": "Opacity of the parent NodeIO, between 0 (invisible) and 1 (fully visible)",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -2201,7 +2201,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.johnTravoltageScreen.view.backgroundNode.pickableProperty": {
       "phetioDocumentation": "Sets whether the node will be pickable (and hence interactive), see the NodeIO documentation for more details",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -2214,7 +2214,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.johnTravoltageScreen.view.backgroundNode.rug": {
       "phetioDocumentation": "",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -2227,7 +2227,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.johnTravoltageScreen.view.backgroundNode.rug.opacityProperty": {
       "phetioDocumentation": "Opacity of the parent NodeIO, between 0 (invisible) and 1 (fully visible)",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -2240,7 +2240,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.johnTravoltageScreen.view.backgroundNode.rug.pickableProperty": {
       "phetioDocumentation": "Sets whether the node will be pickable (and hence interactive), see the NodeIO documentation for more details",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -2253,7 +2253,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.johnTravoltageScreen.view.backgroundNode.rug.visibleProperty": {
       "phetioDocumentation": "Controls whether the Node will be visible (and interactive), see the NodeIO documentation for more details.",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -2266,7 +2266,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.johnTravoltageScreen.view.backgroundNode.visibleProperty": {
       "phetioDocumentation": "Controls whether the Node will be visible (and interactive), see the NodeIO documentation for more details.",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -2279,7 +2279,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.johnTravoltageScreen.view.backgroundNode.wallpaper": {
       "phetioDocumentation": "",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -2292,7 +2292,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.johnTravoltageScreen.view.backgroundNode.wallpaper.opacityProperty": {
       "phetioDocumentation": "Opacity of the parent NodeIO, between 0 (invisible) and 1 (fully visible)",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -2305,7 +2305,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.johnTravoltageScreen.view.backgroundNode.wallpaper.pickableProperty": {
       "phetioDocumentation": "Sets whether the node will be pickable (and hence interactive), see the NodeIO documentation for more details",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -2318,7 +2318,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.johnTravoltageScreen.view.backgroundNode.wallpaper.visibleProperty": {
       "phetioDocumentation": "Controls whether the Node will be visible (and interactive), see the NodeIO documentation for more details.",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -2331,7 +2331,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.johnTravoltageScreen.view.backgroundNode.window": {
       "phetioDocumentation": "",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -2344,7 +2344,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.johnTravoltageScreen.view.backgroundNode.window.opacityProperty": {
       "phetioDocumentation": "Opacity of the parent NodeIO, between 0 (invisible) and 1 (fully visible)",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -2357,7 +2357,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.johnTravoltageScreen.view.backgroundNode.window.pickableProperty": {
       "phetioDocumentation": "Sets whether the node will be pickable (and hence interactive), see the NodeIO documentation for more details",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -2370,7 +2370,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.johnTravoltageScreen.view.backgroundNode.window.visibleProperty": {
       "phetioDocumentation": "Controls whether the Node will be visible (and interactive), see the NodeIO documentation for more details.",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -2383,7 +2383,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.johnTravoltageScreen.view.legNode.border": {
       "phetioDocumentation": "",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -2396,7 +2396,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.johnTravoltageScreen.view.legNode.border.opacityProperty": {
       "phetioDocumentation": "Opacity of the parent NodeIO, between 0 (invisible) and 1 (fully visible)",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -2409,7 +2409,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.johnTravoltageScreen.view.legNode.border.pickableProperty": {
       "phetioDocumentation": "Sets whether the node will be pickable (and hence interactive), see the NodeIO documentation for more details",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -2422,7 +2422,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.johnTravoltageScreen.view.legNode.border.visibleProperty": {
       "phetioDocumentation": "Controls whether the Node will be visible (and interactive), see the NodeIO documentation for more details.",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -2435,7 +2435,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.johnTravoltageScreen.view.legNode.dragHandler": {
       "phetioDocumentation": "",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "USER",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -2448,7 +2448,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.johnTravoltageScreen.view.legNode.dragHandler.dragAction": {
       "phetioDocumentation": "A function that executes. The arguments are:<br/><ol><li>point: Vector2IO. the position of the drag in view coordinates</li></ol>",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": true,
@@ -2461,7 +2461,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.johnTravoltageScreen.view.legNode.dragHandler.dragEndAction": {
       "phetioDocumentation": "A function that executes. The arguments are:<br/><ol><li>point: Vector2IO. the position of the drag end in view coordinates</li></ol>",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -2474,7 +2474,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.johnTravoltageScreen.view.legNode.dragHandler.dragStartAction": {
       "phetioDocumentation": "A function that executes. The arguments are:<br/><ol><li>point: Vector2IO. the position of the drag start in view coordinates</li></ol>",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -2487,7 +2487,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.johnTravoltageScreen.view.legNode.dragHandler.isDraggingProperty": {
       "phetioDocumentation": "Indicates whether the object is dragging",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -2500,7 +2500,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.johnTravoltageScreen.view.legNode.focusCircle": {
       "phetioDocumentation": "",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -2513,7 +2513,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.johnTravoltageScreen.view.legNode.focusCircle.opacityProperty": {
       "phetioDocumentation": "Opacity of the parent NodeIO, between 0 (invisible) and 1 (fully visible)",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -2526,7 +2526,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.johnTravoltageScreen.view.legNode.focusCircle.pickableProperty": {
       "phetioDocumentation": "Sets whether the node will be pickable (and hence interactive), see the NodeIO documentation for more details",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -2539,7 +2539,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.johnTravoltageScreen.view.legNode.focusCircle.visibleProperty": {
       "phetioDocumentation": "Controls whether the Node will be visible (and interactive), see the NodeIO documentation for more details.",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -2552,7 +2552,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.johnTravoltageScreen.view.legNode.imageNode": {
       "phetioDocumentation": "",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -2565,7 +2565,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.johnTravoltageScreen.view.legNode.imageNode.opacityProperty": {
       "phetioDocumentation": "Opacity of the parent NodeIO, between 0 (invisible) and 1 (fully visible)",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -2578,7 +2578,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.johnTravoltageScreen.view.legNode.imageNode.pickableProperty": {
       "phetioDocumentation": "Sets whether the node will be pickable (and hence interactive), see the NodeIO documentation for more details",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -2591,7 +2591,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.johnTravoltageScreen.view.legNode.imageNode.visibleProperty": {
       "phetioDocumentation": "Controls whether the Node will be visible (and interactive), see the NodeIO documentation for more details.",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -2604,7 +2604,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.johnTravoltageScreen.view.opacityProperty": {
       "phetioDocumentation": "Opacity of the parent NodeIO, between 0 (invisible) and 1 (fully visible)",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -2617,7 +2617,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.johnTravoltageScreen.view.pickableProperty": {
       "phetioDocumentation": "Sets whether the node will be pickable (and hence interactive), see the NodeIO documentation for more details",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -2630,7 +2630,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.johnTravoltageScreen.view.resetAllButton": {
       "phetioDocumentation": "The orange, round button that can be used to restore the initial state",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -2643,7 +2643,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.johnTravoltageScreen.view.resetAllButton.enabledProperty": {
       "phetioDocumentation": "When disabled, the button is grayed out and cannot be pressed",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": true,
       "phetioHighFrequency": false,
@@ -2656,7 +2656,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.johnTravoltageScreen.view.resetAllButton.firedEmitter": {
       "phetioDocumentation": "Emits when the button is fired No arguments.",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "USER",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -2669,7 +2669,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.johnTravoltageScreen.view.resetAllButton.isFiringProperty": {
       "phetioDocumentation": "Temporarily becomes true while the Reset All button is firing.  Commonly used to disable audio effects during reset.",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -2682,7 +2682,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.johnTravoltageScreen.view.resetAllButton.opacityProperty": {
       "phetioDocumentation": "Opacity of the parent NodeIO, between 0 (invisible) and 1 (fully visible)",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -2695,7 +2695,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.johnTravoltageScreen.view.resetAllButton.pickableProperty": {
       "phetioDocumentation": "Sets whether the node will be pickable (and hence interactive), see the NodeIO documentation for more details",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -2708,7 +2708,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.johnTravoltageScreen.view.resetAllButton.pressListener.pressAction": {
       "phetioDocumentation": "Executes whenever a press occurs. The first argument when executing can be used to convey info about the Event. The arguments are:<br/><ol><li>event: EventIO</li></ol>",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "USER",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -2721,7 +2721,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.johnTravoltageScreen.view.resetAllButton.pressListener.releaseAction": {
       "phetioDocumentation": "Executes whenever a release occurs. The arguments are:<br/><ol><li>event: NullableIO<EventIO></li></ol>",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "USER",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -2734,7 +2734,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.johnTravoltageScreen.view.resetAllButton.visibleProperty": {
       "phetioDocumentation": "Controls whether the Node will be visible (and interactive), see the NodeIO documentation for more details.",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": true,
       "phetioHighFrequency": false,
@@ -2747,7 +2747,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.johnTravoltageScreen.view.sparkNode": {
       "phetioDocumentation": "",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -2760,7 +2760,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.johnTravoltageScreen.view.sparkNode.opacityProperty": {
       "phetioDocumentation": "Opacity of the parent NodeIO, between 0 (invisible) and 1 (fully visible)",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -2773,7 +2773,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.johnTravoltageScreen.view.sparkNode.pickableProperty": {
       "phetioDocumentation": "Sets whether the node will be pickable (and hence interactive), see the NodeIO documentation for more details",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -2786,7 +2786,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.johnTravoltageScreen.view.sparkNode.visibleProperty": {
       "phetioDocumentation": "Controls whether the Node will be visible (and interactive), see the NodeIO documentation for more details.",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -2799,7 +2799,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.johnTravoltageScreen.view.touchEndEmitter": {
       "phetioDocumentation": "A function that executes. No arguments.",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -2812,7 +2812,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.johnTravoltageScreen.view.touchMoveEmitter": {
       "phetioDocumentation": "A function that executes. No arguments.",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -2825,7 +2825,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.johnTravoltageScreen.view.touchStartEmitter": {
       "phetioDocumentation": "A function that executes. No arguments.",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -2838,7 +2838,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.johnTravoltageScreen.view.vibratingProperty": {
       "phetioDocumentation": "",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -2851,7 +2851,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "johnTravoltage.johnTravoltageScreen.view.visibleProperty": {
       "phetioDocumentation": "Controls whether the Node will be visible (and interactive), see the NodeIO documentation for more details.",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -2864,7 +2864,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "phetioEngine": {
       "phetioDocumentation": "Central point for PhET-iO interoperability",
       "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
+      "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
