@@ -40,21 +40,22 @@ define( require => {
 
       // create the plot
       this.vibrationSeries = new DynamicSeries( { color: 'orange' } );
-      const scrollingChartNode = new ScrollingChartNode( this.timeProperty, [ this.vibrationSeries ], {
-        width: width,
-        height: height,
-        numberVerticalLines: MAX_TIME,
-        numberHorizontalLines: 3
-      } );
+
       const verticalLabel = new Text( 'Vibration', {
         rotation: -Math.PI / 2
       } );
+      const horizontalLabel = new Text( 'Time' );
+      const scrollingChartNode = new ScrollingChartNode( this.timeProperty, [ this.vibrationSeries ], verticalLabel,
+        horizontalLabel, new Text( '' ), {
+          width: width,
+          height: height,
+          numberVerticalLines: MAX_TIME,
+          numberHorizontalLines: 3
+        } );
 
       // layout
       const labeledChartNode = new Node();
       labeledChartNode.addChild( scrollingChartNode );
-      labeledChartNode.addChild( verticalLabel );
-      verticalLabel.rightCenter = scrollingChartNode.leftCenter.minusXY( 5, 0 );
 
       // contain in a panel
       const panel = new Panel( labeledChartNode, {
