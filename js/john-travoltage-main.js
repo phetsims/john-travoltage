@@ -29,7 +29,7 @@ define( require => {
   newChild.setAttribute( 'aria-hidden', true );
   newChild.tabIndex = -1;
 
-  const tandem = Tandem.rootTandem;
+  const tandem = Tandem.ROOT;
 
   // help content to describe keyboard interactions
   const keyboardHelpContent = new JohnTravoltageKeyboardHelpContent();

@@ -39,7 +39,7 @@ define( require => {
   function Electron( x, y, model, options ) {
 
     options = merge( {
-      tandem: Tandem.required,
+      tandem: Tandem.REQUIRED,
       phetioType: ElectronIO,
       phetioDynamicElement: true
     }, options );
