@@ -142,7 +142,7 @@ define( require => {
       tandem: tandem.createTandem( 'resetInProgressProperty' )
     } );
 
-    this.electrons = new PhetioGroup( 'electron', tandem => {
+    this.electrons = new PhetioGroup( tandem => {
       const segment = new LineSegment( 424.0642054574639, 452.28892455858755, 433.3097913322633, 445.5088282504014 );
       const v = segment.vector;
       const rand = phet.joist.random.nextDouble() * v.magnitude;
