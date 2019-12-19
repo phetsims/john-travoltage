@@ -64,7 +64,7 @@ define( require => {
     /**
      * For the scenery listener API, detects any hits and attaches listener to the pointer for movement and eventually
      * listener removal.
-     * @param {Event} event
+     * @param {SceneryEvent} event
      */
     down( event ) {
 
@@ -84,7 +84,7 @@ define( require => {
     /**
      * For the scenery listener API, removes the pointer listener when done.
      *
-     * @param {Event} event
+     * @param {SceneryEvent} event
      */
     up( event ) {
       if ( this.isPressed ) {
