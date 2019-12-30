@@ -12,7 +12,7 @@ define( require => {
   const johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
   const merge = require( 'PHET_CORE/merge' );
   const NoiseGenerator = require( 'TAMBO/sound-generators/NoiseGenerator' );
-  const Util = require( 'DOT/Util' );
+  const Utils = require( 'DOT/Utils' );
 
   // constants
   const MAX_DRAG_SOUND_VOLUME = 2; // can be greater than 1 because filtering tends to reduce output a lot
@@ -72,7 +72,7 @@ define( require => {
         else if ( this.legAngleUpdateTime !== null ) {
 
           // set the angular velocity of the leg, but keep it limited to the max allowed value
-          this.legAngularVelocity = Util.clamp(
+          this.legAngularVelocity = Utils.clamp(
             ( newLegAngle - legAngle ) / ( now - this.legAngleUpdateTime ),
             -MAX_LEG_ANGULAR_VELOCITY,
             MAX_LEG_ANGULAR_VELOCITY

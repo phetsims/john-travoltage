@@ -31,7 +31,7 @@ define( require => {
   const Shape = require( 'KITE/Shape' );
   const SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
   const StringUtils = require( 'PHETCOMMON/util/StringUtils' );
-  const Util = require( 'DOT/Util' );
+  const Utils = require( 'DOT/Utils' );
   const Vector2 = require( 'DOT/Vector2' );
 
   // a11y strings
@@ -370,7 +370,7 @@ define( require => {
      * @returns {number} - integer value
      */
     a11yAngleToPosition: function( angle ) {
-      return Util.roundSymmetric( this.linearFunction( angle ) );
+      return Utils.roundSymmetric( this.linearFunction( angle ) );
     },
 
     /**
@@ -523,7 +523,7 @@ define( require => {
      * @returns {string} - a lower case string, generally to be inserted into another context
      */
     getPositionDescription: function( position, rangeMap ) {
-      const newRegion = AppendageNode.getRegion( Util.roundSymmetric( position ), rangeMap );
+      const newRegion = AppendageNode.getRegion( Utils.roundSymmetric( position ), rangeMap );
       return newRegion.text.toLowerCase();
     },
 

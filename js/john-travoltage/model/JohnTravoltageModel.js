@@ -26,7 +26,7 @@ define( require => {
   const Leg = require( 'JOHN_TRAVOLTAGE/john-travoltage/model/Leg' );
   const StringIO = require( 'TANDEM/types/StringIO' );
   const LineSegment = require( 'JOHN_TRAVOLTAGE/john-travoltage/model/LineSegment' );
-  const Util = require( 'DOT/Util' );
+  const Utils = require( 'DOT/Utils' );
   const Vector2 = require( 'DOT/Vector2' );
 
   // constants
@@ -392,7 +392,7 @@ define( require => {
 
       //Adjacent segments share vertices, so use a point just before the vertex to find the closest segment, see https://github.com/phetsims/john-travoltage/issues/50
       const closestSegment = _.minBy( this.lineSegments, function( lineSegment ) {
-        return Util.distToSegmentSquared( pt, lineSegment.pre0, lineSegment.pre1 );
+        return Utils.distToSegmentSquared( pt, lineSegment.pre0, lineSegment.pre1 );
       } );
       const vector = pt.minus( closestSegment.center );
       if ( vector.dot( closestSegment.normal ) > 0 ) {
