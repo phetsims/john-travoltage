@@ -10,9 +10,10 @@ define( require => {
 
   // modules
   const GeneralKeyboardHelpSection = require( 'SCENERY_PHET/keyboard/help/GeneralKeyboardHelpSection' );
-  const KeyboardHelpSection = require( 'SCENERY_PHET/keyboard/help/KeyboardHelpSection' );
   const johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
   const JohnTravoltageA11yStrings = require( 'JOHN_TRAVOLTAGE/john-travoltage/JohnTravoltageA11yStrings' );
+  const KeyboardHelpIconFactory = require( 'SCENERY_PHET/keyboard/help/KeyboardHelpIconFactory' );
+  const KeyboardHelpSection = require( 'SCENERY_PHET/keyboard/help/KeyboardHelpSection' );
   const TwoColumnKeyboardHelpContent = require( 'SCENERY_PHET/keyboard/help/TwoColumnKeyboardHelpContent' );
 
   // strings
@@ -28,7 +29,7 @@ define( require => {
       // help sections specific to john-travoltage, moving the arm and leg
       const appendageHelpSection = new KeyboardHelpSection( handOrFootString, [
         KeyboardHelpSection.labelWithIcon( moveHandOrFootString,
-          KeyboardHelpSection.leftRightArrowKeysRowIcon( {
+          KeyboardHelpIconFactory.leftRightArrowKeysRowIcon( {
             tagName: 'p',
             innerContent: moveHandOrFootDescriptionString
           } ) )
