@@ -34,8 +34,10 @@ define( require => {
   const Line = require( 'SCENERY/nodes/Line' );
   const Node = require( 'SCENERY/nodes/Node' );
   const Path = require( 'SCENERY/nodes/Path' );
+  const Text = require( 'SCENERY/nodes/Text' );
   const PitchedPopGenerator = require( 'TAMBO/sound-generators/PitchedPopGenerator' );
   const platform = require( 'PHET_CORE/platform' );
+  const RectangularPushButton = require( 'SUN/buttons/RectangularPushButton' );
   const ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
   const ScreenView = require( 'JOIST/ScreenView' );
   const Shape = require( 'KITE/Shape' );
@@ -45,6 +47,7 @@ define( require => {
   const SparkNode = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/SparkNode' );
   const StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   const vibrationManager = require( 'TAPPI/vibrationManager' );
+  const VibrationManageriOS = require( 'TAPPI/VibrationManageriOS' );
   const VibrationChart = require( 'TAPPI/view/VibrationChart' );
   const vibrationController = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/vibrationController' );
   const PhetFont = require( 'SCENERY_PHET/PhetFont' );
@@ -395,6 +398,19 @@ define( require => {
       this.addChild( this.vibrationChart );
       this.vibrationChart.centerTop = this.layoutBounds.centerTop;
     }
+
+    const vibrationManageriOS = new VibrationManageriOS();
+
+    const testButton = new RectangularPushButton({
+      content: new Text( "vibrate for 2 sec", {
+          maxWidth: 200
+        } ),
+        listener:() => {
+          vibrationManageriOS.vibrate(2.0);
+        }
+    })
+
+    this.addChild(testButton);
 
     // accessibleOrder
     this.pdomPlayAreaNode.accessibleOrder = [

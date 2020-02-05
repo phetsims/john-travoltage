@@ -204,15 +204,6 @@ define( require => {
 
     } );
 
-    // Vibration iPhone8+ with CoreHaptics
-    // This is a test
-    appendage.angleProperty.lazyLink( function( angle ) {
-      if ( window.webkit && window.webkit.messageHandlers && window.webkit.messageHandlers.doStuffMessageHandler ) {
-        // iOS Vibration
-        window.webkit.messageHandlers.doStuffMessageHandler.postMessage( { param1: 'stuff', param2: 1000 } );
-      }
-    });
-
     // @public
     this.border = new Rectangle( this.bounds.minX, this.bounds.minY, this.width, this.height, 10, 10, {
       stroke: 'green',
