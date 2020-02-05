@@ -29,11 +29,12 @@ define( require => {
   //Radius of the electron
   Electron.radius = 8;
 
+  // TODO: Should the "required" options parameter be renamed to config?
   /**
    * @param {number} x
    * @param {number} y
    * @param {JohnTravoltageModel} model
-   * @param {Object} options - required for tandem
+   * @param {Object} [options] - required for tandem
    * @constructor
    */
   function Electron( x, y, model, options ) {

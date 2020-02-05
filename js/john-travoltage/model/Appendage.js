@@ -28,7 +28,7 @@ define( require => {
    * @constructor
    * @param {Vector2} pivotPoint
    * @param {Tandem} tandem
-   * @param {Object} options
+   * @param {Object} [options]
    */
   function Appendage( pivotPoint, tandem, options ) {
 

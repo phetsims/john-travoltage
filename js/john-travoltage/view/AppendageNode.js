@@ -63,7 +63,7 @@ define( require => {
    * @param {Array} rangeMap - an array of objects of the format {range: {max: Number, min: Number}, text: String}. This
    *                           is used to map a position value to text to use for the valueText of the related slider.
    * @param {Tandem} tandem
-   * @param {Object} options
+   * @param {Object} [options]
    * @mixes AccessibleSlider
    * @constructor
    */
