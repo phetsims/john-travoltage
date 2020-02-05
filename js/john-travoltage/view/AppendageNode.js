@@ -199,7 +199,19 @@ define( require => {
       self.imageNode.translate( appendage.position.x - dx, appendage.position.y - dy );
       self.imageNode.rotateAround( appendage.position.plus( new Vector2( 0, 0 ) ), angle - angleOffset );
       self.hitShape = Shape.bounds( self.imageNode.bounds );
+
+
+
     } );
+
+    // Vibration iPhone8+ with CoreHaptics
+    // This is a test
+    appendage.angleProperty.lazyLink( function( angle ) {
+      if ( window.webkit && window.webkit.messageHandlers && window.webkit.messageHandlers.doStuffMessageHandler ) {
+        // iOS Vibration
+        window.webkit.messageHandlers.doStuffMessageHandler.postMessage( { param1: 'stuff', param2: 1000 } );
+      }
+    });
 
     // @public
     this.border = new Rectangle( this.bounds.minX, this.bounds.minY, this.width, this.height, 10, 10, {
