@@ -16,6 +16,7 @@ define( require => {
   const johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
   const merge = require( 'PHET_CORE/merge' );
   const PhetioObject = require( 'TANDEM/PhetioObject' );
+  const required = require( 'PHET_CORE/required' );
   const Tandem = require( 'TANDEM/Tandem' );
   const Utils = require( 'DOT/Utils' );
   const Vector2 = require( 'DOT/Vector2' );
@@ -29,23 +30,24 @@ define( require => {
   //Radius of the electron
   Electron.radius = 8;
 
-  // TODO: Should the "required" options parameter be renamed to config?
   /**
    * @param {number} x
    * @param {number} y
    * @param {JohnTravoltageModel} model
-   * @param {Object} [options] - required for tandem
+   * @param {Object} config - required for tandem
    * @constructor
    */
-  function Electron( x, y, model, options ) {
+  function Electron( x, y, model, config ) {
 
-    options = merge( {
-      tandem: Tandem.REQUIRED,
+    config = merge( {
+
+      //{Tandem}
+      tandem: required( Tandem.REQUIRED ),
       phetioType: ElectronIO,
       phetioDynamicElement: true
-    }, options );
-    PhetioObject.call( this, options );
-    const tandem = options.tandem;
+    }, config );
+    PhetioObject.call( this, config );
+    const tandem = config.tandem;
     const self = this;
     electronCount++;
     this.id = electronCount;
