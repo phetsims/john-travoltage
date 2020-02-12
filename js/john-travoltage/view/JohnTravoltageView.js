@@ -49,7 +49,7 @@ define( require => {
   const vibrationManager = require( 'TAPPI/vibrationManager' );
   const VibrationManageriOS = require( 'TAPPI/VibrationManageriOS' );
   const VibrationChart = require( 'TAPPI/view/VibrationChart' );
-  const vibrationController = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/vibrationController' );
+  const vibrationControlleriOS = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/vibrationControlleriOS' );
   const PhetFont = require( 'SCENERY_PHET/PhetFont' );
 
   // sounds
@@ -387,7 +387,7 @@ define( require => {
 
     // (vibration, experimental) implements all vibration feedback for this sim
     if ( phet.chipper.vibration !== null ) {
-      vibrationController.initialize( model, this );
+      vibrationControlleriOS.initialize( model, this );
     }
 
     if ( JohnTravoltageQueryParameters.vibrationChart ) {
