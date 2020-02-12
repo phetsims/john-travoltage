@@ -402,15 +402,26 @@ define( require => {
     const vibrationManageriOS = new VibrationManageriOS();
 
     const testButton = new RectangularPushButton({
-      content: new Text( "vibrate for 2 sec", {
+      content: new Text( 'vibrate for 2 sec', {
           maxWidth: 200
         } ),
         listener:() => {
-          vibrationManageriOS.vibrate(2.0);
+          vibrationManageriOS.vibrateAtFrequencyForever(25);
         }
-    })
+    });
+
+    const testButton2 = new RectangularPushButton({
+      content: new Text( 'vibrate for 2 sec', {
+          maxWidth: 200
+        } ),
+        listener:() => {
+          vibrationManageriOS.stop();
+        },
+        centerTop: testButton.centerBottom
+    });
 
     this.addChild(testButton);
+    this.addChild(testButton2);
 
     // accessibleOrder
     this.pdomPlayAreaNode.accessibleOrder = [
