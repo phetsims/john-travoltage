@@ -34,20 +34,19 @@ define( require => {
    * @param {number} x
    * @param {number} y
    * @param {JohnTravoltageModel} model
-   * @param {Object} config - required for tandem
+   * @param {Object} [options] - required for tandem
    * @constructor
    */
-  function Electron( x, y, model, config ) {
-
-    config = merge( {
+  function Electron( x, y, model, options ) {
+    options = merge( {
 
       //{Tandem}
       tandem: required( Tandem.REQUIRED ),
       phetioType: ElectronIO,
       phetioDynamicElement: true
-    }, config );
-    PhetioObject.call( this, config );
-    const tandem = config.tandem;
+    }, options );
+    PhetioObject.call( this, options );
+    const tandem = options.tandem;
     const self = this;
     electronCount++;
     this.id = electronCount;
