@@ -406,9 +406,9 @@ define( require => {
           maxWidth: 200
         } ),
         listener:() => {
-          vibrationManageriOS.vibrateWithCustomPattern( [ 1000, 2000, 1000, 2000 ], 8, false );
+          vibrationManageriOS.vibrateWithCustomPatternForever( [ 1000, 2000, 1000, 2000 ] );
         }
-    });
+    } );
 
     const testButton2 = new RectangularPushButton({
       content: new Text( 'Stop Vibration', {

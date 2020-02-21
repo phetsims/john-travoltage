@@ -26,8 +26,7 @@ define( require => {
   const Property = require( 'AXON/Property' );
 
   // constants
-  // Need to investigate how to create complex patterns in iOS
-  // const CHARGES_LEAVING_PATTERN = [ 200, 100 ];
+  const CHARGES_LEAVING_PATTERN = [ 200, 100 ];
 
   class VibrationControlleriOS {
     constructor() {}
@@ -138,23 +137,36 @@ define( require => {
 
       // Vibration feedback to indicate changes in charge
       // Need a way to tell if a vibration is running from iOS before this works
-      // if ( paradigmChoice === 'result' ) {
-      //   model.dischargeStartedEmitter.addListener( () => {
-      //     vibrationManageriOS.vibrateAtFrequencyForever( 100 ); // update to CHARGES_LEAVING_PATTERN later
-      //   } );
-      //   model.dischargeEndedEmitter.addListener( () => {
-      //     vibrationManageriOS.stop();
-      //   } );
-      //
-      //   // for as long as there are charges in the body, vibrate forever
-      //   model.stepEmitter.addListener( () => {
-      //
-      //     // only initiate vibration if we haven't already initiated one
-      //     if ( !vibrationManageriOS.isRunningPattern() && model.electrons.length > 0 ) {
-      //       vibrationManageriOS.vibrateAtFrequencyForever( 5 );
-      //     }
-        // } );
-      // }
+      if ( paradigmChoice === 'result' ) {
+        let isRunningPattern = false;
+
+
+        model.dischargeStartedEmitter.addListener( () => {
+          vibrationManageriOS.vibrateWithCustomPatternForever( CHARGES_LEAVING_PATTERN );
+          isRunningPattern = true;
+        } );
+        model.dischargeEndedEmitter.addListener( () => {
+          vibrationManageriOS.stop();
+          isRunningPattern = false;
+        } );
+
+        // for as long as there are charges in the body, vibrate forever - in step function because we want to
+        // start vibration again after we may have stopped it from dischargeEndedEmitter
+        model.stepEmitter.addListener( () => {
+
+          // only initiate vibration if we haven't already initiated one
+          if ( !isRunningPattern && model.electrons.length > 0 ) {
+            vibrationManageriOS.vibrateAtFrequencyForever( 5 );
+            isRunningPattern = true;
+          }
+          else if ( model.electrons.length === 0 ) {
+
+            // stop vibration if we have no more charges without discharge (like on reset)
+            vibrationManageriOS.stop();
+            isRunningPattern = false;
+          }
+        } );
+      }
     }
   }
 
