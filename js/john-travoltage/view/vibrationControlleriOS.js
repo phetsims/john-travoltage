@@ -86,29 +86,40 @@ define( require => {
 
       // Vibration indicates successful interaction with different components.
       if ( paradigmChoice === 'manipulation' ) {
-        Property.multilink( [ model.arm.isDraggingProperty, model.leg.isDraggingProperty ], ( armDragging, legDragging ) => {
-          if ( armDragging ) {
-            vibrationManageriOS.vibrateAtFrequencyForever( 25 );
-          }
-          else if ( legDragging ) {
-            vibrationManageriOS.vibrateAtFrequencyForever( 50 );
-          }
-          else {
-            vibrationManageriOS.stop();
-          }
-        } );
 
         // in response to a "change" event, begin a timed vibration (because TalkBack doesn't go through pointer
         // events, and the isDraggingProperties will fire one after another immediately)
         view.leg.addInputListener( {
-          input: event => {
-            vibrationManageriOS.vibrateAtFrequency( 1000, 25 );
+          down: event => {
+            vibrationManageriOS.vibrateAtFrequencyForever( 25 );
+
+            const pointerListener = {
+              up: event => {
+                vibrationManageriOS.stop();
+                event.pointer.removeInputListener( pointerListener );
+              }
+            };
+            event.pointer.addInputListener( pointerListener );
+          },
+          change: event => {
+            vibrationManageriOS.vibrateAtFrequency( 1, 25 );
           }
         } );
 
         view.arm.addInputListener( {
-          input: event => {
-            vibrationManageriOS.vibrateAtFrequency( 1, 10 );
+          down: event => {
+            vibrationManageriOS.vibrateAtFrequencyForever( 50 );
+
+            const pointerListener = {
+              up: event => {
+                vibrationManageriOS.stop();
+                event.pointer.removeInputListener( pointerListener );
+              }
+            };
+            event.pointer.addInputListener( pointerListener );
+          },
+          change: event => {
+            vibrationManageriOS.vibrateAtFrequency( 1, 50 );
           }
         } );
       }
@@ -127,7 +138,7 @@ define( require => {
         // in response to a "change" event, begin a timed vibration (because TalkBack doesn't go through pointer
         // events, and the isDraggingProperties will fire one after another immediately)
         view.leg.addInputListener( {
-          input: event => {
+          change: event => {
             if ( model.shoeOnCarpetProperty.get() ) {
               vibrationManageriOS.vibrate( 1 );
             }
