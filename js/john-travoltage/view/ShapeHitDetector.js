@@ -192,5 +192,5 @@ define( require => {
     }
   }
 
-  return johnTravoltage.register( 'ShapeHitDetector', ShapeHitListener);
+  return johnTravoltage.register( 'ShapeHitDetector', ShapeHitListener );
 } );
