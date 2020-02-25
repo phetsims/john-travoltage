@@ -1,4 +1,4 @@
-// Copyright 2019, University of Colorado Boulder
+// Copyright 2019-2020, University of Colorado Boulder
 
 /**
  * A listener that can be added to a Node or the Display to detect if a pointer is over a colleciton
