@@ -5,40 +5,37 @@
  *
  * @author Jesse Greenberg (PhET Interactive Simulations)
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const GeneralKeyboardHelpSection = require( 'SCENERY_PHET/keyboard/help/GeneralKeyboardHelpSection' );
-  const johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
-  const JohnTravoltageA11yStrings = require( 'JOHN_TRAVOLTAGE/john-travoltage/JohnTravoltageA11yStrings' );
-  const KeyboardHelpIconFactory = require( 'SCENERY_PHET/keyboard/help/KeyboardHelpIconFactory' );
-  const KeyboardHelpSection = require( 'SCENERY_PHET/keyboard/help/KeyboardHelpSection' );
-  const TwoColumnKeyboardHelpContent = require( 'SCENERY_PHET/keyboard/help/TwoColumnKeyboardHelpContent' );
+import GeneralKeyboardHelpSection from '../../../../scenery-phet/js/keyboard/help/GeneralKeyboardHelpSection.js';
+import KeyboardHelpIconFactory from '../../../../scenery-phet/js/keyboard/help/KeyboardHelpIconFactory.js';
+import KeyboardHelpSection from '../../../../scenery-phet/js/keyboard/help/KeyboardHelpSection.js';
+import TwoColumnKeyboardHelpContent from '../../../../scenery-phet/js/keyboard/help/TwoColumnKeyboardHelpContent.js';
+import johnTravoltageStrings from '../../john-travoltage-strings.js';
+import johnTravoltage from '../../johnTravoltage.js';
+import JohnTravoltageA11yStrings from '../JohnTravoltageA11yStrings.js';
 
-  // strings
-  const handOrFootString = require( 'string!JOHN_TRAVOLTAGE/handOrFoot' );
-  const moveHandOrFootString = require( 'string!JOHN_TRAVOLTAGE/moveHandOrFoot' );
+const handOrFootString = johnTravoltageStrings.handOrFoot;
+const moveHandOrFootString = johnTravoltageStrings.moveHandOrFoot;
 
-  // a11y strings, not translatable
-  const moveHandOrFootDescriptionString = JohnTravoltageA11yStrings.moveHandOrFootDescription.value;
+// a11y strings, not translatable
+const moveHandOrFootDescriptionString = JohnTravoltageA11yStrings.moveHandOrFootDescription.value;
 
-  class JohnTravoltageKeyboardHelpContent extends TwoColumnKeyboardHelpContent {
-    constructor() {
+class JohnTravoltageKeyboardHelpContent extends TwoColumnKeyboardHelpContent {
+  constructor() {
 
-      // help sections specific to john-travoltage, moving the arm and leg
-      const appendageHelpSection = new KeyboardHelpSection( handOrFootString, [
-        KeyboardHelpSection.labelWithIcon( moveHandOrFootString,
-          KeyboardHelpIconFactory.leftRightArrowKeysRowIcon( {
-            tagName: 'p',
-            innerContent: moveHandOrFootDescriptionString
-          } ) )
-      ], { a11yContentTagName: null } ); // only one entry in this help content, don't wrap in the default ul
-      const generalNavigationHelpSection = new GeneralKeyboardHelpSection();
+    // help sections specific to john-travoltage, moving the arm and leg
+    const appendageHelpSection = new KeyboardHelpSection( handOrFootString, [
+      KeyboardHelpSection.labelWithIcon( moveHandOrFootString,
+        KeyboardHelpIconFactory.leftRightArrowKeysRowIcon( {
+          tagName: 'p',
+          innerContent: moveHandOrFootDescriptionString
+        } ) )
+    ], { a11yContentTagName: null } ); // only one entry in this help content, don't wrap in the default ul
+    const generalNavigationHelpSection = new GeneralKeyboardHelpSection();
 
-      super( [ appendageHelpSection ], [ generalNavigationHelpSection ] );
-    }
+    super( [ appendageHelpSection ], [ generalNavigationHelpSection ] );
   }
+}
 
-  return johnTravoltage.register( 'JohnTravoltageKeyboardHelpContent', JohnTravoltageKeyboardHelpContent );
-} );
+johnTravoltage.register( 'JohnTravoltageKeyboardHelpContent', JohnTravoltageKeyboardHelpContent );
+export default JohnTravoltageKeyboardHelpContent;

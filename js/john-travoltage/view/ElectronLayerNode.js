@@ -8,100 +8,98 @@
  * @author Vasily Shakhov (Mlearner)
  * @author Justin Obara
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const ElectronNode = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/ElectronNode' );
-  const inherit = require( 'PHET_CORE/inherit' );
-  const johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
-  const JohnTravoltageA11yStrings = require( 'JOHN_TRAVOLTAGE/john-travoltage/JohnTravoltageA11yStrings' );
-  const Node = require( 'SCENERY/nodes/Node' );
-  const StringUtils = require( 'PHETCOMMON/util/StringUtils' );
-  const Utterance = require( 'UTTERANCE_QUEUE/Utterance' );
+import inherit from '../../../../phet-core/js/inherit.js';
+import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
+import Node from '../../../../scenery/js/nodes/Node.js';
+import Utterance from '../../../../utterance-queue/js/Utterance.js';
+import johnTravoltage from '../../johnTravoltage.js';
+import JohnTravoltageA11yStrings from '../JohnTravoltageA11yStrings.js';
+import ElectronNode from './ElectronNode.js';
+
 // a11y strings
-  const electronsTotalString = JohnTravoltageA11yStrings.electronsTotal.value;
-  const electronsTotalAfterDischargeString = JohnTravoltageA11yStrings.electronsTotalAfterDischarge.value;
+const electronsTotalString = JohnTravoltageA11yStrings.electronsTotal.value;
+const electronsTotalAfterDischargeString = JohnTravoltageA11yStrings.electronsTotalAfterDischarge.value;
 
-  /**
-   * @param {JohnTravoltageModel} model
-   * @param {AppendageNode} armNode
-   * @param {number} maxElectrons
-   * @param {Tandem} tandem
-   * @constructor
-   */
-  function ElectronLayerNode( model, armNode, maxElectrons, tandem ) {
-    const self = this;
+/**
+ * @param {JohnTravoltageModel} model
+ * @param {AppendageNode} armNode
+ * @param {number} maxElectrons
+ * @param {Tandem} tandem
+ * @constructor
+ */
+function ElectronLayerNode( model, armNode, maxElectrons, tandem ) {
+  const self = this;
 
-    Node.call( this );
+  Node.call( this );
 
-    // Add larger delay time is used so that the assistive technology can finish speaking updates
-    // from the aria-valuetext of the AppendageNode. Note that if the delay is too long, there is too much silence
-    // between the change in charges and the alert.
-    const electronUtterance = new Utterance( {
-      alertStableDelay: 1000
-    } );
+  // Add larger delay time is used so that the assistive technology can finish speaking updates
+  // from the aria-valuetext of the AppendageNode. Note that if the delay is too long, there is too much silence
+  // between the change in charges and the alert.
+  const electronUtterance = new Utterance( {
+    alertStableDelay: 1000
+  } );
 
-    let priorCharge = 0;
+  let priorCharge = 0;
 
-    // a11y - when electrons enter or leave the body, announce this change with a status update to assistive technology
-    const setElectronStatus = function() {
-      let alertString;
-      const currentCharge = model.electrons.length;
+  // a11y - when electrons enter or leave the body, announce this change with a status update to assistive technology
+  const setElectronStatus = function() {
+    let alertString;
+    const currentCharge = model.electrons.length;
 
-      if ( currentCharge >= priorCharge ) {
-        alertString = StringUtils.fillIn( electronsTotalString, { value: currentCharge } );
+    if ( currentCharge >= priorCharge ) {
+      alertString = StringUtils.fillIn( electronsTotalString, { value: currentCharge } );
 
-      }
-      else {
-        const position = armNode.positionAtDischarge || '';
+    }
+    else {
+      const position = armNode.positionAtDischarge || '';
 
-        let regionText = '';
-        if ( armNode.regionAtDischarge && armNode.regionAtDischarge.text ) {
-          regionText = armNode.regionAtDischarge.text.toLowerCase();
-        }
-
-        alertString = StringUtils.fillIn( electronsTotalAfterDischargeString, {
-          oldValue: priorCharge,
-          newValue: currentCharge,
-          position: position,
-          region: regionText
-        } );
+      let regionText = '';
+      if ( armNode.regionAtDischarge && armNode.regionAtDischarge.text ) {
+        regionText = armNode.regionAtDischarge.text.toLowerCase();
       }
 
-      electronUtterance.alert = alertString;
-      phet.joist.sim.utteranceQueue.addToBack( electronUtterance );
-
-      // for haptic feedback, experimental
-      model.utteranceAddedEmitter.emit( alertString );
-
-      priorCharge = currentCharge;
-    };
-
-    // if new electron added to model - create and add new node to leg
-    function electronAddedListener( added ) {
-
-      // and the visual representation of the electron
-      self.addChild( new ElectronNode( added, model.leg, model.arm ) );
-
-      // a11y - announce the state of charges with a status update
-      setElectronStatus();
+      alertString = StringUtils.fillIn( electronsTotalAfterDischargeString, {
+        oldValue: priorCharge,
+        newValue: currentCharge,
+        position: position,
+        region: regionText
+      } );
     }
 
-    // The electron's view is removed when the electron is disposed, see ElectronNode.js
-    model.electrons.addMemberCreatedListener( electronAddedListener );
-    model.electrons.array.forEach( electronAddedListener );
+    electronUtterance.alert = alertString;
+    phet.joist.sim.utteranceQueue.addToBack( electronUtterance );
 
-    // update status whenever an electron discharge has ended - disposal is not necessary
-    model.dischargeEndedEmitter.addListener( setElectronStatus );
+    // for haptic feedback, experimental
+    model.utteranceAddedEmitter.emit( alertString );
 
-    // when the model is reset, update prior charge - disposal not necessary
-    model.resetEmitter.addListener( function() {
-      priorCharge = 0;
-    } );
+    priorCharge = currentCharge;
+  };
+
+  // if new electron added to model - create and add new node to leg
+  function electronAddedListener( added ) {
+
+    // and the visual representation of the electron
+    self.addChild( new ElectronNode( added, model.leg, model.arm ) );
+
+    // a11y - announce the state of charges with a status update
+    setElectronStatus();
   }
 
-  johnTravoltage.register( 'ElectronLayerNode', ElectronLayerNode );
+  // The electron's view is removed when the electron is disposed, see ElectronNode.js
+  model.electrons.addMemberCreatedListener( electronAddedListener );
+  model.electrons.array.forEach( electronAddedListener );
 
-  return inherit( Node, ElectronLayerNode );
-} );
+  // update status whenever an electron discharge has ended - disposal is not necessary
+  model.dischargeEndedEmitter.addListener( setElectronStatus );
+
+  // when the model is reset, update prior charge - disposal not necessary
+  model.resetEmitter.addListener( function() {
+    priorCharge = 0;
+  } );
+}
+
+johnTravoltage.register( 'ElectronLayerNode', ElectronLayerNode );
+
+inherit( Node, ElectronLayerNode );
+export default ElectronLayerNode;

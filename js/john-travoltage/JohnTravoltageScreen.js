@@ -5,37 +5,33 @@
  *
  * @author Sam Reid
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const inherit = require( 'PHET_CORE/inherit' );
-  const johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
-  const JohnTravoltageModel = require( 'JOHN_TRAVOLTAGE/john-travoltage/model/JohnTravoltageModel' );
-  const JohnTravoltageView = require( 'JOHN_TRAVOLTAGE/john-travoltage/view/JohnTravoltageView' );
-  const Property = require( 'AXON/Property' );
-  const Screen = require( 'JOIST/Screen' );
+import Property from '../../../axon/js/Property.js';
+import Screen from '../../../joist/js/Screen.js';
+import inherit from '../../../phet-core/js/inherit.js';
+import johnTravoltage from '../johnTravoltage.js';
+import JohnTravoltageModel from './model/JohnTravoltageModel.js';
+import JohnTravoltageView from './view/JohnTravoltageView.js';
 
-  /**
-   * @param tandem
-   * @constructor
-   */
-  function JohnTravoltageScreen( tandem ) {
-    Screen.call( this,
-      function() {
-        return new JohnTravoltageModel( tandem.createTandem( 'model' ) );
-      },
-      function( model ) {
-        return new JohnTravoltageView( model, tandem.createTandem( 'view' ) );
-      }, {
-        backgroundColorProperty: new Property( '#9ddcf8' ),
-        tandem: tandem
-      }
-    );
-  }
+/**
+ * @param tandem
+ * @constructor
+ */
+function JohnTravoltageScreen( tandem ) {
+  Screen.call( this,
+    function() {
+      return new JohnTravoltageModel( tandem.createTandem( 'model' ) );
+    },
+    function( model ) {
+      return new JohnTravoltageView( model, tandem.createTandem( 'view' ) );
+    }, {
+      backgroundColorProperty: new Property( '#9ddcf8' ),
+      tandem: tandem
+    }
+  );
+}
 
-  johnTravoltage.register( 'JohnTravoltageScreen', JohnTravoltageScreen );
+johnTravoltage.register( 'JohnTravoltageScreen', JohnTravoltageScreen );
 
-  return inherit( Screen, JohnTravoltageScreen );
-} );
-
+inherit( Screen, JohnTravoltageScreen );
+export default JohnTravoltageScreen;

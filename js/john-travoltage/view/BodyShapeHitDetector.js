@@ -5,34 +5,31 @@
  *
  * @author Jesse Greenberg
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const johnTravoltage = require( 'JOHN_TRAVOLTAGE/johnTravoltage' );
-  const ShapeHitDetector = require( 'TAPPI/view/ShapeHitDetector' );
+import ShapeHitDetector from '../../../../tappi/js/view/ShapeHitDetector.js';
+import johnTravoltage from '../../johnTravoltage.js';
 
-  // constants
+// constants
 
-  class BodyShapeHitDetector extends ShapeHitDetector {
+class BodyShapeHitDetector extends ShapeHitDetector {
 
-    constructor( model, view, tandem ) {
-      super( view, tandem );
+  constructor( model, view, tandem ) {
+    super( view, tandem );
 
-      this.addShape( model.touchableBodyShape, model.touchingBodyProperty );
-      this.addShape( model.carpetShape, model.touchingCarpetProperty );
-      this.addShape( view.arm.hitShape, model.touchingArmProperty );
-      this.addShape( view.leg.hitShape, model.touchingLegProperty );
+    this.addShape( model.touchableBodyShape, model.touchingBodyProperty );
+    this.addShape( model.carpetShape, model.touchingCarpetProperty );
+    this.addShape( view.arm.hitShape, model.touchingArmProperty );
+    this.addShape( view.leg.hitShape, model.touchingLegProperty );
 
-      model.arm.angleProperty.link( angle => {
-        this.updateShape( view.arm.hitShape, model.touchingArmProperty );
-      } );
+    model.arm.angleProperty.link( angle => {
+      this.updateShape( view.arm.hitShape, model.touchingArmProperty );
+    } );
 
-      model.leg.angleProperty.link( angle => {
-        this.updateShape( view.leg.hitShape, model.touchingLegProperty );
-      } );
-    }
+    model.leg.angleProperty.link( angle => {
+      this.updateShape( view.leg.hitShape, model.touchingLegProperty );
+    } );
   }
+}
 
-  return johnTravoltage.register( 'BodyShapeHitDetector', BodyShapeHitDetector );
-} );
+johnTravoltage.register( 'BodyShapeHitDetector', BodyShapeHitDetector );
+export default BodyShapeHitDetector;
