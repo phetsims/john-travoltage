@@ -1,4 +1,4 @@
-// Copyright 2019, University of Colorado Boulder
+// Copyright 2019-2020, University of Colorado Boulder
 
 /**
  * Uses the Web Speech API to speak an utterance in response to various feedback in john-travotlage.

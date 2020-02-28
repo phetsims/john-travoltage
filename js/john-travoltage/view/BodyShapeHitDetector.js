@@ -1,4 +1,4 @@
-// Copyright 2019, University of Colorado Boulder
+// Copyright 2019-2020, University of Colorado Boulder
 
 /**
  * The ShapeHitDetector for objects in the john-travoltage simulation. Used for prototyping vibration feedback.
