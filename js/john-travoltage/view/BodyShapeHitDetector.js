@@ -13,8 +13,12 @@ import johnTravoltage from '../../johnTravoltage.js';
 
 class BodyShapeHitDetector extends ShapeHitDetector {
 
-  constructor( model, view, tandem ) {
-    super( view, tandem );
+  /**
+   * @param {JohnTravoltageModel} model
+   * @param {JohnTravoltageView} view - parent node for transformations for the ShapeHitDetector
+   */
+  constructor( model, view ) {
+    super( view );
 
     this.addShape( model.touchableBodyShape, model.touchingBodyProperty );
     this.addShape( model.carpetShape, model.touchingCarpetProperty );

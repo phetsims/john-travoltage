@@ -134,7 +134,7 @@ function JohnTravoltageView( model, tandem ) {
     } );
   this.addChild( this.arm );
 
-  this.shapeHitDetector = new BodyShapeHitDetector( model, this, tandem.createTandem( 'shapeHitDetector' ) );
+  this.shapeHitDetector = new BodyShapeHitDetector( model, this );
 
   // only attach the listener if we are testing haptic feedback, but create eagerly since its shapes are used by
   // debugInfo query parameter
