@@ -43,7 +43,6 @@ const simOptions = {
     thanks: 'Thanks to Mobile Learner Labs for working with the PhET development team ' +
             'to convert this simulation to HTML5.'
   },
-  accessibility: true,
   keyboardHelpNode: keyboardHelpContent,
 
   // protoypal vibration feedback, see https://github.com/phetsims/john-travoltage/issues/337
