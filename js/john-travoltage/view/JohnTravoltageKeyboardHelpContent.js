@@ -26,10 +26,9 @@ class JohnTravoltageKeyboardHelpContent extends TwoColumnKeyboardHelpContent {
     // help sections specific to john-travoltage, moving the arm and leg
     const appendageHelpSection = new KeyboardHelpSection( handOrFootString, [
       KeyboardHelpSection.labelWithIcon( moveHandOrFootString,
-        KeyboardHelpIconFactory.leftRightArrowKeysRowIcon( {
-          tagName: 'p',
-          innerContent: moveHandOrFootDescriptionString
-        } ) )
+        KeyboardHelpIconFactory.leftRightArrowKeysRowIcon(),
+        moveHandOrFootDescriptionString,
+        { iconOptions: { tagName: 'p' } } )
     ], { a11yContentTagName: null } ); // only one entry in this help content, don't wrap in the default ul
     const generalNavigationHelpSection = new GeneralKeyboardHelpSection();
 
