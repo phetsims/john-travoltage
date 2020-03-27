@@ -13,13 +13,13 @@ import inherit from '../../../../phet-core/js/inherit.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Utterance from '../../../../utterance-queue/js/Utterance.js';
+import johnTravoltageStrings from '../../john-travoltage-strings.js';
 import johnTravoltage from '../../johnTravoltage.js';
-import JohnTravoltageA11yStrings from '../JohnTravoltageA11yStrings.js';
 import ElectronNode from './ElectronNode.js';
 
 // a11y strings
-const electronsTotalString = JohnTravoltageA11yStrings.electronsTotal.value;
-const electronsTotalAfterDischargeString = JohnTravoltageA11yStrings.electronsTotalAfterDischarge.value;
+const electronsTotalDescriptionPatternString = johnTravoltageStrings.a11y.electrons.totalDescriptionPattern;
+const electronsTotalAfterDischargePatternString = johnTravoltageStrings.a11y.electrons.totalAfterDischargePattern;
 
 /**
  * @param {JohnTravoltageModel} model
@@ -48,7 +48,7 @@ function ElectronLayerNode( model, armNode, maxElectrons, tandem ) {
     const currentCharge = model.electrons.length;
 
     if ( currentCharge >= priorCharge ) {
-      alertString = StringUtils.fillIn( electronsTotalString, { value: currentCharge } );
+      alertString = StringUtils.fillIn( electronsTotalDescriptionPatternString, { value: currentCharge } );
 
     }
     else {
@@ -59,7 +59,7 @@ function ElectronLayerNode( model, armNode, maxElectrons, tandem ) {
         regionText = armNode.regionAtDischarge.text.toLowerCase();
       }
 
-      alertString = StringUtils.fillIn( electronsTotalAfterDischargeString, {
+      alertString = StringUtils.fillIn( electronsTotalAfterDischargePatternString, {
         oldValue: priorCharge,
         newValue: currentCharge,
         position: position,

@@ -12,13 +12,12 @@ import KeyboardHelpSection from '../../../../scenery-phet/js/keyboard/help/Keybo
 import TwoColumnKeyboardHelpContent from '../../../../scenery-phet/js/keyboard/help/TwoColumnKeyboardHelpContent.js';
 import johnTravoltageStrings from '../../john-travoltage-strings.js';
 import johnTravoltage from '../../johnTravoltage.js';
-import JohnTravoltageA11yStrings from '../JohnTravoltageA11yStrings.js';
 
 const handOrFootString = johnTravoltageStrings.handOrFoot;
 const moveHandOrFootString = johnTravoltageStrings.moveHandOrFoot;
 
 // a11y strings, not translatable
-const moveHandOrFootDescriptionString = JohnTravoltageA11yStrings.moveHandOrFootDescription.value;
+const moveHandOrFootDescriptionString = johnTravoltageStrings.a11y.keyboardHelpDialog.moveHandOrFootDescription;
 
 class JohnTravoltageKeyboardHelpContent extends TwoColumnKeyboardHelpContent {
   constructor() {

@@ -37,9 +37,9 @@ import chargesInBodySound from '../../../sounds/charges-in-body_mp3.js';
 import electricDischargeSound from '../../../sounds/electric-discharge_mp3.js';
 import gazouchSound from '../../../sounds/gazouch_mp3.js';
 import ouchSound from '../../../sounds/ouch_mp3.js';
+import johnTravoltageStrings from '../../john-travoltage-strings.js';
 import johnTravoltage from '../../johnTravoltage.js';
 import AppendageRangeMaps from '../AppendageRangeMaps.js';
-import JohnTravoltageA11yStrings from '../JohnTravoltageA11yStrings.js';
 import JohnTravoltageQueryParameters from '../JohnTravoltageQueryParameters.js';
 import JohnTravoltageModel from '../model/JohnTravoltageModel.js';
 import AppendageNode from './AppendageNode.js';
@@ -56,12 +56,12 @@ import vibrationController from './vibrationController.js';
 
 
 // a11y strings
-const legSliderLabelString = JohnTravoltageA11yStrings.legSliderLabel.value;
-const armSliderLabelString = JohnTravoltageA11yStrings.armSliderLabel.value;
-const screenSummaryJohnPatternString = JohnTravoltageA11yStrings.screenSummaryJohnPattern.value;
-const electronsDescriptionSingleString = JohnTravoltageA11yStrings.electronsDescriptionSingle.value;
-const electronsDescriptionMultipleString = JohnTravoltageA11yStrings.electronsDescriptionMultiple.value;
-const screenSummaryWithChargePatternString = JohnTravoltageA11yStrings.screenSummaryWithChargePattern.value;
+const appendageLegLabelString = johnTravoltageStrings.a11y.appendages.leg.label;
+const appendageArmLabelString = johnTravoltageStrings.a11y.appendages.arm.label;
+const screenSummaryBodyDescriptionPatternString = johnTravoltageStrings.a11y.screenSummary.bodyDescriptionPattern;
+const electronsSingleDescriptionString = johnTravoltageStrings.a11y.electrons.singleDescription;
+const electronsMultipleDescriptionPatternString = johnTravoltageStrings.a11y.electrons.multipleDescriptionPattern;
+const descriptionWithChargePatternString = johnTravoltageStrings.a11y.screenSummary.descriptionWithChargePattern;
 
 // constants
 const OUCH_EXCLAMATION_DELAY = 0.5; // in seconds
@@ -121,7 +121,7 @@ function JohnTravoltageView( model, tandem ) {
   // @public (read-only) arm and leg - only interactive elements
   this.leg = new AppendageNode( model.leg, leg, 25, 28, Math.PI / 2 * 0.7, AppendageRangeMaps.legMap,
     tandem.createTandem( 'legNode' ), {
-      labelContent: legSliderLabelString
+      labelContent: appendageLegLabelString
     } );
   this.addChild( this.leg );
 
@@ -130,7 +130,7 @@ function JohnTravoltageView( model, tandem ) {
   this.arm = new AppendageNode( model.arm, arm, 4, 45, -0.1, AppendageRangeMaps.armMap,
     tandem.createTandem( 'armNode' ), {
       keyboardMidPointOffset: 0.41,
-      labelContent: armSliderLabelString
+      labelContent: appendageArmLabelString
     } );
   this.addChild( this.arm );
 
@@ -203,20 +203,20 @@ function JohnTravoltageView( model, tandem ) {
 
     // description for John - this will always be in the screen summary
     const positionDescription = AppendageNode.getPositionDescription( self.arm.a11yAngleToPosition( model.arm.angleProperty.get() ), AppendageRangeMaps.armMap.regions );
-    const johnDescription = StringUtils.fillIn( screenSummaryJohnPatternString, { position: positionDescription } );
+    const johnDescription = StringUtils.fillIn( screenSummaryBodyDescriptionPatternString, { position: positionDescription } );
 
     // if there are any charges, a description of the charge will be prepended to the summary
     if ( includeElectronInfo ) {
       if ( model.electrons.length === 1 ) {
-        chargeDescription = electronsDescriptionSingleString;
+        chargeDescription = electronsSingleDescriptionString;
       }
       else {
-        chargeDescription = StringUtils.fillIn( electronsDescriptionMultipleString, {
+        chargeDescription = StringUtils.fillIn( electronsMultipleDescriptionPatternString, {
           value: model.electrons.length
         } );
       }
 
-      sceneDescription = StringUtils.fillIn( screenSummaryWithChargePatternString, {
+      sceneDescription = StringUtils.fillIn( descriptionWithChargePatternString, {
         charge: chargeDescription,
         johnDescription: johnDescription
       } );

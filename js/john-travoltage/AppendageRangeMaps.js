@@ -8,31 +8,31 @@
  */
 
 import Range from '../../../dot/js/Range.js';
+import johnTravoltageStrings from '../john-travoltage-strings.js';
 import johnTravoltage from '../johnTravoltage.js';
-import JohnTravoltageA11yStrings from './JohnTravoltageA11yStrings.js';
 
 // a11y strings
-const farthestFromDoorknobString = JohnTravoltageA11yStrings.farthestFromDoorknob.value;
-const veryFarFromDoorknobString = JohnTravoltageA11yStrings.veryFarFromDoorknob.value;
-const farFromDoorknobString = JohnTravoltageA11yStrings.farFromDoorknob.value;
-const notSoCloseToDoorknobString = JohnTravoltageA11yStrings.notSoCloseToDoorknob.value;
-const closeToDoorknobString = JohnTravoltageA11yStrings.closeToDoorknob.value;
-const veryCloseToDoorknobString = JohnTravoltageA11yStrings.veryCloseToDoorknob.value;
-const justAboveDoorknobString = JohnTravoltageA11yStrings.justAboveDoorknob.value;
-const atDoorknobString = JohnTravoltageA11yStrings.atDoorknob.value;
-const justBelowDoorknobString = JohnTravoltageA11yStrings.justBelowDoorknob.value;
+const farthestFromDoorknobString = johnTravoltageStrings.a11y.appendages.arm.positions.farthestFromDoorknob;
+const veryFarFromDoorknobString = johnTravoltageStrings.a11y.appendages.arm.positions.veryFarFromDoorknob;
+const farFromDoorknobString = johnTravoltageStrings.a11y.appendages.arm.positions.farFromDoorknob;
+const notSoCloseToDoorknobString = johnTravoltageStrings.a11y.appendages.arm.positions.notSoCloseToDoorknob;
+const closeToDoorknobString = johnTravoltageStrings.a11y.appendages.arm.positions.closeToDoorknob;
+const veryCloseToDoorknobString = johnTravoltageStrings.a11y.appendages.arm.positions.veryCloseToDoorknob;
+const justAboveDoorknobString = johnTravoltageStrings.a11y.appendages.arm.positions.justAboveDoorknob;
+const atDoorknobString = johnTravoltageStrings.a11y.appendages.arm.positions.atDoorknob;
+const justBelowDoorknobString = johnTravoltageStrings.a11y.appendages.arm.positions.justBelowDoorknob;
 
-const handPointingAwayString = JohnTravoltageA11yStrings.handPointingAway.value;
-const handPointingStraightUpString = JohnTravoltageA11yStrings.handPointingStraightUp.value;
-const handPointingAtUpperDoorString = JohnTravoltageA11yStrings.handPointingAtUpperDoor.value;
-const handPointingAtLowerDoorString = JohnTravoltageA11yStrings.handPointingAtLowerDoor.value;
-const handPointingStraightDownString = JohnTravoltageA11yStrings.handPointingStraightDown.value;
-const farthestFromDoorknobLastString = JohnTravoltageA11yStrings.farthestFromDoorknobLast.value;
+const handPointingAwayString = johnTravoltageStrings.a11y.appendages.arm.positions.handPointingAway;
+const handPointingStraightUpString = johnTravoltageStrings.a11y.appendages.arm.positions.handPointingStraightUp;
+const handPointingAtUpperDoorString = johnTravoltageStrings.a11y.appendages.arm.positions.handPointingAtUpperDoor;
+const handPointingAtLowerDoorString = johnTravoltageStrings.a11y.appendages.arm.positions.handPointingAtLowerDoor;
+const handPointingStraightDownString = johnTravoltageStrings.a11y.appendages.arm.positions.handPointingStraightDown;
+const farthestFromDoorknobLastString = johnTravoltageStrings.a11y.appendages.arm.positions.farthestFromDoorknobLast;
 
-const footOffRugPointingBackwardsString = JohnTravoltageA11yStrings.footOffRugPointingBackwards.value;
-const footOffRugString = JohnTravoltageA11yStrings.footOffRug.value;
-const footRubbingOnRugString = JohnTravoltageA11yStrings.footRubbingOnRug.value;
-const footOffRugPointingForwardString = JohnTravoltageA11yStrings.footOffRugPointingForward.value;
+const footOffRugPointingBackwardsString = johnTravoltageStrings.a11y.appendages.leg.positions.footOffRugPointingBackwards;
+const footOffRugString = johnTravoltageStrings.a11y.appendages.leg.positions.footOffRug;
+const footRubbingOnRugString = johnTravoltageStrings.a11y.appendages.leg.positions.footRubbingOnRug;
+const footOffRugPointingForwardString = johnTravoltageStrings.a11y.appendages.leg.positions.footOffRugPointingForward;
 
 
 const AppendageRangeMaps = {

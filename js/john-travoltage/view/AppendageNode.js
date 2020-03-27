@@ -26,19 +26,19 @@ import Image from '../../../../scenery/js/nodes/Image.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
 import AccessibleSlider from '../../../../sun/js/accessibility/AccessibleSlider.js';
+import johnTravoltageStrings from '../../john-travoltage-strings.js';
 import johnTravoltage from '../../johnTravoltage.js';
-import JohnTravoltageA11yStrings from '../JohnTravoltageA11yStrings.js';
 import Appendage from '../model/Appendage.js';
 import Leg from '../model/Leg.js';
 
 // a11y strings
-const towardsDoorknobString = JohnTravoltageA11yStrings.towardsDoorknob.value;
-const awayFromDoorknobString = JohnTravoltageA11yStrings.awayFromDoorknob.value;
-const towardsDoorknobPatternString = JohnTravoltageA11yStrings.towardsDoorknobPattern.value;
-const awayFromDoorknobPatternString = JohnTravoltageA11yStrings.awayFromDoorknobPattern.value;
-const fartherAwayPatternString = JohnTravoltageA11yStrings.fartherAwayPattern.value;
-const negativePatternString = JohnTravoltageA11yStrings.negativePattern.value;
-const positionTemplateString = JohnTravoltageA11yStrings.positionTemplate.value;
+const towardsDoorknobString = johnTravoltageStrings.a11y.appendages.arm.directions.towardsDoorknob;
+const awayFromDoorknobString = johnTravoltageStrings.a11y.appendages.arm.directions.awayFromDoorknob;
+const towardsDoorknobPatternString = johnTravoltageStrings.a11y.appendages.arm.directions.towardsDoorknobPattern;
+const awayFromDoorknobPatternString = johnTravoltageStrings.a11y.appendages.arm.directions.awayFromDoorknobPattern;
+const fartherAwayPatternString = johnTravoltageStrings.a11y.appendages.arm.directions.fartherAwayPattern;
+const negativePatternString = johnTravoltageStrings.a11y.appendages.negativePattern;
+const positionPatternString = johnTravoltageStrings.a11y.appendages.positionPattern;
 
 // constants
 const DIRECTION_DESCRIPTIONS = {
@@ -356,7 +356,7 @@ inherit( Node, AppendageNode, {
     // get value with 'negative' so VoiceOver reads it correctly
     const positionWithNegative = this.getValueWithNegativeString( position );
 
-    return StringUtils.fillIn( positionTemplateString, {
+    return StringUtils.fillIn( positionPatternString, {
       value: positionWithNegative,
       description: valueDescription
     } );

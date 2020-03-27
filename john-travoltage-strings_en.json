@@ -34,5 +34,136 @@
   },
   "escapeKeyDescription": {
     "value": "<strong>Escape key</strong> closes a dialog, like this one."
+  },
+  "a11y": {
+    "screenSummary": {
+      "bodyDescriptionPattern": {
+        "value": "John's hand is {{position}}, and he is ready to swing his leg to rub his foot on the rug."
+      },
+      "descriptionWithChargePattern": {
+        "value": "{{charge}} {{johnDescription}}"
+      }
+    },
+    "electrons": {
+      "singleDescription": {
+        "value": "John has 1 charge on his body."
+      },
+      "multipleDescriptionPattern": {
+        "value": "John has {{value}} charges on his body."
+      },
+      "totalDescriptionPattern": {
+        "value": "Electrons on body: {{value}}"
+      },
+      "totalAfterDischargePattern": {
+        "value": "Discharge occurred. Electrons on body decreased from {{oldValue}} to {{newValue}} with hand at position {{position}}, {{region}}."
+      }
+    },
+    "appendages": {
+      "positionPattern": {
+        "value": "Position {{value}}: {{description}}."
+      },
+      "negativePattern": {
+        "value": "negative {{value}}"
+      },
+      "arm": {
+        "label": {
+          "value": "Hand position"
+        },
+        "positions": {
+          "farthestFromDoorknob": {
+            "value": "Farthest from doorknob"
+          },
+          "veryFarFromDoorknob": {
+            "value": "Very far from doorknob"
+          },
+          "farFromDoorknob": {
+            "value": "Far from doorknob"
+          },
+          "notSoCloseToDoorknob": {
+            "value": "Not so close to doorknob"
+          },
+          "closeToDoorknob": {
+            "value": "Close to doorknob"
+          },
+          "veryCloseToDoorknob": {
+            "value": "Very close to doorknob"
+          },
+          "justAboveDoorknob": {
+            "value": "Just above doorknob"
+          },
+          "atDoorknob": {
+            "value": "At doorknob"
+          },
+          "justBelowDoorknob": {
+            "value": "Just below doorknob"
+          },
+          "handPointingAway": {
+            "value": "Hand pointing away from door, very far from doorknob"
+          },
+          "handPointingStraightUp": {
+            "value": "Hand pointing straight up"
+          },
+          "handPointingAtUpperDoor": {
+            "value": "Hand pointing at upper door, close to doorknob"
+          },
+          "handPointingAtLowerDoor": {
+            "value": "Hand pointing at lower door, close to doorknob"
+          },
+          "handPointingStraightDown": {
+            "value": "Hand pointing straight down"
+          },
+          "farthestFromDoorknobLast": {
+            "value": "Farthest from doorknob. Last Stop"
+          }
+        },
+        "directions": {
+          "towardsDoorknob": {
+            "value": "Towards doorknob"
+          },
+          "awayFromDoorknob": {
+            "value": "Away from doorknob"
+          },
+          "towardsDoorknobPattern": {
+            "value": "Towards doorknob, {{description}}"
+          },
+          "awayFromDoorknobPattern": {
+            "value": "Away from doorknob, {{description}}"
+          },
+          "fartherAwayPattern": {
+            "value": "Farther away, {{description}}"
+          },
+          "closerToDoorknob": {
+            "value": "Closer to doorknob"
+          },
+          "fartherAwayFromDoorknob": {
+            "value": "Farther away from doorknob"
+          }
+        }
+      },
+      "leg": {
+        "label": {
+          "value": "Leg swing"
+        },
+        "positions": {
+          "footOffRugPointingBackwards": {
+            "value": "Foot off rug, pointing backward"
+          },
+          "footOffRug": {
+            "value": "Foot off rug"
+          },
+          "footRubbingOnRug": {
+            "value": "Foot rubbing on rug"
+          },
+          "footOffRugPointingForward": {
+            "value": "Foot off rug, pointing forward"
+          }
+        }
+      }
+    },
+    "keyboardHelpDialog": {
+      "moveHandOrFootDescription": {
+        "value": "Move hand or foot with left and right arrow keys."
+      }
+    }
   }
 }
