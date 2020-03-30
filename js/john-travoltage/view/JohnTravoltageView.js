@@ -19,7 +19,6 @@ import inherit from '../../../../phet-core/js/inherit.js';
 import platform from '../../../../phet-core/js/platform.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import ResetAllButton from '../../../../scenery-phet/js/buttons/ResetAllButton.js';
-import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import AccessiblePeer from '../../../../scenery/js/accessibility/AccessiblePeer.js';
 import Circle from '../../../../scenery/js/nodes/Circle.js';
 import Line from '../../../../scenery/js/nodes/Line.js';
@@ -29,8 +28,6 @@ import PitchedPopGenerator from '../../../../tambo/js/sound-generators/PitchedPo
 import SoundClip from '../../../../tambo/js/sound-generators/SoundClip.js';
 import SoundLevelEnum from '../../../../tambo/js/SoundLevelEnum.js';
 import soundManager from '../../../../tambo/js/soundManager.js';
-import vibrationManager from '../../../../tappi/js/vibrationManager.js';
-import VibrationChart from '../../../../tappi/js/view/VibrationChart.js';
 import arm from '../../../images/arm_png.js';
 import leg from '../../../images/leg_png.js';
 import chargesInBodySound from '../../../sounds/charges-in-body_mp3.js';
@@ -383,15 +380,6 @@ function JohnTravoltageView( model, tandem ) {
     vibrationController.initialize( model, this );
   }
 
-  if ( JohnTravoltageQueryParameters.vibrationChart ) {
-    this.vibrationChart = new VibrationChart( vibrationManager.vibratingProperty, this.layoutBounds.width * 0.75, 75, {
-      labelFont: new PhetFont( 14 )
-    } );
-
-    this.addChild( this.vibrationChart );
-    this.vibrationChart.centerTop = this.layoutBounds.centerTop;
-  }
-
   // accessibleOrder
   this.pdomPlayAreaNode.accessibleOrder = [
     this.leg,
@@ -415,13 +403,6 @@ export default inherit( ScreenView, JohnTravoltageView, {
    */
   step: function( dt ) {
     this.footDragSoundGenerator.step( dt );
-
-    if ( this.vibrationIndicator ) {
-      this.vibrationIndicator.step( dt );
-    }
-    if ( this.vibrationChart ) {
-      this.vibrationChart.step( dt );
-    }
   },
 
   /**
