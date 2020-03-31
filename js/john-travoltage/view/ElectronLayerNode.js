@@ -13,7 +13,7 @@ import inherit from '../../../../phet-core/js/inherit.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Utterance from '../../../../utterance-queue/js/Utterance.js';
-import johnTravoltageStrings from '../../john-travoltage-strings.js';
+import johnTravoltageStrings from '../../johnTravoltageStrings.js';
 import johnTravoltage from '../../johnTravoltage.js';
 import ElectronNode from './ElectronNode.js';
 

@@ -11,7 +11,7 @@ import Sim from '../../joist/js/Sim.js';
 import SimLauncher from '../../joist/js/SimLauncher.js';
 import Tandem from '../../tandem/js/Tandem.js';
 import vibrationManager from '../../tappi/js/vibrationManager.js';
-import johnTravoltageStrings from './john-travoltage-strings.js';
+import johnTravoltageStrings from './johnTravoltageStrings.js';
 import JohnTravoltageScreen from './john-travoltage/JohnTravoltageScreen.js';
 import JohnTravoltageKeyboardHelpContent from './john-travoltage/view/JohnTravoltageKeyboardHelpContent.js';
 

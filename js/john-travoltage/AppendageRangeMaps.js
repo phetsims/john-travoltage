@@ -8,7 +8,7 @@
  */
 
 import Range from '../../../dot/js/Range.js';
-import johnTravoltageStrings from '../john-travoltage-strings.js';
+import johnTravoltageStrings from '../johnTravoltageStrings.js';
 import johnTravoltage from '../johnTravoltage.js';
 
 // a11y strings

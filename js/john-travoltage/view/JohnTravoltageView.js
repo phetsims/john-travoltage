@@ -34,7 +34,7 @@ import chargesInBodySound from '../../../sounds/charges-in-body_mp3.js';
 import electricDischargeSound from '../../../sounds/electric-discharge_mp3.js';
 import gazouchSound from '../../../sounds/gazouch_mp3.js';
 import ouchSound from '../../../sounds/ouch_mp3.js';
-import johnTravoltageStrings from '../../john-travoltage-strings.js';
+import johnTravoltageStrings from '../../johnTravoltageStrings.js';
 import johnTravoltage from '../../johnTravoltage.js';
 import AppendageRangeMaps from '../AppendageRangeMaps.js';
 import JohnTravoltageQueryParameters from '../JohnTravoltageQueryParameters.js';

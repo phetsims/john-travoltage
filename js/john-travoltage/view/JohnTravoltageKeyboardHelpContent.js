@@ -10,7 +10,7 @@ import GeneralKeyboardHelpSection from '../../../../scenery-phet/js/keyboard/hel
 import KeyboardHelpIconFactory from '../../../../scenery-phet/js/keyboard/help/KeyboardHelpIconFactory.js';
 import KeyboardHelpSection from '../../../../scenery-phet/js/keyboard/help/KeyboardHelpSection.js';
 import TwoColumnKeyboardHelpContent from '../../../../scenery-phet/js/keyboard/help/TwoColumnKeyboardHelpContent.js';
-import johnTravoltageStrings from '../../john-travoltage-strings.js';
+import johnTravoltageStrings from '../../johnTravoltageStrings.js';
 import johnTravoltage from '../../johnTravoltage.js';
 
 const handOrFootString = johnTravoltageStrings.handOrFoot;

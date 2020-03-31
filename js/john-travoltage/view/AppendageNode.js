@@ -26,7 +26,7 @@ import Image from '../../../../scenery/js/nodes/Image.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
 import AccessibleSlider from '../../../../sun/js/accessibility/AccessibleSlider.js';
-import johnTravoltageStrings from '../../john-travoltage-strings.js';
+import johnTravoltageStrings from '../../johnTravoltageStrings.js';
 import johnTravoltage from '../../johnTravoltage.js';
 import Appendage from '../model/Appendage.js';
 import Leg from '../model/Leg.js';
