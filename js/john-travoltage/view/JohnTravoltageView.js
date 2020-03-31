@@ -376,7 +376,7 @@ function JohnTravoltageView( model, tandem ) {
   } );
 
   // (vibration, experimental) implements all vibration feedback for this sim
-  if ( phet.chipper.vibration !== null ) {
+  if ( phet.chipper.queryParameters.vibration !== null ) {
     vibrationController.initialize( model, this );
   }
 
