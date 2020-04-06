@@ -19,7 +19,7 @@ import inherit from '../../../../phet-core/js/inherit.js';
 import platform from '../../../../phet-core/js/platform.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import ResetAllButton from '../../../../scenery-phet/js/buttons/ResetAllButton.js';
-import AccessiblePeer from '../../../../scenery/js/accessibility/AccessiblePeer.js';
+import AccessiblePeer from '../../../../scenery/js/accessibility/pdom/AccessiblePeer.js';
 import Circle from '../../../../scenery/js/nodes/Circle.js';
 import Line from '../../../../scenery/js/nodes/Line.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
