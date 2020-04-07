@@ -52,7 +52,6 @@ import vibrationController from './vibrationController.js';
 // sounds
 
 
-// a11y strings
 const appendageLegLabelString = johnTravoltageStrings.a11y.appendages.leg.label;
 const appendageArmLabelString = johnTravoltageStrings.a11y.appendages.arm.label;
 const screenSummaryBodyDescriptionPatternString = johnTravoltageStrings.a11y.screenSummary.bodyDescriptionPattern;

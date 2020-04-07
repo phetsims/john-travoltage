@@ -31,7 +31,6 @@ import johnTravoltage from '../../johnTravoltage.js';
 import Appendage from '../model/Appendage.js';
 import Leg from '../model/Leg.js';
 
-// a11y strings
 const towardsDoorknobString = johnTravoltageStrings.a11y.appendages.arm.directions.towardsDoorknob;
 const awayFromDoorknobString = johnTravoltageStrings.a11y.appendages.arm.directions.awayFromDoorknob;
 const towardsDoorknobPatternString = johnTravoltageStrings.a11y.appendages.arm.directions.towardsDoorknobPattern;

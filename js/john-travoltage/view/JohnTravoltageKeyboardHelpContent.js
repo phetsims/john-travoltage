@@ -16,7 +16,6 @@ import johnTravoltage from '../../johnTravoltage.js';
 const handOrFootString = johnTravoltageStrings.handOrFoot;
 const moveHandOrFootString = johnTravoltageStrings.moveHandOrFoot;
 
-// a11y strings, not translatable
 const moveHandOrFootDescriptionString = johnTravoltageStrings.a11y.keyboardHelpDialog.moveHandOrFootDescription;
 
 class JohnTravoltageKeyboardHelpContent extends TwoColumnKeyboardHelpContent {

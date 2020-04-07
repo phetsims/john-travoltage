@@ -17,7 +17,6 @@ import johnTravoltageStrings from '../../johnTravoltageStrings.js';
 import johnTravoltage from '../../johnTravoltage.js';
 import ElectronNode from './ElectronNode.js';
 
-// a11y strings
 const electronsTotalDescriptionPatternString = johnTravoltageStrings.a11y.electrons.totalDescriptionPattern;
 const electronsTotalAfterDischargePatternString = johnTravoltageStrings.a11y.electrons.totalAfterDischargePattern;
 
