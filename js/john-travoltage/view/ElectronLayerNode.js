@@ -41,7 +41,7 @@ function ElectronLayerNode( model, armNode, maxElectrons, tandem ) {
 
   let priorCharge = 0;
 
-  // a11y - when electrons enter or leave the body, announce this change with a status update to assistive technology
+  // pdom - when electrons enter or leave the body, announce this change with a status update to assistive technology
   const setElectronStatus = function() {
     let alertString;
     const currentCharge = model.electrons.length;
@@ -81,7 +81,7 @@ function ElectronLayerNode( model, armNode, maxElectrons, tandem ) {
     // and the visual representation of the electron
     self.addChild( new ElectronNode( added, model.leg, model.arm ) );
 
-    // a11y - announce the state of charges with a status update
+    // pdom - announce the state of charges with a status update
     setElectronStatus();
   }
 

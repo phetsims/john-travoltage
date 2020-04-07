@@ -181,7 +181,7 @@ function JohnTravoltageView( model, tandem ) {
     tandem: tandem.createTandem( 'resetAllButton' )
   } );
 
-  // a11y - the ResetAllButton is alone in a control panel in this sim
+  // pdom - the ResetAllButton is alone in a control panel in this sim
   this.addChild( resetAllButton );
 
   // Use a layer for electrons so it has only one pickable flag, perhaps may improve performance compared to iterating

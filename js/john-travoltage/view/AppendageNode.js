@@ -69,7 +69,7 @@ function AppendageNode( appendage, image, dx, dy, angleOffset, rangeMap, tandem,
   options = merge( {
     cursor: 'pointer',
 
-    // a11y
+    // pdom
     labelTagName: 'label',
     appendLabel: true,
     containerTagName: 'div',
@@ -234,7 +234,7 @@ function AppendageNode( appendage, image, dx, dy, angleOffset, rangeMap, tandem,
     this.keyboardMotion.max
   );
 
-  // a11y
+  // pdom
   this.focusHighlight = new FocusHighlightPath( Shape.circle( 0, 0, this.imageNode.width / 2 ), {
     tandem: tandem.createTandem( 'focusCircle' )
   } );
