@@ -19,7 +19,7 @@ import inherit from '../../../../phet-core/js/inherit.js';
 import platform from '../../../../phet-core/js/platform.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import ResetAllButton from '../../../../scenery-phet/js/buttons/ResetAllButton.js';
-import AccessiblePeer from '../../../../scenery/js/accessibility/pdom/AccessiblePeer.js';
+import PDOMPeer from '../../../../scenery/js/accessibility/pdom/PDOMPeer.js';
 import Circle from '../../../../scenery/js/nodes/Circle.js';
 import Line from '../../../../scenery/js/nodes/Line.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
@@ -243,9 +243,9 @@ function JohnTravoltageView( model, tandem ) {
 
   // the play area is described by the screen view's description sibling through aria-describedby
   this.pdomPlayAreaNode.addAriaDescribedbyAssociation( {
-    thisElementName: AccessiblePeer.PRIMARY_SIBLING,
+    thisElementName: PDOMPeer.PRIMARY_SIBLING,
     otherNode: this,
-    otherElementName: AccessiblePeer.DESCRIPTION_SIBLING
+    otherElementName: PDOMPeer.DESCRIPTION_SIBLING
   } );
 
   // debug lines, body and forceline
