@@ -235,7 +235,7 @@ function JohnTravoltageModel( tandem ) {
 
       while ( accumulatedAngle > accumulatedAngleThreshold ) {
         if ( self.electrons.length < MAX_ELECTRONS ) {
-          self.electrons.createNextMember();
+          self.electrons.createNextElement();
         }
         accumulatedAngle -= accumulatedAngleThreshold;
       }
@@ -359,7 +359,7 @@ export default inherit( Object, JohnTravoltageModel, {
     }
 
     while ( this.electronsToRemove.length ) {
-      this.electrons.disposeMember( this.electronsToRemove.pop() );
+      this.electrons.disposeElement( this.electronsToRemove.pop() );
     }
 
     if ( this.electrons.length === 0 || _.filter( this.electrons.array, exiting ).length === 0 ) {
