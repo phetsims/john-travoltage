@@ -86,7 +86,7 @@ function ElectronLayerNode( model, armNode, maxElectrons, tandem ) {
   }
 
   // The electron's view is removed when the electron is disposed, see ElectronNode.js
-  model.electrons.addMemberCreatedListener( electronAddedListener );
+  model.electrons.elementCreatedEmitter.addListener( electronAddedListener );
   model.electrons.array.forEach( electronAddedListener );
 
   // update status whenever an electron discharge has ended - disposal is not necessary

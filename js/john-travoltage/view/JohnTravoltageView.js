@@ -225,12 +225,12 @@ function JohnTravoltageView( model, tandem ) {
   };
 
   // electrons observable array exists for the lifetime of the sim, so there is no need to remove these listeners
-  model.electrons.addMemberCreatedListener( () => {
+  model.electrons.elementCreatedEmitter.addListener( () => {
     updateDescription();
     includeElectronInfo = true;
   } );
 
-  model.electrons.addMemberDisposedListener( () => {
+  model.electrons.elementDisposedEmitter.addListener( () => {
     if ( model.electrons.length === 0 ) {
       updateDescription();
     }
@@ -366,8 +366,8 @@ function JohnTravoltageView( model, tandem ) {
     popSoundGenerator.playPop( numElectrons / JohnTravoltageModel.MAX_ELECTRONS );
   };
 
-  model.electrons.addMemberCreatedListener( lengthChangedListener );
-  model.electrons.addMemberDisposedListener( lengthChangedListener );
+  model.electrons.elementCreatedEmitter.addListener( lengthChangedListener );
+  model.electrons.elementDisposedEmitter.addListener( lengthChangedListener );
 
   // TODO: This can be removed now that we are transitioning to #337
   this.vibratingProperty = new BooleanProperty( false, {
