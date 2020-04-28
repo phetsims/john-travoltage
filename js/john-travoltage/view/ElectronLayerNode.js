@@ -13,8 +13,8 @@ import inherit from '../../../../phet-core/js/inherit.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Utterance from '../../../../utterance-queue/js/Utterance.js';
-import johnTravoltageStrings from '../../johnTravoltageStrings.js';
 import johnTravoltage from '../../johnTravoltage.js';
+import johnTravoltageStrings from '../../johnTravoltageStrings.js';
 import ElectronNode from './ElectronNode.js';
 
 const electronsTotalDescriptionPatternString = johnTravoltageStrings.a11y.electrons.totalDescriptionPattern;
@@ -44,7 +44,7 @@ function ElectronLayerNode( model, armNode, maxElectrons, tandem ) {
   // pdom - when electrons enter or leave the body, announce this change with a status update to assistive technology
   const setElectronStatus = function() {
     let alertString;
-    const currentCharge = model.electrons.length;
+    const currentCharge = model.electronGroup.length;
 
     if ( currentCharge >= priorCharge ) {
       alertString = StringUtils.fillIn( electronsTotalDescriptionPatternString, { value: currentCharge } );
@@ -86,8 +86,8 @@ function ElectronLayerNode( model, armNode, maxElectrons, tandem ) {
   }
 
   // The electron's view is removed when the electron is disposed, see ElectronNode.js
-  model.electrons.elementCreatedEmitter.addListener( electronAddedListener );
-  model.electrons.array.forEach( electronAddedListener );
+  model.electronGroup.elementCreatedEmitter.addListener( electronAddedListener );
+  model.electronGroup.array.forEach( electronAddedListener );
 
   // update status whenever an electron discharge has ended - disposal is not necessary
   model.dischargeEndedEmitter.addListener( setElectronStatus );

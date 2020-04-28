@@ -18,8 +18,8 @@
  */
 
 import Property from '../../../../axon/js/Property.js';
-import johnTravoltage from '../../johnTravoltage.js';
 import VibrationManageriOS from '../../../../tappi/js/VibrationManageriOS.js';
+import johnTravoltage from '../../johnTravoltage.js';
 
 // constants
 const CHARGES_LEAVING_PATTERN = [ 200, 100 ];
@@ -149,11 +149,11 @@ class VibrationController {
         model.stepEmitter.addListener( () => {
 
           // only initiate vibration if we haven't already initiated one
-          if ( !isRunningPattern && model.electrons.length > 0 ) {
+          if ( !isRunningPattern && model.electronGroup.length > 0 ) {
             vibrationManager.vibrateAtFrequencyForever( 5 );
             isRunningPattern = true;
           }
-          else if ( model.electrons.length === 0 ) {
+          else if ( model.electronGroup.length === 0 ) {
 
             // stop vibration if we have no more charges without discharge (like on reset)
             vibrationManager.stop();

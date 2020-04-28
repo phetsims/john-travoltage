@@ -170,9 +170,9 @@ export default inherit( PhetioObject, Electron, {
     // Compute the net force on each electron from pairwise repulsion.  This stabilizes the motion and pushes
     // the electrons to the outer boundary of the bodies
     // This is an expensive O(n^2) inner loop, so highly optimized and uses Number instead of Vector2 in a number of locations
-    const length = this.model.electrons.length;
+    const length = this.model.electronGroup.length;
     for ( var i = 0; i < length; i++ ) {
-      const electron = this.model.electrons.array[ i ];
+      const electron = this.model.electronGroup.array[ i ];
 
       // Skipping some interactions speeds things up and also gives a good sense of more randomness
       if ( electron !== this && phet.joist.random.nextDouble() < 0.4 ) {

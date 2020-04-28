@@ -139,7 +139,7 @@ function JohnTravoltageModel( tandem ) {
     tandem: tandem.createTandem( 'resetInProgressProperty' )
   } );
 
-  this.electrons = new PhetioGroup( tandem => {
+  this.electronGroup = new PhetioGroup( tandem => {
     const segment = new LineSegment( 424.0642054574639, 452.28892455858755, 433.3097913322633, 445.5088282504014 );
     const v = segment.vector;
     const rand = phet.joist.random.nextDouble() * v.magnitude;
@@ -229,13 +229,13 @@ function JohnTravoltageModel( tandem ) {
   this.leg.angleProperty.lazyLink( function( angle ) {
     if ( angle > FOOT_ON_CARPET_MIN_ANGLE &&
          angle < FOOT_ON_CARPET_MAX_ANGLE &&
-         self.electrons.length < MAX_ELECTRONS ) {
+         self.electronGroup.length < MAX_ELECTRONS ) {
 
       accumulatedAngle += Math.abs( angle - lastAngle );
 
       while ( accumulatedAngle > accumulatedAngleThreshold ) {
-        if ( self.electrons.length < MAX_ELECTRONS ) {
-          self.electrons.createNextElement();
+        if ( self.electronGroup.length < MAX_ELECTRONS ) {
+          self.electronGroup.createNextElement();
         }
         accumulatedAngle -= accumulatedAngleThreshold;
       }
@@ -280,7 +280,7 @@ export default inherit( Object, JohnTravoltageModel, {
     this.sparkVisibleProperty.reset();
     this.arm.reset();
     this.leg.reset();
-    this.electrons.clear();
+    this.electronGroup.clear();
     this.resetInProgressProperty.set( false );
   },
 
@@ -303,7 +303,7 @@ export default inherit( Object, JohnTravoltageModel, {
     // Minimum distance the finger can be to the knob, if pointed directly at it.  Sampled at runtime by printing angles.  Must be adjusted if the doorknob position is adjusted.
     const actualMin = 15;
 
-    const query = this.electrons.length / distToKnob;
+    const query = this.electronGroup.length / distToKnob;
     const threshold = 10 / actualMin;
 
     const electronThresholdExceeded = query > threshold;
@@ -311,8 +311,8 @@ export default inherit( Object, JohnTravoltageModel, {
       this.sparkCreationDistToKnob = distToKnob;
 
       //Mark all electrons for exiting
-      for ( let j = 0; j < this.electrons.length; j++ ) {
-        this.electrons.array[ j ].exiting = true;
+      for ( let j = 0; j < this.electronGroup.length; j++ ) {
+        this.electronGroup.array[ j ].exiting = true;
       }
     }
 
@@ -322,8 +322,8 @@ export default inherit( Object, JohnTravoltageModel, {
       // Stop the spark, but only if the finger has moved further enough from the doorknob
       // Use an increased threshold to model the more conductive path once the spark has started
       if ( this.sparkCreationDistToKnob && distToKnob > this.sparkCreationDistToKnob + 10 ) {
-        for ( let k = 0; k < this.electrons.length; k++ ) {
-          const electron = this.electrons.array[ k ];
+        for ( let k = 0; k < this.electronGroup.length; k++ ) {
+          const electron = this.electronGroup.array[ k ];
 
           //Tune the distance threshold to make sure the spark will shut off more quickly when the finger moved far from the doorknob, but not soo small that electrons can leak out of the body, see #27
           if ( electron.positionProperty.get().distance( this.doorknobPosition ) > 100 ) {
@@ -344,9 +344,9 @@ export default inherit( Object, JohnTravoltageModel, {
     }
 
     // Step the model
-    const length = this.electrons.length;
+    const length = this.electronGroup.length;
     for ( let i = 0; i < length; i++ ) {
-      this.electrons.array[ i ].step( dt );
+      this.electronGroup.array[ i ].step( dt );
     }
     const wasSpark = this.sparkVisibleProperty.get();
     if ( this.electronsToRemove.length ) {
@@ -359,10 +359,10 @@ export default inherit( Object, JohnTravoltageModel, {
     }
 
     while ( this.electronsToRemove.length ) {
-      this.electrons.disposeElement( this.electronsToRemove.pop() );
+      this.electronGroup.disposeElement( this.electronsToRemove.pop() );
     }
 
-    if ( this.electrons.length === 0 || _.filter( this.electrons.array, exiting ).length === 0 ) {
+    if ( this.electronGroup.length === 0 || _.filter( this.electronGroup.array, exiting ).length === 0 ) {
 
       // Make sure the spark shows at least one frame for a single electron exiting, see #55
       if ( wasSpark ) {

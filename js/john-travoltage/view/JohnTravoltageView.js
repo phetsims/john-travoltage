@@ -34,8 +34,8 @@ import chargesInBodySound from '../../../sounds/charges-in-body_mp3.js';
 import electricDischargeSound from '../../../sounds/electric-discharge_mp3.js';
 import gazouchSound from '../../../sounds/gazouch_mp3.js';
 import ouchSound from '../../../sounds/ouch_mp3.js';
-import johnTravoltageStrings from '../../johnTravoltageStrings.js';
 import johnTravoltage from '../../johnTravoltage.js';
+import johnTravoltageStrings from '../../johnTravoltageStrings.js';
 import AppendageRangeMaps from '../AppendageRangeMaps.js';
 import JohnTravoltageQueryParameters from '../JohnTravoltageQueryParameters.js';
 import JohnTravoltageModel from '../model/JohnTravoltageModel.js';
@@ -203,12 +203,12 @@ function JohnTravoltageView( model, tandem ) {
 
     // if there are any charges, a description of the charge will be prepended to the summary
     if ( includeElectronInfo ) {
-      if ( model.electrons.length === 1 ) {
+      if ( model.electronGroup.length === 1 ) {
         chargeDescription = electronsSingleDescriptionString;
       }
       else {
         chargeDescription = StringUtils.fillIn( electronsMultipleDescriptionPatternString, {
-          value: model.electrons.length
+          value: model.electronGroup.length
         } );
       }
 
@@ -225,13 +225,13 @@ function JohnTravoltageView( model, tandem ) {
   };
 
   // electrons observable array exists for the lifetime of the sim, so there is no need to remove these listeners
-  model.electrons.elementCreatedEmitter.addListener( () => {
+  model.electronGroup.elementCreatedEmitter.addListener( () => {
     updateDescription();
     includeElectronInfo = true;
   } );
 
-  model.electrons.elementDisposedEmitter.addListener( () => {
-    if ( model.electrons.length === 0 ) {
+  model.electronGroup.elementDisposedEmitter.addListener( () => {
+    if ( model.electronGroup.length === 0 ) {
       updateDescription();
     }
   } );
@@ -322,7 +322,7 @@ function JohnTravoltageView( model, tandem ) {
       electricDischargeSoundClip.play();
 
       // play the appropriate "ouch" sound based on the level of charge (plays nothing for low charge level)
-      const numElectronsInBody = model.electrons.length;
+      const numElectronsInBody = model.electronGroup.length;
       if ( numElectronsInBody > 85 ) {
         gazouchSoundClip.play( OUCH_EXCLAMATION_DELAY );
       }
@@ -339,7 +339,7 @@ function JohnTravoltageView( model, tandem ) {
 
   // update the sound related to the number of electrons in JT's body
   const lengthChangedListener = () => {
-    const numElectrons = model.electrons.length;
+    const numElectrons = model.electronGroup.length;
     // update the sound that indicates the amount of charge in the body
     if ( numElectrons === 0 ) {
       if ( chargesInBodySoundClip.isPlaying ) {
@@ -366,8 +366,8 @@ function JohnTravoltageView( model, tandem ) {
     popSoundGenerator.playPop( numElectrons / JohnTravoltageModel.MAX_ELECTRONS );
   };
 
-  model.electrons.elementCreatedEmitter.addListener( lengthChangedListener );
-  model.electrons.elementDisposedEmitter.addListener( lengthChangedListener );
+  model.electronGroup.elementCreatedEmitter.addListener( lengthChangedListener );
+  model.electronGroup.elementDisposedEmitter.addListener( lengthChangedListener );
 
   // TODO: This can be removed now that we are transitioning to #337
   this.vibratingProperty = new BooleanProperty( false, {
