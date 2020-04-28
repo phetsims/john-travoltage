@@ -312,7 +312,7 @@ export default inherit( Object, JohnTravoltageModel, {
 
       //Mark all electrons for exiting
       for ( let j = 0; j < this.electronGroup.length; j++ ) {
-        this.electronGroup.array[ j ].exiting = true;
+        this.electronGroup.getElement( j ).exiting = true;
       }
     }
 
@@ -323,7 +323,7 @@ export default inherit( Object, JohnTravoltageModel, {
       // Use an increased threshold to model the more conductive path once the spark has started
       if ( this.sparkCreationDistToKnob && distToKnob > this.sparkCreationDistToKnob + 10 ) {
         for ( let k = 0; k < this.electronGroup.length; k++ ) {
-          const electron = this.electronGroup.array[ k ];
+          const electron = this.electronGroup.getElement( k );
 
           //Tune the distance threshold to make sure the spark will shut off more quickly when the finger moved far from the doorknob, but not soo small that electrons can leak out of the body, see #27
           if ( electron.positionProperty.get().distance( this.doorknobPosition ) > 100 ) {
@@ -346,7 +346,7 @@ export default inherit( Object, JohnTravoltageModel, {
     // Step the model
     const length = this.electronGroup.length;
     for ( let i = 0; i < length; i++ ) {
-      this.electronGroup.array[ i ].step( dt );
+      this.electronGroup.getElement( i ).step( dt );
     }
     const wasSpark = this.sparkVisibleProperty.get();
     if ( this.electronsToRemove.length ) {
@@ -362,7 +362,7 @@ export default inherit( Object, JohnTravoltageModel, {
       this.electronGroup.disposeElement( this.electronsToRemove.pop() );
     }
 
-    if ( this.electronGroup.length === 0 || _.filter( this.electronGroup.array, exiting ).length === 0 ) {
+    if ( this.electronGroup.length === 0 || _.filter( this.electronGroup.getArray(), exiting ).length === 0 ) {
 
       // Make sure the spark shows at least one frame for a single electron exiting, see #55
       if ( wasSpark ) {
