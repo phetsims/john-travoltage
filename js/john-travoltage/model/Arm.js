@@ -41,7 +41,7 @@ function Arm( tandem ) {
 
 johnTravoltage.register( 'Arm', Arm );
 
-export default inherit( Appendage, Arm, {
+inherit( Appendage, Arm, {
 
   /**
    * Reset the arm.
@@ -61,3 +61,5 @@ export default inherit( Appendage, Arm, {
     return this.fingerVector.rotated( this.angleProperty.get() ).plus( this.position );
   }
 } );
+
+export default Arm;

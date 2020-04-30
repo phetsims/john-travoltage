@@ -174,7 +174,7 @@ function ElectronNode( electron, leg, arm ) {
 
 johnTravoltage.register( 'ElectronNode', ElectronNode );
 
-export default inherit( Node, ElectronNode, {
+inherit( Node, ElectronNode, {
 
   /**
    * Make eligible for garbage collection.
@@ -185,3 +185,5 @@ export default inherit( Node, ElectronNode, {
     Node.prototype.dispose.call( this );
   }
 } );
+
+export default ElectronNode;

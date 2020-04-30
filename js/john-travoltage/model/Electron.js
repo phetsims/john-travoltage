@@ -85,7 +85,7 @@ function Electron( x, y, model, options ) {
 
 johnTravoltage.register( 'Electron', Electron );
 
-export default inherit( PhetioObject, Electron, {
+inherit( PhetioObject, Electron, {
 
   /**
    * Step function for when the electron is exiting the body (discharging).  Electrons leave the body through
@@ -252,3 +252,5 @@ export default inherit( PhetioObject, Electron, {
     }
   }
 } );
+
+export default Electron;

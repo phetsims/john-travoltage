@@ -39,7 +39,7 @@ function Leg( tandem ) {
 
 johnTravoltage.register( 'Leg', Leg );
 
-export default inherit( Appendage, Leg, {
+inherit( Appendage, Leg, {
 
   /**
    * Reset the leg.
@@ -57,3 +57,5 @@ export default inherit( Appendage, Leg, {
    */
   deltaAngle: function() { return this.angleProperty.get() - this.initialAngle; }
 } );
+
+export default Leg;

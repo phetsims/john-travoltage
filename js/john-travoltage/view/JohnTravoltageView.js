@@ -393,7 +393,7 @@ function JohnTravoltageView( model, tandem ) {
 
 johnTravoltage.register( 'JohnTravoltageView', JohnTravoltageView );
 
-export default inherit( ScreenView, JohnTravoltageView, {
+inherit( ScreenView, JohnTravoltageView, {
 
   /**
    * step the view forward in time
@@ -450,3 +450,5 @@ export default inherit( ScreenView, JohnTravoltageView, {
     }
   }
 } );
+
+export default JohnTravoltageView;

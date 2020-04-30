@@ -63,7 +63,7 @@ function Appendage( pivotPoint, tandem, options ) {
 
 johnTravoltage.register( 'Appendage', Appendage );
 
-export default inherit( Object, Appendage, {
+inherit( Object, Appendage, {
 
   /**
    * Reset the appendage.
@@ -78,3 +78,5 @@ export default inherit( Object, Appendage, {
   // @public @static
   MOVEMENT_DIRECTIONS: MOVEMENT_DIRECTIONS
 } );
+
+export default Appendage;

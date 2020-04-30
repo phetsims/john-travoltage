@@ -44,7 +44,7 @@ function LineSegment( x1, y1, x2, y2 ) {
 
 johnTravoltage.register( 'LineSegment', LineSegment );
 
-export default inherit( Object, LineSegment, {
+inherit( Object, LineSegment, {
 
   /**
    * Get the center of this line segment.  Does not need to be fast, this is only used for debugging.
@@ -59,3 +59,5 @@ export default inherit( Object, LineSegment, {
    */
   get normal() { return new Vector2( this.x2 - this.x1, this.y2 - this.y1 ).normalized().perpendicular; }
 } );
+
+export default LineSegment;

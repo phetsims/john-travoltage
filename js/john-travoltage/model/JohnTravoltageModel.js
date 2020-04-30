@@ -266,7 +266,7 @@ const exiting = function( e ) {return e.exiting;};
 
 johnTravoltage.register( 'JohnTravoltageModel', JohnTravoltageModel );
 
-export default inherit( Object, JohnTravoltageModel, {
+inherit( Object, JohnTravoltageModel, {
 
   /**
    * Reset the model when "Reset All" is pressed.
@@ -431,3 +431,5 @@ export default inherit( Object, JohnTravoltageModel, {
   FOOT_ON_CARPET_MIN_ANGLE: FOOT_ON_CARPET_MIN_ANGLE,
   FOOT_ON_CARPET_MAX_ANGLE: FOOT_ON_CARPET_MAX_ANGLE
 } );
+
+export default JohnTravoltageModel;
