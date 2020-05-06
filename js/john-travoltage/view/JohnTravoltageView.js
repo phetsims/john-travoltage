@@ -203,12 +203,12 @@ function JohnTravoltageView( model, tandem ) {
 
     // if there are any charges, a description of the charge will be prepended to the summary
     if ( includeElectronInfo ) {
-      if ( model.electronGroup.length === 1 ) {
+      if ( model.electronGroup.count === 1 ) {
         chargeDescription = electronsSingleDescriptionString;
       }
       else {
         chargeDescription = StringUtils.fillIn( electronsMultipleDescriptionPatternString, {
-          value: model.electronGroup.length
+          value: model.electronGroup.count
         } );
       }
 
@@ -231,7 +231,7 @@ function JohnTravoltageView( model, tandem ) {
   } );
 
   model.electronGroup.elementDisposedEmitter.addListener( () => {
-    if ( model.electronGroup.length === 0 ) {
+    if ( model.electronGroup.count === 0 ) {
       updateDescription();
     }
   } );
@@ -322,7 +322,7 @@ function JohnTravoltageView( model, tandem ) {
       electricDischargeSoundClip.play();
 
       // play the appropriate "ouch" sound based on the level of charge (plays nothing for low charge level)
-      const numElectronsInBody = model.electronGroup.length;
+      const numElectronsInBody = model.electronGroup.count;
       if ( numElectronsInBody > 85 ) {
         gazouchSoundClip.play( OUCH_EXCLAMATION_DELAY );
       }
@@ -339,7 +339,7 @@ function JohnTravoltageView( model, tandem ) {
 
   // update the sound related to the number of electrons in JT's body
   const lengthChangedListener = () => {
-    const numElectrons = model.electronGroup.length;
+    const numElectrons = model.electronGroup.count;
     // update the sound that indicates the amount of charge in the body
     if ( numElectrons === 0 ) {
       if ( chargesInBodySoundClip.isPlaying ) {

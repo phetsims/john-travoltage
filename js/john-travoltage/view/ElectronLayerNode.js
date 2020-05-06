@@ -44,7 +44,7 @@ function ElectronLayerNode( model, armNode, maxElectrons, tandem ) {
   // pdom - when electrons enter or leave the body, announce this change with a status update to assistive technology
   const setElectronStatus = function() {
     let alertString;
-    const currentCharge = model.electronGroup.length;
+    const currentCharge = model.electronGroup.count;
 
     if ( currentCharge >= priorCharge ) {
       alertString = StringUtils.fillIn( electronsTotalDescriptionPatternString, { value: currentCharge } );

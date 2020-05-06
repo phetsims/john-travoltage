@@ -149,11 +149,11 @@ class VibrationController {
         model.stepEmitter.addListener( () => {
 
           // only initiate vibration if we haven't already initiated one
-          if ( !isRunningPattern && model.electronGroup.length > 0 ) {
+          if ( !isRunningPattern && model.electronGroup.count > 0 ) {
             vibrationManager.vibrateAtFrequencyForever( 5 );
             isRunningPattern = true;
           }
-          else if ( model.electronGroup.length === 0 ) {
+          else if ( model.electronGroup.count === 0 ) {
 
             // stop vibration if we have no more charges without discharge (like on reset)
             vibrationManager.stop();

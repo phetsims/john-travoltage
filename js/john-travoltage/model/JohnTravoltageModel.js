@@ -229,12 +229,12 @@ function JohnTravoltageModel( tandem ) {
   this.leg.angleProperty.lazyLink( function( angle ) {
     if ( angle > FOOT_ON_CARPET_MIN_ANGLE &&
          angle < FOOT_ON_CARPET_MAX_ANGLE &&
-         self.electronGroup.length < MAX_ELECTRONS ) {
+         self.electronGroup.count < MAX_ELECTRONS ) {
 
       accumulatedAngle += Math.abs( angle - lastAngle );
 
       while ( accumulatedAngle > accumulatedAngleThreshold ) {
-        if ( self.electronGroup.length < MAX_ELECTRONS ) {
+        if ( self.electronGroup.count < MAX_ELECTRONS ) {
           self.electronGroup.createNextElement();
         }
         accumulatedAngle -= accumulatedAngleThreshold;
@@ -303,7 +303,7 @@ inherit( Object, JohnTravoltageModel, {
     // Minimum distance the finger can be to the knob, if pointed directly at it.  Sampled at runtime by printing angles.  Must be adjusted if the doorknob position is adjusted.
     const actualMin = 15;
 
-    const query = this.electronGroup.length / distToKnob;
+    const query = this.electronGroup.count / distToKnob;
     const threshold = 10 / actualMin;
 
     const electronThresholdExceeded = query > threshold;
@@ -311,7 +311,7 @@ inherit( Object, JohnTravoltageModel, {
       this.sparkCreationDistToKnob = distToKnob;
 
       //Mark all electrons for exiting
-      for ( let j = 0; j < this.electronGroup.length; j++ ) {
+      for ( let j = 0; j < this.electronGroup.count; j++ ) {
         this.electronGroup.getElement( j ).exiting = true;
       }
     }
@@ -322,7 +322,7 @@ inherit( Object, JohnTravoltageModel, {
       // Stop the spark, but only if the finger has moved further enough from the doorknob
       // Use an increased threshold to model the more conductive path once the spark has started
       if ( this.sparkCreationDistToKnob && distToKnob > this.sparkCreationDistToKnob + 10 ) {
-        for ( let k = 0; k < this.electronGroup.length; k++ ) {
+        for ( let k = 0; k < this.electronGroup.count; k++ ) {
           const electron = this.electronGroup.getElement( k );
 
           //Tune the distance threshold to make sure the spark will shut off more quickly when the finger moved far from the doorknob, but not soo small that electrons can leak out of the body, see #27
@@ -344,7 +344,7 @@ inherit( Object, JohnTravoltageModel, {
     }
 
     // Step the model
-    const length = this.electronGroup.length;
+    const length = this.electronGroup.count;
     for ( let i = 0; i < length; i++ ) {
       this.electronGroup.getElement( i ).step( dt );
     }
@@ -362,7 +362,7 @@ inherit( Object, JohnTravoltageModel, {
       this.electronGroup.disposeElement( this.electronsToRemove.pop() );
     }
 
-    if ( this.electronGroup.length === 0 || _.filter( this.electronGroup.getArray(), exiting ).length === 0 ) {
+    if ( this.electronGroup.count === 0 || _.filter( this.electronGroup.getArray(), exiting ).length === 0 ) {
 
       // Make sure the spark shows at least one frame for a single electron exiting, see #55
       if ( wasSpark ) {
