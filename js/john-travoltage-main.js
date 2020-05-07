@@ -8,7 +8,7 @@
  */
 
 import Sim from '../../joist/js/Sim.js';
-import SimLauncher from '../../joist/js/SimLauncher.js';
+import simLauncher from '../../joist/js/simLauncher.js';
 import Tandem from '../../tandem/js/Tandem.js';
 import vibrationManager from '../../tappi/js/vibrationManager.js';
 import johnTravoltageStrings from './johnTravoltageStrings.js';
@@ -50,7 +50,7 @@ const simOptions = {
 };
 
 //Create and start the sim
-SimLauncher.launch( function() {
+simLauncher.launch( function() {
   new Sim( johnTravoltageTitleString, [
     new JohnTravoltageScreen( tandem.createTandem( 'johnTravoltageScreen' ) )
   ], simOptions ).start();
