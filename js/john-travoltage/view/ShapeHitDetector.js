@@ -200,5 +200,5 @@ class Hittable {
   }
 }
 
-johnTravoltage.register( 'ShapeHitDetector', ShapeHitListener );
+johnTravoltage.register( 'ShapeHitListener', ShapeHitListener );
 export default ShapeHitListener;
