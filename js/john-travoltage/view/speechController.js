@@ -23,7 +23,7 @@ class SpeechController {
 
   /**
    * Initialize the singleton instance.
-   *
+   * @public
    * @param {JohnTravoltageModel} model
    */
   initialize( model ) {
@@ -47,6 +47,7 @@ class SpeechController {
 
   /**
    * Attach a listener so that whenever the Property value is true, we speak the provided string.
+   * @public
    *
    * @param {BooleanProperty} property
    * @param {String} string
@@ -61,6 +62,7 @@ class SpeechController {
 
   /**
    * Use speech synthesis to say a string.
+   * @public
    *
    * @private
    * @param   {String} string

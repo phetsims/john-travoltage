@@ -62,6 +62,7 @@ class VibrationChart extends Node {
 
   /**
    * Add data to the scrolling chart.
+   * @public
    *
    * @param {number} dt - in ms
    */

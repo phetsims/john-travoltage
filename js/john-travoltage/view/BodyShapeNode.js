@@ -40,6 +40,7 @@ class BodyShapeNode extends Path {
 
   /**
    * Make the body shape visible. This is purely for debugging purposes.
+   * @public
    */
   showBody() {
     this.setStroke( 'green' );

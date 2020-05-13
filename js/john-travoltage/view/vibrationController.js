@@ -28,6 +28,7 @@ class VibrationController {
   constructor() {}
 
   /**
+   * @public
    * @param {JohnTravoltageModel} model
    * @param {JohnTravoltageView} view
    */

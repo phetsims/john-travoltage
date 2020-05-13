@@ -94,6 +94,7 @@ class VibrationIndicator extends Node {
 
   /**
    * Animate the indicator if vibrating.
+   * @public
    *
    * @param {number} dt
    */

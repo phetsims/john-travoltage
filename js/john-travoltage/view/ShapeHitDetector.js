@@ -63,6 +63,8 @@ class ShapeHitListener {
   /**
    * For the scenery listener API, detects any hits and attaches listener to the pointer for movement and eventually
    * listener removal.
+   * @public
+   *
    * @param {SceneryEvent} event
    */
   down( event ) {
@@ -82,6 +84,7 @@ class ShapeHitListener {
 
   /**
    * For the scenery listener API, removes the pointer listener when done.
+   * @public
    *
    * @param {SceneryEvent} event
    */
@@ -96,6 +99,7 @@ class ShapeHitListener {
 
   /**
    * Add a shape to the detectr, Property set true when pointer is down over shape.
+   * @public
    *
    * @param {Shape} shape
    * @param {Property} property
@@ -108,7 +112,7 @@ class ShapeHitListener {
   /**
    * Set the shape on the hittable associated with the provided Property. Useful if your shape
    * needs to move around.
-   *
+   * @public
    * @param {Property} property - previously
    */
   updateShape( shape, property ) {
@@ -123,7 +127,9 @@ class ShapeHitListener {
 
   /**
    * For debugging. Show attached shapes visually.
-   * @returns {[type]} [description]
+   * @public
+   *
+   * @returns {Path}
    */
   getDebugPaths() {
     const paths = [];
@@ -163,6 +169,7 @@ class Hittable {
 
   /**
    * Returns true if the point is within the shape.
+   * @public
    *
    * @param {Vector2} point
    * @returns {}
@@ -173,6 +180,7 @@ class Hittable {
 
   /**
    * Sets the property based on whether or not the point is within the shape.
+   * @public
    *
    * @param {Vector2} point - in the global coordinate frame
    */
@@ -182,6 +190,7 @@ class Hittable {
 
   /**
    * Make the object shape visible. This is purely for debugging purposes.
+   * @public
    */
   getDebugPath() {
     return new Path( this.shape, {
