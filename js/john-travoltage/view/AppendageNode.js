@@ -26,8 +26,8 @@ import Image from '../../../../scenery/js/nodes/Image.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
 import AccessibleSlider from '../../../../sun/js/accessibility/AccessibleSlider.js';
-import johnTravoltageStrings from '../../johnTravoltageStrings.js';
 import johnTravoltage from '../../johnTravoltage.js';
+import johnTravoltageStrings from '../../johnTravoltageStrings.js';
 import Appendage from '../model/Appendage.js';
 import Leg from '../model/Leg.js';
 
@@ -73,7 +73,7 @@ function AppendageNode( appendage, image, dx, dy, angleOffset, rangeMap, tandem,
     labelTagName: 'label',
     appendLabel: true,
     containerTagName: 'div',
-    keyboardMidPointOffset: 0 // adjust center position of accessible slider, to align important locations at center
+    keyboardMidPointOffset: 0 // adjust center position of accessible slider, to align important positions at center
   }, options );
 
   Node.call( this, options );
@@ -514,7 +514,7 @@ inherit( Node, AppendageNode, {
    * @static
    * @a11y
    *
-   * @param  {number} position - integer location of the appendage, mapped from angle, see AppendageNode.linearFunction
+   * @param  {number} position - integer position of the appendage, mapped from angle, see AppendageNode.linearFunction
    * @param  {Object} rangeMap - a map that will provide the correct description from the provided input value
    * @returns {string} - a lower case string, generally to be inserted into another context
    */
@@ -524,7 +524,7 @@ inherit( Node, AppendageNode, {
   },
 
   /**
-   * If the appendage is at acritical location, returns a 'landmark' description that will always be read to the user.
+   * If the appendage is at a critical position, returns a 'landmark' description that will always be read to the user.
    * Otherwise, return an empty string.
    * @static
    * @private

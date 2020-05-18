@@ -260,7 +260,7 @@ function JohnTravoltageView( model, tandem ) {
     } ) );
     this.addChild( new Circle( 10, { x: 0, y: 0, fill: 'blue' } ) );
 
-    //Debugging for finger location
+    //Debugging for finger position
     const fingerCircle = new Circle( 10, { fill: 'red' } );
     model.arm.angleProperty.link( function() {
       fingerCircle.x = model.arm.getFingerPosition().x;

@@ -24,14 +24,14 @@ function Arm( tandem ) {
 
   Appendage.call( this, pivotPoint, tandem, {
 
-    // with mouse interaction, arm rotates from -pi to pi. With the keyboard, there are specific locations where
+    // with mouse interaction, arm rotates from -pi to pi. With the keyboard, there are specific positions where
     // '0' is at the doorknob, and so the value goes from -pi + 0.41 to pi + 0.41. So this includes the full
     // range, see https://github.com/phetsims/john-travoltage/issues/268
     range: new Range( -Math.PI + 0.41, Math.PI + 0.41 )
     // precision: 7
   } );
 
-  // Exact finger location sampled using DebugUtils.js
+  // Exact finger position sampled using DebugUtils.js
   // var finger = new Vector2( 534.3076703633706, 206.63766358806117 );
   const finger = new Vector2( 534.3076704, 206.6376636 );
 
@@ -53,7 +53,7 @@ inherit( Appendage, Arm, {
   },
 
   /**
-   * Gets the location of the finger with the current appendage rotation.
+   * Gets the position of the finger with the current appendage rotation.
    * @returns {Vector2}
    * @public
    */

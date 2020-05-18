@@ -66,7 +66,7 @@ function Electron( x, y, model, options ) {
   // @public (read-only) called when the Electron is disposed so listeners may clean themselves up
   this.disposeEmitter = new Emitter();
 
-  // @public (phet-io) the history of body locations, 'arm', 'leg' and 'body' for rendering in the correct place
+  // @public (phet-io) the history of body positions, 'arm', 'leg' and 'body' for rendering in the correct place
   this.history = [];
 
   // @public (phet-io) when the history changes, the electron's screen position is recomputed
