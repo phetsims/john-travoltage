@@ -229,7 +229,8 @@ function JohnTravoltageModel( tandem ) {
   this.leg.angleProperty.lazyLink( function( angle ) {
     if ( angle > FOOT_ON_CARPET_MIN_ANGLE &&
          angle < FOOT_ON_CARPET_MAX_ANGLE &&
-         self.electronGroup.count < MAX_ELECTRONS ) {
+         self.electronGroup.count < MAX_ELECTRONS &&
+         !phet.joist.sim.isSettingPhetioStateProperty.value ) { // PhET-iO state handles creating its own electrons
 
       accumulatedAngle += Math.abs( angle - lastAngle );
 
