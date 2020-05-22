@@ -1,5 +1,5 @@
 {
-  "comment": "# john-travoltage 1.6.0-dev.18 Fri May 22 2020 12:26:16 GMT-0400 (Eastern Daylight Time)",
+  "comment": "# john-travoltage 1.6.0-dev.19 Fri May 22 2020 13:38:39 GMT-0400 (Eastern Daylight Time)",
   "assert": {
     "sha": "0b7a48c6b9ba48af48ae7419bd30c280c785f2cc",
     "branch": "master"
@@ -25,7 +25,7 @@
     "branch": "master"
   },
   "john-travoltage": {
-    "sha": "b71cac4fed3554e3d0b977f33345a919e6e70450",
+    "sha": "2bfc2cbe8abfd986b7be0f69a6810a7f0dbe8fe4",
     "branch": "master"
   },
   "joist": {
@@ -93,7 +93,7 @@
     "branch": "master"
   },
   "tappi": {
-    "sha": "fb37f4400b54a490c5c1d6d770e48a74fe42c98a",
+    "sha": "0309938fc81c5ddb8b0cdfd2e5f4dff1d8e1f710",
     "branch": "master"
   },
   "utterance-queue": {
