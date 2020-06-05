@@ -28,6 +28,8 @@ import PitchedPopGenerator from '../../../../tambo/js/sound-generators/PitchedPo
 import SoundClip from '../../../../tambo/js/sound-generators/SoundClip.js';
 import SoundLevelEnum from '../../../../tambo/js/SoundLevelEnum.js';
 import soundManager from '../../../../tambo/js/soundManager.js';
+import VibrationTestEventRecorder from '../../../../tappi/js/tracking/VibrationTestEventRecorder.js';
+import VibrationTestInputListener from '../../../../tappi/js/tracking/VibrationTestInputListener.js';
 import arm from '../../../images/arm_png.js';
 import leg from '../../../images/leg_png.js';
 import chargesInBodySound from '../../../sounds/charges-in-body_mp3.js';
@@ -135,7 +137,16 @@ function JohnTravoltageView( model, tandem ) {
   // only attach the listener if we are testing haptic feedback, but create eagerly since its shapes are used by
   // debugInfo query parameter
   if ( phet.chipper.queryParameters.vibration !== null ) {
+
+    // listener that will detect pointer hits of various objects
     phet.joist.display.addInputListener( this.shapeHitDetector );
+
+    // collection of input and simulation events that will be recorded during user interaction
+    this.eventRecorder = new VibrationTestEventRecorder();
+
+    // listener that watches finger/touch input and saves to the event recorder
+    const vibrationTestInputListener = new VibrationTestInputListener( this.eventRecorder );
+    phet.joist.display.addInputListener( vibrationTestInputListener );
   }
 
   // (a11y) after travolta picks up electrons the first time, this flag will modify descriptions slightly
