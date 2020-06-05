@@ -173,7 +173,11 @@ function JohnTravoltageModel( tandem ) {
     } );
 
   // @public - emitters for reset and step events
-  this.stepEmitter = new Emitter();
+  this.stepEmitter = new Emitter( {
+    parameters: [ {
+      valueType: 'number'
+    } ]
+  } );
 
   // @public - emitter called when the reset all button is pressed
   this.resetEmitter = new Emitter( {
@@ -377,7 +381,7 @@ inherit( Object, JohnTravoltageModel, {
     this.leg.angularVelocityProperty.set( ( this.leg.angleProperty.get() - this.legAngleAtPreviousStep ) / dt );
     this.legAngleAtPreviousStep = this.leg.angleProperty.get();
 
-    this.stepEmitter.emit();
+    this.stepEmitter.emit( dt );
   },
 
   /**

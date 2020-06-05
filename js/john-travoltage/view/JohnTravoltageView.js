@@ -52,6 +52,7 @@ import ElectronLayerNode from './ElectronLayerNode.js';
 import FootDragSoundGenerator from './FootDragSoundGenerator.js';
 import SparkNode from './SparkNode.js';
 import vibrationController from './vibrationController.js';
+import VibrationTestEvent from '../../../../tappi/js/tracking/VibrationTestEvent.js';
 
 // sounds
 
@@ -136,9 +137,12 @@ function JohnTravoltageView( model, tandem ) {
 
   this.shapeHitDetector = new BodyShapeHitDetector( model, this );
 
-  // only attach the listener if we are testing haptic feedback, but create eagerly since its shapes are used by
-  // debugInfo query parameter
+  // code related to vibration prototype work - hidden behind a query param while we understand more about what
+  // we want for this feature.
   if ( phet.chipper.queryParameters.vibration !== null ) {
+
+    // @private {number} - time (in seconds) that the simulation has been running
+    this.elapsedTime = 0;
 
     // sends messages to the containing Swift app
     const vibrationManager = new VibrationManageriOS();
@@ -161,6 +165,24 @@ function JohnTravoltageView( model, tandem ) {
       leftTop: this.layoutBounds.leftTop.plusXY( 5, 5 )
     } );
     this.addChild( saveButton );
+
+    // sim specific events that we want to capture
+    model.arm.angleProperty.link( angle => {
+      this.eventRecorder.addTestEvent( new VibrationTestEvent( null, null, this.elapsedTime, 'Moving Arm' ) );
+    } );
+    model.leg.angleProperty.link( angle => {
+      this.eventRecorder.addTestEvent( new VibrationTestEvent( null, null, this.elapsedTime, 'Moving Leg' ) );
+    } );
+    model.electronGroup.elementCreatedEmitter.addListener( () => {
+      this.eventRecorder.addTestEvent( new VibrationTestEvent( null, null, this.elapsedTime, 'Added charge' ) );
+    } );
+    model.dischargeStartedEmitter.addListener( () => {
+      this.eventRecorder.addTestEvent( new VibrationTestEvent( null, null, this.elapsedTime, 'Discharged electrons' ) );
+    } );
+    model.stepEmitter.addListener( dt => {
+      this.elapsedTime += dt;
+      vibrationTestInputListener.setElapsedTime( this.elapsedTime );
+    } );
   }
 
   // (a11y) after travolta picks up electrons the first time, this flag will modify descriptions slightly
