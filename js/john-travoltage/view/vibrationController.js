@@ -18,7 +18,6 @@
  */
 
 import Property from '../../../../axon/js/Property.js';
-import VibrationManageriOS from '../../../../tappi/js/VibrationManageriOS.js';
 import johnTravoltage from '../../johnTravoltage.js';
 
 // constants
@@ -32,9 +31,8 @@ class VibrationController {
    * @param {JohnTravoltageModel} model
    * @param {JohnTravoltageView} view
    */
-  initialize( model, view ) {
+  initialize( model, view, vibrationManager ) {
     const paradigmChoice = phet.chipper.queryParameters.vibration;
-    const vibrationManager = new VibrationManageriOS();
 
     if ( paradigmChoice === 'objects' ) {
 

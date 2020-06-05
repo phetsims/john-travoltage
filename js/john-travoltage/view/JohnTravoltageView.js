@@ -28,8 +28,10 @@ import PitchedPopGenerator from '../../../../tambo/js/sound-generators/PitchedPo
 import SoundClip from '../../../../tambo/js/sound-generators/SoundClip.js';
 import SoundLevelEnum from '../../../../tambo/js/SoundLevelEnum.js';
 import soundManager from '../../../../tambo/js/soundManager.js';
+import SaveTestEventsButton from '../../../../tappi/js/tracking/SaveTestEventsButton.js';
 import VibrationTestEventRecorder from '../../../../tappi/js/tracking/VibrationTestEventRecorder.js';
 import VibrationTestInputListener from '../../../../tappi/js/tracking/VibrationTestInputListener.js';
+import VibrationManageriOS from '../../../../tappi/js/VibrationManageriOS.js';
 import arm from '../../../images/arm_png.js';
 import leg from '../../../images/leg_png.js';
 import chargesInBodySound from '../../../sounds/charges-in-body_mp3.js';
@@ -138,6 +140,12 @@ function JohnTravoltageView( model, tandem ) {
   // debugInfo query parameter
   if ( phet.chipper.queryParameters.vibration !== null ) {
 
+    // sends messages to the containing Swift app
+    const vibrationManager = new VibrationManageriOS();
+
+    // controls simulation specific vibrations and uses vibrationManager to send messages
+    vibrationController.initialize( model, this, vibrationManager );
+
     // listener that will detect pointer hits of various objects
     phet.joist.display.addInputListener( this.shapeHitDetector );
 
@@ -147,6 +155,12 @@ function JohnTravoltageView( model, tandem ) {
     // listener that watches finger/touch input and saves to the event recorder
     const vibrationTestInputListener = new VibrationTestInputListener( this.eventRecorder );
     phet.joist.display.addInputListener( vibrationTestInputListener );
+
+    // button that will save data once user is finished
+    const saveButton = new SaveTestEventsButton( vibrationManager, this.eventRecorder, {
+      leftTop: this.layoutBounds.leftTop.plusXY( 5, 5 )
+    } );
+    this.addChild( saveButton );
   }
 
   // (a11y) after travolta picks up electrons the first time, this flag will modify descriptions slightly
@@ -384,11 +398,6 @@ function JohnTravoltageView( model, tandem ) {
   this.vibratingProperty = new BooleanProperty( false, {
     tandem: tandem.createTandem( 'vibratingProperty' )
   } );
-
-  // (vibration, experimental) implements all vibration feedback for this sim
-  if ( phet.chipper.queryParameters.vibration !== null ) {
-    vibrationController.initialize( model, this );
-  }
 
   // accessibleOrder
   this.pdomPlayAreaNode.accessibleOrder = [
