@@ -183,6 +183,13 @@ function JohnTravoltageView( model, tandem ) {
       this.elapsedTime += dt;
       vibrationTestInputListener.setElapsedTime( this.elapsedTime );
     } );
+
+    // let user know that simulation is loaded, and let them know to begin reading through the PDOM
+    phet.joist.sim.isConstructionCompleteProperty.link( complete => {
+      if ( complete ) {
+        phet.joist.sim.utteranceQueue.addToBack( 'Simulation loaded. Start reading to play.' );
+      }
+    } );
   }
 
   // (a11y) after travolta picks up electrons the first time, this flag will modify descriptions slightly
