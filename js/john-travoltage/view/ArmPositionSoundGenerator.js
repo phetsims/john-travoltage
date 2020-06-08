@@ -17,8 +17,6 @@ import armPosition05Audio from '../../../sounds/arm-position-005_mp3.js';
 import armPosition06Audio from '../../../sounds/arm-position-006_mp3.js';
 import johnTravoltage from '../../johnTravoltage.js';
 
-// sounds
-
 // constants
 const NUM_SOUND_POSITIONS = 32;
 const MAX_SOUNDS_PER_ITERATION = 3; // empirically determined

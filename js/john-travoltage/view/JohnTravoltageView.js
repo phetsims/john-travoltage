@@ -54,9 +54,6 @@ import SparkNode from './SparkNode.js';
 import vibrationController from './vibrationController.js';
 import VibrationTestEvent from '../../../../tappi/js/tracking/VibrationTestEvent.js';
 
-// sounds
-
-
 const appendageLegLabelString = johnTravoltageStrings.a11y.appendages.leg.label;
 const appendageArmLabelString = johnTravoltageStrings.a11y.appendages.arm.label;
 const screenSummaryBodyDescriptionPatternString = johnTravoltageStrings.a11y.screenSummary.bodyDescriptionPattern;
