@@ -167,10 +167,10 @@ function JohnTravoltageView( model, tandem ) {
     this.addChild( saveButton );
 
     // sim specific events that we want to capture
-    model.arm.angleProperty.link( angle => {
+    model.arm.angleProperty.lazyLink( angle => {
       this.eventRecorder.addTestEvent( new VibrationTestEvent( null, null, this.elapsedTime, 'Moving Arm' ) );
     } );
-    model.leg.angleProperty.link( angle => {
+    model.leg.angleProperty.lazyLink( angle => {
       this.eventRecorder.addTestEvent( new VibrationTestEvent( null, null, this.elapsedTime, 'Moving Leg' ) );
     } );
     model.electronGroup.elementCreatedEmitter.addListener( () => {
