@@ -14,11 +14,7 @@ const JohnTravoltageQueryParameters = QueryStringMachine.getAll( {
   showDebugInfo: { type: 'flag' },
 
   // shows the accessible value text associated with the appendages on the screen view for easy reading and debugging
-  valueText: { type: 'flag' },
-
-  // Add a visualization of vibration that looks like a phone. For exploration into haptic feedback,
-  // see https://github.com/phetsims/john-travoltage/issues/337
-  vibrationChart: { type: 'flag' }
+  valueText: { type: 'flag' }
 } );
 
 johnTravoltage.register( 'JohnTravoltageQueryParameters', JohnTravoltageQueryParameters );
