@@ -56,7 +56,7 @@ class ArmPositionSoundGenerator extends SoundGenerator {
     };
 
     // connect up the sound generators
-    ratchetSounds.forEach( ratchetSound => { ratchetSound.connect( this.masterGainNode ); } );
+    ratchetSounds.forEach( ratchetSound => { ratchetSound.connect( this.soundSourceDestination ); } );
 
     // create the array containing the 'sound points', which are the arm position where a sound sample is played
     const soundPositions = [];
