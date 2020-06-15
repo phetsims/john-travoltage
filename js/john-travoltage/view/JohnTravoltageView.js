@@ -176,6 +176,15 @@ function JohnTravoltageView( model, tandem ) {
     model.dischargeStartedEmitter.addListener( () => {
       this.eventRecorder.addTestEvent( new VibrationTestEvent( null, null, this.elapsedTime, 'Discharged electrons' ) );
     } );
+    model.arm.isDraggingProperty.lazyLink( isDragging => {
+      const eventString = isDragging ? 'Arm drag start' : 'Arm drag end';
+      this.eventRecorder.addTestEvent( new VibrationTestEvent( null, null, this.elapsedTime, eventString ) );
+    } );
+    model.leg.isDraggingProperty.lazyLink( isDragging => {
+      const eventString = isDragging ? 'Leg drag start' : 'Leg drag end';
+      this.eventRecorder.addTestEvent( new VibrationTestEvent( null, null, this.elapsedTime, eventString ) );
+    } );
+
     model.stepEmitter.addListener( dt => {
       this.elapsedTime += dt;
       vibrationTestInputListener.setElapsedTime( this.elapsedTime );
