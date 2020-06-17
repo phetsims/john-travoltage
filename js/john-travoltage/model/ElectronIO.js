@@ -44,7 +44,7 @@ class ElectronIO extends ObjectIO {
    * @param {Electron} electron
    * @param {Object} fromStateObject
    */
-  static setValue( electron, fromStateObject ) {
+  static applyState( electron, fromStateObject ) {
     validate( electron, this.validator );
     assert && assert( fromStateObject.history, 'value should have history' );
     electron.history = fromStateObject.history;
