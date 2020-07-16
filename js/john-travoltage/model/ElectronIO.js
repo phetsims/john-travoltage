@@ -31,25 +31,15 @@ class ElectronIO extends ObjectIO {
 
   /**
    * @public
-   * @param {Object} stateObject
-   * @returns {Object}
-   * @override
-   */
-  static fromStateObject( stateObject ) {
-    return stateObject;
-  }
-
-  /**
-   * @public
    * @param {Electron} electron
-   * @param {Object} fromStateObject
+   * @param {Object} stateObject
    */
-  static applyState( electron, fromStateObject ) {
+  static applyState( electron, stateObject ) {
     validate( electron, this.validator );
-    assert && assert( fromStateObject.history, 'value should have history' );
-    electron.history = fromStateObject.history;
-    electron.velocity.x = fromStateObject.velocityX;
-    electron.velocity.y = fromStateObject.velocityY;
+    assert && assert( stateObject.history, 'value should have history' );
+    electron.history = stateObject.history;
+    electron.velocity.x = stateObject.velocityX;
+    electron.velocity.y = stateObject.velocityY;
 
     // Trigger a computation of screen position
     electron.historyChangedEmitter.emit();
