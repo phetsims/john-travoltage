@@ -13,7 +13,6 @@ import Vector2 from '../../../../dot/js/Vector2.js';
 import Vector2Property from '../../../../dot/js/Vector2Property.js';
 import inherit from '../../../../phet-core/js/inherit.js';
 import merge from '../../../../phet-core/js/merge.js';
-import required from '../../../../phet-core/js/required.js';
 import PhetioObject from '../../../../tandem/js/PhetioObject.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import johnTravoltage from '../../johnTravoltage.js';
@@ -38,7 +37,7 @@ function Electron( x, y, model, options ) {
   options = merge( {
 
     //{Tandem}
-    tandem: required( Tandem.REQUIRED ),
+    tandem: Tandem.REQUIRED,
     phetioType: ElectronIO,
     phetioDynamicElement: true
   }, options );
