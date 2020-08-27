@@ -136,7 +136,8 @@ function JohnTravoltageView( model, tandem ) {
 
   // code related to vibration prototype work - hidden behind a query param while we understand more about what
   // we want for this feature.
-  if ( phet.chipper.queryParameters.vibration !== null ) {
+  const vibrationParam = phet.chipper.queryParameters.vibration || JohnTravoltageQueryParameters.simVibration;
+  if ( vibrationParam !== null ) {
 
     // @private {number} - time (in seconds) that the simulation has been running
     this.elapsedTime = 0;

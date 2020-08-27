@@ -14,7 +14,15 @@ const JohnTravoltageQueryParameters = QueryStringMachine.getAll( {
   showDebugInfo: { type: 'flag' },
 
   // shows the accessible value text associated with the appendages on the screen view for easy reading and debugging
-  valueText: { type: 'flag' }
+  valueText: { type: 'flag' },
+
+  // a vibration design that is custom to the john-travoltage simulation - initialize-globals
+  // aready has a x'vibration' query parameter, so this is named to avoid a conflict
+  simVibration: {
+    type: 'string',
+    defaultValue: null,
+    validValues: [ null, 'prototypeDesign1' ]
+  }
 } );
 
 johnTravoltage.register( 'JohnTravoltageQueryParameters', JohnTravoltageQueryParameters );
