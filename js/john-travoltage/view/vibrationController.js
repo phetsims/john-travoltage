@@ -257,7 +257,9 @@ class VibrationController {
       } );
       model.dischargeEndedEmitter.addListener( () => {
         vibrationManager.stop();
-        runningChargeHoldPattern = true;
+
+        // we can start the 'hold' pattern again, if discharge didn't get rid of all electrons
+        runningChargeHoldPattern = false;
       } );
     }
   }
