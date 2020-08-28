@@ -189,7 +189,7 @@ class VibrationController {
       let timeSpentVibrating = 0;
 
       // amount of time to vibrate per electron charge pickup
-      const vibrationTimePerCharge = 0.2;
+      const vibrationTimePerCharge = 0.1;
 
       // for as long as there are charges in the body, vibrate forever - in step function because we want to
       // start vibration again after we may have stopped it from dischargeEndedEmitter
