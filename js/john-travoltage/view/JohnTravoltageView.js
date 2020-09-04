@@ -63,6 +63,9 @@ const screenSummaryBodyDescriptionPatternString = johnTravoltageStrings.a11y.scr
 const electronsSingleDescriptionString = johnTravoltageStrings.a11y.electrons.singleDescription;
 const electronsMultipleDescriptionPatternString = johnTravoltageStrings.a11y.electrons.multipleDescriptionPattern;
 const descriptionWithChargePatternString = johnTravoltageStrings.a11y.screenSummary.descriptionWithChargePattern;
+const selfVoicingContentHintString = johnTravoltageStrings.a11y.selfVoicing.contentHint;
+const selfVoicingContentOverviewString = johnTravoltageStrings.a11y.selfVoicing.contentOverview;
+
 
 // constants
 const OUCH_EXCLAMATION_DELAY = 0.5; // in seconds
@@ -258,7 +261,7 @@ function JohnTravoltageView( model, tandem ) {
   this.addChild( electronLayer );
 
   const updateDescription = function() {
-    summaryNode.descriptionContent = this.createSceneDescription();
+    summaryNode.descriptionContent = self.createSceneDescription();
   };
 
   // electrons observable array exists for the lifetime of the sim, so there is no need to remove these listeners
@@ -439,10 +442,10 @@ function JohnTravoltageView( model, tandem ) {
     const quickControl = new SelfVoicingQuickControl( webSpeaker, {
       createDetailsContent: this.createSceneDescription.bind( this ),
       createHintContent: () => {
-        return 'Move arm or leg to play.';
+        return selfVoicingContentHintString;
       },
       createOverviewContent: () => {
-        return 'John Travoltage is an interactive sim. It changes as you play with it. It has a Play Area and a Control Area.';
+        return selfVoicingContentOverviewString;
       }
     } );
     quickControl.leftBottom = this.layoutBounds.leftBottom.plusXY( 10, 10 );

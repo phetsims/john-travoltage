@@ -168,6 +168,12 @@
     "selfVoicing": {
       "appendageObjectResponsePattern": {
         "value": "{{label}} {{valueText}}"
+      },
+      "contentHint": {
+        "value": "Move arm or leg to play."
+      },
+      "contentOverview": {
+        "value": "John Travoltage is an interactive sim. It changes as you play with it. It has a Play Area and a Control Area."
       }
     }
   }
