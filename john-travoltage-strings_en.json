@@ -164,6 +164,11 @@
       "moveHandOrFootDescription": {
         "value": "Move hand or foot with left and right arrow keys."
       }
+    },
+    "selfVoicing": {
+      "appendageObjectResponsePattern": {
+        "value": "{{label}} {{valueText}}"
+      }
     }
   }
 }

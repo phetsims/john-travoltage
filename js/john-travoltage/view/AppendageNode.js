@@ -20,6 +20,7 @@ import Shape from '../../../../kite/js/Shape.js';
 import inherit from '../../../../phet-core/js/inherit.js';
 import merge from '../../../../phet-core/js/merge.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
+import levelSpeakerModel from '../../../../scenery-phet/js/accessibility/speaker/levelSpeakerModel.js';
 import FocusHighlightPath from '../../../../scenery/js/accessibility/FocusHighlightPath.js';
 import SimpleDragHandler from '../../../../scenery/js/input/SimpleDragHandler.js';
 import Image from '../../../../scenery/js/nodes/Image.js';
@@ -38,6 +39,8 @@ const awayFromDoorknobPatternString = johnTravoltageStrings.a11y.appendages.arm.
 const fartherAwayPatternString = johnTravoltageStrings.a11y.appendages.arm.directions.fartherAwayPattern;
 const negativePatternString = johnTravoltageStrings.a11y.appendages.negativePattern;
 const positionPatternString = johnTravoltageStrings.a11y.appendages.positionPattern;
+const selfVoicingObjectResponsePatternString = johnTravoltageStrings.a11y.selfVoicing.appendageObjectResponsePattern;
+
 
 // constants
 const DIRECTION_DESCRIPTIONS = {
@@ -305,6 +308,22 @@ function AppendageNode( appendage, image, dx, dy, angleOffset, rangeMap, tandem,
   } );
 
   this.initializePosition();
+
+  // prototype code related to the self-voicing work
+  if ( phet.chipper.queryParameters.supportsSelfVoicing ) {
+
+    // when the arm stops dragging, describe its position
+    appendage.isDraggingProperty.lazyLink( isDragging => {
+      if ( !isDragging ) {
+        const objectResponse = StringUtils.fillIn( selfVoicingObjectResponsePatternString, {
+          label: this.labelContent,
+          valueText: this.ariaValueText
+        } );
+
+        levelSpeakerModel.speakAllResponses( objectResponse, '', '' );
+      }
+    } );
+  }
 }
 
 johnTravoltage.register( 'AppendageNode', AppendageNode );

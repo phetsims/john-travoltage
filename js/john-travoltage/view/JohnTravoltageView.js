@@ -18,8 +18,11 @@ import Shape from '../../../../kite/js/Shape.js';
 import inherit from '../../../../phet-core/js/inherit.js';
 import platform from '../../../../phet-core/js/platform.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
+import levelSpeakerModel from '../../../../scenery-phet/js/accessibility/speaker/levelSpeakerModel.js';
+import SelfVoicingQuickControl from '../../../../scenery-phet/js/accessibility/speaker/SelfVoicingQuickControl.js';
 import ResetAllButton from '../../../../scenery-phet/js/buttons/ResetAllButton.js';
 import PDOMPeer from '../../../../scenery/js/accessibility/pdom/PDOMPeer.js';
+import webSpeaker from '../../../../scenery/js/accessibility/speaker/webSpeaker.js';
 import Circle from '../../../../scenery/js/nodes/Circle.js';
 import Line from '../../../../scenery/js/nodes/Line.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
@@ -199,8 +202,8 @@ function JohnTravoltageView( model, tandem ) {
     } );
   }
 
-  // (a11y) after travolta picks up electrons the first time, this flag will modify descriptions slightly
-  let includeElectronInfo = false;
+  // @private (a11y) after travolta picks up electrons the first time, this flag will modify descriptions slightly
+  this.includeElectronInfo = false;
 
   // Show the dotted lines again when the sim is reset
   model.resetEmitter.addListener( function() {
@@ -211,7 +214,7 @@ function JohnTravoltageView( model, tandem ) {
       model.arm.borderVisibleProperty.set( true );
     }
 
-    includeElectronInfo = false;
+    self.includeElectronInfo = false;
   } );
 
   // store the region when the discharge starts
@@ -255,40 +258,13 @@ function JohnTravoltageView( model, tandem ) {
   this.addChild( electronLayer );
 
   const updateDescription = function() {
-    let chargeDescription;
-    let sceneDescription;
-
-    // description for John - this will always be in the screen summary
-    const positionDescription = AppendageNode.getPositionDescription( self.arm.a11yAngleToPosition( model.arm.angleProperty.get() ), AppendageRangeMaps.armMap.regions );
-    const johnDescription = StringUtils.fillIn( screenSummaryBodyDescriptionPatternString, { position: positionDescription } );
-
-    // if there are any charges, a description of the charge will be prepended to the summary
-    if ( includeElectronInfo ) {
-      if ( model.electronGroup.count === 1 ) {
-        chargeDescription = electronsSingleDescriptionString;
-      }
-      else {
-        chargeDescription = StringUtils.fillIn( electronsMultipleDescriptionPatternString, {
-          value: model.electronGroup.count
-        } );
-      }
-
-      sceneDescription = StringUtils.fillIn( descriptionWithChargePatternString, {
-        charge: chargeDescription,
-        johnDescription: johnDescription
-      } );
-    }
-    else {
-      sceneDescription = johnDescription;
-    }
-
-    summaryNode.descriptionContent = sceneDescription;
+    summaryNode.descriptionContent = this.createSceneDescription();
   };
 
   // electrons observable array exists for the lifetime of the sim, so there is no need to remove these listeners
   model.electronGroup.elementCreatedEmitter.addListener( () => {
     updateDescription();
-    includeElectronInfo = true;
+    self.includeElectronInfo = true;
   } );
 
   model.electronGroup.elementDisposedEmitter.addListener( () => {
@@ -445,6 +421,33 @@ function JohnTravoltageView( model, tandem ) {
   this.pdomControlAreaNode.accessibleOrder = [
     resetAllButton
   ];
+
+  // prototype code related to the self-voicing work
+  if ( phet.chipper.queryParameters.supportsSelfVoicing ) {
+    webSpeaker.initialize();
+
+    // listener that will detect pointer hits of various objects
+    phet.joist.display.addInputListener( this.shapeHitDetector );
+
+    // for now, whenever there is an alert through the utterace queue, just speak that
+    phet.joist.sim.utteranceQueue.ariaHerald.announcingEmitter.addListener( content => {
+      levelSpeakerModel.speakAllResponses( '', content, '', {
+        withCancel: false
+      } );
+    } );
+
+    const quickControl = new SelfVoicingQuickControl( webSpeaker, {
+      createDetailsContent: this.createSceneDescription.bind( this ),
+      createHintContent: () => {
+        return 'Move arm or leg to play.';
+      },
+      createOverviewContent: () => {
+        return 'John Travoltage is an interactive sim. It changes as you play with it. It has a Play Area and a Control Area.';
+      }
+    } );
+    quickControl.leftBottom = this.layoutBounds.leftBottom.plusXY( 10, 10 );
+    this.addChild( quickControl );
+  }
 }
 
 johnTravoltage.register( 'JohnTravoltageView', JohnTravoltageView );
@@ -458,6 +461,43 @@ inherit( ScreenView, JohnTravoltageView, {
    */
   step: function( dt ) {
     this.footDragSoundGenerator.step( dt );
+  },
+
+  /**
+   * Create the description of the simulation scene, describing John's hand and leg, and the number of charges
+   * in his body.
+   *
+   * @returns {string}
+   */
+  createSceneDescription: function() {
+    let chargeDescription;
+    let sceneDescription;
+
+    // description for John - this will always be in the screen summary
+    const positionDescription = AppendageNode.getPositionDescription( this.arm.a11yAngleToPosition( this.model.arm.angleProperty.get() ), AppendageRangeMaps.armMap.regions );
+    const johnDescription = StringUtils.fillIn( screenSummaryBodyDescriptionPatternString, { position: positionDescription } );
+
+    // if there are any charges, a description of the charge will be prepended to the summary
+    if ( this.includeElectronInfo ) {
+      if ( this.model.electronGroup.count === 1 ) {
+        chargeDescription = electronsSingleDescriptionString;
+      }
+      else {
+        chargeDescription = StringUtils.fillIn( electronsMultipleDescriptionPatternString, {
+          value: this.model.electronGroup.count
+        } );
+      }
+
+      sceneDescription = StringUtils.fillIn( descriptionWithChargePatternString, {
+        charge: chargeDescription,
+        johnDescription: johnDescription
+      } );
+    }
+    else {
+      sceneDescription = johnDescription;
+    }
+
+    return sceneDescription;
   },
 
   /**
