@@ -49,7 +49,7 @@ class ElectronIO extends ObjectIO {
 ElectronIO.validator = { isValidValue: v => v instanceof phet.johnTravoltage.Electron };
 ElectronIO.documentation = 'Electron in John\'s body';
 ElectronIO.typeName = 'ElectronIO';
-ObjectIO.validateSubtype( ElectronIO );
+ObjectIO.validateIOType( ElectronIO );
 
 johnTravoltage.register( 'ElectronIO', ElectronIO );
 export default ElectronIO;
