@@ -19,8 +19,10 @@ import inherit from '../../../../phet-core/js/inherit.js';
 import platform from '../../../../phet-core/js/platform.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import levelSpeakerModel from '../../../../scenery-phet/js/accessibility/speaker/levelSpeakerModel.js';
+import SelfVoicingInputListener from '../../../../scenery-phet/js/accessibility/speaker/SelfVoicingInputListener.js';
 import SelfVoicingQuickControl from '../../../../scenery-phet/js/accessibility/speaker/SelfVoicingQuickControl.js';
 import ResetAllButton from '../../../../scenery-phet/js/buttons/ResetAllButton.js';
+import sceneryPhetStrings from '../../../../scenery-phet/js/sceneryPhetStrings.js';
 import PDOMPeer from '../../../../scenery/js/accessibility/pdom/PDOMPeer.js';
 import webSpeaker from '../../../../scenery/js/accessibility/speaker/webSpeaker.js';
 import Circle from '../../../../scenery/js/nodes/Circle.js';
@@ -64,8 +66,11 @@ const electronsSingleDescriptionString = johnTravoltageStrings.a11y.electrons.si
 const electronsMultipleDescriptionPatternString = johnTravoltageStrings.a11y.electrons.multipleDescriptionPattern;
 const descriptionWithChargePatternString = johnTravoltageStrings.a11y.screenSummary.descriptionWithChargePattern;
 const selfVoicingContentHintString = johnTravoltageStrings.a11y.selfVoicing.contentHint;
+const selfVoicingDetailedContentHintString = johnTravoltageStrings.a11y.selfVoicing.detailedContentHint;
 const selfVoicingContentOverviewString = johnTravoltageStrings.a11y.selfVoicing.contentOverview;
-
+const selfVoicingObjectResponsePatternString = johnTravoltageStrings.a11y.selfVoicing.appendageObjectResponsePattern;
+const resetAllString = sceneryPhetStrings.a11y.resetAll.label;
+const resetAllAlertString = sceneryPhetStrings.a11y.resetAll.alert;
 
 // constants
 const OUCH_EXCLAMATION_DELAY = 0.5; // in seconds
@@ -125,7 +130,10 @@ function JohnTravoltageView( model, tandem ) {
   // @public (read-only) arm and leg - only interactive elements
   this.leg = new AppendageNode( model.leg, leg, 25, 28, Math.PI / 2 * 0.7, AppendageRangeMaps.legMap,
     tandem.createTandem( 'legNode' ), {
-      labelContent: appendageLegLabelString
+      labelContent: appendageLegLabelString,
+
+      // prototype self-voicing feature
+      selfVoicingHint: selfVoicingContentHintString
     } );
   this.addChild( this.leg );
 
@@ -134,7 +142,11 @@ function JohnTravoltageView( model, tandem ) {
   this.arm = new AppendageNode( model.arm, arm, 4, 45, -0.1, AppendageRangeMaps.armMap,
     tandem.createTandem( 'armNode' ), {
       keyboardMidPointOffset: 0.41,
-      labelContent: appendageArmLabelString
+      labelContent: appendageArmLabelString,
+
+      // prototype self-voicing feature
+      selfVoicingLabel: 'Hand',
+      selfVoicingHint: selfVoicingDetailedContentHintString
     } );
   this.addChild( this.arm );
 
@@ -251,14 +263,13 @@ function JohnTravoltageView( model, tandem ) {
   // pdom - the ResetAllButton is alone in a control panel in this sim
   this.addChild( resetAllButton );
 
-  // Use a layer for electrons so it has only one pickable flag, perhaps may improve performance compared to iterating
-  // over all electrons to see if they are pickable?
-  // Split layers before particle layer for performance
-  const electronLayer = new ElectronLayerNode( model, this.arm, JohnTravoltageModel.MAX_ELECTRONS, tandem.createTandem( 'electronLayer' ), {
+  // @private - Use a layer for electrons so it has only one pickable flag, perhaps may improve performance compared
+  // to iterating over all electrons to see if they are pickable? Split layers before particle layer for performance.
+  this.electronLayer = new ElectronLayerNode( model, this.arm, JohnTravoltageModel.MAX_ELECTRONS, tandem.createTandem( 'electronLayer' ), {
     layerSplit: true,
     pickable: false
   } );
-  this.addChild( electronLayer );
+  this.addChild( this.electronLayer );
 
   const updateDescription = function() {
     summaryNode.descriptionContent = self.createSceneDescription();
@@ -419,7 +430,7 @@ function JohnTravoltageView( model, tandem ) {
     this.leg,
     this.arm,
     sparkNode,
-    electronLayer
+    this.electronLayer
   ];
   this.pdomControlAreaNode.accessibleOrder = [
     resetAllButton
@@ -432,17 +443,69 @@ function JohnTravoltageView( model, tandem ) {
     // listener that will detect pointer hits of various objects
     phet.joist.display.addInputListener( this.shapeHitDetector );
 
-    // for now, whenever there is an alert through the utterace queue, just speak that
-    phet.joist.sim.utteranceQueue.ariaHerald.announcingEmitter.addListener( content => {
-      levelSpeakerModel.speakAllResponses( '', content, '', {
-        withCancel: false
-      } );
+    // describe the leg and any charge changes in result to the user dragging
+    let countOnDrag;
+    model.leg.isDraggingProperty.lazyLink( isDragging => {
+      if ( isDragging ) {
+        countOnDrag = model.electronGroup.count;
+      }
+      if ( !isDragging ) {
+        const objectResponse = StringUtils.fillIn( selfVoicingObjectResponsePatternString, {
+          label: appendageLegLabelString,
+          valueText: this.leg.ariaValueText
+        } );
+
+        let qualitativeDescription;
+        let pickupAlert;
+        const currentCharge = model.electronGroup.count;
+        if ( countOnDrag !== currentCharge ) {
+          qualitativeDescription = this.electronLayer.getQualitativeChargeDescription( currentCharge );
+
+          pickupAlert = StringUtils.fillIn( '{{qualitativeDescription}} electrons on body.', {
+            qualitativeDescription: qualitativeDescription
+          } );
+        }
+
+        levelSpeakerModel.speakAllResponses( objectResponse, pickupAlert, selfVoicingContentHintString );
+      }
+    } );
+
+    // describe the new arm position in respnse to user dragging - electron discharge is described
+    // by the ElectronLayerNode
+    model.arm.isDraggingProperty.lazyLink( isDragging => {
+      if ( !isDragging ) {
+        const objectResponse = StringUtils.fillIn( selfVoicingObjectResponsePatternString, {
+          label: 'Hand',
+          valueText: this.arm.ariaValueText
+        } );
+
+        levelSpeakerModel.speakAllResponses( objectResponse, '', selfVoicingDetailedContentHintString );
+      }
+    } );
+
+    resetAllButton.addInputListener( new SelfVoicingInputListener( {
+      onFocusIn: () => {
+
+        // on focus, speak the name of the reset all button
+        levelSpeakerModel.speakAllResponses( resetAllString );
+      },
+      highlightTarget: resetAllButton
+    } ) );
+
+    model.resetEmitter.addListener( () => {
+
+      // when pressed, self-voicing content should speak both the label and the alert
+      levelSpeakerModel.speakAllResponses( resetAllString, resetAllAlertString );
     } );
 
     const quickControl = new SelfVoicingQuickControl( webSpeaker, {
-      createDetailsContent: this.createSceneDescription.bind( this ),
+      createDetailsContent: this.createSelfVoicingSceneDescription.bind( this ),
       createHintContent: () => {
-        return selfVoicingContentHintString;
+        let hintString = selfVoicingContentHintString;
+        if ( model.electronGroup.count >= 10 ) {
+          hintString = selfVoicingDetailedContentHintString;
+        }
+        return hintString;
       },
       createOverviewContent: () => {
         return selfVoicingContentOverviewString;
@@ -490,6 +553,36 @@ inherit( ScreenView, JohnTravoltageView, {
           value: this.model.electronGroup.count
         } );
       }
+
+      sceneDescription = StringUtils.fillIn( descriptionWithChargePatternString, {
+        charge: chargeDescription,
+        johnDescription: johnDescription
+      } );
+    }
+    else {
+      sceneDescription = johnDescription;
+    }
+
+    return sceneDescription;
+  },
+
+  /**
+   * Create the self-voicing scene descriptoin for the "Hint Please" button.
+   * Similar to the PDOM description, but uses a qualitative description of the
+   * charge.
+   *
+   * @private
+   * @returns {string}
+   */
+  createSelfVoicingSceneDescription: function() {
+    const positionDescription = AppendageNode.getPositionDescription( this.arm.a11yAngleToPosition( this.model.arm.angleProperty.get() ), AppendageRangeMaps.armMap.regions );
+    const johnDescription = StringUtils.fillIn( screenSummaryBodyDescriptionPatternString, { position: positionDescription } );
+
+    let sceneDescription;
+    if ( this.includeElectronInfo ) {
+      const chargeDescription = StringUtils.fillIn( 'John has {{quantity}} electrons on his body.', {
+        quantity: this.electronLayer.getQualitativeChargeDescription( this.model.electronGroup.count )
+      } );
 
       sceneDescription = StringUtils.fillIn( descriptionWithChargePatternString, {
         charge: chargeDescription,

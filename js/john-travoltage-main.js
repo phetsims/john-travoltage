@@ -9,6 +9,7 @@
 
 import Sim from '../../joist/js/Sim.js';
 import simLauncher from '../../joist/js/simLauncher.js';
+import WebSpeechDialogContent from '../../scenery-phet/js/accessibility/speaker/WebSpeechDialogContent.js';
 import Tandem from '../../tandem/js/Tandem.js';
 import vibrationManager from '../../tappi/js/vibrationManager.js';
 import johnTravoltageStrings from './johnTravoltageStrings.js';
@@ -44,6 +45,7 @@ const simOptions = {
             'to convert this simulation to HTML5.'
   },
   keyboardHelpNode: keyboardHelpContent,
+  createOptionsDialogContent: phet.chipper.queryParameters.supportsSelfVoicing ? () => new WebSpeechDialogContent() : null,
 
   // protoypal vibration feedback, see https://github.com/phetsims/john-travoltage/issues/337
   vibrationManager: vibrationManager

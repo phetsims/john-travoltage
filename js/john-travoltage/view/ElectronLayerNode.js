@@ -11,14 +11,25 @@
 
 import inherit from '../../../../phet-core/js/inherit.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
+import levelSpeakerModel from '../../../../scenery-phet/js/accessibility/speaker/levelSpeakerModel.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Utterance from '../../../../utterance-queue/js/Utterance.js';
 import johnTravoltage from '../../johnTravoltage.js';
 import johnTravoltageStrings from '../../johnTravoltageStrings.js';
 import ElectronNode from './ElectronNode.js';
+import Range from '../../../../dot/js/Range.js';
 
 const electronsTotalDescriptionPatternString = johnTravoltageStrings.a11y.electrons.totalDescriptionPattern;
 const electronsTotalAfterDischargePatternString = johnTravoltageStrings.a11y.electrons.totalAfterDischargePattern;
+
+const QUALITATIVE_DESCRIPTION_MAP = new Map();
+QUALITATIVE_DESCRIPTION_MAP.set( new Range( 0, 0 ), 'No' );
+QUALITATIVE_DESCRIPTION_MAP.set( new Range( 1, 10 ), 'A few' );
+QUALITATIVE_DESCRIPTION_MAP.set( new Range( 11, 35 ), 'Some' );
+QUALITATIVE_DESCRIPTION_MAP.set( new Range( 36, 49 ), 'A bunch of' );
+QUALITATIVE_DESCRIPTION_MAP.set( new Range( 50, 75 ), 'A large amount of' );
+QUALITATIVE_DESCRIPTION_MAP.set( new Range( 76, 99 ), 'A huge amount of' );
+QUALITATIVE_DESCRIPTION_MAP.set( new Range( 100, Number.POSITIVE_INFINITY ), 'Max amount of' );
 
 /**
  * @param {JohnTravoltageModel} model
@@ -64,6 +75,14 @@ function ElectronLayerNode( model, armNode, maxElectrons, tandem ) {
         position: position,
         region: regionText
       } );
+
+      const selfVoicingAlertString = StringUtils.fillIn( '{{qualitativeDescription}} electrons discharged.', {
+        qualitativeDescription: self.getQualitativeChargeDescription( priorCharge - currentCharge )
+      } );
+
+      levelSpeakerModel.speakAllResponses( '', selfVoicingAlertString, '', {
+        withCancel: false
+      } );
     }
 
     electronUtterance.alert = alertString;
@@ -100,5 +119,26 @@ function ElectronLayerNode( model, armNode, maxElectrons, tandem ) {
 
 johnTravoltage.register( 'ElectronLayerNode', ElectronLayerNode );
 
-inherit( Node, ElectronLayerNode );
+inherit( Node, ElectronLayerNode, {
+
+  /**
+   * Get a qualitative description of the charge value. Will return something like
+   * "A few" or "A large amount of", see QUALITATIVE_DESCRIPTION_MAP above.
+   * @public
+   *
+   * @param {number} charge
+   * @returns {string}
+   */
+  getQualitativeChargeDescription( charge ) {
+    let qualitativeDescription;
+    QUALITATIVE_DESCRIPTION_MAP.forEach( ( value, key ) => {
+      if ( key.contains( charge ) ) {
+        qualitativeDescription = value;
+      }
+    } );
+
+    assert && assert( qualitativeDescription, 'no description found for charge' );
+    return qualitativeDescription;
+  }
+} );
 export default ElectronLayerNode;

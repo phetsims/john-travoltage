@@ -21,6 +21,7 @@ import inherit from '../../../../phet-core/js/inherit.js';
 import merge from '../../../../phet-core/js/merge.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import levelSpeakerModel from '../../../../scenery-phet/js/accessibility/speaker/levelSpeakerModel.js';
+import SelfVoicingInputListener from '../../../../scenery-phet/js/accessibility/speaker/SelfVoicingInputListener.js';
 import FocusHighlightPath from '../../../../scenery/js/accessibility/FocusHighlightPath.js';
 import SimpleDragHandler from '../../../../scenery/js/input/SimpleDragHandler.js';
 import Image from '../../../../scenery/js/nodes/Image.js';
@@ -76,7 +77,15 @@ function AppendageNode( appendage, image, dx, dy, angleOffset, rangeMap, tandem,
     labelTagName: 'label',
     appendLabel: true,
     containerTagName: 'div',
-    keyboardMidPointOffset: 0 // adjust center position of accessible slider, to align important positions at center
+    keyboardMidPointOffset: 0, // adjust center position of accessible slider, to align important positions at center
+
+    // self-voicing
+    // {string|null} - label used for the self voicing content, if null we will use the
+    // labelContent from the PDOM
+    selfVoicingLabel: null,
+
+    // {string|null} - hint spoken to guide the user toward an interaction
+    selfVoicingHint: null
   }, options );
 
   Node.call( this, options );
@@ -312,17 +321,19 @@ function AppendageNode( appendage, image, dx, dy, angleOffset, rangeMap, tandem,
   // prototype code related to the self-voicing work
   if ( phet.chipper.queryParameters.supportsSelfVoicing ) {
 
-    // when the arm stops dragging, describe its position
-    appendage.isDraggingProperty.lazyLink( isDragging => {
-      if ( !isDragging ) {
+    this.addInputListener( new SelfVoicingInputListener( {
+      onFocusIn: () => {
+
+        // on focus, we will read name, value, and hint
         const objectResponse = StringUtils.fillIn( selfVoicingObjectResponsePatternString, {
-          label: this.labelContent,
+          label: options.selfVoicingLabel ? options.selfVoicingLabel : this.labelContent,
           valueText: this.ariaValueText
         } );
 
-        levelSpeakerModel.speakAllResponses( objectResponse, '', '' );
-      }
-    } );
+        levelSpeakerModel.speakAllResponses( objectResponse, '', options.selfVoicingHint );
+      },
+      highlightTarget: this
+    } ) );
   }
 }
 
