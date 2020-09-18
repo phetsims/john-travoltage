@@ -9,7 +9,6 @@
 
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
-import DerivedPropertyIO from '../../../../axon/js/DerivedPropertyIO.js';
 import Emitter from '../../../../axon/js/Emitter.js';
 import Utils from '../../../../dot/js/Utils.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
@@ -168,7 +167,7 @@ function JohnTravoltageModel( tandem ) {
   // true when the foot is in contact with the carpet
   this.shoeOnCarpetProperty = new DerivedProperty( [ this.leg.angleProperty ],
     angle => angle > FOOT_ON_CARPET_MIN_ANGLE && angle < FOOT_ON_CARPET_MAX_ANGLE, {
-      phetioType: DerivedPropertyIO( BooleanIO ),
+      phetioType: DerivedProperty.DerivedPropertyIO( BooleanIO ),
       tandem: tandem.createTandem( 'shoeOnCarpetProperty' )
     } );
 
