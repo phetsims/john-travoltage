@@ -167,7 +167,7 @@
     },
     "selfVoicing": {
       "appendageObjectResponsePattern": {
-        "value": "{{label}} {{valueText}}"
+        "value": "{{label}}: {{valueText}}"
       },
       "contentHint": {
         "value": "Swing John's leg to rub his foot on the rug."

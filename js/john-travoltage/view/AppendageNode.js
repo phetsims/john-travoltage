@@ -288,7 +288,7 @@ function AppendageNode( appendage, image, dx, dy, angleOffset, rangeMap, tandem,
       appendage.isDraggingProperty.set( false );
     },
     a11yCreateAriaValueText: function( formattedValue, sliderValue, oldSliderValue ) {
-      return self.getTextFromPosition( sliderValue, oldSliderValue );
+      return self.createAriaValueText( sliderValue, oldSliderValue );
     },
     roundToStepSize: true
   };
@@ -334,6 +334,14 @@ function AppendageNode( appendage, image, dx, dy, angleOffset, rangeMap, tandem,
       },
       highlightTarget: this
     } ) );
+
+    // for the self-voicing feature we want a different value-text that does
+    // not include the position
+    this.selfVoicingValueText = null;
+    sliderProperty.link( ( value, oldValue ) => {
+      this.selfVoicingValueText = this.getTextFromPosition( value, oldValue );
+      console.log( this.selfVoicingValueText );
+    } );
   }
 }
 
@@ -382,9 +390,22 @@ inherit( Node, AppendageNode, {
       valueDescription = newRegion.text;
     }
 
+    return valueDescription;
+  },
+
+  /**
+   * Get a description of the value of the hand position, with an associated numerical value.
+   * @param position
+   * @param previousPosition
+   * @param includeDirection
+   * @returns {string}
+   */
+  createAriaValueText: function( position, previousPosition, includeDirection ) {
+
     // get value with 'negative' so VoiceOver reads it correctly
     const positionWithNegative = this.getValueWithNegativeString( position );
 
+    const valueDescription = this.getTextFromPosition( position, previousPosition, includeDirection );
     return StringUtils.fillIn( positionPatternString, {
       value: positionWithNegative,
       description: valueDescription
@@ -426,7 +447,7 @@ inherit( Node, AppendageNode, {
    */
   resetAriaValueText: function() {
     const sliderValue = this.a11yAngleToPosition( this.model.angleProperty.get() );
-    this.ariaValueText = this.getTextFromPosition( sliderValue, sliderValue );
+    this.ariaValueText = this.createAriaValueText( sliderValue, sliderValue );
   },
 
   /**

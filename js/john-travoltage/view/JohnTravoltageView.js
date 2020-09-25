@@ -452,7 +452,7 @@ function JohnTravoltageView( model, tandem ) {
       if ( !isDragging ) {
         const objectResponse = StringUtils.fillIn( selfVoicingObjectResponsePatternString, {
           label: appendageLegLabelString,
-          valueText: this.leg.ariaValueText
+          valueText: this.leg.selfVoicingValueText
         } );
 
         let qualitativeDescription;
@@ -476,7 +476,7 @@ function JohnTravoltageView( model, tandem ) {
       if ( !isDragging ) {
         const objectResponse = StringUtils.fillIn( selfVoicingObjectResponsePatternString, {
           label: 'Hand',
-          valueText: this.arm.ariaValueText
+          valueText: this.arm.selfVoicingValueText
         } );
 
         levelSpeakerModel.speakAllResponses( objectResponse, '', selfVoicingDetailedContentHintString );
