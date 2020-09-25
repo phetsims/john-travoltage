@@ -327,7 +327,7 @@ function AppendageNode( appendage, image, dx, dy, angleOffset, rangeMap, tandem,
         // on focus, we will read name, value, and hint
         const objectResponse = StringUtils.fillIn( selfVoicingObjectResponsePatternString, {
           label: options.selfVoicingLabel ? options.selfVoicingLabel : this.labelContent,
-          valueText: this.ariaValueText
+          valueText: this.selfVoicingValueText
         } );
 
         levelSpeakerModel.speakAllResponses( objectResponse, '', options.selfVoicingHint );
@@ -340,7 +340,6 @@ function AppendageNode( appendage, image, dx, dy, angleOffset, rangeMap, tandem,
     this.selfVoicingValueText = null;
     sliderProperty.link( ( value, oldValue ) => {
       this.selfVoicingValueText = this.getTextFromPosition( value, oldValue );
-      console.log( this.selfVoicingValueText );
     } );
   }
 }
