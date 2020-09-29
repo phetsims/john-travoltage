@@ -21,7 +21,6 @@ import StringIO from '../../../../tandem/js/types/StringIO.js';
 import johnTravoltage from '../../johnTravoltage.js';
 import Arm from './Arm.js';
 import Electron from './Electron.js';
-import ElectronIO from './ElectronIO.js';
 import Leg from './Leg.js';
 import LineSegment from './LineSegment.js';
 
@@ -147,7 +146,7 @@ function JohnTravoltageModel( tandem ) {
     return new Electron( point.x, point.y, this, { tandem: tandem } );
   }, [], {
     tandem: tandem.createTandem( 'electronGroup' ),
-    phetioType: PhetioGroupIO( ElectronIO )
+    phetioType: PhetioGroupIO( Electron.ElectronIO )
   } );
 
   this.arm = new Arm( tandem.createTandem( 'arm' ) );

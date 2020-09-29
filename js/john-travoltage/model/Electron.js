@@ -15,8 +15,8 @@ import inherit from '../../../../phet-core/js/inherit.js';
 import merge from '../../../../phet-core/js/merge.js';
 import PhetioObject from '../../../../tandem/js/PhetioObject.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
+import IOType from '../../../../tandem/js/types/IOType.js';
 import johnTravoltage from '../../johnTravoltage.js';
-import ElectronIO from './ElectronIO.js';
 
 //If this value is 1.0, there is no friction.  The value is what the velocity is multiplied by at every step.
 const frictionFactor = 0.98;
@@ -38,7 +38,7 @@ function Electron( x, y, model, options ) {
 
     //{Tandem}
     tandem: Tandem.REQUIRED,
-    phetioType: ElectronIO,
+    phetioType: Electron.ElectronIO,
     phetioDynamicElement: true
   }, options );
   PhetioObject.call( this, options );
@@ -249,6 +249,25 @@ inherit( PhetioObject, Electron, {
       // Notify observers anyways so the electron will redraw at the right leg angle
       this.positionProperty.notifyListenersStatic();
     }
+  }
+} );
+
+Electron.ElectronIO = new IOType( 'ElectronIO', {
+  isValidValue: v => v instanceof phet.johnTravoltage.Electron,
+  documentation: 'Electron in John\'s body',
+  toStateObject: electron => ( {
+    history: electron.history,
+    velocityX: electron.velocity.x,
+    velocityY: electron.velocity.y
+  } ),
+  applyState: ( electron, stateObject ) => {
+    assert && assert( stateObject.history, 'value should have history' );
+    electron.history = stateObject.history;
+    electron.velocity.x = stateObject.velocityX;
+    electron.velocity.y = stateObject.velocityY;
+
+    // Trigger a computation of screen position
+    electron.historyChangedEmitter.emit();
   }
 } );
 
