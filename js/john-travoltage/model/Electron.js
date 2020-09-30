@@ -253,7 +253,7 @@ inherit( PhetioObject, Electron, {
 } );
 
 Electron.ElectronIO = new IOType( 'ElectronIO', {
-  isValidValue: v => v instanceof phet.johnTravoltage.Electron,
+  valueType: Electron,
   documentation: 'Electron in John\'s body',
   toStateObject: electron => ( {
     history: electron.history,
