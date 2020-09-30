@@ -15,7 +15,6 @@ import Vector2 from '../../../../dot/js/Vector2.js';
 import Shape from '../../../../kite/js/Shape.js';
 import inherit from '../../../../phet-core/js/inherit.js';
 import PhetioGroup from '../../../../tandem/js/PhetioGroup.js';
-import PhetioGroupIO from '../../../../tandem/js/PhetioGroupIO.js';
 import BooleanIO from '../../../../tandem/js/types/BooleanIO.js';
 import StringIO from '../../../../tandem/js/types/StringIO.js';
 import johnTravoltage from '../../johnTravoltage.js';
@@ -146,7 +145,7 @@ function JohnTravoltageModel( tandem ) {
     return new Electron( point.x, point.y, this, { tandem: tandem } );
   }, [], {
     tandem: tandem.createTandem( 'electronGroup' ),
-    phetioType: PhetioGroupIO( Electron.ElectronIO )
+    phetioType: PhetioGroup.PhetioGroupIO( Electron.ElectronIO )
   } );
 
   this.arm = new Arm( tandem.createTandem( 'arm' ) );
