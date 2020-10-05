@@ -67,10 +67,11 @@ const electronsMultipleDescriptionPatternString = johnTravoltageStrings.a11y.ele
 const descriptionWithChargePatternString = johnTravoltageStrings.a11y.screenSummary.descriptionWithChargePattern;
 const selfVoicingContentHintString = johnTravoltageStrings.a11y.selfVoicing.contentHint;
 const selfVoicingDetailedContentHintString = johnTravoltageStrings.a11y.selfVoicing.detailedContentHint;
-const selfVoicingContentOverviewString = johnTravoltageStrings.a11y.selfVoicing.contentOverview;
 const selfVoicingObjectResponsePatternString = johnTravoltageStrings.a11y.selfVoicing.appendageObjectResponsePattern;
+const overviewPatternString = johnTravoltageStrings.a11y.selfVoicing.overviewPattern;
 const resetAllString = sceneryPhetStrings.a11y.resetAll.label;
 const resetAllAlertString = sceneryPhetStrings.a11y.resetAll.alert;
+const screenSummarySingleScreenIntroPatternString = sceneryPhetStrings.a11y.selfVoicing.simSection.screenSummary.singleScreenIntroPattern;
 
 // constants
 const OUCH_EXCLAMATION_DELAY = 0.5; // in seconds
@@ -508,7 +509,13 @@ function JohnTravoltageView( model, tandem ) {
         return hintString;
       },
       createOverviewContent: () => {
-        return selfVoicingContentOverviewString;
+        const overviewString = StringUtils.fillIn( screenSummarySingleScreenIntroPatternString, {
+          sim: phet.joist.sim.simNameProperty.get()
+        } );
+
+        return StringUtils.fillIn( overviewPatternString,{
+          overview: overviewString
+        } );
       }
     } );
     quickControl.leftBottom = this.layoutBounds.leftBottom.plusXY( 10, 10 );

@@ -173,10 +173,10 @@
         "value": "Swing John's leg to rub his foot on the rug."
       },
       "detailedContentHint": {
-        "value": "Move John’s hand position to explore how distance from doorknob and amount of charge affect when John gets zapped."
+        "value": "Move John’s hand to see when he gets a zap."
       },
-      "contentOverview": {
-        "value": "John Travoltage is an interactive sim. It changes as you play with it. It has a Play Area and a Control Area."
+      "overviewPattern": {
+        "value": "{{overview}}. Looks like John is leaving the house. Facing the door, he strikes a pose on the rug."
       }
     }
   }
