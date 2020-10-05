@@ -21,6 +21,7 @@ import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import levelSpeakerModel from '../../../../scenery-phet/js/accessibility/speaker/levelSpeakerModel.js';
 import SelfVoicingInputListener from '../../../../scenery-phet/js/accessibility/speaker/SelfVoicingInputListener.js';
 import SelfVoicingQuickControl from '../../../../scenery-phet/js/accessibility/speaker/SelfVoicingQuickControl.js';
+import speakerHighlighter from '../../../../scenery-phet/js/accessibility/speaker/speakerHighlighter.js';
 import ResetAllButton from '../../../../scenery-phet/js/buttons/ResetAllButton.js';
 import sceneryPhetStrings from '../../../../scenery-phet/js/sceneryPhetStrings.js';
 import PDOMPeer from '../../../../scenery/js/accessibility/pdom/PDOMPeer.js';
@@ -440,6 +441,7 @@ function JohnTravoltageView( model, tandem ) {
   // prototype code related to the self-voicing work
   if ( phet.chipper.queryParameters.supportsSelfVoicing ) {
     webSpeaker.initialize();
+    speakerHighlighter.initialize();
 
     // listener that will detect pointer hits of various objects
     phet.joist.display.addInputListener( this.shapeHitDetector );
