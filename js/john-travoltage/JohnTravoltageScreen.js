@@ -10,6 +10,7 @@ import Property from '../../../axon/js/Property.js';
 import Screen from '../../../joist/js/Screen.js';
 import johnTravoltage from '../johnTravoltage.js';
 import JohnTravoltageModel from './model/JohnTravoltageModel.js';
+import JohnTravoltageKeyboardHelpContent from './view/JohnTravoltageKeyboardHelpContent.js';
 import JohnTravoltageView from './view/JohnTravoltageView.js';
 
 class JohnTravoltageScreen extends Screen {
@@ -26,7 +27,8 @@ class JohnTravoltageScreen extends Screen {
         return new JohnTravoltageView( model, tandem.createTandem( 'view' ) );
       }, {
         backgroundColorProperty: new Property( '#9ddcf8' ),
-        tandem: tandem
+        tandem: tandem,
+        keyboardHelpNode: new JohnTravoltageKeyboardHelpContent()
       }
     );
   }

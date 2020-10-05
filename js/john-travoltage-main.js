@@ -12,9 +12,8 @@ import simLauncher from '../../joist/js/simLauncher.js';
 import WebSpeechDialogContent from '../../scenery-phet/js/accessibility/speaker/WebSpeechDialogContent.js';
 import Tandem from '../../tandem/js/Tandem.js';
 import vibrationManager from '../../tappi/js/vibrationManager.js';
-import johnTravoltageStrings from './johnTravoltageStrings.js';
 import JohnTravoltageScreen from './john-travoltage/JohnTravoltageScreen.js';
-import JohnTravoltageKeyboardHelpContent from './john-travoltage/view/JohnTravoltageKeyboardHelpContent.js';
+import johnTravoltageStrings from './johnTravoltageStrings.js';
 
 const johnTravoltageTitleString = johnTravoltageStrings[ 'john-travoltage' ].title;
 
@@ -29,9 +28,6 @@ newChild.tabIndex = -1;
 
 const tandem = Tandem.ROOT;
 
-// help content to describe keyboard interactions
-const keyboardHelpContent = new JohnTravoltageKeyboardHelpContent();
-
 const simOptions = {
   credits: {
     leadDesign: 'Noah Podolefsky, Carl Wieman, Sam Reid',
@@ -44,7 +40,7 @@ const simOptions = {
     thanks: 'Thanks to Mobile Learner Labs for working with the PhET development team ' +
             'to convert this simulation to HTML5.'
   },
-  keyboardHelpNode: keyboardHelpContent,
+  hasKeyboardHelpContent: true,
   createOptionsDialogContent: phet.chipper.queryParameters.supportsSelfVoicing ? () => new WebSpeechDialogContent() : null,
 
   // protoypal vibration feedback, see https://github.com/phetsims/john-travoltage/issues/337
