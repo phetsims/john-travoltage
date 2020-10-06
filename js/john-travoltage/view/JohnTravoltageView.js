@@ -26,6 +26,7 @@ import ResetAllButton from '../../../../scenery-phet/js/buttons/ResetAllButton.j
 import sceneryPhetStrings from '../../../../scenery-phet/js/sceneryPhetStrings.js';
 import PDOMPeer from '../../../../scenery/js/accessibility/pdom/PDOMPeer.js';
 import webSpeaker from '../../../../scenery/js/accessibility/speaker/webSpeaker.js';
+import SwipeListener from '../../../../scenery/js/listeners/SwipeListener.js';
 import Circle from '../../../../scenery/js/nodes/Circle.js';
 import Line from '../../../../scenery/js/nodes/Line.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
@@ -169,7 +170,7 @@ function JohnTravoltageView( model, tandem ) {
     vibrationController.initialize( model, this, vibrationManager );
 
     // listener that will detect pointer hits of various objects
-    phet.joist.display.addInputListener( this.shapeHitDetector );
+    // phet.joist.display.addInputListener( this.shapeHitDetector );
 
     // collection of input and simulation events that will be recorded during user interaction
     this.eventRecorder = new VibrationTestEventRecorder();
@@ -443,8 +444,11 @@ function JohnTravoltageView( model, tandem ) {
     webSpeaker.initialize();
     speakerHighlighter.initialize();
 
+    // add the swipe listener
+    phet.joist.sim.display.addInputListener( new SwipeListener() );
+
     // listener that will detect pointer hits of various objects
-    phet.joist.display.addInputListener( this.shapeHitDetector );
+    //phet.joist.display.addInputListener( this.shapeHitDetector );
 
     // describe the leg and any charge changes in result to the user dragging
     let countOnDrag;

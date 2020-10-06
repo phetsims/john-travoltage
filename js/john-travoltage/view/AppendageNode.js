@@ -41,7 +41,8 @@ const fartherAwayPatternString = johnTravoltageStrings.a11y.appendages.arm.direc
 const negativePatternString = johnTravoltageStrings.a11y.appendages.negativePattern;
 const positionPatternString = johnTravoltageStrings.a11y.appendages.positionPattern;
 const selfVoicingObjectResponsePatternString = johnTravoltageStrings.a11y.selfVoicing.appendageObjectResponsePattern;
-
+const grabbedAlertString = johnTravoltageStrings.a11y.selfVoicing.grabbedAlert;
+const dragHintString = johnTravoltageStrings.a11y.selfVoicing.dragHint;
 
 // constants
 const DIRECTION_DESCRIPTIONS = {
@@ -104,6 +105,8 @@ function AppendageNode( appendage, image, dx, dy, angleOffset, rangeMap, tandem,
 
   // @public (a11y) - {number} arm position when discharge starts
   this.positionAtDischarge = null;
+
+  this.previousSwipePosition = null;
 
   // when the model is reset, reset the flags that track previous interactions with the appendage and reset
   // descriptions, no need to dispose this listener since appendages exist for life of sim
@@ -251,9 +254,10 @@ function AppendageNode( appendage, image, dx, dy, angleOffset, rangeMap, tandem,
     tandem: tandem.createTandem( 'focusCircle' )
   } );
 
-  // prevent user from manipulating with both keybaord and mouse at the same time
-  // no need to dispose, listener AppendageNodes should exist for life of sim
   this.addInputListener( {
+
+    // prevent user from manipulating with both keybaord and mouse at the same time
+    // no need to dispose, listener AppendageNodes should exist for life of sim
     blur: function( event ) {
 
       // on blur, reset flags for another round of interaction and the only description should be the
@@ -334,6 +338,14 @@ function AppendageNode( appendage, image, dx, dy, angleOffset, rangeMap, tandem,
       },
       highlightTarget: this
     } ) );
+
+    // when we receive a click event from a 'double tap', describe to the
+    // user how to drag the appendage
+    this.addInputListener( {
+      click: event => {
+        levelSpeakerModel.speakAllResponses( dragHintString );
+      }
+    } );
 
     // for the self-voicing feature we want a different value-text that does
     // not include the position
@@ -502,6 +514,73 @@ inherit( Node, AppendageNode, {
     this.movementDirection = newDirection;
 
     return description;
+  },
+
+  /**
+   * Part of prototype self-voicing. When the user initiates a gesture (anywhere on the screen)
+   * that will initiate drag of the appendageNode.
+   *
+   * @public (called by SwipeListener)
+   */
+  swipeStart: function() {
+    this.model.isDraggingProperty.set( true );
+    this.model.borderVisibleProperty.set( false );
+
+    levelSpeakerModel.speakAllResponses( grabbedAlertString );
+  },
+
+  /**
+   * Part of the prototype self-voicing feature. User has initiated a gesture on the screen
+   * to drag this Node. Moves this appendage based on how far along the screen the user
+   * moves their finger. Just drags the appendage back and forth as the user drags their
+   * finger left/right or up/down.
+   * @public (called by SwipeListener)
+   *
+   * @param {SceneryEvent}
+   */
+  swipeMove: function( event ) {
+
+    const nextPosition = event.pointer.point;
+    if ( this.previousSwipePosition ) {
+      const swipeDelta = nextPosition.minus( this.previousSwipePosition );
+      const angleDelta = swipeDelta.magnitude / Math.PI / 30;
+
+      let nextAngle = Math.abs( this.model.angleProperty.get() );
+      if ( Math.abs( swipeDelta.x ) > 0.5 ) {
+
+        // likely a horizontal swipe, move right by swiping right
+        if ( swipeDelta.x > 0 ) {
+          nextAngle = nextAngle - angleDelta;
+        }
+        else {
+          nextAngle = nextAngle + angleDelta;
+        }
+      }
+      else if ( Math.abs( swipeDelta.y ) > 0.5 ) {
+        if ( swipeDelta.y > 0 ) {
+          nextAngle = nextAngle - angleDelta;
+        }
+        else {
+          nextAngle = nextAngle + angleDelta;
+        }
+      }
+
+      nextAngle = Utils.clamp( nextAngle, 0, Math.PI );
+      this.model.angleProperty.set( nextAngle );
+    }
+
+    this.previousSwipePosition = nextPosition;
+  },
+
+  /**
+   * Part of the self-voicing prototype. User has ended a drag of the appendage.
+   * @public (called by SwipeListener)
+   *
+   * @param {SceneryEvent} event
+   */
+  swipeEnd: function( event ) {
+    this.model.isDraggingProperty.set( false );
+    this.previousSwipePosition = null;
   }
 }, {
 
