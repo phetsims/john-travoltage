@@ -133,15 +133,7 @@ function AppendageNode( appendage, image, dx, dy, angleOffset, rangeMap, tandem,
     tandem: tandem.createTandem( 'dragHandler' ),
     allowTouchSnag: true,
     start: function( event ) {
-
-      // if the appendage has focus, blur when it is picked up
-      self.focused && self.blur();
-
-      // if the appendage is picked up with the mouse, it should not be keyboard focusable until dropped
-      self.focusable = false;
-
       appendage.isDraggingProperty.set( true );
-
       appendage.borderVisibleProperty.set( false );
     },
     drag: function( event ) {

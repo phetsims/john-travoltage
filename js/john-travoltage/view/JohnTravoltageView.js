@@ -519,7 +519,7 @@ function JohnTravoltageView( model, tandem ) {
           sim: phet.joist.sim.simNameProperty.get()
         } );
 
-        return StringUtils.fillIn( overviewPatternString,{
+        return StringUtils.fillIn( overviewPatternString, {
           overview: overviewString
         } );
       }
