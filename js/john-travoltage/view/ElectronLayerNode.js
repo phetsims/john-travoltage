@@ -76,8 +76,9 @@ function ElectronLayerNode( model, armNode, maxElectrons, tandem ) {
         region: regionText
       } );
 
-      const selfVoicingAlertString = StringUtils.fillIn( '{{qualitativeDescription}} electrons discharged.', {
-        qualitativeDescription: self.getQualitativeChargeDescription( priorCharge - currentCharge )
+      const selfVoicingAlertString = StringUtils.fillIn( '{{qualitativeDescription}} electrons discharged with hand {{region}}.', {
+        qualitativeDescription: self.getQualitativeChargeDescription( priorCharge - currentCharge ),
+        region: regionText
       } );
 
       levelSpeakerModel.speakAllResponses( '', selfVoicingAlertString, '', {
