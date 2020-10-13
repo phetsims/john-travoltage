@@ -25,7 +25,7 @@ const electronsTotalAfterDischargePatternString = johnTravoltageStrings.a11y.ele
 const QUALITATIVE_DESCRIPTION_MAP = new Map();
 QUALITATIVE_DESCRIPTION_MAP.set( new Range( 0, 0 ), 'No' );
 QUALITATIVE_DESCRIPTION_MAP.set( new Range( 1, 10 ), 'A few' );
-QUALITATIVE_DESCRIPTION_MAP.set( new Range( 11, 35 ), 'Some' );
+QUALITATIVE_DESCRIPTION_MAP.set( new Range( 11, 35 ), 'Several' );
 QUALITATIVE_DESCRIPTION_MAP.set( new Range( 36, 49 ), 'A bunch of' );
 QUALITATIVE_DESCRIPTION_MAP.set( new Range( 50, 75 ), 'A large amount of' );
 QUALITATIVE_DESCRIPTION_MAP.set( new Range( 76, 99 ), 'A huge amount of' );
