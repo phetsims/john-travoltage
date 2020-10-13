@@ -73,6 +73,8 @@ const overviewPatternString = johnTravoltageStrings.a11y.selfVoicing.overviewPat
 const resetAllString = sceneryPhetStrings.a11y.resetAll.label;
 const resetAllAlertString = sceneryPhetStrings.a11y.resetAll.alert;
 const screenSummarySingleScreenIntroPatternString = sceneryPhetStrings.a11y.selfVoicing.simSection.screenSummary.singleScreenIntroPattern;
+const previousDischargePatternString = johnTravoltageStrings.a11y.selfVoicing.previousDischargePattern;
+const screenSummaryWithPreviousDischargePatternString = johnTravoltageStrings.a11y.selfVoicing.screenSummaryWithPreviousDischargePattern;
 
 // constants
 const OUCH_EXCLAMATION_DELAY = 0.5; // in seconds
@@ -593,22 +595,38 @@ class JohnTravoltageView extends ScreenView {
     const positionDescription = AppendageNode.getPositionDescription( this.arm.a11yAngleToPosition( this.model.arm.angleProperty.get() ), AppendageRangeMaps.armMap.regions );
     const johnDescription = StringUtils.fillIn( screenSummaryBodyDescriptionPatternString, { position: positionDescription } );
 
-    let sceneDescription;
+    let screenDescription;
     if ( this.includeElectronInfo ) {
       const chargeDescription = StringUtils.fillIn( 'John has {{quantity}} electrons on his body.', {
         quantity: this.electronLayer.getQualitativeChargeDescription( this.model.electronGroup.count )
       } );
 
-      sceneDescription = StringUtils.fillIn( descriptionWithChargePatternString, {
+      screenDescription = StringUtils.fillIn( descriptionWithChargePatternString, {
         charge: chargeDescription,
         johnDescription: johnDescription
       } );
     }
     else {
-      sceneDescription = johnDescription;
+      screenDescription = johnDescription;
     }
 
-    return sceneDescription;
+    // if there is a non-zero amount of electrons in the last discharge event describe this - this will be zero
+    // until first discharge event and on reset
+    if ( this.model.numberOfElectronsDischarged > 0 ) {
+      const previousDischargeQuantity = this.electronLayer.getQualitativeChargeDescription( this.model.numberOfElectronsDischarged );
+      const previousHandPosition = AppendageNode.getPositionDescription( this.arm.positionAtDischarge, AppendageRangeMaps.armMap.regions );
+      const previousDischargeDescription = StringUtils.fillIn( previousDischargePatternString, {
+        quantity: previousDischargeQuantity,
+        position: previousHandPosition
+      } );
+
+      screenDescription = StringUtils.fillIn( screenSummaryWithPreviousDischargePatternString, {
+        screenSummary: screenDescription,
+        previousDischarge: previousDischargeDescription
+      } );
+    }
+
+    return screenDescription;
   }
 
   /**

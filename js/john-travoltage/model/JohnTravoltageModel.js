@@ -191,6 +191,18 @@ function JohnTravoltageModel( tandem ) {
     tandem: tandem.createTandem( 'dischargeStartedEmitter' )
   } );
 
+  // @public {number} - Number of electrons that left the body in a particular discharge event, resets to 0
+  this.numberOfElectronsDischarged = 0;
+
+  // updates the number of electrons discharged in a discharge event
+  let numberOfElectronsOnDischargeStart = 0;
+  this.dischargeStartedEmitter.addListener( () => {
+    numberOfElectronsOnDischargeStart = this.electronGroup.count;
+  } );
+  this.dischargeEndedEmitter.addListener( () => {
+    this.numberOfElectronsDischarged = numberOfElectronsOnDischargeStart - this.electronGroup.count;
+  } );
+
   //--------------------------------------------------------------------------
   // The following Properties are being used to explore haptic feedback, they
   // are to be used in prototypes and view representations are hidden behind
@@ -246,9 +258,12 @@ function JohnTravoltageModel( tandem ) {
   } );
 
   // reset angle counting variables when the sim is reset - does not need to be disposed
-  this.resetEmitter.addListener( function() {
+  this.resetEmitter.addListener( () => {
     lastAngle = self.leg.angleProperty.initialValue;
     accumulatedAngle = 0;
+
+    // reset the number of electrons discharged for next discharge event
+    this.numberOfElectronsDischarged = 0;
   } );
 
   const array = [];
