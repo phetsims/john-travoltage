@@ -531,7 +531,7 @@ class JohnTravoltageView extends ScreenView {
           } );
         }
       } );
-      quickControl.leftBottom = this.layoutBounds.leftBottom.plusXY( 10, 10 );
+      quickControl.leftBottom = this.layoutBounds.leftBottom.plusXY( 10, -10 );
       this.addChild( quickControl );
     }
   }
