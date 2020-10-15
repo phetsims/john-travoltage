@@ -3,7 +3,7 @@
 /**
  * Screen for John Travoltage
  *
- * @author Sam Reid
+ * @author Sam Reid (PhET Interactive Simulations)
  */
 
 import Property from '../../../axon/js/Property.js';
@@ -20,12 +20,8 @@ class JohnTravoltageScreen extends Screen {
    */
   constructor( tandem ) {
     super(
-      function() {
-        return new JohnTravoltageModel( tandem.createTandem( 'model' ) );
-      },
-      function( model ) {
-        return new JohnTravoltageView( model, tandem.createTandem( 'view' ) );
-      }, {
+      () => new JohnTravoltageModel( tandem.createTandem( 'model' ) ),
+      model => new JohnTravoltageView( model, tandem.createTandem( 'view' ) ), {
         backgroundColorProperty: new Property( '#9ddcf8' ),
         tandem: tandem,
         keyboardHelpNode: new JohnTravoltageKeyboardHelpContent()

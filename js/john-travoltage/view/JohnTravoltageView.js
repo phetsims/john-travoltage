@@ -3,7 +3,7 @@
 /**
  * Main ScreenView of simulation. Drawing starts here
  *
- * @author Sam Reid
+ * @author Sam Reid (PhET Interactive Simulations)
  * @author Vasily Shakhov (Mlearner)
  * @author Justin Obara
  * @author John Blanco
@@ -17,9 +17,9 @@ import ScreenView from '../../../../joist/js/ScreenView.js';
 import Shape from '../../../../kite/js/Shape.js';
 import platform from '../../../../phet-core/js/platform.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
-import levelSpeakerModel from '../../../../scenery-phet/js/accessibility/speaker/levelSpeakerModel.js';
 import SelfVoicingInputListener from '../../../../scenery-phet/js/accessibility/speaker/SelfVoicingInputListener.js';
 import SelfVoicingQuickControl from '../../../../scenery-phet/js/accessibility/speaker/SelfVoicingQuickControl.js';
+import levelSpeakerModel from '../../../../scenery-phet/js/accessibility/speaker/levelSpeakerModel.js';
 import speakerHighlighter from '../../../../scenery-phet/js/accessibility/speaker/speakerHighlighter.js';
 import ResetAllButton from '../../../../scenery-phet/js/buttons/ResetAllButton.js';
 import sceneryPhetStrings from '../../../../scenery-phet/js/sceneryPhetStrings.js';
@@ -30,15 +30,15 @@ import Circle from '../../../../scenery/js/nodes/Circle.js';
 import Line from '../../../../scenery/js/nodes/Line.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../scenery/js/nodes/Path.js';
+import SoundLevelEnum from '../../../../tambo/js/SoundLevelEnum.js';
 import PitchedPopGenerator from '../../../../tambo/js/sound-generators/PitchedPopGenerator.js';
 import SoundClip from '../../../../tambo/js/sound-generators/SoundClip.js';
-import SoundLevelEnum from '../../../../tambo/js/SoundLevelEnum.js';
 import soundManager from '../../../../tambo/js/soundManager.js';
+import VibrationManageriOS from '../../../../tappi/js/VibrationManageriOS.js';
 import SaveTestEventsButton from '../../../../tappi/js/tracking/SaveTestEventsButton.js';
 import VibrationTestEvent from '../../../../tappi/js/tracking/VibrationTestEvent.js';
 import VibrationTestEventRecorder from '../../../../tappi/js/tracking/VibrationTestEventRecorder.js';
 import VibrationTestInputListener from '../../../../tappi/js/tracking/VibrationTestInputListener.js';
-import VibrationManageriOS from '../../../../tappi/js/VibrationManageriOS.js';
 import arm from '../../../images/arm_png.js';
 import leg from '../../../images/leg_png.js';
 import chargesInBodySound from '../../../sounds/charges-in-body_mp3.js';
@@ -99,8 +99,6 @@ class JohnTravoltageView extends ScreenView {
       tandem: tandem,
       screenSummaryContent: summaryNode
     } );
-
-    const self = this;
 
     // @private
     this.model = model;
@@ -231,7 +229,7 @@ class JohnTravoltageView extends ScreenView {
     this.includeElectronInfo = false;
 
     // Show the dotted lines again when the sim is reset
-    model.resetEmitter.addListener( function() {
+    model.resetEmitter.addListener( () => {
       if ( !model.leg.isDraggingProperty.get() ) {
         model.leg.borderVisibleProperty.set( true );
       }
@@ -239,22 +237,22 @@ class JohnTravoltageView extends ScreenView {
         model.arm.borderVisibleProperty.set( true );
       }
 
-      self.includeElectronInfo = false;
+      this.includeElectronInfo = false;
     } );
 
     // store the region when the discharge starts
-    model.dischargeStartedEmitter.addListener( function() {
-      const position = self.arm.a11yAngleToPosition( model.arm.angleProperty.get() );
+    model.dischargeStartedEmitter.addListener( () => {
+      const position = this.arm.a11yAngleToPosition( model.arm.angleProperty.get() );
       const newRegion = AppendageNode.getRegion( position, AppendageRangeMaps.armMap.regions );
 
-      self.arm.regionAtDischarge = newRegion;
-      self.arm.positionAtDischarge = self.arm.inputValue;
+      this.arm.regionAtDischarge = newRegion;
+      this.arm.positionAtDischarge = this.arm.inputValue;
     } );
 
     // spark
     const sparkNode = new SparkNode(
       model,
-      function( listener ) { model.stepEmitter.addListener( listener ); },
+      listener => { model.stepEmitter.addListener( listener ); },
       tandem.createTandem( 'sparkNode' )
     );
     this.addChild( sparkNode );
@@ -264,7 +262,7 @@ class JohnTravoltageView extends ScreenView {
       radius: 23,
       right: this.layoutBounds.maxX - 8,
       bottom: this.layoutBounds.maxY - 8,
-      listener: function() {
+      listener: () => {
         model.reset();
       },
       tandem: tandem.createTandem( 'resetAllButton' )
@@ -281,14 +279,14 @@ class JohnTravoltageView extends ScreenView {
     } );
     this.addChild( this.electronLayer );
 
-    const updateDescription = function() {
-      summaryNode.descriptionContent = self.createSceneDescription();
+    const updateDescription = () => {
+      summaryNode.descriptionContent = this.createSceneDescription();
     };
 
     // electrons observable array exists for the lifetime of the sim, so there is no need to remove these listeners
     model.electronGroup.elementCreatedEmitter.addListener( () => {
       updateDescription();
-      self.includeElectronInfo = true;
+      this.includeElectronInfo = true;
     } );
 
     model.electronGroup.elementDisposedEmitter.addListener( () => {
@@ -323,7 +321,7 @@ class JohnTravoltageView extends ScreenView {
 
       //Debugging for finger position
       const fingerCircle = new Circle( 10, { fill: 'red' } );
-      model.arm.angleProperty.link( function() {
+      model.arm.angleProperty.link( () => {
         fingerCircle.x = model.arm.getFingerPosition().x;
         fingerCircle.y = model.arm.getFingerPosition().y;
       } );
@@ -334,9 +332,7 @@ class JohnTravoltageView extends ScreenView {
     }
 
     // inverse of the resetInProgressProperty, used for muting sounds during reset
-    const resetNotInProgressProperty = new DerivedProperty( [ model.resetInProgressProperty ], function( resetInProgress ) {
-      return !resetInProgress;
-    } );
+    const resetNotInProgressProperty = new DerivedProperty( [ model.resetInProgressProperty ], resetInProgress => !resetInProgress );
 
     // create and register the sound generators used in this view
     const ouchSoundClip = new SoundClip( ouchSound, { initialOutputLevel: 0.7 } );
@@ -375,7 +371,7 @@ class JohnTravoltageView extends ScreenView {
     } );
     soundManager.addSoundGenerator( popSoundGenerator, { sonificationLevel: SoundLevelEnum.ENHANCED } );
 
-    model.sparkVisibleProperty.link( function( sparkVisible ) {
+    model.sparkVisibleProperty.link( sparkVisible => {
 
       if ( sparkVisible ) {
 
@@ -480,7 +476,7 @@ class JohnTravoltageView extends ScreenView {
             } );
           }
 
-          levelSpeakerModel.speakAllResponses( objectResponse, pickupAlert, selfVoicingContentHintString);
+          levelSpeakerModel.speakAllResponses( objectResponse, pickupAlert, selfVoicingContentHintString );
         }
       } );
 

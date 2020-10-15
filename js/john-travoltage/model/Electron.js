@@ -3,7 +3,7 @@
 /**
  * Model for the electrons that are absorbed from the carpet and discharged into the doorknob.
  *
- * @author Sam Reid
+ * @author Sam Reid (PhET Interactive Simulations)
  * @author Vasily Shakhov (Mlearner)
  */
 
@@ -11,7 +11,6 @@ import Emitter from '../../../../axon/js/Emitter.js';
 import Utils from '../../../../dot/js/Utils.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Vector2Property from '../../../../dot/js/Vector2Property.js';
-import inherit from '../../../../phet-core/js/inherit.js';
 import merge from '../../../../phet-core/js/merge.js';
 import PhetioObject from '../../../../tandem/js/PhetioObject.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
@@ -23,68 +22,62 @@ const frictionFactor = 0.98;
 
 let electronCount = 0;
 
-//Radius of the electron
-Electron.radius = 8;
+class Electron extends PhetioObject {
 
-/**
- * @param {number} x
- * @param {number} y
- * @param {JohnTravoltageModel} model
- * @param {Object} [options] - required for tandem
- * @constructor
- */
-function Electron( x, y, model, options ) {
-  options = merge( {
+  /**
+   * @param {number} x
+   * @param {number} y
+   * @param {JohnTravoltageModel} model
+   * @param {Object} [options] - required for tandem
+   */
+  constructor( x, y, model, options ) {
+    options = merge( {
 
-    //{Tandem}
-    tandem: Tandem.REQUIRED,
-    phetioType: Electron.ElectronIO,
-    phetioDynamicElement: true
-  }, options );
-  PhetioObject.call( this, options );
-  const tandem = options.tandem;
-  const self = this;
-  electronCount++;
-  this.id = electronCount;
-  this.positionProperty = new Vector2Property( new Vector2( x, y ), {
-    tandem: tandem.createTandem( 'positionProperty' )
-  } );
+      //{Tandem}
+      tandem: Tandem.REQUIRED,
+      phetioType: Electron.ElectronIO,
+      phetioDynamicElement: true
+    }, options );
+    super( options );
+    const tandem = options.tandem;
+    electronCount++;
+    this.id = electronCount;
+    this.positionProperty = new Vector2Property( new Vector2( x, y ), {
+      tandem: tandem.createTandem( 'positionProperty' )
+    } );
 
-  //The velocity an electron has when it comes from the carpet into the leg.
-  this.velocity = new Vector2( -50, -100 );
-  this.model = model;
-  this.exiting = false;//mutable but not observable
+    //The velocity an electron has when it comes from the carpet into the leg.
+    this.velocity = new Vector2( -50, -100 );
+    this.model = model;
+    this.exiting = false;//mutable but not observable
 
-  //Segment the electron is traveling towards
-  this.segment = null;
+    //Segment the electron is traveling towards
+    this.segment = null;
 
-  //Store some values that are used in an inner loop
-  this.maxSpeed = 500;
-  this.maxForceSquared = 100000000;
+    //Store some values that are used in an inner loop
+    this.maxSpeed = 500;
+    this.maxForceSquared = 100000000;
 
-  // @public (read-only) called when the Electron is disposed so listeners may clean themselves up
-  this.disposeEmitter = new Emitter();
+    // @public (read-only) called when the Electron is disposed so listeners may clean themselves up
+    this.disposeEmitter = new Emitter();
 
-  // @public (phet-io) the history of body positions, 'arm', 'leg' and 'body' for rendering in the correct place
-  this.history = [];
+    // @public (phet-io) the history of body positions, 'arm', 'leg' and 'body' for rendering in the correct place
+    this.history = [];
 
-  // @public (phet-io) when the history changes, the electron's screen position is recomputed
-  this.historyChangedEmitter = new Emitter();
+    // @public (phet-io) when the history changes, the electron's screen position is recomputed
+    this.historyChangedEmitter = new Emitter();
 
-  //Electrons start in the leg
-  for ( let i = 0; i < 10; i++ ) {
-    this.history.push( 'leg' );
+    //Electrons start in the leg
+    for ( let i = 0; i < 10; i++ ) {
+      this.history.push( 'leg' );
+    }
+
+    this.disposeElectron = () => {
+      this.disposeEmitter.emit();
+      this.positionProperty.dispose();
+    };
   }
 
-  this.disposeElectron = function() {
-    self.disposeEmitter.emit();
-    self.positionProperty.dispose();
-  };
-}
-
-johnTravoltage.register( 'Electron', Electron );
-
-inherit( PhetioObject, Electron, {
 
   /**
    * Step function for when the electron is exiting the body (discharging).  Electrons leave the body through
@@ -92,18 +85,17 @@ inherit( PhetioObject, Electron, {
    * @private
    * @param  {number} dt - in seconds
    */
-  stepInSpark: function( dt ) {
-    const self = this;
+  stepInSpark( dt ) {
     //move to closest line segment
     if ( !this.segment ) {
 
-      this.segment = _.minBy( this.model.forceLines, function( forceLine ) { return forceLine.p0.distanceSquared( self.positionProperty.get() ); } );
+      this.segment = _.minBy( this.model.forceLines, forceLine => forceLine.p0.distanceSquared( this.positionProperty.get() ) );
 
       //If the closest path is the same as the last one, it means we have reached the end of the road
       if ( this.lastSegment === this.segment ) {
 
         //Don't remove immediately or it will be concurrentmodificationexception in iterator
-        this.model.electronsToRemove.push( self );
+        this.model.electronsToRemove.push( this );
         return;
       }
     }
@@ -124,38 +116,39 @@ inherit( PhetioObject, Electron, {
       this.velocity.set( Vector2.createPolar( 200, delta.angle + ( phet.joist.random.nextDouble() - 0.5 ) ) );
       this.positionProperty.set( this.velocity.timesScalar( dt ).plus( this.positionProperty.get() ) );
     }
-  },
+  }
 
   /**
    * Step function for an electron.
    * @param  {number} dt - in seconds
    * @public
    */
-  step: function( dt ) {
+  step( dt ) {
     if ( this.exiting ) {
       this.stepInSpark( dt );
     }
     else {
       this.stepInBody( dt );
     }
-  },
+  }
 
   /**
    * Make eligible for garbage collection.
    * @public
    */
-  dispose: function() {
+  dispose() {
     this.disposeElectron();
-    PhetioObject.prototype.dispose.call( this );
-  },
+    super.dispose();
+  }
 
   /**
    * Step function for the electron when it is moving through the body (not discharging). Electrons in the body
    * will 'bounce' and 'repel' away from each other.  The result is that they will spread uniformily throughout
    * the body and do so in a dynamically appealing way.
    * @param  {number} dt - in seconds
+   * @public
    */
-  stepInBody: function( dt ) {
+  stepInBody( dt ) {
 
     //Performance is critical in this method, so avoid es5 which can be slower
     const position = this.positionProperty.get();
@@ -170,7 +163,7 @@ inherit( PhetioObject, Electron, {
     // the electrons to the outer boundary of the bodies
     // This is an expensive O(n^2) inner loop, so highly optimized and uses Number instead of Vector2 in a number of locations
     const length = this.model.electronGroup.count;
-    for ( var i = 0; i < length; i++ ) {
+    for ( let i = 0; i < length; i++ ) {
       const electron = this.model.electronGroup.getElement( i );
 
       // Skipping some interactions speeds things up and also gives a good sense of more randomness
@@ -224,7 +217,7 @@ inherit( PhetioObject, Electron, {
     const segments = this.model.lineSegments;
     const numSegments = segments.length;
     let bounced = false;
-    for ( i = 0; i < numSegments; i++ ) {
+    for ( let i = 0; i < numSegments; i++ ) {
       const segment = segments[ i ];
       if ( Utils.lineSegmentIntersection( x1, y1, x2, y2, segment.x1, segment.y1, segment.x2, segment.y2 ) ) {
 
@@ -250,7 +243,10 @@ inherit( PhetioObject, Electron, {
       this.positionProperty.notifyListenersStatic();
     }
   }
-} );
+}
+
+//Radius of the electron
+Electron.radius = 8;
 
 Electron.ElectronIO = new IOType( 'ElectronIO', {
   valueType: Electron,
@@ -270,5 +266,7 @@ Electron.ElectronIO = new IOType( 'ElectronIO', {
     electron.historyChangedEmitter.emit();
   }
 } );
+
+johnTravoltage.register( 'Electron', Electron );
 
 export default Electron;

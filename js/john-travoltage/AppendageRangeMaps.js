@@ -8,8 +8,8 @@
  */
 
 import Range from '../../../dot/js/Range.js';
-import johnTravoltageStrings from '../johnTravoltageStrings.js';
 import johnTravoltage from '../johnTravoltage.js';
+import johnTravoltageStrings from '../johnTravoltageStrings.js';
 
 const farthestFromDoorknobString = johnTravoltageStrings.a11y.appendages.arm.positions.farthestFromDoorknob;
 const veryFarFromDoorknobString = johnTravoltageStrings.a11y.appendages.arm.positions.veryFarFromDoorknob;

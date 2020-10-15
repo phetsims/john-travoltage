@@ -10,7 +10,7 @@
  * //Sample and print line segments, for creating force paths for electrons during spark traversal
  * DebugUtils.debugLineSegments( view );
  *
- * @author Sam Reid
+ * @author Sam Reid (PhET Interactive Simulations)
  * @author Vasily Shakhov (Mlearner)
  */
 
@@ -23,12 +23,12 @@ const DebugUtils = {
    * Sample model points for bounds, see JohnTravoltageModel.bodyVertices
    * @param  {JohnTravoltageView} johnTravoltageView
    */
-  debugPositions: function( johnTravoltageView ) {
+  debugPositions( johnTravoltageView ) {
     johnTravoltageView.touchArea = Shape.rectangle( 0, 0, 1000, 1000 );
     johnTravoltageView.mouseArea = Shape.rectangle( 0, 0, 1000, 1000 );
     let string = '';
     johnTravoltageView.addInputListener( {
-      down: function( event ) {
+      down: event => {
         const pt = event.pointer.point;
         const global = johnTravoltageView.globalToLocalPoint( pt );
         const a = 'new Vector2(' + global.x + ',' + global.y + '),\n';
@@ -43,13 +43,13 @@ const DebugUtils = {
    * Utility to create force lines by clicking in the view
    * @param  {JohnTravoltageView} johnTravoltageView
    */
-  debugLineSegments: function( johnTravoltageView ) {
+  debugLineSegments( johnTravoltageView ) {
     johnTravoltageView.touchArea = Shape.rectangle( 0, 0, 1000, 1000 );
     johnTravoltageView.mouseArea = Shape.rectangle( 0, 0, 1000, 1000 );
     let string = '';
     let p1 = null;
     johnTravoltageView.addInputListener( {
-      down: function( event ) {
+      down: event => {
         const pt = event.pointer.point;
         const global = johnTravoltageView.globalToLocalPoint( pt );
         if ( p1 ) {
