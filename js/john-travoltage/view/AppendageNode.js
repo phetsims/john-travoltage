@@ -573,6 +573,13 @@ inherit( Node, AppendageNode, {
   swipeEnd: function( event ) {
     this.model.isDraggingProperty.set( false );
     this.previousSwipePosition = null;
+
+    // TODO: We would like this to be the first thing that is heard on release. Need better
+    // support for control of queuing web speech utterances, see
+    // https://github.com/phetsims/utterance-queue/issues/14
+    levelSpeakerModel.speakAllResponses( 'Released', null, null, {
+      withCancel: false
+    } );
   }
 }, {
 

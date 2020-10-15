@@ -480,7 +480,7 @@ class JohnTravoltageView extends ScreenView {
             } );
           }
 
-          levelSpeakerModel.speakAllResponses( objectResponse, pickupAlert, selfVoicingContentHintString );
+          levelSpeakerModel.speakAllResponses( objectResponse, pickupAlert, selfVoicingContentHintString);
         }
       } );
 
