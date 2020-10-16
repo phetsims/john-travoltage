@@ -239,13 +239,6 @@ class VibrationController {
               runningChargeHoldPattern = true;
             }
           }
-          else {
-
-            // stop vibration if we lost charges (such as from reset all, since
-            // the dischargeEndedEmitter will have its own vibration)
-            vibrationManager.stop();
-            runningChargeHoldPattern = false;
-          }
         }
       } );
 
@@ -260,6 +253,17 @@ class VibrationController {
 
         // we can start the 'hold' pattern again, if discharge didn't get rid of all electrons
         runningChargeHoldPattern = false;
+      } );
+
+      model.resetEmitter.addListener( () => {
+
+        // stop vibration if we lost charges (such as from reset all, since
+        // the dischargeEndedEmitter will have its own vibration)
+        vibrationManager.stop();
+        runningChargeHoldPattern = false;
+
+        // request a single transient vibration upon activation of this UI component
+        vibrationManager.vibrateTransient();
       } );
     }
   }

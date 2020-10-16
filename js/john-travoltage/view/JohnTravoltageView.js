@@ -160,71 +160,6 @@ class JohnTravoltageView extends ScreenView {
 
     this.shapeHitDetector = new BodyShapeHitDetector( model, this );
 
-    // code related to vibration prototype work - hidden behind a query param while we understand more about what
-    // we want for this feature.
-    const vibrationParam = phet.chipper.queryParameters.vibration || JohnTravoltageQueryParameters.simVibration;
-    if ( vibrationParam !== null ) {
-
-      // @private {number} - time (in seconds) that the simulation has been running
-      this.elapsedTime = 0;
-
-      // sends messages to the containing Swift app
-      const vibrationManager = new VibrationManageriOS();
-
-      // controls simulation specific vibrations and uses vibrationManager to send messages
-      vibrationController.initialize( model, this, vibrationManager );
-
-      // listener that will detect pointer hits of various objects
-      // phet.joist.display.addInputListener( this.shapeHitDetector );
-
-      // collection of input and simulation events that will be recorded during user interaction
-      this.eventRecorder = new VibrationTestEventRecorder();
-
-      // listener that watches finger/touch input and saves to the event recorder
-      const vibrationTestInputListener = new VibrationTestInputListener( this.eventRecorder );
-      phet.joist.display.addInputListener( vibrationTestInputListener );
-
-      // button that will save data once user is finished
-      const saveButton = new SaveTestEventsButton( vibrationManager, this.eventRecorder, {
-        leftTop: this.layoutBounds.leftTop.plusXY( 5, 5 )
-      } );
-      this.addChild( saveButton );
-
-      // sim specific events that we want to capture
-      model.arm.angleProperty.lazyLink( angle => {
-        this.eventRecorder.addTestEvent( new VibrationTestEvent( null, null, this.elapsedTime, 'Moving Arm' ) );
-      } );
-      model.leg.angleProperty.lazyLink( angle => {
-        this.eventRecorder.addTestEvent( new VibrationTestEvent( null, null, this.elapsedTime, 'Moving Leg' ) );
-      } );
-      model.electronGroup.elementCreatedEmitter.addListener( () => {
-        this.eventRecorder.addTestEvent( new VibrationTestEvent( null, null, this.elapsedTime, 'Added charge' ) );
-      } );
-      model.dischargeStartedEmitter.addListener( () => {
-        this.eventRecorder.addTestEvent( new VibrationTestEvent( null, null, this.elapsedTime, 'Discharged electrons' ) );
-      } );
-      model.arm.isDraggingProperty.lazyLink( isDragging => {
-        const eventString = isDragging ? 'Arm drag start' : 'Arm drag end';
-        this.eventRecorder.addTestEvent( new VibrationTestEvent( null, null, this.elapsedTime, eventString ) );
-      } );
-      model.leg.isDraggingProperty.lazyLink( isDragging => {
-        const eventString = isDragging ? 'Leg drag start' : 'Leg drag end';
-        this.eventRecorder.addTestEvent( new VibrationTestEvent( null, null, this.elapsedTime, eventString ) );
-      } );
-
-      model.stepEmitter.addListener( dt => {
-        this.elapsedTime += dt;
-        vibrationTestInputListener.setElapsedTime( this.elapsedTime );
-      } );
-
-      // let user know that simulation is loaded, and let them know to begin reading through the PDOM
-      phet.joist.sim.isConstructionCompleteProperty.link( complete => {
-        if ( complete ) {
-          phet.joist.sim.utteranceQueue.addToBack( 'Simulation loaded. Start reading to play.' );
-        }
-      } );
-    }
-
     // @private (a11y) after travolta picks up electrons the first time, this flag will modify descriptions slightly
     this.includeElectronInfo = false;
 
@@ -529,6 +464,71 @@ class JohnTravoltageView extends ScreenView {
       } );
       quickControl.leftBottom = this.layoutBounds.leftBottom.plusXY( 10, -10 );
       this.addChild( quickControl );
+    }
+
+    // code related to vibration prototype work - hidden behind a query param while we understand more about what
+    // we want for this feature.
+    const vibrationParam = phet.chipper.queryParameters.vibration || JohnTravoltageQueryParameters.simVibration;
+    if ( vibrationParam !== null ) {
+
+      // @private {number} - time (in seconds) that the simulation has been running
+      this.elapsedTime = 0;
+
+      // sends messages to the containing Swift app
+      const vibrationManager = new VibrationManageriOS();
+
+      // controls simulation specific vibrations and uses vibrationManager to send messages
+      vibrationController.initialize( model, this, vibrationManager );
+
+      // listener that will detect pointer hits of various objects
+      // phet.joist.display.addInputListener( this.shapeHitDetector );
+
+      // collection of input and simulation events that will be recorded during user interaction
+      this.eventRecorder = new VibrationTestEventRecorder();
+
+      // listener that watches finger/touch input and saves to the event recorder
+      const vibrationTestInputListener = new VibrationTestInputListener( this.eventRecorder );
+      phet.joist.display.addInputListener( vibrationTestInputListener );
+
+      // button that will save data once user is finished
+      const saveButton = new SaveTestEventsButton( vibrationManager, this.eventRecorder, {
+        leftTop: this.layoutBounds.leftTop.plusXY( 5, 5 )
+      } );
+      this.addChild( saveButton );
+
+      // sim specific events that we want to capture
+      model.arm.angleProperty.lazyLink( angle => {
+        this.eventRecorder.addTestEvent( new VibrationTestEvent( null, null, this.elapsedTime, 'Moving Arm' ) );
+      } );
+      model.leg.angleProperty.lazyLink( angle => {
+        this.eventRecorder.addTestEvent( new VibrationTestEvent( null, null, this.elapsedTime, 'Moving Leg' ) );
+      } );
+      model.electronGroup.elementCreatedEmitter.addListener( () => {
+        this.eventRecorder.addTestEvent( new VibrationTestEvent( null, null, this.elapsedTime, 'Added charge' ) );
+      } );
+      model.dischargeStartedEmitter.addListener( () => {
+        this.eventRecorder.addTestEvent( new VibrationTestEvent( null, null, this.elapsedTime, 'Discharged electrons' ) );
+      } );
+      model.arm.isDraggingProperty.lazyLink( isDragging => {
+        const eventString = isDragging ? 'Arm drag start' : 'Arm drag end';
+        this.eventRecorder.addTestEvent( new VibrationTestEvent( null, null, this.elapsedTime, eventString ) );
+      } );
+      model.leg.isDraggingProperty.lazyLink( isDragging => {
+        const eventString = isDragging ? 'Leg drag start' : 'Leg drag end';
+        this.eventRecorder.addTestEvent( new VibrationTestEvent( null, null, this.elapsedTime, eventString ) );
+      } );
+
+      model.stepEmitter.addListener( dt => {
+        this.elapsedTime += dt;
+        vibrationTestInputListener.setElapsedTime( this.elapsedTime );
+      } );
+
+      // let user know that simulation is loaded, and let them know to begin reading through the PDOM
+      phet.joist.sim.isConstructionCompleteProperty.link( complete => {
+        if ( complete ) {
+          phet.joist.sim.utteranceQueue.addToBack( 'Simulation loaded. Start reading to play.' );
+        }
+      } );
     }
   }
 

@@ -525,20 +525,23 @@ class AppendageNode extends Node {
    */
   swipeMove( event ) {
 
+    // the leg is constrained to the bottom two quadrants
+    const useBottomQuadrants = this.model instanceof Leg;
+
     const nextPosition = event.pointer.point;
     if ( this.previousSwipePosition ) {
       const swipeDelta = nextPosition.minus( this.previousSwipePosition );
       const angleDelta = swipeDelta.magnitude / Math.PI / 30;
 
-      let nextAngle = Math.abs( this.model.angleProperty.get() );
+      let nextAngle = this.model.angleProperty.get();
       if ( Math.abs( swipeDelta.x ) > 0.5 ) {
 
         // likely a horizontal swipe, move right by swiping right
         if ( swipeDelta.x > 0 ) {
-          nextAngle = nextAngle - angleDelta;
+          nextAngle = useBottomQuadrants ? nextAngle - angleDelta : nextAngle + angleDelta;
         }
         else {
-          nextAngle = nextAngle + angleDelta;
+          nextAngle = useBottomQuadrants ? nextAngle + angleDelta : nextAngle - angleDelta;
         }
       }
       else if ( Math.abs( swipeDelta.y ) > 0.5 ) {
@@ -550,7 +553,14 @@ class AppendageNode extends Node {
         }
       }
 
-      nextAngle = Utils.clamp( nextAngle, 0, Math.PI );
+      // constrain the appendage to its top or bottom quadrants for this input
+      if ( useBottomQuadrants ) {
+        nextAngle = Utils.clamp( nextAngle, 0, Math.PI );
+      }
+      else {
+        nextAngle = Utils.clamp( nextAngle, this.model.angleProperty.range.min, 0.41 );
+      }
+
       this.model.angleProperty.set( nextAngle );
     }
 
