@@ -98,19 +98,19 @@
             "value": "Just below doorknob"
           },
           "handPointingAway": {
-            "value": "Hand pointing away from door, very far from doorknob"
+            "value": "Pointing away from door, very far from doorknob"
           },
           "handPointingStraightUp": {
-            "value": "Hand pointing straight up"
+            "value": "Pointing straight up"
           },
           "handPointingAtUpperDoor": {
-            "value": "Hand pointing at upper door, close to doorknob"
+            "value": "Pointing at upper door, close to doorknob"
           },
           "handPointingAtLowerDoor": {
-            "value": "Hand pointing at lower door, close to doorknob"
+            "value": "Pointing at lower door, close to doorknob"
           },
           "handPointingStraightDown": {
-            "value": "Hand pointing straight down"
+            "value": "Pointing straight down"
           },
           "farthestFromDoorknobLast": {
             "value": "Farthest from doorknob. Last Stop"

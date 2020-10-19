@@ -389,15 +389,7 @@ class AppendageNode extends Node {
    * @private
    */
   createAriaValueText( position, previousPosition, includeDirection ) {
-
-    // get value with 'negative' so VoiceOver reads it correctly
-    const positionWithNegative = this.getValueWithNegativeString( position );
-
-    const valueDescription = this.getTextFromPosition( position, previousPosition, includeDirection );
-    return StringUtils.fillIn( positionPatternString, {
-      value: positionWithNegative,
-      description: valueDescription
-    } );
+    return this.getTextFromPosition( position, previousPosition, includeDirection );
   }
 
   /**
