@@ -153,7 +153,6 @@ class JohnTravoltageView extends ScreenView {
         labelContent: appendageArmLabelString,
 
         // prototype self-voicing feature
-        selfVoicingLabel: 'Hand',
         selfVoicingHint: selfVoicingDetailedContentHintString
       } );
     this.addChild( this.arm );

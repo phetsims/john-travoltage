@@ -67,7 +67,7 @@
       },
       "arm": {
         "label": {
-          "value": "Hand position"
+          "value": "Move Hand"
         },
         "positions": {
           "farthestFromDoorknob": {

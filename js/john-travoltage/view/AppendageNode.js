@@ -78,11 +78,6 @@ class AppendageNode extends Node {
       containerTagName: 'div',
       keyboardMidPointOffset: 0, // adjust center position of accessible slider, to align important positions at center
 
-      // self-voicing
-      // {string|null} - label used for the self voicing content, if null we will use the
-      // labelContent from the PDOM
-      selfVoicingLabel: null,
-
       // {string|null} - hint spoken to guide the user toward an interaction
       selfVoicingHint: null
     }, options );
@@ -314,7 +309,7 @@ class AppendageNode extends Node {
 
           // on focus, we will read name, value, and hint
           const objectResponse = StringUtils.fillIn( selfVoicingObjectResponsePatternString, {
-            label: options.selfVoicingLabel ? options.selfVoicingLabel : this.labelContent,
+            label: this.labelContent,
             valueText: this.selfVoicingValueText
           } );
 
