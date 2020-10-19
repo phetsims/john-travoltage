@@ -38,7 +38,6 @@ const towardsDoorknobPatternString = johnTravoltageStrings.a11y.appendages.arm.d
 const awayFromDoorknobPatternString = johnTravoltageStrings.a11y.appendages.arm.directions.awayFromDoorknobPattern;
 const fartherAwayPatternString = johnTravoltageStrings.a11y.appendages.arm.directions.fartherAwayPattern;
 const negativePatternString = johnTravoltageStrings.a11y.appendages.negativePattern;
-const positionPatternString = johnTravoltageStrings.a11y.appendages.positionPattern;
 const selfVoicingObjectResponsePatternString = johnTravoltageStrings.a11y.selfVoicing.appendageObjectResponsePattern;
 const grabbedAlertString = johnTravoltageStrings.a11y.selfVoicing.grabbedAlert;
 const dragHintString = johnTravoltageStrings.a11y.selfVoicing.dragHint;
