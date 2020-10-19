@@ -1,5 +1,5 @@
 {
-  "comment": "# john-travoltage 1.6.0-dev.27 Fri Oct 16 2020 18:07:19 GMT-0400 (Eastern Daylight Time)",
+  "comment": "# john-travoltage 1.6.0-dev.28 Mon Oct 19 2020 16:31:20 GMT-0400 (Eastern Daylight Time)",
   "assert": {
     "sha": "49aa67d01046326d85dcd8f265db91e8753038a1",
     "branch": "master"
@@ -25,7 +25,7 @@
     "branch": "master"
   },
   "john-travoltage": {
-    "sha": "d94f05899618c6c4b5ce39dacd6b0583f3613a99",
+    "sha": "962d3ea0ba070e7ec0a3029d257334fc25f5697d",
     "branch": "master"
   },
   "joist": {
