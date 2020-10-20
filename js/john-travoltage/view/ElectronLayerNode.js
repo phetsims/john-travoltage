@@ -80,9 +80,10 @@ class ElectronLayerNode extends Node {
           region: regionText
         } );
 
-        levelSpeakerModel.speakAllResponses( '', selfVoicingAlertString, '', {
+        const selfVoicingContent = levelSpeakerModel.collectResponses( '', selfVoicingAlertString, '', {
           withCancel: false
         } );
+        phet.joist.sim.selfVoicingUtteranceQueue.addToBack( selfVoicingContent );
       }
 
       electronUtterance.alert = alertString;

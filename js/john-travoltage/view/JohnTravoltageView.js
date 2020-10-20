@@ -39,6 +39,7 @@ import SaveTestEventsButton from '../../../../tappi/js/tracking/SaveTestEventsBu
 import VibrationTestEvent from '../../../../tappi/js/tracking/VibrationTestEvent.js';
 import VibrationTestEventRecorder from '../../../../tappi/js/tracking/VibrationTestEventRecorder.js';
 import VibrationTestInputListener from '../../../../tappi/js/tracking/VibrationTestInputListener.js';
+import SelfVoicingUtterance from '../../../../utterance-queue/js/SelfVoicingUtterance.js';
 import arm from '../../../images/arm_png.js';
 import leg from '../../../images/leg_png.js';
 import chargesInBodySound from '../../../sounds/charges-in-body_mp3.js';
@@ -387,6 +388,13 @@ class JohnTravoltageView extends ScreenView {
       // listener that will detect pointer hits of various objects
       //phet.joist.display.addInputListener( this.shapeHitDetector );
 
+      const appendageDragUtterance = new SelfVoicingUtterance( {
+
+        // allow the current utterance to finish speaking (in particular the 'Released' content)
+        cancelOther: false,
+        alertStableDelay: 1000
+      } );
+
       // describe the leg and any charge changes in result to the user dragging
       let countOnDrag;
       model.leg.isDraggingProperty.lazyLink( isDragging => {
@@ -410,7 +418,8 @@ class JohnTravoltageView extends ScreenView {
             } );
           }
 
-          levelSpeakerModel.speakAllResponses( objectResponse, pickupAlert, selfVoicingContentHintString );
+          appendageDragUtterance.alert = levelSpeakerModel.collectResponses( objectResponse, pickupAlert, selfVoicingContentHintString );
+          phet.joist.sim.selfVoicingUtteranceQueue.addToBack( appendageDragUtterance );
         }
       } );
 
@@ -423,7 +432,8 @@ class JohnTravoltageView extends ScreenView {
             valueText: this.arm.selfVoicingValueText
           } );
 
-          levelSpeakerModel.speakAllResponses( objectResponse, '', selfVoicingDetailedContentHintString );
+          appendageDragUtterance.alert = levelSpeakerModel.collectResponses( objectResponse, '', selfVoicingDetailedContentHintString );
+          phet.joist.sim.selfVoicingUtteranceQueue.addToBack( appendageDragUtterance );
         }
       } );
 
@@ -431,7 +441,8 @@ class JohnTravoltageView extends ScreenView {
         onFocusIn: () => {
 
           // on focus, speak the name of the reset all button
-          levelSpeakerModel.speakAllResponses( resetAllString );
+          const response = levelSpeakerModel.collectResponses( resetAllString );
+          phet.joist.sim.selfVoicingUtteranceQueue.addToBack( response );
         },
         highlightTarget: resetAllButton
       } ) );
@@ -439,7 +450,8 @@ class JohnTravoltageView extends ScreenView {
       model.resetEmitter.addListener( () => {
 
         // when pressed, self-voicing content should speak both the label and the alert
-        levelSpeakerModel.speakAllResponses( resetAllString, resetAllAlertString );
+        const resetAlert = levelSpeakerModel.collectResponses( resetAllString, resetAllAlertString );
+        phet.joist.sim.selfVoicingUtteranceQueue.addToBack( resetAlert );
       } );
 
       const quickControl = new SelfVoicingQuickControl( webSpeaker, {

@@ -27,6 +27,7 @@ import Image from '../../../../scenery/js/nodes/Image.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
 import AccessibleSlider from '../../../../sun/js/accessibility/AccessibleSlider.js';
+import SelfVoicingUtterance from '../../../../utterance-queue/js/SelfVoicingUtterance.js';
 import johnTravoltage from '../../johnTravoltage.js';
 import johnTravoltageStrings from '../../johnTravoltageStrings.js';
 import Appendage from '../model/Appendage.js';
@@ -312,7 +313,8 @@ class AppendageNode extends Node {
             valueText: this.selfVoicingValueText
           } );
 
-          levelSpeakerModel.speakAllResponses( objectResponse, '', options.selfVoicingHint );
+          const response = levelSpeakerModel.collectResponses( objectResponse, '', options.selfVoicingHint );
+          phet.joist.sim.selfVoicingUtteranceQueue.addToBack( response );
         },
         highlightTarget: this
       } ) );
@@ -321,7 +323,8 @@ class AppendageNode extends Node {
       // user how to drag the appendage
       this.addInputListener( {
         click: event => {
-          levelSpeakerModel.speakAllResponses( dragHintString );
+          const response = levelSpeakerModel.collectResponses( dragHintString );
+          phet.joist.sim.selfVoicingUtteranceQueue.addToBack( response );
         }
       } );
 
@@ -497,7 +500,8 @@ class AppendageNode extends Node {
     this.model.isDraggingProperty.set( true );
     this.model.borderVisibleProperty.set( false );
 
-    levelSpeakerModel.speakAllResponses( grabbedAlertString );
+    const response = levelSpeakerModel.collectResponses( grabbedAlertString );
+    phet.joist.sim.selfVoicingUtteranceQueue.addToBack( response );
   }
 
   /**
@@ -563,12 +567,10 @@ class AppendageNode extends Node {
     this.model.isDraggingProperty.set( false );
     this.previousSwipePosition = null;
 
-    // TODO: We would like this to be the first thing that is heard on release. Need better
-    // support for control of queuing web speech utterances, see
-    // https://github.com/phetsims/utterance-queue/issues/14
-    levelSpeakerModel.speakAllResponses( 'Released', null, null, {
-      withCancel: false
+    const releasedUtterance = new SelfVoicingUtterance( {
+      alert: 'Released'
     } );
+    phet.joist.sim.selfVoicingUtteranceQueue.addToFront( releasedUtterance );
   }
 
 
