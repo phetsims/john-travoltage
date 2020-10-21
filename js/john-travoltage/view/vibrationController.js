@@ -17,12 +17,15 @@
  * @author Jesse Greenberg
  */
 
+import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import Property from '../../../../axon/js/Property.js';
+import LinearFunction from '../../../../dot/js/LinearFunction.js';
 import johnTravoltage from '../../johnTravoltage.js';
 import JohnTravoltageQueryParameters from '../JohnTravoltageQueryParameters.js';
+import JohnTravoltageModel from '../model/JohnTravoltageModel.js';
 
 // constants
-const CHARGES_LEAVING_PATTERN = [ 200, 100 ];
+const CHARGES_LEAVING_PATTERN = [ .200, .100 ];
 
 class VibrationController {
   constructor() {}
@@ -173,8 +176,16 @@ class VibrationController {
       // start with this vibration
       let runningChargeHoldPattern = false;
 
-      // vibration pattern for when charges are held in the body, 100 ms on, 1000 ms off
-      const chargesHeldPattern = [ 0.1, 1 ];
+      // linear function for the pattern that plays while charges are within the body - as the body
+      // picks up charge, the on/off pattern will become faster
+      const chargeHoldVibrationIntervalFunction = new LinearFunction( 0, JohnTravoltageModel.MAX_ELECTRONS, 0.2, 0.025, true );
+
+      // if the inverval determined by the above function changes, we will request a new
+      // vibration pattern, but variable required since this is driven with polling rather
+      // than a Property
+      let lastChargeHoldInterval = 0.2;
+
+      const runningDischargePatternProperty = new BooleanProperty( false );
 
       // in ms, how long to wait to start the chargesHeldPattern after we have
       // picked up a new charge
@@ -233,26 +244,38 @@ class VibrationController {
           if ( currentCharge > 0 ) {
 
             // there are some charges on the body, vibrate with a constant pattern
-            // to represent this
-            if ( !runningChargeHoldPattern ) {
-              vibrationManager.vibrateWithCustomPatternForever( chargesHeldPattern );
+            // to represent this - start this vibration when we are not vibrating due to
+            // discharge, or whenever the number of charges on the body has changed
+            const chargeInterval = chargeHoldVibrationIntervalFunction( currentCharge );
+            if ( !runningDischargePatternProperty.get() && ( !runningChargeHoldPattern || lastChargeHoldInterval !== chargeInterval ) ) {
+              const newPattern = [ chargeInterval, chargeInterval ];
+
+              vibrationManager.vibrateWithCustomPatternForever( newPattern );
               runningChargeHoldPattern = true;
+
+              lastChargeHoldInterval = chargeInterval;
             }
           }
         }
       } );
 
       model.dischargeStartedEmitter.addListener( () => {
-        vibrationManager.vibrateWithCustomPatternForever( CHARGES_LEAVING_PATTERN );
+        vibrationManager.vibrateContinuous( {
+          pattern: CHARGES_LEAVING_PATTERN
+        } );
 
         // prevent us from starting the 'hold' pattern while we are doing discharge
         runningChargeHoldPattern = true;
+
+        runningDischargePatternProperty.set( true );
       } );
       model.dischargeEndedEmitter.addListener( () => {
         vibrationManager.stop();
 
         // we can start the 'hold' pattern again, if discharge didn't get rid of all electrons
         runningChargeHoldPattern = false;
+
+        runningDischargePatternProperty.set( false );
       } );
 
       model.resetEmitter.addListener( () => {
