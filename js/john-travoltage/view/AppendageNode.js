@@ -22,7 +22,7 @@ import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import SelfVoicingInputListener from '../../../../scenery-phet/js/accessibility/speaker/SelfVoicingInputListener.js';
 import levelSpeakerModel from '../../../../scenery-phet/js/accessibility/speaker/levelSpeakerModel.js';
 import FocusHighlightPath from '../../../../scenery/js/accessibility/FocusHighlightPath.js';
-import SimpleDragHandler from '../../../../scenery/js/input/SimpleDragHandler.js';
+import DragListener from '../../../../scenery/js/listeners/DragListener.js';
 import Image from '../../../../scenery/js/nodes/Image.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
@@ -121,7 +121,7 @@ class AppendageNode extends Node {
 
     // no need for dispose - exists for life of sim
     let angle = 0;
-    this.imageNode.addInputListener( new SimpleDragHandler( {
+    this.imageNode.addInputListener( new DragListener( {
       tandem: tandem.createTandem( 'dragHandler' ),
       allowTouchSnag: true,
       start: event => {
