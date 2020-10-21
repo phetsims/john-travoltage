@@ -69,13 +69,14 @@ class ElectronLayerNode extends Node {
       if ( currentCharge >= priorCharge ) {
         alertString = StringUtils.fillIn( electronsTotalDescriptionPatternString, { value: currentCharge } );
 
-        chargeUtterance.alert = StringUtils.fillIn( '{{qualitativeDescription}} electrons on body', {
-          qualitativeDescription: this.getQualitativeChargeDescription( currentCharge )
-        } );
-        phet.joist.sim.selfVoicingUtteranceQueue.addToBack( chargeUtterance );
+        if ( phet.chipper.queryParameters.supportsSelfVoicing ) {
+          chargeUtterance.alert = StringUtils.fillIn( '{{qualitativeDescription}} electrons on body', {
+            qualitativeDescription: this.getQualitativeChargeDescription( currentCharge )
+          } );
+          phet.joist.sim.selfVoicingUtteranceQueue.addToBack( chargeUtterance );
+        }
       }
       else {
-        const position = armNode.positionAtDischarge || '';
 
         let regionText = '';
         if ( armNode.regionAtDischarge && armNode.regionAtDischarge.text ) {
@@ -85,19 +86,20 @@ class ElectronLayerNode extends Node {
         alertString = StringUtils.fillIn( electronsTotalAfterDischargePatternString, {
           oldValue: priorCharge,
           newValue: currentCharge,
-          position: position,
           region: regionText
         } );
 
-        const selfVoicingAlertString = StringUtils.fillIn( '{{qualitativeDescription}} electrons discharged with hand {{region}}.', {
-          qualitativeDescription: this.getQualitativeChargeDescription( priorCharge - currentCharge ),
-          region: regionText
-        } );
+        if ( phet.chipper.queryParameters.supportsSelfVoicing ) {
+          const selfVoicingAlertString = StringUtils.fillIn( '{{qualitativeDescription}} electrons discharged with hand {{region}}.', {
+            qualitativeDescription: this.getQualitativeChargeDescription( priorCharge - currentCharge ),
+            region: regionText
+          } );
 
-        const selfVoicingContent = levelSpeakerModel.collectResponses( '', selfVoicingAlertString, '', {
-          withCancel: false
-        } );
-        phet.joist.sim.selfVoicingUtteranceQueue.addToBack( selfVoicingContent );
+          const selfVoicingContent = levelSpeakerModel.collectResponses( '', selfVoicingAlertString, '', {
+            withCancel: false
+          } );
+          phet.joist.sim.selfVoicingUtteranceQueue.addToBack( selfVoicingContent );
+        }
       }
 
       electronUtterance.alert = alertString;

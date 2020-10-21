@@ -55,7 +55,7 @@
         "value": "Electrons on body: {{value}}"
       },
       "totalAfterDischargePattern": {
-        "value": "Discharge occurred. Electrons on body decreased from {{oldValue}} to {{newValue}} with hand at position {{position}}, {{region}}."
+        "value": "Discharge occurred. Electrons on body decreased from {{oldValue}} to {{newValue}} with hand {{region}}."
       }
     },
     "appendages": {
