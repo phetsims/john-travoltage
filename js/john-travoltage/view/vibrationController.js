@@ -262,8 +262,17 @@ class VibrationController {
         vibrationManager.stop();
         runningChargeHoldPattern = false;
 
-        // request a single transient vibration upon activation of this UI component
+        // request three quick transient vibrations upon reset - if we like this we should
+        // consider a way to queue these requests with timing rather than using a timeout
+        const resetVibrationInterval = 150; // ms
         vibrationManager.vibrateTransient();
+        window.setTimeout( () => {
+          vibrationManager.vibrateTransient();
+
+          window.setTimeout( () => {
+            vibrationManager.vibrateTransient();
+          }, resetVibrationInterval );
+        }, resetVibrationInterval );
       } );
     }
   }
