@@ -550,7 +550,11 @@ class AppendageNode extends Node {
     this.previousSwipePosition = null;
 
     const releasedUtterance = new SelfVoicingUtterance( {
-      alert: 'Released'
+      alert: 'Released',
+
+      // this utterance often follows electron information, don't interrupt that
+      // before speaking this alert
+      cancelOther: false
     } );
     phet.joist.sim.selfVoicingUtteranceQueue.addToFront( releasedUtterance );
   }
