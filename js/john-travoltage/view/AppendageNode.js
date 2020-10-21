@@ -543,12 +543,12 @@ class AppendageNode extends Node {
         }
       }
 
-      // constrain the appendage to its top or bottom quadrants for this input
+      // the leg is constrained to bottom quadrants
       if ( useBottomQuadrants ) {
         nextAngle = Utils.clamp( nextAngle, 0, Math.PI );
       }
       else {
-        nextAngle = Utils.clamp( nextAngle, this.model.angleProperty.range.min, 0.41 );
+        nextAngle = Utils.clamp( nextAngle, this.model.angleProperty.range.min, this.model.angleProperty.range.max );
       }
 
       this.model.angleProperty.set( nextAngle );
