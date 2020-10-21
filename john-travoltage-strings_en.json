@@ -59,12 +59,6 @@
       }
     },
     "appendages": {
-      "positionPattern": {
-        "value": "Position {{value}}: {{description}}."
-      },
-      "negativePattern": {
-        "value": "negative {{value}}"
-      },
       "arm": {
         "label": {
           "value": "Move Hand"

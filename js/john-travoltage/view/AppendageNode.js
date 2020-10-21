@@ -38,7 +38,6 @@ const awayFromDoorknobString = johnTravoltageStrings.a11y.appendages.arm.directi
 const towardsDoorknobPatternString = johnTravoltageStrings.a11y.appendages.arm.directions.towardsDoorknobPattern;
 const awayFromDoorknobPatternString = johnTravoltageStrings.a11y.appendages.arm.directions.awayFromDoorknobPattern;
 const fartherAwayPatternString = johnTravoltageStrings.a11y.appendages.arm.directions.fartherAwayPattern;
-const negativePatternString = johnTravoltageStrings.a11y.appendages.negativePattern;
 const selfVoicingObjectResponsePatternString = johnTravoltageStrings.a11y.selfVoicing.appendageObjectResponsePattern;
 const grabbedAlertString = johnTravoltageStrings.a11y.selfVoicing.grabbedAlert;
 const dragHintString = johnTravoltageStrings.a11y.selfVoicing.dragHint;
@@ -435,23 +434,6 @@ class AppendageNode extends Node {
   }
 
   /**
-   * If the position is negative, return a version of the value with 'negative' string added.  This is required for VoiceOver
-   * to read the value correctly, see https://github.com/phetsims/john-travoltage/issues/238
-   *
-   * @public
-   * @param {number} position - the accesssible input value for this node's accessible contenet
-   * @returns {string}
-   */
-  getValueWithNegativeString( position ) {
-    let returnValue = position;
-    if ( returnValue < 0 ) {
-      returnValue = StringUtils.fillIn( negativePatternString, { value: Math.abs( returnValue ) } );
-    }
-
-    return returnValue;
-  }
-
-  /**
    * Get a description of the movement direction, if the appendage changes directions during movement. Direction
    *
    * @param {number} position
@@ -511,7 +493,7 @@ class AppendageNode extends Node {
    * finger left/right or up/down.
    * @public (called by SwipeListener)
    *
-   * @param {SceneryEvent}
+   * @param {SceneryEvent} event
    */
   swipeMove( event ) {
 
@@ -609,7 +591,7 @@ class AppendageNode extends Node {
    * @static
    *
    * @param {number} position - input value for the accessible input
-   * @param {rangeMap} [Object] - a map that will determine the correct description from a provided input value
+   * @param {Object} [rangeMap] - a map that will determine the correct description from a provided input value
    * @returns {Object} region - {range, text}
    */
   static getRegion( position, rangeMap ) {
