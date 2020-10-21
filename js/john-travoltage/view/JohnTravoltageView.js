@@ -396,29 +396,14 @@ class JohnTravoltageView extends ScreenView {
       } );
 
       // describe the leg and any charge changes in result to the user dragging
-      let countOnDrag;
       model.leg.isDraggingProperty.lazyLink( isDragging => {
-        if ( isDragging ) {
-          countOnDrag = model.electronGroup.count;
-        }
         if ( !isDragging ) {
           const objectResponse = StringUtils.fillIn( selfVoicingObjectResponsePatternString, {
             label: appendageLegLabelString,
             valueText: this.leg.selfVoicingValueText
           } );
 
-          let qualitativeDescription;
-          let pickupAlert;
-          const currentCharge = model.electronGroup.count;
-          if ( countOnDrag !== currentCharge ) {
-            qualitativeDescription = this.electronLayer.getQualitativeChargeDescription( currentCharge );
-
-            pickupAlert = StringUtils.fillIn( '{{qualitativeDescription}} electrons on body.', {
-              qualitativeDescription: qualitativeDescription
-            } );
-          }
-
-          appendageDragUtterance.alert = levelSpeakerModel.collectResponses( objectResponse, pickupAlert, selfVoicingContentHintString );
+          appendageDragUtterance.alert = levelSpeakerModel.collectResponses( objectResponse, null, selfVoicingContentHintString );
           phet.joist.sim.selfVoicingUtteranceQueue.addToBack( appendageDragUtterance );
         }
       } );

@@ -13,6 +13,7 @@ import Range from '../../../../dot/js/Range.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import levelSpeakerModel from '../../../../scenery-phet/js/accessibility/speaker/levelSpeakerModel.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
+import SelfVoicingUtterance from '../../../../utterance-queue/js/SelfVoicingUtterance.js';
 import Utterance from '../../../../utterance-queue/js/Utterance.js';
 import johnTravoltage from '../../johnTravoltage.js';
 import johnTravoltageStrings from '../../johnTravoltageStrings.js';
@@ -51,6 +52,15 @@ class ElectronLayerNode extends Node {
 
     let priorCharge = 0;
 
+    const chargeUtterance = new SelfVoicingUtterance( {
+      cancelOther: false,
+
+      // many charges are usually added at once, wait until alerts stabilize before
+      // announcing the change in charge
+      alertStableDelay: 500,
+      alertMaximumDelay: 1000
+    } );
+
     // pdom - when electrons enter or leave the body, announce this change with a status update to assistive technology
     const setElectronStatus = () => {
       let alertString;
@@ -59,6 +69,10 @@ class ElectronLayerNode extends Node {
       if ( currentCharge >= priorCharge ) {
         alertString = StringUtils.fillIn( electronsTotalDescriptionPatternString, { value: currentCharge } );
 
+        chargeUtterance.alert = StringUtils.fillIn( '{{qualitativeDescription}} electrons on body', {
+          qualitativeDescription: this.getQualitativeChargeDescription( currentCharge )
+        } );
+        phet.joist.sim.selfVoicingUtteranceQueue.addToBack( chargeUtterance );
       }
       else {
         const position = armNode.positionAtDischarge || '';
