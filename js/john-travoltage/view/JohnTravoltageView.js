@@ -383,10 +383,15 @@ class JohnTravoltageView extends ScreenView {
       speakerHighlighter.initialize();
 
       // add the swipe listener
-      phet.joist.sim.display.addInputListener( new SwipeListener() );
-
-      // listener that will detect pointer hits of various objects
-      //phet.joist.display.addInputListener( this.shapeHitDetector );
+      const swipeListener = new SwipeListener();
+      levelSpeakerModel.gestureControlProperty.link( gestureControl => {
+        if ( gestureControl ) {
+          phet.joist.sim.display.addInputListener( swipeListener );
+        }
+        else {
+          phet.joist.sim.display.removeInputListener( swipeListener );
+        }
+      } );
 
       const appendageDragUtterance = new SelfVoicingUtterance( {
 
