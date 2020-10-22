@@ -160,17 +160,7 @@ class AppendageNode extends Node {
           //noop, too big a leap, may correspond to the user reversing direction after a leg is stuck against threshold
         }
         else {
-          if ( !appendage.angleProperty.range.contains( angle ) ) {
-            const max = appendage.angleProperty.range.max;
-            const min = appendage.angleProperty.range.min;
-
-            if ( angle < min ) {
-              angle = max - Math.abs( min - angle );
-            }
-            else if ( angle > max ) {
-              angle = min + Math.abs( max - angle );
-            }
-          }
+          angle = this.wrapAngle( angle );
           currentAngle = angle;
           appendage.angleProperty.set( angle );
         }
@@ -530,13 +520,49 @@ class AppendageNode extends Node {
         nextAngle = Utils.clamp( nextAngle, 0, Math.PI );
       }
       else {
-        nextAngle = Utils.clamp( nextAngle, this.model.angleProperty.range.min, this.model.angleProperty.range.max );
+        if ( !this.model.angleProperty.range.contains( nextAngle ) ) {
+          const max = this.model.angleProperty.range.max;
+          const min = this.model.angleProperty.range.min;
+
+          if ( nextAngle < min ) {
+            nextAngle = max - Math.abs( min - nextAngle );
+          }
+          else if ( nextAngle > max ) {
+            nextAngle = min + Math.abs( max - nextAngle );
+          }
+        }
       }
 
       this.model.angleProperty.set( nextAngle );
     }
 
     this.previousSwipePosition = nextPosition;
+  }
+
+  /**
+   * Wrap the angle around the range for the angleProperty - useful because
+   * the arm can go around in a full circle.
+   * @public
+   *
+   * @param {number} angle
+   * @returns {number}
+   */
+  wrapAngle( angle ) {
+    let wrappedAngle = angle;
+
+    if ( !this.model.angleProperty.range.contains( angle ) ) {
+      const max = this.model.angleProperty.range.max;
+      const min = this.model.angleProperty.range.min;
+
+      if ( wrappedAngle < min ) {
+        wrappedAngle = max - Math.abs( min - wrappedAngle );
+      }
+      else if ( wrappedAngle > max ) {
+        wrappedAngle = min + Math.abs( max - wrappedAngle );
+      }
+    }
+
+    return wrappedAngle;
   }
 
   /**
