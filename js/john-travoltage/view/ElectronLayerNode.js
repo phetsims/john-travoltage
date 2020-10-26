@@ -57,8 +57,8 @@ class ElectronLayerNode extends Node {
 
       // many charges are usually added at once, wait until alerts stabilize before
       // announcing the change in charge
-      alertStableDelay: 500,
-      alertMaximumDelay: 1000
+      alertStableDelay: 200,
+      alertMaximumDelay: 800
     } );
 
     // pdom - when electrons enter or leave the body, announce this change with a status update to assistive technology

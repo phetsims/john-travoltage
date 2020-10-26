@@ -397,34 +397,32 @@ class JohnTravoltageView extends ScreenView {
 
         // allow the current utterance to finish speaking (in particular the 'Released' content)
         cancelOther: false,
-        alertStableDelay: 1000
+        cancelSelf: true,
+        alertStableDelay: 500,
+        alertMaximumDelay: 3000
       } );
 
       // describe the leg and any charge changes in result to the user dragging
-      model.leg.isDraggingProperty.lazyLink( isDragging => {
-        if ( !isDragging ) {
-          const objectResponse = StringUtils.fillIn( selfVoicingObjectResponsePatternString, {
-            label: appendageLegLabelString,
-            valueText: this.leg.selfVoicingValueText
-          } );
+      model.leg.angleProperty.link( angle => {
+        const objectResponse = StringUtils.fillIn( selfVoicingObjectResponsePatternString, {
+          label: appendageLegLabelString,
+          valueText: this.leg.selfVoicingValueText
+        } );
 
-          appendageDragUtterance.alert = levelSpeakerModel.collectResponses( objectResponse, null, selfVoicingContentHintString );
-          phet.joist.sim.selfVoicingUtteranceQueue.addToBack( appendageDragUtterance );
-        }
+        appendageDragUtterance.alert = levelSpeakerModel.collectResponses( objectResponse, null, selfVoicingContentHintString );
+        phet.joist.sim.selfVoicingUtteranceQueue.addToBack( appendageDragUtterance );
       } );
 
       // describe the new arm position in respnse to user dragging - electron discharge is described
       // by the ElectronLayerNode
-      model.arm.isDraggingProperty.lazyLink( isDragging => {
-        if ( !isDragging ) {
-          const objectResponse = StringUtils.fillIn( selfVoicingObjectResponsePatternString, {
-            label: 'Hand',
-            valueText: this.arm.selfVoicingValueText
-          } );
+      model.arm.angleProperty.link( angle => {
+        const objectResponse = StringUtils.fillIn( selfVoicingObjectResponsePatternString, {
+          label: 'Hand',
+          valueText: this.arm.selfVoicingValueText
+        } );
 
-          appendageDragUtterance.alert = levelSpeakerModel.collectResponses( objectResponse, '', selfVoicingDetailedContentHintString );
-          phet.joist.sim.selfVoicingUtteranceQueue.addToBack( appendageDragUtterance );
-        }
+        appendageDragUtterance.alert = levelSpeakerModel.collectResponses( objectResponse, '', selfVoicingDetailedContentHintString );
+        phet.joist.sim.selfVoicingUtteranceQueue.addToBack( appendageDragUtterance );
       } );
 
       resetAllButton.addInputListener( new SelfVoicingInputListener( {

@@ -582,7 +582,7 @@ class AppendageNode extends Node {
       // before speaking this alert
       cancelOther: false
     } );
-    phet.joist.sim.selfVoicingUtteranceQueue.addToFront( releasedUtterance );
+    phet.joist.sim.selfVoicingUtteranceQueue.addToBack( releasedUtterance );
   }
 
 
