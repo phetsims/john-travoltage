@@ -18,10 +18,8 @@
  */
 
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
-import Property from '../../../../axon/js/Property.js';
 import LinearFunction from '../../../../dot/js/LinearFunction.js';
 import johnTravoltage from '../../johnTravoltage.js';
-import JohnTravoltageQueryParameters from '../JohnTravoltageQueryParameters.js';
 import JohnTravoltageModel from '../model/JohnTravoltageModel.js';
 
 // constants
@@ -35,142 +33,16 @@ class VibrationController {
    * @public
    * @param {JohnTravoltageModel} model
    * @param {JohnTravoltageView} view
+   * @param {VibrationManageriOS} vibrationManager
    */
   initialize( model, view, vibrationManager ) {
 
     // vibration selection can either be one of the general ones in initialize-globals, or
     // a sim specific one for john-travoltage
-    const paradigmChoice = phet.chipper.queryParameters.vibration || JohnTravoltageQueryParameters.simVibration;
-
-    if ( paradigmChoice === 'objects' ) {
-
-      // Whenever a pointer moves over a new shape (even if it already is over an existing shape) this emitter
-      // will emit an event. Get the right pattern and begin vibration for this case
-      view.shapeHitDetector.hitShapeEmitter.addListener( hitShape => {
-        if ( hitShape === model.touchableBodyShape ) {
-          vibrationManager.vibrateAtFrequencyForever( 100 );
-        }
-        else if ( hitShape === model.carpetShape ) {
-          vibrationManager.vibrateForever();
-        }
-        else if ( hitShape === view.arm.hitShape ) {
-          vibrationManager.vibrateAtFrequencyForever( 25 );
-        }
-        else if ( hitShape === view.leg.hitShape ) {
-          vibrationManager.vibrateAtFrequencyForever( 50 );
-        }
-        else {
-          vibrationManager.stop();
-        }
-      } );
-
-      Property.multilink( [ model.arm.isDraggingProperty, model.leg.isDraggingProperty ], ( armDragging, legDragging ) => {
-        if ( armDragging ) {
-          vibrationManager.vibrateAtFrequencyForever( 25 );
-        }
-        else if ( legDragging ) {
-          vibrationManager.vibrateAtFrequencyForever( 10 );
-        }
-        else {
-          vibrationManager.stop();
-        }
-      } );
-    }
-
-    // Vibration indicates successful interaction with different components.
-    if ( paradigmChoice === 'manipulation' ) {
-      // in response to a "change" event, begin a timed vibration (because TalkBack doesn't go through pointer
-      // events, and the isDraggingProperties will fire one after another immediately)
-      view.leg.addInputListener( {
-        down: event => {
-          vibrationManager.vibrateAtFrequencyForever( 25 );
-
-          const pointerListener = {
-            up: event => {
-              vibrationManager.stop();
-              event.pointer.removeInputListener( pointerListener );
-            }
-          };
-          event.pointer.addInputListener( pointerListener );
-        },
-        change: event => {
-          vibrationManager.vibrateAtFrequency( 1, 25 );
-        }
-      } );
-
-      view.arm.addInputListener( {
-        down: event => {
-          vibrationManager.vibrateAtFrequencyForever( 50 );
-
-          const pointerListener = {
-            up: event => {
-              vibrationManager.stop();
-              event.pointer.removeInputListener( pointerListener );
-            }
-          };
-          event.pointer.addInputListener( pointerListener );
-        },
-        change: event => {
-          vibrationManager.vibrateAtFrequency( 1, 50 );
-        }
-      } );
-    }
-
-    // Vibration indicates charge entering the body while dragging the leg
-    if ( paradigmChoice === 'interaction-changes' ) {
-      Property.multilink( [ model.leg.isDraggingProperty, model.shoeOnCarpetProperty ], ( isDragging, shoeOnCarpet ) => {
-        if ( isDragging && shoeOnCarpet ) {
-          vibrationManager.vibrateForever();
-        }
-        else {
-          vibrationManager.stop();
-        }
-      } );
-
-      // in response to a "change" event, begin a timed vibration (because TalkBack doesn't go through pointer
-      // events, and the isDraggingProperties will fire one after another immediately)
-      view.leg.addInputListener( {
-        change: event => {
-          if ( model.shoeOnCarpetProperty.get() ) {
-            vibrationManager.vibrate( 1 );
-          }
-        }
-      } );
-    }
-
-    // Vibration feedback to indicate changes in charge
-    if ( paradigmChoice === 'result' ) {
-      let isRunningPattern = false;
-
-      model.dischargeStartedEmitter.addListener( () => {
-        vibrationManager.vibrateWithCustomPatternForever( CHARGES_LEAVING_PATTERN );
-        isRunningPattern = true;
-      } );
-      model.dischargeEndedEmitter.addListener( () => {
-        vibrationManager.stop();
-        isRunningPattern = false;
-      } );
-
-      // for as long as there are charges in the body, vibrate forever - in step function because we want to
-      // start vibration again after we may have stopped it from dischargeEndedEmitter
-      model.stepEmitter.addListener( () => {
-
-        // only initiate vibration if we haven't already initiated one
-        if ( !isRunningPattern && model.electronGroup.count > 0 ) {
-          vibrationManager.vibrateAtFrequencyForever( 5 );
-          isRunningPattern = true;
-        }
-        else if ( model.electronGroup.count === 0 ) {
-
-          // stop vibration if we have no more charges without discharge (like on reset)
-          vibrationManager.stop();
-          isRunningPattern = false;
-        }
-      } );
-    }
+    const paradigmChoice = phet.chipper.queryParameters.vibrationParadigm;
 
     // A sim specific design - different from the other classified paradigms.
-    if ( paradigmChoice === 'prototypeDesign1' ) {
+    if ( paradigmChoice === 1 ) {
 
       // flag to indicate that we are currently vibrating with a pattern to indicate
       // that there are charges currently in the body - if this is true, do not

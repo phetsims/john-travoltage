@@ -54,7 +54,6 @@ import JohnTravoltageModel from '../model/JohnTravoltageModel.js';
 import AppendageNode from './AppendageNode.js';
 import ArmPositionSoundGenerator from './ArmPositionSoundGenerator.js';
 import BackgroundNode from './BackgroundNode.js';
-import BodyShapeHitDetector from './BodyShapeHitDetector.js';
 import DebugUtils from './DebugUtils.js';
 import ElectronLayerNode from './ElectronLayerNode.js';
 import FootDragSoundGenerator from './FootDragSoundGenerator.js';
@@ -157,8 +156,6 @@ class JohnTravoltageView extends ScreenView {
         selfVoicingHint: selfVoicingDetailedContentHintString
       } );
     this.addChild( this.arm );
-
-    this.shapeHitDetector = new BodyShapeHitDetector( model, this );
 
     // @private (a11y) after travolta picks up electrons the first time, this flag will modify descriptions slightly
     this.includeElectronInfo = false;
@@ -467,7 +464,7 @@ class JohnTravoltageView extends ScreenView {
 
     // code related to vibration prototype work - hidden behind a query param while we understand more about what
     // we want for this feature.
-    const vibrationParam = phet.chipper.queryParameters.vibration || JohnTravoltageQueryParameters.simVibration;
+    const vibrationParam = phet.chipper.queryParameters.vibrationParadigm;
     if ( vibrationParam !== null ) {
 
       // @private {number} - time (in seconds) that the simulation has been running
@@ -478,9 +475,6 @@ class JohnTravoltageView extends ScreenView {
 
       // controls simulation specific vibrations and uses vibrationManager to send messages
       vibrationController.initialize( model, this, vibrationManager );
-
-      // listener that will detect pointer hits of various objects
-      // phet.joist.display.addInputListener( this.shapeHitDetector );
 
       // collection of input and simulation events that will be recorded during user interaction
       this.eventRecorder = new VibrationTestEventRecorder();
@@ -630,8 +624,6 @@ class JohnTravoltageView extends ScreenView {
    * @private
    */
   showBody() {
-    const hitPaths = this.shapeHitDetector.getDebugPaths();
-    hitPaths.forEach( path => { this.addChild( path ); } );
 
     //Show normals
     let lineSegment;
