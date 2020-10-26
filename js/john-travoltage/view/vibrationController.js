@@ -25,7 +25,8 @@ import JohnTravoltageQueryParameters from '../JohnTravoltageQueryParameters.js';
 import JohnTravoltageModel from '../model/JohnTravoltageModel.js';
 
 // constants
-const CHARGES_LEAVING_PATTERN = [ .200, .100 ];
+// vibration pattern during electron discharge, on/off intervals in seconds
+const CHARGES_LEAVING_PATTERN = [ .100, .070, 0.050, 0.050 ];
 
 class VibrationController {
   constructor() {}
@@ -200,7 +201,7 @@ class VibrationController {
       let timeSpentVibrating = 0;
 
       // amount of time to vibrate per electron charge pickup
-      const vibrationTimePerCharge = 0.1;
+      const vibrationTimePerCharge = 0.25;
 
       // for as long as there are charges in the body, vibrate forever - in step function because we want to
       // start vibration again after we may have stopped it from dischargeEndedEmitter
@@ -234,7 +235,11 @@ class VibrationController {
 
           if ( !vibratingFromChargePickup ) {
             vibratingFromChargePickup = true;
-            vibrationManager.vibrateForever();
+            vibrationManager.vibrateContinuous( {
+
+              // lower intensity requested for charge pickup vibration
+              intensity: 0.75
+            } );
           }
         }
 
