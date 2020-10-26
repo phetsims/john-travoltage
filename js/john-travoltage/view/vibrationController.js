@@ -42,7 +42,7 @@ class VibrationController {
     const paradigmChoice = phet.chipper.queryParameters.vibrationParadigm;
 
     // A sim specific design - different from the other classified paradigms.
-    if ( paradigmChoice === 1 ) {
+    if ( paradigmChoice === '1' ) {
 
       // flag to indicate that we are currently vibrating with a pattern to indicate
       // that there are charges currently in the body - if this is true, do not
