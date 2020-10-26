@@ -175,15 +175,11 @@ class AppendageNode extends Node {
       }
     } ) );
 
-    // @public {Shape} (vibration) - Shape of the appendage used for hit testing)
-    this.hitShape = Shape.bounds( this.imageNode.bounds );
-
     // changes visual position
     appendage.angleProperty.link( angle => {
       this.imageNode.resetTransform();
       this.imageNode.translate( appendage.position.x - dx, appendage.position.y - dy );
       this.imageNode.rotateAround( appendage.position.plus( new Vector2( 0, 0 ) ), angle - angleOffset );
-      this.hitShape = Shape.bounds( this.imageNode.bounds );
     } );
 
     // @public
