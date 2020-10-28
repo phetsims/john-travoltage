@@ -477,7 +477,7 @@ class JohnTravoltageView extends ScreenView {
       vibrationController.initialize( model, this, vibrationManager );
 
       // collection of input and simulation events that will be recorded during user interaction
-      this.eventRecorder = new VibrationTestEventRecorder();
+      this.eventRecorder = new VibrationTestEventRecorder( vibrationManager );
 
       // listener that watches finger/touch input and saves to the event recorder
       const vibrationTestInputListener = new VibrationTestInputListener( this.eventRecorder );
