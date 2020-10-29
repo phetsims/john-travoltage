@@ -490,25 +490,28 @@ class AppendageNode extends Node {
     if ( this.previousSwipePosition ) {
       const swipeDelta = nextPosition.minus( this.previousSwipePosition );
       const angleDelta = swipeDelta.magnitude / Math.PI / 30;
+      const swipeAngle = swipeDelta.angle;
 
       let nextAngle = this.model.angleProperty.get();
-      if ( Math.abs( swipeDelta.x ) > 0.5 ) {
 
-        // likely a horizontal swipe, move right by swiping right
-        if ( swipeDelta.x > 0 ) {
-          nextAngle = useBottomQuadrants ? nextAngle - angleDelta : nextAngle + angleDelta;
-        }
-        else {
-          nextAngle = useBottomQuadrants ? nextAngle + angleDelta : nextAngle - angleDelta;
-        }
+      // this kind of thing would probably be useful elsewhere if we continue with this
+      const swipeRight = Utils.equalsEpsilon( Math.abs( swipeAngle ), 0, Math.PI / 4 );
+      const swipeLeft = Utils.equalsEpsilon( Math.abs( swipeAngle ), Math.PI, Math.PI / 4 );
+      const swipeUp = Utils.equalsEpsilon( swipeAngle, -Math.PI / 2, Math.PI / 4 );
+      const swipeDown = Utils.equalsEpsilon( swipeAngle, Math.PI / 2, Math.PI / 4 );
+
+      // likely a horizontal swipe, move right by swiping right
+      if ( swipeRight ) {
+        nextAngle = useBottomQuadrants ? nextAngle - angleDelta : nextAngle + angleDelta;
       }
-      else if ( Math.abs( swipeDelta.y ) > 0.5 ) {
-        if ( swipeDelta.y > 0 ) {
-          nextAngle = nextAngle - angleDelta;
-        }
-        else {
-          nextAngle = nextAngle + angleDelta;
-        }
+      else if ( swipeLeft ) {
+        nextAngle = useBottomQuadrants ? nextAngle + angleDelta : nextAngle - angleDelta;
+      }
+      else if ( swipeDown ) {
+        nextAngle = nextAngle + angleDelta;
+      }
+      else if ( swipeUp ) {
+        nextAngle = nextAngle - angleDelta;
       }
 
       // the leg is constrained to bottom quadrants
@@ -516,17 +519,7 @@ class AppendageNode extends Node {
         nextAngle = Utils.clamp( nextAngle, 0, Math.PI );
       }
       else {
-        if ( !this.model.angleProperty.range.contains( nextAngle ) ) {
-          const max = this.model.angleProperty.range.max;
-          const min = this.model.angleProperty.range.min;
-
-          if ( nextAngle < min ) {
-            nextAngle = max - Math.abs( min - nextAngle );
-          }
-          else if ( nextAngle > max ) {
-            nextAngle = min + Math.abs( max - nextAngle );
-          }
-        }
+        nextAngle = this.wrapAngle( nextAngle );
       }
 
       this.model.angleProperty.set( nextAngle );
