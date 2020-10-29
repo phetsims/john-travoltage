@@ -402,7 +402,7 @@ class JohnTravoltageView extends ScreenView {
       } );
 
       // describe the leg and any charge changes in result to the user dragging
-      model.leg.angleProperty.link( angle => {
+      model.leg.angleProperty.lazyLink( angle => {
         const objectResponse = StringUtils.fillIn( selfVoicingObjectResponsePatternString, {
           label: appendageLegLabelString,
           valueText: this.leg.selfVoicingValueText
@@ -414,7 +414,7 @@ class JohnTravoltageView extends ScreenView {
 
       // describe the new arm position in respnse to user dragging - electron discharge is described
       // by the ElectronLayerNode
-      model.arm.angleProperty.link( angle => {
+      model.arm.angleProperty.lazyLink( angle => {
         const objectResponse = StringUtils.fillIn( selfVoicingObjectResponsePatternString, {
           label: 'Hand',
           valueText: this.arm.selfVoicingValueText
