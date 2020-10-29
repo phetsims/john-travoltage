@@ -75,6 +75,7 @@ const resetAllAlertString = sceneryPhetStrings.a11y.resetAll.alert;
 const screenSummarySingleScreenIntroPatternString = sceneryPhetStrings.a11y.selfVoicing.simSection.screenSummary.singleScreenIntroPattern;
 const previousDischargePatternString = johnTravoltageStrings.a11y.selfVoicing.previousDischargePattern;
 const screenSummaryWithPreviousDischargePatternString = johnTravoltageStrings.a11y.selfVoicing.screenSummaryWithPreviousDischargePattern;
+const selfVoicingHandLabelString = johnTravoltageStrings.a11y.selfVoicing.handLabel;
 
 // constants
 const OUCH_EXCLAMATION_DELAY = 0.5; // in seconds
@@ -153,7 +154,8 @@ class JohnTravoltageView extends ScreenView {
         labelContent: appendageArmLabelString,
 
         // prototype self-voicing feature
-        selfVoicingHint: selfVoicingDetailedContentHintString
+        selfVoicingHint: selfVoicingDetailedContentHintString,
+        selfVoicingLabel: selfVoicingHandLabelString
       } );
     this.addChild( this.arm );
 

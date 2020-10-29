@@ -78,7 +78,10 @@ class AppendageNode extends Node {
       keyboardMidPointOffset: 0, // adjust center position of accessible slider, to align important positions at center
 
       // {string|null} - hint spoken to guide the user toward an interaction
-      selfVoicingHint: null
+      selfVoicingHint: null,
+
+      // {string|null} - a custom label for the appendage, if different from the usual labelContent
+      selfVoicingLabel: null
     }, options );
 
     super( options );
@@ -294,7 +297,7 @@ class AppendageNode extends Node {
 
           // on focus, we will read name, value, and hint
           const objectResponse = StringUtils.fillIn( selfVoicingObjectResponsePatternString, {
-            label: this.labelContent,
+            label: options.selfVoicingLabel || this.labelContent,
             valueText: this.selfVoicingValueText
           } );
 
