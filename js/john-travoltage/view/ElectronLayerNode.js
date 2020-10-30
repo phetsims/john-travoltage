@@ -89,7 +89,7 @@ class ElectronLayerNode extends Node {
         } );
 
         if ( phet.chipper.queryParameters.supportsSelfVoicing ) {
-          const selfVoicingAlertString = StringUtils.fillIn( '{{qualitativeDescription}} electrons discharged with hand {{region}}.', {
+          const selfVoicingAlertString = StringUtils.fillIn( '{{qualitativeDescription}} electrons discharged with {{region}}.', {
             qualitativeDescription: this.getQualitativeChargeDescription( priorCharge - currentCharge ),
             region: regionText
           } );
