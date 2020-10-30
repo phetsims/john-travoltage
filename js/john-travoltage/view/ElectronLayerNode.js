@@ -54,6 +54,7 @@ class ElectronLayerNode extends Node {
 
     const chargeUtterance = new SelfVoicingUtterance( {
       cancelOther: false,
+      cancelSelf: false,
 
       // many charges are usually added at once, wait until alerts stabilize before
       // announcing the change in charge
