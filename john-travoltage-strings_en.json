@@ -38,7 +38,7 @@
   "a11y": {
     "screenSummary": {
       "bodyDescriptionPattern": {
-        "value": "John's hand is {{position}}, and he is ready to swing his leg to rub his foot on the rug."
+        "value": "John has {{position}}, and he is ready to swing his leg to rub his foot on the rug."
       },
       "descriptionWithChargePattern": {
         "value": "{{charge}} {{johnDescription}}"
