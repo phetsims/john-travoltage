@@ -168,8 +168,7 @@ const AppendageRangeMaps = {
       },
       {
         value: -8,
-        text: handPointingStraightUpString,
-        includeDirection: true
+        text: handPointingStraightUpString
       },
       {
         value: -4,
@@ -196,8 +195,7 @@ const AppendageRangeMaps = {
         text: handPointingAtLowerDoorString
       }, {
         value: 7,
-        text: handPointingStraightDownString,
-        includeDirection: true
+        text: handPointingStraightDownString
       }, {
         value: 13,
         text: handPointingAwayString

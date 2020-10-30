@@ -61,53 +61,53 @@
     "appendages": {
       "arm": {
         "label": {
-          "value": "Move Hand"
+          "value": "Arm Swing"
         },
         "positions": {
           "farthestFromDoorknob": {
-            "value": "Farthest from doorknob"
+            "value": "Hand farthest from doorknob"
           },
           "veryFarFromDoorknob": {
-            "value": "Very far from doorknob"
+            "value": "Hand very far from doorknob"
           },
           "farFromDoorknob": {
-            "value": "Far from doorknob"
+            "value": "Hand far from doorknob"
           },
           "notSoCloseToDoorknob": {
-            "value": "Not so close to doorknob"
+            "value": "Hand not so close to doorknob"
           },
           "closeToDoorknob": {
-            "value": "Close to doorknob"
+            "value": "Hand close to doorknob"
           },
           "veryCloseToDoorknob": {
-            "value": "Very close to doorknob"
+            "value": "Hand very close to doorknob"
           },
           "justAboveDoorknob": {
-            "value": "Just above doorknob"
+            "value": "Hand just above doorknob"
           },
           "atDoorknob": {
-            "value": "At doorknob"
+            "value": "Hand at doorknob"
           },
           "justBelowDoorknob": {
-            "value": "Just below doorknob"
+            "value": "Hand just below doorknob"
           },
           "handPointingAway": {
-            "value": "Pointing away from door, very far from doorknob"
+            "value": "Hand pointing away from door, very far from doorknob"
           },
           "handPointingStraightUp": {
-            "value": "Pointing straight up"
+            "value": "Hand pointing straight up"
           },
           "handPointingAtUpperDoor": {
-            "value": "Pointing at upper door, close to doorknob"
+            "value": "Hand pointing at upper door, close to doorknob"
           },
           "handPointingAtLowerDoor": {
-            "value": "Pointing at lower door, close to doorknob"
+            "value": "Hand pointing at lower door, close to doorknob"
           },
           "handPointingStraightDown": {
-            "value": "Pointing straight down"
+            "value": "Hand pointing straight down"
           },
           "farthestFromDoorknobLast": {
-            "value": "Farthest from doorknob."
+            "value": "Hand farthest from doorknob."
           }
         },
         "directions": {

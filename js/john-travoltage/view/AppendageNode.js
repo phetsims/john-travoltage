@@ -30,29 +30,12 @@ import AccessibleSlider from '../../../../sun/js/accessibility/AccessibleSlider.
 import SelfVoicingUtterance from '../../../../utterance-queue/js/SelfVoicingUtterance.js';
 import johnTravoltage from '../../johnTravoltage.js';
 import johnTravoltageStrings from '../../johnTravoltageStrings.js';
-import Appendage from '../model/Appendage.js';
 import Leg from '../model/Leg.js';
 
-const towardsDoorknobString = johnTravoltageStrings.a11y.appendages.arm.directions.towardsDoorknob;
-const awayFromDoorknobString = johnTravoltageStrings.a11y.appendages.arm.directions.awayFromDoorknob;
-const towardsDoorknobPatternString = johnTravoltageStrings.a11y.appendages.arm.directions.towardsDoorknobPattern;
-const awayFromDoorknobPatternString = johnTravoltageStrings.a11y.appendages.arm.directions.awayFromDoorknobPattern;
-const fartherAwayPatternString = johnTravoltageStrings.a11y.appendages.arm.directions.fartherAwayPattern;
 const selfVoicingObjectResponsePatternString = johnTravoltageStrings.a11y.selfVoicing.appendageObjectResponsePattern;
 const grabbedAlertString = johnTravoltageStrings.a11y.selfVoicing.grabbedAlert;
 const dragHintString = johnTravoltageStrings.a11y.selfVoicing.dragHint;
 const selfVoicingContentHintString = johnTravoltageStrings.a11y.selfVoicing.contentHint;
-
-// constants
-const DIRECTION_DESCRIPTIONS = {
-  CLOSER: towardsDoorknobString,
-  FARTHER: awayFromDoorknobString
-};
-
-const DIRECTION_LANDMARK_PATTERN_DESCRIPTIONS = {
-  CLOSER: towardsDoorknobPatternString,
-  FARTHER: awayFromDoorknobPatternString
-};
 
 class AppendageNode extends Node {
   /**
@@ -79,10 +62,7 @@ class AppendageNode extends Node {
       keyboardMidPointOffset: 0, // adjust center position of accessible slider, to align important positions at center
 
       // {string|null} - hint spoken to guide the user toward an interaction
-      selfVoicingHint: null,
-
-      // {string|null} - a custom label for the appendage, if different from the usual labelContent
-      selfVoicingLabel: null
+      selfVoicingHint: null
     }, options );
 
     super( options );
@@ -103,10 +83,6 @@ class AppendageNode extends Node {
     this.positionAtDischarge = null;
 
     this.previousSwipePosition = null;
-
-    // @public {string|null} - the lable for the appendage in the self-voicing
-    // case
-    this.selfVoicingLabel = options.selfVoicingLabel;
 
     // when the model is reset, reset the flags that track previous interactions with the appendage and reset
     // descriptions, no need to dispose this listener since appendages exist for life of sim
@@ -305,6 +281,14 @@ class AppendageNode extends Node {
         alertStableDelay: 400
       } );
 
+      const isLeg = appendage instanceof Leg;
+      if ( !isLeg ) {
+        sliderProperty.lazyLink( angle => {
+          appendageUtterance.alert = this.getSelfVoicingObjectResponse( false );
+          phet.joist.sim.selfVoicingUtteranceQueue.addToBack( appendageUtterance );
+        } );
+      }
+
       // describe position of the appendage if we receive a down event but the
       // appendage does not move
       let angleOnStart = null;
@@ -352,7 +336,7 @@ class AppendageNode extends Node {
     let objectResponse;
     if ( includeLabel ) {
       objectResponse = StringUtils.fillIn( selfVoicingObjectResponsePatternString, {
-        label: this.selfVoicingLabel || this.labelContent,
+        label: this.labelContent,
         valueText: this.ariaValueText
       } );
     }
@@ -370,31 +354,16 @@ class AppendageNode extends Node {
    * @public (a11y)
    * @param  {Number} position         the new slider input value
    * @param  {Number} previousPosition the old slider input value
-   * @param  {boolean} [includeDirection] - override about whether or not to include direction information
    * @returns {String}                  the generated text for the slider
    */
-  getTextFromPosition( position, previousPosition, includeDirection ) {
+  getTextFromPosition( position, previousPosition ) {
     let valueDescription;
-    const isLeg = this.model instanceof Leg;
-
-    // default, always include direction information
-    includeDirection = includeDirection || true;
 
     // generate descriptions that could be used depending on movement
     const newRegion = AppendageNode.getRegion( position, this.rangeMap.regions );
     const landmarkDescription = AppendageNode.getLandmarkDescription( position, this.rangeMap.landmarks );
 
-    let directionDescription = null;
-    if ( previousPosition ) {
-      directionDescription = this.getDirectionDescription( position, previousPosition, landmarkDescription, newRegion );
-    }
-
-    if ( !isLeg && directionDescription && includeDirection ) {
-
-      // if we change directions of movement (relative to the doorknob or center of carpet, that gets next priority)
-      valueDescription = directionDescription;
-    }
-    else if ( landmarkDescription ) {
+    if ( landmarkDescription ) {
 
       // if we are ever on a critical landmark, that description should take priority
       valueDescription = landmarkDescription;
@@ -412,12 +381,11 @@ class AppendageNode extends Node {
    * Get a description of the value of the hand position, with an associated numerical value.
    * @param position
    * @param previousPosition
-   * @param includeDirection
    * @returns {string}
    * @private
    */
-  createAriaValueText( position, previousPosition, includeDirection ) {
-    return this.getTextFromPosition( position, previousPosition, includeDirection );
+  createAriaValueText( position, previousPosition ) {
+    return this.getTextFromPosition( position, previousPosition );
   }
 
   /**
@@ -458,45 +426,6 @@ class AppendageNode extends Node {
   resetAriaValueText() {
     const sliderValue = this.a11yAngleToPosition( this.model.angleProperty.get() );
     this.ariaValueText = this.createAriaValueText( sliderValue, sliderValue );
-  }
-
-  /**
-   * Get a description of the movement direction, if the appendage changes directions during movement. Direction
-   *
-   * @param {number} position
-   * @param {number} previousPosition
-   * @private
-   */
-  getDirectionDescription( position, previousPosition, landmarkDescription, region ) {
-    const deltaPosition = Math.abs( previousPosition ) - Math.abs( position );
-    let newDirection = null;
-    if ( deltaPosition ) {
-      newDirection = deltaPosition > 0 ? Appendage.MOVEMENT_DIRECTIONS.CLOSER : Appendage.MOVEMENT_DIRECTIONS.FARTHER;
-    }
-
-    let description = '';
-    let stringPattern;
-
-    if ( AppendageNode.getAddFurtherOnAway( position, this.rangeMap.regions ) && newDirection === Appendage.MOVEMENT_DIRECTIONS.FARTHER ) {
-
-      // regardless if the direction changes, some regions need to add "Further away..." when moving away
-      description = StringUtils.fillIn( fartherAwayPatternString, { description: AppendageNode.getPositionDescription( position, this.rangeMap.regions ) } );
-    }
-    else if ( newDirection && ( this.movementDirection !== newDirection ) ) {
-      if ( AppendageNode.getLandmarkIncludesDirection( position, this.rangeMap.landmarks ) ) {
-        assert && assert( landmarkDescription, 'there should be a landmark description in this case' );
-
-        stringPattern = DIRECTION_LANDMARK_PATTERN_DESCRIPTIONS[ newDirection ];
-        description = StringUtils.fillIn( stringPattern, { description: landmarkDescription.toLowerCase() } );
-      }
-      else if ( region.range.getLength() > 0 ) {
-        description = DIRECTION_DESCRIPTIONS[ newDirection ];
-      }
-    }
-
-    this.movementDirection = newDirection;
-
-    return description;
   }
 
   /**
@@ -707,52 +636,6 @@ class AppendageNode extends Node {
     } );
 
     return message;
-  }
-
-  /**
-   * Gets wheter or not the landmark description should include an indication of movement direction
-   * if the user lands on it after changing direction. Determined by a flag in AppendageRangeMaps.js,
-   * see that file for more information.
-   *
-   * @param  {number} position
-   * @param  {Object} landmarkMap
-   * @returns {boolean}
-   * @private
-   */
-  static getLandmarkIncludesDirection( position, landmarkMap ) {
-    let includeDirection;
-
-    _.forEach( landmarkMap, landmark => {
-      if ( position === landmark.value ) {
-        includeDirection = landmark.includeDirection;
-        return false;
-      }
-    } );
-
-    return includeDirection;
-  }
-
-  /**
-   * Get whether or not the region description should include an indication of movement direction
-   * when the user is moving away from the doorknob and lands in the region.  Determined by a flag in
-   * AppendageRangeMaps, see that file for more information.
-   *
-   * @param  {position} position
-   * @param  {Object} regionMap
-   * @returns {boolean}
-   * @private
-   */
-  static getAddFurtherOnAway( position, regionMap ) {
-    let includeFartherAway = false;
-
-    _.forEach( regionMap, region => {
-      if ( region.range.contains( position ) && region.addFartherAway ) {
-        includeFartherAway = region.addFartherAway;
-        return false;
-      }
-    } );
-
-    return includeFartherAway;
   }
 }
 
