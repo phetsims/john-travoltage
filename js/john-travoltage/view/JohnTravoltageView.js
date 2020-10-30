@@ -35,7 +35,6 @@ import PitchedPopGenerator from '../../../../tambo/js/sound-generators/PitchedPo
 import SoundClip from '../../../../tambo/js/sound-generators/SoundClip.js';
 import soundManager from '../../../../tambo/js/soundManager.js';
 import VibrationManageriOS from '../../../../tappi/js/VibrationManageriOS.js';
-import SaveTestEventsButton from '../../../../tappi/js/tracking/SaveTestEventsButton.js';
 import VibrationTestEvent from '../../../../tappi/js/tracking/VibrationTestEvent.js';
 import VibrationTestEventRecorder from '../../../../tappi/js/tracking/VibrationTestEventRecorder.js';
 import VibrationTestInputListener from '../../../../tappi/js/tracking/VibrationTestInputListener.js';
@@ -448,12 +447,6 @@ class JohnTravoltageView extends ScreenView {
       // listener that watches finger/touch input and saves to the event recorder
       const vibrationTestInputListener = new VibrationTestInputListener( this.eventRecorder );
       phet.joist.display.addInputListener( vibrationTestInputListener );
-
-      // button that will save data once user is finished
-      const saveButton = new SaveTestEventsButton( vibrationManager, this.eventRecorder, {
-        leftTop: this.layoutBounds.leftTop.plusXY( 5, 5 )
-      } );
-      this.addChild( saveButton );
 
       // sim specific events that we want to capture
       model.arm.angleProperty.lazyLink( angle => {

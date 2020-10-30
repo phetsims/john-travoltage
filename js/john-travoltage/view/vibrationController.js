@@ -18,9 +18,7 @@
  */
 
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
-import LinearFunction from '../../../../dot/js/LinearFunction.js';
 import johnTravoltage from '../../johnTravoltage.js';
-import JohnTravoltageModel from '../model/JohnTravoltageModel.js';
 
 // constants
 // vibration pattern during electron discharge, on/off intervals in seconds
@@ -43,67 +41,41 @@ class VibrationController {
 
     // A sim specific design - different from the other classified paradigms.
     if ( paradigmChoice === '1' ) {
-
-      // flag to indicate that we are currently vibrating with a pattern to indicate
-      // that there are charges currently in the body - if this is true, do not
-      // start with this vibration
-      let runningChargeHoldPattern = false;
-
-      // linear function for the pattern that plays while charges are within the body - as the body
-      // picks up charge, the on/off pattern will become faster
-      const chargeHoldVibrationIntervalFunction = new LinearFunction( 0, JohnTravoltageModel.MAX_ELECTRONS, 0.2, 0.025, true );
-
-      // if the inverval determined by the above function changes, we will request a new
-      // vibration pattern, but variable required since this is driven with polling rather
-      // than a Property
-      let lastChargeHoldInterval = 0.2;
-
       const runningDischargePatternProperty = new BooleanProperty( false );
-
-      // in ms, how long to wait to start the chargesHeldPattern after we have
-      // picked up a new charge
-      const delayAfterAddingCharge = 1; // in seconds
-      let timeSpentWaitingAfterChargeAdded = 0;
 
       // counts of charges, to determine the correct vibration pattern
       let currentCharge = 0;
       let previousCharge = 0;
 
       let vibratingFromChargePickup = false;
-      let timeSpentVibrating = 0;
+      let timeSpentVibrationFromChargePickup = 0;
 
       // amount of time to vibrate per electron charge pickup
       const vibrationTimePerCharge = 0.15;
 
-      // for as long as there are charges in the body, vibrate forever - in step function because we want to
-      // start vibration again after we may have stopped it from dischargeEndedEmitter
+      // vibrate every time we pickup a charge from the body - but if we pick up lots of charges
+      // rapidly, we restart the timer and vibrate for at least as long as vibrationTimePerCharge,
+      // the result is continuous vibration for as long as charges are entering the body
       model.stepEmitter.addListener( dt => {
         currentCharge = model.electronGroup.count;
 
         if ( vibratingFromChargePickup ) {
-          timeSpentVibrating += dt;
+          timeSpentVibrationFromChargePickup += dt;
 
           // we have vibrated for long eough for the charges that have been picked up
-          if ( timeSpentVibrating > vibrationTimePerCharge ) {
+          if ( timeSpentVibrationFromChargePickup > vibrationTimePerCharge ) {
 
             // this stop will put a hold on both
             vibrationManager.stop();
             vibratingFromChargePickup = false;
-            runningChargeHoldPattern = false;
           }
-        }
-        else {
-          timeSpentWaitingAfterChargeAdded += dt;
         }
 
         if ( currentCharge > previousCharge ) {
 
           // we have picked up a new charge, start vibrating right away or
           // continue to vibrate without resetting timer
-          timeSpentVibrating = 0;
-
-          // reset delay between charge pickup vibration and body charge vibration
-          timeSpentWaitingAfterChargeAdded = 0;
+          timeSpentVibrationFromChargePickup = 0;
 
           if ( !vibratingFromChargePickup ) {
             vibratingFromChargePickup = true;
@@ -116,24 +88,6 @@ class VibrationController {
         }
 
         previousCharge = currentCharge;
-
-        if ( !vibratingFromChargePickup && timeSpentWaitingAfterChargeAdded > delayAfterAddingCharge ) {
-          if ( currentCharge > 0 ) {
-
-            // there are some charges on the body, vibrate with a constant pattern
-            // to represent this - start this vibration when we are not vibrating due to
-            // discharge, or whenever the number of charges on the body has changed
-            const chargeInterval = chargeHoldVibrationIntervalFunction( currentCharge );
-            if ( !runningDischargePatternProperty.get() && ( !runningChargeHoldPattern || lastChargeHoldInterval !== chargeInterval ) ) {
-              const newPattern = [ chargeInterval, chargeInterval ];
-
-              vibrationManager.vibrateWithCustomPatternForever( newPattern );
-              runningChargeHoldPattern = true;
-
-              lastChargeHoldInterval = chargeInterval;
-            }
-          }
-        }
       } );
 
       model.dischargeStartedEmitter.addListener( () => {
@@ -141,17 +95,10 @@ class VibrationController {
           pattern: CHARGES_LEAVING_PATTERN
         } );
 
-        // prevent us from starting the 'hold' pattern while we are doing discharge
-        runningChargeHoldPattern = true;
-
         runningDischargePatternProperty.set( true );
       } );
       model.dischargeEndedEmitter.addListener( () => {
         vibrationManager.stop();
-
-        // we can start the 'hold' pattern again, if discharge didn't get rid of all electrons
-        runningChargeHoldPattern = false;
-
         runningDischargePatternProperty.set( false );
       } );
 
@@ -160,7 +107,6 @@ class VibrationController {
         // stop vibration if we lost charges (such as from reset all, since
         // the dischargeEndedEmitter will have its own vibration)
         vibrationManager.stop();
-        runningChargeHoldPattern = false;
 
         // request three quick transient vibrations upon reset - if we like this we should
         // consider a way to queue these requests with timing rather than using a timeout
