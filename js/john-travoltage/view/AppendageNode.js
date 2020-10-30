@@ -303,7 +303,7 @@ class AppendageNode extends Node {
       // the sliderProperty is updated after the angleProperty for the DynamicProperty,
       // link to that so that the aria-valuetext is up to date when we call this listener
       sliderProperty.lazyLink( angle => {
-        appendageUtterance.alert = this.getSelfVoicingObjectResponse();
+        appendageUtterance.alert = this.getSelfVoicingObjectResponse( false );
         phet.joist.sim.selfVoicingUtteranceQueue.addToBack( appendageUtterance );
       } );
 
@@ -315,14 +315,14 @@ class AppendageNode extends Node {
           angleOnStart = appendage.angleProperty.get();
         }
         else if ( angleOnStart === appendage.angleProperty.get() ) {
-          appendageUtterance.alert = this.getSelfVoicingObjectResponse();
+          appendageUtterance.alert = this.getSelfVoicingObjectResponse( true );
           phet.joist.sim.selfVoicingUtteranceQueue.addToBack( appendageUtterance );
         }
       } );
 
       this.addInputListener( new SelfVoicingInputListener( {
         onFocusIn: () => {
-          const response = this.getSelfVoicingObjectResponse();
+          const response = this.getSelfVoicingObjectResponse( true );
           phet.joist.sim.selfVoicingUtteranceQueue.addToBack( response );
         },
         highlightTarget: this
@@ -343,12 +343,21 @@ class AppendageNode extends Node {
    * Get the "object response" (response describing the slider itself) when a change
    * is made to it for the self-voicing feature.
    * @private
+   *
+   * @param {boolean} includeLabel
    */
-  getSelfVoicingObjectResponse() {
-    const objectResponse = StringUtils.fillIn( selfVoicingObjectResponsePatternString, {
-      label: this.selfVoicingLabel || this.labelContent,
-      valueText: this.ariaValueText
-    } );
+  getSelfVoicingObjectResponse( includeLabel ) {
+
+    let objectResponse;
+    if ( includeLabel ) {
+      objectResponse = StringUtils.fillIn( selfVoicingObjectResponsePatternString, {
+        label: this.selfVoicingLabel || this.labelContent,
+        valueText: this.ariaValueText
+      } );
+    }
+    else {
+      objectResponse = this.ariaValueText;
+    }
 
     return levelSpeakerModel.collectResponses( objectResponse, null, selfVoicingContentHintString );
   }
