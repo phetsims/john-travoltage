@@ -52,13 +52,11 @@ class ElectronLayerNode extends Node {
 
     let priorCharge = 0;
 
+    // many charges are usually added at once, wait until alerts stabilize before
+    // announcing the change in charge - this critical information is intended to be
+    // assertive
     const chargeUtterance = new SelfVoicingUtterance( {
-      cancelOther: false,
-      cancelSelf: false,
-
-      // many charges are usually added at once, wait until alerts stabilize before
-      // announcing the change in charge
-      alertStableDelay: 200,
+      alertStableDelay: 500,
       alertMaximumDelay: 800
     } );
 
@@ -71,7 +69,7 @@ class ElectronLayerNode extends Node {
         alertString = StringUtils.fillIn( electronsTotalDescriptionPatternString, { value: currentCharge } );
 
         if ( phet.chipper.queryParameters.supportsSelfVoicing ) {
-          chargeUtterance.alert = StringUtils.fillIn( '{{qualitativeDescription}} electrons on body', {
+          chargeUtterance.alert = StringUtils.fillIn( 'Rubbing, {{qualitativeDescription}} electrons on body', {
             qualitativeDescription: this.getQualitativeChargeDescription( currentCharge )
           } );
           phet.joist.sim.selfVoicingUtteranceQueue.addToBack( chargeUtterance );

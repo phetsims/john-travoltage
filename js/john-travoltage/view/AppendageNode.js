@@ -297,16 +297,12 @@ class AppendageNode extends Node {
     if ( phet.chipper.queryParameters.supportsSelfVoicing ) {
 
       // describe changes to the arm/leg as the angle changes (during a
-      // drag operation)
+      // drag operation) - polite so that it doesn't cancel itself during
+      // rapid changes
       const appendageUtterance = new SelfVoicingUtterance( {
-        cancelSelf: false
-      } );
-
-      // the sliderProperty is updated after the angleProperty for the DynamicProperty,
-      // link to that so that the aria-valuetext is up to date when we call this listener
-      sliderProperty.lazyLink( angle => {
-        appendageUtterance.alert = this.getSelfVoicingObjectResponse( false );
-        phet.joist.sim.selfVoicingUtteranceQueue.addToBack( appendageUtterance );
+        cancelSelf: false,
+        cancelOther: false,
+        alertStableDelay: 400
       } );
 
       // describe position of the appendage if we receive a down event but the
@@ -315,8 +311,11 @@ class AppendageNode extends Node {
       appendage.isDraggingProperty.lazyLink( isDragging => {
         if ( isDragging ) {
           angleOnStart = appendage.angleProperty.get();
+
+          appendageUtterance.alert = this.getSelfVoicingObjectResponse( true );
+          phet.joist.sim.selfVoicingUtteranceQueue.addToBack( appendageUtterance );
         }
-        else if ( angleOnStart === appendage.angleProperty.get() ) {
+        else if ( angleOnStart !== appendage.angleProperty.get() ) {
           appendageUtterance.alert = this.getSelfVoicingObjectResponse( true );
           phet.joist.sim.selfVoicingUtteranceQueue.addToBack( appendageUtterance );
         }
