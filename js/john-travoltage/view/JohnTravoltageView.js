@@ -39,7 +39,6 @@ import SaveTestEventsButton from '../../../../tappi/js/tracking/SaveTestEventsBu
 import VibrationTestEvent from '../../../../tappi/js/tracking/VibrationTestEvent.js';
 import VibrationTestEventRecorder from '../../../../tappi/js/tracking/VibrationTestEventRecorder.js';
 import VibrationTestInputListener from '../../../../tappi/js/tracking/VibrationTestInputListener.js';
-import SelfVoicingUtterance from '../../../../utterance-queue/js/SelfVoicingUtterance.js';
 import arm from '../../../images/arm_png.js';
 import leg from '../../../images/leg_png.js';
 import chargesInBodySound from '../../../sounds/charges-in-body_mp3.js';
@@ -68,7 +67,6 @@ const electronsMultipleDescriptionPatternString = johnTravoltageStrings.a11y.ele
 const descriptionWithChargePatternString = johnTravoltageStrings.a11y.screenSummary.descriptionWithChargePattern;
 const selfVoicingContentHintString = johnTravoltageStrings.a11y.selfVoicing.contentHint;
 const selfVoicingDetailedContentHintString = johnTravoltageStrings.a11y.selfVoicing.detailedContentHint;
-const selfVoicingObjectResponsePatternString = johnTravoltageStrings.a11y.selfVoicing.appendageObjectResponsePattern;
 const overviewPatternString = johnTravoltageStrings.a11y.selfVoicing.overviewPattern;
 const resetAllString = sceneryPhetStrings.a11y.resetAll.label;
 const resetAllAlertString = sceneryPhetStrings.a11y.resetAll.alert;
@@ -390,38 +388,6 @@ class JohnTravoltageView extends ScreenView {
         else {
           phet.joist.sim.display.removeInputListener( swipeListener );
         }
-      } );
-
-      const appendageDragUtterance = new SelfVoicingUtterance( {
-
-        // allow the current utterance to finish speaking (in particular the 'Released' content)
-        cancelOther: false,
-        cancelSelf: true,
-        alertStableDelay: 500,
-        alertMaximumDelay: 3000
-      } );
-
-      // describe the leg and any charge changes in result to the user dragging
-      model.leg.angleProperty.lazyLink( angle => {
-        const objectResponse = StringUtils.fillIn( selfVoicingObjectResponsePatternString, {
-          label: appendageLegLabelString,
-          valueText: this.leg.selfVoicingValueText
-        } );
-
-        appendageDragUtterance.alert = levelSpeakerModel.collectResponses( objectResponse, null, selfVoicingContentHintString );
-        phet.joist.sim.selfVoicingUtteranceQueue.addToBack( appendageDragUtterance );
-      } );
-
-      // describe the new arm position in respnse to user dragging - electron discharge is described
-      // by the ElectronLayerNode
-      model.arm.angleProperty.lazyLink( angle => {
-        const objectResponse = StringUtils.fillIn( selfVoicingObjectResponsePatternString, {
-          label: 'Hand',
-          valueText: this.arm.selfVoicingValueText
-        } );
-
-        appendageDragUtterance.alert = levelSpeakerModel.collectResponses( objectResponse, '', selfVoicingDetailedContentHintString );
-        phet.joist.sim.selfVoicingUtteranceQueue.addToBack( appendageDragUtterance );
       } );
 
       resetAllButton.addInputListener( new SelfVoicingInputListener( {

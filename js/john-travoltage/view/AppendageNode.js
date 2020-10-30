@@ -41,6 +41,7 @@ const fartherAwayPatternString = johnTravoltageStrings.a11y.appendages.arm.direc
 const selfVoicingObjectResponsePatternString = johnTravoltageStrings.a11y.selfVoicing.appendageObjectResponsePattern;
 const grabbedAlertString = johnTravoltageStrings.a11y.selfVoicing.grabbedAlert;
 const dragHintString = johnTravoltageStrings.a11y.selfVoicing.dragHint;
+const selfVoicingContentHintString = johnTravoltageStrings.a11y.selfVoicing.contentHint;
 
 // constants
 const DIRECTION_DESCRIPTIONS = {
@@ -102,6 +103,10 @@ class AppendageNode extends Node {
     this.positionAtDischarge = null;
 
     this.previousSwipePosition = null;
+
+    // @public {string|null} - the lable for the appendage in the self-voicing
+    // case
+    this.selfVoicingLabel = options.selfVoicingLabel;
 
     // when the model is reset, reset the flags that track previous interactions with the appendage and reset
     // descriptions, no need to dispose this listener since appendages exist for life of sim
@@ -167,7 +172,6 @@ class AppendageNode extends Node {
           currentAngle = angle;
           appendage.angleProperty.set( angle );
         }
-
       },
       end: () => {
 
@@ -292,16 +296,33 @@ class AppendageNode extends Node {
     // prototype code related to the self-voicing work
     if ( phet.chipper.queryParameters.supportsSelfVoicing ) {
 
+      // describe changes to the arm/leg as the angle changes (during a
+      // drag operation)
+      const appendageUtterance = new SelfVoicingUtterance();
+
+      // the sliderProperty is updated after the angleProperty for the DynamicProperty,
+      // link to that so that the aria-valuetext is up to date when we call this listener
+      sliderProperty.lazyLink( angle => {
+        appendageUtterance.alert = this.getSelfVoicingObjectResponse();
+        phet.joist.sim.selfVoicingUtteranceQueue.addToBack( appendageUtterance );
+      } );
+
+      // describe position of the appendage if we receive a down event but the
+      // appendage does not move
+      let angleOnStart = null;
+      appendage.isDraggingProperty.lazyLink( isDragging => {
+        if ( isDragging ) {
+          angleOnStart = appendage.angleProperty.get();
+        }
+        else if ( angleOnStart === appendage.angleProperty.get() ) {
+          appendageUtterance.alert = this.getSelfVoicingObjectResponse();
+          phet.joist.sim.selfVoicingUtteranceQueue.addToBack( appendageUtterance );
+        }
+      } );
+
       this.addInputListener( new SelfVoicingInputListener( {
         onFocusIn: () => {
-
-          // on focus, we will read name, value, and hint
-          const objectResponse = StringUtils.fillIn( selfVoicingObjectResponsePatternString, {
-            label: options.selfVoicingLabel || this.labelContent,
-            valueText: this.selfVoicingValueText
-          } );
-
-          const response = levelSpeakerModel.collectResponses( objectResponse, '', options.selfVoicingHint );
+          const response = this.getSelfVoicingObjectResponse();
           phet.joist.sim.selfVoicingUtteranceQueue.addToBack( response );
         },
         highlightTarget: this
@@ -315,14 +336,21 @@ class AppendageNode extends Node {
           phet.joist.sim.selfVoicingUtteranceQueue.addToBack( response );
         }
       } );
-
-      // for the self-voicing feature we want a different value-text that does
-      // not include the position
-      this.selfVoicingValueText = null;
-      sliderProperty.link( ( value, oldValue ) => {
-        this.selfVoicingValueText = this.getTextFromPosition( value, oldValue );
-      } );
     }
+  }
+
+  /**
+   * Get the "object response" (response describing the slider itself) when a change
+   * is made to it for the self-voicing feature.
+   * @private
+   */
+  getSelfVoicingObjectResponse() {
+    const objectResponse = StringUtils.fillIn( selfVoicingObjectResponsePatternString, {
+      label: this.selfVoicingLabel || this.labelContent,
+      valueText: this.ariaValueText
+    } );
+
+    return levelSpeakerModel.collectResponses( objectResponse, null, selfVoicingContentHintString );
   }
 
 
