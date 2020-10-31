@@ -18,6 +18,8 @@ import Shape from '../../../../kite/js/Shape.js';
 import platform from '../../../../phet-core/js/platform.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import SelfVoicingInputListener from '../../../../scenery-phet/js/accessibility/speaker/SelfVoicingInputListener.js';
+import SelfVoicingIntroDialog from '../../../../scenery-phet/js/accessibility/speaker/SelfVoicingIntroDialog.js';
+import SelfVoicingLandingDialog from '../../../../scenery-phet/js/accessibility/speaker/SelfVoicingLandingDialog.js';
 import SelfVoicingQuickControl from '../../../../scenery-phet/js/accessibility/speaker/SelfVoicingQuickControl.js';
 import levelSpeakerModel from '../../../../scenery-phet/js/accessibility/speaker/levelSpeakerModel.js';
 import speakerHighlighter from '../../../../scenery-phet/js/accessibility/speaker/speakerHighlighter.js';
@@ -192,7 +194,21 @@ class JohnTravoltageView extends ScreenView {
       right: this.layoutBounds.maxX - 8,
       bottom: this.layoutBounds.maxY - 8,
       listener: () => {
+
+        if ( phet.chipper.queryParameters.supportsSelfVoicing ) {
+
+          // as the simulation resets, do no not speak about changes
+          phet.joist.sim.selfVoicingUtteranceQueue.enabled = false;
+        }
         model.reset();
+
+        if ( phet.chipper.queryParameters.supportsSelfVoicing ) {
+          phet.joist.sim.selfVoicingUtteranceQueue.enabled = true;
+
+          // when pressed, self-voicing content should speak both the label and the alert
+          const resetAlert = levelSpeakerModel.collectResponses( resetAllString, resetAllAlertString );
+          phet.joist.sim.selfVoicingUtteranceQueue.addToBack( resetAlert );
+        }
       },
       tandem: tandem.createTandem( 'resetAllButton' )
     } );
@@ -397,13 +413,6 @@ class JohnTravoltageView extends ScreenView {
         highlightTarget: resetAllButton
       } ) );
 
-      model.resetEmitter.addListener( () => {
-
-        // when pressed, self-voicing content should speak both the label and the alert
-        const resetAlert = levelSpeakerModel.collectResponses( resetAllString, resetAllAlertString );
-        phet.joist.sim.selfVoicingUtteranceQueue.addToBack( resetAlert );
-      } );
-
       const quickControl = new SelfVoicingQuickControl( webSpeaker, {
         createDetailsContent: this.createSelfVoicingSceneDescription.bind( this ),
         createHintContent: () => {
@@ -425,6 +434,35 @@ class JohnTravoltageView extends ScreenView {
       } );
       quickControl.leftBottom = this.layoutBounds.leftBottom.plusXY( 10, -10 );
       this.addChild( quickControl );
+
+      // the quick control should be the very first thing in the navigation order for
+      // testing so that there is a high chance that one of the first things the user
+      // finds is the "Sim Overview" content
+      const orderCopy = this.pdomPlayAreaNode.accessibleOrder.slice();
+      orderCopy.unshift( quickControl );
+      this.pdomPlayAreaNode.accessibleOrder = orderCopy;
+
+      const introDialog = new SelfVoicingIntroDialog( {
+        hideCallback: () => {
+          quickControl.focusExpandCollapseButton();
+        }
+      } );
+
+      phet.joist.sim.isConstructionCompleteProperty.link( complete => {
+        if ( complete ) {
+
+          // start the sim on a landing dialog that requires user to enable web-speech
+          const landingDialog = new SelfVoicingLandingDialog( {
+            hideCallback: () => {
+
+              // upon hiding this dialog, show the intro dialog
+              introDialog.show();
+              introDialog.focusIntroDescription();
+            }
+          } );
+          landingDialog.show();
+        }
+      } );
     }
 
     // code related to vibration prototype work - hidden behind a query param while we understand more about what
