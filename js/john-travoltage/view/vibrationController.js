@@ -79,11 +79,7 @@ class VibrationController {
 
           if ( !vibratingFromChargePickup ) {
             vibratingFromChargePickup = true;
-            vibrationManager.vibrateContinuous( {
-
-              // lower intensity requested for charge pickup vibration
-              intensity: 0.75
-            } );
+            vibrationManager.vibrateContinuous();
           }
         }
 
