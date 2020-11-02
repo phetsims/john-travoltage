@@ -51,7 +51,7 @@ class VibrationController {
       let timeSpentVibrationFromChargePickup = 0;
 
       // amount of time to vibrate per electron charge pickup
-      const vibrationTimePerCharge = 0.15;
+      const vibrationTimePerCharge = 0.075;
 
       // vibrate every time we pickup a charge from the body - but if we pick up lots of charges
       // rapidly, we restart the timer and vibrate for at least as long as vibrationTimePerCharge,

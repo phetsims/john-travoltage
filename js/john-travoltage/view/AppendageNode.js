@@ -21,6 +21,7 @@ import merge from '../../../../phet-core/js/merge.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import SelfVoicingInputListener from '../../../../scenery-phet/js/accessibility/speaker/SelfVoicingInputListener.js';
 import levelSpeakerModel from '../../../../scenery-phet/js/accessibility/speaker/levelSpeakerModel.js';
+import sceneryPhetStrings from '../../../../scenery-phet/js/sceneryPhetStrings.js';
 import FocusHighlightPath from '../../../../scenery/js/accessibility/FocusHighlightPath.js';
 import DragListener from '../../../../scenery/js/listeners/DragListener.js';
 import Image from '../../../../scenery/js/nodes/Image.js';
@@ -34,7 +35,7 @@ import Leg from '../model/Leg.js';
 
 const selfVoicingObjectResponsePatternString = johnTravoltageStrings.a11y.selfVoicing.appendageObjectResponsePattern;
 const grabbedAlertString = johnTravoltageStrings.a11y.selfVoicing.grabbedAlert;
-const dragHintString = johnTravoltageStrings.a11y.selfVoicing.dragHint;
+const grabDragHintPatternString = sceneryPhetStrings.a11y.selfVoicing.grabDragHintPattern;
 const selfVoicingContentHintString = johnTravoltageStrings.a11y.selfVoicing.contentHint;
 
 class AppendageNode extends Node {
@@ -62,7 +63,8 @@ class AppendageNode extends Node {
       keyboardMidPointOffset: 0, // adjust center position of accessible slider, to align important positions at center
 
       // {string|null} - hint spoken to guide the user toward an interaction
-      selfVoicingHint: null
+      selfVoicingHint: null,
+      maniupationHint: null
     }, options );
 
     super( options );
@@ -318,7 +320,10 @@ class AppendageNode extends Node {
       // user how to drag the appendage
       this.addInputListener( {
         click: event => {
-          const response = levelSpeakerModel.collectResponses( dragHintString );
+          const interactionHint = StringUtils.fillIn( grabDragHintPatternString, {
+            manipulation: options.manipulationHint
+          } );
+          const response = levelSpeakerModel.collectResponses( interactionHint );
           phet.joist.sim.selfVoicingUtteranceQueue.addToBack( response );
         }
       } );

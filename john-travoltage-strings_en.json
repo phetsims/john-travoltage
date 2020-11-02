@@ -186,6 +186,12 @@
       },
       "screenSummaryWithPreviousDischargePattern": {
         "value": "{{screenSummary}} {{previousDischarge}}"
+      },
+      "handInteractionHint": {
+        "value": "move hand"
+      },
+      "footInteractionHint": {
+        "value": "rub foot"
       }
     }
   }
