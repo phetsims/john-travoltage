@@ -18,8 +18,6 @@ import Shape from '../../../../kite/js/Shape.js';
 import platform from '../../../../phet-core/js/platform.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import SelfVoicingInputListener from '../../../../scenery-phet/js/accessibility/speaker/SelfVoicingInputListener.js';
-import SelfVoicingIntroDialog from '../../../../scenery-phet/js/accessibility/speaker/SelfVoicingIntroDialog.js';
-import SelfVoicingLandingDialog from '../../../../scenery-phet/js/accessibility/speaker/SelfVoicingLandingDialog.js';
 import SelfVoicingQuickControl from '../../../../scenery-phet/js/accessibility/speaker/SelfVoicingQuickControl.js';
 import levelSpeakerModel from '../../../../scenery-phet/js/accessibility/speaker/levelSpeakerModel.js';
 import speakerHighlighter from '../../../../scenery-phet/js/accessibility/speaker/speakerHighlighter.js';
@@ -40,6 +38,7 @@ import VibrationManageriOS from '../../../../tappi/js/VibrationManageriOS.js';
 import VibrationTestEvent from '../../../../tappi/js/tracking/VibrationTestEvent.js';
 import VibrationTestEventRecorder from '../../../../tappi/js/tracking/VibrationTestEventRecorder.js';
 import VibrationTestInputListener from '../../../../tappi/js/tracking/VibrationTestInputListener.js';
+import tappiDialogController from '../../../../tappi/js/view/tappiDialogController.js';
 import arm from '../../../images/arm_png.js';
 import leg from '../../../images/leg_png.js';
 import chargesInBodySound from '../../../sounds/charges-in-body_mp3.js';
@@ -403,7 +402,9 @@ class JohnTravoltageView extends ScreenView {
           phet.joist.sim.display.addInputListener( swipeListener );
         }
         else {
-          phet.joist.sim.display.removeInputListener( swipeListener );
+          if ( phet.joist.sim.display.inputListeners.includes( swipeListener ) ) {
+            phet.joist.sim.display.removeInputListener( swipeListener );
+          }
         }
       } );
 
@@ -446,27 +447,7 @@ class JohnTravoltageView extends ScreenView {
       orderCopy.unshift( quickControl );
       this.pdomPlayAreaNode.accessibleOrder = orderCopy;
 
-      const introDialog = new SelfVoicingIntroDialog( {
-        hideCallback: () => {
-          quickControl.focusExpandCollapseButton();
-        }
-      } );
-
-      phet.joist.sim.isConstructionCompleteProperty.link( complete => {
-        if ( complete ) {
-
-          // start the sim on a landing dialog that requires user to enable web-speech
-          const landingDialog = new SelfVoicingLandingDialog( {
-            hideCallback: () => {
-
-              // upon hiding this dialog, show the intro dialog
-              introDialog.show();
-              introDialog.focusIntroDescription();
-            }
-          } );
-          landingDialog.show();
-        }
-      } );
+      tappiDialogController.initialize( quickControl );
     }
 
     // code related to vibration prototype work - hidden behind a query param while we understand more about what
