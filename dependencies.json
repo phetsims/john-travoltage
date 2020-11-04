@@ -1,11 +1,11 @@
 {
-  "comment": "# john-travoltage 1.6.0-dev.36 Mon Nov 02 2020 13:06:23 GMT-0500 (Eastern Standard Time)",
+  "comment": "# john-travoltage 1.6.0-dev.37 Tue Nov 03 2020 22:38:15 GMT-0500 (Eastern Standard Time)",
   "assert": {
     "sha": "49aa67d01046326d85dcd8f265db91e8753038a1",
     "branch": "master"
   },
   "axon": {
-    "sha": "1136ed827dbf117a8f7757d0bea3175a1afbe83f",
+    "sha": "ed9f64f3d4fd4502fb489f4603d8eea54590d3d5",
     "branch": "master"
   },
   "brand": {
@@ -13,7 +13,7 @@
     "branch": "master"
   },
   "chipper": {
-    "sha": "98561b490c5014a07e7ea504857b0ff4e4da2456",
+    "sha": "bc9d58de79777b450a6f8856012b1ed8109d0026",
     "branch": "master"
   },
   "dot": {
@@ -21,11 +21,11 @@
     "branch": "master"
   },
   "griddle": {
-    "sha": "10a0fff4969d98a9d4f14768c872f94874e02263",
+    "sha": "9bcdd895300e65e45520904a30258bd00c977ee6",
     "branch": "master"
   },
   "john-travoltage": {
-    "sha": "512ed08ffa7ebbe2b7c05ab93c526c9a466ac576",
+    "sha": "5f78610fda4672f1423f3427a7127281f8049486",
     "branch": "master"
   },
   "joist": {
@@ -69,11 +69,11 @@
     "branch": "master"
   },
   "scenery": {
-    "sha": "7d6f983bcab16b76c274ad4c8b328a6368171534",
+    "sha": "807016cdc3279685d3be95c06609fe10d9e26023",
     "branch": "master"
   },
   "scenery-phet": {
-    "sha": "9e6f93cdd383aadc95e32abe6a490045df332f99",
+    "sha": "3f0d9f4946de32df45418dcdc6731682c3231a94",
     "branch": "master"
   },
   "sherpa": {
@@ -85,7 +85,7 @@
     "branch": "master"
   },
   "sun": {
-    "sha": "fd21f44c14001012d252bb234378ee6dd88f952d",
+    "sha": "ea2451af4f1ae912d5711f37889cc6d56d289ef1",
     "branch": "master"
   },
   "tambo": {
@@ -97,7 +97,7 @@
     "branch": "master"
   },
   "tappi": {
-    "sha": "5b25e8e448bfcb2f0db3cc7fe0366aad0fd7f210",
+    "sha": "01d8c9dac7ecc7118d145c101a7c34aac82db250",
     "branch": "master"
   },
   "twixt": {
