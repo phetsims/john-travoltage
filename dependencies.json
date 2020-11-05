@@ -1,5 +1,5 @@
 {
-  "comment": "# john-travoltage 1.6.0-dev.37 Tue Nov 03 2020 22:38:15 GMT-0500 (Eastern Standard Time)",
+  "comment": "# john-travoltage 1.6.0-dev.38 Thu Nov 05 2020 00:05:34 GMT-0500 (Eastern Standard Time)",
   "assert": {
     "sha": "49aa67d01046326d85dcd8f265db91e8753038a1",
     "branch": "master"
@@ -13,7 +13,7 @@
     "branch": "master"
   },
   "chipper": {
-    "sha": "bc9d58de79777b450a6f8856012b1ed8109d0026",
+    "sha": "a43461bf00a5f6b2c3fe6599815f8ffb78d55bf6",
     "branch": "master"
   },
   "dot": {
@@ -25,7 +25,7 @@
     "branch": "master"
   },
   "john-travoltage": {
-    "sha": "5f78610fda4672f1423f3427a7127281f8049486",
+    "sha": "9c0ac811f31154bc559daaa57a782aaf9f3028f8",
     "branch": "master"
   },
   "joist": {
@@ -33,11 +33,11 @@
     "branch": "master"
   },
   "kite": {
-    "sha": "10a53abaef110cad7f4ada3f1edc73cbe1d65bfc",
+    "sha": "5bda46b91929c7c8b71bc8148c0f6d0cc8452c6f",
     "branch": "master"
   },
   "phet-core": {
-    "sha": "952007612989cb85104a25679f72aaf1eb2059a9",
+    "sha": "4dce4c4042cbb802dc9654b5918d6205a9c0076e",
     "branch": "master"
   },
   "phet-io": {
@@ -69,11 +69,11 @@
     "branch": "master"
   },
   "scenery": {
-    "sha": "807016cdc3279685d3be95c06609fe10d9e26023",
+    "sha": "12ba09003f95696ee967a7855649786d81979fe9",
     "branch": "master"
   },
   "scenery-phet": {
-    "sha": "3f0d9f4946de32df45418dcdc6731682c3231a94",
+    "sha": "ccfb53f1775c866b693ba07258b0a01897ab37ab",
     "branch": "master"
   },
   "sherpa": {
@@ -81,11 +81,11 @@
     "branch": "master"
   },
   "studio": {
-    "sha": "1f1baac19ef8bb88bf4dfbbfc8d2c8092ab859f7",
+    "sha": "0693a96b5437c2699202d4c23ec82cf4c8720420",
     "branch": "master"
   },
   "sun": {
-    "sha": "ea2451af4f1ae912d5711f37889cc6d56d289ef1",
+    "sha": "35bec9f7110db882fa02305dc099ce42cfa04f1e",
     "branch": "master"
   },
   "tambo": {
@@ -93,7 +93,7 @@
     "branch": "master"
   },
   "tandem": {
-    "sha": "eedc67261e4d1349ef92bc3786886bda3b3f6922",
+    "sha": "56bab20589fd3f083ca85ddd4c06d67f85b50319",
     "branch": "master"
   },
   "tappi": {
