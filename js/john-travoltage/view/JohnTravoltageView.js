@@ -466,10 +466,10 @@ class JohnTravoltageView extends ScreenView {
 
       // sim specific events that we want to capture
       model.arm.angleProperty.lazyLink( angle => {
-        this.eventRecorder.addTestEvent( new VibrationTestEvent( null, null, this.elapsedTime, 'Moving Arm' ) );
+        this.eventRecorder.addTestEvent( new VibrationTestEvent( angle, null, this.elapsedTime, 'Moving Arm' ) );
       } );
       model.leg.angleProperty.lazyLink( angle => {
-        this.eventRecorder.addTestEvent( new VibrationTestEvent( null, null, this.elapsedTime, 'Moving Leg' ) );
+        this.eventRecorder.addTestEvent( new VibrationTestEvent( angle, null, this.elapsedTime, 'Moving Leg' ) );
       } );
       model.electronGroup.elementCreatedEmitter.addListener( () => {
         this.eventRecorder.addTestEvent( new VibrationTestEvent( null, null, this.elapsedTime, 'Added charge' ) );
