@@ -396,7 +396,7 @@ class JohnTravoltageView extends ScreenView {
       speakerHighlighter.initialize();
 
       // add the swipe listener
-      const swipeListener = new SwipeListener( phet.joist.sim.display._input );
+      const swipeListener = new SwipeListener( phet.joist.display._input );
       levelSpeakerModel.gestureControlProperty.link( gestureControl => {
         swipeListener.enabled = gestureControl;
       } );
