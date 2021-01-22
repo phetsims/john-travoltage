@@ -7,6 +7,7 @@
  * @author Vasily Shakhov (Mlearner)
  */
 
+import dotRandom from '../../../../dot/js/dotRandom.js';
 import Shape from '../../../../kite/js/Shape.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../scenery/js/nodes/Path.js';
@@ -49,7 +50,7 @@ class SparkNode extends Node {
 
             // go 1/numSegments of the remaining distance to the target, in a direction roughly toward the target
             let delta = model.doorknobPosition.minus( point ).normalized().timesScalar( segmentLength );
-            delta = delta.rotated( phet.joist.random.nextDouble() - 0.5 );
+            delta = delta.rotated( dotRandom.nextDouble() - 0.5 );
             point = point.plus( delta );
           }
 

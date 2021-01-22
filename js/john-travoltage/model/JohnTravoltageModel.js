@@ -10,6 +10,7 @@
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Emitter from '../../../../axon/js/Emitter.js';
+import dotRandom from '../../../../dot/js/dotRandom.js';
 import Utils from '../../../../dot/js/Utils.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Shape from '../../../../kite/js/Shape.js';
@@ -138,7 +139,7 @@ class JohnTravoltageModel {
     this.electronGroup = new PhetioGroup( tandem => {
       const segment = new LineSegment( 424.0642054574639, 452.28892455858755, 433.3097913322633, 445.5088282504014 );
       const v = segment.vector;
-      const rand = phet.joist.random.nextDouble() * v.magnitude;
+      const rand = dotRandom.nextDouble() * v.magnitude;
 
       const point = segment.p0.plus( v.normalized().times( rand ) );
       return new Electron( point.x, point.y, this, { tandem: tandem } );

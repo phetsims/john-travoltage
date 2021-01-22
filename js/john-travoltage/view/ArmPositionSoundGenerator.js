@@ -7,6 +7,7 @@
  * @author John Blanco
  */
 
+import dotRandom from '../../../../dot/js/dotRandom.js';
 import SoundClip from '../../../../tambo/js/sound-generators/SoundClip.js';
 import SoundGenerator from '../../../../tambo/js/sound-generators/SoundGenerator.js';
 import armPosition01Audio from '../../../sounds/arm-position-001_mp3.js';
@@ -48,7 +49,7 @@ class ArmPositionSoundGenerator extends SoundGenerator {
     const playRandomRatchetSound = playbackRate => {
       let ratchetSoundIndex;
       do {
-        ratchetSoundIndex = Math.floor( phet.joist.random.nextDouble() * ratchetSounds.length );
+        ratchetSoundIndex = Math.floor( dotRandom.nextDouble() * ratchetSounds.length );
       } while ( ratchetSoundIndex === previousRatchetSoundIndex );
       ratchetSounds[ ratchetSoundIndex ].setPlaybackRate( playbackRate, 1E-30 );
       ratchetSounds[ ratchetSoundIndex ].play();

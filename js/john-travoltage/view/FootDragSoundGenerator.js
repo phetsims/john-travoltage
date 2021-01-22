@@ -6,6 +6,7 @@
  * @author John Blanco
  */
 
+import dotRandom from '../../../../dot/js/dotRandom.js';
 import Utils from '../../../../dot/js/Utils.js';
 import merge from '../../../../phet-core/js/merge.js';
 import NoiseGenerator from '../../../../tambo/js/sound-generators/NoiseGenerator.js';
@@ -118,7 +119,7 @@ class FootDragSoundGenerator extends NoiseGenerator {
         let frequencyDelta = newMotionState === 'forward' ? DIRECTION_FREQUENCY_DELTA : -DIRECTION_FREQUENCY_DELTA;
 
         // add some randomization to the frequency delta so that back-and-forth motion sounds less repetitive
-        frequencyDelta = frequencyDelta * ( 1 - phet.joist.random.nextDouble() / 2 );
+        frequencyDelta = frequencyDelta * ( 1 - dotRandom.nextDouble() / 2 );
 
         // set the filter value that controls whether the forward or backward dragging sound is heard
         this.setBandpassFilterCenterFrequency( NOISE_CENTER_FREQUENCY + frequencyDelta, 0.01 );
