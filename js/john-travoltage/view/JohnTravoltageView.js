@@ -379,14 +379,14 @@ class JohnTravoltageView extends ScreenView {
       tandem: tandem.createTandem( 'vibratingProperty' )
     } );
 
-    // accessibleOrder
-    this.pdomPlayAreaNode.accessibleOrder = [
+    // pdomOrder
+    this.pdomPlayAreaNode.pdomOrder = [
       this.leg,
       this.arm,
       sparkNode,
       this.electronLayer
     ];
-    this.pdomControlAreaNode.accessibleOrder = [
+    this.pdomControlAreaNode.pdomOrder = [
       resetAllButton
     ];
 
@@ -436,9 +436,9 @@ class JohnTravoltageView extends ScreenView {
       // the quick control should be the very first thing in the navigation order for
       // testing so that there is a high chance that one of the first things the user
       // finds is the "Sim Overview" content
-      const orderCopy = this.pdomPlayAreaNode.accessibleOrder.slice();
+      const orderCopy = this.pdomPlayAreaNode.pdomOrder.slice();
       orderCopy.unshift( quickControl );
-      this.pdomPlayAreaNode.accessibleOrder = orderCopy;
+      this.pdomPlayAreaNode.pdomOrder = orderCopy;
 
       tappiDialogController.initialize( quickControl );
     }
