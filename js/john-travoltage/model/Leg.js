@@ -32,7 +32,7 @@ class Leg extends Appendage {
     this.angularVelocityProperty = new NumberProperty( 0, {
       phetioReadOnly: true,
       tandem: tandem.createTandem( 'angularVelocityProperty' ),
-      units: 'radians/second'
+      units: 'radians/s'
     } );
   }
 
