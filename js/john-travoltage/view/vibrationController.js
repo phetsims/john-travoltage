@@ -22,7 +22,7 @@ import johnTravoltage from '../../johnTravoltage.js';
 
 // constants
 // vibration pattern during electron discharge, on/off intervals in seconds
-const CHARGES_LEAVING_PATTERN = [ .100, .070, 0.050, 0.050 ];
+const CHARGES_LEAVING_PATTERN = [ 0.100, 0.070, 0.050, 0.050 ];
 
 class VibrationController {
   constructor() {}
