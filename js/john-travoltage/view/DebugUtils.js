@@ -31,7 +31,7 @@ const DebugUtils = {
       down: event => {
         const pt = event.pointer.point;
         const global = johnTravoltageView.globalToLocalPoint( pt );
-        const a = 'new Vector2(' + global.x + ',' + global.y + '),\n';
+        const a = `new Vector2(${global.x},${global.y}),\n`;
 
         string = string + a;
         console.log( string );
@@ -53,7 +53,7 @@ const DebugUtils = {
         const pt = event.pointer.point;
         const global = johnTravoltageView.globalToLocalPoint( pt );
         if ( p1 ) {
-          string = string + 'new LineSegment(' + p1.x + ',' + p1.y + ',' + global.x + ',' + global.y + '),\n';
+          string = `${string}new LineSegment(${p1.x},${p1.y},${global.x},${global.y}),\n`;
           console.log( string );
           p1 = null;
         }
