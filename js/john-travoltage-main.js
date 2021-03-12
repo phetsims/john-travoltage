@@ -46,7 +46,7 @@ const simOptions = {
 };
 
 //Create and start the sim
-simLauncher.launch( function() {
+simLauncher.launch( () => {
   new Sim( johnTravoltageTitleString, [
     new JohnTravoltageScreen( tandem.createTandem( 'johnTravoltageScreen' ) )
   ], simOptions ).start();
