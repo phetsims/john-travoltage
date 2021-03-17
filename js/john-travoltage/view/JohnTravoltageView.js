@@ -201,16 +201,16 @@ class JohnTravoltageView extends ScreenView {
         if ( phet.chipper.queryParameters.supportsSelfVoicing ) {
 
           // as the simulation resets, do no not speak about changes
-          phet.joist.sim.selfVoicingUtteranceQueue.enabled = false;
+          phet.joist.sim.voicingUtteranceQueue.enabled = false;
         }
         model.reset();
 
         if ( phet.chipper.queryParameters.supportsSelfVoicing ) {
-          phet.joist.sim.selfVoicingUtteranceQueue.enabled = true;
+          phet.joist.sim.voicingUtteranceQueue.enabled = true;
 
           // when pressed, self-voicing content should speak both the label and the alert
           const resetAlert = levelSpeakerModel.collectResponses( resetAllString, resetAllAlertString );
-          phet.joist.sim.selfVoicingUtteranceQueue.addToBack( resetAlert );
+          phet.joist.sim.voicingUtteranceQueue.addToBack( resetAlert );
         }
       },
       tandem: tandem.createTandem( 'resetAllButton' )
@@ -406,7 +406,7 @@ class JohnTravoltageView extends ScreenView {
 
           // on focus, speak the name of the reset all button
           const response = levelSpeakerModel.collectResponses( resetAllString );
-          phet.joist.sim.selfVoicingUtteranceQueue.addToBack( response );
+          phet.joist.sim.voicingUtteranceQueue.addToBack( response );
         },
         highlightTarget: resetAllButton
       } ) );

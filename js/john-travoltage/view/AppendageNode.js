@@ -286,7 +286,7 @@ class AppendageNode extends Node {
       if ( !isLeg ) {
         sliderProperty.lazyLink( angle => {
           appendageUtterance.alert = this.getSelfVoicingObjectResponse( false );
-          phet.joist.sim.selfVoicingUtteranceQueue.addToBack( appendageUtterance );
+          phet.joist.sim.voicingUtteranceQueue.addToBack( appendageUtterance );
         } );
       }
 
@@ -300,18 +300,18 @@ class AppendageNode extends Node {
           // the initial dragging alert does not use the utterance because it must be assertive and
           // should interrupt any other utterance being spoken
           const alert = this.getSelfVoicingObjectResponse( true );
-          phet.joist.sim.selfVoicingUtteranceQueue.addToBack( alert );
+          phet.joist.sim.voicingUtteranceQueue.addToBack( alert );
         }
         else if ( angleOnStart !== appendage.angleProperty.get() ) {
           appendageUtterance.alert = this.getSelfVoicingObjectResponse( true );
-          phet.joist.sim.selfVoicingUtteranceQueue.addToBack( appendageUtterance );
+          phet.joist.sim.voicingUtteranceQueue.addToBack( appendageUtterance );
         }
       } );
 
       this.addInputListener( new SelfVoicingInputListener( {
         onFocusIn: () => {
           const response = this.getSelfVoicingObjectResponse( true );
-          phet.joist.sim.selfVoicingUtteranceQueue.addToBack( response );
+          phet.joist.sim.voicingUtteranceQueue.addToBack( response );
         },
         highlightTarget: this
       } ) );
@@ -324,7 +324,7 @@ class AppendageNode extends Node {
             manipulation: options.manipulationHint
           } );
           const response = levelSpeakerModel.collectResponses( interactionHint );
-          phet.joist.sim.selfVoicingUtteranceQueue.addToBack( response );
+          phet.joist.sim.voicingUtteranceQueue.addToBack( response );
         }
       } );
     }
@@ -445,7 +445,7 @@ class AppendageNode extends Node {
     this.model.borderVisibleProperty.set( false );
 
     const response = levelSpeakerModel.collectResponses( grabbedAlertString );
-    phet.joist.sim.selfVoicingUtteranceQueue.addToBack( response );
+    phet.joist.sim.voicingUtteranceQueue.addToBack( response );
   }
 
   /**
@@ -547,7 +547,7 @@ class AppendageNode extends Node {
       // before speaking this alert
       cancelOther: false
     } );
-    phet.joist.sim.selfVoicingUtteranceQueue.addToBack( releasedUtterance );
+    phet.joist.sim.voicingUtteranceQueue.addToBack( releasedUtterance );
   }
 
 

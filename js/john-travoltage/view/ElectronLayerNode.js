@@ -72,7 +72,7 @@ class ElectronLayerNode extends Node {
           chargeUtterance.alert = StringUtils.fillIn( 'Rubbing, {{qualitativeDescription}} electrons on body', {
             qualitativeDescription: this.getQualitativeChargeDescription( currentCharge )
           } );
-          phet.joist.sim.selfVoicingUtteranceQueue.addToBack( chargeUtterance );
+          phet.joist.sim.voicingUtteranceQueue.addToBack( chargeUtterance );
         }
       }
       else {
@@ -97,7 +97,7 @@ class ElectronLayerNode extends Node {
           const selfVoicingContent = levelSpeakerModel.collectResponses( '', selfVoicingAlertString, '', {
             withCancel: false
           } );
-          phet.joist.sim.selfVoicingUtteranceQueue.addToBack( selfVoicingContent );
+          phet.joist.sim.voicingUtteranceQueue.addToBack( selfVoicingContent );
         }
       }
 
