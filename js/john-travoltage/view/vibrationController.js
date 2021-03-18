@@ -18,6 +18,7 @@
  */
 
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
+import stepTimer from '../../../../axon/js/Timer.js';
 import johnTravoltage from '../../johnTravoltage.js';
 
 // constants
@@ -108,10 +109,10 @@ class VibrationController {
         // consider a way to queue these requests with timing rather than using a timeout
         const resetVibrationInterval = 150; // ms
         vibrationManager.vibrateTransient();
-        window.setTimeout( () => {
+        stepTimer.setTimeout( () => {
           vibrationManager.vibrateTransient();
 
-          window.setTimeout( () => {
+          stepTimer.setTimeout( () => {
             vibrationManager.vibrateTransient();
           }, resetVibrationInterval );
         }, resetVibrationInterval );
