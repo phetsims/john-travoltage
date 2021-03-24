@@ -28,7 +28,7 @@ import Image from '../../../../scenery/js/nodes/Image.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
 import AccessibleSlider from '../../../../sun/js/accessibility/AccessibleSlider.js';
-import SelfVoicingUtterance from '../../../../utterance-queue/js/SelfVoicingUtterance.js';
+import VoicingUtterance from '../../../../utterance-queue/js/VoicingUtterance.js';
 import johnTravoltage from '../../johnTravoltage.js';
 import johnTravoltageStrings from '../../johnTravoltageStrings.js';
 import Leg from '../model/Leg.js';
@@ -276,7 +276,7 @@ class AppendageNode extends Node {
 
       // describe changes to the arm/leg as the angle changes (during a drag operation) - polite so that it doesn't
       // cancel itself during rapid changes
-      const appendageUtterance = new SelfVoicingUtterance( {
+      const appendageUtterance = new VoicingUtterance( {
         cancelSelf: false,
         cancelOther: false,
         alertStableDelay: 400
@@ -540,7 +540,7 @@ class AppendageNode extends Node {
     this.model.isDraggingProperty.set( false );
     this.previousSwipePosition = null;
 
-    const releasedUtterance = new SelfVoicingUtterance( {
+    const releasedUtterance = new VoicingUtterance( {
       alert: 'Released',
 
       // this utterance often follows electron information, don't interrupt that
