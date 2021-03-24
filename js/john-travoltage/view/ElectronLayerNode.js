@@ -68,7 +68,7 @@ class ElectronLayerNode extends Node {
       if ( currentCharge >= priorCharge ) {
         alertString = StringUtils.fillIn( electronsTotalDescriptionPatternString, { value: currentCharge } );
 
-        if ( phet.chipper.queryParameters.supportsSelfVoicing ) {
+        if ( phet.chipper.queryParameters.supportsVoicing ) {
           chargeUtterance.alert = StringUtils.fillIn( 'Rubbing, {{qualitativeDescription}} electrons on body', {
             qualitativeDescription: this.getQualitativeChargeDescription( currentCharge )
           } );
@@ -88,7 +88,7 @@ class ElectronLayerNode extends Node {
           region: regionText
         } );
 
-        if ( phet.chipper.queryParameters.supportsSelfVoicing ) {
+        if ( phet.chipper.queryParameters.supportsVoicing ) {
           const selfVoicingAlertString = StringUtils.fillIn( '{{qualitativeDescription}} electrons discharged with {{region}}.', {
             qualitativeDescription: this.getQualitativeChargeDescription( priorCharge - currentCharge ),
             region: regionText

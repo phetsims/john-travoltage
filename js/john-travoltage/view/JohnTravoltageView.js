@@ -197,14 +197,14 @@ class JohnTravoltageView extends ScreenView {
       bottom: this.layoutBounds.maxY - 8,
       listener: () => {
 
-        if ( phet.chipper.queryParameters.supportsSelfVoicing ) {
+        if ( phet.chipper.queryParameters.supportsVoicing ) {
 
           // as the simulation resets, do no not speak about changes
           phet.joist.sim.voicingUtteranceQueue.enabled = false;
         }
         model.reset();
 
-        if ( phet.chipper.queryParameters.supportsSelfVoicing ) {
+        if ( phet.chipper.queryParameters.supportsVoicing ) {
           phet.joist.sim.voicingUtteranceQueue.enabled = true;
 
           // when pressed, self-voicing content should speak both the label and the alert
@@ -390,7 +390,7 @@ class JohnTravoltageView extends ScreenView {
     ];
 
     // prototype code related to the self-voicing work
-    if ( phet.chipper.queryParameters.supportsSelfVoicing ) {
+    if ( phet.chipper.queryParameters.supportsVoicing ) {
 
       // add the swipe listener
       const swipeListener = new SwipeListener( phet.joist.display._input );

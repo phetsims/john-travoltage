@@ -272,7 +272,7 @@ class AppendageNode extends Node {
     this.initializePosition();
 
     // prototype code related to the self-voicing work
-    if ( phet.chipper.queryParameters.supportsSelfVoicing ) {
+    if ( phet.chipper.queryParameters.supportsVoicing ) {
 
       // describe changes to the arm/leg as the angle changes (during a drag operation) - polite so that it doesn't
       // cancel itself during rapid changes
