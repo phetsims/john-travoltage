@@ -159,7 +159,7 @@
         "value": "Move hand or foot with left and right arrow keys."
       }
     },
-    "selfVoicing": {
+    "voicing": {
       "appendageObjectResponsePattern": {
         "value": "{{label}}, {{valueText}}"
       },

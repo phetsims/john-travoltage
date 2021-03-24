@@ -65,16 +65,16 @@ const screenSummaryBodyDescriptionPatternString = johnTravoltageStrings.a11y.scr
 const electronsSingleDescriptionString = johnTravoltageStrings.a11y.electrons.singleDescription;
 const electronsMultipleDescriptionPatternString = johnTravoltageStrings.a11y.electrons.multipleDescriptionPattern;
 const descriptionWithChargePatternString = johnTravoltageStrings.a11y.screenSummary.descriptionWithChargePattern;
-const selfVoicingContentHintString = johnTravoltageStrings.a11y.selfVoicing.contentHint;
-const selfVoicingDetailedContentHintString = johnTravoltageStrings.a11y.selfVoicing.detailedContentHint;
-const overviewPatternString = johnTravoltageStrings.a11y.selfVoicing.overviewPattern;
+const selfVoicingContentHintString = johnTravoltageStrings.a11y.voicing.contentHint;
+const selfVoicingDetailedContentHintString = johnTravoltageStrings.a11y.voicing.detailedContentHint;
+const overviewPatternString = johnTravoltageStrings.a11y.voicing.overviewPattern;
 const resetAllString = sceneryPhetStrings.a11y.resetAll.label;
 const resetAllAlertString = sceneryPhetStrings.a11y.resetAll.alert;
-const screenSummarySingleScreenIntroPatternString = sceneryPhetStrings.a11y.selfVoicing.simSection.screenSummary.singleScreenIntroPattern;
-const previousDischargePatternString = johnTravoltageStrings.a11y.selfVoicing.previousDischargePattern;
-const screenSummaryWithPreviousDischargePatternString = johnTravoltageStrings.a11y.selfVoicing.screenSummaryWithPreviousDischargePattern;
-const handInteractionHintString = johnTravoltageStrings.a11y.selfVoicing.handInteractionHint;
-const footInteractionHintString = johnTravoltageStrings.a11y.selfVoicing.footInteractionHint;
+const screenSummarySingleScreenIntroPatternString = sceneryPhetStrings.a11y.voicing.simSection.screenSummary.singleScreenIntroPattern;
+const previousDischargePatternString = johnTravoltageStrings.a11y.voicing.previousDischargePattern;
+const screenSummaryWithPreviousDischargePatternString = johnTravoltageStrings.a11y.voicing.screenSummaryWithPreviousDischargePattern;
+const handInteractionHintString = johnTravoltageStrings.a11y.voicing.handInteractionHint;
+const footInteractionHintString = johnTravoltageStrings.a11y.voicing.footInteractionHint;
 
 // constants
 const OUCH_EXCLAMATION_DELAY = 0.5; // in seconds

@@ -33,10 +33,10 @@ import johnTravoltage from '../../johnTravoltage.js';
 import johnTravoltageStrings from '../../johnTravoltageStrings.js';
 import Leg from '../model/Leg.js';
 
-const selfVoicingObjectResponsePatternString = johnTravoltageStrings.a11y.selfVoicing.appendageObjectResponsePattern;
-const grabbedAlertString = johnTravoltageStrings.a11y.selfVoicing.grabbedAlert;
-const grabDragHintPatternString = sceneryPhetStrings.a11y.selfVoicing.grabDragHintPattern;
-const selfVoicingContentHintString = johnTravoltageStrings.a11y.selfVoicing.contentHint;
+const selfVoicingObjectResponsePatternString = johnTravoltageStrings.a11y.voicing.appendageObjectResponsePattern;
+const grabbedAlertString = johnTravoltageStrings.a11y.voicing.grabbedAlert;
+const grabDragHintPatternString = sceneryPhetStrings.a11y.voicing.grabDragHintPattern;
+const selfVoicingContentHintString = johnTravoltageStrings.a11y.voicing.contentHint;
 
 class AppendageNode extends Node {
   /**
