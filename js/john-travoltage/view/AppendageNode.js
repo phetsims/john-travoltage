@@ -19,7 +19,7 @@ import Vector2 from '../../../../dot/js/Vector2.js';
 import Shape from '../../../../kite/js/Shape.js';
 import merge from '../../../../phet-core/js/merge.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
-import SelfVoicingInputListener from '../../../../scenery-phet/js/accessibility/speaker/SelfVoicingInputListener.js';
+import VoicingInputListener from '../../../../scenery-phet/js/accessibility/speaker/VoicingInputListener.js';
 import levelSpeakerModel from '../../../../scenery-phet/js/accessibility/speaker/levelSpeakerModel.js';
 import sceneryPhetStrings from '../../../../scenery-phet/js/sceneryPhetStrings.js';
 import FocusHighlightPath from '../../../../scenery/js/accessibility/FocusHighlightPath.js';
@@ -308,7 +308,7 @@ class AppendageNode extends Node {
         }
       } );
 
-      this.addInputListener( new SelfVoicingInputListener( {
+      this.addInputListener( new VoicingInputListener( {
         onFocusIn: () => {
           const response = this.getSelfVoicingObjectResponse( true );
           phet.joist.sim.voicingUtteranceQueue.addToBack( response );

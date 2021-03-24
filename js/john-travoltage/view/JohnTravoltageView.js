@@ -17,7 +17,7 @@ import ScreenView from '../../../../joist/js/ScreenView.js';
 import Shape from '../../../../kite/js/Shape.js';
 import platform from '../../../../phet-core/js/platform.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
-import SelfVoicingInputListener from '../../../../scenery-phet/js/accessibility/speaker/SelfVoicingInputListener.js';
+import VoicingInputListener from '../../../../scenery-phet/js/accessibility/speaker/VoicingInputListener.js';
 import SelfVoicingQuickControl from '../../../../scenery-phet/js/accessibility/speaker/SelfVoicingQuickControl.js';
 import levelSpeakerModel from '../../../../scenery-phet/js/accessibility/speaker/levelSpeakerModel.js';
 import ResetAllButton from '../../../../scenery-phet/js/buttons/ResetAllButton.js';
@@ -398,7 +398,7 @@ class JohnTravoltageView extends ScreenView {
         swipeListener.enabled = gestureControl;
       } );
 
-      resetAllButton.addInputListener( new SelfVoicingInputListener( {
+      resetAllButton.addInputListener( new VoicingInputListener( {
         onFocusIn: () => {
 
           // on focus, speak the name of the reset all button
