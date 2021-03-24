@@ -64,8 +64,8 @@ const screenSummaryBodyDescriptionPatternString = johnTravoltageStrings.a11y.scr
 const electronsSingleDescriptionString = johnTravoltageStrings.a11y.electrons.singleDescription;
 const electronsMultipleDescriptionPatternString = johnTravoltageStrings.a11y.electrons.multipleDescriptionPattern;
 const descriptionWithChargePatternString = johnTravoltageStrings.a11y.screenSummary.descriptionWithChargePattern;
-const selfVoicingContentHintString = johnTravoltageStrings.a11y.voicing.contentHint;
-const selfVoicingDetailedContentHintString = johnTravoltageStrings.a11y.voicing.detailedContentHint;
+const voicingContentHintString = johnTravoltageStrings.a11y.voicing.contentHint;
+const voicingDetailedContentHintString = johnTravoltageStrings.a11y.voicing.detailedContentHint;
 const overviewPatternString = johnTravoltageStrings.a11y.voicing.overviewPattern;
 const resetAllString = sceneryPhetStrings.a11y.resetAll.label;
 const resetAllAlertString = sceneryPhetStrings.a11y.resetAll.alert;
@@ -140,7 +140,7 @@ class JohnTravoltageView extends ScreenView {
         labelContent: appendageLegLabelString,
 
         // prototype self-voicing feature
-        selfVoicingHint: selfVoicingContentHintString,
+        voicingHint: voicingContentHintString,
         manipulationHint: footInteractionHintString
       } );
     this.addChild( this.leg );
@@ -153,7 +153,7 @@ class JohnTravoltageView extends ScreenView {
         labelContent: appendageArmLabelString,
 
         // prototype self-voicing feature
-        selfVoicingHint: selfVoicingDetailedContentHintString,
+        voicingHint: voicingDetailedContentHintString,
         manipulationHint: handInteractionHintString
       } );
     this.addChild( this.arm );
@@ -409,11 +409,11 @@ class JohnTravoltageView extends ScreenView {
       } ) );
 
       const quickControl = new VoicingQuickControl( webSpeaker, {
-        createDetailsContent: this.createSelfVoicingSceneDescription.bind( this ),
+        createDetailsContent: this.createVoicingSceneDescription.bind( this ),
         createHintContent: () => {
-          let hintString = selfVoicingContentHintString;
+          let hintString = voicingContentHintString;
           if ( model.electronGroup.count >= 10 ) {
-            hintString = selfVoicingDetailedContentHintString;
+            hintString = voicingDetailedContentHintString;
           }
           return hintString;
         },
@@ -552,7 +552,7 @@ class JohnTravoltageView extends ScreenView {
    * @private
    * @returns {string}
    */
-  createSelfVoicingSceneDescription() {
+  createVoicingSceneDescription() {
     const positionDescription = AppendageNode.getPositionDescription( this.arm.a11yAngleToPosition( this.model.arm.angleProperty.get() ), AppendageRangeMaps.armMap.regions );
     const johnDescription = StringUtils.fillIn( screenSummaryBodyDescriptionPatternString, { position: positionDescription } );
 

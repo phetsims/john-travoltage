@@ -33,7 +33,7 @@ import johnTravoltage from '../../johnTravoltage.js';
 import johnTravoltageStrings from '../../johnTravoltageStrings.js';
 import Leg from '../model/Leg.js';
 
-const selfVoicingObjectResponsePatternString = johnTravoltageStrings.a11y.voicing.appendageObjectResponsePattern;
+const voicingObjectResponsePatternString = johnTravoltageStrings.a11y.voicing.appendageObjectResponsePattern;
 const grabbedAlertString = johnTravoltageStrings.a11y.voicing.grabbedAlert;
 const grabDragHintPatternString = sceneryPhetStrings.a11y.voicing.grabDragHintPattern;
 const selfVoicingContentHintString = johnTravoltageStrings.a11y.voicing.contentHint;
@@ -63,7 +63,7 @@ class AppendageNode extends Node {
       keyboardMidPointOffset: 0, // adjust center position of accessible slider, to align important positions at center
 
       // {string|null} - hint spoken to guide the user toward an interaction
-      selfVoicingHint: null,
+      voicingHint: null,
       maniupationHint: null
     }, options );
 
@@ -341,7 +341,7 @@ class AppendageNode extends Node {
 
     let objectResponse;
     if ( includeLabel ) {
-      objectResponse = StringUtils.fillIn( selfVoicingObjectResponsePatternString, {
+      objectResponse = StringUtils.fillIn( voicingObjectResponsePatternString, {
         label: this.labelContent,
         valueText: this.ariaValueText
       } );
