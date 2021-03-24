@@ -36,7 +36,7 @@ import Leg from '../model/Leg.js';
 const voicingObjectResponsePatternString = johnTravoltageStrings.a11y.voicing.appendageObjectResponsePattern;
 const grabbedAlertString = johnTravoltageStrings.a11y.voicing.grabbedAlert;
 const grabDragHintPatternString = sceneryPhetStrings.a11y.voicing.grabDragHintPattern;
-const selfVoicingContentHintString = johnTravoltageStrings.a11y.voicing.contentHint;
+const voicingContentHintString = johnTravoltageStrings.a11y.voicing.contentHint;
 
 class AppendageNode extends Node {
   /**
@@ -350,7 +350,7 @@ class AppendageNode extends Node {
       objectResponse = this.ariaValueText;
     }
 
-    return levelSpeakerModel.collectResponses( objectResponse, null, selfVoicingContentHintString );
+    return levelSpeakerModel.collectResponses( objectResponse, null, voicingContentHintString );
   }
 
 
