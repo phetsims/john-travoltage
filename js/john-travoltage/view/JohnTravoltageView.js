@@ -18,7 +18,7 @@ import Shape from '../../../../kite/js/Shape.js';
 import platform from '../../../../phet-core/js/platform.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import VoicingInputListener from '../../../../scenery-phet/js/accessibility/speaker/VoicingInputListener.js';
-import SelfVoicingQuickControl from '../../../../scenery-phet/js/accessibility/speaker/SelfVoicingQuickControl.js';
+import VoicingQuickControl from '../../../../scenery-phet/js/accessibility/speaker/VoicingQuickControl.js';
 import levelSpeakerModel from '../../../../scenery-phet/js/accessibility/speaker/levelSpeakerModel.js';
 import ResetAllButton from '../../../../scenery-phet/js/buttons/ResetAllButton.js';
 import sceneryPhetStrings from '../../../../scenery-phet/js/sceneryPhetStrings.js';
@@ -408,7 +408,7 @@ class JohnTravoltageView extends ScreenView {
         highlightTarget: resetAllButton
       } ) );
 
-      const quickControl = new SelfVoicingQuickControl( webSpeaker, {
+      const quickControl = new VoicingQuickControl( webSpeaker, {
         createDetailsContent: this.createSelfVoicingSceneDescription.bind( this ),
         createHintContent: () => {
           let hintString = selfVoicingContentHintString;
