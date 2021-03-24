@@ -18,12 +18,10 @@ import Shape from '../../../../kite/js/Shape.js';
 import platform from '../../../../phet-core/js/platform.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import VoicingInputListener from '../../../../scenery-phet/js/accessibility/speaker/VoicingInputListener.js';
-import VoicingQuickControl from '../../../../scenery-phet/js/accessibility/speaker/VoicingQuickControl.js';
 import levelSpeakerModel from '../../../../scenery-phet/js/accessibility/speaker/levelSpeakerModel.js';
 import ResetAllButton from '../../../../scenery-phet/js/buttons/ResetAllButton.js';
 import sceneryPhetStrings from '../../../../scenery-phet/js/sceneryPhetStrings.js';
 import PDOMPeer from '../../../../scenery/js/accessibility/pdom/PDOMPeer.js';
-import webSpeaker from '../../../../scenery/js/accessibility/speaker/webSpeaker.js';
 import SwipeListener from '../../../../scenery/js/listeners/SwipeListener.js';
 import Circle from '../../../../scenery/js/nodes/Circle.js';
 import Line from '../../../../scenery/js/nodes/Line.js';
@@ -37,7 +35,6 @@ import VibrationManageriOS from '../../../../tappi/js/VibrationManageriOS.js';
 import VibrationTestEvent from '../../../../tappi/js/tracking/VibrationTestEvent.js';
 import VibrationTestEventRecorder from '../../../../tappi/js/tracking/VibrationTestEventRecorder.js';
 import VibrationTestInputListener from '../../../../tappi/js/tracking/VibrationTestInputListener.js';
-import tappiDialogController from '../../../../tappi/js/view/tappiDialogController.js';
 import arm from '../../../images/arm_png.js';
 import leg from '../../../images/leg_png.js';
 import chargesInBodySound from '../../../sounds/charges-in-body_mp3.js';
@@ -66,10 +63,8 @@ const electronsMultipleDescriptionPatternString = johnTravoltageStrings.a11y.ele
 const descriptionWithChargePatternString = johnTravoltageStrings.a11y.screenSummary.descriptionWithChargePattern;
 const voicingContentHintString = johnTravoltageStrings.a11y.voicing.contentHint;
 const voicingDetailedContentHintString = johnTravoltageStrings.a11y.voicing.detailedContentHint;
-const overviewPatternString = johnTravoltageStrings.a11y.voicing.overviewPattern;
 const resetAllString = sceneryPhetStrings.a11y.resetAll.label;
 const resetAllAlertString = sceneryPhetStrings.a11y.resetAll.alert;
-const screenSummarySingleScreenIntroPatternString = sceneryPhetStrings.a11y.voicing.simSection.screenSummary.singleScreenIntroPattern;
 const previousDischargePatternString = johnTravoltageStrings.a11y.voicing.previousDischargePattern;
 const screenSummaryWithPreviousDischargePatternString = johnTravoltageStrings.a11y.voicing.screenSummaryWithPreviousDischargePattern;
 const handInteractionHintString = johnTravoltageStrings.a11y.voicing.handInteractionHint;
@@ -407,37 +402,6 @@ class JohnTravoltageView extends ScreenView {
         },
         highlightTarget: resetAllButton
       } ) );
-
-      const quickControl = new VoicingQuickControl( webSpeaker, {
-        createDetailsContent: this.createVoicingSceneDescription.bind( this ),
-        createHintContent: () => {
-          let hintString = voicingContentHintString;
-          if ( model.electronGroup.count >= 10 ) {
-            hintString = voicingDetailedContentHintString;
-          }
-          return hintString;
-        },
-        createOverviewContent: () => {
-          const overviewString = StringUtils.fillIn( screenSummarySingleScreenIntroPatternString, {
-            sim: phet.joist.sim.simNameProperty.get()
-          } );
-
-          return StringUtils.fillIn( overviewPatternString, {
-            overview: overviewString
-          } );
-        }
-      } );
-      quickControl.leftBottom = this.layoutBounds.leftBottom.plusXY( 10, -10 );
-      this.addChild( quickControl );
-
-      // the quick control should be the very first thing in the navigation order for
-      // testing so that there is a high chance that one of the first things the user
-      // finds is the "Sim Overview" content
-      const orderCopy = this.pdomPlayAreaNode.pdomOrder.slice();
-      orderCopy.unshift( quickControl );
-      this.pdomPlayAreaNode.pdomOrder = orderCopy;
-
-      tappiDialogController.initialize( quickControl );
     }
 
     // code related to vibration prototype work - hidden behind a query param while we understand more about what
