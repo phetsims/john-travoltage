@@ -134,7 +134,7 @@ class JohnTravoltageView extends ScreenView {
       tandem.createTandem( 'legNode' ), {
         labelContent: appendageLegLabelString,
 
-        // prototype self-voicing feature
+        // prototype voicing feature
         voicingHint: voicingContentHintString,
         manipulationHint: footInteractionHintString
       } );
@@ -147,7 +147,7 @@ class JohnTravoltageView extends ScreenView {
         keyboardMidPointOffset: 0.41,
         labelContent: appendageArmLabelString,
 
-        // prototype self-voicing feature
+        // prototype voicing feature
         voicingHint: voicingDetailedContentHintString,
         manipulationHint: handInteractionHintString
       } );
@@ -202,7 +202,7 @@ class JohnTravoltageView extends ScreenView {
         if ( phet.chipper.queryParameters.supportsVoicing ) {
           phet.joist.sim.voicingUtteranceQueue.enabled = true;
 
-          // when pressed, self-voicing content should speak both the label and the alert
+          // when pressed, voicing content should speak both the label and the alert
           const resetAlert = levelSpeakerModel.collectResponses( resetAllString, resetAllAlertString );
           phet.joist.sim.voicingUtteranceQueue.addToBack( resetAlert );
         }
@@ -384,7 +384,7 @@ class JohnTravoltageView extends ScreenView {
       resetAllButton
     ];
 
-    // prototype code related to the self-voicing work
+    // prototype code related to the voicing work
     if ( phet.chipper.queryParameters.supportsVoicing ) {
 
       // add the swipe listener
@@ -509,7 +509,7 @@ class JohnTravoltageView extends ScreenView {
   }
 
   /**
-   * Create the self-voicing scene descriptoin for the "Hint Please" button.
+   * Create the voicing scene descriptoin for the "Hint Please" button.
    * Similar to the PDOM description, but uses a qualitative description of the
    * charge.
    *

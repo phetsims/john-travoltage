@@ -271,7 +271,7 @@ class AppendageNode extends Node {
 
     this.initializePosition();
 
-    // prototype code related to the self-voicing work
+    // prototype code related to the voicing work
     if ( phet.chipper.queryParameters.supportsVoicing ) {
 
       // describe changes to the arm/leg as the angle changes (during a drag operation) - polite so that it doesn't
@@ -285,7 +285,7 @@ class AppendageNode extends Node {
       const isLeg = appendage instanceof Leg;
       if ( !isLeg ) {
         sliderProperty.lazyLink( angle => {
-          appendageUtterance.alert = this.getSelfVoicingObjectResponse( false );
+          appendageUtterance.alert = this.getVoicingObjectResponse( false );
           phet.joist.sim.voicingUtteranceQueue.addToBack( appendageUtterance );
         } );
       }
@@ -299,18 +299,18 @@ class AppendageNode extends Node {
 
           // the initial dragging alert does not use the utterance because it must be assertive and
           // should interrupt any other utterance being spoken
-          const alert = this.getSelfVoicingObjectResponse( true );
+          const alert = this.getVoicingObjectResponse( true );
           phet.joist.sim.voicingUtteranceQueue.addToBack( alert );
         }
         else if ( angleOnStart !== appendage.angleProperty.get() ) {
-          appendageUtterance.alert = this.getSelfVoicingObjectResponse( true );
+          appendageUtterance.alert = this.getVoicingObjectResponse( true );
           phet.joist.sim.voicingUtteranceQueue.addToBack( appendageUtterance );
         }
       } );
 
       this.addInputListener( new VoicingInputListener( {
         onFocusIn: () => {
-          const response = this.getSelfVoicingObjectResponse( true );
+          const response = this.getVoicingObjectResponse( true );
           phet.joist.sim.voicingUtteranceQueue.addToBack( response );
         },
         highlightTarget: this
@@ -332,12 +332,12 @@ class AppendageNode extends Node {
 
   /**
    * Get the "object response" (response describing the slider itself) when a change
-   * is made to it for the self-voicing feature.
+   * is made to it for the voicing feature.
    * @private
    *
    * @param {boolean} includeLabel
    */
-  getSelfVoicingObjectResponse( includeLabel ) {
+  getVoicingObjectResponse( includeLabel ) {
 
     let objectResponse;
     if ( includeLabel ) {
@@ -435,7 +435,7 @@ class AppendageNode extends Node {
   }
 
   /**
-   * Part of prototype self-voicing. When the user initiates a gesture (anywhere on the screen)
+   * Part of prototype voicing. When the user initiates a gesture (anywhere on the screen)
    * that will initiate drag of the appendageNode.
    *
    * @public (called by SwipeListener)
@@ -449,7 +449,7 @@ class AppendageNode extends Node {
   }
 
   /**
-   * Part of the prototype self-voicing feature. User has initiated a gesture on the screen
+   * Part of the prototype voicing feature. User has initiated a gesture on the screen
    * to drag this Node. Moves this appendage based on how far along the screen the user
    * moves their finger. Just drags the appendage back and forth as the user drags their
    * finger left/right or up/down.
@@ -531,7 +531,7 @@ class AppendageNode extends Node {
   }
 
   /**
-   * Part of the self-voicing prototype. User has ended a drag of the appendage.
+   * Part of the voicing prototype. User has ended a drag of the appendage.
    * @public (called by SwipeListener)
    *
    * @param {SceneryEvent} event

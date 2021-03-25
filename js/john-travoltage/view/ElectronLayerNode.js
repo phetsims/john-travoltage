@@ -89,15 +89,15 @@ class ElectronLayerNode extends Node {
         } );
 
         if ( phet.chipper.queryParameters.supportsVoicing ) {
-          const selfVoicingAlertString = StringUtils.fillIn( '{{qualitativeDescription}} electrons discharged with {{region}}.', {
+          const voicingAlertString = StringUtils.fillIn( '{{qualitativeDescription}} electrons discharged with {{region}}.', {
             qualitativeDescription: this.getQualitativeChargeDescription( priorCharge - currentCharge ),
             region: regionText
           } );
 
-          const selfVoicingContent = levelSpeakerModel.collectResponses( '', selfVoicingAlertString, '', {
+          const voicingContent = levelSpeakerModel.collectResponses( '', voicingAlertString, '', {
             withCancel: false
           } );
-          phet.joist.sim.voicingUtteranceQueue.addToBack( selfVoicingContent );
+          phet.joist.sim.voicingUtteranceQueue.addToBack( voicingContent );
         }
       }
 
