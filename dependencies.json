@@ -1,5 +1,5 @@
 {
-  "comment": "# john-travoltage 1.5.13-rc.1 Fri Apr 23 2021 14:17:59 GMT-0600 (Mountain Daylight Time)",
+  "comment": "# john-travoltage 1.5.13-rc.1 Fri May 07 2021 11:37:16 GMT-0600 (Mountain Daylight Time)",
   "assert": {
     "sha": "928741cfc8fe804334d5b35292140314511f8678",
     "branch": "HEAD"
@@ -21,7 +21,7 @@
     "branch": "HEAD"
   },
   "john-travoltage": {
-    "sha": "f0ad6462ceeff81d8c79521d07e9f896a5d96e27",
+    "sha": "74828be45b18d3c54a36ce8ab65758100d96f7cd",
     "branch": "1.5"
   },
   "joist": {
@@ -57,8 +57,8 @@
     "branch": "HEAD"
   },
   "scenery": {
-    "sha": "d9f98f0fe7fcfb4442682724aab21e89dce83311",
-    "branch": "HEAD"
+    "sha": "ffc6f6642f0da2108c8fc891fcb508ce38019b36",
+    "branch": "john-travoltage-1.5"
   },
   "scenery-phet": {
     "sha": "ae80f9b804fc36cace213b40e9df1218331e4b72",
