@@ -21,11 +21,11 @@
     "branch": "HEAD"
   },
   "john-travoltage": {
-    "sha": "1a9b5f27be1a2fdb53e8b7f7d74bab5001c7cd56",
+    "sha": "55bf969fd4e97fc861fbed0684b5f71d7fd57deb",
     "branch": "1.4-phetio"
   },
   "joist": {
-    "sha": "54f803e6273efef76bc6627eca394833305dc0ba",
+    "sha": "e05974e02df188e1254e75c34ff0fdfe45586659",
     "branch": "HEAD"
   },
   "kite": {
