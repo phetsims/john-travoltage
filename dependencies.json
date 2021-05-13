@@ -13,7 +13,7 @@
     "branch": "HEAD"
   },
   "chipper": {
-    "sha": "387cebc95e151b2cad7e42ae734c81dae6e35d52",
+    "sha": "334305c5c0116a5ab9ff100f6fc76618aba80f1c",
     "branch": "HEAD"
   },
   "dot": {
@@ -21,7 +21,7 @@
     "branch": "HEAD"
   },
   "john-travoltage": {
-    "sha": "f7a84d95445959ba49aa263ba02324c001b3310b",
+    "sha": "1a9b5f27be1a2fdb53e8b7f7d74bab5001c7cd56",
     "branch": "1.4-phetio"
   },
   "joist": {
