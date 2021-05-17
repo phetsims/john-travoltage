@@ -23,6 +23,7 @@ import VoicingInputListener from '../../../../scenery-phet/js/accessibility/spea
 import levelSpeakerModel from '../../../../scenery-phet/js/accessibility/speaker/levelSpeakerModel.js';
 import sceneryPhetStrings from '../../../../scenery-phet/js/sceneryPhetStrings.js';
 import FocusHighlightPath from '../../../../scenery/js/accessibility/FocusHighlightPath.js';
+import voicingUtteranceQueue from '../../../../scenery/js/accessibility/speaker/voicingUtteranceQueue.js';
 import DragListener from '../../../../scenery/js/listeners/DragListener.js';
 import Image from '../../../../scenery/js/nodes/Image.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
@@ -286,7 +287,7 @@ class AppendageNode extends Node {
       if ( !isLeg ) {
         sliderProperty.lazyLink( angle => {
           appendageUtterance.alert = this.getVoicingObjectResponse( false );
-          phet.joist.sim.voicingUtteranceQueue.addToBack( appendageUtterance );
+          voicingUtteranceQueue.addToBack( appendageUtterance );
         } );
       }
 
@@ -300,18 +301,18 @@ class AppendageNode extends Node {
           // the initial dragging alert does not use the utterance because it must be assertive and
           // should interrupt any other utterance being spoken
           const alert = this.getVoicingObjectResponse( true );
-          phet.joist.sim.voicingUtteranceQueue.addToBack( alert );
+          voicingUtteranceQueue.addToBack( alert );
         }
         else if ( angleOnStart !== appendage.angleProperty.get() ) {
           appendageUtterance.alert = this.getVoicingObjectResponse( true );
-          phet.joist.sim.voicingUtteranceQueue.addToBack( appendageUtterance );
+          voicingUtteranceQueue.addToBack( appendageUtterance );
         }
       } );
 
       this.addInputListener( new VoicingInputListener( {
         onFocusIn: () => {
           const response = this.getVoicingObjectResponse( true );
-          phet.joist.sim.voicingUtteranceQueue.addToBack( response );
+          voicingUtteranceQueue.addToBack( response );
         },
         highlightTarget: this
       } ) );
@@ -324,7 +325,7 @@ class AppendageNode extends Node {
             manipulation: options.manipulationHint
           } );
           const response = levelSpeakerModel.collectResponses( interactionHint );
-          phet.joist.sim.voicingUtteranceQueue.addToBack( response );
+          voicingUtteranceQueue.addToBack( response );
         }
       } );
     }
@@ -445,7 +446,7 @@ class AppendageNode extends Node {
     this.model.borderVisibleProperty.set( false );
 
     const response = levelSpeakerModel.collectResponses( grabbedAlertString );
-    phet.joist.sim.voicingUtteranceQueue.addToBack( response );
+    voicingUtteranceQueue.addToBack( response );
   }
 
   /**
@@ -547,7 +548,7 @@ class AppendageNode extends Node {
       // before speaking this alert
       cancelOther: false
     } );
-    phet.joist.sim.voicingUtteranceQueue.addToBack( releasedUtterance );
+    voicingUtteranceQueue.addToBack( releasedUtterance );
   }
 
 

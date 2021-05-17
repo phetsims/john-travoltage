@@ -12,6 +12,7 @@
 import Range from '../../../../dot/js/Range.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import levelSpeakerModel from '../../../../scenery-phet/js/accessibility/speaker/levelSpeakerModel.js';
+import voicingUtteranceQueue from '../../../../scenery/js/accessibility/speaker/voicingUtteranceQueue.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import VoicingUtterance from '../../../../utterance-queue/js/VoicingUtterance.js';
 import Utterance from '../../../../utterance-queue/js/Utterance.js';
@@ -72,7 +73,7 @@ class ElectronLayerNode extends Node {
           chargeUtterance.alert = StringUtils.fillIn( 'Rubbing, {{qualitativeDescription}} electrons on body', {
             qualitativeDescription: this.getQualitativeChargeDescription( currentCharge )
           } );
-          phet.joist.sim.voicingUtteranceQueue.addToBack( chargeUtterance );
+          voicingUtteranceQueue.addToBack( chargeUtterance );
         }
       }
       else {
@@ -97,7 +98,7 @@ class ElectronLayerNode extends Node {
           const voicingContent = levelSpeakerModel.collectResponses( '', voicingAlertString, '', {
             withCancel: false
           } );
-          phet.joist.sim.voicingUtteranceQueue.addToBack( voicingContent );
+          voicingUtteranceQueue.addToBack( voicingContent );
         }
       }
 

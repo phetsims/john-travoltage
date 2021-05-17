@@ -22,6 +22,7 @@ import levelSpeakerModel from '../../../../scenery-phet/js/accessibility/speaker
 import ResetAllButton from '../../../../scenery-phet/js/buttons/ResetAllButton.js';
 import sceneryPhetStrings from '../../../../scenery-phet/js/sceneryPhetStrings.js';
 import PDOMPeer from '../../../../scenery/js/accessibility/pdom/PDOMPeer.js';
+import voicingUtteranceQueue from '../../../../scenery/js/accessibility/speaker/voicingUtteranceQueue.js';
 import SwipeListener from '../../../../scenery/js/listeners/SwipeListener.js';
 import Circle from '../../../../scenery/js/nodes/Circle.js';
 import Line from '../../../../scenery/js/nodes/Line.js';
@@ -195,16 +196,16 @@ class JohnTravoltageView extends ScreenView {
         if ( phet.chipper.queryParameters.supportsVoicing ) {
 
           // as the simulation resets, do no not speak about changes
-          phet.joist.sim.voicingUtteranceQueue.enabled = false;
+          voicingUtteranceQueue.enabled = false;
         }
         model.reset();
 
         if ( phet.chipper.queryParameters.supportsVoicing ) {
-          phet.joist.sim.voicingUtteranceQueue.enabled = true;
+          voicingUtteranceQueue.enabled = true;
 
           // when pressed, voicing content should speak both the label and the alert
           const resetAlert = levelSpeakerModel.collectResponses( resetAllString, resetAllAlertString );
-          phet.joist.sim.voicingUtteranceQueue.addToBack( resetAlert );
+          voicingUtteranceQueue.addToBack( resetAlert );
         }
       },
       tandem: tandem.createTandem( 'resetAllButton' )
@@ -398,7 +399,7 @@ class JohnTravoltageView extends ScreenView {
 
           // on focus, speak the name of the reset all button
           const response = levelSpeakerModel.collectResponses( resetAllString );
-          phet.joist.sim.voicingUtteranceQueue.addToBack( response );
+          voicingUtteranceQueue.addToBack( response );
         },
         highlightTarget: resetAllButton
       } ) );
