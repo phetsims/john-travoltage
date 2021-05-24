@@ -19,10 +19,8 @@ import Vector2 from '../../../../dot/js/Vector2.js';
 import Shape from '../../../../kite/js/Shape.js';
 import merge from '../../../../phet-core/js/merge.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
-import VoicingInputListener from '../../../../scenery-phet/js/accessibility/speaker/VoicingInputListener.js';
-import levelSpeakerModel from '../../../../scenery-phet/js/accessibility/speaker/levelSpeakerModel.js';
-import sceneryPhetStrings from '../../../../scenery-phet/js/sceneryPhetStrings.js';
 import FocusHighlightPath from '../../../../scenery/js/accessibility/FocusHighlightPath.js';
+import voicingManager from '../../../../scenery/js/accessibility/voicing/voicingManager.js';
 import voicingUtteranceQueue from '../../../../scenery/js/accessibility/voicing/voicingUtteranceQueue.js';
 import DragListener from '../../../../scenery/js/listeners/DragListener.js';
 import Image from '../../../../scenery/js/nodes/Image.js';
@@ -35,8 +33,6 @@ import johnTravoltageStrings from '../../johnTravoltageStrings.js';
 import Leg from '../model/Leg.js';
 
 const voicingObjectResponsePatternString = johnTravoltageStrings.a11y.voicing.appendageObjectResponsePattern;
-const grabbedAlertString = johnTravoltageStrings.a11y.voicing.grabbedAlert;
-const grabDragHintPatternString = sceneryPhetStrings.a11y.voicing.grabDragHintPattern;
 const voicingContentHintString = johnTravoltageStrings.a11y.voicing.contentHint;
 
 class AppendageNode extends Node {
@@ -308,26 +304,6 @@ class AppendageNode extends Node {
           voicingUtteranceQueue.addToBack( appendageUtterance );
         }
       } );
-
-      this.addInputListener( new VoicingInputListener( {
-        onFocusIn: () => {
-          const response = this.getVoicingObjectResponse( true );
-          voicingUtteranceQueue.addToBack( response );
-        },
-        highlightTarget: this
-      } ) );
-
-      // when we receive a click event from a 'double tap', describe to the
-      // user how to drag the appendage
-      this.addInputListener( {
-        click: event => {
-          const interactionHint = StringUtils.fillIn( grabDragHintPatternString, {
-            manipulation: options.manipulationHint
-          } );
-          const response = levelSpeakerModel.collectResponses( interactionHint );
-          voicingUtteranceQueue.addToBack( response );
-        }
-      } );
     }
   }
 
@@ -351,7 +327,10 @@ class AppendageNode extends Node {
       objectResponse = this.ariaValueText;
     }
 
-    return levelSpeakerModel.collectResponses( objectResponse, null, voicingContentHintString );
+    return voicingManager.collectResponses( {
+      objectResponse: objectResponse,
+      hintResponse: voicingContentHintString
+    } );
   }
 
 
@@ -436,76 +415,6 @@ class AppendageNode extends Node {
   }
 
   /**
-   * Part of prototype voicing. When the user initiates a gesture (anywhere on the screen)
-   * that will initiate drag of the appendageNode.
-   *
-   * @public (called by SwipeListener)
-   */
-  swipeStart() {
-    this.model.isDraggingProperty.set( true );
-    this.model.borderVisibleProperty.set( false );
-
-    const response = levelSpeakerModel.collectResponses( grabbedAlertString );
-    voicingUtteranceQueue.addToBack( response );
-  }
-
-  /**
-   * Part of the prototype voicing feature. User has initiated a gesture on the screen
-   * to drag this Node. Moves this appendage based on how far along the screen the user
-   * moves their finger. Just drags the appendage back and forth as the user drags their
-   * finger left/right or up/down.
-   * @public (called by SwipeListener)
-   *
-   * @param {SceneryEvent} event
-   */
-  swipeMove( event ) {
-
-    // the leg is constrained to the bottom two quadrants
-    const useBottomQuadrants = this.model instanceof Leg;
-
-    const nextPosition = event.pointer.point;
-    if ( this.previousSwipePosition ) {
-      const swipeDelta = nextPosition.minus( this.previousSwipePosition );
-      const angleDelta = swipeDelta.magnitude / Math.PI / 30;
-      const swipeAngle = swipeDelta.angle;
-
-      let nextAngle = this.model.angleProperty.get();
-
-      // this kind of thing would probably be useful elsewhere if we continue with this
-      const swipeRight = Utils.equalsEpsilon( Math.abs( swipeAngle ), 0, Math.PI / 4 );
-      const swipeLeft = Utils.equalsEpsilon( Math.abs( swipeAngle ), Math.PI, Math.PI / 4 );
-      const swipeUp = Utils.equalsEpsilon( swipeAngle, -Math.PI / 2, Math.PI / 4 );
-      const swipeDown = Utils.equalsEpsilon( swipeAngle, Math.PI / 2, Math.PI / 4 );
-
-      // likely a horizontal swipe, move right by swiping right
-      if ( swipeRight ) {
-        nextAngle = useBottomQuadrants ? nextAngle - angleDelta : nextAngle + angleDelta;
-      }
-      else if ( swipeLeft ) {
-        nextAngle = useBottomQuadrants ? nextAngle + angleDelta : nextAngle - angleDelta;
-      }
-      else if ( swipeDown ) {
-        nextAngle = nextAngle + angleDelta;
-      }
-      else if ( swipeUp ) {
-        nextAngle = nextAngle - angleDelta;
-      }
-
-      // the leg is constrained to bottom quadrants
-      if ( useBottomQuadrants ) {
-        nextAngle = Utils.clamp( nextAngle, 0, Math.PI );
-      }
-      else {
-        nextAngle = this.wrapAngle( nextAngle );
-      }
-
-      this.model.angleProperty.set( nextAngle );
-    }
-
-    this.previousSwipePosition = nextPosition;
-  }
-
-  /**
    * Wrap the angle around the range for the angleProperty - useful because
    * the arm can go around in a full circle.
    * @public
@@ -530,27 +439,6 @@ class AppendageNode extends Node {
 
     return wrappedAngle;
   }
-
-  /**
-   * Part of the voicing prototype. User has ended a drag of the appendage.
-   * @public (called by SwipeListener)
-   *
-   * @param {SceneryEvent} event
-   */
-  swipeEnd( event ) {
-    this.model.isDraggingProperty.set( false );
-    this.previousSwipePosition = null;
-
-    const releasedUtterance = new VoicingUtterance( {
-      alert: 'Released',
-
-      // this utterance often follows electron information, don't interrupt that
-      // before speaking this alert
-      cancelOther: false
-    } );
-    voicingUtteranceQueue.addToBack( releasedUtterance );
-  }
-
 
   /**
    * Prevents the leg from rotation all the way around (because it looks weird)

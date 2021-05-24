@@ -17,13 +17,9 @@ import ScreenView from '../../../../joist/js/ScreenView.js';
 import Shape from '../../../../kite/js/Shape.js';
 import platform from '../../../../phet-core/js/platform.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
-import VoicingInputListener from '../../../../scenery-phet/js/accessibility/speaker/VoicingInputListener.js';
-import levelSpeakerModel from '../../../../scenery-phet/js/accessibility/speaker/levelSpeakerModel.js';
 import ResetAllButton from '../../../../scenery-phet/js/buttons/ResetAllButton.js';
-import sceneryPhetStrings from '../../../../scenery-phet/js/sceneryPhetStrings.js';
 import PDOMPeer from '../../../../scenery/js/accessibility/pdom/PDOMPeer.js';
 import voicingUtteranceQueue from '../../../../scenery/js/accessibility/voicing/voicingUtteranceQueue.js';
-import SwipeListener from '../../../../scenery/js/listeners/SwipeListener.js';
 import Circle from '../../../../scenery/js/nodes/Circle.js';
 import Line from '../../../../scenery/js/nodes/Line.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
@@ -64,10 +60,6 @@ const electronsMultipleDescriptionPatternString = johnTravoltageStrings.a11y.ele
 const descriptionWithChargePatternString = johnTravoltageStrings.a11y.screenSummary.descriptionWithChargePattern;
 const voicingContentHintString = johnTravoltageStrings.a11y.voicing.contentHint;
 const voicingDetailedContentHintString = johnTravoltageStrings.a11y.voicing.detailedContentHint;
-const resetAllString = sceneryPhetStrings.a11y.resetAll.label;
-const resetAllAlertString = sceneryPhetStrings.a11y.resetAll.alert;
-const previousDischargePatternString = johnTravoltageStrings.a11y.voicing.previousDischargePattern;
-const screenSummaryWithPreviousDischargePatternString = johnTravoltageStrings.a11y.voicing.screenSummaryWithPreviousDischargePattern;
 const handInteractionHintString = johnTravoltageStrings.a11y.voicing.handInteractionHint;
 const footInteractionHintString = johnTravoltageStrings.a11y.voicing.footInteractionHint;
 
@@ -199,14 +191,6 @@ class JohnTravoltageView extends ScreenView {
           voicingUtteranceQueue.enabled = false;
         }
         model.reset();
-
-        if ( phet.chipper.queryParameters.supportsVoicing ) {
-          voicingUtteranceQueue.enabled = true;
-
-          // when pressed, voicing content should speak both the label and the alert
-          const resetAlert = levelSpeakerModel.collectResponses( resetAllString, resetAllAlertString );
-          voicingUtteranceQueue.addToBack( resetAlert );
-        }
       },
       tandem: tandem.createTandem( 'resetAllButton' )
     } );
@@ -385,26 +369,6 @@ class JohnTravoltageView extends ScreenView {
       resetAllButton
     ];
 
-    // prototype code related to the voicing work
-    if ( phet.chipper.queryParameters.supportsVoicing ) {
-
-      // add the swipe listener
-      const swipeListener = new SwipeListener( phet.joist.display._input );
-      levelSpeakerModel.gestureControlProperty.link( gestureControl => {
-        swipeListener.enabled = gestureControl;
-      } );
-
-      resetAllButton.addInputListener( new VoicingInputListener( {
-        onFocusIn: () => {
-
-          // on focus, speak the name of the reset all button
-          const response = levelSpeakerModel.collectResponses( resetAllString );
-          voicingUtteranceQueue.addToBack( response );
-        },
-        highlightTarget: resetAllButton
-      } ) );
-    }
-
     // code related to vibration prototype work - hidden behind a query param while we understand more about what
     // we want for this feature.
     const vibrationParam = phet.chipper.queryParameters.vibrationParadigm;
@@ -507,52 +471,6 @@ class JohnTravoltageView extends ScreenView {
     }
 
     return sceneDescription;
-  }
-
-  /**
-   * Create the voicing scene descriptoin for the "Hint Please" button.
-   * Similar to the PDOM description, but uses a qualitative description of the
-   * charge.
-   *
-   * @private
-   * @returns {string}
-   */
-  createVoicingSceneDescription() {
-    const positionDescription = AppendageNode.getPositionDescription( this.arm.a11yAngleToPosition( this.model.arm.angleProperty.get() ), AppendageRangeMaps.armMap.regions );
-    const johnDescription = StringUtils.fillIn( screenSummaryBodyDescriptionPatternString, { position: positionDescription } );
-
-    let screenDescription;
-    if ( this.includeElectronInfo ) {
-      const chargeDescription = StringUtils.fillIn( 'John has {{quantity}} electrons on his body.', {
-        quantity: this.electronLayer.getQualitativeChargeDescription( this.model.electronGroup.count )
-      } );
-
-      screenDescription = StringUtils.fillIn( descriptionWithChargePatternString, {
-        charge: chargeDescription,
-        johnDescription: johnDescription
-      } );
-    }
-    else {
-      screenDescription = johnDescription;
-    }
-
-    // if there is a non-zero amount of electrons in the last discharge event describe this - this will be zero
-    // until first discharge event and on reset
-    if ( this.model.numberOfElectronsDischarged > 0 ) {
-      const previousDischargeQuantity = this.electronLayer.getQualitativeChargeDescription( this.model.numberOfElectronsDischarged );
-      const previousHandPosition = AppendageNode.getPositionDescription( this.arm.positionAtDischarge, AppendageRangeMaps.armMap.regions );
-      const previousDischargeDescription = StringUtils.fillIn( previousDischargePatternString, {
-        quantity: previousDischargeQuantity,
-        position: previousHandPosition
-      } );
-
-      screenDescription = StringUtils.fillIn( screenSummaryWithPreviousDischargePatternString, {
-        screenSummary: screenDescription,
-        previousDischarge: previousDischargeDescription
-      } );
-    }
-
-    return screenDescription;
   }
 
   /**

@@ -11,7 +11,7 @@
 
 import Range from '../../../../dot/js/Range.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
-import levelSpeakerModel from '../../../../scenery-phet/js/accessibility/speaker/levelSpeakerModel.js';
+import voicingManager from '../../../../scenery/js/accessibility/voicing/voicingManager.js';
 import voicingUtteranceQueue from '../../../../scenery/js/accessibility/voicing/voicingUtteranceQueue.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import VoicingUtterance from '../../../../utterance-queue/js/VoicingUtterance.js';
@@ -95,8 +95,8 @@ class ElectronLayerNode extends Node {
             region: regionText
           } );
 
-          const voicingContent = levelSpeakerModel.collectResponses( '', voicingAlertString, '', {
-            withCancel: false
+          const voicingContent = voicingManager.collectResponses( {
+            contextResponse: voicingAlertString
           } );
           voicingUtteranceQueue.addToBack( voicingContent );
         }
