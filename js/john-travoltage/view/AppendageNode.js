@@ -150,7 +150,7 @@ class AppendageNode extends Node {
       },
       end: () => {
 
-        // when we are done dragging with the mouse, place back in tab order
+        // when we are done dragging with the mouse, place back in traversal order
         this.focusable = true;
 
         appendage.isDraggingProperty.set( false );
