@@ -15,7 +15,10 @@ import Vector2Property from '../../../../dot/js/Vector2Property.js';
 import merge from '../../../../phet-core/js/merge.js';
 import PhetioObject from '../../../../tandem/js/PhetioObject.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
+import ArrayIO from '../../../../tandem/js/types/ArrayIO.js';
 import IOType from '../../../../tandem/js/types/IOType.js';
+import NumberIO from '../../../../tandem/js/types/NumberIO.js';
+import StringIO from '../../../../tandem/js/types/StringIO.js';
 import johnTravoltage from '../../johnTravoltage.js';
 
 //If this value is 1.0, there is no friction.  The value is what the velocity is multiplied by at every step.
@@ -257,6 +260,11 @@ Electron.ElectronIO = new IOType( 'ElectronIO', {
     velocityX: electron.velocity.x,
     velocityY: electron.velocity.y
   } ),
+  stateSchema: {
+    history: ArrayIO( StringIO ),
+    velocityX: NumberIO,
+    velocityY: NumberIO
+  },
   applyState: ( electron, stateObject ) => {
     assert && assert( stateObject.history, 'value should have history' );
     electron.history = stateObject.history;
