@@ -2,7 +2,7 @@
 // Copyright 2016, OCAD University
 
 /**
- * Scenery display object (scene graph node) for the leg of the model.
+ * Scenery display object (scene graph node) for an appendage in this sim.
  *
  * @author Sam Reid (PhET Interactive Simulations)
  * @author Vasily Shakhov (Mlearner)
@@ -398,22 +398,6 @@ class AppendageNode extends Node {
     }
 
     return wrappedAngle;
-  }
-
-  /**
-   * Prevents the leg from rotation all the way around (because it looks weird)
-   * @param  {number} angle - radians
-   * @returns {number} angle - radians
-   * @private
-   */
-  static limitLegRotation( angle ) {
-    if ( angle < -Math.PI / 2 ) {
-      angle = Math.PI;
-    }
-    else if ( angle > -Math.PI / 2 && angle < 0 ) {
-      angle = 0;
-    }
-    return angle;
   }
 
   /**

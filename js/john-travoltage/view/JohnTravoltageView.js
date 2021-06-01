@@ -13,7 +13,6 @@ import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Emitter from '../../../../axon/js/Emitter.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
-import LinearFunction from '../../../../dot/js/LinearFunction.js';
 import ScreenView from '../../../../joist/js/ScreenView.js';
 import Shape from '../../../../kite/js/Shape.js';
 import platform from '../../../../phet-core/js/platform.js';
@@ -25,16 +24,16 @@ import Circle from '../../../../scenery/js/nodes/Circle.js';
 import Line from '../../../../scenery/js/nodes/Line.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../scenery/js/nodes/Path.js';
-import SoundLevelEnum from '../../../../tambo/js/SoundLevelEnum.js';
 import PitchedPopGenerator from '../../../../tambo/js/sound-generators/PitchedPopGenerator.js';
 import SoundClip from '../../../../tambo/js/sound-generators/SoundClip.js';
+import SoundLevelEnum from '../../../../tambo/js/SoundLevelEnum.js';
 import soundManager from '../../../../tambo/js/soundManager.js';
-import VibrationManageriOS from '../../../../tappi/js/VibrationManageriOS.js';
 import VibrationTestEvent from '../../../../tappi/js/tracking/VibrationTestEvent.js';
 import VibrationTestEventRecorder from '../../../../tappi/js/tracking/VibrationTestEventRecorder.js';
 import VibrationTestInputListener from '../../../../tappi/js/tracking/VibrationTestInputListener.js';
-import arm from '../../../images/arm_png.js';
-import leg from '../../../images/leg_png.js';
+import VibrationManageriOS from '../../../../tappi/js/VibrationManageriOS.js';
+
+
 import chargesInBodySound from '../../../sounds/charges-in-body_mp3.js';
 import electricDischargeSound from '../../../sounds/electric-discharge_mp3.js';
 import gazouchSound from '../../../sounds/gazouch_mp3.js';
@@ -45,24 +44,20 @@ import AppendageRangeMaps from '../AppendageRangeMaps.js';
 import JohnTravoltageQueryParameters from '../JohnTravoltageQueryParameters.js';
 import JohnTravoltageModel from '../model/JohnTravoltageModel.js';
 import AppendageNode from './AppendageNode.js';
+import ArmNode from './ArmNode.js';
 import ArmPositionSoundGenerator from './ArmPositionSoundGenerator.js';
 import BackgroundNode from './BackgroundNode.js';
 import DebugUtils from './DebugUtils.js';
 import ElectronLayerNode from './ElectronLayerNode.js';
 import FootDragSoundGenerator from './FootDragSoundGenerator.js';
+import LegNode from './LegNode.js';
 import SparkNode from './SparkNode.js';
 import vibrationController from './vibrationController.js';
 
-const appendageLegLabelString = johnTravoltageStrings.a11y.appendages.leg.label;
-const appendageArmLabelString = johnTravoltageStrings.a11y.appendages.arm.label;
 const screenSummaryBodyDescriptionPatternString = johnTravoltageStrings.a11y.screenSummary.bodyDescriptionPattern;
 const electronsSingleDescriptionString = johnTravoltageStrings.a11y.electrons.singleDescription;
 const electronsMultipleDescriptionPatternString = johnTravoltageStrings.a11y.electrons.multipleDescriptionPattern;
 const descriptionWithChargePatternString = johnTravoltageStrings.a11y.screenSummary.descriptionWithChargePattern;
-const voicingContentHintString = johnTravoltageStrings.a11y.voicing.contentHint;
-const voicingDetailedContentHintString = johnTravoltageStrings.a11y.voicing.detailedContentHint;
-const handInteractionHintString = johnTravoltageStrings.a11y.voicing.handInteractionHint;
-const footInteractionHintString = johnTravoltageStrings.a11y.voicing.footInteractionHint;
 
 // constants
 const OUCH_EXCLAMATION_DELAY = 0.5; // in seconds
@@ -123,29 +118,14 @@ class JohnTravoltageView extends ScreenView {
     //Split layers after background for performance
     this.addChild( new Node( { layerSplit: true, pickable: false } ) );
 
-    // @public (read-only) arm and leg - only interactive elements
-    this.leg = new AppendageNode( model.leg, leg, 25, 28, Math.PI / 2 * 0.7, AppendageRangeMaps.legMap, new LinearFunction( model.leg.angleProperty.range.max, model.leg.angleProperty.range.min, -7, 7 ),
-      tandem.createTandem( 'legNode' ), {
-        labelContent: appendageLegLabelString,
 
-        // prototype voicing feature
-        voicingHint: voicingContentHintString,
-        manipulationHint: footInteractionHintString
-      } );
+    // @public
+    this.leg = new LegNode( model.leg, tandem.createTandem( 'legNode' ) );
     this.addChild( this.leg );
 
-    // @public (read-only) the keyboardMidPointOffset was manually calculated as a radian offset that will trigger a discharge with the
-    // minimum charge level.
-    this.arm = new AppendageNode( model.arm, arm, 4, 45, -0.1, AppendageRangeMaps.armMap, new LinearFunction( model.arm.angleProperty.range.min, model.arm.angleProperty.range.max, -15, 15 ),
-      tandem.createTandem( 'armNode' ), {
-        keyboardMidPointOffset: 0.41,
-        labelContent: appendageArmLabelString,
-
-        // prototype voicing feature
-        voicingHint: voicingDetailedContentHintString,
-        manipulationHint: handInteractionHintString
-      } );
-    this.addChild( this.arm );
+    // @public
+    this.armNode = new ArmNode( model.arm, tandem.createTandem( 'armNode' ) );
+    this.addChild( this.armNode );
 
     // @private (a11y) after travolta picks up electrons the first time, this flag will modify descriptions slightly
     this.includeElectronInfo = false;
@@ -164,11 +144,11 @@ class JohnTravoltageView extends ScreenView {
 
     // store the region when the discharge starts
     model.dischargeStartedEmitter.addListener( () => {
-      const position = this.arm.a11yAngleToPosition( model.arm.angleProperty.get() );
+      const position = this.armNode.a11yAngleToPosition( model.arm.angleProperty.get() );
       const newRegion = AppendageNode.getRegion( position, AppendageRangeMaps.armMap.regions );
 
-      this.arm.regionAtDischarge = newRegion;
-      this.arm.positionAtDischarge = this.arm.inputValue;
+      this.armNode.regionAtDischarge = newRegion;
+      this.armNode.positionAtDischarge = this.armNode.inputValue;
     } );
 
     // spark
@@ -201,7 +181,7 @@ class JohnTravoltageView extends ScreenView {
 
     // @private - Use a layer for electrons so it has only one pickable flag, perhaps may improve performance compared
     // to iterating over all electrons to see if they are pickable? Split layers before particle layer for performance.
-    this.electronLayer = new ElectronLayerNode( model, this.arm, JohnTravoltageModel.MAX_ELECTRONS, tandem.createTandem( 'electronLayer' ), {
+    this.electronLayer = new ElectronLayerNode( model, this.armNode, JohnTravoltageModel.MAX_ELECTRONS, tandem.createTandem( 'electronLayer' ), {
       layerSplit: true,
       pickable: false
     } );
@@ -224,7 +204,7 @@ class JohnTravoltageView extends ScreenView {
     } );
 
     // properties exist for life of sim, no need to unlink
-    this.arm.model.angleProperty.link( updateDescription );
+    this.armNode.model.angleProperty.link( updateDescription );
     this.leg.model.angleProperty.link( updateDescription );
 
     // the play area is described by the screen view's description sibling through aria-describedby
@@ -362,7 +342,7 @@ class JohnTravoltageView extends ScreenView {
     // pdomOrder
     this.pdomPlayAreaNode.pdomOrder = [
       this.leg,
-      this.arm,
+      this.armNode,
       sparkNode,
       this.electronLayer
     ];
@@ -448,7 +428,7 @@ class JohnTravoltageView extends ScreenView {
     let sceneDescription;
 
     // description for John - this will always be in the screen summary
-    const positionDescription = AppendageNode.getPositionDescription( this.arm.a11yAngleToPosition( this.model.arm.angleProperty.get() ), AppendageRangeMaps.armMap.regions );
+    const positionDescription = AppendageNode.getPositionDescription( this.armNode.a11yAngleToPosition( this.model.arm.angleProperty.get() ), AppendageRangeMaps.armMap.regions );
     const johnDescription = StringUtils.fillIn( screenSummaryBodyDescriptionPatternString, { position: positionDescription } );
 
     // if there are any charges, a description of the charge will be prepended to the summary
