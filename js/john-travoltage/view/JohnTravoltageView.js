@@ -13,6 +13,7 @@ import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Emitter from '../../../../axon/js/Emitter.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
+import LinearFunction from '../../../../dot/js/LinearFunction.js';
 import ScreenView from '../../../../joist/js/ScreenView.js';
 import Shape from '../../../../kite/js/Shape.js';
 import platform from '../../../../phet-core/js/platform.js';
@@ -123,7 +124,7 @@ class JohnTravoltageView extends ScreenView {
     this.addChild( new Node( { layerSplit: true, pickable: false } ) );
 
     // @public (read-only) arm and leg - only interactive elements
-    this.leg = new AppendageNode( model.leg, leg, 25, 28, Math.PI / 2 * 0.7, AppendageRangeMaps.legMap,
+    this.leg = new AppendageNode( model.leg, leg, 25, 28, Math.PI / 2 * 0.7, AppendageRangeMaps.legMap, new LinearFunction( model.leg.angleProperty.range.max, model.leg.angleProperty.range.min, -7, 7 ),
       tandem.createTandem( 'legNode' ), {
         labelContent: appendageLegLabelString,
 
@@ -135,7 +136,7 @@ class JohnTravoltageView extends ScreenView {
 
     // @public (read-only) the keyboardMidPointOffset was manually calculated as a radian offset that will trigger a discharge with the
     // minimum charge level.
-    this.arm = new AppendageNode( model.arm, arm, 4, 45, -0.1, AppendageRangeMaps.armMap,
+    this.arm = new AppendageNode( model.arm, arm, 4, 45, -0.1, AppendageRangeMaps.armMap, new LinearFunction( model.arm.angleProperty.range.min, model.arm.angleProperty.range.max, -15, 15 ),
       tandem.createTandem( 'armNode' ), {
         keyboardMidPointOffset: 0.41,
         labelContent: appendageArmLabelString,

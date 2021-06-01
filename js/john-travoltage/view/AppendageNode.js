@@ -12,7 +12,6 @@
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import DynamicProperty from '../../../../axon/js/DynamicProperty.js';
 import Property from '../../../../axon/js/Property.js';
-import LinearFunction from '../../../../dot/js/LinearFunction.js';
 import Range from '../../../../dot/js/Range.js';
 import Utils from '../../../../dot/js/Utils.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
@@ -44,20 +43,30 @@ class AppendageNode extends Node {
    * @param {number} angleOffset the angle about which to rotate
    * @param {Array} rangeMap - an array of objects of the format {range: {max: Number, min: Number}, text: String}. This
    *                           is used to map a position value to text to use for the valueText of the related slider.
+   * @param {LinearFunction} angleToPDOMValueFunction - maps the angle for the appendage to the value that is
+   *                                                    represented by that angle in the PDOM, converting radians
+   *                                                    into a more user friendly value range.
    * @param {Tandem} tandem
    * @param {Object} [options]
    * @mixes AccessibleSlider
    */
-  constructor( appendage, image, dx, dy, angleOffset, rangeMap, tandem, options ) {
+  constructor( appendage, image, dx, dy, angleOffset, rangeMap, angleToPDOMValueFunction, tandem, options ) {
 
     options = merge( {
       cursor: 'pointer',
+
+      // {function(number):number} - Called during drag, constrains the angle of rotation during mouse dragging
+      limitRotation: angle => angle,
 
       // pdom
       labelTagName: 'label',
       appendLabel: true,
       containerTagName: 'div',
+
+      // the range of motion is mapped around these values
+      pdomRange: new Range( -15, 15 ),
       keyboardMidPointOffset: 0, // adjust center position of accessible slider, to align important positions at center
+
 
       // {string|null} - hint spoken to guide the user toward an interaction
       voicingHint: null,
@@ -71,6 +80,9 @@ class AppendageNode extends Node {
     this.keyboardDragging = false;
     this.keyboardMidPointOffset = options.keyboardMidPointOffset;
     this.rangeMap = rangeMap;
+
+    // @private {LinearFunction}
+    this.angleToPDOMValueFunction = angleToPDOMValueFunction;
 
     // @public (a11y, read-only) - the current movement direciton of the appendage
     this.movementDirection = null;
@@ -123,10 +135,8 @@ class AppendageNode extends Node {
         const globalPoint = this.imageNode.globalToParentPoint( event.pointer.point );
         angle = globalPoint.minus( new Vector2( appendage.position.x, appendage.position.y ) ).angle;
 
-        //Limit leg to approximately "half circle" so it cannot spin around, see #63
-        if ( appendage instanceof Leg ) {
-          angle = AppendageNode.limitLegRotation( angle );
-        }
+        // optionally limit rotation of the appendage
+        angle = options.limitRotation( angle );
 
         // if clamped at one of the upper angles, only allow the right direction of movement to change the angle, so it won't skip halfway around
         // Use 3d cross products to compute direction
@@ -177,30 +187,6 @@ class AppendageNode extends Node {
     // link node visibility to Property - no need to dispose
     appendage.borderVisibleProperty.linkAttribute( this.border, 'visible' );
 
-    // @private limit ranges of input for the leg
-    this.keyboardMotion = {
-      min: appendage instanceof Leg ? -7 : -15,
-      max: appendage instanceof Leg ? 7 : 15,
-      step: 1,
-      totalRange: appendage instanceof Leg ? 15 : 30
-    };
-
-    // @private - angles for each of the appendages that determine limitations to rotation
-    this.angleMotion = {
-      min: appendage instanceof Leg ? Math.PI : appendage.angleProperty.range.min,
-      max: appendage instanceof Leg ? 0 : appendage.angleProperty.range.max
-    };
-
-    // @private - linear function that will map appendage angle to input value for accessibility, rotation of the arm
-    // is inversely mapped to the range of the keyboard input.  The arm has an offset that does not fit in this mapping,
-    // but it is more convenient to use these maps since the drag handler set position in range of -PI to PI.
-    this.linearFunction = new LinearFunction(
-      this.angleMotion.min,
-      this.angleMotion.max,
-      this.keyboardMotion.min,
-      this.keyboardMotion.max
-    );
-
     // pdom
     this.focusHighlight = new FocusHighlightPath( Shape.circle( 0, 0, this.imageNode.width / 2 ), {
       tandem: tandem.createTandem( 'focusCircle' )
@@ -222,8 +208,8 @@ class AppendageNode extends Node {
     } );
 
     const a11ySliderOptions = {
-      keyboardStep: this.keyboardMotion.step,
-      shiftKeyboardStep: this.keyboardMotion.step,
+      keyboardStep: 1,
+      shiftKeyboardStep: 1,
       pageKeyboardStep: 2,
       constrainValue: newValue => {
         lastAngle = currentAngle;
@@ -254,9 +240,13 @@ class AppendageNode extends Node {
       inverseMap: position => this.a11yPositionToAngle( position )
     } );
 
+    const pdomValueMin = Utils.toFixedNumber( this.angleToPDOMValueFunction( appendage.angleProperty.range.min ), 0 );
+    const pdomValueMax = Utils.toFixedNumber( this.angleToPDOMValueFunction( appendage.angleProperty.range.max ), 0 );
+    const sliderMin = Math.min( pdomValueMin, pdomValueMax );
+    const sliderMax = Math.max( pdomValueMin, pdomValueMax );
     this.initializeAccessibleSlider(
       sliderProperty,
-      new Property( new Range( this.keyboardMotion.min, this.keyboardMotion.max ) ),
+      new Property( new Range( sliderMin, sliderMax ) ),
       new BooleanProperty( true ), // always enabled
       a11ySliderOptions
     );
@@ -380,7 +370,7 @@ class AppendageNode extends Node {
    * @public
    */
   a11yAngleToPosition( angle ) {
-    return Utils.roundSymmetric( this.linearFunction( angle ) );
+    return Utils.roundSymmetric( this.angleToPDOMValueFunction( angle ) );
   }
 
   /**
@@ -389,7 +379,7 @@ class AppendageNode extends Node {
    * @public
    */
   a11yPositionToAngle( position ) {
-    return this.linearFunction.inverse( position );
+    return this.angleToPDOMValueFunction.inverse( position );
   }
 
   /**
@@ -500,7 +490,7 @@ class AppendageNode extends Node {
    * @static
    * @a11y
    *
-   * @param  {number} position - integer position of the appendage, mapped from angle, see AppendageNode.linearFunction
+   * @param  {number} position - integer position of the appendage, mapped from angle
    * @param  {Object} rangeMap - a map that will provide the correct description from the provided input value
    * @returns {string} - a lower case string, generally to be inserted into another context
    */
