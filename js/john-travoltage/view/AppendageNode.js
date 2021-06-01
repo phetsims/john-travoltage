@@ -84,11 +84,6 @@ class AppendageNode extends Node {
     // @public (a11y) - {Object} arm region when a discharge starts
     this.regionAtDischarge = null;
 
-    // @public (a11y) - {number} arm position when discharge starts
-    this.positionAtDischarge = null;
-
-    this.previousSwipePosition = null;
-
     // when the model is reset, reset the flags that track previous interactions with the appendage and reset
     // descriptions, no need to dispose this listener since appendages exist for life of sim
     this.model.appendageResetEmitter.addListener( () => {
