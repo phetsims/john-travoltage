@@ -65,7 +65,6 @@ class AppendageNode extends Node {
 
       // the range of motion is mapped around these values
       pdomRange: new Range( -15, 15 ),
-      keyboardMidPointOffset: 0, // adjust center position of accessible slider, to align important positions at center
 
 
       // {string|null} - hint spoken to guide the user toward an interaction
@@ -77,15 +76,10 @@ class AppendageNode extends Node {
 
     // @private
     this.model = appendage;
-    this.keyboardDragging = false;
-    this.keyboardMidPointOffset = options.keyboardMidPointOffset;
     this.rangeMap = rangeMap;
 
     // @private {LinearFunction}
     this.angleToPDOMValueFunction = angleToPDOMValueFunction;
-
-    // @public (a11y, read-only) - the current movement direciton of the appendage
-    this.movementDirection = null;
 
     // @public (a11y) - {Object} arm region when a discharge starts
     this.regionAtDischarge = null;
@@ -98,7 +92,6 @@ class AppendageNode extends Node {
     // when the model is reset, reset the flags that track previous interactions with the appendage and reset
     // descriptions, no need to dispose this listener since appendages exist for life of sim
     this.model.appendageResetEmitter.addListener( () => {
-      this.initializePosition( this.model.angleProperty.get() );
 
       // now reset aria-valuetext (not including change in direction)
       this.resetAriaValueText();
@@ -198,10 +191,6 @@ class AppendageNode extends Node {
       // no need to dispose, listener AppendageNodes should exist for life of sim
       blur: event => {
 
-        // on blur, reset flags for another round of interaction and the only description should be the
-        // landmark or region
-        this.initializePosition( appendage.angleProperty.get() );
-
         // now reset aria-valuetext (not including change in direction)
         this.resetAriaValueText();
       }
@@ -219,13 +208,11 @@ class AppendageNode extends Node {
       },
       startDrag: () => {
 
-        this.keyboardDragging = true;
         appendage.borderVisibleProperty.set( false );
 
         appendage.isDraggingProperty.set( true );
       },
       endDrag: () => {
-        this.keyboardDragging = false;
 
         appendage.isDraggingProperty.set( false );
       },
@@ -255,8 +242,6 @@ class AppendageNode extends Node {
     appendage.angleProperty.link( angle => {
       this.focusHighlight.center = this.imageNode.center;
     } );
-
-    this.initializePosition();
 
     // prototype code related to the voicing work
     if ( phet.chipper.queryParameters.supportsVoicing ) {
@@ -380,16 +365,6 @@ class AppendageNode extends Node {
    */
   a11yPositionToAngle( position ) {
     return this.angleToPDOMValueFunction.inverse( position );
-  }
-
-  /**
-   * On construction and reset, reset flags that are used to calculate descriptions from interaction history.
-   * @private
-   */
-  initializePosition() {
-
-    // reset the movement direction so the next interaction will immediately get the direction
-    this.movementDirection = null;
   }
 
   /**
