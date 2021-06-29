@@ -428,7 +428,6 @@ class AppendageNode extends Node {
     _.forEach( rangeMap, map => {
       if ( position >= map.range.min && position <= map.range.max ) {
         region = map;
-        return false;
       }
     } );
 
@@ -470,7 +469,6 @@ class AppendageNode extends Node {
     _.forEach( landmarkMap, landmark => {
       if ( position === landmark.value ) {
         message = landmark.text;
-        return false;
       }
     } );
 
