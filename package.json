@@ -27,10 +27,10 @@
       ]
     },
     "features":{
+      "supportsEnhancedSound": true,
       "supportsInteractiveDescription": true
     },
     "supportsSound": true,
-    "supportsEnhancedSound": true,
     "simulation": true
   },
   "eslintConfig": {
