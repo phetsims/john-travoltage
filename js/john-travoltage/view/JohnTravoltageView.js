@@ -120,8 +120,8 @@ class JohnTravoltageView extends ScreenView {
 
 
     // @public
-    this.leg = new LegNode( model.leg, tandem.createTandem( 'legNode' ) );
-    this.addChild( this.leg );
+    this.legNode = new LegNode( model.leg, tandem.createTandem( 'legNode' ) );
+    this.addChild( this.legNode );
 
     // @public
     this.armNode = new ArmNode( model.arm, tandem.createTandem( 'armNode' ) );
@@ -205,7 +205,7 @@ class JohnTravoltageView extends ScreenView {
 
     // properties exist for life of sim, no need to unlink
     this.armNode.model.angleProperty.link( updateDescription );
-    this.leg.model.angleProperty.link( updateDescription );
+    this.legNode.model.angleProperty.link( updateDescription );
 
     // the play area is described by the screen view's description sibling through aria-describedby
     this.pdomPlayAreaNode.addAriaDescribedbyAssociation( {
@@ -341,7 +341,7 @@ class JohnTravoltageView extends ScreenView {
 
     // pdomOrder
     this.pdomPlayAreaNode.pdomOrder = [
-      this.leg,
+      this.legNode,
       this.armNode,
       sparkNode,
       this.electronLayer
