@@ -7,6 +7,7 @@
  * @author Vasily Shakhov (Mlearner)
  */
 
+import PreferencesConfiguration from '../../joist/js/preferences/PreferencesConfiguration.js';
 import Sim from '../../joist/js/Sim.js';
 import simLauncher from '../../joist/js/simLauncher.js';
 import Tandem from '../../tandem/js/Tandem.js';
@@ -40,6 +41,8 @@ const simOptions = {
             'to convert this simulation to HTML5.'
   },
   hasKeyboardHelpContent: true,
+
+  preferencesConfiguration: new PreferencesConfiguration(),
 
   // protoypal vibration feedback, see https://github.com/phetsims/john-travoltage/issues/337
   vibrationManager: vibrationManager
