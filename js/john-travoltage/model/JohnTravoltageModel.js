@@ -8,14 +8,12 @@
  */
 
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
-import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Emitter from '../../../../axon/js/Emitter.js';
 import dotRandom from '../../../../dot/js/dotRandom.js';
 import Utils from '../../../../dot/js/Utils.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Shape from '../../../../kite/js/Shape.js';
 import PhetioGroup from '../../../../tandem/js/PhetioGroup.js';
-import BooleanIO from '../../../../tandem/js/types/BooleanIO.js';
 import StringIO from '../../../../tandem/js/types/StringIO.js';
 import johnTravoltage from '../../johnTravoltage.js';
 import Arm from './Arm.js';
@@ -161,13 +159,6 @@ class JohnTravoltageModel {
     // @public - shape for the body, used to explore haptic feedback which is presented whenever
     // a pointer interacts with this shape - has no impact on electron motion
     this.touchableBodyShape = JohnTravoltageModel.createObjectShape( this.touchableBodyVertices );
-
-    // true when the foot is in contact with the carpet
-    this.shoeOnCarpetProperty = new DerivedProperty( [ this.leg.angleProperty ],
-      angle => angle > FOOT_ON_CARPET_MIN_ANGLE && angle < FOOT_ON_CARPET_MAX_ANGLE, {
-        phetioType: DerivedProperty.DerivedPropertyIO( BooleanIO ),
-        tandem: tandem.createTandem( 'shoeOnCarpetProperty' )
-      } );
 
     // @public - emitters for reset and step events
     this.stepEmitter = new Emitter( {

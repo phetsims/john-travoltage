@@ -6,6 +6,7 @@
 
 import LinearFunction from '../../../../dot/js/LinearFunction.js';
 import merge from '../../../../phet-core/js/merge.js';
+import VoicingUtterance from '../../../../utterance-queue/js/VoicingUtterance.js';
 import armImage from '../../../images/arm_png.js';
 import johnTravoltage from '../../johnTravoltage.js';
 import johnTravoltageStrings from '../../johnTravoltageStrings.js';
@@ -32,12 +33,22 @@ class ArmNode extends AppendageNode {
       labelContent: appendageArmLabelString,
 
       // voicing
+      voicingNameResponse: appendageArmLabelString,
       voicingHint: voicingDetailedContentHintString,
       manipulationHint: handInteractionHintString
     }, options );
 
     const angleToPDOMValueFunction = new LinearFunction( armModel.angleProperty.range.min, armModel.angleProperty.range.max, -15, 15 );
     super( armModel, armImage, 4, 45, -0.1, AppendageRangeMaps.armMap, angleToPDOMValueFunction, tandem, options );
+
+    // @public (a11y) - {number} arm position value when discharge starts
+    this.positionAtDischarge = null;
+
+    // the hand position utterance is assertive so that the most recent hand position is always heard
+    const handPositionChangeUtterance = new VoicingUtterance();
+    this.sliderProperty.lazyLink( ( value, oldValue ) => {
+      this.voicingSpeakObjectResponse( { utterance: handPositionChangeUtterance } );
+    } );
   }
 }
 

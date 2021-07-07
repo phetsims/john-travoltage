@@ -7,11 +7,14 @@
  * @author Vasily Shakhov (Mlearner)
  */
 
+import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Range from '../../../../dot/js/Range.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
+import BooleanIO from '../../../../tandem/js/types/BooleanIO.js';
 import johnTravoltage from '../../johnTravoltage.js';
 import Appendage from './Appendage.js';
+import JohnTravoltageModel from './JohnTravoltageModel.js';
 
 class Leg extends Appendage {
   /**
@@ -34,8 +37,14 @@ class Leg extends Appendage {
       tandem: tandem.createTandem( 'angularVelocityProperty' ),
       units: 'radians/s'
     } );
-  }
 
+    // true when the foot is in contact with the carpet
+    this.shoeOnCarpetProperty = new DerivedProperty( [ this.angleProperty ],
+      angle => angle > JohnTravoltageModel.FOOT_ON_CARPET_MIN_ANGLE && angle < JohnTravoltageModel.FOOT_ON_CARPET_MAX_ANGLE, {
+        phetioType: DerivedProperty.DerivedPropertyIO( BooleanIO ),
+        tandem: tandem.createTandem( 'shoeOnCarpetProperty' )
+      } );
+  }
 
   /**
    * Reset the leg.

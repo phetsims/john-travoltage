@@ -42,6 +42,7 @@ const simOptions = {
   },
   hasKeyboardHelpContent: true,
 
+  // include a PreferencesDialog, with defaults specified in package.json
   preferencesConfiguration: new PreferencesConfiguration(),
 
   // protoypal vibration feedback, see https://github.com/phetsims/john-travoltage/issues/337

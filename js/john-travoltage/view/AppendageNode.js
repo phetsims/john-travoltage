@@ -17,22 +17,14 @@ import Utils from '../../../../dot/js/Utils.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Shape from '../../../../kite/js/Shape.js';
 import merge from '../../../../phet-core/js/merge.js';
-import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import FocusHighlightPath from '../../../../scenery/js/accessibility/FocusHighlightPath.js';
-import voicingManager from '../../../../scenery/js/accessibility/voicing/voicingManager.js';
-import voicingUtteranceQueue from '../../../../scenery/js/accessibility/voicing/voicingUtteranceQueue.js';
+import Voicing from '../../../../scenery/js/accessibility/voicing/Voicing.js';
 import DragListener from '../../../../scenery/js/listeners/DragListener.js';
 import Image from '../../../../scenery/js/nodes/Image.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
 import AccessibleSlider from '../../../../sun/js/accessibility/AccessibleSlider.js';
-import VoicingUtterance from '../../../../utterance-queue/js/VoicingUtterance.js';
 import johnTravoltage from '../../johnTravoltage.js';
-import johnTravoltageStrings from '../../johnTravoltageStrings.js';
-import Leg from '../model/Leg.js';
-
-const voicingObjectResponsePatternString = johnTravoltageStrings.a11y.voicing.appendageObjectResponsePattern;
-const voicingContentHintString = johnTravoltageStrings.a11y.voicing.contentHint;
 
 class AppendageNode extends Node {
   /**
@@ -55,6 +47,9 @@ class AppendageNode extends Node {
     options = merge( {
       cursor: 'pointer',
 
+      // {function} - Extra callback with functionality for the end of drag for the AppendageNode
+      onDragEnd: () => {},
+
       // {function(number):number} - Called during drag, constrains the angle of rotation during mouse dragging
       limitRotation: angle => angle,
 
@@ -62,14 +57,13 @@ class AppendageNode extends Node {
       labelTagName: 'label',
       appendLabel: true,
       containerTagName: 'div',
+      labelContent: null,
 
       // the range of motion is mapped around these values
       pdomRange: new Range( -15, 15 ),
 
-
-      // {string|null} - hint spoken to guide the user toward an interaction
-      voicingHint: null,
-      maniupationHint: null
+      // voicing
+      voicingNameResponse: null
     }, options );
 
     super( options );
@@ -110,6 +104,9 @@ class AppendageNode extends Node {
       start: event => {
         appendage.isDraggingProperty.set( true );
         appendage.borderVisibleProperty.set( false );
+
+        // voicing - on down speak the name and interaction hint
+        this.voicingSpeakFullResponse();
       },
       drag: event => {
 
@@ -152,6 +149,9 @@ class AppendageNode extends Node {
         this.focusable = true;
 
         appendage.isDraggingProperty.set( false );
+
+        // optional callback on end of drag
+        options.onDragEnd();
       }
     } ) );
 
@@ -210,13 +210,16 @@ class AppendageNode extends Node {
       endDrag: () => {
 
         appendage.isDraggingProperty.set( false );
+
+        // optional callback on end of drag
+        options.onDragEnd();
       },
       a11yCreateAriaValueText: ( formattedValue, sliderValue, oldSliderValue ) => this.createAriaValueText( sliderValue, oldSliderValue ),
       roundToStepSize: true
     };
 
-    // set up a bidirectional Property to handle updates to angle and slider position
-    const sliderProperty = new DynamicProperty( new Property( appendage.angleProperty ), {
+    // @protected - set up a bidirectional Property to handle updates to angle and slider position
+    this.sliderProperty = new DynamicProperty( new Property( appendage.angleProperty ), {
       bidirectional: true,
       map: angle => this.a11yAngleToPosition( angle ),
       inverseMap: position => this.a11yPositionToAngle( position )
@@ -227,7 +230,7 @@ class AppendageNode extends Node {
     const sliderMin = Math.min( pdomValueMin, pdomValueMax );
     const sliderMax = Math.max( pdomValueMin, pdomValueMax );
     this.initializeAccessibleSlider(
-      sliderProperty,
+      this.sliderProperty,
       new Property( new Range( sliderMin, sliderMax ) ),
       new BooleanProperty( true ), // always enabled
       a11ySliderOptions
@@ -238,71 +241,17 @@ class AppendageNode extends Node {
       this.focusHighlight.center = this.imageNode.center;
     } );
 
-    // prototype code related to the voicing work
-    if ( phet.chipper.queryParameters.supportsVoicing ) {
+    // voicing
+    this.initializeVoicing( options );
 
-      // describe changes to the arm/leg as the angle changes (during a drag operation) - polite so that it doesn't
-      // cancel itself during rapid changes
-      const appendageUtterance = new VoicingUtterance( {
-        cancelSelf: false,
-        cancelOther: false,
-        alertStableDelay: 400
-      } );
+    this.sliderProperty.link( ( value, previousValue ) => {
 
-      const isLeg = appendage instanceof Leg;
-      if ( !isLeg ) {
-        sliderProperty.lazyLink( angle => {
-          appendageUtterance.alert = this.getVoicingObjectResponse( false );
-          voicingUtteranceQueue.addToBack( appendageUtterance );
-        } );
-      }
-
-      // describe position of the appendage if we receive a down event but the
-      // appendage does not move
-      let angleOnStart = null;
-      appendage.isDraggingProperty.lazyLink( isDragging => {
-        if ( isDragging ) {
-          angleOnStart = appendage.angleProperty.get();
-
-          // the initial dragging alert does not use the utterance because it must be assertive and
-          // should interrupt any other utterance being spoken
-          const alert = this.getVoicingObjectResponse( true );
-          voicingUtteranceQueue.addToBack( alert );
-        }
-        else if ( angleOnStart !== appendage.angleProperty.get() ) {
-          appendageUtterance.alert = this.getVoicingObjectResponse( true );
-          voicingUtteranceQueue.addToBack( appendageUtterance );
-        }
-      } );
-    }
-  }
-
-  /**
-   * Get the "object response" (response describing the slider itself) when a change
-   * is made to it for the voicing feature.
-   * @private
-   *
-   * @param {boolean} includeLabel
-   */
-  getVoicingObjectResponse( includeLabel ) {
-
-    let objectResponse;
-    if ( includeLabel ) {
-      objectResponse = StringUtils.fillIn( voicingObjectResponsePatternString, {
-        label: this.labelContent,
-        valueText: this.ariaValueText
-      } );
-    }
-    else {
-      objectResponse = this.ariaValueText;
-    }
-
-    return voicingManager.collectResponses( {
-      objectResponse: objectResponse,
-      hintResponse: voicingContentHintString
+      // the Voicing object response is the same as the aria-valuetext, but we calculate it directly here rather than
+      // using the ariaValuetext getter of AccessibleValueHandler to avoid a dependency on listener order on the
+      // sliderProperty which is used to generate the aria-valuetext itself.
+      this.voicingObjectResponse = this.createAriaValueText( value, previousValue );
     } );
   }
-
 
   /**
    * Retrieve the accurate text for a11y display based on the slider property values.
@@ -479,5 +428,6 @@ class AppendageNode extends Node {
 johnTravoltage.register( 'AppendageNode', AppendageNode );
 
 AccessibleSlider.mixInto( AppendageNode );
+Voicing.compose( AppendageNode );
 
 export default AppendageNode;

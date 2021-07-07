@@ -18,6 +18,7 @@ import Shape from '../../../../kite/js/Shape.js';
 import platform from '../../../../phet-core/js/platform.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import ResetAllButton from '../../../../scenery-phet/js/buttons/ResetAllButton.js';
+import sceneryPhetStrings from '../../../../scenery-phet/js/sceneryPhetStrings.js';
 import PDOMPeer from '../../../../scenery/js/accessibility/pdom/PDOMPeer.js';
 import voicingUtteranceQueue from '../../../../scenery/js/accessibility/voicing/voicingUtteranceQueue.js';
 import Circle from '../../../../scenery/js/nodes/Circle.js';
@@ -58,6 +59,13 @@ const screenSummaryBodyDescriptionPatternString = johnTravoltageStrings.a11y.scr
 const electronsSingleDescriptionString = johnTravoltageStrings.a11y.electrons.singleDescription;
 const electronsMultipleDescriptionPatternString = johnTravoltageStrings.a11y.electrons.multipleDescriptionPattern;
 const descriptionWithChargePatternString = johnTravoltageStrings.a11y.screenSummary.descriptionWithChargePattern;
+const voicingContentHintString = johnTravoltageStrings.a11y.voicing.contentHint;
+const voicingDetailedContentHintString = johnTravoltageStrings.a11y.voicing.detailedContentHint;
+const previousDischargePatternString = johnTravoltageStrings.a11y.voicing.previousDischargePattern;
+const screenSummaryWithPreviousDischargePatternString = johnTravoltageStrings.a11y.voicing.screenSummaryWithPreviousDischargePattern;
+const screenSummarySingleScreenIntroPatternString = sceneryPhetStrings.a11y.voicing.simSection.screenSummary.singleScreenIntroPattern;
+const overviewPatternString = johnTravoltageStrings.a11y.voicing.overviewPattern;
+const voicingChargedContentHintString = johnTravoltageStrings.a11y.voicing.chargedContentHint;
 
 // constants
 const OUCH_EXCLAMATION_DELAY = 0.5; // in seconds
@@ -118,9 +126,8 @@ class JohnTravoltageView extends ScreenView {
     //Split layers after background for performance
     this.addChild( new Node( { layerSplit: true, pickable: false } ) );
 
-
     // @public
-    this.legNode = new LegNode( model.leg, tandem.createTandem( 'legNode' ) );
+    this.legNode = new LegNode( model.leg, model.electronGroup, tandem.createTandem( 'legNode' ) );
     this.addChild( this.legNode );
 
     // @public
@@ -140,12 +147,14 @@ class JohnTravoltageView extends ScreenView {
       }
 
       this.includeElectronInfo = false;
+      this.legNode.resetDescriptionCounters();
     } );
 
     // store the region when the discharge starts
     model.dischargeStartedEmitter.addListener( () => {
       const position = this.armNode.a11yAngleToPosition( model.arm.angleProperty.get() );
       const newRegion = AppendageNode.getRegion( position, AppendageRangeMaps.armMap.regions );
+      this.legNode.resetDescriptionCounters();
 
       this.armNode.regionAtDischarge = newRegion;
       this.armNode.positionAtDischarge = this.armNode.inputValue;
@@ -452,6 +461,94 @@ class JohnTravoltageView extends ScreenView {
     }
 
     return sceneDescription;
+  }
+
+  /**
+   * Creates the voicing content for the "Overview" button from the Toolbar.
+   * @public
+   */
+  getVoicingOverviewContent() {
+    const overviewString = StringUtils.fillIn( screenSummarySingleScreenIntroPatternString, {
+      sim: phet.joist.sim.simNameProperty.get()
+    } );
+
+    return StringUtils.fillIn( overviewPatternString, {
+      overview: overviewString
+    } );
+  }
+
+  /**
+   * Similar to the PDOM scene description, but uses a qualitative description to describe the amount of
+   * charge on the body.
+   * @public
+   * @override
+   *
+   * @returns {string}
+   */
+  getVoicingDetailsContent() {
+
+    const model = this.model;
+
+    const positionDescription = AppendageNode.getPositionDescription( this.armNode.a11yAngleToPosition( model.arm.angleProperty.get() ), AppendageRangeMaps.armMap.regions );
+    const johnDescription = StringUtils.fillIn( screenSummaryBodyDescriptionPatternString, { position: positionDescription } );
+
+    let screenDescription;
+    if ( this.includeElectronInfo ) {
+      const chargeDescription = StringUtils.fillIn( 'John has {{quantity}} electrons on his body.', {
+        quantity: this.electronLayer.getQualitativeChargeDescription( model.electronGroup.count )
+      } );
+
+      screenDescription = StringUtils.fillIn( descriptionWithChargePatternString, {
+        charge: chargeDescription,
+        johnDescription: johnDescription
+      } );
+    }
+    else {
+      screenDescription = johnDescription;
+    }
+
+    // if there is a non-zero amount of electrons in the last discharge event describe this - this will be zero
+    // until first discharge event and on reset
+    if ( model.numberOfElectronsDischarged > 0 ) {
+      const previousDischargeQuantity = this.electronLayer.getQualitativeChargeDescription( model.numberOfElectronsDischarged );
+      const previousHandPosition = AppendageNode.getPositionDescription( this.armNode.positionAtDischarge, AppendageRangeMaps.armMap.regions );
+      const previousDischargeDescription = StringUtils.fillIn( previousDischargePatternString, {
+        quantity: previousDischargeQuantity,
+        position: previousHandPosition
+      } );
+
+      screenDescription = StringUtils.fillIn( screenSummaryWithPreviousDischargePatternString, {
+        screenSummary: screenDescription,
+        previousDischarge: previousDischargeDescription
+      } );
+    }
+
+    return screenDescription;
+  }
+
+  /**
+   * Creates the content to be spoken by speech synthesis from the "Hint" button on the toolbar.
+   * @public
+   *
+   * @returns {string}
+   */
+  getVoicingHintContent() {
+
+    const chargeCount = this.model.electronGroup.count;
+    let hintString = voicingContentHintString;
+
+    if ( chargeCount > 0 && chargeCount < 10 ) {
+
+      // a bit of charge, but maybe not enough to trigger a shock, guide user to more
+      hintString = voicingDetailedContentHintString;
+    }
+    else if ( chargeCount >= 10 ) {
+
+      // lots of charge, guide user toward discharging electrons
+      hintString = voicingChargedContentHintString;
+    }
+
+    return hintString;
   }
 
   /**

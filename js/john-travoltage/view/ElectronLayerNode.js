@@ -11,11 +11,10 @@
 
 import Range from '../../../../dot/js/Range.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
-import voicingManager from '../../../../scenery/js/accessibility/voicing/voicingManager.js';
-import voicingUtteranceQueue from '../../../../scenery/js/accessibility/voicing/voicingUtteranceQueue.js';
+import Voicing from '../../../../scenery/js/accessibility/voicing/Voicing.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
-import VoicingUtterance from '../../../../utterance-queue/js/VoicingUtterance.js';
 import Utterance from '../../../../utterance-queue/js/Utterance.js';
+import VoicingUtterance from '../../../../utterance-queue/js/VoicingUtterance.js';
 import johnTravoltage from '../../johnTravoltage.js';
 import johnTravoltageStrings from '../../johnTravoltageStrings.js';
 import ElectronNode from './ElectronNode.js';
@@ -25,11 +24,12 @@ const electronsTotalAfterDischargePatternString = johnTravoltageStrings.a11y.ele
 
 const QUALITATIVE_DESCRIPTION_MAP = new Map();
 QUALITATIVE_DESCRIPTION_MAP.set( new Range( 0, 0 ), 'No' );
-QUALITATIVE_DESCRIPTION_MAP.set( new Range( 1, 10 ), 'A few' );
-QUALITATIVE_DESCRIPTION_MAP.set( new Range( 11, 35 ), 'Several' );
-QUALITATIVE_DESCRIPTION_MAP.set( new Range( 36, 49 ), 'A bunch of' );
-QUALITATIVE_DESCRIPTION_MAP.set( new Range( 50, 75 ), 'A large amount of' );
-QUALITATIVE_DESCRIPTION_MAP.set( new Range( 76, 99 ), 'A huge amount of' );
+QUALITATIVE_DESCRIPTION_MAP.set( new Range( 1, 4 ), 'A couple' );
+QUALITATIVE_DESCRIPTION_MAP.set( new Range( 5, 9 ), 'A few' );
+QUALITATIVE_DESCRIPTION_MAP.set( new Range( 10, 30 ), 'Several' );
+QUALITATIVE_DESCRIPTION_MAP.set( new Range( 31, 53 ), 'A bunch of' );
+QUALITATIVE_DESCRIPTION_MAP.set( new Range( 54, 76 ), 'A large amount of' );
+QUALITATIVE_DESCRIPTION_MAP.set( new Range( 77, 99 ), 'A huge amount of' );
 QUALITATIVE_DESCRIPTION_MAP.set( new Range( 100, Number.POSITIVE_INFINITY ), 'Max amount of' );
 
 class ElectronLayerNode extends Node {
@@ -43,6 +43,8 @@ class ElectronLayerNode extends Node {
   constructor( model, armNode, maxElectrons, tandem ) {
 
     super();
+
+    this.initializeVoicing();
 
     // Add larger delay time is used so that the assistive technology can finish speaking updates
     // from the aria-valuetext of the AppendageNode. Note that if the delay is too long, there is too much silence
@@ -69,12 +71,12 @@ class ElectronLayerNode extends Node {
       if ( currentCharge >= priorCharge ) {
         alertString = StringUtils.fillIn( electronsTotalDescriptionPatternString, { value: currentCharge } );
 
-        if ( phet.chipper.queryParameters.supportsVoicing ) {
-          chargeUtterance.alert = StringUtils.fillIn( 'Rubbing, {{qualitativeDescription}} electrons on body', {
-            qualitativeDescription: this.getQualitativeChargeDescription( currentCharge )
-          } );
-          voicingUtteranceQueue.addToBack( chargeUtterance );
-        }
+        this.voicingContextResponse = StringUtils.fillIn( '{{qualitativeDescription}} electrons on body', {
+          qualitativeDescription: this.getQualitativeChargeDescription( currentCharge )
+        } );
+        this.voicingSpeakContextResponse( {
+          utterance: chargeUtterance
+        } );
       }
       else {
 
@@ -89,17 +91,11 @@ class ElectronLayerNode extends Node {
           region: regionText
         } );
 
-        if ( phet.chipper.queryParameters.supportsVoicing ) {
-          const voicingAlertString = StringUtils.fillIn( '{{qualitativeDescription}} electrons discharged with {{region}}.', {
-            qualitativeDescription: this.getQualitativeChargeDescription( priorCharge - currentCharge ),
-            region: regionText
-          } );
-
-          const voicingContent = voicingManager.collectResponses( {
-            contextResponse: voicingAlertString
-          } );
-          voicingUtteranceQueue.addToBack( voicingContent );
-        }
+        this.voicingContextResponse = StringUtils.fillIn( '{{qualitativeDescription}} electrons discharged with {{region}}.', {
+          qualitativeDescription: this.getQualitativeChargeDescription( priorCharge - currentCharge ),
+          region: regionText
+        } );
+        this.voicingSpeakContextResponse();
       }
 
       electronUtterance.alert = alertString;
@@ -154,6 +150,8 @@ class ElectronLayerNode extends Node {
     return qualitativeDescription;
   }
 }
+
+Voicing.compose( ElectronLayerNode );
 
 johnTravoltage.register( 'ElectronLayerNode', ElectronLayerNode );
 
