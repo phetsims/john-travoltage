@@ -108,99 +108,99 @@ const AppendageRangeMaps = {
   armMap: {
     regions: [
       {
-        range: new Range( -15, -15 ),
+        range: new Range( 15, 15 ),
         text: farthestFromDoorknobString
       }, {
-        range: new Range( -14, -12 ),
+        range: new Range( 12, 14 ),
         text: veryFarFromDoorknobString
       }, {
-        range: new Range( -11, -9 ),
+        range: new Range( 9, 11 ),
         text: farFromDoorknobString
       }, {
-        range: new Range( -8, -6 ),
+        range: new Range( 6, 8 ),
         text: notSoCloseToDoorknobString
       }, {
-        range: new Range( -5, -3 ),
+        range: new Range( 3, 5 ),
         text: closeToDoorknobString
-      }, {
-        range: new Range( -2, -2 ),
-        text: veryCloseToDoorknobString,
-        addFartherAway: true
-      }, {
-        range: new Range( -1, -1 ),
-        text: justAboveDoorknobString
-      }, {
-        range: new Range( 0, 0 ),
-        text: atDoorknobString
-      }, {
-        range: new Range( 1, 1 ),
-        text: justBelowDoorknobString
       }, {
         range: new Range( 2, 2 ),
         text: veryCloseToDoorknobString,
         addFartherAway: true
       }, {
-        range: new Range( 3, 5 ),
+        range: new Range( 1, 1 ),
+        text: justAboveDoorknobString
+      }, {
+        range: new Range( 0, 0 ),
+        text: atDoorknobString
+      }, {
+        range: new Range( -1, -1 ),
+        text: justBelowDoorknobString
+      }, {
+        range: new Range( -2, -2 ),
+        text: veryCloseToDoorknobString,
+        addFartherAway: true
+      }, {
+        range: new Range( -5, -3 ),
         text: closeToDoorknobString
       }, {
-        range: new Range( 6, 8 ),
+        range: new Range( -8, -6 ),
         text: notSoCloseToDoorknobString
       }, {
-        range: new Range( 9, 11 ),
+        range: new Range( -11, -9 ),
         text: farFromDoorknobString
       }, {
-        range: new Range( 12, 14 ),
+        range: new Range( -14, -12 ),
         text: veryFarFromDoorknobString
       }, {
-        range: new Range( 15, 15 ),
+        range: new Range( -15, -15 ),
         text: farthestFromDoorknobString
       }
     ],
 
     landmarks: [
       {
-        value: -15,
+        value: 15,
         text: farthestFromDoorknobLastString
       },
       {
-        value: -13,
+        value: 13,
         text: handPointingAwayString
       },
       {
-        value: -8,
+        value: 8,
         text: handPointingStraightUpString
       },
       {
-        value: -4,
+        value: 4,
         text: handPointingAtUpperDoorString
       },
       {
-        value: -2,
+        value: 2,
         text: veryCloseToDoorknobString
       },
       {
-        value: -1,
+        value: 1,
         text: justAboveDoorknobString
       }, {
         value: 0,
         text: atDoorknobString
       }, {
-        value: 1,
+        value: -1,
         text: justBelowDoorknobString
       }, {
-        value: 2,
+        value: -2,
         text: veryCloseToDoorknobString
       }, {
-        value: 4,
+        value: -4,
         text: handPointingAtLowerDoorString
       }, {
-        value: 7,
+        value: -7,
         text: handPointingStraightDownString
       }, {
-        value: 13,
+        value: -13,
         text: handPointingAwayString
       }, {
-        value: 15,
+        value: -15,
         text: farthestFromDoorknobLastString
       }
     ]

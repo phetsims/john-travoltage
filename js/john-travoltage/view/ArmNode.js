@@ -36,7 +36,7 @@ class ArmNode extends AppendageNode {
       voicingHintResponse: handInteractionHintString
     }, options );
 
-    const angleToPDOMValueFunction = new LinearFunction( armModel.angleProperty.range.min, armModel.angleProperty.range.max, -15, 15 );
+    const angleToPDOMValueFunction = new LinearFunction( armModel.angleProperty.range.max, armModel.angleProperty.range.min, -15, 15 );
     super( armModel, armImage, 4, 45, -0.1, AppendageRangeMaps.armMap, angleToPDOMValueFunction, tandem, options );
 
     // @public (a11y) - {number} arm position value when discharge starts
