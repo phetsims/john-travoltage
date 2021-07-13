@@ -20,6 +20,12 @@
   "moveHandOrFoot": {
     "value": "Move hand or foot"
   },
+  "moveFoot": {
+    "value": "Move foot"
+  },
+  "moveHand": {
+    "value": "Move hand"
+  },
   "hotKeysAndHelp": {
     "value": "Keyboard Shortcuts"
   },
@@ -155,8 +161,11 @@
       }
     },
     "keyboardHelpDialog": {
-      "moveHandOrFootDescription": {
-        "value": "Move hand or foot with left and right arrow keys."
+      "moveFootDescription": {
+        "value": "Move foot with Left and Right Arrow keys."
+      },
+      "moveHandDescription": {
+        "value": "Move hand with Up and Down Arrow keys."
       }
     },
     "voicing": {

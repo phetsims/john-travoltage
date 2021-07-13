@@ -14,20 +14,30 @@ import johnTravoltage from '../../johnTravoltage.js';
 import johnTravoltageStrings from '../../johnTravoltageStrings.js';
 
 const handOrFootString = johnTravoltageStrings.handOrFoot;
-const moveHandOrFootString = johnTravoltageStrings.moveHandOrFoot;
+const moveFootString = johnTravoltageStrings.moveFoot;
+const moveHandString = johnTravoltageStrings.moveHand;
 
-const moveHandOrFootDescriptionString = johnTravoltageStrings.a11y.keyboardHelpDialog.moveHandOrFootDescription;
+const moveFootDescriptionString = johnTravoltageStrings.a11y.keyboardHelpDialog.moveFootDescription;
+const moveHandDescriptionString = johnTravoltageStrings.a11y.keyboardHelpDialog.moveHandDescription;
 
 class JohnTravoltageKeyboardHelpContent extends TwoColumnKeyboardHelpContent {
   constructor() {
 
     // help sections specific to john-travoltage, moving the arm and leg
     const appendageHelpSection = new KeyboardHelpSection( handOrFootString, [
-      KeyboardHelpSection.labelWithIcon( moveHandOrFootString,
+      KeyboardHelpSection.labelWithIcon(
+        moveFootString,
         KeyboardHelpIconFactory.leftRightArrowKeysRowIcon(),
-        moveHandOrFootDescriptionString,
-        { iconOptions: { tagName: 'p' } } )
-    ], { a11yContentTagName: null } ); // only one entry in this help content, don't wrap in the default ul
+        moveFootDescriptionString
+      ),
+      KeyboardHelpSection.labelWithIcon(
+        moveHandString,
+        KeyboardHelpIconFactory.upDownArrowKeysRowIcon(),
+        moveHandDescriptionString
+      )
+    ] );
+
+    // section for general content to interacti with common components
     const generalNavigationHelpSection = new GeneralKeyboardHelpSection();
 
     super( [ appendageHelpSection ], [ generalNavigationHelpSection ] );
