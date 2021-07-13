@@ -1,5 +1,5 @@
 {
-  "comment": "# john-travoltage 1.6.0-dev.43 Tue Jul 13 2021 12:23:14 GMT-0400 (Eastern Daylight Time)",
+  "comment": "# john-travoltage 1.6.0-dev.44 Tue Jul 13 2021 15:47:58 GMT-0400 (Eastern Daylight Time)",
   "assert": {
     "sha": "f360fa1bd09a47b3c9e49cd90c8dddd136a13e0c",
     "branch": "master"
@@ -25,7 +25,7 @@
     "branch": "master"
   },
   "john-travoltage": {
-    "sha": "7679aed35a254f5035189ef584baaa8fd0c27008",
+    "sha": "58601427297fed34c4306f9f47f11a732ea9e76b",
     "branch": "master"
   },
   "joist": {
@@ -45,7 +45,7 @@
     "branch": "master"
   },
   "phet-io-client-guides": {
-    "sha": "dbe654273287669b54045ae17201da159c0f5e34",
+    "sha": "2afc9ab63741908f0289b76427b9a527ea752a23",
     "branch": "master"
   },
   "phet-io-wrapper-haptics": {
@@ -69,7 +69,7 @@
     "branch": "master"
   },
   "scenery": {
-    "sha": "b7d3fecdfdaf00d3e28b1206b0ed2f0d5729f30d",
+    "sha": "b329758b5fbfca0309746575d3f22095ea48b5bb",
     "branch": "master"
   },
   "scenery-phet": {
