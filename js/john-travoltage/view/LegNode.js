@@ -17,7 +17,6 @@ import AppendageNode from './AppendageNode.js';
 
 // constants
 const appendageLegLabelString = johnTravoltageStrings.a11y.appendages.leg.label;
-const voicingContentHintString = johnTravoltageStrings.a11y.voicing.contentHint;
 const footInteractionHintString = johnTravoltageStrings.a11y.voicing.footInteractionHint;
 const johnFullyChargedString = johnTravoltageStrings.a11y.voicing.johnFullyCharged;
 
@@ -62,8 +61,7 @@ class LegNode extends AppendageNode {
 
       // voicing
       voicingNameResponse: appendageLegLabelString,
-      voicingHint: voicingContentHintString,
-      manipulationHint: footInteractionHintString
+      voicingHintResponse: footInteractionHintString
     }, options );
 
     const angleToPDOMValueFunction = new LinearFunction( legModel.angleProperty.range.max, legModel.angleProperty.range.min, -7, 7 );

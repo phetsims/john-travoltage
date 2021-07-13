@@ -14,7 +14,6 @@ import AppendageRangeMaps from '../AppendageRangeMaps.js';
 import AppendageNode from './AppendageNode.js';
 
 // constants
-const voicingDetailedContentHintString = johnTravoltageStrings.a11y.voicing.detailedContentHint;
 const handInteractionHintString = johnTravoltageStrings.a11y.voicing.handInteractionHint;
 const appendageArmLabelString = johnTravoltageStrings.a11y.appendages.arm.label;
 
@@ -34,8 +33,7 @@ class ArmNode extends AppendageNode {
 
       // voicing
       voicingNameResponse: appendageArmLabelString,
-      voicingHint: voicingDetailedContentHintString,
-      manipulationHint: handInteractionHintString
+      voicingHintResponse: handInteractionHintString
     }, options );
 
     const angleToPDOMValueFunction = new LinearFunction( armModel.angleProperty.range.min, armModel.angleProperty.range.max, -15, 15 );
