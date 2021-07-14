@@ -1,5 +1,5 @@
 {
-  "comment": "# john-travoltage 1.6.0-dev.44 Tue Jul 13 2021 15:47:58 GMT-0400 (Eastern Daylight Time)",
+  "comment": "# john-travoltage 1.6.0-dev.45 Wed Jul 14 2021 18:03:54 GMT-0400 (Eastern Daylight Time)",
   "assert": {
     "sha": "f360fa1bd09a47b3c9e49cd90c8dddd136a13e0c",
     "branch": "master"
@@ -13,7 +13,7 @@
     "branch": "master"
   },
   "chipper": {
-    "sha": "a31c6f80f1e437caa24a48ce89598374e9a577ef",
+    "sha": "5751504ec996ccf05414caeb44634b5e8e69cd4e",
     "branch": "master"
   },
   "dot": {
@@ -25,15 +25,15 @@
     "branch": "master"
   },
   "john-travoltage": {
-    "sha": "58601427297fed34c4306f9f47f11a732ea9e76b",
+    "sha": "43adacd759157cb89cd9408d658218048908b0ef",
     "branch": "master"
   },
   "joist": {
-    "sha": "71329d30a33349fa8b01d0bdbb8a33108cb10e7a",
+    "sha": "03a8b0c344f6e42f9b4c6ab18705ea5771d25e6c",
     "branch": "master"
   },
   "kite": {
-    "sha": "bc7e09afea97bab68aad30aeb0fd9e57bd4fd515",
+    "sha": "a5a45cba30bc83d0400d83f03c7e4ffe06d75501",
     "branch": "master"
   },
   "phet-core": {
@@ -41,7 +41,7 @@
     "branch": "master"
   },
   "phet-io": {
-    "sha": "1286e9e13fef70942e3a885b93f86e6ed79ffca0",
+    "sha": "91a75e9fa1c40081aad9b8deda9201185b420c81",
     "branch": "master"
   },
   "phet-io-client-guides": {
@@ -61,7 +61,7 @@
     "branch": "master"
   },
   "phetmarks": {
-    "sha": "69019ea96c096354da441e3b9b5bda036a89f3a1",
+    "sha": "3b540bd68fa23b64516a06fc31cafb623d801151",
     "branch": "master"
   },
   "query-string-machine": {
@@ -69,11 +69,11 @@
     "branch": "master"
   },
   "scenery": {
-    "sha": "b329758b5fbfca0309746575d3f22095ea48b5bb",
+    "sha": "2660c9e95cd66cbdb94a4fac91572d5ed9b327b5",
     "branch": "master"
   },
   "scenery-phet": {
-    "sha": "9135b542c8bacef27b851c78b2e7680369327d32",
+    "sha": "8df9cf17ad1bc161f3ed0a86eb5099b250273d90",
     "branch": "master"
   },
   "sherpa": {
