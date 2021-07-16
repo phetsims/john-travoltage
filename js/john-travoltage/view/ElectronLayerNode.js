@@ -14,7 +14,6 @@ import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import Voicing from '../../../../scenery/js/accessibility/voicing/Voicing.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Utterance from '../../../../utterance-queue/js/Utterance.js';
-import VoicingUtterance from '../../../../utterance-queue/js/VoicingUtterance.js';
 import johnTravoltage from '../../johnTravoltage.js';
 import johnTravoltageStrings from '../../johnTravoltageStrings.js';
 import ElectronNode from './ElectronNode.js';
@@ -58,7 +57,7 @@ class ElectronLayerNode extends Node {
     // many charges are usually added at once, wait until alerts stabilize before
     // announcing the change in charge - this critical information is intended to be
     // assertive
-    const chargeUtterance = new VoicingUtterance( {
+    const chargeUtterance = new Utterance( {
       alertStableDelay: 500,
       alertMaximumDelay: 800
     } );

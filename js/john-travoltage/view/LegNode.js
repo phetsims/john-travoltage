@@ -7,7 +7,7 @@
 import LinearFunction from '../../../../dot/js/LinearFunction.js';
 import merge from '../../../../phet-core/js/merge.js';
 import voicingUtteranceQueue from '../../../../scenery/js/accessibility/voicing/voicingUtteranceQueue.js';
-import VoicingUtterance from '../../../../utterance-queue/js/VoicingUtterance.js';
+import Utterance from '../../../../utterance-queue/js/Utterance.js';
 import legImage from '../../../images/leg_png.js';
 import johnTravoltage from '../../johnTravoltage.js';
 import johnTravoltageStrings from '../../johnTravoltageStrings.js';
@@ -72,7 +72,11 @@ class LegNode extends AppendageNode {
 
     // voicing - the foot position utterance is polite so that we only hear foot position after charge pickup alerts
     // are spoken, charge information is more important
-    const footPositionChangeUtterance = new VoicingUtterance( { cancelOther: false } );
+    const footPositionChangeUtterance = new Utterance( {
+      announcerOptions: {
+        cancelOther: false
+      }
+    } );
     this.sliderProperty.lazyLink( ( value, oldValue ) => {
 
       // leg alerts are only made when the foot is off the rug - otherwise we should hear charge information and the

@@ -6,7 +6,7 @@
 
 import LinearFunction from '../../../../dot/js/LinearFunction.js';
 import merge from '../../../../phet-core/js/merge.js';
-import VoicingUtterance from '../../../../utterance-queue/js/VoicingUtterance.js';
+import Utterance from '../../../../utterance-queue/js/Utterance.js';
 import armImage from '../../../images/arm_png.js';
 import johnTravoltage from '../../johnTravoltage.js';
 import johnTravoltageStrings from '../../johnTravoltageStrings.js';
@@ -43,7 +43,7 @@ class ArmNode extends AppendageNode {
     this.positionAtDischarge = null;
 
     // the hand position utterance is assertive so that the most recent hand position is always heard
-    const handPositionChangeUtterance = new VoicingUtterance();
+    const handPositionChangeUtterance = new Utterance();
     this.sliderProperty.lazyLink( ( value, oldValue ) => {
       this.voicingSpeakObjectResponse( { utterance: handPositionChangeUtterance } );
     } );
