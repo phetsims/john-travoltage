@@ -20,7 +20,6 @@ import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import ResetAllButton from '../../../../scenery-phet/js/buttons/ResetAllButton.js';
 import sceneryPhetStrings from '../../../../scenery-phet/js/sceneryPhetStrings.js';
 import PDOMPeer from '../../../../scenery/js/accessibility/pdom/PDOMPeer.js';
-import voicingUtteranceQueue from '../../../../scenery/js/accessibility/voicing/voicingUtteranceQueue.js';
 import Circle from '../../../../scenery/js/nodes/Circle.js';
 import Line from '../../../../scenery/js/nodes/Line.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
@@ -174,12 +173,6 @@ class JohnTravoltageView extends ScreenView {
       right: this.layoutBounds.maxX - 8,
       bottom: this.layoutBounds.maxY - 8,
       listener: () => {
-
-        if ( phet.chipper.queryParameters.supportsVoicing ) {
-
-          // as the simulation resets, do no not speak about changes
-          voicingUtteranceQueue.enabled = false;
-        }
         model.reset();
       },
       tandem: tandem.createTandem( 'resetAllButton' )
