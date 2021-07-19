@@ -26,7 +26,7 @@
         "phet-io-wrapper-haptics"
       ]
     },
-    "features": {
+    "simFeatures": {
       "supportsSound": true,
       "supportsEnhancedSound": true,
       "supportsInteractiveDescription": true,
