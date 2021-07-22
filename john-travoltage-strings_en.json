@@ -115,29 +115,6 @@
           "farthestFromDoorknobLast": {
             "value": "Hand farthest from doorknob."
           }
-        },
-        "directions": {
-          "towardsDoorknob": {
-            "value": "Towards doorknob"
-          },
-          "awayFromDoorknob": {
-            "value": "Away from doorknob"
-          },
-          "towardsDoorknobPattern": {
-            "value": "Towards doorknob, {{description}}"
-          },
-          "awayFromDoorknobPattern": {
-            "value": "Away from doorknob, {{description}}"
-          },
-          "fartherAwayPattern": {
-            "value": "Farther away, {{description}}"
-          },
-          "closerToDoorknob": {
-            "value": "Closer to doorknob"
-          },
-          "fartherAwayFromDoorknob": {
-            "value": "Farther away from doorknob"
-          }
         }
       },
       "leg": {
