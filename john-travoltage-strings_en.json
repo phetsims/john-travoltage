@@ -169,20 +169,8 @@
       }
     },
     "voicing": {
-      "appendageObjectResponsePattern": {
-        "value": "{{label}}, {{valueText}}"
-      },
       "contentHint": {
         "value": "Swing John's leg to rub his foot on rug."
-      },
-      "handLabel": {
-        "value": "Hand"
-      },
-      "dragHint": {
-        "value": "Tap and hold to grab and drag."
-      },
-      "grabbedAlert": {
-        "value": "Grabbed."
       },
       "detailedContentHint": {
         "value": "Rub John's foot some more."
