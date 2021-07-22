@@ -1,11 +1,11 @@
 {
-  "comment": "# john-travoltage 1.6.0-dev.46 Wed Jul 21 2021 15:31:31 GMT-0400 (Eastern Daylight Time)",
+  "comment": "# john-travoltage 1.6.0-rc.0 Thu Jul 22 2021 14:00:51 GMT-0400 (Eastern Daylight Time)",
   "assert": {
     "sha": "f360fa1bd09a47b3c9e49cd90c8dddd136a13e0c",
     "branch": "master"
   },
   "axon": {
-    "sha": "e1e78c2cf764bdedb19d2a52c7bddec6917c8665",
+    "sha": "83d91fdcf97b9202e91e19dc2b3a2517e13bd862",
     "branch": "master"
   },
   "brand": {
@@ -25,12 +25,12 @@
     "branch": "master"
   },
   "john-travoltage": {
-    "sha": "f9a7e0202020c286b911c9aedf37a27115831e09",
-    "branch": "master"
+    "sha": "c0426a5fc0f564ccb5d673b05317d46d6b8e19bd",
+    "branch": "1.6"
   },
   "joist": {
-    "sha": "14e69e06ea10e04a6ebec7d9fc49e1fc1fc0b5eb",
-    "branch": "master"
+    "sha": "7a2f411913a72cf9e13f9d47fc6df445fa2a9e17",
+    "branch": "john-travoltage-1.6"
   },
   "kite": {
     "sha": "a5a45cba30bc83d0400d83f03c7e4ffe06d75501",
@@ -69,11 +69,11 @@
     "branch": "master"
   },
   "scenery": {
-    "sha": "7f823e3ee68efb2556d2052aeddf3710b38ca0a9",
-    "branch": "master"
+    "sha": "952bbb22a4ad9d45e6f31bc704dbadddc0c70432",
+    "branch": "john-travoltage-1.6"
   },
   "scenery-phet": {
-    "sha": "acf02278a1f6a2030d5c0048f4f57348118454db",
+    "sha": "013e078577820e76fba206a951d936f15f023d7a",
     "branch": "master"
   },
   "sherpa": {
