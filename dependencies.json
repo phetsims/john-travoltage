@@ -1,11 +1,11 @@
 {
-  "comment": "# john-travoltage 1.6.0-dev.46 Wed Jul 21 2021 15:31:31 GMT-0400 (Eastern Daylight Time)",
+  "comment": "# john-travoltage 1.7.0-dev.1 Mon Aug 02 2021 12:39:55 GMT-0400 (Eastern Daylight Time)",
   "assert": {
     "sha": "f360fa1bd09a47b3c9e49cd90c8dddd136a13e0c",
     "branch": "master"
   },
   "axon": {
-    "sha": "e1e78c2cf764bdedb19d2a52c7bddec6917c8665",
+    "sha": "83d91fdcf97b9202e91e19dc2b3a2517e13bd862",
     "branch": "master"
   },
   "brand": {
@@ -13,7 +13,7 @@
     "branch": "master"
   },
   "chipper": {
-    "sha": "b10469dff1ddc2d4a74cd805bc6c071e26bddeba",
+    "sha": "f2da209ff165054c62073853ed8cd8c06dec3a9f",
     "branch": "master"
   },
   "dot": {
@@ -25,11 +25,11 @@
     "branch": "master"
   },
   "john-travoltage": {
-    "sha": "f9a7e0202020c286b911c9aedf37a27115831e09",
+    "sha": "1df64a14692745ab6027889e9beae83c6c450fa8",
     "branch": "master"
   },
   "joist": {
-    "sha": "14e69e06ea10e04a6ebec7d9fc49e1fc1fc0b5eb",
+    "sha": "5f8aa0bf5a3c69a2354ff529f30f0c9e7c9f26ce",
     "branch": "master"
   },
   "kite": {
@@ -41,11 +41,11 @@
     "branch": "master"
   },
   "phet-io": {
-    "sha": "ef6ac65fe0c81abe4bc833651775d38a9adbd707",
+    "sha": "9b022b2f8715a7c65fef29cde609922a9ab11869",
     "branch": "master"
   },
   "phet-io-client-guides": {
-    "sha": "fcb38dcb81e2658f61323d61ee5981465a04dcae",
+    "sha": "80fc79610912d3d858772cfef19be14700b3303d",
     "branch": "master"
   },
   "phet-io-wrapper-haptics": {
@@ -61,7 +61,7 @@
     "branch": "master"
   },
   "phetmarks": {
-    "sha": "8d06d73911f716cbbe234a4e3684f271d93eb963",
+    "sha": "10c9e6302f03509501c8d9daed9ba22e53aa56df",
     "branch": "master"
   },
   "query-string-machine": {
@@ -69,11 +69,11 @@
     "branch": "master"
   },
   "scenery": {
-    "sha": "7f823e3ee68efb2556d2052aeddf3710b38ca0a9",
+    "sha": "38959d2c6b2d1588adb7d38750fa50ce9d477f52",
     "branch": "master"
   },
   "scenery-phet": {
-    "sha": "acf02278a1f6a2030d5c0048f4f57348118454db",
+    "sha": "e04ac9856c8717aea7f91ff801cb77a71581bf42",
     "branch": "master"
   },
   "sherpa": {
