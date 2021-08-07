@@ -98,7 +98,7 @@ class ElectronLayerNode extends Node {
       }
 
       electronUtterance.alert = alertString;
-      phet.joist.sim.utteranceQueue.addToBack( electronUtterance );
+      this.alertDescriptionUtterance( electronUtterance );
 
       // for haptic feedback, experimental
       model.utteranceAddedEmitter.emit( alertString );

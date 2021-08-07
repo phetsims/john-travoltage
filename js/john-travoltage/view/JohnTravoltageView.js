@@ -402,9 +402,7 @@ class JohnTravoltageView extends ScreenView {
 
       // let user know that simulation is loaded, and let them know to begin reading through the PDOM
       phet.joist.sim.isConstructionCompleteProperty.link( complete => {
-        if ( complete ) {
-          phet.joist.sim.utteranceQueue.addToBack( 'Simulation loaded. Start reading to play.' );
-        }
+        complete && this.alertDescriptionUtterance( 'Simulation loaded. Start reading to play.' );
       } );
     }
   }
