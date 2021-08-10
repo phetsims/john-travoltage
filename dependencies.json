@@ -1,5 +1,5 @@
 {
-  "comment": "# john-travoltage 1.6.0-rc.1 Mon Aug 09 2021 18:00:11 GMT-0400 (Eastern Daylight Time)",
+  "comment": "# john-travoltage 1.6.0-rc.2 Tue Aug 10 2021 12:34:22 GMT-0400 (Eastern Daylight Time)",
   "assert": {
     "sha": "f360fa1bd09a47b3c9e49cd90c8dddd136a13e0c",
     "branch": "HEAD"
@@ -25,7 +25,7 @@
     "branch": "HEAD"
   },
   "john-travoltage": {
-    "sha": "aedc463f7748028dbcaf0897774428ece11dca28",
+    "sha": "c8a4bc26c9cedc727d990787d1407f8391105ae5",
     "branch": "1.6"
   },
   "joist": {
@@ -86,7 +86,7 @@
   },
   "sun": {
     "sha": "66da23e2055c92d6589abf90cd74e4b882693213",
-    "branch": "john-travoltage-1.6"
+    "branch": "HEAD"
   },
   "tambo": {
     "sha": "548817f25388b1f97bbdfdabdbf98f2519c27341",
