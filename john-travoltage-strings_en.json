@@ -164,6 +164,9 @@
       "johnFullyCharged": {
         "value": "John fully charged."
       },
+      "multipleElectronsOnBodyPattern": {
+        "value": "John has {{quantity}} electrons on his body."
+      },
       "screenSummaryWithPreviousDischargePattern": {
         "value": "{{screenSummary}} {{previousDischarge}}"
       },

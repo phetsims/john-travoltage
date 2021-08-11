@@ -62,6 +62,7 @@ const screenSummaryWithPreviousDischargePatternString = johnTravoltageStrings.a1
 const screenSummarySingleScreenIntroPatternString = sceneryPhetStrings.a11y.voicing.simSection.screenSummary.singleScreenIntroPattern;
 const overviewPatternString = johnTravoltageStrings.a11y.voicing.overviewPattern;
 const voicingChargedContentHintString = johnTravoltageStrings.a11y.voicing.chargedContentHint;
+const multipleElectronsOnBodyPatternString = johnTravoltageStrings.a11y.voicing.multipleElectronsOnBodyPattern;
 
 // constants
 const OUCH_EXCLAMATION_DELAY = 0.5; // in seconds
@@ -440,7 +441,7 @@ class JohnTravoltageView extends ScreenView {
 
     let screenDescription;
     if ( this.includeElectronInfo ) {
-      const chargeDescription = StringUtils.fillIn( 'John has {{quantity}} electrons on his body.', {
+      const chargeDescription = StringUtils.fillIn( multipleElectronsOnBodyPatternString, {
         quantity: this.electronLayer.getQualitativeChargeDescription( model.electronGroup.count )
       } );
 
