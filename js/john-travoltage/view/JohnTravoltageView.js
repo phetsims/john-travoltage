@@ -28,9 +28,6 @@ import PitchedPopGenerator from '../../../../tambo/js/sound-generators/PitchedPo
 import SoundClip from '../../../../tambo/js/sound-generators/SoundClip.js';
 import SoundLevelEnum from '../../../../tambo/js/SoundLevelEnum.js';
 import soundManager from '../../../../tambo/js/soundManager.js';
-import VibrationTestEvent from '../../../../tappi/js/tracking/VibrationTestEvent.js';
-import VibrationTestEventRecorder from '../../../../tappi/js/tracking/VibrationTestEventRecorder.js';
-import VibrationTestInputListener from '../../../../tappi/js/tracking/VibrationTestInputListener.js';
 import VibrationManageriOS from '../../../../tappi/js/VibrationManageriOS.js';
 
 
@@ -357,53 +354,11 @@ class JohnTravoltageView extends ScreenView {
     const vibrationParam = phet.chipper.queryParameters.vibrationParadigm;
     if ( vibrationParam !== null ) {
 
-      // @private {number} - time (in seconds) that the simulation has been running
-      this.elapsedTime = 0;
-
       // sends messages to the containing Swift app
       const vibrationManager = new VibrationManageriOS();
 
       // controls simulation specific vibrations and uses vibrationManager to send messages
       vibrationController.initialize( model, this, vibrationManager );
-
-      // collection of input and simulation events that will be recorded during user interaction
-      this.eventRecorder = new VibrationTestEventRecorder( vibrationManager );
-
-      // listener that watches finger/touch input and saves to the event recorder
-      const vibrationTestInputListener = new VibrationTestInputListener( this.eventRecorder );
-      phet.joist.display.addInputListener( vibrationTestInputListener );
-
-      // sim specific events that we want to capture
-      model.arm.angleProperty.lazyLink( angle => {
-        this.eventRecorder.addTestEvent( new VibrationTestEvent( angle, null, this.elapsedTime, 'Moving Arm' ) );
-      } );
-      model.leg.angleProperty.lazyLink( angle => {
-        this.eventRecorder.addTestEvent( new VibrationTestEvent( angle, null, this.elapsedTime, 'Moving Leg' ) );
-      } );
-      model.electronGroup.elementCreatedEmitter.addListener( () => {
-        this.eventRecorder.addTestEvent( new VibrationTestEvent( null, null, this.elapsedTime, 'Added charge' ) );
-      } );
-      model.dischargeStartedEmitter.addListener( () => {
-        this.eventRecorder.addTestEvent( new VibrationTestEvent( null, null, this.elapsedTime, 'Discharged electrons' ) );
-      } );
-      model.arm.isDraggingProperty.lazyLink( isDragging => {
-        const eventString = isDragging ? 'Arm drag start' : 'Arm drag end';
-        this.eventRecorder.addTestEvent( new VibrationTestEvent( null, null, this.elapsedTime, eventString ) );
-      } );
-      model.leg.isDraggingProperty.lazyLink( isDragging => {
-        const eventString = isDragging ? 'Leg drag start' : 'Leg drag end';
-        this.eventRecorder.addTestEvent( new VibrationTestEvent( null, null, this.elapsedTime, eventString ) );
-      } );
-
-      model.stepEmitter.addListener( dt => {
-        this.elapsedTime += dt;
-        vibrationTestInputListener.setElapsedTime( this.elapsedTime );
-      } );
-
-      // let user know that simulation is loaded, and let them know to begin reading through the PDOM
-      phet.joist.sim.isConstructionCompleteProperty.link( complete => {
-        complete && this.alertDescriptionUtterance( 'Simulation loaded. Start reading to play.' );
-      } );
     }
   }
 
