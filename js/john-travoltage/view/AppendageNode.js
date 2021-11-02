@@ -226,8 +226,8 @@ class AppendageNode extends Node {
       inverseMap: position => this.a11yPositionToAngle( position )
     } );
 
-    const pdomValueMin = Utils.toFixedNumber( this.angleToPDOMValueFunction( appendage.angleProperty.range.min ), 0 );
-    const pdomValueMax = Utils.toFixedNumber( this.angleToPDOMValueFunction( appendage.angleProperty.range.max ), 0 );
+    const pdomValueMin = Utils.toFixedNumber( this.angleToPDOMValueFunction.evaluate( appendage.angleProperty.range.min ), 0 );
+    const pdomValueMax = Utils.toFixedNumber( this.angleToPDOMValueFunction.evaluate( appendage.angleProperty.range.max ), 0 );
     const sliderMin = Math.min( pdomValueMin, pdomValueMax );
     const sliderMax = Math.max( pdomValueMin, pdomValueMax );
     this.initializeAccessibleSlider(
@@ -300,7 +300,7 @@ class AppendageNode extends Node {
    * @public
    */
   a11yAngleToPosition( angle ) {
-    return Utils.roundSymmetric( this.angleToPDOMValueFunction( angle ) );
+    return Utils.roundSymmetric( this.angleToPDOMValueFunction.evaluate( angle ) );
   }
 
   /**
