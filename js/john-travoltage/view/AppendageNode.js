@@ -17,12 +17,12 @@ import Utils from '../../../../dot/js/Utils.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Shape from '../../../../kite/js/Shape.js';
 import merge from '../../../../phet-core/js/merge.js';
-import FocusHighlightPath from '../../../../scenery/js/accessibility/FocusHighlightPath.js';
-import Voicing from '../../../../scenery/js/accessibility/voicing/Voicing.js';
-import DragListener from '../../../../scenery/js/listeners/DragListener.js';
-import Image from '../../../../scenery/js/nodes/Image.js';
-import Node from '../../../../scenery/js/nodes/Node.js';
-import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
+import { FocusHighlightPath } from '../../../../scenery/js/imports.js';
+import { Voicing } from '../../../../scenery/js/imports.js';
+import { DragListener } from '../../../../scenery/js/imports.js';
+import { Image } from '../../../../scenery/js/imports.js';
+import { Node } from '../../../../scenery/js/imports.js';
+import { Rectangle } from '../../../../scenery/js/imports.js';
 import AccessibleSlider from '../../../../sun/js/accessibility/AccessibleSlider.js';
 import johnTravoltage from '../../johnTravoltage.js';
 

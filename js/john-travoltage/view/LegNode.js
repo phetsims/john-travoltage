@@ -6,7 +6,7 @@
 
 import LinearFunction from '../../../../dot/js/LinearFunction.js';
 import merge from '../../../../phet-core/js/merge.js';
-import voicingUtteranceQueue from '../../../../scenery/js/accessibility/voicing/voicingUtteranceQueue.js';
+import { voicingUtteranceQueue } from '../../../../scenery/js/imports.js';
 import Utterance from '../../../../utterance-queue/js/Utterance.js';
 import legImage from '../../../images/leg_png.js';
 import johnTravoltage from '../../johnTravoltage.js';

@@ -11,10 +11,10 @@
 import DotRectangle from '../../../../dot/js/Rectangle.js'; // eslint-disable-line require-statement-match
 import Vector2 from '../../../../dot/js/Vector2.js';
 import ElectronChargeNode from '../../../../scenery-phet/js/ElectronChargeNode.js';
-import Circle from '../../../../scenery/js/nodes/Circle.js';
-import Image from '../../../../scenery/js/nodes/Image.js';
-import Node from '../../../../scenery/js/nodes/Node.js';
-import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
+import { Circle } from '../../../../scenery/js/imports.js';
+import { Image } from '../../../../scenery/js/imports.js';
+import { Node } from '../../../../scenery/js/imports.js';
+import { Rectangle } from '../../../../scenery/js/imports.js';
 import johnTravoltage from '../../johnTravoltage.js';
 
 // constants
