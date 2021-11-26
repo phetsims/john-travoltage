@@ -1,4 +1,4 @@
-// Copyright 2013-2020, University of Colorado Boulder
+// Copyright 2013-2021, University of Colorado Boulder
 
 /**
  * Scenery display object (scene graph node) for minusCharge. All electron nodes use a single image node, and are added
