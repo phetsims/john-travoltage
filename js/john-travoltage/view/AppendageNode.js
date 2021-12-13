@@ -64,7 +64,7 @@ class AppendageNode extends Node {
 
     super();
 
-    // voicing
+    // voicing, TODO redundant with accessibleSlider call? https://github.com/phetsims/sun/issues/730
     this.initializeVoicing();
 
     // Mutate options eagerly, but after voicing is initialized
