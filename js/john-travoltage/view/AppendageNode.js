@@ -17,12 +17,7 @@ import Utils from '../../../../dot/js/Utils.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Shape from '../../../../kite/js/Shape.js';
 import merge from '../../../../phet-core/js/merge.js';
-import { FocusHighlightPath } from '../../../../scenery/js/imports.js';
-import { Voicing } from '../../../../scenery/js/imports.js';
-import { DragListener } from '../../../../scenery/js/imports.js';
-import { Image } from '../../../../scenery/js/imports.js';
-import { Node } from '../../../../scenery/js/imports.js';
-import { Rectangle } from '../../../../scenery/js/imports.js';
+import { DragListener, FocusHighlightPath, Image, Node, Rectangle, Voicing } from '../../../../scenery/js/imports.js';
 import AccessibleSlider from '../../../../sun/js/accessibility/AccessibleSlider.js';
 import johnTravoltage from '../../johnTravoltage.js';
 
@@ -67,7 +62,13 @@ class AppendageNode extends Node {
       voicingNameResponse: null
     }, options );
 
-    super( options );
+    super();
+
+    // voicing
+    this.initializeVoicing();
+
+    // Mutate options eagerly, but after voicing is initialized
+    this.mutate( options );
 
     // @private
     this.model = appendage;
@@ -241,9 +242,6 @@ class AppendageNode extends Node {
     appendage.angleProperty.link( angle => {
       this.focusHighlight.center = this.imageNode.center;
     } );
-
-    // voicing
-    this.initializeVoicing( options );
 
     this.sliderProperty.link( ( value, previousValue ) => {
 
