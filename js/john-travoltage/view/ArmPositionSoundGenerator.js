@@ -10,12 +10,12 @@
 import dotRandom from '../../../../dot/js/dotRandom.js';
 import SoundClip from '../../../../tambo/js/sound-generators/SoundClip.js';
 import SoundGenerator from '../../../../tambo/js/sound-generators/SoundGenerator.js';
-import armPosition01Sound from '../../../sounds/arm-position-001_mp3.js';
-import armPosition02Sound from '../../../sounds/arm-position-002_mp3.js';
-import armPosition03Sound from '../../../sounds/arm-position-003_mp3.js';
-import armPosition04Sound from '../../../sounds/arm-position-004_mp3.js';
-import armPosition05Sound from '../../../sounds/arm-position-005_mp3.js';
-import armPosition06Sound from '../../../sounds/arm-position-006_mp3.js';
+import armPosition001_mp3 from '../../../sounds/armPosition001_mp3.js';
+import armPosition002_mp3 from '../../../sounds/armPosition002_mp3.js';
+import armPosition003_mp3 from '../../../sounds/armPosition003_mp3.js';
+import armPosition004_mp3 from '../../../sounds/armPosition004_mp3.js';
+import armPosition005_mp3 from '../../../sounds/armPosition005_mp3.js';
+import armPosition006_mp3 from '../../../sounds/armPosition006_mp3.js';
 import johnTravoltage from '../../johnTravoltage.js';
 
 // constants
@@ -35,12 +35,12 @@ class ArmPositionSoundGenerator extends SoundGenerator {
     super( options );
 
     const ratchetSounds = [
-      new SoundClip( armPosition01Sound ),
-      new SoundClip( armPosition02Sound ),
-      new SoundClip( armPosition03Sound ),
-      new SoundClip( armPosition04Sound ),
-      new SoundClip( armPosition05Sound ),
-      new SoundClip( armPosition06Sound )
+      new SoundClip( armPosition001_mp3 ),
+      new SoundClip( armPosition002_mp3 ),
+      new SoundClip( armPosition003_mp3 ),
+      new SoundClip( armPosition004_mp3 ),
+      new SoundClip( armPosition005_mp3 ),
+      new SoundClip( armPosition006_mp3 )
     ];
 
     // define a helper function to play a random ratchet sound

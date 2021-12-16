@@ -7,7 +7,7 @@
 import LinearFunction from '../../../../dot/js/LinearFunction.js';
 import merge from '../../../../phet-core/js/merge.js';
 import Utterance from '../../../../utterance-queue/js/Utterance.js';
-import armImage from '../../../images/arm_png.js';
+import arm_png from '../../../images/arm_png.js';
 import johnTravoltage from '../../johnTravoltage.js';
 import johnTravoltageStrings from '../../johnTravoltageStrings.js';
 import AppendageRangeMaps from '../AppendageRangeMaps.js';
@@ -37,7 +37,7 @@ class ArmNode extends AppendageNode {
     }, options );
 
     const angleToPDOMValueFunction = new LinearFunction( armModel.angleProperty.range.max, armModel.angleProperty.range.min, -15, 15 );
-    super( armModel, armImage, 4, 45, -0.1, AppendageRangeMaps.armMap, angleToPDOMValueFunction, tandem, options );
+    super( armModel, arm_png, 4, 45, -0.1, AppendageRangeMaps.armMap, angleToPDOMValueFunction, tandem, options );
 
     // @public (a11y) - {number} arm position value when discharge starts
     this.positionAtDischarge = null;

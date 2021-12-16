@@ -8,7 +8,7 @@ import LinearFunction from '../../../../dot/js/LinearFunction.js';
 import merge from '../../../../phet-core/js/merge.js';
 import { voicingUtteranceQueue } from '../../../../scenery/js/imports.js';
 import Utterance from '../../../../utterance-queue/js/Utterance.js';
-import legImage from '../../../images/leg_png.js';
+import leg_png from '../../../images/leg_png.js';
 import johnTravoltage from '../../johnTravoltage.js';
 import johnTravoltageStrings from '../../johnTravoltageStrings.js';
 import AppendageRangeMaps from '../AppendageRangeMaps.js';
@@ -65,7 +65,7 @@ class LegNode extends AppendageNode {
     }, options );
 
     const angleToPDOMValueFunction = new LinearFunction( legModel.angleProperty.range.max, legModel.angleProperty.range.min, -7, 7 );
-    super( legModel, legImage, 25, 28, Math.PI / 2 * 0.7, AppendageRangeMaps.legMap, angleToPDOMValueFunction, tandem, options );
+    super( legModel, leg_png, 25, 28, Math.PI / 2 * 0.7, AppendageRangeMaps.legMap, angleToPDOMValueFunction, tandem, options );
 
     // @private {number} - counts the number of times a drag occurs while there are max charges on the body
     this.numberOfDragsAtMaxCharge = 0;

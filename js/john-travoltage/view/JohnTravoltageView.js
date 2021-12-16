@@ -30,11 +30,10 @@ import SoundLevelEnum from '../../../../tambo/js/SoundLevelEnum.js';
 import soundManager from '../../../../tambo/js/soundManager.js';
 import VibrationManageriOS from '../../../../tappi/js/VibrationManageriOS.js';
 
-
-import chargesInBodySound from '../../../sounds/charges-in-body_mp3.js';
-import electricDischargeSound from '../../../sounds/electric-discharge_mp3.js';
-import gazouchSound from '../../../sounds/gazouch_mp3.js';
-import ouchSound from '../../../sounds/ouch_mp3.js';
+import chargesInBody_mp3 from '../../../sounds/chargesInBody_mp3.js';
+import electricDischarge_mp3 from '../../../sounds/electricDischarge_mp3.js';
+import gazouch_mp3 from '../../../sounds/gazouch_mp3.js';
+import ouch_mp3 from '../../../sounds/ouch_mp3.js';
 import johnTravoltage from '../../johnTravoltage.js';
 import johnTravoltageStrings from '../../johnTravoltageStrings.js';
 import AppendageRangeMaps from '../AppendageRangeMaps.js';
@@ -243,17 +242,17 @@ class JohnTravoltageView extends ScreenView {
     const resetNotInProgressProperty = new DerivedProperty( [ model.resetInProgressProperty ], resetInProgress => !resetInProgress );
 
     // create and register the sound generators used in this view
-    const ouchSoundClip = new SoundClip( ouchSound, { initialOutputLevel: 0.7 } );
+    const ouchSoundClip = new SoundClip( ouch_mp3, { initialOutputLevel: 0.7 } );
     soundManager.addSoundGenerator( ouchSoundClip );
-    const gazouchSoundClip = new SoundClip( gazouchSound, { initialOutputLevel: 0.8 } );
+    const gazouchSoundClip = new SoundClip( gazouch_mp3, { initialOutputLevel: 0.8 } );
     soundManager.addSoundGenerator( gazouchSoundClip );
-    const electricDischargeSoundClip = new SoundClip( electricDischargeSound, {
+    const electricDischargeSoundClip = new SoundClip( electricDischarge_mp3, {
       loop: true,
       trimSilence: true,
       initialOutputLevel: 0.75
     } );
     soundManager.addSoundGenerator( electricDischargeSoundClip );
-    const chargesInBodySoundClip = new SoundClip( chargesInBodySound, {
+    const chargesInBodySoundClip = new SoundClip( chargesInBody_mp3, {
       loop: true,
       trimSilence: true,
       initialOutputLevel: 0.1

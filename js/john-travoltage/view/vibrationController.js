@@ -18,7 +18,7 @@
  */
 
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
-import stepTimer from '../../../../axon/js/Timer.js';
+import stepTimer from '../../../../axon/js/Timer.js'; // eslint-disable-line default-import-match-filename
 import johnTravoltage from '../../johnTravoltage.js';
 
 // constants

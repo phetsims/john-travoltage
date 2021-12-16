@@ -11,12 +11,12 @@ import { Image } from '../../../../scenery/js/imports.js';
 import { Node } from '../../../../scenery/js/imports.js';
 import { Rectangle } from '../../../../scenery/js/imports.js';
 import { Pattern } from '../../../../scenery/js/imports.js';
-import body from '../../../images/body_png.js';
-import door from '../../../images/door_png.js';
-import floor from '../../../images/floor_png.js';
-import rug from '../../../images/rug_png.js';
-import wallpaper from '../../../images/wallpaper_png.js';
-import window from '../../../images/window_png.js';
+import body_png from '../../../images/body_png.js';
+import door_png from '../../../images/door_png.js';
+import floor_png from '../../../images/floor_png.js';
+import rug_png from '../../../images/rug_png.js';
+import wallpaper_png from '../../../images/wallpaper_png.js';
+import window_png from '../../../images/window_png.js';
 import johnTravoltage from '../../johnTravoltage.js';
 
 class BackgroundNode extends Node {
@@ -33,12 +33,12 @@ class BackgroundNode extends Node {
 
     //wallpapers
     this.addChild( new Rectangle( -1000, -300, 3000, 1100, {
-      fill: new Pattern( wallpaper ),
+      fill: new Pattern( wallpaper_png ),
       tandem: tandem.createTandem( 'wallpaper' )
     } ) );
 
     // add the Window image
-    this.addChild( new Image( window, {
+    this.addChild( new Image( window_png, {
       x: 50,
       y: 60,
       scale: 0.93,
@@ -47,12 +47,12 @@ class BackgroundNode extends Node {
 
     // add the floor image
     this.addChild( new Rectangle( -1000, 440, 3000, 1100, {
-      fill: new Pattern( floor ),
+      fill: new Pattern( floor_png ),
       tandem: tandem.createTandem( 'floor' )
     } ) );
 
     // add the rug image
-    this.addChild( new Image( rug, {
+    this.addChild( new Image( rug_png, {
       x: 110,
       y: 446,
       scale: 0.58,
@@ -60,7 +60,7 @@ class BackgroundNode extends Node {
     } ) );
 
     // add the door image
-    this.addChild( new Image( door, {
+    this.addChild( new Image( door_png, {
       x: 513.5,
       y: 48,
       scale: 0.785,
@@ -68,7 +68,7 @@ class BackgroundNode extends Node {
     } ) );
 
     // add the body image
-    this.addChild( new Image( body, {
+    this.addChild( new Image( body_png, {
       x: 260,
       y: 60,
       scale: 0.85,

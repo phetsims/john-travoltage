@@ -1,5 +1,5 @@
 {
-  "arm-position-001.mp3": {
+  "armPosition001.mp3": {
     "text": [
       "Copyright 2018 University of Colorado Boulder"
     ],
@@ -7,7 +7,7 @@
     "license": "contact phethelp@colorado.edu",
     "notes": "created by Ashton Morris for use by PhET"
   },
-  "arm-position-002.mp3": {
+  "armPosition002.mp3": {
     "text": [
       "Copyright 2018 University of Colorado Boulder"
     ],
@@ -15,7 +15,7 @@
     "license": "contact phethelp@colorado.edu",
     "notes": "created by Ashton Morris for use by PhET"
   },
-  "arm-position-003.mp3": {
+  "armPosition003.mp3": {
     "text": [
       "Copyright 2018 University of Colorado Boulder"
     ],
@@ -23,7 +23,7 @@
     "license": "contact phethelp@colorado.edu",
     "notes": "created by Ashton Morris for use by PhET"
   },
-  "arm-position-004.mp3": {
+  "armPosition004.mp3": {
     "text": [
       "Copyright 2018 University of Colorado Boulder"
     ],
@@ -31,7 +31,7 @@
     "license": "contact phethelp@colorado.edu",
     "notes": "created by Ashton Morris for use by PhET"
   },
-  "arm-position-005.mp3": {
+  "armPosition005.mp3": {
     "text": [
       "Copyright 2018 University of Colorado Boulder"
     ],
@@ -39,7 +39,7 @@
     "license": "contact phethelp@colorado.edu",
     "notes": "created by Ashton Morris for use by PhET"
   },
-  "arm-position-006.mp3": {
+  "armPosition006.mp3": {
     "text": [
       "Copyright 2018 University of Colorado Boulder"
     ],
@@ -47,7 +47,7 @@
     "license": "contact phethelp@colorado.edu",
     "notes": "created by Ashton Morris for use by PhET"
   },
-  "charges-in-body.mp3": {
+  "chargesInBody.mp3": {
     "text": [
       "Copyright 2018 University of Colorado Boulder"
     ],
@@ -55,7 +55,7 @@
     "license": "contact phethelp@colorado.edu",
     "notes": "created by Ashton Morris for use by PhET"
   },
-  "electric-discharge.mp3": {
+  "electricDischarge.mp3": {
     "text": [
       "Copyright 2018 University of Colorado Boulder"
     ],
