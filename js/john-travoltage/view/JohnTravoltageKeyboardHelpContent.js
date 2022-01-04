@@ -27,13 +27,15 @@ class JohnTravoltageKeyboardHelpContent extends TwoColumnKeyboardHelpContent {
     const appendageHelpSection = new KeyboardHelpSection( handOrFootString, [
       KeyboardHelpSection.labelWithIcon(
         moveFootString,
-        KeyboardHelpIconFactory.leftRightArrowKeysRowIcon(),
-        moveFootDescriptionString
+        KeyboardHelpIconFactory.leftRightArrowKeysRowIcon(), {
+          labelInnerContent: moveFootDescriptionString
+        }
       ),
       KeyboardHelpSection.labelWithIcon(
         moveHandString,
-        KeyboardHelpIconFactory.upDownArrowKeysRowIcon(),
-        moveHandDescriptionString
+        KeyboardHelpIconFactory.upDownArrowKeysRowIcon(), {
+          labelInnerContent: moveHandDescriptionString
+        }
       )
     ] );
 
