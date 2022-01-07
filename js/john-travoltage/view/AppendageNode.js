@@ -64,12 +64,6 @@ class AppendageNode extends Node {
 
     super();
 
-    // voicing, TODO redundant with accessibleSlider call? https://github.com/phetsims/sun/issues/730
-    this.initializeVoicing();
-
-    // Mutate options eagerly, but after voicing is initialized
-    this.mutate( options );
-
     // @private
     this.model = appendage;
     this.rangeMap = rangeMap;
@@ -250,6 +244,9 @@ class AppendageNode extends Node {
       // sliderProperty which is used to generate the aria-valuetext itself.
       this.voicingObjectResponse = this.createAriaValueText( value, previousValue );
     } );
+
+    // Mutate options after accessibility traits have been initialized so all setters are ready
+    this.mutate( options );
   }
 
   /**
