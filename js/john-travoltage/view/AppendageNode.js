@@ -17,7 +17,7 @@ import Utils from '../../../../dot/js/Utils.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Shape from '../../../../kite/js/Shape.js';
 import merge from '../../../../phet-core/js/merge.js';
-import { DragListener, FocusHighlightPath, Image, Node, Rectangle, Voicing } from '../../../../scenery/js/imports.js';
+import { DragListener, FocusHighlightPath, Image, Node, Rectangle } from '../../../../scenery/js/imports.js';
 import AccessibleSlider from '../../../../sun/js/accessibility/AccessibleSlider.js';
 import johnTravoltage from '../../johnTravoltage.js';
 
@@ -245,7 +245,6 @@ class AppendageNode extends Node {
       this.voicingObjectResponse = this.createAriaValueText( value, previousValue );
     } );
 
-    // Mutate options after accessibility traits have been initialized so all setters are ready
     this.mutate( options );
   }
 
@@ -424,6 +423,5 @@ class AppendageNode extends Node {
 johnTravoltage.register( 'AppendageNode', AppendageNode );
 
 AccessibleSlider.mixInto( AppendageNode );
-Voicing.compose( AppendageNode );
 
 export default AppendageNode;
