@@ -31,7 +31,7 @@ QUALITATIVE_DESCRIPTION_MAP.set( new Range( 54, 76 ), 'A large amount of' );
 QUALITATIVE_DESCRIPTION_MAP.set( new Range( 77, 99 ), 'A huge amount of' );
 QUALITATIVE_DESCRIPTION_MAP.set( new Range( 100, Number.POSITIVE_INFINITY ), 'Max amount of' );
 
-class ElectronLayerNode extends Node {
+class ElectronLayerNode extends Voicing( Node ) {
 
   /**
    * @param {JohnTravoltageModel} model
@@ -42,8 +42,6 @@ class ElectronLayerNode extends Node {
   constructor( model, armNode, maxElectrons, tandem ) {
 
     super();
-
-    this.initializeVoicing();
 
     // Add larger delay time is used so that the assistive technology can finish speaking updates
     // from the aria-valuetext of the AppendageNode. Note that if the delay is too long, there is too much silence
@@ -149,8 +147,6 @@ class ElectronLayerNode extends Node {
     return qualitativeDescription;
   }
 }
-
-Voicing.compose( ElectronLayerNode );
 
 johnTravoltage.register( 'ElectronLayerNode', ElectronLayerNode );
 
