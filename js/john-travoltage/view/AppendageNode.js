@@ -17,12 +17,12 @@ import Utils from '../../../../dot/js/Utils.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Shape from '../../../../kite/js/Shape.js';
 import merge from '../../../../phet-core/js/merge.js';
-import { DragListener, FocusHighlightPath, Image, Node, Rectangle, Voicing } from '../../../../scenery/js/imports.js';
+import { DragListener, FocusHighlightPath, Image, Node, Rectangle } from '../../../../scenery/js/imports.js';
 import AccessibleSlider from '../../../../sun/js/accessibility/AccessibleSlider.js';
 import johnTravoltage from '../../johnTravoltage.js';
 
-// TODO: remove once AccessibleValueHandler has Voicing back in it, https://github.com/phetsims/scenery/issues/1340
-class AppendageNode extends Voicing( Node ) {
+
+class AppendageNode extends AccessibleSlider( Node ) {
 
   /**
    * @param {Appendage} appendage the body part to display
@@ -40,6 +40,8 @@ class AppendageNode extends Voicing( Node ) {
    * @mixes AccessibleSlider
    */
   constructor( appendage, image, dx, dy, angleOffset, rangeMap, angleToPDOMValueFunction, tandem, options ) {
+
+    const appendageNodeHelper = new AppendageNodeHelper( rangeMap, angleToPDOMValueFunction );
 
     options = merge( {
       cursor: 'pointer',
@@ -63,7 +65,52 @@ class AppendageNode extends Voicing( Node ) {
       voicingNameResponse: null
     }, options );
 
-    super();
+    options = merge( {
+      keyboardStep: 1,
+      shiftKeyboardStep: 1,
+      pageKeyboardStep: 2,
+      constrainValue: newValue => {
+        lastAngle = currentAngle;
+
+        currentAngle = appendageNodeHelper.a11yPositionToAngle( newValue );
+        return newValue;
+      },
+      startDrag: () => {
+
+        appendage.borderVisibleProperty.set( false );
+
+        appendage.isDraggingProperty.set( true );
+      },
+      endDrag: () => {
+
+        appendage.isDraggingProperty.set( false );
+
+        // optional callback on end of drag
+        options.onDragEnd();
+      },
+      a11yCreateAriaValueText: ( formattedValue, sliderValue, oldSliderValue ) => appendageNodeHelper.createAriaValueText( sliderValue, oldSliderValue ),
+      roundToStepSize: true
+    }, options );
+
+    // @protected - set up a bidirectional Property to handle updates to angle and slider position
+    const sliderProperty = new DynamicProperty( new Property( appendage.angleProperty ), {
+      bidirectional: true,
+
+      map: angle => appendageNodeHelper.a11yAngleToPosition( angle ),
+      inverseMap: position => appendageNodeHelper.a11yPositionToAngle( position )
+    } );
+
+    const pdomValueMin = Utils.toFixedNumber( angleToPDOMValueFunction.evaluate( appendage.angleProperty.range.min ), 0 );
+    const pdomValueMax = Utils.toFixedNumber( angleToPDOMValueFunction.evaluate( appendage.angleProperty.range.max ), 0 );
+    const sliderMin = Math.min( pdomValueMin, pdomValueMax );
+    const sliderMax = Math.max( pdomValueMin, pdomValueMax );
+
+    super(
+      sliderProperty,
+      new Property( new Range( sliderMin, sliderMax ) ),
+      new BooleanProperty( true ), // always enabled
+      options
+    );
 
     // @private
     this.model = appendage;
@@ -74,6 +121,8 @@ class AppendageNode extends Voicing( Node ) {
 
     // @public (a11y) - {Object} arm region when a discharge starts
     this.regionAtDischarge = null;
+
+    this.appendageNodeHelper = appendageNodeHelper;
 
     // when the model is reset, reset the flags that track previous interactions with the appendage and reset
     // descriptions, no need to dispose this listener since appendages exist for life of sim
@@ -188,50 +237,8 @@ class AppendageNode extends Voicing( Node ) {
       }
     } );
 
-    const a11ySliderOptions = {
-      keyboardStep: 1,
-      shiftKeyboardStep: 1,
-      pageKeyboardStep: 2,
-      constrainValue: newValue => {
-        lastAngle = currentAngle;
-
-        currentAngle = this.a11yPositionToAngle( newValue );
-        return newValue;
-      },
-      startDrag: () => {
-
-        appendage.borderVisibleProperty.set( false );
-
-        appendage.isDraggingProperty.set( true );
-      },
-      endDrag: () => {
-
-        appendage.isDraggingProperty.set( false );
-
-        // optional callback on end of drag
-        options.onDragEnd();
-      },
-      a11yCreateAriaValueText: ( formattedValue, sliderValue, oldSliderValue ) => this.createAriaValueText( sliderValue, oldSliderValue ),
-      roundToStepSize: true
-    };
-
     // @protected - set up a bidirectional Property to handle updates to angle and slider position
-    this.sliderProperty = new DynamicProperty( new Property( appendage.angleProperty ), {
-      bidirectional: true,
-      map: angle => this.a11yAngleToPosition( angle ),
-      inverseMap: position => this.a11yPositionToAngle( position )
-    } );
-
-    const pdomValueMin = Utils.toFixedNumber( this.angleToPDOMValueFunction.evaluate( appendage.angleProperty.range.min ), 0 );
-    const pdomValueMax = Utils.toFixedNumber( this.angleToPDOMValueFunction.evaluate( appendage.angleProperty.range.max ), 0 );
-    const sliderMin = Math.min( pdomValueMin, pdomValueMax );
-    const sliderMax = Math.max( pdomValueMin, pdomValueMax );
-    this.initializeAccessibleSlider(
-      this.sliderProperty,
-      new Property( new Range( sliderMin, sliderMax ) ),
-      new BooleanProperty( true ), // always enabled
-      a11ySliderOptions
-    );
+    this.sliderProperty = sliderProperty;
 
     // update the center of the focus highlight when
     appendage.angleProperty.link( angle => {
@@ -243,50 +250,10 @@ class AppendageNode extends Voicing( Node ) {
       // the Voicing object response is the same as the aria-valuetext, but we calculate it directly here rather than
       // using the ariaValuetext getter of AccessibleValueHandler to avoid a dependency on listener order on the
       // sliderProperty which is used to generate the aria-valuetext itself.
-      this.voicingObjectResponse = this.createAriaValueText( value, previousValue );
+      this.voicingObjectResponse = this.appendageNodeHelper.createAriaValueText( value, previousValue );
     } );
 
     this.mutate( options );
-  }
-
-  /**
-   * Retrieve the accurate text for a11y display based on the slider property values.
-   *
-   * @public (a11y)
-   * @param  {Number} position         the new slider input value
-   * @param  {Number} previousPosition the old slider input value
-   * @returns {String}                  the generated text for the slider
-   */
-  getTextFromPosition( position, previousPosition ) {
-    let valueDescription;
-
-    // generate descriptions that could be used depending on movement
-    const newRegion = AppendageNode.getRegion( position, this.rangeMap.regions );
-    const landmarkDescription = AppendageNode.getLandmarkDescription( position, this.rangeMap.landmarks );
-
-    if ( landmarkDescription ) {
-
-      // if we are ever on a critical landmark, that description should take priority
-      valueDescription = landmarkDescription;
-    }
-    else if ( newRegion ) {
-
-      // fall back to default region description
-      valueDescription = newRegion.text;
-    }
-
-    return valueDescription;
-  }
-
-  /**
-   * Get a description of the value of the hand position, with an associated numerical value.
-   * @param position
-   * @param previousPosition
-   * @returns {string}
-   * @private
-   */
-  createAriaValueText( position, previousPosition ) {
-    return this.getTextFromPosition( position, previousPosition );
   }
 
   /**
@@ -295,16 +262,7 @@ class AppendageNode extends Voicing( Node ) {
    * @public
    */
   a11yAngleToPosition( angle ) {
-    return Utils.roundSymmetric( this.angleToPDOMValueFunction.evaluate( angle ) );
-  }
-
-  /**
-   * Get the angle from the a11y position of the slider, converting the integer to some floating angle
-   * @returns {number}
-   * @public
-   */
-  a11yPositionToAngle( position ) {
-    return this.angleToPDOMValueFunction.inverse( position );
+    return this.appendageNodeHelper.a11yAngleToPosition( angle );
   }
 
   /**
@@ -316,7 +274,7 @@ class AppendageNode extends Voicing( Node ) {
    */
   resetAriaValueText() {
     const sliderValue = this.a11yAngleToPosition( this.model.angleProperty.get() );
-    this.ariaValueText = this.createAriaValueText( sliderValue, sliderValue );
+    this.ariaValueText = this.appendageNodeHelper.createAriaValueText( sliderValue, sliderValue );
   }
 
   /**
@@ -421,8 +379,73 @@ class AppendageNode extends Voicing( Node ) {
   }
 }
 
-johnTravoltage.register( 'AppendageNode', AppendageNode );
+// TODO: This inner class is a hacks because we need to have access so some prototype methods for parameters to super now, instead of to initializeAccessibleSlider(), https://github.com/phetsims/scenery/issues/1340
+class AppendageNodeHelper {
+  constructor( rangeMap, angleToPDOMValueFunction ) {
+    this.rangeMap = rangeMap;
+    this.angleToPDOMValueFunction = angleToPDOMValueFunction;
+  }
 
-AccessibleSlider.mixInto( AppendageNode );
+  /**
+   * Retrieve the accurate text for a11y display based on the slider property values.
+   *
+   * @private
+   * @param  {Number} position         the new slider input value
+   * @param  {Number} previousPosition the old slider input value
+   * @returns {String}                  the generated text for the slider
+   */
+  getTextFromPosition( position, previousPosition ) {
+    let valueDescription;
+
+    // generate descriptions that could be used depending on movement
+    const newRegion = AppendageNode.getRegion( position, this.rangeMap.regions );
+    const landmarkDescription = AppendageNode.getLandmarkDescription( position, this.rangeMap.landmarks );
+
+    if ( landmarkDescription ) {
+
+      // if we are ever on a critical landmark, that description should take priority
+      valueDescription = landmarkDescription;
+    }
+    else if ( newRegion ) {
+
+      // fall back to default region description
+      valueDescription = newRegion.text;
+    }
+
+    return valueDescription;
+  }
+
+  /**
+   * Get a description of the value of the hand position, with an associated numerical value.
+   * @param position
+   * @param previousPosition
+   * @returns {string}
+   * @public
+   */
+  createAriaValueText( position, previousPosition ) {
+    return this.getTextFromPosition( position, previousPosition );
+  }
+
+
+  /**
+   * Get the mapped a11y position from the current model Property tracking the angle.
+   * @returns {number} - integer value
+   * @public
+   */
+  a11yAngleToPosition( angle ) {
+    return Utils.roundSymmetric( this.angleToPDOMValueFunction.evaluate( angle ) );
+  }
+
+  /**
+   * Get the angle from the a11y position of the slider, converting the integer to some floating angle
+   * @returns {number}
+   * @public
+   */
+  a11yPositionToAngle( position ) {
+    return this.angleToPDOMValueFunction.inverse( position );
+  }
+}
+
+johnTravoltage.register( 'AppendageNode', AppendageNode );
 
 export default AppendageNode;
