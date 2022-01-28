@@ -21,7 +21,7 @@ import AccessibleSlider from '../../../../sun/js/accessibility/AccessibleSlider.
 import johnTravoltage from '../../johnTravoltage.js';
 
 
-class AppendageNode extends AccessibleSlider( Node ) {
+class AppendageNode extends AccessibleSlider( Node, 0 ) {
 
   /**
    * @param {Appendage} appendage the body part to display
