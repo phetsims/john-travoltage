@@ -376,7 +376,6 @@ class AppendageNode extends AccessibleSlider( Node, 0 ) {
   }
 }
 
-// TODO: JG! This inner class is a hacks because we need to have access so some prototype methods for parameters to super now, instead of to initializeAccessibleSlider(), https://github.com/phetsims/scenery/issues/1340
 class AppendageNodeHelper {
   constructor( rangeMap, angleToPDOMValueFunction ) {
     this.rangeMap = rangeMap;
