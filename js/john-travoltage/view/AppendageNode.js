@@ -9,7 +9,6 @@
  * @author Justin Obara
  */
 
-import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import DynamicProperty from '../../../../axon/js/DynamicProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import Range from '../../../../dot/js/Range.js';
@@ -105,12 +104,10 @@ class AppendageNode extends AccessibleSlider( Node ) {
     const sliderMin = Math.min( pdomValueMin, pdomValueMax );
     const sliderMax = Math.max( pdomValueMin, pdomValueMax );
 
-    super(
-      sliderProperty,
-      new Property( new Range( sliderMin, sliderMax ) ),
-      new BooleanProperty( true ), // always enabled
-      options
-    );
+    options.valueProperty = sliderProperty;
+    options.enabledRangeProperty = new Property( new Range( sliderMin, sliderMax ) );
+
+    super( options );
 
     // @private
     this.model = appendage;
@@ -379,7 +376,7 @@ class AppendageNode extends AccessibleSlider( Node ) {
   }
 }
 
-// TODO: This inner class is a hacks because we need to have access so some prototype methods for parameters to super now, instead of to initializeAccessibleSlider(), https://github.com/phetsims/scenery/issues/1340
+// TODO: JG! This inner class is a hacks because we need to have access so some prototype methods for parameters to super now, instead of to initializeAccessibleSlider(), https://github.com/phetsims/scenery/issues/1340
 class AppendageNodeHelper {
   constructor( rangeMap, angleToPDOMValueFunction ) {
     this.rangeMap = rangeMap;
