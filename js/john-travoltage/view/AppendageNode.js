@@ -107,6 +107,9 @@ class AppendageNode extends AccessibleSlider( Node, 0 ) {
     options.valueProperty = sliderProperty;
     options.enabledRangeProperty = new Property( new Range( sliderMin, sliderMax ) );
 
+    const boundsRequiredOptionKeys = _.pick( options, Node.REQUIRES_BOUNDS_OPTION_KEYS );
+    options = _.omit( options, Node.REQUIRES_BOUNDS_OPTION_KEYS );
+
     super( options );
 
     // @private
@@ -250,7 +253,7 @@ class AppendageNode extends AccessibleSlider( Node, 0 ) {
       this.voicingObjectResponse = this.appendageNodeHelper.createAriaValueText( value, previousValue );
     } );
 
-    this.mutate( options );
+    this.mutate( boundsRequiredOptionKeys );
   }
 
   /**
