@@ -11,8 +11,7 @@
 
 import Range from '../../../../dot/js/Range.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
-import { Voicing } from '../../../../scenery/js/imports.js';
-import { Node } from '../../../../scenery/js/imports.js';
+import { Node, Voicing } from '../../../../scenery/js/imports.js';
 import Utterance from '../../../../utterance-queue/js/Utterance.js';
 import johnTravoltage from '../../johnTravoltage.js';
 import johnTravoltageStrings from '../../johnTravoltageStrings.js';
@@ -41,7 +40,16 @@ class ElectronLayerNode extends Voicing( Node, 0 ) {
    */
   constructor( model, armNode, maxElectrons, tandem ) {
 
-    super();
+    super( {
+
+      // many charges are usually added at once, wait until alerts stabilize before
+      // announcing the change in charge - this critical information is intended to be
+      // assertive
+      voicingUtterance: new Utterance( {
+        alertStableDelay: 500,
+        alertMaximumDelay: 800
+      } )
+    } );
 
     // Add larger delay time is used so that the assistive technology can finish speaking updates
     // from the aria-valuetext of the AppendageNode. Note that if the delay is too long, there is too much silence
@@ -51,14 +59,6 @@ class ElectronLayerNode extends Voicing( Node, 0 ) {
     } );
 
     let priorCharge = 0;
-
-    // many charges are usually added at once, wait until alerts stabilize before
-    // announcing the change in charge - this critical information is intended to be
-    // assertive
-    const chargeUtterance = new Utterance( {
-      alertStableDelay: 500,
-      alertMaximumDelay: 800
-    } );
 
     // pdom - when electrons enter or leave the body, announce this change with a status update to assistive technology
     const setElectronStatus = () => {
@@ -71,9 +71,7 @@ class ElectronLayerNode extends Voicing( Node, 0 ) {
         this.voicingContextResponse = StringUtils.fillIn( '{{qualitativeDescription}} electrons on body', {
           qualitativeDescription: this.getQualitativeChargeDescription( currentCharge )
         } );
-        this.voicingSpeakContextResponse( {
-          utterance: chargeUtterance
-        } );
+        this.voicingSpeakContextResponse();
       }
       else {
 

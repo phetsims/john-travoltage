@@ -61,7 +61,15 @@ class LegNode extends AppendageNode {
 
       // voicing
       voicingNameResponse: appendageLegLabelString,
-      voicingHintResponse: footInteractionHintString
+      voicingHintResponse: footInteractionHintString,
+
+      // the foot position Utterance is polite so that we only hear foot position after charge pickup alerts
+      // are spoken, charge information is more important.
+      voicingUtterance: new Utterance( {
+        announcerOptions: {
+          cancelOther: false
+        }
+      } )
     }, options );
 
     const angleToPDOMValueFunction = new LinearFunction( legModel.angleProperty.range.max, legModel.angleProperty.range.min, -7, 7 );
@@ -70,19 +78,12 @@ class LegNode extends AppendageNode {
     // @private {number} - counts the number of times a drag occurs while there are max charges on the body
     this.numberOfDragsAtMaxCharge = 0;
 
-    // voicing - the foot position utterance is polite so that we only hear foot position after charge pickup alerts
-    // are spoken, charge information is more important
-    const footPositionChangeUtterance = new Utterance( {
-      announcerOptions: {
-        cancelOther: false
-      }
-    } );
-    this.sliderProperty.lazyLink( ( value, oldValue ) => {
+    this.sliderProperty.lazyLink( () => {
 
       // leg alerts are only made when the foot is off the rug - otherwise we should hear charge information and the
       // rubbing sound only
       if ( !legModel.shoeOnCarpetProperty.value ) {
-        this.voicingSpeakObjectResponse( { utterance: footPositionChangeUtterance } );
+        this.voicingSpeakObjectResponse();
       }
     } );
   }
