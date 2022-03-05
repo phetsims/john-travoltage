@@ -1,4 +1,4 @@
-// Copyright 2013-2021, University of Colorado Boulder
+// Copyright 2013-2022, University of Colorado Boulder
 
 /**
  * Utility for sampling positions and line segments for the model, which should be used in the JohnTravoltageView.
