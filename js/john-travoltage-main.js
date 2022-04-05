@@ -11,7 +11,6 @@ import PreferencesConfiguration from '../../joist/js/preferences/PreferencesConf
 import Sim from '../../joist/js/Sim.js';
 import simLauncher from '../../joist/js/simLauncher.js';
 import Tandem from '../../tandem/js/Tandem.js';
-import vibrationManager from '../../tappi/js/vibrationManager.js';
 import JohnTravoltageScreen from './john-travoltage/JohnTravoltageScreen.js';
 import johnTravoltageStrings from './johnTravoltageStrings.js';
 
@@ -43,10 +42,7 @@ const simOptions = {
   hasKeyboardHelpContent: true,
 
   // include a PreferencesDialog, with defaults specified in package.json
-  preferencesConfiguration: new PreferencesConfiguration(),
-
-  // protoypal vibration feedback, see https://github.com/phetsims/john-travoltage/issues/337
-  vibrationManager: vibrationManager
+  preferencesConfiguration: new PreferencesConfiguration()
 };
 
 //Create and start the sim
