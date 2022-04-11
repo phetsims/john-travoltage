@@ -6,7 +6,6 @@
 
 import LinearFunction from '../../../../dot/js/LinearFunction.js';
 import merge from '../../../../phet-core/js/merge.js';
-import { voicingUtteranceQueue } from '../../../../scenery/js/imports.js';
 import Utterance from '../../../../utterance-queue/js/Utterance.js';
 import leg_png from '../../../images/leg_png.js';
 import johnTravoltage from '../../johnTravoltage.js';
@@ -50,7 +49,9 @@ class LegNode extends AppendageNode {
       onDragEnd: () => {
         if ( electronGroup.count === JohnTravoltageModel.MAX_ELECTRONS ) {
           if ( this.numberOfDragsAtMaxCharge < ALERTS_FOR_MAX_CHARGE ) {
-            voicingUtteranceQueue.addToBack( johnFullyChargedString );
+            this.voicingSpeakContextResponse( {
+              contextResponse: johnFullyChargedString
+            } );
           }
           this.numberOfDragsAtMaxCharge++;
         }
