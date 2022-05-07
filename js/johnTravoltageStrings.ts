@@ -9,78 +9,78 @@ import johnTravoltage from './johnTravoltage.js';
 
 type StringsType = {
   'john-travoltage': {
-    'title': string
-  },
-  'or': string,
-  'shiftKey': string,
-  'escKey': string,
-  'tabKey': string,
-  'handOrFoot': string,
-  'moveHandOrFoot': string,
-  'moveFoot': string,
-  'moveHand': string,
-  'hotKeysAndHelp': string,
-  'arrowKeysMoveFoot': string,
-  'tabKeyDescription': string,
-  'shiftTabKeyDescription': string,
-  'escapeKeyDescription': string,
+    'title': string;
+  };
+  'or': string;
+  'shiftKey': string;
+  'escKey': string;
+  'tabKey': string;
+  'handOrFoot': string;
+  'moveHandOrFoot': string;
+  'moveFoot': string;
+  'moveHand': string;
+  'hotKeysAndHelp': string;
+  'arrowKeysMoveFoot': string;
+  'tabKeyDescription': string;
+  'shiftTabKeyDescription': string;
+  'escapeKeyDescription': string;
   'a11y': {
     'screenSummary': {
-      'bodyDescriptionPattern': string,
-      'descriptionWithChargePattern': string
-    },
+      'bodyDescriptionPattern': string;
+      'descriptionWithChargePattern': string;
+    };
     'electrons': {
-      'singleDescription': string,
-      'multipleDescriptionPattern': string,
-      'totalDescriptionPattern': string,
-      'totalAfterDischargePattern': string
-    },
+      'singleDescription': string;
+      'multipleDescriptionPattern': string;
+      'totalDescriptionPattern': string;
+      'totalAfterDischargePattern': string;
+    };
     'appendages': {
       'arm': {
-        'label': string,
+        'label': string;
         'positions': {
-          'farthestFromDoorknob': string,
-          'veryFarFromDoorknob': string,
-          'farFromDoorknob': string,
-          'notSoCloseToDoorknob': string,
-          'closeToDoorknob': string,
-          'veryCloseToDoorknob': string,
-          'justAboveDoorknob': string,
-          'atDoorknob': string,
-          'justBelowDoorknob': string,
-          'handPointingAway': string,
-          'handPointingStraightUp': string,
-          'handPointingAtUpperDoor': string,
-          'handPointingAtLowerDoor': string,
-          'handPointingStraightDown': string,
-          'farthestFromDoorknobLast': string
+          'farthestFromDoorknob': string;
+          'veryFarFromDoorknob': string;
+          'farFromDoorknob': string;
+          'notSoCloseToDoorknob': string;
+          'closeToDoorknob': string;
+          'veryCloseToDoorknob': string;
+          'justAboveDoorknob': string;
+          'atDoorknob': string;
+          'justBelowDoorknob': string;
+          'handPointingAway': string;
+          'handPointingStraightUp': string;
+          'handPointingAtUpperDoor': string;
+          'handPointingAtLowerDoor': string;
+          'handPointingStraightDown': string;
+          'farthestFromDoorknobLast': string;
         }
-      },
+      };
       'leg': {
-        'label': string,
+        'label': string;
         'positions': {
-          'footOffRugPointingBackwards': string,
-          'footOffRug': string,
-          'footRubbingOnRug': string,
-          'footOffRugPointingForward': string
+          'footOffRugPointingBackwards': string;
+          'footOffRug': string;
+          'footRubbingOnRug': string;
+          'footOffRugPointingForward': string;
         }
       }
-    },
+    };
     'keyboardHelpDialog': {
-      'moveFootDescription': string,
-      'moveHandDescription': string
-    },
+      'moveFootDescription': string;
+      'moveHandDescription': string;
+    };
     'voicing': {
-      'contentHint': string,
-      'detailedContentHint': string,
-      'chargedContentHint': string,
-      'overviewPattern': string,
-      'previousDischargePattern': string,
-      'johnFullyCharged': string,
-      'multipleElectronsOnBodyPattern': string,
-      'screenSummaryWithPreviousDischargePattern': string,
-      'handInteractionHint': string,
-      'footInteractionHint': string
+      'contentHint': string;
+      'detailedContentHint': string;
+      'chargedContentHint': string;
+      'overviewPattern': string;
+      'previousDischargePattern': string;
+      'johnFullyCharged': string;
+      'multipleElectronsOnBodyPattern': string;
+      'screenSummaryWithPreviousDischargePattern': string;
+      'handInteractionHint': string;
+      'footInteractionHint': string;
     }
   }
 };
