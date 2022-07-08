@@ -276,7 +276,7 @@ class JohnTravoltageView extends ScreenView {
       enableControlProperties: [ resetNotInProgressProperty ],
       initialOutputLevel: 0.3
     } );
-    soundManager.addSoundGenerator( popSoundGenerator, { sonificationLevel: SoundLevelEnum.ENHANCED } );
+    soundManager.addSoundGenerator( popSoundGenerator, { sonificationLevel: SoundLevelEnum.EXTRA } );
 
     model.sparkVisibleProperty.link( sparkVisible => {
 
