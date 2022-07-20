@@ -6,8 +6,7 @@
  * @author Jesse Greenberg
  */
 
-import { DragListener } from '../../../../scenery/js/imports.js';
-import { Path } from '../../../../scenery/js/imports.js';
+import { DragListener, Path } from '../../../../scenery/js/imports.js';
 import johnTravoltage from '../../johnTravoltage.js';
 
 class BodyShapeNode extends Path {

@@ -11,10 +11,7 @@
 import DotRectangle from '../../../../dot/js/Rectangle.js'; // eslint-disable-line default-import-match-filename
 import Vector2 from '../../../../dot/js/Vector2.js';
 import ElectronChargeNode from '../../../../scenery-phet/js/ElectronChargeNode.js';
-import { Circle } from '../../../../scenery/js/imports.js';
-import { Image } from '../../../../scenery/js/imports.js';
-import { Node } from '../../../../scenery/js/imports.js';
-import { Rectangle } from '../../../../scenery/js/imports.js';
+import { Circle, Image, Node, Rectangle } from '../../../../scenery/js/imports.js';
 import johnTravoltage from '../../johnTravoltage.js';
 
 // constants
