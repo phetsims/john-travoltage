@@ -41,7 +41,7 @@ class Leg extends Appendage {
     // true when the foot is in contact with the carpet
     this.shoeOnCarpetProperty = new DerivedProperty( [ this.angleProperty ],
       angle => angle > JohnTravoltageModel.FOOT_ON_CARPET_MIN_ANGLE && angle < JohnTravoltageModel.FOOT_ON_CARPET_MAX_ANGLE, {
-        phetioType: DerivedProperty.DerivedPropertyIO( BooleanIO ),
+        phetioValueType: BooleanIO,
         tandem: tandem.createTandem( 'shoeOnCarpetProperty' )
       } );
   }
