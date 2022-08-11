@@ -30,7 +30,7 @@ QUALITATIVE_DESCRIPTION_MAP.set( new Range( 54, 76 ), 'A large amount of' );
 QUALITATIVE_DESCRIPTION_MAP.set( new Range( 77, 99 ), 'A huge amount of' );
 QUALITATIVE_DESCRIPTION_MAP.set( new Range( 100, Number.POSITIVE_INFINITY ), 'Max amount of' );
 
-class ElectronLayerNode extends Voicing( Node, 0 ) {
+class ElectronLayerNode extends Voicing( Node ) {
 
   /**
    * @param {JohnTravoltageModel} model
