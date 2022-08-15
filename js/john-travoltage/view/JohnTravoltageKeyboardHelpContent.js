@@ -9,6 +9,7 @@
 import BasicActionsKeyboardHelpSection from '../../../../scenery-phet/js/keyboard/help/BasicActionsKeyboardHelpSection.js';
 import KeyboardHelpIconFactory from '../../../../scenery-phet/js/keyboard/help/KeyboardHelpIconFactory.js';
 import KeyboardHelpSection from '../../../../scenery-phet/js/keyboard/help/KeyboardHelpSection.js';
+import KeyboardHelpSectionRow from '../../../../scenery-phet/js/keyboard/help/KeyboardHelpSectionRow.js';
 import TwoColumnKeyboardHelpContent from '../../../../scenery-phet/js/keyboard/help/TwoColumnKeyboardHelpContent.js';
 import johnTravoltage from '../../johnTravoltage.js';
 import johnTravoltageStrings from '../../johnTravoltageStrings.js';
@@ -25,13 +26,13 @@ class JohnTravoltageKeyboardHelpContent extends TwoColumnKeyboardHelpContent {
 
     // help sections specific to john-travoltage, moving the arm and leg
     const appendageHelpSection = new KeyboardHelpSection( handOrFootString, [
-      KeyboardHelpSection.labelWithIcon(
+      KeyboardHelpSectionRow.labelWithIcon(
         moveFootString,
         KeyboardHelpIconFactory.leftRightArrowKeysRowIcon(), {
           labelInnerContent: moveFootDescriptionString
         }
       ),
-      KeyboardHelpSection.labelWithIcon(
+      KeyboardHelpSectionRow.labelWithIcon(
         moveHandString,
         KeyboardHelpIconFactory.upDownArrowKeysRowIcon(), {
           labelInnerContent: moveHandDescriptionString
