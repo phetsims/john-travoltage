@@ -7,7 +7,6 @@
  * @author Vasily Shakhov (Mlearner)
  */
 
-import PreferencesConfiguration from '../../joist/js/preferences/PreferencesConfiguration.js';
 import Sim from '../../joist/js/Sim.js';
 import simLauncher from '../../joist/js/simLauncher.js';
 import Tandem from '../../tandem/js/Tandem.js';
@@ -39,10 +38,7 @@ const simOptions = {
     thanks: 'Thanks to Mobile Learner Labs for working with the PhET development team ' +
             'to convert this simulation to HTML5.'
   },
-  hasKeyboardHelpContent: true,
-
-  // include a PreferencesDialog, with defaults specified in package.json
-  preferencesConfiguration: new PreferencesConfiguration()
+  hasKeyboardHelpContent: true
 };
 
 //Create and start the sim
