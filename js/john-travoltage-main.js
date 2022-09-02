@@ -13,7 +13,7 @@ import Tandem from '../../tandem/js/Tandem.js';
 import JohnTravoltageScreen from './john-travoltage/JohnTravoltageScreen.js';
 import johnTravoltageStrings from './johnTravoltageStrings.js';
 
-const johnTravoltageTitleString = johnTravoltageStrings[ 'john-travoltage' ].title;
+const johnTravoltageTitleStringProperty = johnTravoltageStrings[ 'john-travoltage' ].titleStringProperty;
 
 //Workaround for #30
 const newChild = document.createElement( 'audio' );
@@ -43,7 +43,7 @@ const simOptions = {
 
 //Create and start the sim
 simLauncher.launch( () => {
-  new Sim( johnTravoltageTitleString, [
+  new Sim( johnTravoltageTitleStringProperty, [
     new JohnTravoltageScreen( tandem.createTandem( 'johnTravoltageScreen' ) )
   ], simOptions ).start();
 } );
