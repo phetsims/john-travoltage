@@ -9,29 +9,29 @@
 
 import Range from '../../../dot/js/Range.js';
 import johnTravoltage from '../johnTravoltage.js';
-import johnTravoltageStrings from '../johnTravoltageStrings.js';
+import JohnTravoltageStrings from '../JohnTravoltageStrings.js';
 
-const farthestFromDoorknobString = johnTravoltageStrings.a11y.appendages.arm.positions.farthestFromDoorknob;
-const veryFarFromDoorknobString = johnTravoltageStrings.a11y.appendages.arm.positions.veryFarFromDoorknob;
-const farFromDoorknobString = johnTravoltageStrings.a11y.appendages.arm.positions.farFromDoorknob;
-const notSoCloseToDoorknobString = johnTravoltageStrings.a11y.appendages.arm.positions.notSoCloseToDoorknob;
-const closeToDoorknobString = johnTravoltageStrings.a11y.appendages.arm.positions.closeToDoorknob;
-const veryCloseToDoorknobString = johnTravoltageStrings.a11y.appendages.arm.positions.veryCloseToDoorknob;
-const justAboveDoorknobString = johnTravoltageStrings.a11y.appendages.arm.positions.justAboveDoorknob;
-const atDoorknobString = johnTravoltageStrings.a11y.appendages.arm.positions.atDoorknob;
-const justBelowDoorknobString = johnTravoltageStrings.a11y.appendages.arm.positions.justBelowDoorknob;
+const farthestFromDoorknobString = JohnTravoltageStrings.a11y.appendages.arm.positions.farthestFromDoorknob;
+const veryFarFromDoorknobString = JohnTravoltageStrings.a11y.appendages.arm.positions.veryFarFromDoorknob;
+const farFromDoorknobString = JohnTravoltageStrings.a11y.appendages.arm.positions.farFromDoorknob;
+const notSoCloseToDoorknobString = JohnTravoltageStrings.a11y.appendages.arm.positions.notSoCloseToDoorknob;
+const closeToDoorknobString = JohnTravoltageStrings.a11y.appendages.arm.positions.closeToDoorknob;
+const veryCloseToDoorknobString = JohnTravoltageStrings.a11y.appendages.arm.positions.veryCloseToDoorknob;
+const justAboveDoorknobString = JohnTravoltageStrings.a11y.appendages.arm.positions.justAboveDoorknob;
+const atDoorknobString = JohnTravoltageStrings.a11y.appendages.arm.positions.atDoorknob;
+const justBelowDoorknobString = JohnTravoltageStrings.a11y.appendages.arm.positions.justBelowDoorknob;
 
-const handPointingAwayString = johnTravoltageStrings.a11y.appendages.arm.positions.handPointingAway;
-const handPointingStraightUpString = johnTravoltageStrings.a11y.appendages.arm.positions.handPointingStraightUp;
-const handPointingAtUpperDoorString = johnTravoltageStrings.a11y.appendages.arm.positions.handPointingAtUpperDoor;
-const handPointingAtLowerDoorString = johnTravoltageStrings.a11y.appendages.arm.positions.handPointingAtLowerDoor;
-const handPointingStraightDownString = johnTravoltageStrings.a11y.appendages.arm.positions.handPointingStraightDown;
-const farthestFromDoorknobLastString = johnTravoltageStrings.a11y.appendages.arm.positions.farthestFromDoorknobLast;
+const handPointingAwayString = JohnTravoltageStrings.a11y.appendages.arm.positions.handPointingAway;
+const handPointingStraightUpString = JohnTravoltageStrings.a11y.appendages.arm.positions.handPointingStraightUp;
+const handPointingAtUpperDoorString = JohnTravoltageStrings.a11y.appendages.arm.positions.handPointingAtUpperDoor;
+const handPointingAtLowerDoorString = JohnTravoltageStrings.a11y.appendages.arm.positions.handPointingAtLowerDoor;
+const handPointingStraightDownString = JohnTravoltageStrings.a11y.appendages.arm.positions.handPointingStraightDown;
+const farthestFromDoorknobLastString = JohnTravoltageStrings.a11y.appendages.arm.positions.farthestFromDoorknobLast;
 
-const footOffRugPointingBackwardsString = johnTravoltageStrings.a11y.appendages.leg.positions.footOffRugPointingBackwards;
-const footOffRugString = johnTravoltageStrings.a11y.appendages.leg.positions.footOffRug;
-const footRubbingOnRugString = johnTravoltageStrings.a11y.appendages.leg.positions.footRubbingOnRug;
-const footOffRugPointingForwardString = johnTravoltageStrings.a11y.appendages.leg.positions.footOffRugPointingForward;
+const footOffRugPointingBackwardsString = JohnTravoltageStrings.a11y.appendages.leg.positions.footOffRugPointingBackwards;
+const footOffRugString = JohnTravoltageStrings.a11y.appendages.leg.positions.footOffRug;
+const footRubbingOnRugString = JohnTravoltageStrings.a11y.appendages.leg.positions.footRubbingOnRug;
+const footOffRugPointingForwardString = JohnTravoltageStrings.a11y.appendages.leg.positions.footOffRugPointingForward;
 
 
 const AppendageRangeMaps = {

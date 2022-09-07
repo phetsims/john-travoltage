@@ -12,14 +12,14 @@ import KeyboardHelpSection from '../../../../scenery-phet/js/keyboard/help/Keybo
 import KeyboardHelpSectionRow from '../../../../scenery-phet/js/keyboard/help/KeyboardHelpSectionRow.js';
 import TwoColumnKeyboardHelpContent from '../../../../scenery-phet/js/keyboard/help/TwoColumnKeyboardHelpContent.js';
 import johnTravoltage from '../../johnTravoltage.js';
-import johnTravoltageStrings from '../../johnTravoltageStrings.js';
+import JohnTravoltageStrings from '../../JohnTravoltageStrings.js';
 
-const handOrFootString = johnTravoltageStrings.handOrFoot;
-const moveFootString = johnTravoltageStrings.moveFoot;
-const moveHandString = johnTravoltageStrings.moveHand;
+const handOrFootString = JohnTravoltageStrings.handOrFoot;
+const moveFootString = JohnTravoltageStrings.moveFoot;
+const moveHandString = JohnTravoltageStrings.moveHand;
 
-const moveFootDescriptionString = johnTravoltageStrings.a11y.keyboardHelpDialog.moveFootDescription;
-const moveHandDescriptionString = johnTravoltageStrings.a11y.keyboardHelpDialog.moveHandDescription;
+const moveFootDescriptionString = JohnTravoltageStrings.a11y.keyboardHelpDialog.moveFootDescription;
+const moveHandDescriptionString = JohnTravoltageStrings.a11y.keyboardHelpDialog.moveHandDescription;
 
 class JohnTravoltageKeyboardHelpContent extends TwoColumnKeyboardHelpContent {
   constructor() {

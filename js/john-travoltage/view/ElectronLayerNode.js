@@ -14,11 +14,11 @@ import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import { Node, Voicing } from '../../../../scenery/js/imports.js';
 import Utterance from '../../../../utterance-queue/js/Utterance.js';
 import johnTravoltage from '../../johnTravoltage.js';
-import johnTravoltageStrings from '../../johnTravoltageStrings.js';
+import JohnTravoltageStrings from '../../JohnTravoltageStrings.js';
 import ElectronNode from './ElectronNode.js';
 
-const electronsTotalDescriptionPatternString = johnTravoltageStrings.a11y.electrons.totalDescriptionPattern;
-const electronsTotalAfterDischargePatternString = johnTravoltageStrings.a11y.electrons.totalAfterDischargePattern;
+const electronsTotalDescriptionPatternString = JohnTravoltageStrings.a11y.electrons.totalDescriptionPattern;
+const electronsTotalAfterDischargePatternString = JohnTravoltageStrings.a11y.electrons.totalAfterDischargePattern;
 
 const QUALITATIVE_DESCRIPTION_MAP = new Map();
 QUALITATIVE_DESCRIPTION_MAP.set( new Range( 0, 0 ), 'No' );

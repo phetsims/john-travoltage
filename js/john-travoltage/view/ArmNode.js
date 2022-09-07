@@ -8,13 +8,13 @@ import LinearFunction from '../../../../dot/js/LinearFunction.js';
 import merge from '../../../../phet-core/js/merge.js';
 import arm_png from '../../../images/arm_png.js';
 import johnTravoltage from '../../johnTravoltage.js';
-import johnTravoltageStrings from '../../johnTravoltageStrings.js';
+import JohnTravoltageStrings from '../../JohnTravoltageStrings.js';
 import AppendageRangeMaps from '../AppendageRangeMaps.js';
 import AppendageNode from './AppendageNode.js';
 
 // constants
-const handInteractionHintString = johnTravoltageStrings.a11y.voicing.handInteractionHint;
-const appendageArmLabelString = johnTravoltageStrings.a11y.appendages.arm.label;
+const handInteractionHintString = JohnTravoltageStrings.a11y.voicing.handInteractionHint;
+const appendageArmLabelString = JohnTravoltageStrings.a11y.appendages.arm.label;
 
 class ArmNode extends AppendageNode {
 

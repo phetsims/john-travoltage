@@ -18,7 +18,7 @@ import { Shape } from '../../../../kite/js/imports.js';
 import platform from '../../../../phet-core/js/platform.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import ResetAllButton from '../../../../scenery-phet/js/buttons/ResetAllButton.js';
-import sceneryPhetStrings from '../../../../scenery-phet/js/sceneryPhetStrings.js';
+import SceneryPhetStrings from '../../../../scenery-phet/js/SceneryPhetStrings.js';
 import { Circle, Line, Node, Path, PDOMPeer } from '../../../../scenery/js/imports.js';
 import PitchedPopGenerator from '../../../../tambo/js/sound-generators/PitchedPopGenerator.js';
 import SoundClip from '../../../../tambo/js/sound-generators/SoundClip.js';
@@ -31,7 +31,7 @@ import electricDischarge_mp3 from '../../../sounds/electricDischarge_mp3.js';
 import gazouch_mp3 from '../../../sounds/gazouch_mp3.js';
 import ouch_mp3 from '../../../sounds/ouch_mp3.js';
 import johnTravoltage from '../../johnTravoltage.js';
-import johnTravoltageStrings from '../../johnTravoltageStrings.js';
+import JohnTravoltageStrings from '../../JohnTravoltageStrings.js';
 import AppendageRangeMaps from '../AppendageRangeMaps.js';
 import JohnTravoltageQueryParameters from '../JohnTravoltageQueryParameters.js';
 import JohnTravoltageModel from '../model/JohnTravoltageModel.js';
@@ -46,18 +46,18 @@ import LegNode from './LegNode.js';
 import SparkNode from './SparkNode.js';
 import vibrationController from './vibrationController.js';
 
-const screenSummaryBodyDescriptionPatternString = johnTravoltageStrings.a11y.screenSummary.bodyDescriptionPattern;
-const electronsSingleDescriptionString = johnTravoltageStrings.a11y.electrons.singleDescription;
-const electronsMultipleDescriptionPatternString = johnTravoltageStrings.a11y.electrons.multipleDescriptionPattern;
-const descriptionWithChargePatternString = johnTravoltageStrings.a11y.screenSummary.descriptionWithChargePattern;
-const voicingContentHintString = johnTravoltageStrings.a11y.voicing.contentHint;
-const voicingDetailedContentHintString = johnTravoltageStrings.a11y.voicing.detailedContentHint;
-const previousDischargePatternString = johnTravoltageStrings.a11y.voicing.previousDischargePattern;
-const screenSummaryWithPreviousDischargePatternString = johnTravoltageStrings.a11y.voicing.screenSummaryWithPreviousDischargePattern;
-const screenSummarySingleScreenIntroPatternString = sceneryPhetStrings.a11y.voicing.simSection.screenSummary.singleScreenIntroPattern;
-const overviewPatternString = johnTravoltageStrings.a11y.voicing.overviewPattern;
-const voicingChargedContentHintString = johnTravoltageStrings.a11y.voicing.chargedContentHint;
-const multipleElectronsOnBodyPatternString = johnTravoltageStrings.a11y.voicing.multipleElectronsOnBodyPattern;
+const screenSummaryBodyDescriptionPatternString = JohnTravoltageStrings.a11y.screenSummary.bodyDescriptionPattern;
+const electronsSingleDescriptionString = JohnTravoltageStrings.a11y.electrons.singleDescription;
+const electronsMultipleDescriptionPatternString = JohnTravoltageStrings.a11y.electrons.multipleDescriptionPattern;
+const descriptionWithChargePatternString = JohnTravoltageStrings.a11y.screenSummary.descriptionWithChargePattern;
+const voicingContentHintString = JohnTravoltageStrings.a11y.voicing.contentHint;
+const voicingDetailedContentHintString = JohnTravoltageStrings.a11y.voicing.detailedContentHint;
+const previousDischargePatternString = JohnTravoltageStrings.a11y.voicing.previousDischargePattern;
+const screenSummaryWithPreviousDischargePatternString = JohnTravoltageStrings.a11y.voicing.screenSummaryWithPreviousDischargePattern;
+const screenSummarySingleScreenIntroPatternString = SceneryPhetStrings.a11y.voicing.simSection.screenSummary.singleScreenIntroPattern;
+const overviewPatternString = JohnTravoltageStrings.a11y.voicing.overviewPattern;
+const voicingChargedContentHintString = JohnTravoltageStrings.a11y.voicing.chargedContentHint;
+const multipleElectronsOnBodyPatternString = JohnTravoltageStrings.a11y.voicing.multipleElectronsOnBodyPattern;
 
 // constants
 const OUCH_EXCLAMATION_DELAY = 0.5; // in seconds

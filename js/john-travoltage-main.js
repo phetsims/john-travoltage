@@ -11,9 +11,9 @@ import Sim from '../../joist/js/Sim.js';
 import simLauncher from '../../joist/js/simLauncher.js';
 import Tandem from '../../tandem/js/Tandem.js';
 import JohnTravoltageScreen from './john-travoltage/JohnTravoltageScreen.js';
-import johnTravoltageStrings from './johnTravoltageStrings.js';
+import JohnTravoltageStrings from './JohnTravoltageStrings.js';
 
-const johnTravoltageTitleStringProperty = johnTravoltageStrings[ 'john-travoltage' ].titleStringProperty;
+const johnTravoltageTitleStringProperty = JohnTravoltageStrings[ 'john-travoltage' ].titleStringProperty;
 
 //Workaround for #30
 const newChild = document.createElement( 'audio' );

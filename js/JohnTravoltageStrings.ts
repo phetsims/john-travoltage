@@ -139,8 +139,8 @@ type StringsType = {
   }
 };
 
-const johnTravoltageStrings = getStringModule( 'JOHN_TRAVOLTAGE' ) as StringsType;
+const JohnTravoltageStrings = getStringModule( 'JOHN_TRAVOLTAGE' ) as StringsType;
 
-johnTravoltage.register( 'johnTravoltageStrings', johnTravoltageStrings );
+johnTravoltage.register( 'JohnTravoltageStrings', JohnTravoltageStrings );
 
-export default johnTravoltageStrings;
+export default JohnTravoltageStrings;

@@ -9,15 +9,15 @@ import merge from '../../../../phet-core/js/merge.js';
 import Utterance from '../../../../utterance-queue/js/Utterance.js';
 import leg_png from '../../../images/leg_png.js';
 import johnTravoltage from '../../johnTravoltage.js';
-import johnTravoltageStrings from '../../johnTravoltageStrings.js';
+import JohnTravoltageStrings from '../../JohnTravoltageStrings.js';
 import AppendageRangeMaps from '../AppendageRangeMaps.js';
 import JohnTravoltageModel from '../model/JohnTravoltageModel.js';
 import AppendageNode from './AppendageNode.js';
 
 // constants
-const appendageLegLabelString = johnTravoltageStrings.a11y.appendages.leg.label;
-const footInteractionHintString = johnTravoltageStrings.a11y.voicing.footInteractionHint;
-const johnFullyChargedString = johnTravoltageStrings.a11y.voicing.johnFullyCharged;
+const appendageLegLabelString = JohnTravoltageStrings.a11y.appendages.leg.label;
+const footInteractionHintString = JohnTravoltageStrings.a11y.voicing.footInteractionHint;
+const johnFullyChargedString = JohnTravoltageStrings.a11y.voicing.johnFullyCharged;
 
 const ALERTS_FOR_MAX_CHARGE = 2;
 
