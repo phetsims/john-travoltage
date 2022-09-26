@@ -5,136 +5,136 @@
  */
 /* eslint-disable */
 import getStringModule from '../../chipper/js/getStringModule.js';
-import TReadOnlyProperty from '../../axon/js/TReadOnlyProperty.js';
+import LinkableProperty from '../../axon/js/LinkableProperty.js';
 import johnTravoltage from './johnTravoltage.js';
 
 type StringsType = {
   'john-travoltage': {
     'title': string;
-    'titleStringProperty': TReadOnlyProperty<string>;
+    'titleStringProperty': LinkableProperty<string>;
   };
   'or': string;
-  'orStringProperty': TReadOnlyProperty<string>;
+  'orStringProperty': LinkableProperty<string>;
   'shiftKey': string;
-  'shiftKeyStringProperty': TReadOnlyProperty<string>;
+  'shiftKeyStringProperty': LinkableProperty<string>;
   'escKey': string;
-  'escKeyStringProperty': TReadOnlyProperty<string>;
+  'escKeyStringProperty': LinkableProperty<string>;
   'tabKey': string;
-  'tabKeyStringProperty': TReadOnlyProperty<string>;
+  'tabKeyStringProperty': LinkableProperty<string>;
   'handOrFoot': string;
-  'handOrFootStringProperty': TReadOnlyProperty<string>;
+  'handOrFootStringProperty': LinkableProperty<string>;
   'moveHandOrFoot': string;
-  'moveHandOrFootStringProperty': TReadOnlyProperty<string>;
+  'moveHandOrFootStringProperty': LinkableProperty<string>;
   'moveFoot': string;
-  'moveFootStringProperty': TReadOnlyProperty<string>;
+  'moveFootStringProperty': LinkableProperty<string>;
   'moveHand': string;
-  'moveHandStringProperty': TReadOnlyProperty<string>;
+  'moveHandStringProperty': LinkableProperty<string>;
   'hotKeysAndHelp': string;
-  'hotKeysAndHelpStringProperty': TReadOnlyProperty<string>;
+  'hotKeysAndHelpStringProperty': LinkableProperty<string>;
   'arrowKeysMoveFoot': string;
-  'arrowKeysMoveFootStringProperty': TReadOnlyProperty<string>;
+  'arrowKeysMoveFootStringProperty': LinkableProperty<string>;
   'tabKeyDescription': string;
-  'tabKeyDescriptionStringProperty': TReadOnlyProperty<string>;
+  'tabKeyDescriptionStringProperty': LinkableProperty<string>;
   'shiftTabKeyDescription': string;
-  'shiftTabKeyDescriptionStringProperty': TReadOnlyProperty<string>;
+  'shiftTabKeyDescriptionStringProperty': LinkableProperty<string>;
   'escapeKeyDescription': string;
-  'escapeKeyDescriptionStringProperty': TReadOnlyProperty<string>;
+  'escapeKeyDescriptionStringProperty': LinkableProperty<string>;
   'a11y': {
     'screenSummary': {
       'bodyDescriptionPattern': string;
-      'bodyDescriptionPatternStringProperty': TReadOnlyProperty<string>;
+      'bodyDescriptionPatternStringProperty': LinkableProperty<string>;
       'descriptionWithChargePattern': string;
-      'descriptionWithChargePatternStringProperty': TReadOnlyProperty<string>;
+      'descriptionWithChargePatternStringProperty': LinkableProperty<string>;
     };
     'electrons': {
       'singleDescription': string;
-      'singleDescriptionStringProperty': TReadOnlyProperty<string>;
+      'singleDescriptionStringProperty': LinkableProperty<string>;
       'multipleDescriptionPattern': string;
-      'multipleDescriptionPatternStringProperty': TReadOnlyProperty<string>;
+      'multipleDescriptionPatternStringProperty': LinkableProperty<string>;
       'totalDescriptionPattern': string;
-      'totalDescriptionPatternStringProperty': TReadOnlyProperty<string>;
+      'totalDescriptionPatternStringProperty': LinkableProperty<string>;
       'totalAfterDischargePattern': string;
-      'totalAfterDischargePatternStringProperty': TReadOnlyProperty<string>;
+      'totalAfterDischargePatternStringProperty': LinkableProperty<string>;
     };
     'appendages': {
       'arm': {
         'label': string;
-        'labelStringProperty': TReadOnlyProperty<string>;
+        'labelStringProperty': LinkableProperty<string>;
         'positions': {
           'farthestFromDoorknob': string;
-          'farthestFromDoorknobStringProperty': TReadOnlyProperty<string>;
+          'farthestFromDoorknobStringProperty': LinkableProperty<string>;
           'veryFarFromDoorknob': string;
-          'veryFarFromDoorknobStringProperty': TReadOnlyProperty<string>;
+          'veryFarFromDoorknobStringProperty': LinkableProperty<string>;
           'farFromDoorknob': string;
-          'farFromDoorknobStringProperty': TReadOnlyProperty<string>;
+          'farFromDoorknobStringProperty': LinkableProperty<string>;
           'notSoCloseToDoorknob': string;
-          'notSoCloseToDoorknobStringProperty': TReadOnlyProperty<string>;
+          'notSoCloseToDoorknobStringProperty': LinkableProperty<string>;
           'closeToDoorknob': string;
-          'closeToDoorknobStringProperty': TReadOnlyProperty<string>;
+          'closeToDoorknobStringProperty': LinkableProperty<string>;
           'veryCloseToDoorknob': string;
-          'veryCloseToDoorknobStringProperty': TReadOnlyProperty<string>;
+          'veryCloseToDoorknobStringProperty': LinkableProperty<string>;
           'justAboveDoorknob': string;
-          'justAboveDoorknobStringProperty': TReadOnlyProperty<string>;
+          'justAboveDoorknobStringProperty': LinkableProperty<string>;
           'atDoorknob': string;
-          'atDoorknobStringProperty': TReadOnlyProperty<string>;
+          'atDoorknobStringProperty': LinkableProperty<string>;
           'justBelowDoorknob': string;
-          'justBelowDoorknobStringProperty': TReadOnlyProperty<string>;
+          'justBelowDoorknobStringProperty': LinkableProperty<string>;
           'handPointingAway': string;
-          'handPointingAwayStringProperty': TReadOnlyProperty<string>;
+          'handPointingAwayStringProperty': LinkableProperty<string>;
           'handPointingStraightUp': string;
-          'handPointingStraightUpStringProperty': TReadOnlyProperty<string>;
+          'handPointingStraightUpStringProperty': LinkableProperty<string>;
           'handPointingAtUpperDoor': string;
-          'handPointingAtUpperDoorStringProperty': TReadOnlyProperty<string>;
+          'handPointingAtUpperDoorStringProperty': LinkableProperty<string>;
           'handPointingAtLowerDoor': string;
-          'handPointingAtLowerDoorStringProperty': TReadOnlyProperty<string>;
+          'handPointingAtLowerDoorStringProperty': LinkableProperty<string>;
           'handPointingStraightDown': string;
-          'handPointingStraightDownStringProperty': TReadOnlyProperty<string>;
+          'handPointingStraightDownStringProperty': LinkableProperty<string>;
           'farthestFromDoorknobLast': string;
-          'farthestFromDoorknobLastStringProperty': TReadOnlyProperty<string>;
+          'farthestFromDoorknobLastStringProperty': LinkableProperty<string>;
         }
       };
       'leg': {
         'label': string;
-        'labelStringProperty': TReadOnlyProperty<string>;
+        'labelStringProperty': LinkableProperty<string>;
         'positions': {
           'footOffRugPointingBackwards': string;
-          'footOffRugPointingBackwardsStringProperty': TReadOnlyProperty<string>;
+          'footOffRugPointingBackwardsStringProperty': LinkableProperty<string>;
           'footOffRug': string;
-          'footOffRugStringProperty': TReadOnlyProperty<string>;
+          'footOffRugStringProperty': LinkableProperty<string>;
           'footRubbingOnRug': string;
-          'footRubbingOnRugStringProperty': TReadOnlyProperty<string>;
+          'footRubbingOnRugStringProperty': LinkableProperty<string>;
           'footOffRugPointingForward': string;
-          'footOffRugPointingForwardStringProperty': TReadOnlyProperty<string>;
+          'footOffRugPointingForwardStringProperty': LinkableProperty<string>;
         }
       }
     };
     'keyboardHelpDialog': {
       'moveFootDescription': string;
-      'moveFootDescriptionStringProperty': TReadOnlyProperty<string>;
+      'moveFootDescriptionStringProperty': LinkableProperty<string>;
       'moveHandDescription': string;
-      'moveHandDescriptionStringProperty': TReadOnlyProperty<string>;
+      'moveHandDescriptionStringProperty': LinkableProperty<string>;
     };
     'voicing': {
       'contentHint': string;
-      'contentHintStringProperty': TReadOnlyProperty<string>;
+      'contentHintStringProperty': LinkableProperty<string>;
       'detailedContentHint': string;
-      'detailedContentHintStringProperty': TReadOnlyProperty<string>;
+      'detailedContentHintStringProperty': LinkableProperty<string>;
       'chargedContentHint': string;
-      'chargedContentHintStringProperty': TReadOnlyProperty<string>;
+      'chargedContentHintStringProperty': LinkableProperty<string>;
       'overviewPattern': string;
-      'overviewPatternStringProperty': TReadOnlyProperty<string>;
+      'overviewPatternStringProperty': LinkableProperty<string>;
       'previousDischargePattern': string;
-      'previousDischargePatternStringProperty': TReadOnlyProperty<string>;
+      'previousDischargePatternStringProperty': LinkableProperty<string>;
       'johnFullyCharged': string;
-      'johnFullyChargedStringProperty': TReadOnlyProperty<string>;
+      'johnFullyChargedStringProperty': LinkableProperty<string>;
       'multipleElectronsOnBodyPattern': string;
-      'multipleElectronsOnBodyPatternStringProperty': TReadOnlyProperty<string>;
+      'multipleElectronsOnBodyPatternStringProperty': LinkableProperty<string>;
       'screenSummaryWithPreviousDischargePattern': string;
-      'screenSummaryWithPreviousDischargePatternStringProperty': TReadOnlyProperty<string>;
+      'screenSummaryWithPreviousDischargePatternStringProperty': LinkableProperty<string>;
       'handInteractionHint': string;
-      'handInteractionHintStringProperty': TReadOnlyProperty<string>;
+      'handInteractionHintStringProperty': LinkableProperty<string>;
       'footInteractionHint': string;
-      'footInteractionHintStringProperty': TReadOnlyProperty<string>;
+      'footInteractionHintStringProperty': LinkableProperty<string>;
     }
   }
 };
