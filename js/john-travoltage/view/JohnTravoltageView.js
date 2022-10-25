@@ -54,7 +54,7 @@ const voicingContentHintString = JohnTravoltageStrings.a11y.voicing.contentHint;
 const voicingDetailedContentHintString = JohnTravoltageStrings.a11y.voicing.detailedContentHint;
 const previousDischargePatternString = JohnTravoltageStrings.a11y.voicing.previousDischargePattern;
 const screenSummaryWithPreviousDischargePatternString = JohnTravoltageStrings.a11y.voicing.screenSummaryWithPreviousDischargePattern;
-const screenSummarySingleScreenIntroPatternString = SceneryPhetStrings.a11y.voicing.simSection.screenSummary.singleScreenIntroPatternStringProperty;
+const screenSummarySingleScreenIntroPatternStringProperty = SceneryPhetStrings.a11y.voicing.simSection.screenSummary.singleScreenIntroPatternStringProperty;
 const overviewPatternString = JohnTravoltageStrings.a11y.voicing.overviewPattern;
 const voicingChargedContentHintString = JohnTravoltageStrings.a11y.voicing.chargedContentHint;
 const multipleElectronsOnBodyPatternString = JohnTravoltageStrings.a11y.voicing.multipleElectronsOnBodyPattern;
@@ -410,7 +410,7 @@ class JohnTravoltageView extends ScreenView {
    * @public
    */
   getVoicingOverviewContent() {
-    const overviewString = StringUtils.fillIn( screenSummarySingleScreenIntroPatternString, {
+    const overviewString = StringUtils.fillIn( screenSummarySingleScreenIntroPatternStringProperty, {
       sim: phet.joist.sim.simNameProperty.get()
     } );
 
