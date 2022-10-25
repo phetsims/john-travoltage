@@ -24,7 +24,7 @@ class JohnTravoltageScreen extends Screen {
       model => new JohnTravoltageView( model, tandem.createTandem( 'view' ) ), {
         backgroundColorProperty: new Property( '#E4D8C2' ),
         tandem: tandem,
-        keyboardHelpNode: new JohnTravoltageKeyboardHelpContent()
+        createKeyboardHelpNode: () => new JohnTravoltageKeyboardHelpContent()
       }
     );
   }
