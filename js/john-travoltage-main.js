@@ -37,8 +37,7 @@ const simOptions = {
     contributors: 'Jonathan Hung, Justin Obara (Inclusive Design Research Centre)',
     thanks: 'Thanks to Mobile Learner Labs for working with the PhET development team ' +
             'to convert this simulation to HTML5.'
-  },
-  hasKeyboardHelpContent: true
+  }
 };
 
 //Create and start the sim
