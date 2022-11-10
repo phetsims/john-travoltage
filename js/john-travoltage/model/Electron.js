@@ -62,9 +62,6 @@ class Electron extends PhetioObject {
     this.maxSpeed = 500;
     this.maxForceSquared = 100000000;
 
-    // @public (read-only) called when the Electron is disposed so listeners may clean themselves up
-    this.disposeEmitter = new Emitter();
-
     // @public (phet-io) the history of body positions, 'arm', 'leg' and 'body' for rendering in the correct place
     this.history = [];
 
@@ -77,7 +74,6 @@ class Electron extends PhetioObject {
     }
 
     this.disposeElectron = () => {
-      this.disposeEmitter.emit();
       this.positionProperty.dispose();
     };
   }
@@ -90,7 +86,7 @@ class Electron extends PhetioObject {
    * @param  {number} dt - in seconds
    */
   stepInSpark( dt ) {
-    //move to closest line segment
+    //move to the closest line segment
     if ( !this.segment ) {
 
       this.segment = _.minBy( this.model.forceLines, forceLine => forceLine.p0.distanceSquared( this.positionProperty.get() ) );
