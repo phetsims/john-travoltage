@@ -21,7 +21,7 @@
     "branch": "HEAD"
   },
   "john-travoltage": {
-    "sha": "a542f077c9a9bddfc1acbbf215e2d8eb96b02736",
+    "sha": "bc72db8bda9aeea1ab9b650341611349170d2eea",
     "branch": "1.4-phetio"
   },
   "joist": {
@@ -65,7 +65,7 @@
     "branch": "HEAD"
   },
   "scenery-phet": {
-    "sha": "c79d2376b58e3270c3092b30865f178002c0b25e",
+    "sha": "abfa12003a557857409e9c613ef9d4745aa6ffec",
     "branch": "HEAD"
   },
   "sherpa": {
