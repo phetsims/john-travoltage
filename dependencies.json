@@ -1,5 +1,5 @@
 {
-  "comment": "# john-travoltage 1.4.20-phetiorc.1 Sat Nov 26 2022 11:33:04 GMT-0700 (Mountain Standard Time)",
+  "comment": "# john-travoltage 1.4.20-phetiorc.2 Tue Dec 13 2022 15:52:44 GMT-0700 (Mountain Standard Time)",
   "assert": {
     "sha": "5c3f92048a9c2ffd6df8ede54fd64f1f7a7e4ef2",
     "branch": "HEAD"
@@ -21,7 +21,7 @@
     "branch": "HEAD"
   },
   "john-travoltage": {
-    "sha": "43edb4689677d88489e8c8597e27faac90e19b1a",
+    "sha": "2896bac5920f041730dc70194ae663ca2ee61ea7",
     "branch": "1.4-phetio"
   },
   "joist": {
