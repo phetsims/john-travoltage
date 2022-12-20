@@ -25,7 +25,7 @@
     "branch": "HEAD"
   },
   "john-travoltage": {
-    "sha": "f1eb6b8d59c4a7e88b81ab9706efb5bf532d733c",
+    "sha": "e02c214b48bcb506c8039c1aeb6d62c5b47e4049",
     "branch": "1.6"
   },
   "joist": {
@@ -69,7 +69,7 @@
     "branch": "HEAD"
   },
   "scenery": {
-    "sha": "31586854db6c23e61818f907c050b8e352934a23",
+    "sha": "3295c195c155332847605e68eed9dbd0a908d221",
     "branch": "HEAD"
   },
   "scenery-phet": {
