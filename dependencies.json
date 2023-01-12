@@ -25,7 +25,7 @@
     "branch": "HEAD"
   },
   "john-travoltage": {
-    "sha": "583017e6becde5c0e4a0da3456d32a3d9cd7e3cb",
+    "sha": "49d02b27b044c0edfe0cb2f2f6373f0fd40d8fa1",
     "branch": "1.6"
   },
   "joist": {
@@ -57,7 +57,7 @@
     "branch": "HEAD"
   },
   "phetcommon": {
-    "sha": "6c6d4186db1d5b0fa99a73c3f522499873bdafb0",
+    "sha": "d9b928b997ea3d770b2a0adc25a994d74eb8d889",
     "branch": "HEAD"
   },
   "phetmarks": {
