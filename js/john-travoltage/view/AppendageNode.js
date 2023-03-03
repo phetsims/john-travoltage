@@ -145,7 +145,7 @@ class AppendageNode extends AccessibleSlider( Node, 0 ) {
     // no need for dispose - exists for life of sim
     let angle = 0;
     this.imageNode.addInputListener( new DragListener( {
-      tandem: tandem.createTandem( 'dragHandler' ),
+      tandem: tandem.createTandem( 'dragListener' ),
       allowTouchSnag: true,
       start: event => {
         appendage.isDraggingProperty.set( true );
