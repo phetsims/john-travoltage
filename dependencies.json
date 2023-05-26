@@ -1,5 +1,5 @@
 {
-  "comment": "# john-travoltage 1.6.13 Fri May 26 2023 12:30:49 GMT-0400 (Eastern Daylight Time)",
+  "comment": "# john-travoltage 1.6.14-rc.1 Fri May 26 2023 12:36:06 GMT-0400 (Eastern Daylight Time)",
   "assert": {
     "sha": "f360fa1bd09a47b3c9e49cd90c8dddd136a13e0c",
     "branch": "HEAD"
@@ -25,7 +25,7 @@
     "branch": "HEAD"
   },
   "john-travoltage": {
-    "sha": "ed3a189677e31ba02788804051fc9c0aa3b468cc",
+    "sha": "4a3e62f4c7bfa798e8a808975abbbce70d67204f",
     "branch": "1.6"
   },
   "joist": {
@@ -70,7 +70,7 @@
   },
   "scenery": {
     "sha": "f1a07de89463e1208e3ec1b51cbfe2958e99a58e",
-    "branch": "john-travoltage-1.6"
+    "branch": "HEAD"
   },
   "scenery-phet": {
     "sha": "7e9898d3d58b716ee0587452c2123378b7103494",
