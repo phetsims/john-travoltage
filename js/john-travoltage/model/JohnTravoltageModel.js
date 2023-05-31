@@ -13,6 +13,7 @@ import dotRandom from '../../../../dot/js/dotRandom.js';
 import Utils from '../../../../dot/js/Utils.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import { Shape } from '../../../../kite/js/imports.js';
+import isSettingPhetioStateProperty from '../../../../tandem/js/isSettingPhetioStateProperty.js';
 import PhetioGroup from '../../../../tandem/js/PhetioGroup.js';
 import StringIO from '../../../../tandem/js/types/StringIO.js';
 import johnTravoltage from '../../johnTravoltage.js';
@@ -234,7 +235,7 @@ class JohnTravoltageModel {
       if ( angle > FOOT_ON_CARPET_MIN_ANGLE &&
            angle < FOOT_ON_CARPET_MAX_ANGLE &&
            this.electronGroup.count < MAX_ELECTRONS &&
-           !phet.joist.sim.isSettingPhetioStateProperty.value ) { // PhET-iO state handles creating its own electrons
+           !isSettingPhetioStateProperty.value ) { // PhET-iO state handles creating its own electrons
 
         accumulatedAngle += Math.abs( angle - lastAngle );
 
