@@ -144,8 +144,7 @@ class JohnTravoltageModel {
       return new Electron( point.x, point.y, this, { tandem: tandem } );
     }, [], {
       tandem: tandem.createTandem( 'electronGroup' ),
-      phetioType: PhetioGroup.PhetioGroupIO( Electron.ElectronIO ),
-      groupElementStartingIndex: 0
+      phetioType: PhetioGroup.PhetioGroupIO( Electron.ElectronIO )
     } );
 
     this.arm = new Arm( tandem.createTandem( 'arm' ) );
