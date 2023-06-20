@@ -5,136 +5,136 @@
  */
 /* eslint-disable */
 import getStringModule from '../../chipper/js/getStringModule.js';
-import LinkableProperty from '../../axon/js/LinkableProperty.js';
+import type LocalizedStringProperty from '../../chipper/js/LocalizedStringProperty.js';
 import johnTravoltage from './johnTravoltage.js';
 
 type StringsType = {
   'john-travoltage': {
     'title': string;
-    'titleStringProperty': LinkableProperty<string>;
+    'titleStringProperty': LocalizedStringProperty;
   };
   'or': string;
-  'orStringProperty': LinkableProperty<string>;
+  'orStringProperty': LocalizedStringProperty;
   'shiftKey': string;
-  'shiftKeyStringProperty': LinkableProperty<string>;
+  'shiftKeyStringProperty': LocalizedStringProperty;
   'escKey': string;
-  'escKeyStringProperty': LinkableProperty<string>;
+  'escKeyStringProperty': LocalizedStringProperty;
   'tabKey': string;
-  'tabKeyStringProperty': LinkableProperty<string>;
+  'tabKeyStringProperty': LocalizedStringProperty;
   'handOrFoot': string;
-  'handOrFootStringProperty': LinkableProperty<string>;
+  'handOrFootStringProperty': LocalizedStringProperty;
   'moveHandOrFoot': string;
-  'moveHandOrFootStringProperty': LinkableProperty<string>;
+  'moveHandOrFootStringProperty': LocalizedStringProperty;
   'moveFoot': string;
-  'moveFootStringProperty': LinkableProperty<string>;
+  'moveFootStringProperty': LocalizedStringProperty;
   'moveHand': string;
-  'moveHandStringProperty': LinkableProperty<string>;
+  'moveHandStringProperty': LocalizedStringProperty;
   'hotKeysAndHelp': string;
-  'hotKeysAndHelpStringProperty': LinkableProperty<string>;
+  'hotKeysAndHelpStringProperty': LocalizedStringProperty;
   'arrowKeysMoveFoot': string;
-  'arrowKeysMoveFootStringProperty': LinkableProperty<string>;
+  'arrowKeysMoveFootStringProperty': LocalizedStringProperty;
   'tabKeyDescription': string;
-  'tabKeyDescriptionStringProperty': LinkableProperty<string>;
+  'tabKeyDescriptionStringProperty': LocalizedStringProperty;
   'shiftTabKeyDescription': string;
-  'shiftTabKeyDescriptionStringProperty': LinkableProperty<string>;
+  'shiftTabKeyDescriptionStringProperty': LocalizedStringProperty;
   'escapeKeyDescription': string;
-  'escapeKeyDescriptionStringProperty': LinkableProperty<string>;
+  'escapeKeyDescriptionStringProperty': LocalizedStringProperty;
   'a11y': {
     'screenSummary': {
       'bodyDescriptionPattern': string;
-      'bodyDescriptionPatternStringProperty': LinkableProperty<string>;
+      'bodyDescriptionPatternStringProperty': LocalizedStringProperty;
       'descriptionWithChargePattern': string;
-      'descriptionWithChargePatternStringProperty': LinkableProperty<string>;
+      'descriptionWithChargePatternStringProperty': LocalizedStringProperty;
     };
     'electrons': {
       'singleDescription': string;
-      'singleDescriptionStringProperty': LinkableProperty<string>;
+      'singleDescriptionStringProperty': LocalizedStringProperty;
       'multipleDescriptionPattern': string;
-      'multipleDescriptionPatternStringProperty': LinkableProperty<string>;
+      'multipleDescriptionPatternStringProperty': LocalizedStringProperty;
       'totalDescriptionPattern': string;
-      'totalDescriptionPatternStringProperty': LinkableProperty<string>;
+      'totalDescriptionPatternStringProperty': LocalizedStringProperty;
       'totalAfterDischargePattern': string;
-      'totalAfterDischargePatternStringProperty': LinkableProperty<string>;
+      'totalAfterDischargePatternStringProperty': LocalizedStringProperty;
     };
     'appendages': {
       'arm': {
         'label': string;
-        'labelStringProperty': LinkableProperty<string>;
+        'labelStringProperty': LocalizedStringProperty;
         'positions': {
           'farthestFromDoorknob': string;
-          'farthestFromDoorknobStringProperty': LinkableProperty<string>;
+          'farthestFromDoorknobStringProperty': LocalizedStringProperty;
           'veryFarFromDoorknob': string;
-          'veryFarFromDoorknobStringProperty': LinkableProperty<string>;
+          'veryFarFromDoorknobStringProperty': LocalizedStringProperty;
           'farFromDoorknob': string;
-          'farFromDoorknobStringProperty': LinkableProperty<string>;
+          'farFromDoorknobStringProperty': LocalizedStringProperty;
           'notSoCloseToDoorknob': string;
-          'notSoCloseToDoorknobStringProperty': LinkableProperty<string>;
+          'notSoCloseToDoorknobStringProperty': LocalizedStringProperty;
           'closeToDoorknob': string;
-          'closeToDoorknobStringProperty': LinkableProperty<string>;
+          'closeToDoorknobStringProperty': LocalizedStringProperty;
           'veryCloseToDoorknob': string;
-          'veryCloseToDoorknobStringProperty': LinkableProperty<string>;
+          'veryCloseToDoorknobStringProperty': LocalizedStringProperty;
           'justAboveDoorknob': string;
-          'justAboveDoorknobStringProperty': LinkableProperty<string>;
+          'justAboveDoorknobStringProperty': LocalizedStringProperty;
           'atDoorknob': string;
-          'atDoorknobStringProperty': LinkableProperty<string>;
+          'atDoorknobStringProperty': LocalizedStringProperty;
           'justBelowDoorknob': string;
-          'justBelowDoorknobStringProperty': LinkableProperty<string>;
+          'justBelowDoorknobStringProperty': LocalizedStringProperty;
           'handPointingAway': string;
-          'handPointingAwayStringProperty': LinkableProperty<string>;
+          'handPointingAwayStringProperty': LocalizedStringProperty;
           'handPointingStraightUp': string;
-          'handPointingStraightUpStringProperty': LinkableProperty<string>;
+          'handPointingStraightUpStringProperty': LocalizedStringProperty;
           'handPointingAtUpperDoor': string;
-          'handPointingAtUpperDoorStringProperty': LinkableProperty<string>;
+          'handPointingAtUpperDoorStringProperty': LocalizedStringProperty;
           'handPointingAtLowerDoor': string;
-          'handPointingAtLowerDoorStringProperty': LinkableProperty<string>;
+          'handPointingAtLowerDoorStringProperty': LocalizedStringProperty;
           'handPointingStraightDown': string;
-          'handPointingStraightDownStringProperty': LinkableProperty<string>;
+          'handPointingStraightDownStringProperty': LocalizedStringProperty;
           'farthestFromDoorknobLast': string;
-          'farthestFromDoorknobLastStringProperty': LinkableProperty<string>;
+          'farthestFromDoorknobLastStringProperty': LocalizedStringProperty;
         }
       };
       'leg': {
         'label': string;
-        'labelStringProperty': LinkableProperty<string>;
+        'labelStringProperty': LocalizedStringProperty;
         'positions': {
           'footOffRugPointingBackwards': string;
-          'footOffRugPointingBackwardsStringProperty': LinkableProperty<string>;
+          'footOffRugPointingBackwardsStringProperty': LocalizedStringProperty;
           'footOffRug': string;
-          'footOffRugStringProperty': LinkableProperty<string>;
+          'footOffRugStringProperty': LocalizedStringProperty;
           'footRubbingOnRug': string;
-          'footRubbingOnRugStringProperty': LinkableProperty<string>;
+          'footRubbingOnRugStringProperty': LocalizedStringProperty;
           'footOffRugPointingForward': string;
-          'footOffRugPointingForwardStringProperty': LinkableProperty<string>;
+          'footOffRugPointingForwardStringProperty': LocalizedStringProperty;
         }
       }
     };
     'keyboardHelpDialog': {
       'moveFootDescription': string;
-      'moveFootDescriptionStringProperty': LinkableProperty<string>;
+      'moveFootDescriptionStringProperty': LocalizedStringProperty;
       'moveHandDescription': string;
-      'moveHandDescriptionStringProperty': LinkableProperty<string>;
+      'moveHandDescriptionStringProperty': LocalizedStringProperty;
     };
     'voicing': {
       'contentHint': string;
-      'contentHintStringProperty': LinkableProperty<string>;
+      'contentHintStringProperty': LocalizedStringProperty;
       'detailedContentHint': string;
-      'detailedContentHintStringProperty': LinkableProperty<string>;
+      'detailedContentHintStringProperty': LocalizedStringProperty;
       'chargedContentHint': string;
-      'chargedContentHintStringProperty': LinkableProperty<string>;
+      'chargedContentHintStringProperty': LocalizedStringProperty;
       'overviewPattern': string;
-      'overviewPatternStringProperty': LinkableProperty<string>;
+      'overviewPatternStringProperty': LocalizedStringProperty;
       'previousDischargePattern': string;
-      'previousDischargePatternStringProperty': LinkableProperty<string>;
+      'previousDischargePatternStringProperty': LocalizedStringProperty;
       'johnFullyCharged': string;
-      'johnFullyChargedStringProperty': LinkableProperty<string>;
+      'johnFullyChargedStringProperty': LocalizedStringProperty;
       'multipleElectronsOnBodyPattern': string;
-      'multipleElectronsOnBodyPatternStringProperty': LinkableProperty<string>;
+      'multipleElectronsOnBodyPatternStringProperty': LocalizedStringProperty;
       'screenSummaryWithPreviousDischargePattern': string;
-      'screenSummaryWithPreviousDischargePatternStringProperty': LinkableProperty<string>;
+      'screenSummaryWithPreviousDischargePatternStringProperty': LocalizedStringProperty;
       'handInteractionHint': string;
-      'handInteractionHintStringProperty': LinkableProperty<string>;
+      'handInteractionHintStringProperty': LocalizedStringProperty;
       'footInteractionHint': string;
-      'footInteractionHintStringProperty': LinkableProperty<string>;
+      'footInteractionHintStringProperty': LocalizedStringProperty;
     }
   }
 };
