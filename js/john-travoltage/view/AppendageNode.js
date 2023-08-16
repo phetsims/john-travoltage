@@ -16,7 +16,7 @@ import Utils from '../../../../dot/js/Utils.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import { Shape } from '../../../../kite/js/imports.js';
 import merge from '../../../../phet-core/js/merge.js';
-import { DragListener, FocusHighlightPath, Image, Node, Rectangle } from '../../../../scenery/js/imports.js';
+import { DragListener, HighlightPath, Image, Node, Rectangle } from '../../../../scenery/js/imports.js';
 import AccessibleSlider from '../../../../sun/js/accessibility/AccessibleSlider.js';
 import johnTravoltage from '../../johnTravoltage.js';
 
@@ -222,7 +222,7 @@ class AppendageNode extends AccessibleSlider( Node, 0 ) {
     appendage.borderVisibleProperty.linkAttribute( this.border, 'visible' );
 
     // pdom
-    this.focusHighlight = new FocusHighlightPath( Shape.circle( 0, 0, this.imageNode.width / 2 ), {
+    this.focusHighlight = new HighlightPath( Shape.circle( 0, 0, this.imageNode.width / 2 ), {
       tandem: tandem.createTandem( 'focusCircle' )
     } );
 
