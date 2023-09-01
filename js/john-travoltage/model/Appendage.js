@@ -52,7 +52,7 @@ class Appendage {
     this.position = pivotPoint;
 
     // @public - Whether the appendage is currently being dragged
-    this.isDraggingProperty = new BooleanProperty( false, {
+    this.draggingProperty = new BooleanProperty( false, {
       tandem: tandem.createTandem( 'draggingProperty' )
     } );
 

@@ -223,7 +223,7 @@ class JohnTravoltageModel {
     // TODO: consider moving such an emitter to utteranceQueue if this is useful
     this.utteranceAddedEmitter = new Emitter( {
       parameters: [ { name: 'utterance', phetioType: StringIO } ],
-      tandem: tandem.createTandem( 'utterance' )
+      tandem: tandem.createTandem( 'utteranceAddedEmitter' )
     } );
 
     //If leg dragged across carpet, add electron.  Lazy link so that it won't add an electron when the sim starts up.

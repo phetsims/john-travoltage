@@ -131,10 +131,10 @@ class JohnTravoltageView extends ScreenView {
 
     // Show the dotted lines again when the sim is reset
     model.resetEmitter.addListener( () => {
-      if ( !model.leg.isDraggingProperty.get() ) {
+      if ( !model.leg.draggingProperty.get() ) {
         model.leg.borderVisibleProperty.set( true );
       }
-      if ( !model.arm.isDraggingProperty.get() ) {
+      if ( !model.arm.draggingProperty.get() ) {
         model.arm.borderVisibleProperty.set( true );
       }
 

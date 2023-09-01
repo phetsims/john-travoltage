@@ -78,11 +78,11 @@ class AppendageNode extends AccessibleSlider( Node, 0 ) {
 
         appendage.borderVisibleProperty.set( false );
 
-        appendage.isDraggingProperty.set( true );
+        appendage.draggingProperty.set( true );
       },
       endDrag: () => {
 
-        appendage.isDraggingProperty.set( false );
+        appendage.draggingProperty.set( false );
 
         // optional callback on end of drag
         options.onDragEnd();
@@ -148,7 +148,7 @@ class AppendageNode extends AccessibleSlider( Node, 0 ) {
       tandem: tandem.createTandem( 'dragListener' ),
       allowTouchSnag: true,
       start: event => {
-        appendage.isDraggingProperty.set( true );
+        appendage.draggingProperty.set( true );
         appendage.borderVisibleProperty.set( false );
 
         // voicing - on down speak the name and interaction hint
@@ -194,7 +194,7 @@ class AppendageNode extends AccessibleSlider( Node, 0 ) {
         // when we are done dragging with the mouse, place back in traversal order
         this.focusable = true;
 
-        appendage.isDraggingProperty.set( false );
+        appendage.draggingProperty.set( false );
 
         // optional callback on end of drag
         options.onDragEnd();
@@ -222,7 +222,7 @@ class AppendageNode extends AccessibleSlider( Node, 0 ) {
     appendage.borderVisibleProperty.linkAttribute( this.border, 'visible' );
 
     // pdom
-    this.focusHighlight = new HighlightPath( Shape.circle( 0, 0, this.imageNode.width / 2 ), {
+    this.focusCircle = new HighlightPath( Shape.circle( 0, 0, this.imageNode.width / 2 ), {
       tandem: tandem.createTandem( 'focusCircle' )
     } );
 
@@ -242,7 +242,7 @@ class AppendageNode extends AccessibleSlider( Node, 0 ) {
 
     // update the center of the focus highlight when
     appendage.angleProperty.link( angle => {
-      this.focusHighlight.center = this.imageNode.center;
+      this.focusCircle.center = this.imageNode.center;
     } );
 
     this.sliderProperty.link( ( value, previousValue ) => {
