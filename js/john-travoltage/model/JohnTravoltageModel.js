@@ -201,7 +201,7 @@ class JohnTravoltageModel {
     // query parameters
     //--------------------------------------------------------------------------
 
-    // TODO: consider an encapsulation for these "touching" Properties
+    // TODO: consider an encapsulation for these "touching" Properties https://github.com/phetsims/tasks/issues/1129
     // @public - true when a pointer is down over the body
     this.touchingBodyProperty = new BooleanProperty( false, {
       tandem: tandem.createTandem( 'touchingBodyProperty' )
@@ -220,7 +220,7 @@ class JohnTravoltageModel {
       tandem: tandem.createTandem( 'touchingLegProperty' )
     } );
 
-    // TODO: consider moving such an emitter to utteranceQueue if this is useful
+    // TODO: consider moving such an emitter to utteranceQueue if this is useful https://github.com/phetsims/tasks/issues/1129
     this.utteranceAddedEmitter = new Emitter( {
       parameters: [ { name: 'utterance', phetioType: StringIO } ],
       tandem: tandem.createTandem( 'utteranceAddedEmitter' )
