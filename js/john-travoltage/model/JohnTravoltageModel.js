@@ -221,7 +221,7 @@ class JohnTravoltageModel {
       tandem: tandem.createTandem( 'touchingLegProperty' )
     } );
 
-    // TODO: consider moving such an emitter to utteranceQueue if this is useful https://github.com/phetsims/tasks/issues/1129
+    //TODO https://github.com/phetsims/balloons-and-static-electricity/issues/569 consider moving such an emitter to utterance-queue if this is useful
     this.utteranceAddedEmitter = new Emitter( {
       parameters: [ { name: 'utterance', phetioType: StringIO } ],
       tandem: tandem.createTandem( 'utteranceAddedEmitter' )
