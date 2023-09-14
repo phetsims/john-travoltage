@@ -201,7 +201,8 @@ class JohnTravoltageModel {
     // query parameters
     //--------------------------------------------------------------------------
 
-    // TODO: consider an encapsulation for these "touching" Properties https://github.com/phetsims/tasks/issues/1129
+    //TODO https://github.com/phetsims/balloons-and-static-electricity/issues/568 consider an encapsulation for these "touching" Properties
+
     // @public - true when a pointer is down over the body
     this.touchingBodyProperty = new BooleanProperty( false, {
       tandem: tandem.createTandem( 'touchingBodyProperty' )
