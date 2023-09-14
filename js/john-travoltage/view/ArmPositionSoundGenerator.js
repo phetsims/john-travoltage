@@ -74,9 +74,9 @@ class ArmPositionSoundGenerator extends SoundGenerator {
 
       // determine if the new angle crossed over one or more 'sound points' since the last angle
       if ( this.fullyEnabledProperty.value && previousAngle !== null ) {
-        numClickSoundsToPlay = Math.abs( Math.floor( previousAngle / binSize ) -
-                                         Math.floor( angle / binSize ) );
-        // TODO: This is a temporary workaround for an issue where the angle seems to switch from + to - at an odd place https://github.com/phetsims/tasks/issues/1129
+        numClickSoundsToPlay = Math.abs( Math.floor( previousAngle / binSize ) - Math.floor( angle / binSize ) );
+
+        //TODO https://github.com/phetsims/balloons-and-static-electricity/issues/570 This is a temporary workaround for an issue where the angle seems to switch from + to - at an odd place
         if ( numClickSoundsToPlay > NUM_SOUND_POSITIONS / 2 ) {
           numClickSoundsToPlay = 0;
         }
