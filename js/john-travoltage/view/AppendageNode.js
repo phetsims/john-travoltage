@@ -242,7 +242,7 @@ class AppendageNode extends AccessibleSlider( Node, 0 ) {
 
     // update the center of the focus highlight when
     appendage.angleProperty.link( angle => {
-      this.highlight.center = this.imageNode.center;
+      this.focusHighlight.center = this.imageNode.center;
     } );
 
     this.sliderProperty.link( ( value, previousValue ) => {
