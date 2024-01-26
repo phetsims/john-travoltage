@@ -222,8 +222,8 @@ class AppendageNode extends AccessibleSlider( Node, 0 ) {
     appendage.borderVisibleProperty.linkAttribute( this.border, 'visible' );
 
     // pdom
-    this.focusCircle = new HighlightPath( Shape.circle( 0, 0, this.imageNode.width / 2 ), {
-      tandem: tandem.createTandem( 'focusCircle' )
+    this.focusHighlight = new HighlightPath( Shape.circle( 0, 0, this.imageNode.width / 2 ), {
+      tandem: tandem.createTandem( 'focusHighlight' )
     } );
 
     this.addInputListener( {
@@ -242,7 +242,7 @@ class AppendageNode extends AccessibleSlider( Node, 0 ) {
 
     // update the center of the focus highlight when
     appendage.angleProperty.link( angle => {
-      this.focusCircle.center = this.imageNode.center;
+      this.highlight.center = this.imageNode.center;
     } );
 
     this.sliderProperty.link( ( value, previousValue ) => {
