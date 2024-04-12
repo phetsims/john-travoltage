@@ -130,11 +130,6 @@ class JohnTravoltageModel {
       tandem: tandem.createTandem( 'sparkVisibleProperty' )
     } );
 
-    // true when a reset is in progress
-    this.resetInProgressProperty = new BooleanProperty( false, {
-      tandem: tandem.createTandem( 'resetInProgressProperty' )
-    } );
-
     this.electronGroup = new PhetioGroup( tandem => {
       const segment = new LineSegment( 424.0642054574639, 452.28892455858755, 433.3097913322633, 445.5088282504014 );
       const v = segment.vector;
@@ -279,13 +274,11 @@ class JohnTravoltageModel {
   reset() {
 
     // Properties of the model.  All user settings belong in the model, whether or not they are part of the physical model
-    this.resetInProgressProperty.set( true );
     this.resetEmitter.emit();
     this.sparkVisibleProperty.reset();
     this.arm.reset();
     this.leg.reset();
     this.electronGroup.clear();
-    this.resetInProgressProperty.set( false );
   }
 
   /**

@@ -238,8 +238,8 @@ class JohnTravoltageView extends ScreenView {
       DebugUtils.debugPositions( this );
     }
 
-    // inverse of the resetInProgressProperty, used for muting sounds during reset
-    const resetNotInProgressProperty = new DerivedProperty( [ model.resetInProgressProperty ], resetInProgress => !resetInProgress );
+    // inverse of the isResettingAllProperty, used for muting sounds during reset
+    const notResettingAllProperty = DerivedProperty.not( ResetAllButton.isResettingAllProperty );
 
     // create and register the sound generators used in this view
     const ouchSoundClip = new SoundClip( ouch_mp3, { initialOutputLevel: 0.7 } );
@@ -259,7 +259,7 @@ class JohnTravoltageView extends ScreenView {
     } );
     soundManager.addSoundGenerator( chargesInBodySoundClip );
     soundManager.addSoundGenerator( new ArmPositionSoundGenerator( model.arm.angleProperty, {
-      enableControlProperties: [ resetNotInProgressProperty ],
+      enableControlProperties: [ notResettingAllProperty ],
       initialOutputLevel: 0.2
     } ) );
     this.footDragSoundGenerator = new FootDragSoundGenerator(
@@ -267,13 +267,13 @@ class JohnTravoltageView extends ScreenView {
       JohnTravoltageModel.FOOT_ON_CARPET_MIN_ANGLE,
       JohnTravoltageModel.FOOT_ON_CARPET_MAX_ANGLE,
       {
-        enableControlProperties: [ resetNotInProgressProperty ],
+        enableControlProperties: [ notResettingAllProperty ],
         initialOutputLevel: 0.35
       }
     );
     soundManager.addSoundGenerator( this.footDragSoundGenerator );
     const popSoundGenerator = new PitchedPopGenerator( {
-      enableControlProperties: [ resetNotInProgressProperty ],
+      enableControlProperties: [ notResettingAllProperty ],
       initialOutputLevel: 0.3
     } );
     soundManager.addSoundGenerator( popSoundGenerator, { sonificationLevel: SoundLevelEnum.EXTRA } );
