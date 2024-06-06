@@ -87,7 +87,7 @@ class AppendageNode extends AccessibleSlider( Node, 0 ) {
         // optional callback on end of drag
         options.onDragEnd();
       },
-      a11yCreateAriaValueText: ( formattedValue, sliderValue, oldSliderValue ) => appendageNodeHelper.createAriaValueText( sliderValue, oldSliderValue ),
+      pdomCreateAriaValueText: ( formattedValue, sliderValue, oldSliderValue ) => appendageNodeHelper.createAriaValueText( sliderValue, oldSliderValue ),
       roundToStepSize: true
     }, options );
 
