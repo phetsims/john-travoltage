@@ -1,5 +1,5 @@
 {
-  "comment": "# john-travoltage 1.6.20-rc.1 Tue Jul 09 2024 20:58:15 GMT-0600 (Mountain Daylight Time)",
+  "comment": "# john-travoltage 1.6.20-rc.2 Wed Jul 10 2024 14:53:11 GMT-0600 (Mountain Daylight Time)",
   "assert": {
     "sha": "f360fa1bd09a47b3c9e49cd90c8dddd136a13e0c",
     "branch": "HEAD"
@@ -25,7 +25,7 @@
     "branch": "HEAD"
   },
   "john-travoltage": {
-    "sha": "fa8e1d7fcda837846c336d84e78526d536cc530d",
+    "sha": "24e792c3bf81fdde30144a950dc658c0416e12a4",
     "branch": "1.6"
   },
   "joist": {
