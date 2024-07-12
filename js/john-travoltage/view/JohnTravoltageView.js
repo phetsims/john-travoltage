@@ -10,7 +10,6 @@
  */
 
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
-import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Emitter from '../../../../axon/js/Emitter.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import ScreenView from '../../../../joist/js/ScreenView.js';
@@ -238,9 +237,6 @@ class JohnTravoltageView extends ScreenView {
       DebugUtils.debugPositions( this );
     }
 
-    // inverse of the isResettingAllProperty, used for muting sounds during reset
-    const notResettingAllProperty = DerivedProperty.not( ResetAllButton.isResettingAllProperty );
-
     // create and register the sound generators used in this view
     const ouchSoundClip = new SoundClip( ouch_mp3, { initialOutputLevel: 0.7 } );
     soundManager.addSoundGenerator( ouchSoundClip );
@@ -259,7 +255,6 @@ class JohnTravoltageView extends ScreenView {
     } );
     soundManager.addSoundGenerator( chargesInBodySoundClip );
     soundManager.addSoundGenerator( new ArmPositionSoundGenerator( model.arm.angleProperty, {
-      enableControlProperties: [ notResettingAllProperty ],
       initialOutputLevel: 0.2
     } ) );
     this.footDragSoundGenerator = new FootDragSoundGenerator(
@@ -267,16 +262,15 @@ class JohnTravoltageView extends ScreenView {
       JohnTravoltageModel.FOOT_ON_CARPET_MIN_ANGLE,
       JohnTravoltageModel.FOOT_ON_CARPET_MAX_ANGLE,
       {
-        enableControlProperties: [ notResettingAllProperty ],
         initialOutputLevel: 0.35
       }
     );
     soundManager.addSoundGenerator( this.footDragSoundGenerator );
     const popSoundGenerator = new PitchedPopGenerator( {
-      enableControlProperties: [ notResettingAllProperty ],
-      initialOutputLevel: 0.3
+      initialOutputLevel: 0.3,
+      sonificationLevel: SoundLevelEnum.EXTRA
     } );
-    soundManager.addSoundGenerator( popSoundGenerator, { sonificationLevel: SoundLevelEnum.EXTRA } );
+    soundManager.addSoundGenerator( popSoundGenerator );
 
     model.sparkVisibleProperty.link( sparkVisible => {
 
