@@ -45,7 +45,7 @@
         ],
         "parserOptions": {
           "project": [
-            "../john-travoltage/tsconfig.json"
+            "../chipper/tsconfig/eslint-all/tsconfig.json"
           ]
         }
       }
