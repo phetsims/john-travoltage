@@ -8,7 +8,7 @@
  * @author Vasily Shakhov (Mlearner)
  */
 
-import DotRectangle from '../../../../dot/js/Rectangle.js'; // eslint-disable-line default-import-match-filename
+import DotRectangle from '../../../../dot/js/Rectangle.js'; // eslint-disable-line phet/default-import-match-filename
 import Vector2 from '../../../../dot/js/Vector2.js';
 import ElectronChargeNode from '../../../../scenery-phet/js/ElectronChargeNode.js';
 import { Circle, Image, Node, Rectangle } from '../../../../scenery/js/imports.js';
