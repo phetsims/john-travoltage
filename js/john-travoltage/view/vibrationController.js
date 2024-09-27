@@ -1,4 +1,4 @@
-// Copyright 2019-2021, University of Colorado Boulder
+// Copyright 2019-2024, University of Colorado Boulder
 
 /**
  * Controls vibration in john-travoltage through use of tappi's vibrationManager. There are three paradigms
