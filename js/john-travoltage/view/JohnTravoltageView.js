@@ -44,6 +44,7 @@ import FootDragSoundGenerator from './FootDragSoundGenerator.js';
 import LegNode from './LegNode.js';
 import SparkNode from './SparkNode.js';
 import vibrationController from './vibrationController.js';
+import ScreenSummaryContent from '../../../../joist/js/ScreenSummaryContent.js';
 
 const screenSummaryBodyDescriptionPatternString = JohnTravoltageStrings.a11y.screenSummary.bodyDescriptionPattern;
 const electronsSingleDescriptionString = JohnTravoltageStrings.a11y.electrons.singleDescription;
@@ -70,7 +71,7 @@ class JohnTravoltageView extends ScreenView {
    */
   constructor( model, tandem ) {
 
-    const summaryNode = new Node( { tagName: 'p' } );
+    const summaryNode = new ScreenSummaryContent( null );
 
     super( {
 
@@ -186,7 +187,7 @@ class JohnTravoltageView extends ScreenView {
     this.addChild( this.electronLayer );
 
     const updateDescription = () => {
-      summaryNode.descriptionContent = this.createSceneDescription();
+      summaryNode.content = this.createSceneDescription();
     };
 
     // electrons observable array exists for the lifetime of the sim, so there is no need to remove these listeners
