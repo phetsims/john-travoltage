@@ -12,6 +12,7 @@
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import Emitter from '../../../../axon/js/Emitter.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
+import ScreenSummaryContent from '../../../../joist/js/ScreenSummaryContent.js';
 import ScreenView from '../../../../joist/js/ScreenView.js';
 import { Shape } from '../../../../kite/js/imports.js';
 import platform from '../../../../phet-core/js/platform.js';
@@ -44,7 +45,6 @@ import FootDragSoundGenerator from './FootDragSoundGenerator.js';
 import LegNode from './LegNode.js';
 import SparkNode from './SparkNode.js';
 import vibrationController from './vibrationController.js';
-import ScreenSummaryContent from '../../../../joist/js/ScreenSummaryContent.js';
 
 const screenSummaryBodyDescriptionPatternString = JohnTravoltageStrings.a11y.screenSummary.bodyDescriptionPattern;
 const electronsSingleDescriptionString = JohnTravoltageStrings.a11y.electrons.singleDescription;
