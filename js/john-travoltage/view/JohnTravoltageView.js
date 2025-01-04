@@ -71,7 +71,7 @@ class JohnTravoltageView extends ScreenView {
    */
   constructor( model, tandem ) {
 
-    const summaryNode = new ScreenSummaryContent( null );
+    const summaryNode = new ScreenSummaryContent();
 
     super( {
 
