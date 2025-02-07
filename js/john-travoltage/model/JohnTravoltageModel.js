@@ -12,7 +12,7 @@ import Emitter from '../../../../axon/js/Emitter.js';
 import dotRandom from '../../../../dot/js/dotRandom.js';
 import Utils from '../../../../dot/js/Utils.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
-import { Shape } from '../../../../kite/js/imports.js';
+import Shape from '../../../../kite/js/Shape.js';
 import isSettingPhetioStateProperty from '../../../../tandem/js/isSettingPhetioStateProperty.js';
 import PhetioGroup from '../../../../tandem/js/PhetioGroup.js';
 import StringIO from '../../../../tandem/js/types/StringIO.js';

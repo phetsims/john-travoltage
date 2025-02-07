@@ -14,9 +14,13 @@ import Property from '../../../../axon/js/Property.js';
 import Range from '../../../../dot/js/Range.js';
 import Utils from '../../../../dot/js/Utils.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
-import { Shape } from '../../../../kite/js/imports.js';
+import Shape from '../../../../kite/js/Shape.js';
 import merge from '../../../../phet-core/js/merge.js';
-import { DragListener, HighlightPath, Image, Node, Rectangle } from '../../../../scenery/js/imports.js';
+import HighlightPath from '../../../../scenery/js/accessibility/HighlightPath.js';
+import DragListener from '../../../../scenery/js/listeners/DragListener.js';
+import Image from '../../../../scenery/js/nodes/Image.js';
+import Node from '../../../../scenery/js/nodes/Node.js';
+import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
 import AccessibleSlider from '../../../../sun/js/accessibility/AccessibleSlider.js';
 import johnTravoltage from '../../johnTravoltage.js';
 

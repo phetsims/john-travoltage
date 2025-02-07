@@ -7,7 +7,10 @@
  * @author Vasily Shakhov (Mlearner)
  */
 
-import { Image, Node, Pattern, Rectangle } from '../../../../scenery/js/imports.js';
+import Image from '../../../../scenery/js/nodes/Image.js';
+import Node from '../../../../scenery/js/nodes/Node.js';
+import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
+import Pattern from '../../../../scenery/js/util/Pattern.js';
 import body_png from '../../../images/body_png.js';
 import door_png from '../../../images/door_png.js';
 import floor_png from '../../../images/floor_png.js';

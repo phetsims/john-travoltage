@@ -11,7 +11,8 @@
 
 import Range from '../../../../dot/js/Range.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
-import { Node, Voicing } from '../../../../scenery/js/imports.js';
+import Voicing from '../../../../scenery/js/accessibility/voicing/Voicing.js';
+import Node from '../../../../scenery/js/nodes/Node.js';
 import Utterance from '../../../../utterance-queue/js/Utterance.js';
 import johnTravoltage from '../../johnTravoltage.js';
 import JohnTravoltageStrings from '../../JohnTravoltageStrings.js';

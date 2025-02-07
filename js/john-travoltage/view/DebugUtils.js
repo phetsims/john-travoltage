@@ -14,7 +14,7 @@
  * @author Vasily Shakhov (Mlearner)
  */
 
-import { Shape } from '../../../../kite/js/imports.js';
+import Shape from '../../../../kite/js/Shape.js';
 import johnTravoltage from '../../johnTravoltage.js';
 
 const DebugUtils = {
