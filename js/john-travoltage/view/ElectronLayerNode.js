@@ -95,7 +95,7 @@ class ElectronLayerNode extends Voicing( Node ) {
       }
 
       electronUtterance.alert = alertString;
-      this.alertDescriptionUtterance( electronUtterance );
+      this.addAccessibleResponse( electronUtterance );
 
       // for haptic feedback, experimental
       model.utteranceAddedEmitter.emit( alertString );
