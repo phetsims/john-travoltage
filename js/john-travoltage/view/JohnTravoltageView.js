@@ -409,7 +409,7 @@ class JohnTravoltageView extends ScreenView {
   }
 
   /**
-   * Creates the voicing content for the "Overview" button from the Toolbar.
+   * Creates the voicing content for the "Overview" button from the VoicingToolbar.
    * @public
    */
   getVoicingOverviewContent() {
@@ -472,7 +472,7 @@ class JohnTravoltageView extends ScreenView {
   }
 
   /**
-   * Creates the content to be spoken by speech synthesis from the "Hint" button on the toolbar.
+   * Creates the content to be spoken by speech synthesis from the "Hint" button on the VoicingToolbar.
    * @public
    *
    * @returns {string}
