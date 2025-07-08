@@ -278,7 +278,7 @@ class AppendageNode extends AccessibleSlider( Node, 0 ) {
    */
   resetAriaValueText() {
     const sliderValue = this.a11yAngleToPosition( this.model.angleProperty.get() );
-    this.ariaValueText = this.appendageNodeHelper.createAriaValueText( sliderValue, sliderValue );
+    this.setPDOMAttribute( 'aria-valuetext', this.appendageNodeHelper.createAriaValueText( sliderValue, sliderValue ) );
   }
 
   /**
