@@ -111,12 +111,6 @@ type StringsType = {
         }
       }
     };
-    'keyboardHelpDialog': {
-      'moveFootDescription': string;
-      'moveFootDescriptionStringProperty': LocalizedStringProperty;
-      'moveHandDescription': string;
-      'moveHandDescriptionStringProperty': LocalizedStringProperty;
-    };
     'voicing': {
       'contentHint': string;
       'contentHintStringProperty': LocalizedStringProperty;

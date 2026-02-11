@@ -137,14 +137,6 @@
         }
       }
     },
-    "keyboardHelpDialog": {
-      "moveFootDescription": {
-        "value": "Move foot with Left and Right Arrow keys."
-      },
-      "moveHandDescription": {
-        "value": "Move hand with Up and Down Arrow keys."
-      }
-    },
     "voicing": {
       "contentHint": {
         "value": "Swing John's leg to rub his foot on rug."
