@@ -47,7 +47,7 @@ class ElectronLayerNode extends Voicing( Node ) {
       // announcing the change in charge - this critical information is intended to be
       // assertive
       voicingUtterance: new Utterance( {
-        alertStableDelay: 500,
+        alertDelay: 500,
         alertMaximumDelay: 800
       } )
     } );
@@ -56,7 +56,7 @@ class ElectronLayerNode extends Voicing( Node ) {
     // from the aria-valuetext of the AppendageNode. Note that if the delay is too long, there is too much silence
     // between the change in charges and the alert.
     const electronUtterance = new Utterance( {
-      alertStableDelay: 1000
+      alertDelay: 1000
     } );
 
     let priorCharge = 0;
