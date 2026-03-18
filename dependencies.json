@@ -9,7 +9,7 @@
     "branch": "HEAD"
   },
   "brand": {
-    "sha": "401e7edb7608b04f2000da6d624cd6114dfd7dcd",
+    "sha": "6e5acf86b1451fe64d8cb530eec2932b618eb81b",
     "branch": "HEAD"
   },
   "chipper": {
@@ -25,7 +25,7 @@
     "branch": "HEAD"
   },
   "john-travoltage": {
-    "sha": "aa6066e27cac3758b0750d1f3c66c072615d5f10",
+    "sha": "e57cdd817ec23db58697bebc611e184094c18341",
     "branch": "1.6"
   },
   "joist": {
