@@ -12,7 +12,6 @@ import Emitter from '../../../../axon/js/Emitter.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Range from '../../../../dot/js/Range.js';
 import merge from '../../../../phet-core/js/merge.js';
-import johnTravoltage from '../../johnTravoltage.js';
 
 const MOVEMENT_DIRECTIONS = {
   CLOSER: 'CLOSER',
@@ -75,7 +74,5 @@ class Appendage {
 
 // @public @static
 Appendage.MOVEMENT_DIRECTIONS = MOVEMENT_DIRECTIONS;
-
-johnTravoltage.register( 'Appendage', Appendage );
 
 export default Appendage;

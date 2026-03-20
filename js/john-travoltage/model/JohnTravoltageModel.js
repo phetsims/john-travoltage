@@ -16,7 +16,6 @@ import Shape from '../../../../kite/js/Shape.js';
 import isSettingPhetioStateProperty from '../../../../tandem/js/isSettingPhetioStateProperty.js';
 import PhetioGroup from '../../../../tandem/js/PhetioGroup.js';
 import StringIO from '../../../../tandem/js/types/StringIO.js';
-import johnTravoltage from '../../johnTravoltage.js';
 import Arm from './Arm.js';
 import Electron from './Electron.js';
 import Leg from './Leg.js';
@@ -435,7 +434,5 @@ JohnTravoltageModel.FOOT_ON_CARPET_MAX_ANGLE = FOOT_ON_CARPET_MAX_ANGLE;
 
 //Function to determine if electrons are exiting.
 const exiting = e => e.exiting;
-
-johnTravoltage.register( 'JohnTravoltageModel', JohnTravoltageModel );
 
 export default JohnTravoltageModel;

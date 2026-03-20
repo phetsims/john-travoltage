@@ -15,7 +15,6 @@
  */
 
 import Shape from '../../../../kite/js/Shape.js';
-import johnTravoltage from '../../johnTravoltage.js';
 
 const DebugUtils = {
 
@@ -64,7 +63,5 @@ const DebugUtils = {
     } );
   }
 };
-
-johnTravoltage.register( 'DebugUtils', DebugUtils );
 
 export default DebugUtils;

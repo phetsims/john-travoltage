@@ -11,7 +11,6 @@ import dotRandom from '../../../../dot/js/dotRandom.js';
 import Shape from '../../../../kite/js/Shape.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../scenery/js/nodes/Path.js';
-import johnTravoltage from '../../johnTravoltage.js';
 
 class SparkNode extends Node {
 
@@ -63,7 +62,5 @@ class SparkNode extends Node {
     } );
   }
 }
-
-johnTravoltage.register( 'SparkNode', SparkNode );
 
 export default SparkNode;

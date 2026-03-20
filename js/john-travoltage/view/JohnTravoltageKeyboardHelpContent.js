@@ -40,5 +40,4 @@ class JohnTravoltageKeyboardHelpContent extends TwoColumnKeyboardHelpContent {
   }
 }
 
-johnTravoltage.register( 'JohnTravoltageKeyboardHelpContent', JohnTravoltageKeyboardHelpContent );
 export default JohnTravoltageKeyboardHelpContent;

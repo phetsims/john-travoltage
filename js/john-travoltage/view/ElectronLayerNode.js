@@ -14,7 +14,6 @@ import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import Voicing from '../../../../scenery/js/accessibility/voicing/Voicing.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Utterance from '../../../../utterance-queue/js/Utterance.js';
-import johnTravoltage from '../../johnTravoltage.js';
 import JohnTravoltageStrings from '../../JohnTravoltageStrings.js';
 import ElectronNode from './ElectronNode.js';
 
@@ -146,7 +145,5 @@ class ElectronLayerNode extends Voicing( Node ) {
     return qualitativeDescription;
   }
 }
-
-johnTravoltage.register( 'ElectronLayerNode', ElectronLayerNode );
 
 export default ElectronLayerNode;

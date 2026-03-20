@@ -7,7 +7,6 @@
  */
 
 import { QueryStringMachine } from '../../../query-string-machine/js/QueryStringMachineModule.js';
-import johnTravoltage from '../johnTravoltage.js';
 
 const JohnTravoltageQueryParameters = QueryStringMachine.getAll( {
 
@@ -17,7 +16,5 @@ const JohnTravoltageQueryParameters = QueryStringMachine.getAll( {
   // shows the accessible value text associated with the appendages on the screen view for easy reading and debugging
   valueText: { type: 'flag' }
 } );
-
-johnTravoltage.register( 'JohnTravoltageQueryParameters', JohnTravoltageQueryParameters );
 
 export default JohnTravoltageQueryParameters;

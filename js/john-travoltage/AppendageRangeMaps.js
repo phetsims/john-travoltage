@@ -8,7 +8,6 @@
  */
 
 import Range from '../../../dot/js/Range.js';
-import johnTravoltage from '../johnTravoltage.js';
 import JohnTravoltageStrings from '../JohnTravoltageStrings.js';
 
 const farthestFromDoorknobString = JohnTravoltageStrings.a11y.appendages.arm.positions.farthestFromDoorknob;
@@ -206,7 +205,5 @@ const AppendageRangeMaps = {
     ]
   }
 };
-
-johnTravoltage.register( 'AppendageRangeMaps', AppendageRangeMaps );
 
 export default AppendageRangeMaps;

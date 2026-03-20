@@ -9,7 +9,6 @@
 
 import Range from '../../../../dot/js/Range.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
-import johnTravoltage from '../../johnTravoltage.js';
 import Appendage from './Appendage.js';
 
 class Arm extends Appendage {
@@ -57,7 +56,5 @@ class Arm extends Appendage {
     return this.fingerVector.rotated( this.angleProperty.get() ).plus( this.position );
   }
 }
-
-johnTravoltage.register( 'Arm', Arm );
 
 export default Arm;

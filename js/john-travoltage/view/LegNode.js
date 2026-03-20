@@ -8,7 +8,6 @@ import LinearFunction from '../../../../dot/js/LinearFunction.js';
 import merge from '../../../../phet-core/js/merge.js';
 import Utterance from '../../../../utterance-queue/js/Utterance.js';
 import leg_png from '../../../images/leg_png.js';
-import johnTravoltage from '../../johnTravoltage.js';
 import JohnTravoltageStrings from '../../JohnTravoltageStrings.js';
 import AppendageRangeMaps from '../AppendageRangeMaps.js';
 import JohnTravoltageModel from '../model/JohnTravoltageModel.js';
@@ -97,5 +96,4 @@ class LegNode extends AppendageNode {
   }
 }
 
-johnTravoltage.register( 'LegNode', LegNode );
 export default LegNode;

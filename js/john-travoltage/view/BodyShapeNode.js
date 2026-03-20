@@ -8,7 +8,6 @@
 
 import DragListener from '../../../../scenery/js/listeners/DragListener.js';
 import Path from '../../../../scenery/js/nodes/Path.js';
-import johnTravoltage from '../../johnTravoltage.js';
 
 class BodyShapeNode extends Path {
 
@@ -47,5 +46,4 @@ class BodyShapeNode extends Path {
   }
 }
 
-johnTravoltage.register( 'BodyShapeNode', BodyShapeNode );
 export default BodyShapeNode;

@@ -9,7 +9,6 @@
  */
 
 import Vector2 from '../../../../dot/js/Vector2.js';
-import johnTravoltage from '../../johnTravoltage.js';
 
 class LineSegment {
   /**
@@ -55,7 +54,5 @@ class LineSegment {
    */
   get normal() { return new Vector2( this.x2 - this.x1, this.y2 - this.y1 ).normalized().perpendicular; }
 }
-
-johnTravoltage.register( 'LineSegment', LineSegment );
 
 export default LineSegment;

@@ -10,7 +10,6 @@ import dotRandom from '../../../../dot/js/dotRandom.js';
 import Utils from '../../../../dot/js/Utils.js';
 import merge from '../../../../phet-core/js/merge.js';
 import NoiseGenerator from '../../../../tambo/js/sound-generators/NoiseGenerator.js';
-import johnTravoltage from '../../johnTravoltage.js';
 
 // constants
 const MAX_DRAG_SOUND_VOLUME = 2; // can be greater than 1 because filtering tends to reduce output a lot
@@ -186,7 +185,5 @@ function mapVelocityToFilterFrequency( angularVelocityOfLeg, direction ) {
   const multiplier = Math.abs( angularVelocityOfLeg ) / MAX_LEG_ANGULAR_VELOCITY;
   return minFrequency + 500 * multiplier;
 }
-
-johnTravoltage.register( 'FootDragSoundGenerator', FootDragSoundGenerator );
 
 export default FootDragSoundGenerator;

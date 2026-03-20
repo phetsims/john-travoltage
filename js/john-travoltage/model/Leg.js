@@ -12,7 +12,6 @@ import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Range from '../../../../dot/js/Range.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import BooleanIO from '../../../../tandem/js/types/BooleanIO.js';
-import johnTravoltage from '../../johnTravoltage.js';
 import Appendage from './Appendage.js';
 import JohnTravoltageModel from './JohnTravoltageModel.js';
 
@@ -62,7 +61,5 @@ class Leg extends Appendage {
    */
   deltaAngle() { return this.angleProperty.get() - this.initialAngle; }
 }
-
-johnTravoltage.register( 'Leg', Leg );
 
 export default Leg;

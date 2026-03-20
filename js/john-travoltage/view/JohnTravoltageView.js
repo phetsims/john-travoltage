@@ -34,7 +34,6 @@ import chargesInBody_mp3 from '../../../sounds/chargesInBody_mp3.js';
 import electricDischarge_mp3 from '../../../sounds/electricDischarge_mp3.js';
 import gazouch_mp3 from '../../../sounds/gazouch_mp3.js';
 import ouch_mp3 from '../../../sounds/ouch_mp3.js';
-import johnTravoltage from '../../johnTravoltage.js';
 import JohnTravoltageStrings from '../../JohnTravoltageStrings.js';
 import AppendageRangeMaps from '../AppendageRangeMaps.js';
 import JohnTravoltageQueryParameters from '../JohnTravoltageQueryParameters.js';
@@ -541,5 +540,4 @@ class JohnTravoltageView extends ScreenView {
   }
 }
 
-johnTravoltage.register( 'JohnTravoltageView', JohnTravoltageView );
 export default JohnTravoltageView;

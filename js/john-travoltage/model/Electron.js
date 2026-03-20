@@ -19,7 +19,6 @@ import ArrayIO from '../../../../tandem/js/types/ArrayIO.js';
 import IOType from '../../../../tandem/js/types/IOType.js';
 import NumberIO from '../../../../tandem/js/types/NumberIO.js';
 import StringIO from '../../../../tandem/js/types/StringIO.js';
-import johnTravoltage from '../../johnTravoltage.js';
 
 //If this value is 1.0, there is no friction.  The value is what the velocity is multiplied by at every step.
 const frictionFactor = 0.98;
@@ -271,7 +270,5 @@ Electron.ElectronIO = new IOType( 'ElectronIO', {
     electron.historyChangedEmitter.emit();
   }
 } );
-
-johnTravoltage.register( 'Electron', Electron );
 
 export default Electron;

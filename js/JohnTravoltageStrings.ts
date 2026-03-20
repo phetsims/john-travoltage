@@ -138,6 +138,4 @@ type StringsType = {
 
 const JohnTravoltageStrings = getStringModule( 'JOHN_TRAVOLTAGE' ) as StringsType;
 
-johnTravoltage.register( 'JohnTravoltageStrings', JohnTravoltageStrings );
-
 export default JohnTravoltageStrings;

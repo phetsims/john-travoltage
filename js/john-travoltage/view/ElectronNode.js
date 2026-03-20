@@ -15,7 +15,6 @@ import Circle from '../../../../scenery/js/nodes/Circle.js';
 import Image from '../../../../scenery/js/nodes/Image.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
-import johnTravoltage from '../../johnTravoltage.js';
 
 // constants
 // Scale up before rasterization so it won't be too pixelated/fuzzy
@@ -186,7 +185,5 @@ class ElectronNode extends Node {
     super.dispose();
   }
 }
-
-johnTravoltage.register( 'ElectronNode', ElectronNode );
 
 export default ElectronNode;

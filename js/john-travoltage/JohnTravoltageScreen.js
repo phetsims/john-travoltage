@@ -8,7 +8,6 @@
 
 import Property from '../../../axon/js/Property.js';
 import Screen from '../../../joist/js/Screen.js';
-import johnTravoltage from '../johnTravoltage.js';
 import JohnTravoltageModel from './model/JohnTravoltageModel.js';
 import JohnTravoltageKeyboardHelpContent from './view/JohnTravoltageKeyboardHelpContent.js';
 import JohnTravoltageView from './view/JohnTravoltageView.js';
@@ -30,5 +29,4 @@ class JohnTravoltageScreen extends Screen {
   }
 }
 
-johnTravoltage.register( 'JohnTravoltageScreen', JohnTravoltageScreen );
 export default JohnTravoltageScreen;

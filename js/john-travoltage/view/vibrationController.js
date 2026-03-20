@@ -19,7 +19,6 @@
 
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import stepTimer from '../../../../axon/js/Timer.js'; // eslint-disable-line phet/default-import-match-filename
-import johnTravoltage from '../../johnTravoltage.js';
 
 // constants
 // vibration pattern during electron discharge, on/off intervals in seconds
@@ -123,5 +122,4 @@ class VibrationController {
 
 // create and register the singleton instance
 const vibrationController = new VibrationController();
-johnTravoltage.register( 'vibrationController', vibrationController );
 export default vibrationController;

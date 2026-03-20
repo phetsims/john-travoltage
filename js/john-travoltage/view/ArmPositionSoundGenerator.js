@@ -16,7 +16,6 @@ import armPosition003_mp3 from '../../../sounds/armPosition003_mp3.js';
 import armPosition004_mp3 from '../../../sounds/armPosition004_mp3.js';
 import armPosition005_mp3 from '../../../sounds/armPosition005_mp3.js';
 import armPosition006_mp3 from '../../../sounds/armPosition006_mp3.js';
-import johnTravoltage from '../../johnTravoltage.js';
 
 // constants
 const NUM_SOUND_POSITIONS = 32;
@@ -98,7 +97,5 @@ class ArmPositionSoundGenerator extends SoundGenerator {
   }
 
 }
-
-johnTravoltage.register( 'ArmPositionSoundGenerator', ArmPositionSoundGenerator );
 
 export default ArmPositionSoundGenerator;

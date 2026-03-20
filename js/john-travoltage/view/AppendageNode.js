@@ -22,7 +22,6 @@ import Image from '../../../../scenery/js/nodes/Image.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
 import AccessibleSlider from '../../../../sun/js/accessibility/AccessibleSlider.js';
-import johnTravoltage from '../../johnTravoltage.js';
 
 
 class AppendageNode extends AccessibleSlider( Node, 0 ) {
@@ -448,7 +447,5 @@ class AppendageNodeHelper {
     return this.angleToPDOMValueFunction.inverse( position );
   }
 }
-
-johnTravoltage.register( 'AppendageNode', AppendageNode );
 
 export default AppendageNode;

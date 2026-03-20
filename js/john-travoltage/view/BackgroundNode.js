@@ -17,7 +17,6 @@ import floor_png from '../../../images/floor_png.js';
 import rug_png from '../../../images/rug_png.js';
 import wallpaper_png from '../../../images/wallpaper_png.js';
 import window_png from '../../../images/window_png.js';
-import johnTravoltage from '../../johnTravoltage.js';
 
 class BackgroundNode extends Node {
 
@@ -76,7 +75,5 @@ class BackgroundNode extends Node {
     } ) );
   }
 }
-
-johnTravoltage.register( 'BackgroundNode', BackgroundNode );
 
 export default BackgroundNode;
