@@ -1,4 +1,4 @@
-// Copyright 2018-2023, University of Colorado Boulder
+// Copyright 2018-2026, University of Colorado Boulder
 
 /**
  * sound generator used for indicating the position of the arm in the John Travoltage sim, may be generalized at some
