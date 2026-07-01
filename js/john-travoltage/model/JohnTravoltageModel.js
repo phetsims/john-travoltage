@@ -195,7 +195,7 @@ class JohnTravoltageModel {
     // query parameters
     //--------------------------------------------------------------------------
 
-    //TODO https://github.com/phetsims/balloons-and-static-electricity/issues/568 consider an encapsulation for these "touching" Properties
+    //TODO https://github.com/phetsims/john-travoltage/issues/473 consider an encapsulation for these "touching" Properties
 
     // @public - true when a pointer is down over the body
     this.touchingBodyProperty = new BooleanProperty( false, {
